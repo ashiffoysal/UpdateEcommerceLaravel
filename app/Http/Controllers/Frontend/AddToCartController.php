@@ -57,6 +57,7 @@ class AddToCartController extends Controller
             $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
             $data['attributes']['colors'] = $request->color;
             $data['attributes']['product_id'] = $product->id;
+            $data['attributes']['variation'] = 'variation';
 
             $productdetails =Product::findOrFail($request->id);
             
@@ -97,6 +98,7 @@ class AddToCartController extends Controller
             ]);
         }
 
+        $userid = $request->ip();
         // $getcartdatas = Cart::session($userid)->getContent();
         $quantity = Cart::session($userid)->getTotalQuantity();
         $gettotal = Cart::session($userid)->getTotal();

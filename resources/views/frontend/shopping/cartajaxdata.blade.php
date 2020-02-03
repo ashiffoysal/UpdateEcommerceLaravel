@@ -47,7 +47,6 @@
                     </td>
                     <td class="text-right">${{$usercartdata->price}}</td>
                     <td class="text-right" id="carttotalpric">{{$usercartdata->quantity *$usercartdata->price}}</td>
-
                 </tr>
                 @endforeach
             </tbody>
@@ -90,15 +89,17 @@
 <script>
     function cartDatadelete(el) {
         
-       
+        
         $.post('{{ route('cart.data.delete') }}', {_token: '{{ csrf_token() }}',user_id: el.value},
             function(data) {
                 $('#cartdata').html(data);
+                
                 if (data) {
                     toastr.success("Product Delete From Cart");
                 } 
                
             });
+            toastr.success("Product Delete From Cart");
 	}
 	
 	cartDatadelete();

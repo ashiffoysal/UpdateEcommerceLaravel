@@ -97,55 +97,29 @@
     function cuponApply() {
       
 	
-	var cuponvalue =document.getElementById('input-coupon');
-        
-        $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue.value},
-            function(data) {
-				
-                console.log(data);
-        
-                
-                if (data.quantity) {
-                    toastr.success("Product Quantity Changed successfully");
-                } 
-            });
-    }
-    cuponApply();
-
-
-	
-    
-</script>
-
-<script>
-    function cuponApply() {
-      
-	
-	var cuponvalue =document.getElementById('input-coupon').value;
+    var cuponvalue =document.getElementById('input-coupon').value;
     var ordervalue =document.getElementById('input_order').value;
-    
-    
-    
         
-        $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
+    $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
             function(data) {
 				
                 console.log(data);
         
-                
-                if (data.quantity) {
-                    toastr.success("Product Quantity Changed successfully");
-                } 
+                toastr.success(data);
+                    
             });
+
+            
+           
     }
     cuponApply();
-
- 
 
 
 	
     
 </script>
+
+
 
 
 <script>
