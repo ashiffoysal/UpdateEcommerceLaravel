@@ -392,6 +392,17 @@ Route::get('/user/division/name/{id}', 'Frontend\CheckoutController@userCountryS
 Route::get('/user/district/name/{id}', 'Frontend\CheckoutController@userDivisionSubmit');
 Route::get('/user/upazila/name/{id}', 'Frontend\CheckoutController@userUpazilaSubmit');
 
+// site banner
+route::get(md5('admin/sitebanner/all'),'admin\sitebannercontroller@sitebanner')->name('admin.sitebanner.all');
+Route::get('admin/sitebanner/deactive/{id}','Admin\SiteBannerController@sitebannerdeactive');
+Route::get('admin/sitebanner/active/{id}','Admin\SiteBannerController@sitebanneractive');
+Route::get('admin/sitebanner/softdelete/{id}','Admin\SiteBannerController@sitebabnsoftdelete');
+Route::get('/get/admin/sitebanner/edit/{id}','Admin\SiteBannerController@sitebabnsoftedit');
+Route::get('admin/sitebanner/restore/{id}','Admin\SiteBannerController@sitebanrestore');
+Route::get('admin/sitebanner/hearddelete/{id}','Admin\SiteBannerController@sitebahearddel');
+route::post(md5('admin/sitebanner/insert'),'admin\sitebannercontroller@sitebannerinsert')->name('admin.sitebanner.insert');
+route::post(md5('admin/sitebanner/update'),'admin\sitebannercontroller@sitebannerupdate')->name('admin.sitebanner.update');
+route::post(md5('admin/sitebanner/multisoftdelete'),'admin\sitebannercontroller@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
 
 
 
@@ -405,12 +416,18 @@ Route::post('admin/trash/multihearddelfaq', 'Admin\TrashController@multihearddel
 // page trash
 Route::get(md5('admin/trash/page'), 'Admin\TrashController@page')->name('admin.trash.page');
 Route::post(md5('admin/trash/multidelpage'), 'Admin\TrashController@pagemultdel')->name('admin.trash.pagemultidel');
-// foysal new new
+Route::get(md5('admin/trash/sitebanner'), 'admin\trashcontroller@sitebanner')->name('admin.trash.sitebanner');
+Route::post(md5('admin/trash/sitebanner/multipledelete'), 'admin\trashcontroller@sitebanmultidel')->name('admin.trash.sitebannerdel');
 
 
 
+// order Controller
 
-
+Route::get(md5('admin/product/order'), 'admin\ordercontroller@index')->name('admin.productorder');
+Route::get(md5('admin/product/ondelevery'), 'admin\ordercontroller@ondelevery')->name('admin.ondevelery');
+Route::get(md5('admin/product/complateorder'), 'admin\ordercontroller@complateorder')->name('admin.complateorder');
+Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
+Route::get('admin/product/order/invoice/{id}', 'Admin\OrderController@invoice');
 
 
 //Harrison start
@@ -458,8 +475,39 @@ Route::group(['prefix' => 'admin/subscriber/mail', 'namespace' => 'Admin', 'midd
 //Harrison start ended
 
 
+Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
+    Route::get('selected/show', 'couriercontroller@index')->name('courier.index');
+    Route::get('sync', 'couriercontroller@couriersyncview')->name('courier.sync.view');
+    Route::post('sync/insert', 'couriercontroller@couriersyncinsert')->name('courier.sync.insert');
+    Route::get('sync/edit/{subDistrictId}', 'couriercontroller@couriersyncedit')->name('courier.sync.edit');
+    Route::post('sync/sync/update/{subDistrictId}', 'couriercontroller@couriersyncupdate')->name('courier.sync.update');
+    Route::get('sync/sync/delete/{subDistrictId}', 'couriercontroller@couriersyncdelete')->name('courier.sync.delete');
+    Route::post('store', 'couriercontroller@courierstore')->name('courier.store');
+    
+    // Ajax Route
+    Route::get('get/district/by/division/id/{divisionId}', 'CourierController@getDistrictByAjax');
+    Route::get('get/sub_district/by/district/id/{districtId}', 'CourierController@getSubDistrictByAjax');
+    Route::get('get/couriers/by/courier_id', 'CourierController@getCouriersByAjax');
+    Route::get('get/courier/for/update', 'CourierController@getCouriersForUpdateByAjax');
+    // Ajax Route Ended
+    });
+
+    
+    // Search Route Created By Harrison
+
+Route::get('search/product/by/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByAjax');
+Route::get('search/product/by/main/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByMainCatByAjax');
+Route::get('search/product/by/sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductBySubCatByAjax');
+Route::get('search/product/by/re_sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByResubCatByAjax');
+
+
+// Search Route Created By Harrison Ended
+
+
+
 
 Route::get('hllow worldff', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
+Route::get('qayumhasantestroute', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
 
 
 
