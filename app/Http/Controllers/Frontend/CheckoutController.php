@@ -113,8 +113,6 @@ class CheckoutController extends Controller
                             'created_at' => Carbon::now(),
                         ]);
 
-
-
                         return response()->json([
                             'cuponid'=>$cuponuser->id,
                             'cuponalert'=>'Cupon Insert Fuccessfully',
@@ -162,7 +160,9 @@ class CheckoutController extends Controller
                                     'cupon_id' => $cuponuser->id,
                                     'order_id' => $request->order,
                                     'created_at' => Carbon::now(),
+
                                 ]);
+
 
 
 
@@ -186,7 +186,7 @@ class CheckoutController extends Controller
 
     public function orderSubmit(Request $request)
     {
-
+        
         $validatedData = $request->validate([
             'user_id' => 'required',
             'user_address' => 'required',
@@ -202,6 +202,7 @@ class CheckoutController extends Controller
 
         ]);
 
+
         $usseraddress_id = UserAddress::insertGetId([
             'user_id' => $request->user_id,
             'user_address' => $request->user_address,
@@ -215,10 +216,16 @@ class CheckoutController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
+       
+
+
 
         if (UserAddress::findOrFail($usseraddress_id)->is_shipping_address == NULL) {
 
              $request->validate([
+                'shipping_name' => 'required',
+                'shipping_name' => 'required',
+                'shipping_phone' => 'required',
                 'shipping_address' => 'required',
                 'shipping_post_office' => 'required',
                 'shipping_postcode' => 'required',
@@ -231,6 +238,8 @@ class CheckoutController extends Controller
 
             ShippingAddress::insert([
                 'shipping_user_id' => $request->shipping_user_id,
+                'shipping_name' => $request->shipping_name,
+                'shipping_phone' => $request->shipping_phone,
                 'shipping_address' => $request->shipping_customer_address,
                 'shipping_post_office' => $request->shipping_post_office,
                 'shipping_postcode' => $request->shipping_postcode,

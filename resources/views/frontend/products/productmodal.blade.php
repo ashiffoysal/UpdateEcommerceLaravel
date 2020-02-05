@@ -68,8 +68,10 @@
                                 @foreach (json_decode($productdetails->photos) as $key => $photo)
                                 <div class="owl2-item ">
                                     <div class="image-additional">
-                                        <a data-index="0" class="img thumbnail" data-image="{{url('storage/app/public/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio">
-                                            <img src="{{url('storage/app/public/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio" alt="Canada Travel One or Two European Facials at  Studio">
+
+                                        <a data-index="0" class="img thumbnail" data-image="{{url('storage/app/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio">
+                                            <img src="{{url('storage/app/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio" alt="Canada Travel One or Two European Facials at  Studio">
+
                                         </a>
                                     </div>
                                 </div>
@@ -102,7 +104,6 @@
                             <div class="product_page_price price" itemscope="" itemtype="http://data-vocabulary.org/Offer">
                                 <span class="price-new"><span id="chosen_price""> ‎৳ {{$productdetails->product_price}}</span></span>
 
-
                                 <span class="price-old" id="price-old">‎৳ {{$productdetails->product_price}}</span>
                                 <!--    <div class="price-tax"><span>Ex Tax:</span> $70.00</div> -->
                             </div>
@@ -119,7 +120,6 @@
                                     </div>
                                     @if($productdetails->product_type==1)
                                     <!--variation start-->
-
 
 
 
@@ -154,8 +154,10 @@
 
                                         @foreach (json_decode($productdetails->choice_options) as $key => $choice)
 
+
                                         <div class="col-md-12">
                                         <div id="product">
+
 
 
 
@@ -174,12 +176,14 @@
 												</label>
                                             </div>
 
+                                            
                                         @endforeach
-
+											
 										</div>
 									</div>
-
+								
                                 </div>
+                                
 
 
 
@@ -230,7 +234,8 @@
                                         <div class="cart">
                                         <div class="product_page_price price" id="chosen_price_div">
                                             <input type="hidden" id="product_chosen_price" value="{{$productdetails->product_price}}" name="product_price">
-                                            <input type="button" id="addtocart" value="Add to Cart" class="addToCart btn btn-mega btn-lg " data-toggle="tooltip" title="" onclick="cart.add('30');" data-original-title="Add to cart" id="addtocart">
+
+                                            <input type="button" id="addtocart" value="Add to Cart" class="addToCart btn btn-mega btn-lg" data-toggle="tooltip" title="" onclick="cart.add('30');modeladdtocart(this);" data-original-title="Add to cart" id="addtocart">
                                         </div>
 
 
@@ -256,7 +261,6 @@
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
-
 
 
 
@@ -324,8 +328,10 @@
 
 <script>
 
-$(document).ready(function() {
-$('#addtocart').on('click', function(){
+
+function modeladdtocart(){
+    
+
 
 
 $.ajax({
@@ -341,8 +347,10 @@ success: function (data) {
 });
 
 
-});
-});
+
+
+}
+
 </script>
 	</body>
 </html>

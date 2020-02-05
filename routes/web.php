@@ -506,6 +506,7 @@ Route::get('search/product/by/re_sub/category/{categoryId}/{productName}', 'Fron
 
 // Search Route Created By Harrison Ended
 
+
 // Payment Route Created By Harrison
 
 Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
@@ -520,6 +521,7 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
 });
 
 // Payment Route Created By Harrison Ended
+
 
 
 

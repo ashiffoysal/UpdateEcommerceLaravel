@@ -68,13 +68,25 @@
 </script>
 
 @php
-$limit = \Carbon\Carbon::now()->subMinutes(20);
-$cartdatas =App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','<',$limit)->first()->cupon_id;
-$cupondiscount = App\Cupon::findOrFail($cartdatas)->discount;
+
+$limit = \Carbon\Carbon::now()->subMinutes(10);
+if(App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->exists()){
+    $cartdatas =App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->first()->cupon_id;
+    $cupondiscount = App\Cupon::findOrFail($cartdatas)->discount;
+}
 @endphp
 
 <script>
-	document.getElementById('cupondiscount').innerHTML =<?php print_r($cupondiscount);?>;
+    document.getElementById('cupondiscount').innerHTML =<?php 
+        
+
+        if(isset($cupondiscount)){
+            echo $cupondiscount;
+        }else{
+            echo 'No discount found!';
+        }
+    ?>;
+
 </script>
 
 <script>

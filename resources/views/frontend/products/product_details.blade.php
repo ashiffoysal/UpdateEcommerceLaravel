@@ -1019,7 +1019,6 @@
 
                                                         <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('78', '2');" data-original-title="Add to Cart"><span class="hidden">Add to Cart </span></button>
 
-
                                                     </div>
                                                 </div>
                                             </div>
