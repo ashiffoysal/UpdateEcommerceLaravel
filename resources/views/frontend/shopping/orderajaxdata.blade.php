@@ -27,15 +27,18 @@
                 </td>
                 <td class="text-right price">$ {{$usercartdata->price}}</td>
                 <td class="text-right total">$ {{$usercartdata->quantity *$usercartdata->price}}</td>
+                
             </tr>
             @endforeach
+
+            
         </tbody>
 
         
         <tfoot>
             <tr>
                 <td colspan="4" class="text-left">Sub-Total:</td>
-                <td class="text-right">$ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</td>
+                <td class="text-right">$ {{Cart::session(\Request::getClientIp(true))->getSubTotal()}}</td>
             </tr>
             <tr>
                 <td colspan="4" class="text-left">Quentity</td>
@@ -45,9 +48,15 @@
                 <td colspan="4" class="text-left">VAT (20%):</td>
                 <td class="text-right">$19.80</td>
             </tr>
+
+            <tr>
+                <td colspan="4" class="text-left">Cupon Discount:</td>
+                <td class="text-right" id="cupondiscount"> </td>
+            </tr>
+            
             <tr>
                 <td colspan="4" class="text-left">Total:</td>
-                <td class="text-right">$ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</td>
+                <td class="text-right"><span id="cartdatacount">$ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</span></td>
             </tr>
         </tfoot>
     </table>
@@ -55,6 +64,27 @@
 <script>
     document.getElementById('cartdatacount').innerHTML = <?php echo Cart::session(\Request::getClientIp(true))->getTotalQuantity() ?>;
     document.getElementById('product_price').innerHTML = <?php echo Cart::session(\Request::getClientIp(true))->getTotal() ?>;
+    
+</script>
+
+@php
+$limit = \Carbon\Carbon::now()->subMinutes(10);
+if(App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->exists()){
+    $cartdatas =App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->first()->cupon_id;
+    $cupondiscount = App\Cupon::findOrFail($cartdatas)->discount;
+}
+@endphp
+
+<script>
+    document.getElementById('cupondiscount').innerHTML =<?php 
+        
+
+        if(isset($cupondiscount)){
+            echo $cupondiscount;
+        }else{
+            echo 'No discount found!';
+        }
+    ?>;
 </script>
 
 <script>
@@ -64,11 +94,10 @@
         $.post('{{ route('product.order.delete') }}', {_token: '{{ csrf_token() }}',user_id: el.value},
             function(data) {
                 $('#orderdata').html(data);
-                if (data) {
-                    return "hellow";
-                } 
+                toastr.success("Product Deleted successfully");
                
             });
+            
 	}
 	
 	orderDatadelete();

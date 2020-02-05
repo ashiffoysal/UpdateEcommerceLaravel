@@ -51,21 +51,21 @@
 											<div id="payment-new" style="display: block">
 
 												<div class="form-group required">
-													<input type="hidden" name="user_id" value="{{Auth::user()->id}}" placeholder="Address 1 *" id="input-payment-address-1" class="form-control">
-													<input type="text" name="user_address" placeholder="Address 1 *" id="input-payment-address-1" class="form-control">
+													<input type="hidden" name="user_id" value="{{Auth::user()->id}}" placeholder="Address" id="input-payment-address-1" class="form-control">
+													<input type="text" name="user_address" value="@if(isset($useraddress->user_address)){{$useraddress->user_address}}@endif"  placeholder="Address*" id="input-payment-address-1" class="form-control">
 													@error('user_address')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
 													@enderror
 												</div>
 
 												<div class="form-group required">
-													<input type="text" name="user_post_office" value="" placeholder="Post office *" id="input-payment-city" class="form-control">
+													<input type="text" name="user_post_office" value="@if(isset($useraddress->user_post_office)){{$useraddress->user_post_office}}@endif" placeholder="Post office *" id="input-payment-city" class="form-control">
 													@error('user_post_office')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
 													@enderror
 												</div>
 												<div class="form-group">
-													<input type="text" name="user_postcode" value="" placeholder="Post Code *" id="input-payment-postcode" class="form-control">
+													<input type="text" name="user_postcode" value="@if(isset($useraddress->user_postcode)){{$useraddress->user_postcode}}@endif" placeholder="Post Code *" id="input-payment-postcode" class="form-control">
 													@error('user_postcode')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
 													@enderror
@@ -74,7 +74,7 @@
 													<select name="user_country_id" id="user_country" class="form-control">
 														<option value="" disabled selected> --- Please Select Your Country --- </option>
 														@foreach(DB::table('countries')->get() as $country)
-														<option value="{{$country->id}}">{{$country->name}}</option>
+														<option value="{{$country->id}}"@if(isset($useraddress->user_country_id)  == $country->id) selected @endif>{{$country->name}}</option>
 														@endforeach
 													</select>
 													@error('user_country_id')
@@ -84,6 +84,9 @@
 												<div class="form-group required">
 													<select name="user_division_id" id="user_division" class="form-control">
 														<option disabled selected> --- Please Select Your Division --- </option>
+														@foreach(DB::table('divisions')->get() as $division)
+															<option value="{{$division->id}}" @if(isset($useraddress->user_division_id) == $division->id) selected @endif>{{$division->name}} </option>
+														@endforeach
 														
 													</select>
 													@error('user_division_id')
@@ -94,6 +97,13 @@
 												<div class="form-group required">
 													<select name="user_district_id" id="user_district" class="form-control">
 														<option disabled selected> --- Please Select Your District --- </option>
+														@php
+														$dis=DB::table('districts')->get();
+													
+														@endphp
+														@foreach($dis as $district)
+															<option value="{{$district->id}}" @if(isset($useraddress->user_district_id) == $district->id) selected @endif>{{$district->name}} </option>
+														@endforeach
 														
 													</select>
 													@error('user_district_id')
@@ -102,7 +112,13 @@
 												</div>
 												<div class="form-group required">
 													<select name="user_upazila_id" id="user_upazila" class="form-control">
-														<option disabled selected> --- Please Select Your Upazila/Thana --- </option>
+													@php
+														$upa=DB::table('upazilas')->get();
+													
+													@endphp
+													@foreach($upa as $upazila)
+														<option value="{{$upazila->id}}" @if(isset($useraddress->user_upazila_id) == $upazila->id) selected @endif>{{$upazila->name}} </option>
+													@endforeach
 														
 												</div>
 												@error('user_upazila_id')
@@ -134,10 +150,26 @@
 								<div class="box-inner">
 										<form class="form-horizontal form-payment">
 											<div id="payment-new" style="display: block">
+											<div class="form-group required">
+													
+													<input type="text" name="shipping_name" value="{{old('shipping_name')}}"  placeholder="Shipping Name *" id="input-payment-address-1" class="form-control">
+													@error('shipping_name')
+														<div class="text-danger alert alert-danger">{{ $message }}</div>
+													@enderror
+												</div>
 
 												<div class="form-group required">
-													<input type="hidden" name="shipping_user_id" value="{{Auth::user()->id}}" placeholder="Address 1 *" class="form-control">
-													<input type="text" name="shipping_customer_address" placeholder="Address 1 *" id="input-payment-address-1" class="form-control">
+													
+													<input type="text" name="shipping_phone" value="{{old('shipping_phone')}}"  placeholder="Shipping Phone Number *" id="input-payment-address-1" class="form-control">
+													@error('shipping_phone')
+														<div class="text-danger alert alert-danger">{{ $message }}</div>
+													@enderror
+												</div>
+
+
+												<div class="form-group required">
+													<input type="hidden" name="shipping_user_id" value="{{Auth::user()->id}}" placeholder="Address" class="form-control">
+													<input type="text" name="shipping_customer_address" placeholder="Address*" id="input-payment-address-1" class="form-control">
 													@error('shipping_address')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
 													@enderror
@@ -344,7 +376,9 @@
 
 
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <script>
     $(document).ready(function() {
 			$( "#is_shipping" ).click(function() {
@@ -490,7 +524,7 @@
                     toastr.success("Product Quantity Changed successfully");
                 } 
             });
-
+			toastr.success("Product Quantity Changed successfully");
         }, 1000);
             
         
@@ -564,6 +598,8 @@
 
     });
 </script>
+
+
 
 
 @endsection

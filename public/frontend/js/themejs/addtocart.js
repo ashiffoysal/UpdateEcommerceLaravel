@@ -15,6 +15,8 @@
 		}
 	}
 
+	
+
 	var wishlist = {
 		'add': function(product_id) {
 
