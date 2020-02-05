@@ -87,7 +87,7 @@
 														@foreach(DB::table('divisions')->get() as $division)
 															<option value="{{$division->id}}" @if($useraddress->user_division_id == $division->id) selected @endif>{{$division->name}} </option>
 														@endforeach
-														
+
 													</select>
 													@error('user_division_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
@@ -99,12 +99,12 @@
 														<option disabled selected> --- Please Select Your District --- </option>
 														@php
 														$dis=DB::table('districts')->get();
-													
+
 														@endphp
 														@foreach($dis as $district)
 															<option value="{{$district->id}}" @if($useraddress->user_district_id == $district->id) selected @endif>{{$district->name}} </option>
 														@endforeach
-														
+
 													</select>
 													@error('user_district_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
@@ -114,12 +114,12 @@
 													<select name="user_upazila_id" id="user_upazila" class="form-control">
 													@php
 														$upa=DB::table('upazilas')->get();
-													
+
 													@endphp
 													@foreach($upa as $upazila)
 														<option value="{{$upazila->id}}" @if($useraddress->user_upazila_id == $upazila->id) selected @endif>{{$upazila->name}} </option>
 													@endforeach
-														
+
 												</div>
 												@error('user_upazila_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
@@ -135,14 +135,14 @@
 									$userid =  \Request::getClientIp(true);
 								@endphp
 								<input type="hidden" value="{{Cart::session($userid)->getTotalQuantity()}}" name="total_quantity">
-								
+
 
 							<div class="checkbox">
 								<label>
 									<input type="checkbox" id="is_shipping" name="is_shipping_address" value="1" checked="checked"> My delivery and billing addresses are the same.
 								</label>
 							</div>
-							
+
 							<input type="hidden" value="{{Cart::session($userid)->getTotal()}}" name="total_price">
 							<fieldset id="shipping-address" style="display: none">
 								<h2 class="secondary-title"><i class="fa fa-map-marker"></i>Shipping Address</h2>
@@ -185,7 +185,7 @@
 												<div class="form-group required">
 													<select name="shipping_division_id" id="shipping_division" class="form-control">
 														<option disabled selected> --- Please Select Your Division --- </option>
-														
+
 													</select>
 													@error('shipping_division_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
@@ -195,7 +195,6 @@
 												<div class="form-group required">
 													<select name="shipping_district_id" id="shipping_district" class="form-control">
 														<option disabled selected> --- Please Select Your District --- </option>
-														
 													</select>
 													@error('shipping_district_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
@@ -228,7 +227,7 @@
 
 
 
-					
+
 					<div class="col-right col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<section class="section-left">
 							<div class="ship-payment">
@@ -238,10 +237,8 @@
 										<p><strong>Flat Rate</strong></p>
 										<div class="radio">
 											<label>
-												<select name="shipping_id" id="shipping_division" class="form-control">
-													<option disabled selected> --- Please Select Your Division --- </option>
-													<option value="1"> ShondorBon </option>
-													<option value="2"> SA Poribonon </option>
+												<select name="shipping_id" id="shipping_courier" class="form-control">
+
 												</select>
 												@error('shipping_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
@@ -253,11 +250,13 @@
 
 								<div class="checkout-content checkout-payment-methods">
 									<h2 class="secondary-title"><i class="fa fa-credit-card"></i>Payment Method</h2>
-									<div class="box-inner">
+                                    <div class="box-inner">
 										<div class="radio">
 											<label>
 												<input type="radio" name="payment_method_id" value="1" > Cash On Delivery <br>
-												<input type="radio" name="payment_method_id" value="2" > Payment Via Courier
+												<input type="radio" name="payment_method_id" value="2" >Stripe<br>
+												<input type="radio" name="payment_method_id" value="3" > Paypal<br>
+												<input type="radio" name="payment_method_id" value="4" > SSL Commerce
 												@error('payment_method_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
 												@enderror
@@ -304,7 +303,7 @@
 							<div class="checkout-content checkout-cart">
 								<h2 class="secondary-title"><i class="fa fa-shopping-cart"></i>Shopping Cart (0.00kg) </h2>
 								<div class="box-inner" id="orderdata">
-									
+
 
 
 
@@ -360,7 +359,9 @@
 
 
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <script>
     $(document).ready(function() {
 			$( "#is_shipping" ).click(function() {
@@ -368,12 +369,12 @@
 					$('#shipping-address').css('display', 'none');
 				}
 				if(!this.checked){
-					$('#shipping-address').css('display', 'block');	
+					$('#shipping-address').css('display', 'block');
 				}
 			});
-        
 
-		
+
+
     });
 </script>
 
@@ -382,8 +383,8 @@
     $(document).ready(function() {
         $('#shipping_country').click(function(params) {
             var country_id = $(this).val();
-			
-			
+
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -393,10 +394,10 @@
                 type: 'GET',
                 url: "{{ url('/user/division/name') }}/" +country_id,
 				dataType:"json",
-                
+
                 success: function(data) {
-                  
-						
+
+
                         $('#shipping_division').empty();
                         $('#shipping_division').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data,function(index,divisionobj){
@@ -411,7 +412,7 @@
 <script>
     $(document).ready(function() {
         $('#shipping_division').click(function(params) {
-            
+
             var division_id = $(this).val();
             $.ajaxSetup({
                 headers: {
@@ -422,9 +423,9 @@
                 type: 'GET',
                 url: "{{ url('/user/district/name') }}/" +division_id,
 				dataType:"json",
-                
+
                 success: function(data) {
-                  
+
 						console.log(data);
                         $('#shipping_district').empty();
                         $('#shipping_district').append(' <option value="0">--Please Select Your Division--</option>');
@@ -440,9 +441,9 @@
 <script>
     $(document).ready(function() {
         $('#shipping_district').click(function(params) {
-            
+
             var upazila_id = $(this).val();
-            
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -452,10 +453,10 @@
                 type: 'GET',
                 url: "{{ url('/user/upazila/name') }}/" +upazila_id,
 				dataType:"json",
-                
+
                 success: function(data) {
-                  
-					
+
+
                         $('#shipping_upazila').empty();
                         $('#shipping_upazila').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data,function(index,upazilabj){
@@ -478,25 +479,25 @@
             $.ajax({
                 type: 'GET',
                 url: "{{ route('get.order.data') }}",
-                
+
                 success: function(data) {
-                    
-                  
+
+
                     $('#orderdata').html(data);
-                    
+
                 }
             });
-    
+
 });
-    
+
 </script>
 
 <script>
     var myVar;
     function myUpdateOrder(el) {
 
-		
-        myVar = setTimeout(function(){ 
+
+        myVar = setTimeout(function(){
 
             $.post('{{ route('product.order.update') }}', {_token: '{{ csrf_token() }}',quantity: el.value,rowid:el.id},
             function(data) {
@@ -504,25 +505,25 @@
                 if (data) {
 
                     toastr.success("Product Quantity Changed successfully");
-                } 
+                }
             });
 			toastr.success("Product Quantity Changed successfully");
         }, 1000);
-            
-        
-      
+
+
+
     }
-   
+
     myUpdateOrder();
-    
-    
+
+
 </script>
 
 <script>
 
 // $(document).ready(function() {
 // $('#orderdelete').on('click', function(){
-	
+
 
 
 // $.ajax({
@@ -547,8 +548,8 @@
     $(document).ready(function() {
         $('#user_country').click(function(params) {
             var country_id = $(this).val();
-            
-			
+
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -558,10 +559,10 @@
                 type: 'GET',
                 url: "{{ url('/user/division/name') }}/" +country_id,
 				dataType:"json",
-                
+
                 success: function(data) {
-                  
-						
+
+
                         $('#user_division').empty();
                         $('#user_division').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data,function(index,divisionobj){
@@ -575,11 +576,46 @@
         // alert('danger');
      }
 
-            
+
         });
 
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        //var user_shipping_address = $('#user_upazila').val();
+        $('#user_upazila').on('change', function () {
+            var user_up_id = $(this).val();
+            if (user_up_id) {
+                $.ajax({
+                    url:"{{ url('get/courier/by/upazila/id/') }}"+"/"+user_up_id,
+                    type: 'get',
+                    success:function(data){
+                        $('#shipping_courier').empty();
+                        $('#shipping_courier').append(data);
+                    }
+                });
+            }
+        })
+
+        $('#shipping_upazila').on('change', function () {
+            var ship_up_id = $(this).val();
+            if (ship_up_id) {
+                $.ajax({
+                    url:"{{ url('get/courier/by/upazila/id/') }}"+"/"+ship_up_id,
+                    type: 'get',
+                    success:function(data){
+                        $('#shipping_courier').empty();
+                        $('#shipping_courier').append(data);
+                    }
+                });
+            }
+        })
+    });
+</script>
+
+
 
 
 @endsection

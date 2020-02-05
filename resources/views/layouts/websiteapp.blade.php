@@ -103,12 +103,13 @@
     $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
             function(data) {
 				
-                console.log(data);
+                // console.log(data.cuponalert);
+                // console.log(data);
         
                 toastr.success(data);
                     
             });
-
+           
             
            
     }
@@ -214,6 +215,8 @@
         });
     });
 </script>
+
+
 
 </body>
 

@@ -23,4 +23,38 @@
 <script type="text/javascript" src="{{asset('public/frontend/js/themejs/nouislider.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/frontend/js/themejs/custom_h2.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/frontend/js/toaster_alert.js')}}"></script>
+@if (!Request::is('login'))
+<script>
+    $(document).ready(function(){
+        $('.search-section').hide();
+
+        $('#product_name').on('keyup', function(){
+            var product_name = $(this).val();
+            var category_id = $('#category_id').val();
+            if (product_name === "") {
+                $('.search-section').hide();
+                $('#main_content').show();
+            }else{
+                $('.search-section').show();
+                $('#main_content').hide();
+            }
+
+            $.ajax({
+                url:"{{ url('search/product/by/category/') }}"+"/"+category_id+"/"+product_name,
+                type:'get',
+                success:function(data){
+                    if (!$.isEmptyObject(data)) {
+                        $('#search_result_product').empty();
+                        $('#search_result_product').append(data);
+                    }else{
+                        $('#search_result_product').empty();
+                        $('#search_result_product').append('<h1>No Data Found</h1>');
+                    }
+                }
+            });
+
+        });
+    });
+</script>
+@endif
 @stack('js')

@@ -51,7 +51,7 @@
 
             <tr>
                 <td colspan="4" class="text-left">Cupon Discount:</td>
-                <td class="text-right" id="cupondiscount">GSDFG</td>
+                <td class="text-right" id="cupondiscount"> </td>
             </tr>
             
             <tr>
@@ -64,6 +64,17 @@
 <script>
     document.getElementById('cartdatacount').innerHTML = <?php echo Cart::session(\Request::getClientIp(true))->getTotalQuantity() ?>;
     document.getElementById('product_price').innerHTML = <?php echo Cart::session(\Request::getClientIp(true))->getTotal() ?>;
+    
+</script>
+
+@php
+$limit = \Carbon\Carbon::now()->subMinutes(20);
+$cartdatas =App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','<',$limit)->first()->cupon_id;
+$cupondiscount = App\Cupon::findOrFail($cartdatas)->discount;
+@endphp
+
+<script>
+	document.getElementById('cupondiscount').innerHTML =<?php print_r($cupondiscount);?>;
 </script>
 
 <script>
@@ -73,10 +84,10 @@
         $.post('{{ route('product.order.delete') }}', {_token: '{{ csrf_token() }}',user_id: el.value},
             function(data) {
                 $('#orderdata').html(data);
-                
+                toastr.success("Product Deleted successfully");
                
             });
-            toastr.success("Product Deleted successfully");
+            
 	}
 	
 	orderDatadelete();

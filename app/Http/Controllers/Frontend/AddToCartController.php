@@ -17,7 +17,7 @@ class AddToCartController extends Controller
     public function addToCart(Request $request)
     {
        
-         
+      
        
         
        $product = Product::findOrFail($request->product_id);
