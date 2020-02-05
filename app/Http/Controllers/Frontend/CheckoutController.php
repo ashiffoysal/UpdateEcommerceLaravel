@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-// use Auth;
-use App\User;
-use App\Cupon;
-use App\DatabaseStorageModel;
-use App\OrderPlace;
-use App\OrderStorage;
-use App\Product;
-use App\ShippingAddress;
-use App\UserAddress;
-use App\UserUsedCupon;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Cart;
+use App\User;
+// use Auth;
+use App\Cupon;
+use App\Product;
+use Carbon\Carbon;
+use App\OrderPlace;
+use App\UserAddress;
+use App\OrderStorage;
+use App\UserUsedCupon;
+use App\ShippingAddress;
+use App\UpozilaCouriers;
+use Illuminate\Http\Request;
+use App\DatabaseStorageModel;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Console\Presets\React;
 
 class CheckoutController extends Controller
@@ -44,7 +45,7 @@ class CheckoutController extends Controller
         return view('frontend.accounts.checkout_login');
     }
 
-    
+
 
     public function authenticate(Request $request)
     {
@@ -68,7 +69,7 @@ class CheckoutController extends Controller
 
     public function applyCupon(Request $request)
     {
-        
+
         if (Cupon::where('cupon_code', $request->cuponvalue)->exists()) {
             $cuponuser = Cupon::where('cupon_code', $request->cuponvalue)->first();
 
@@ -85,10 +86,10 @@ class CheckoutController extends Controller
                     $cupondiscounttype = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount_type;
                     $cupondiscountspers = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount.'%';
                     if ($cuponminimum <= $carttotal) {
-                       
+
 
                         if($cupondiscounttype ==2){
-                             
+
                             $condition = new \Darryldecode\Cart\CartCondition(array(
                                 'name' => 'Minimum_shopping',
                                 'type' => 'coupon',
@@ -96,7 +97,7 @@ class CheckoutController extends Controller
                                 'value' => -$cupondiscount,
                             ));
                         }else{
-                            
+
                             $condition = new \Darryldecode\Cart\CartCondition(array(
                                 'name' => 'Minimum_shopping',
                                 'type' => 'coupon',
@@ -111,14 +112,12 @@ class CheckoutController extends Controller
                             'order_id' => $request->order,
                             'created_at' => Carbon::now(),
                         ]);
-                        
-                        
-                        
+
                         return response()->json([
                             'cuponid'=>$cuponuser->id,
                             'cuponalert'=>'Cupon Insert Fuccessfully',
                         ]);
-                        
+
                     } else {
                         return "Your minimum purchese is less than minimum shopping criteria";
                     }
@@ -131,12 +130,12 @@ class CheckoutController extends Controller
                     $cupondiscountspers = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount.'%';
                     $cupondiscounts = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount;
                     $cupondiscounttype = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount_type;
-                    
+
                     foreach ($cartdatas as $cartdata) {
-                        
+
                         foreach (json_decode($cuponminproducts) as $cuponminproduct) {
                             if ($cartdata->attributes->product_id == $cuponminproduct) {
-                               
+
 
                                 if($cupondiscounttype == 2){
                                     $condition = new \Darryldecode\Cart\CartCondition(array(
@@ -147,30 +146,32 @@ class CheckoutController extends Controller
                                     ));
                                     Cart::session($userid)->condition($condition);
                                 }else{
-                                    
+
                                     if( $cartdata->attributes->has('variation') )
                                     {
                                         Cart::update($cartdata->id, array(
-                                            'price' =>$cartdata->price - $cartdata->price *$cupondiscounts/100, 
+                                            'price' =>$cartdata->price - $cartdata->price *$cupondiscounts/100,
                                           ));
                                     }
-                                    
+
                                 }
                                 UserUsedCupon::insert([
                                     'user_ip' => Auth::user()->id,
                                     'cupon_id' => $cuponuser->id,
                                     'order_id' => $request->order,
                                     'created_at' => Carbon::now(),
-                                ]); 
-                                
-                                
-                                    
+
+                                ]);
+
+
+
+
                             }
                         }
                     }
 
 
-                    
+
 
 
                 }
@@ -197,25 +198,26 @@ class CheckoutController extends Controller
             'user_upazila_id' => 'required',
             'shipping_id' => 'required',
             'payment_method_id' => 'required',
-            
+
 
         ]);
 
+
+        $usseraddress_id = UserAddress::insertGetId([
+            'user_id' => $request->user_id,
+            'user_address' => $request->user_address,
+            'user_post_office' => $request->user_post_office,
+            'user_postcode' => $request->user_postcode,
+            'user_country_id' => $request->user_country_id,
+            'user_division_id' => $request->user_division_id,
+            'user_district_id' => $request->user_district_id,
+            'user_upazila_id' => $request->user_upazila_id,
+            'is_shipping_address' => $request->is_shipping_address,
+            'created_at' => Carbon::now(),
+        ]);
+
        
-            $usseraddress_id = UserAddress::insertGetId([
-                'user_id' => $request->user_id,
-                'user_address' => $request->user_address,
-                'user_post_office' => $request->user_post_office,
-                'user_postcode' => $request->user_postcode,
-                'user_country_id' => $request->user_country_id,
-                'user_division_id' => $request->user_division_id,
-                'user_district_id' => $request->user_district_id,
-                'user_upazila_id' => $request->user_upazila_id,
-                'is_shipping_address' => $request->is_shipping_address,
-                'created_at' => Carbon::now(),
-            ]);
-        
-        
+
 
 
         if (UserAddress::findOrFail($usseraddress_id)->is_shipping_address == NULL) {
@@ -257,7 +259,7 @@ class CheckoutController extends Controller
         $purchase_key = DatabaseStorageModel::findOrFail($useriditem)->purchase_key;
 
 
-        OrderPlace::insert([
+        $orderPlaceId = OrderPlace::insertGetId([
             'shipping_id' => $request->shipping_id,
             'payment_method_id' => $request->payment_method_id,
             'comment' => $request->comment,
@@ -266,6 +268,7 @@ class CheckoutController extends Controller
             'cart_id' => $purchase_key,
             'total_price' => $request->total_price,
             'total_quantity' => $request->total_quantity,
+            'payment_secure_id' => substr(md5(time()), 10, 100),
             'created_at' => Carbon::now(),
         ]);
 
@@ -274,7 +277,113 @@ class CheckoutController extends Controller
             DatabaseStorageModel::where('id',$useridcondition)->first()->delete();
         }
 
-        return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
+        $getPaymentSecureId = OrderPlace::where('id', $orderPlaceId)->select('payment_secure_id')->first();
+
+        $getOrderInfo = OrderPlace::where('id', $orderPlaceId)->first();
+
+
+        if ($request->payment_method_id == 2) {
+
+            return redirect()->route('stripe.index', $getPaymentSecureId->payment_secure_id);
+        } elseif ($request->payment_method_id == 4) {
+            /* PHP */
+            $post_data = array();
+            $post_data['store_id'] = "durba5e37a51cb40c6";
+            $post_data['store_passwd'] = "durba5e37a51cb40c6@ssl";
+            $post_data['total_amount'] = $getOrderInfo->total_price;
+            $post_data['currency'] = "BDT";
+            // $post_data['tran_id'] = "SSLCZ_TEST_" . uniqid();
+            $post_data['tran_id'] = $getOrderInfo->order_id;
+            $post_data['success_url'] = url('payment/ssl_commercez/success');
+            $post_data['fail_url'] = url('payment/ssl_commercez/fail');
+            $post_data['cancel_url'] = url('payment/ssl_commercez/cancel');
+            # $post_data['multi_card_name'] = "mastercard,visacard,amexcard";  # DISABLE TO DISPLAY ALL AVAILABLE
+
+            # EMI INFO
+            $post_data['emi_option'] = "1";
+            $post_data['emi_max_inst_option'] = "9";
+            $post_data['emi_selected_inst'] = "9";
+
+            # CUSTOMER INFORMATION
+            $post_data['cus_name'] = Auth::user()->first_name . " " . Auth::user()->last_name;
+            $post_data['cus_email'] = Auth::user()->email;
+            $post_data['cus_add1'] = $request->shipping_customer_address ? $request->shipping_customer_address : "null";
+            // $post_data['cus_add2'] = "Dhaka";
+            $post_data['cus_city'] = DB::table('divisions')->where('id', $request->user_division_id)->select('name')->first()->name;
+            //$post_data['cus_state'] = DB::table('countries')->where('id', $request->user_division_id)->select('name')->first()->name;
+            $post_data['cus_postcode'] = $request->user_postcode ? $request->user_postcode : "null";
+            $post_data['cus_country'] = DB::table('countries')->where('id', $request->user_country_id)->select('name')->first()->name;
+            $post_data['cus_phone'] = Auth::user()->phone;
+            //$post_data['cus_fax'] = "01711111111";
+
+            # SHIPMENT INFORMATION
+            //$post_data['ship_name'] = "Store Test";
+            $post_data['ship_add1 '] = $request->shipping_customer_address ? $request->shipping_customer_address : "null";
+            //$post_data['ship_add2'] = "Dhaka";
+            $post_data['ship_city'] = $request->shipping_division_id ? DB::table('divisions')->where('id', $request->shipping_country_id)->select('name')->first()->name : "null";
+            //$post_data['ship_state'] = "Dhaka";
+            $post_data['ship_postcode'] = $request->shipping_postcode ? $request->shipping_postcode : "null";;
+            $post_data['ship_country'] = $request->shipping_country_id ? DB::table('countries')->where('id', $request->shipping_country_id)->select('name')->first()->name : "null";
+
+            # OPTIONAL PARAMETERS
+            $post_data['value_a'] = "ref001";
+            $post_data['value_b '] = "ref002";
+            $post_data['value_c'] = "ref003";
+            $post_data['value_d'] = "ref004";
+
+            # CART PARAMETERS
+            // $post_data['cart'] = json_encode(array(
+            //     array("product" => "DHK TO BRS AC A1", "amount" => "200.00"),
+            //     array("product" => "DHK TO BRS AC A2", "amount" => "200.00"),
+            //     array("product" => "DHK TO BRS AC A3", "amount" => "200.00"),
+            //     array("product" => "DHK TO BRS AC A4", "amount" => "200.00")
+            // ));
+            // $post_data['product_amount'] = "100";
+            // $post_data['vat'] = "5";
+            // $post_data['discount_amount'] = "5";
+            // $post_data['convenience_fee'] = "3";
+
+            # REQUEST SEND TO SSLCOMMERZ
+            $direct_api_url = "https://sandbox.sslcommerz.com/gwprocess/v3/api.php";
+
+            $handle = curl_init();
+            curl_setopt($handle, CURLOPT_URL, $direct_api_url);
+            curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+            curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 30);
+            curl_setopt($handle, CURLOPT_POST, 1);
+            curl_setopt($handle, CURLOPT_POSTFIELDS, $post_data);
+            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, FALSE); # KEEP IT FALSE IF YOU RUN FROM LOCAL PC
+
+
+            $content = curl_exec($handle);
+
+            $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+
+            if ($code == 200 && !(curl_errno($handle))) {
+                curl_close($handle);
+                $sslcommerzResponse = $content;
+            } else {
+                curl_close($handle);
+                echo "FAILED TO CONNECT WITH SSLCOMMERZ API";
+                exit;
+            }
+
+            # PARSE THE JSON RESPONSE
+            $sslcz = json_decode($sslcommerzResponse, true);
+
+            if (isset($sslcz['GatewayPageURL']) && $sslcz['GatewayPageURL'] != "") {
+                # THERE ARE MANY WAYS TO REDIRECT - Javascript, Meta Tag or Php Header Redirect or Other
+                # echo "<script>window.location.href = '". $sslcz['GatewayPageURL'] ."';</script>";
+                echo "<meta http-equiv='refresh' content='0;url=" . $sslcz['GatewayPageURL'] . "'>";
+                # header("Location: ". $sslcz['GatewayPageURL']);
+                exit;
+            } else {
+                echo "JSON Data parsing error!";
+            }
+        }
+
+        // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
     }
 
 
@@ -338,7 +447,6 @@ class CheckoutController extends Controller
         }
     }
 
-
     // Order Place delete
     public function orderDataDelete(Request $request)
     {
@@ -346,5 +454,11 @@ class CheckoutController extends Controller
         $datadelete = Cart::session($userid)->remove($request->user_id);
         $usercartdatas = Cart::session($userid)->getContent();
         return view('frontend.shopping.orderajaxdata', compact('usercartdatas'));
+    }
+
+    public function getCourierByUpazila($upazilaId)
+    {
+        $getCourierIdByUpId =  UpozilaCouriers::where('upazila_id', $upazilaId)->get();
+        return view('frontend.shopping.ajax_view.couriers', compact('getCourierIdByUpId'));
     }
 }

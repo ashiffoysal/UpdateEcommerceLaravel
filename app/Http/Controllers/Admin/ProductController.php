@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-use Response;
-use App\ReSubCategory;
-use App\Product;
-use App\ProductImage;
-use App\ProductLicense;
-use Carbon\Carbon;
-use App\Color;
-use Session;
-use Image;
-use Illuminate\Support\Arr;
 use DB;
+use Image;
+
+use Session;
+use Response;
+use App\Color;
+use App\Product;
+use Carbon\Carbon;
+use App\ProductImage;
+use App\ReSubCategory;
+use App\ProductLicense;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProductController extends Controller
@@ -57,7 +58,7 @@ class ProductController extends Controller
             $resub=ReSubCategory::where('subcate_id',$subcate_id)->get();
             return json_encode($resub);
     }
-  
+
       public function sku_combination(Request $request)
     {
         $options = array();
@@ -128,7 +129,7 @@ class ProductController extends Controller
                     }
         }
 
-        
+
     }
 
     // product insert
@@ -173,8 +174,13 @@ class ProductController extends Controller
 
         if($request->hasFile('photos')){
             foreach ($request->photos as $key => $photo) {
-                $path = $photo->store('/');
-                array_push($photos,$path);
+                $photoName = uniqid() . "." . $photo->getClientOriginalExtension();
+                $resizedPhoto = Image::make($photo)->resize(600, 600)->save($photoName);
+                Storage::disk('public')->put($photoName, $resizedPhoto);
+                unlink($photoName);
+                array_push($photos, $photoName);
+                // $path = $photo->store('/');
+                // array_push($photos,$path);
                 //ImageOptimizer::optimize(base_path('public/').$path);
             }
             $product->photos = json_encode($photos);
@@ -253,7 +259,7 @@ class ProductController extends Controller
                                 $variations[$str] = $item;
                             }
                         }
-                      
+
                     }
                     elseif($choice_count==1){
                         $combinations = Arr::crossJoin($options[0],$options[1]);
@@ -554,7 +560,7 @@ class ProductController extends Controller
         }
 
      $product->save();
-    
+
      // Product License:
     if($request->license_key){
         if(count($request->license_key) > 0){
@@ -569,7 +575,7 @@ class ProductController extends Controller
                );
                ProductLicense::Insert($data3);
             }
-            
+
         }
     }
 
@@ -619,7 +625,7 @@ class ProductController extends Controller
         return view('admin.ecommerce.product.view',compact('view'));
     }
 
-    
+
     // multisoft delete
     public function productmultisoftdelete(Request $request){
 
@@ -720,7 +726,7 @@ class ProductController extends Controller
             }
         }
 
-       
+
         if($request->has('colors_active') && $request->has('choice_no')){
                 $choice_count=count($request->choice_no);
                    if($choice_count == 0){
@@ -822,9 +828,15 @@ class ProductController extends Controller
 
         if($request->hasFile('photos')){
             foreach ($request->photos as $key => $photo) {
-                $path = $photo->store('/');
-                array_push($photos, $path);
                 
+                $photoName = uniqid() . "." . $photo->getClientOriginalExtension();
+                $resizedPhoto = Image::make($photo)->resize(600, 600)->save($photoName);
+                Storage::disk('public')->put($photoName, $resizedPhoto);
+                unlink($photoName);
+                array_push($photos, $photoName);
+                // $path = $photo->store('/');
+                // array_push($photos, $path);
+
             }
         }
         $product->photos = json_encode($photos);
@@ -903,7 +915,7 @@ if($request->has('colors_active') && $request->has('colors') && count($request->
                                 $variations[$str] = $item;
                             }
                         }
-                      
+
                     }
                     elseif($choice_count==1){
                         $combinations = Arr::crossJoin($options[0],$options[1]);
@@ -1203,7 +1215,7 @@ if($request->has('colors_active') && $request->has('colors') && count($request->
                       $product->variations = json_encode($variations);
         }
         //combination end
-        
+
 
 
 
@@ -1238,7 +1250,7 @@ if($request->has('colors_active') && $request->has('colors') && count($request->
             // $license->license_quantity=$request->license_quantity;
             // $license->save();
         // }
-        
+
          // $updateli->save();
        $product->save();
         if($request->license_key){
@@ -1256,9 +1268,9 @@ if($request->has('colors_active') && $request->has('colors') && count($request->
                 'created_at'=>Carbon::now()->toDateTimeString(),
                );
                ProductLicense::insert($data4);
-               
+
             }
-            
+
         }
       }else{
         if(count($request->license_key) > 0){
@@ -1271,14 +1283,14 @@ if($request->has('colors_active') && $request->has('colors') && count($request->
                 'created_at'=>Carbon::now()->toDateTimeString(),
                );
                ProductLicense::insert($data4);
-               
+
             }
-            
+
         }
       }
     }
-   
-        
+
+
 
 
 
@@ -1287,20 +1299,20 @@ if($request->has('colors_active') && $request->has('colors') && count($request->
                 'messege'=>'Update Success',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
         }else{
             $notification=array(
                 'messege'=>'Update Faild',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
         }
-     
 
 
 
 
-        
+
+
 
    }
 
@@ -1322,13 +1334,13 @@ if($request->has('colors_active') && $request->has('colors') && count($request->
                 'messege'=>'SoftDelete Success',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
         }else{
             $notification=array(
                 'messege'=>'softdelete Faild',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
         }
    }
    // heard delete single product
@@ -1338,7 +1350,7 @@ if($request->has('colors_active') && $request->has('colors') && count($request->
 
          if($thum_image){
             unlink(''.$thum_image);
-            
+
              $delet=Product::where('id',$id)->delete();
              if($delet){
                 $notification=array(
@@ -1368,10 +1380,10 @@ if($request->has('colors_active') && $request->has('colors') && count($request->
                  );
                return Redirect()->back()->with($notification);
              }
-        } 
+        }
 
 
    }
-  
- 
+
+
 }

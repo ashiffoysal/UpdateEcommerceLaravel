@@ -68,8 +68,10 @@
                                 @foreach (json_decode($productdetails->photos) as $key => $photo)
                                 <div class="owl2-item ">
                                     <div class="image-additional">
+
                                         <a data-index="0" class="img thumbnail" data-image="{{url('storage/app/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio">
                                             <img src="{{url('storage/app/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio" alt="Canada Travel One or Two European Facials at  Studio">
+
                                         </a>
                                     </div>
                                 </div>
@@ -101,8 +103,7 @@
                             </div>
                             <div class="product_page_price price" itemscope="" itemtype="http://data-vocabulary.org/Offer">
                                 <span class="price-new"><span id="chosen_price""> ‎৳ {{$productdetails->product_price}}</span></span>
-                                
-                                
+
                                 <span class="price-old" id="price-old">‎৳ {{$productdetails->product_price}}</span>
                                 <!--    <div class="price-tax"><span>Ex Tax:</span> $70.00</div> -->
                             </div>
@@ -126,7 +127,6 @@
 
 
 
-                                    
                                         <div class="col-md-12">
                                         <div id="product">
                                         <div class="form-group required " style="display: block; margin-left:17px">
@@ -134,7 +134,7 @@
                                             <input type="hidden" name="id" value="{{$productdetails->id}}">
                                             @if (count(json_decode($productdetails->colors)) > 0)
                                             @foreach (json_decode($productdetails->colors) as $key => $color)
-                                           
+
 
 
                                             <div class="radio  radio-type-button">
@@ -153,13 +153,15 @@
                                         </div>
 
                                         @foreach (json_decode($productdetails->choice_options) as $key => $choice)
-                                        
+
+
                                         <div class="col-md-12">
                                         <div id="product">
-                                    
-                                        
 
-                                        
+
+
+
+
 									<div class="form-group required " style="display: block;">
 										<label class="control-label">{{ $choice->title }}:</label>
 										<div id="input-option224">
@@ -173,6 +175,7 @@
 													</span>
 												</label>
                                             </div>
+
                                             
                                         @endforeach
 											
@@ -183,10 +186,11 @@
                                 
 
 
+
                                         </div>
                                         @endforeach
                                     </div>
-                                    
+
                                     <!-- variation end -->
                                     @else
 
@@ -230,11 +234,12 @@
                                         <div class="cart">
                                         <div class="product_page_price price" id="chosen_price_div">
                                             <input type="hidden" id="product_chosen_price" value="{{$productdetails->product_price}}" name="product_price">
+
                                             <input type="button" id="addtocart" value="Add to Cart" class="addToCart btn btn-mega btn-lg" data-toggle="tooltip" title="" onclick="cart.add('30');modeladdtocart(this);" data-original-title="Add to cart" id="addtocart">
                                         </div>
 
 
-                                  
+
 
 
 
@@ -257,13 +262,12 @@
                                 </div>
                             </div>
 
-                           
 
 
                         </div>
                     </div>
                 </div>
-        
+
 </form>
 			<!-- //Main Container -->
 		</div>
@@ -324,8 +328,10 @@
 
 <script>
 
+
 function modeladdtocart(){
     
+
 
 
 $.ajax({
@@ -342,7 +348,9 @@ success: function (data) {
 
 
 
+
 }
+
 </script>
 	</body>
 </html>

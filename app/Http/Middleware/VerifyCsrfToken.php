@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'http://localhost/hatehate/payment/ssl_commercez/success',
+        'http://localhost/durbarit/payment/ssl_commercez/fail',
     ];
 }

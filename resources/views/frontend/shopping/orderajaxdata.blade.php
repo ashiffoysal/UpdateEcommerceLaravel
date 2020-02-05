@@ -68,6 +68,7 @@
 </script>
 
 @php
+
 $limit = \Carbon\Carbon::now()->subMinutes(10);
 if(App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->exists()){
     $cartdatas =App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->first()->cupon_id;
@@ -85,6 +86,7 @@ if(App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',
             echo 'No discount found!';
         }
     ?>;
+
 </script>
 
 <script>

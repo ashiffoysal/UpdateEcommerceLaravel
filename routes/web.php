@@ -369,6 +369,9 @@ Route::get(md5('/checkout/order/data'), 'Frontend\CheckoutController@orderData')
 Route::post(md5('/order/data/update'), 'Frontend\CheckoutController@orderDataUpdate')->name('product.order.update');
 Route::post(md5('/order/data/delete'), 'Frontend\CheckoutController@orderDataDelete')->name('product.order.delete');
 
+//  Add Ajax route for getting courier by upazila ID !
+// Created By Harrison
+Route::get('get/courier/by/upazila/id/{upazilaId}', 'Frontend\CheckoutController@getCourierByUpazila');
 
 // cart all product show
 
@@ -483,7 +486,7 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::post('sync/sync/update/{subDistrictId}', 'couriercontroller@couriersyncupdate')->name('courier.sync.update');
     Route::get('sync/sync/delete/{subDistrictId}', 'couriercontroller@couriersyncdelete')->name('courier.sync.delete');
     Route::post('store', 'couriercontroller@courierstore')->name('courier.store');
-    
+
     // Ajax Route
     Route::get('get/district/by/division/id/{divisionId}', 'CourierController@getDistrictByAjax');
     Route::get('get/sub_district/by/district/id/{districtId}', 'CourierController@getSubDistrictByAjax');
@@ -492,7 +495,7 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     // Ajax Route Ended
     });
 
-    
+
     // Search Route Created By Harrison
 
 Route::get('search/product/by/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByAjax');
@@ -502,6 +505,23 @@ Route::get('search/product/by/re_sub/category/{categoryId}/{productName}', 'Fron
 
 
 // Search Route Created By Harrison Ended
+
+
+// Payment Route Created By Harrison
+
+Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
+    Route::get('stripe/{payment_secure_id}', 'PaymentController@index')->name('stripe.index');
+    Route::post('stripe/submit/{payment_secure_id}', 'PaymentController@stripeSubmit')->name('payment.stripe.submit');
+    Route::get('stripe/success/payment', 'PaymentController@successStripePaymentView')->name('payment.stripe.success.view');
+    //SSL COMMERCEZ
+
+    Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
+    Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
+    Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
+});
+
+// Payment Route Created By Harrison Ended
+
 
 
 
