@@ -22,6 +22,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Console\Presets\React;
 
+use Srmklive\PayPal\Services\ExpressCheckout;
+use Srmklive\PayPal\Services\AdaptivePayments;
+use PayPal;
+
 class CheckoutController extends Controller
 {
     // show checkout controller
@@ -171,9 +175,6 @@ class CheckoutController extends Controller
                     }
 
 
-
-
-
                 }
             } else {
                 return "You are alrady used this cupon";
@@ -186,7 +187,7 @@ class CheckoutController extends Controller
 
     public function orderSubmit(Request $request)
     {
-        
+
         $validatedData = $request->validate([
             'user_id' => 'required',
             'user_address' => 'required',
@@ -216,7 +217,7 @@ class CheckoutController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-       
+
 
 
 
@@ -285,7 +286,10 @@ class CheckoutController extends Controller
         if ($request->payment_method_id == 2) {
 
             return redirect()->route('stripe.index', $getPaymentSecureId->payment_secure_id);
-        } elseif ($request->payment_method_id == 4) {
+        }elseif($request->payment_method_id == 3){
+            return redirect()->route('payment.paypal');
+        }
+        elseif ($request->payment_method_id == 4) {
             /* PHP */
             $post_data = array();
             $post_data['store_id'] = "durba5e37a51cb40c6";
@@ -461,4 +465,96 @@ class CheckoutController extends Controller
         $getCourierIdByUpId =  UpozilaCouriers::where('upazila_id', $upazilaId)->get();
         return view('frontend.shopping.ajax_view.couriers', compact('getCourierIdByUpId'));
     }
+
+    // paypal add
+    public function paywithpaypal(){
+
+   $provider = new ExpressCheckout;
+   $invoiceId=uniqid();
+   $data=$this->cartData($invoiceId);
+
+   // $data['total'] = $total;
+   $response = $provider->setExpressCheckout($data);
+
+    //dd($response);
+    // This will redirect user to PayPal
+    return redirect($response['paypal_link']);
+
+ }
+// success
+
+
+public function paymentsuccess(Request $request){
+
+ $provider= new ExpressCheckout;
+ $token=$request->token;
+ $PayerID=$request->PayerID;
+ $response = $provider->getExpressCheckoutDetails($token);
+
+ $invoiceId=$response['INVNUM']??uniqid();
+
+
+ $data=$this->cartData($invoiceId);
+
+ $response = $provider->doExpressCheckoutPayment($data,$token,$PayerID);
+ //dd($response);
+ $userid=Auth::user()->id;
+ $usercartdatas=OrderPlace::where('user_id',$userid)->orderBy('id','DESC')->first();
+ $update=OrderPlace::where('id',$usercartdatas->id)->update([
+   'is_paid'=>'1',
+ ]);
+  return "order completed";
+
+}
+
+ protected function cartData($invoiceId){
+
+     $data = [];
+     $data['items'] = [];
+
+     // $userid =  \Request::getClientIp(true);
+     // $usercartdatas = Cart::session($userid)->getContent();
+     $userid=Auth::user()->id;
+     $usercartdatas=OrderPlace::where('user_id',$userid)->orderBy('id','DESC')->first();
+     $cartid=$usercartdatas->cart_id;
+
+     $orderstorage=OrderStorage::where('purchase_key',$cartid)->first();
+
+     foreach(json_decode($orderstorage->cart_data) as $key => $cart){
+       $itemdetails=[
+         'name'=>$cart->name,
+         'price'=>$cart->price,
+         'qty'=>$cart->quantity,
+       ];
+         $data['items'][]=$itemdetails;
+     }
+
+
+     $data['invoice_id'] = $usercartdatas->order_id;
+     $data['invoice_description'] = $invoiceId;
+     $data['return_url'] = url('/payment/success');
+     $data['cancel_url'] = url('/text');
+
+       $total = 0;
+       foreach($data['items'] as $item) {
+           $total += $item['price']*$item['qty'];
+       }
+       $data['total']=$total;
+
+       return $data;
+
+ }
+
+    public function text(){
+    return "ok";
+    }
+
+
+
+
+
+
+
+
+
 }

@@ -25,7 +25,7 @@
                                             </div>
                                         </div>
                                         @endforeach
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                     $flashdetails=App\FlashDealDetail::where('flash_deal_id',$flash_id)->get();
                                     @endphp
                                     @foreach($flashdetails as $flasdetail)
-                                  
+
                                     <div class="item">
                                         <div class="transition product-layout">
                                             <div class="product-item-container ">
@@ -88,7 +88,7 @@
                                                         <div class="button-inner so-quickview">
                                                             <a class="lt-image hidden" data-product="35" href="#" target="_self" title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">
                                                             </a>
-                                                            
+
                                                             <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('admin/product/modal/show')}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe"> <i class="fa fa-search"></i> </a>
 
 
@@ -130,7 +130,7 @@
                                     </div>
                                     @endforeach
                                     <!-- end product -->
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
     @endphp
     <section id="box-link2" class="section-style">
         <div class="container page-builder-ltr">
-            
+
             <div class="row row-style row_a2">
                 @foreach($cate as $maincate)
                 <div class="col-md-12 col_1bi4  col-style block block_5 title_neo2">
@@ -178,7 +178,7 @@
                                             <div class="item-sub-cat">
                                                 <ul class="ltabs-tabs cf">
                                                     <li class="ltabs-tab tab-sel" data-category-id="" data-active-content=".items-category-1"> <span class="ltabs-tab-label">Best Seller</span> </li>
-                                                    
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -187,7 +187,7 @@
                                     <div class="wap-listing-tabs ltabs-items-container products-list grid">
                                         <!--Begin Items-->
                                         <div class="ltabs-items ltabs-items-selected items-category-{{$maincate->id}}" data-total="16">
-                                            
+
                                             <div class="ltabs-items-inner ltabs-slider">
                                                 <!-- grid -->
                                                 @php
@@ -196,7 +196,7 @@
                                                 @endphp
                                                 @foreach($products as $product)
                                                 <div class="ltabs-item col-md-3">
-                                                    
+
                                                     <div class="item-inner product-layout transition product-grid ">
                                                         <div class="product-item-container">
                                                             <div class="left-block">
@@ -223,9 +223,9 @@
                                                                         <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
                                                                             <i class="fa fa-search"></i>
                                                                         </a>
-                                                                        
+
                                                                         <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
-                                                                        
+
                                                                         <button class="compare btn-button compareproduct" type="button"  id="compareproduct" value="{{$product->id }}">
                                                                         <i class="fa fa-exchange"></i>
                                                                         </button>
@@ -246,7 +246,7 @@
                                                 @endphp
                                                 @foreach($products as $product)
                                                 <div class="ltabs-item col-md-3">
-                                                    
+
                                                     <div class="item-inner product-layout transition product-grid ">
                                                         <div class="product-item-container">
                                                             <div class="left-block">
@@ -285,13 +285,13 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <!-- product -->
                                                 </div>
                                                 @endforeach
                                                 <!-- grid -->
                                             </div>
-                                            
+
                                         </div>
                                         <div class="ltabs-items items-category-2 grid" data-total="16">
                                             <div class="ltabs-loading"></div>
@@ -307,7 +307,7 @@
                 </div>
                 @endforeach
             </div>
-            
+
         </div>
     </section>
     <!-- end first cate -->
@@ -357,8 +357,8 @@
                                         <div class="ltabs-items-container">
                                             <div class="ltabs-items ltabs-items-selected items-category-4" data-total="16">
                                                 <div class="ltabs-items-inner ltabs-slider ">
-                                                    
-                                                    
+
+
                                                     <div
                                                         class="ltabs-item">
                                                         @php
@@ -429,7 +429,7 @@
                                                                                 data-fancybox-type="iframe">
                                                                                 <i class="fa
                                                                                 fa-search"></i>
-                                                                            </a> 
+                                                                            </a>
                                                                             <button
                                                                             class="mywishlist
                                                                             btn-button"
@@ -543,7 +543,7 @@
                                                                             data-toggle="tooltip"
                                                                             title=""
                                                                         data-id="{{$product->id}}"
-                                                                            
+
                                                                             data-original-title="Add
                                                                             to Wish List"> <i
                                                                             class="fa
@@ -650,7 +650,7 @@
                                                                             type="button"
                                                                             data-toggle="tooltip"
                                                                             title=""
-                                                                            
+
                                                                             data-original-title="Add
                                                                             to Wish List"> <i
                                                                             class="fa
@@ -793,8 +793,8 @@
                                                                                     data-toggle="tooltip"
                                                                                     title=""
                                                                                 data-id="{{$product->id}}"
-                                                                                    
-                                                                                    
+
+
                                                                                     data-original-title="Add to Wish List"> <i class="fa fa-heart"></i>
                                                                                     </button> <button class="compare btn-button" type="button"
                                                                                     data-toggle="tooltip" title="" onclick="compare.add('28');"
@@ -939,7 +939,7 @@
                                                                     @foreach($products as $product)
                                                                     <div class="ltabs-item">
                                                                         <!-- product -->
-                                                                        
+
                                                                         <div class="item-inner product-layout transition product-grid">
                                                                             <div class="product-item-container">
                                                                                 <div class="left-block">
@@ -978,7 +978,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                                     @endforeach
                                                                 </div>
@@ -1171,16 +1171,16 @@
                 success: function (data) {
                     if (data.checkip){
                         toastr.error("Already This Product Add Compare");
-                        
+
                     }else{
                         toastr.success("product add to compare");
-                       
+
                         }
 
                 }
              });
 
-        
+
     });
 });
     </script>

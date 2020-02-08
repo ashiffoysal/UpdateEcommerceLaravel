@@ -37,12 +37,6 @@
 								</div>
 							</fieldset>
 
-
-
-
-
-
-
 							<fieldset id="address">
 								<h2 class="secondary-title"><i class="fa fa-map-marker"></i>Your Address</h2>
 								<div class=" checkout-payment-form">
@@ -151,7 +145,7 @@
 										<form class="form-horizontal form-payment">
 											<div id="payment-new" style="display: block">
 											<div class="form-group required">
-													
+
 													<input type="text" name="shipping_name" value="{{old('shipping_name')}}"  placeholder="Shipping Name *" id="input-payment-address-1" class="form-control">
 													@error('shipping_name')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
@@ -159,7 +153,7 @@
 												</div>
 
 												<div class="form-group required">
-													
+
 													<input type="text" name="shipping_phone" value="{{old('shipping_phone')}}"  placeholder="Shipping Phone Number *" id="input-payment-address-1" class="form-control">
 													@error('shipping_phone')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
@@ -254,7 +248,7 @@
 										<div class="radio">
 											<label>
 												<select name="shipping_id" id="shipping_courier" class="form-control">
-													
+
 
 												</select>
 												@error('shipping_id')
@@ -638,7 +632,3 @@
 
 
 @endsection
-
-
-
-

@@ -35,21 +35,24 @@
 	 			      </select>
 	 			    </div>
 	 			  </div>
+					@if($data->category_id == NULL)
 
-	 			  <div class="form-group row catebox" id="catebox" @if($data->section==2 || $data->section==3 || $data->section==4) @else style="display:none" @endif>
-	 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Catgeory</label>
-	 			    <div class="col-sm-8">
-	 			      @php
-	 						$cate=App\Category::where('is_deleted',0)->orderBy('id','DESC')->get();
-	 			      @endphp
-	 			      <select class="select2" name="category_id[]" id="category_id" multiple="multiple" data-dropdown-css-class="select2-purple" style="width: 100%;">
-	 							@foreach($cate as $category)
-	 			      	 <option value="{{$category->id}}" <?php if(in_array($category->id,json_decode($data->category_id))) echo 'selected'?> >{{$category->cate_name}}</option>
-	 			      	@endforeach
-	 			      </select>
+					@else
+					<div class="form-group row catebox" id="catebox" @if($data->section==2 || $data->section==3 || $data->section==4) @else style="display:none" @endif>
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Catgeory</label>
+						<div class="col-sm-8">
+							@php
+							$cate=App\Category::where('is_deleted',0)->orderBy('id','DESC')->get();
+							@endphp
+							<select class="select2" name="category_id[]" id="category_id" multiple="multiple" data-dropdown-css-class="select2-purple" style="width: 100%;">
+								@foreach($cate as $category)
+								 <option value="{{$category->id}}" <?php if(in_array($category->id,json_decode($data->category_id))) echo 'selected'?> >{{$category->cate_name}}</option>
+								@endforeach
+							</select>
 
-	 			    </div>
-	 			  </div>
+						</div>
+					</div>
+					@endif
 
 	 			  <div class="form-group row">
 	 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Link</label>

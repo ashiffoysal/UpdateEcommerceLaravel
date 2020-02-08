@@ -96,131 +96,7 @@ class CategoryController extends Controller
        }
 
 
- 
 
- if($cate_slug){
-    	$insert=Category::insertGetId([
-    		'cate_name'=>$request['cate_name'],
-    		'cate_image'=>'',
-            'cate_icon'=>'',
-    		'cate_slug'=>$inputslug,
-            'section_id'=>$request['section_id'],
-            'cate_tag'=>$request['cate_tag'],
-    		'created_at'=>Carbon::now()->toDateTimeString(),
-
-    	]);
-            if($request->hasFile('pic') && $request->hasFile('icon')){
-                
-                        $image=$request->file('pic');
-                        $ImageName='category_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(350,182)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$insert)->update([
-                            'cate_image'=>$ImageName,
-                        ]);
-                        $image=$request->file('icon');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(20,20)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$insert)->update([
-                            'cate_icon'=>$ImageName,
-                        ]); 
-              }
-              elseif($request->hasFile('pic')){
-                        $image=$request->file('pic');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(350,182)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$insert)->update([
-                            'cate_image'=>$ImageName,
-                        ]);
-              }
-              elseif($request->hasFile('icon')){
-                    $image=$request->file('icon');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(20,20)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$insert)->update([
-                            'cate_icon'=>$ImageName,
-                        ]);
-
-              }else{
-
-              }
-
-
-    	if($insert){
-		  $notification=array(
-                'messege'=>'Category Insert Successfully',
-                'alert-type'=>'success'
-                 );
-               return Redirect()->back()->with($notification); 
-    	}
-    	else{
-    		$notification=array(
-                'messege'=>'Category Insert Faild',
-                'alert-type'=>'danger'
-                 );
-               return Redirect()->back()->with($notification); 
-    	}
-    }else{
-    	$insert=Category::insertGetId([
-    		'cate_name'=>$request['cate_name'],
-    		'cate_image'=>'',
-            'cate_icon'=>'',
-    		'cate_slug'=>$slug,
-            'section_id'=>$request['section_id'],
-            'cate_tag'=>$request['cate_tag'],
-    		'created_at'=>Carbon::now()->toDateTimeString(),
-
-    	]);
-            if($request->hasFile('pic') && $request->hasFile('icon')){
-                   
-                        $image=$request->file('pic');
-                        $ImageName='category_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(350,182)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$insert)->update([
-                            'cate_image'=>$ImageName,
-                        ]);
-                        $image=$request->file('icon');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(20,20)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$insert)->update([
-                            'cate_icon'=>$ImageName,
-                        ]); 
-              }
-              elseif($request->hasFile('pic')){
-                        $image=$request->file('pic');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(350,182)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$insert)->update([
-                            'cate_image'=>$ImageName,
-                        ]);
-              }
-              elseif($request->hasFile('icon')){
-                    $image=$request->file('icon');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(20,20)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$insert)->update([
-                            'cate_icon'=>$ImageName,
-                        ]);
-
-              }else{
-
-              }
-
-
-    	if($insert){
-		  $notification=array(
-                'messege'=>'Category Insert Successfully',
-                'alert-type'=>'success'
-                 );
-               return Redirect()->back()->with($notification); 
-    	}
-    	else{
-    		$notification=array(
-                'messege'=>'Category Insert Faild',
-                'alert-type'=>'danger'
-                 );
-               return Redirect()->back()->with($notification); 
-    	}
-    }
 
    }
 
@@ -259,15 +135,15 @@ class CategoryController extends Controller
                 $ImageName='header_'.'_'.time().'.'.$image->getClientOriginalExtension();
                 Image::make($image)->resize(1920,180)->save('public/uploads/category/'.$ImageName);
                 $data->header_image =$ImageName;
-           
+
         }
         if($request->hasFile('top_image')){
-               
+
                 $image=$request->file('top_image');
                 $ImageName='top_'.'_'.time().'.'.$image->getClientOriginalExtension();
                 Image::make($image)->resize(1170,220)->save('public/uploads/category/'.$ImageName);
                 $data->top_image =$ImageName;
-                
+
         }
         if($request->hasFile('side_image')){
                 $image=$request->file('side_image');
@@ -291,101 +167,18 @@ class CategoryController extends Controller
         if($data->save()){
             $notification=array(
             'messege'=>'Site Banner Update Successfully',
-
-   public function update(Request $request){
-   	    $id=$request->id;
-        $old=$request->old_image;
-        $oldicon=$request->old_icon;
-    	$title=strtolower($request['cate_name']);
-        $slug=preg_replace('/[^A-Za-z0-9-]+/', '-', $title);
-
-
-        $update=Category::where('id',$id)->update([
-    		'cate_name'=>$request['cate_name'],
-    		'cate_slug'=>$slug,
-            'cate_tag'=>$request['cate_tag_edit'],
-    		'updated_at'=>Carbon::now()->toDateTimeString(),
-    	]);
-
-         if($request->hasFile('pic') && $request->hasFile('icon')){
-                    if($old){
-                        unlink('public/uploads/category/'.$old);
-                        $image=$request->file('pic');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(350,182)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$id)->update([
-                            'cate_image'=>$ImageName,
-                        ]);
-                      
-                        $image=$request->file('icon');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(20,20)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$id)->update([
-                            'cate_icon'=>$ImageName,
-                        ]);
-                    }
-                    else{
-                        $image=$request->file('pic');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(350,182)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$id)->update([
-                            'cate_image'=>$ImageName,
-                        ]);
-                        $image=$request->file('icon');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(20,20)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$id)->update([
-                            'cate_icon'=>$ImageName,
-                        ]);
-                    }
-              }elseif($request->hasFile('pic')){
-
-                 if($old){
-                        unlink('public/uploads/category/'.$old);
-                        $image=$request->file('pic');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(350,182)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$id)->update([
-                            'cate_image'=>$ImageName,
-                        ]);
-                    }
-                    else{
-                        $image=$request->file('pic');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(350,182)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$id)->update([
-                            'cate_image'=>$ImageName,
-                        ]);
-                    }
-
-              }
-              elseif($request->hasFile('icon')){
-                    $image=$request->file('icon');
-                        $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(20,20)->save('public/uploads/category/'.$ImageName);
-                        Category::where('id',$id)->update([
-                            'cate_icon'=>$ImageName,
-                        ]);
-
-              }else{
-
-              }
-
-          if($update){
-	 		 $notification=array(
-            'messege'=>'Category Update Successfully',
-
             'alert-type'=>'success'
-             );
-           return Redirect()->route('admin.category.all')->with($notification); 
-			}
-    	else{
-    		$notification=array(
-                'messege'=>'Category Update Faild',
-                'alert-type'=>'danger'
+               );
+            return Redirect()->back()->with($notification);
+          }
+          else{
+            $notification=array(
+                'messege'=>'Category Softdelete Faild',
+                'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
-    	}
+               return Redirect()->back()->with($notification);
+          }
+
 
    }
 
@@ -401,13 +194,13 @@ class CategoryController extends Controller
             	'messege'=>'Category Softdelete Success',
             	'alert-type'=>'success'
             		 );
-           		return Redirect()->back()->with($notification); 
+           		return Redirect()->back()->with($notification);
 	   		}else{
 		   		$notification=array(
 	            'messege'=>'Category Softdelete Faild',
 	            'alert-type'=>'error'
 	             );
-	           return Redirect()->back()->with($notification); 
+	           return Redirect()->back()->with($notification);
 	   		}
 	   }
 	   // multiple soft delete
@@ -439,7 +232,7 @@ class CategoryController extends Controller
                              );
                          return redirect()->back()->with($notification);
                      }
-              
+
             }
 	   public function deactive($id){
 		   	$deactive=Category::where('id',$id)->update([
@@ -527,7 +320,7 @@ class CategoryController extends Controller
                 'alert-type'=>'error'
                  );
              return redirect()->back()->with($notification);
-    
+
             }
          }
 
@@ -551,7 +344,7 @@ class CategoryController extends Controller
                 'alert-type'=>'error'
                  );
              return redirect()->back()->with($notification);
-    
+
 	   		}
 	   }
 

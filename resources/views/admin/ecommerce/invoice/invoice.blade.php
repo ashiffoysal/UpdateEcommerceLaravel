@@ -20,7 +20,7 @@
             </div>
           </div>
         </br>
-        
+
         <form action="{{url('admin/delevary/status')}}" method="POST">
           @csrf
           <div class="row">
@@ -28,13 +28,21 @@
             <div class="col-md-4">
               <input type="hidden" name="orderplaceid" value="{{$invoice->id}}">
               <select class="form-control" name="delevary">
-                @if($invoice->delevary==1))
-                <option value="1" @if($invoice->delevary==1) selected @else @endif>Panding</option>
+                @if($invoice->delevary==1)
+                <option value="1" @if($invoice->delevary==1) selected @else @endif>Pending</option>
+                <option value="4" @if($invoice->delevary==4) selected @else @endif>On Process</option>
+                <option value="5" @if($invoice->delevary==5) selected @else @endif>Reject Product</option>
+                @elseif($invoice->delevary==4)
+                  <option value="4" @if($invoice->delevary==4) selected @else @endif>On Process</option>
                 <option value="2" @if($invoice->delevary==2) selected @else @endif>On Delevery</option>
+                @elseif($invoice->delevary==2)
+                  <option value="2" @if($invoice->delevary==2) selected @else @endif>On Delevery</option>
                 <option value="3" @if($invoice->delevary==3) selected @else @endif>Develared</option>
-                @else
-                <option value="2" @if($invoice->delevary==2) selected @else @endif>On Delevery</option>
+                @elseif($invoice->delevary==3)
                 <option value="3" @if($invoice->delevary==3) selected @else @endif>Develared</option>
+                @elseif($invoice->delevary==5)
+                <option value="5" @if($invoice->delevary==5) selected @else @endif>Reject Product</option>
+                <option value="4" @if($invoice->delevary==1) selected @else @endif>Pending</option>
                 @endif
               </select>
             </div>
@@ -43,7 +51,7 @@
             </div>
           </div>
         </form>
-        
+
         </br>
           <div class="panel_body print_element">
 

@@ -398,6 +398,17 @@ Route::get('/user/division/name/{id}', 'Frontend\CheckoutController@userCountryS
 Route::get('/user/district/name/{id}', 'Frontend\CheckoutController@userDivisionSubmit');
 Route::get('/user/upazila/name/{id}', 'Frontend\CheckoutController@userUpazilaSubmit');
 
+
+Route::get('/pay-with-paypal', 'Frontend\CheckoutController@paywithpaypal')->name('payment.paypal');
+Route::get('/payment/success', 'Frontend\CheckoutController@paymentsuccess');
+Route::get('/text', 'Frontend\CheckoutController@text');
+
+
+
+
+
+
+
 // site banner
 route::get(md5('admin/sitebanner/all'),'admin\sitebannercontroller@sitebanner')->name('admin.sitebanner.all');
 Route::get('admin/sitebanner/deactive/{id}','Admin\SiteBannerController@sitebannerdeactive');
@@ -432,9 +443,13 @@ Route::post(md5('admin/trash/sitebanner/multipledelete'), 'admin\trashcontroller
 
 
 Route::get(md5('admin/product/order'), 'admin\ordercontroller@index')->name('admin.productorder');
+Route::get(md5('admin/product/process'), 'admin\ordercontroller@processproduct')->name('admin.productprocess');
+
 Route::get(md5('admin/product/ondelevery'), 'admin\ordercontroller@ondelevery')->name('admin.ondevelery');
 Route::get(md5('admin/product/complateorder'), 'admin\ordercontroller@complateorder')->name('admin.complateorder');
 Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
+
+Route::get('admin/delevary/rejecteorder', 'Admin\OrderController@rejecteorder')->name('admin.rejecteorder');
 
 
 //
@@ -548,10 +563,3 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
 
 Route::get('hllow worldff', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
 Route::get('qayumhasantestroute', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
-
-
-
-
-
-
-
