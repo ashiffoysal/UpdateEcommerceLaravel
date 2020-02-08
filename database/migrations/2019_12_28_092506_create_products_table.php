@@ -40,6 +40,7 @@ class CreateProductsTable extends Migration
             $table->string('meta_description');
             $table->string('photos');
             $table->string('thumbnail_img');
+            $table->integer('number_of_sale')->nullable();
             $table->integer('is_deleted')->default(0);
             $table->integer('status')->default(1);
             $table->timestamps();

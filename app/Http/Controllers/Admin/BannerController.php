@@ -22,36 +22,38 @@ class BannerController extends Controller
 	}
 	// insert
 	public function insert(Request $request){
-
-		$insert=Banner::insertGetId([
-    		'ban_link'=>$request['ban_link'],
-    		'ban_image'=>'',
-    		'created_at'=>Carbon::now()->toDateTimeString(),
-
-    	]);
-            if($request->hasFile('pic')){
-                
-                $image=$request->file('pic');
-                $ImageName='ban_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(830,355)->save('public/uploads/banner/'.$ImageName);
-                Banner::where('id',$insert)->update([
-                    'ban_image'=>$ImageName,
-                ]);
-                      
-              }
-             if($insert){
-	             	 $notification=array(
-	                'messege'=>'Banner Insert Successfully',
-	                'alert-type'=>'success'
-	                 );
-	               return Redirect()->back()->with($notification); 
+        // return $request;
+         $data = new Banner;
+         $data->ban_link = $request->ban_link;
+         
+         if($request->hasFile('pic')){
+            $image=$request->file('pic');
+            $ImageName='th'.'_'.time().'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(830,355)->save('public/uploads/banner/'.$ImageName);
+            $data->ban_image =$ImageName;
+          }
+         if($request->hasFile('bottom_image')){
+            $image=$request->file('bottom_image');
+            $ImageName='bottom_image'.'_'.time().'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(435,174)->save('public/uploads/banner/'.$ImageName);
+            $data->bottom_image =$ImageName;
+            
+          }
+           if($data->save()){
+                $notification=array(
+                    'messege'=>'Banner Insert Successfully',
+                    'alert-type'=>'success'
+                     );
+                   return Redirect()->back()->with($notification); 
              }else{
-             	 $notification=array(
+                  $notification=array(
                 'messege'=>'Banner Insert Faild',
                 'alert-type'=>'error'
                  );
                return Redirect()->back()->with($notification); 
              }
+     
+		
 	}
 	// active
 	public function active($id){
@@ -226,4 +228,11 @@ class BannerController extends Controller
 		}
 
 	}
+
+    // site banner----------------------------------------------------------------------
+
+
+
+
+    // site banner end ---------------------------------------------------------------------
 }

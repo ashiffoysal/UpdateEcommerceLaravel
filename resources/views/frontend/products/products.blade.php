@@ -16,7 +16,7 @@
     </div>
 </div>
 <div id="main_content">
-    <div class="breadcrumbs">
+    <div class="breadcrumbs" style="background: url({{asset('public/frontend/image/breadcrumbs.jpg')}}) no-repeat center top;">
         <div class="container">
             <div class="title-breadcrumb">
                 {{$category->cate_name}}

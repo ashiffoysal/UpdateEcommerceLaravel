@@ -17,6 +17,7 @@ use App\Page;
 use App\Banner;
 use Carbon\Carbon;
 use App\SiteBanner;
+use App\OrderPlace;
 use Session;
 use Image;
 use DB;
@@ -851,6 +852,74 @@ class TrashController extends Controller
         $deleteid = $request['delid'];
         if ($deleteid) {
           $delet = SiteBanner::whereIn('id', $deleteid)->update([
+            'is_deleted' => '0',
+            'updated_at' => Carbon::now()->toDateTimeString(),
+          ]);
+          if ($delet) {
+            $notification = array(
+              'messege' => 'Multiple Recover Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Recover Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Recover',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+    }
+  }
+
+
+  // pending order
+  public function alldeleteOrder()
+  {
+    $allorder = OrderPlace::where('is_deleted', 1)->get();
+    return view('admin.ecommerce.trash.order', compact('allorder'));
+  }
+  //
+
+  public function ordermultdel(Request $request)
+  {
+    switch ($request->input('submit')) {
+      case 'delete':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $deletpost = OrderPlace::whereIn('id', $deleteid)->delete();
+          if ($deletpost) {
+            $notification = array(
+              'messege' => 'Multiple Delete Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Delete Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Delete',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+      case 'restore':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $delet = OrderPlace::whereIn('id', $deleteid)->update([
             'is_deleted' => '0',
             'updated_at' => Carbon::now()->toDateTimeString(),
           ]);

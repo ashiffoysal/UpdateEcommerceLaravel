@@ -227,8 +227,11 @@ Route::post('admin/trash/measurement/delete', 'Admin\TrashController@measurement
 Route::get(md5('admin/trash/product'), 'Admin\TrashController@product')->name('admin.trash.product');
 Route::post(md5('admin/trash/product/hearddelete'), 'Admin\TrashController@producthearddel')->name('admin.trash.producthearddel');
 
+
 Route::get(md5('admin/trash/banner'), 'Admin\TrashController@banner')->name('admin.trash.banner');
 Route::post(md5('admin/trash/banmultidel'), 'Admin\TrashController@banmultidel')->name('admin.trash.multidelban');
+Route::get(md5('admin/trash/allorder'), 'admin\trashcontroller@alldeleteorder')->name('admin.trash.allorder');
+Route::post(md5('admin/trash/allorder/multidel'), 'admin\trashcontroller@ordermultdel')->name('admin.trash.ordermultdel');
 
 // footer option area start
 Route::get(md5('admin/footer/option'), 'Admin\FooterController@footerShow')->name('admin.footer.option');
@@ -426,11 +429,28 @@ Route::post(md5('admin/trash/sitebanner/multipledelete'), 'admin\trashcontroller
 
 // order Controller
 
+
+
 Route::get(md5('admin/product/order'), 'admin\ordercontroller@index')->name('admin.productorder');
 Route::get(md5('admin/product/ondelevery'), 'admin\ordercontroller@ondelevery')->name('admin.ondevelery');
 Route::get(md5('admin/product/complateorder'), 'admin\ordercontroller@complateorder')->name('admin.complateorder');
 Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
+
+
+//
+Route::get('admin/product/order/pendingsoftdelete/{id}', 'Admin\OrderController@pendingsoftdelete');
 Route::get('admin/product/order/invoice/{id}', 'Admin\OrderController@invoice');
+Route::get('admin/product/order/restore/{id}', 'Admin\OrderController@orderrestore');
+Route::post('admin/product/order/multideletepending', 'admin\ordercontroller@multideletepending')->name('admin.pendingsoftdelete');
+Route::any('admin/product/status/paymentorder', 'admin\ordercontroller@paymentorder')->name('products.orderpayment');
+Route::get('admin/product/order/hearddelete/{id}', 'Admin\OrderController@orderhearddelete');
+
+// Report controller
+
+Route::get(md5('admin/product/stockreport'),'admin\reportcontroller@productstockreport')->name('admin.product.stock');
+Route::get('/get/admin/report/category/filter','Admin\ReportController@categoryreport');
+Route::get(md5('admin/product/wishlist'),'admin\reportcontroller@wishproduct')->name('admin.product.wishlistpro');
+Route::get(md5('admin/product/bestsell'),'admin\reportcontroller@bestsell')->name('admin.bestsell');
 
 
 //Harrison start

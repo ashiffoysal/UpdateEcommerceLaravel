@@ -9812,7 +9812,7 @@ header .megamenu-style-dev .navbar-default .horizontal .navbar-toggle {
   margin-bottom: 30px;
   color: #fff;
   text-align: center;
-  background: url("../image/breadcrumbs.jpg") no-repeat center top; }
+  /* background: url("../image/breadcrumbs.jpg") no-repeat center top; } */
   .breadcrumbs .title-breadcrumb {
     color: #fff;
     display: block;

@@ -14,12 +14,13 @@
                   <span>Invoice</span>
                 </div>
                 <div class="col-md-6 text-right">
-                  <a href="#" class="btn btn-info">Back</a>
+                 <!--  <a href="#" class="btn btn-info">Back</a> -->
                 </div>
             </div>
             </div>
           </div>
         </br>
+        
         <form action="{{url('admin/delevary/status')}}" method="POST">
           @csrf
           <div class="row">
@@ -27,18 +28,22 @@
             <div class="col-md-4">
               <input type="hidden" name="orderplaceid" value="{{$invoice->id}}">
               <select class="form-control" name="delevary">
-
+                @if($invoice->delevary==1))
                 <option value="1" @if($invoice->delevary==1) selected @else @endif>Panding</option>
                 <option value="2" @if($invoice->delevary==2) selected @else @endif>On Delevery</option>
                 <option value="3" @if($invoice->delevary==3) selected @else @endif>Develared</option>
+                @else
+                <option value="2" @if($invoice->delevary==2) selected @else @endif>On Delevery</option>
+                <option value="3" @if($invoice->delevary==3) selected @else @endif>Develared</option>
+                @endif
               </select>
-
             </div>
             <div class="col-md-2">
               <button type="submit" class="btn btn-success">Develary Status</button>
             </div>
           </div>
         </form>
+        
         </br>
           <div class="panel_body print_element">
 

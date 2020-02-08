@@ -66,6 +66,8 @@ class AddToCartController extends Controller
 
             $add =Cart::session($userid)->add($data);
             // non variation product add
+            $product->number_of_sale++;
+            $product->save();
 
         } else {
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->addtocart_id)->first();
@@ -94,6 +96,9 @@ class AddToCartController extends Controller
                 ],
             ]);
         }
+
+        $product->number_of_sale++;
+        $product->save();
 
         $userid = $request->ip();
         // $getcartdatas = Cart::session($userid)->getContent();

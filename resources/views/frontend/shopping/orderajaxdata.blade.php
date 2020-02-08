@@ -19,7 +19,7 @@
                     <div class="input-group">
                         <input type="text" onkeyup="myUpdateOrder(this)" name="quantity" id="{{$usercartdata->id}}" value="{{$usercartdata->quantity}}" size="1" class="form-control">
                         <span class="input-group-btn">
-                            <button type="button" onclick="orderDatadelete(this)" data-toggle="tooltip" value="{{$usercartdata->id}}" id="orderdelete" title="" data-product-key="317" class="btn-delete" data-original-title="Remove"><i class="fa fa-trash-o"></i></button>
+                            <button type="button" onclick="orderdelete(this)" data-toggle="tooltip" value="{{$usercartdata->id}}" title="" data-product-key="317" class="btn-delete" data-original-title="Remove"><i class="fa fa-trash-o"></i></button>
                             <!-- <button type="submit" data-toggle="tooltip" title="" class="btn btn-primary hidden" data-original-titl="Update"><i class="fa fa-refresh"></i></button> -->
                             <!-- <span data-toggle="tooltip" title="" data-product-key="317" class="btn-update" data-original-title="Update"><i class="fa fa-refresh"></i></span> -->
                         </span>
@@ -75,6 +75,21 @@ if(App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',
     $cupondiscount = App\Cupon::findOrFail($cartdatas)->discount;
 }
 @endphp
+<script>
+    function orderdelete(el) {
+    
+       
+        $.post('{{ route('product.order.delete') }}', {_token: '{{ csrf_token() }}',user_id: el.value},
+            function(data) {
+                $('#orderdata').html(data);
+                toastr.success("Product Deleted successfully");
+               
+            });
+            
+	}
+	
+	orderdelete();
+</script>
 
 <script>
     document.getElementById('cupondiscount').innerHTML =<?php 
@@ -89,18 +104,3 @@ if(App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',
 
 </script>
 
-<script>
-    function orderDatadelete(el) {
-        
-       
-        $.post('{{ route('product.order.delete') }}', {_token: '{{ csrf_token() }}',user_id: el.value},
-            function(data) {
-                $('#orderdata').html(data);
-                toastr.success("Product Deleted successfully");
-               
-            });
-            
-	}
-	
-	orderDatadelete();
-</script>

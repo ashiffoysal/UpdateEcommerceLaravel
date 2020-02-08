@@ -43,261 +43,47 @@
             <span id="close-sidebar" class="fa fa-times"></span>
             <div class="module category-style">
                 <h3 class="modtitle"><span>Categories </span></h3>
+
+                @php
+                    $category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
+                @endphp
                 <div class="mod-content box-category">
+
+                
+                @foreach($category as $menu)
+
                     <ul class="accordion" id="accordion-category">
+                    @php
+                        $check=App\SubCategory::where('cate_id',$menu->id)->first();
+                    @endphp
+                    @if($check)
                         <li class="panel">
-                            <a href="#">Book Stationery </a>
-                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category0 "></a></span>
-                            <div id="category0" class="panel-collapse collapse  " style="clear:both">
+                            <a href="#">{{$menu->cate_name}}</a>
+                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category{{$menu->id}} "></a></span>
+                            @php
+                                $subcategory=App\SubCategory::where('cate_id',$menu->id)->where('is_deleted',0)->get();
+                            @endphp
+                            <div id="category{{$menu->id}}" class="panel-collapse collapse  " style="clear:both">
                                 <ul>
+                                @foreach($subcategory as $subcate)
                                     <li>
-                                        <a href="#">Girls New </a>
+                                        <a href="">{{$subcate->subcate_name}} </a>
                                     </li>
-                                    <li>
-                                        <a href="#">Kitchen </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Pearl mens </a>
-                                    </li>
+                                @endforeach
                                 </ul>
                             </div>
                         </li>
+                        @else
                         <li class="panel">
-                            <a href="#">Laptop &amp; Notebook </a>
+                            <a href="#">{{$menu->cate_name}}</a>
                         </li>
-                        <li class="panel">
-                            <a href="#">Spa &amp; Massage </a>
-                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category2 "></a></span>
-                            <div id="category2" class="panel-collapse collapse  " style="clear:both">
-                                <ul>
-                                    <li>
-                                        <a href="#">Latenge mange </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Necklaces </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Pearl Jewelry </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Slider 925 </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Phones &amp; PDAs </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="panel">
-                            <a href="#">Sport &amp; Entertaiment </a>
-                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category3 "></a></span>
-                            <div id="category3" class="panel-collapse collapse  " style="clear:both">
-                                <ul>
-                                    <li>
-                                        <a href="#">Camping &amp; Hiking </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Cusen mariot </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Engite nanet </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Fashion </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Men </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="panel">
-                            <a href="#">Travel &amp; Vacation </a>
-                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category4 "></a></span>
-                            <div id="category4" class="panel-collapse collapse  " style="clear:both">
-                                <ul>
-                                    <li>
-                                        <a href="#">Best Tours </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Cruises </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Destinations </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Hotel &amp; Resort </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Infocus </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="panel">
-                            <a href="#">Laptops &amp; Notebooks </a>
-                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category5 "></a></span>
-                            <div id="category5" class="panel-collapse collapse  " style="clear:both">
-                                <ul>
-                                    <li>
-                                        <a href="#">Macs </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Windows </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="panel">
-                            <a href="#">Food &amp; Restaurant </a>
-                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category6 "></a></span>
-                            <div id="category6" class="panel-collapse collapse  " style="clear:both">
-                                <ul>
-                                    <li>
-                                        <a href="#">Hanet magente </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Knage unget </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Punge nenune </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Qunge genga </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tange manue </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Web Cameras </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="panel">
-                            <a href="#">Shop Collection </a>
-                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category7 "></a></span>
-                            <div id="category7" class="panel-collapse collapse  " style="clear:both">
-                                <ul>
-                                    <li>
-                                        <a href="#">Hanet magente </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Knage unget </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Latenge mange </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Punge nenune </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Qunge genga </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tange manue </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="panel">
-                            <a href="#">Fashion &amp; Accessories </a>
-                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category8 "></a></span>
-                            <div id="category8" class="panel-collapse collapse  " style="clear:both">
-                                <ul>
-                                    <li>
-                                        <a href="#">Dress Ladies </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Jean </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Men Fashion </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">T-shirt </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Trending </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Western Wear </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Women Fashion </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Bags </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="panel">
-                            <a href="#">Digital &amp; Electronics </a>
-                            <span class="head"><a class="pull-right accordion-toggle " data-toggle="collapse" data-parent="#accordion-category" href="#category9 "></a></span>
-                            <div id="category9" class="panel-collapse collapse  " style="clear:both">
-                                <ul>
-                                    <li>
-                                        <a href="#">Cell Computers </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Computer Accessories </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Computer Headsets </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Desna Jacket </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Electronics </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Headphone </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Laptops </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Mobiles </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Sound </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">USB &amp; HDD </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">VGA and CPU </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Video &amp; Camera </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Video You </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Wireless Speakers </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Camera New </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Case </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Cell &amp; Cable </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Mobile &amp; Table </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Bluetooth Speakers </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        @endif
+                      
+
+
                     </ul>
+
+                    @endforeach
                 </div>
             </div>
             <div class="moduletable module so-extraslider-ltr best-seller best-seller-custom">

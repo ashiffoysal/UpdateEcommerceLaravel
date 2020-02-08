@@ -368,9 +368,23 @@ $logo=DB::table('logos')->first();
                             $complate=App\OrderPlace::where('delevary',3)->count();
                             @endphp
                             <li><a href="{{route('admin.complateorder')}}">All Compleate Orders <span class="badge badge-light">{{$complate}}</span></a></li>
-                            <li><a href="{{url('admin/product/order/invoice')}}">invoice</a></li>
+                            
                         </ul>
                     </li>
+
+                    <li class="single-nav-wrapper">
+                            <a class="has-arrow menu-item" href="#" aria-expanded="false">
+                              <span class="left-icon"><i class="fas fa-people-carry"></i></span>
+                                <span class="menu-text">Reports</span>
+                            </a>
+                            <ul class="dashboard-menu">
+                                <li><a href="{{ route('admin.product.stock') }}">Product Stock</a></li>
+                                <li><a href="{{ route('admin.bestsell')}}">Best Sell Product</a></li>
+                                <li><a href="{{route('admin.product.wishlistpro')}}">Product Wish Report</a></li>
+                                
+                            </ul>
+                        </li>
+
 
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
@@ -442,6 +456,7 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.trash.page')}}">Page</a></li>
                             <li><a href="{{route('admin.trash.banner')}}">Slider</a></li>
                             <li><a href="{{route('admin.trash.sitebanner')}}">SiteBanner</a></li>
+                            <li><a href="{{route('admin.trash.allorder')}}">All Deleted Order</a></li>
                         </ul>
                     </li>
 
