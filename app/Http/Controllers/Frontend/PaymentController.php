@@ -9,9 +9,11 @@ use Stripe\Stripe;
 use App\OrderPlace;
 use App\PaymentDetail;
 use Illuminate\Http\Request;
+use App\Mail\PaymentSuccessMail;
 use Stripe\Exception\CardException;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class PaymentController extends Controller
@@ -54,7 +56,6 @@ class PaymentController extends Controller
                 ],
             ]);
 
-
             if ($charge->status === "succeeded") {
                 $sources = $charge->source;
                 PaymentDetail::insert([
@@ -78,6 +79,13 @@ class PaymentController extends Controller
                 OrderPlace::where('id', $request->order_id)->update([
                     'status' => 1,
                     'is_paid' => 1,
+                ]);
+
+                if (Auth::user()->email) {
+                    Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getPlaceOrder));
+                }
+
+                OrderPlace::where('id', $request->order_id)->update([
                     'payment_secure_id' => null
                 ]);
             }
@@ -85,7 +93,7 @@ class PaymentController extends Controller
             session()->flash('success', 'Thank you, Successfully payment accepted');
             return redirect()->route('payment.stripe.success.view');
         } catch (CardException $e) {
-            return Redirect::refresh()->withErrors(['error', $e->getMessages]);
+            return Redirect::refresh()->withErrors(['error', $e->getMessage()]);
         }
 
         // Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -120,11 +128,11 @@ class PaymentController extends Controller
                 'is_paid' => 1,
                 'status' => 1
             ]);
-            $getOrderPlaceId = OrderPlace::where('order_id', $request->tran_id)->first();
+            $getOrderPlace = OrderPlace::where('order_id', $request->tran_id)->first();
 
             PaymentDetail::insert([
                 'provider_name' => "SSL-COMMERZ",
-                'order_place_id' => $getOrderPlaceId->id,
+                'order_place_id' => $getOrderPlace->id,
                 'transition_id' => $request->tran_id,
                 'pay_amount' => $request->amount,
                 'card_type' => $request->card_type,
@@ -140,6 +148,15 @@ class PaymentController extends Controller
                 'date' => date('d/m/Y'),
                 'time' => date('h:i:s'),
             ]);
+
+            OrderPlace::where('id', $request->order_id)->update([
+                'status' => 1,
+                'is_paid' => 1,
+            ]);
+
+            if (Auth::user()->email) {
+                Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getOrderPlace));
+            }
 
             return view('frontend.payment.ssl_commerce.success', compact('information'));
         }
