@@ -246,8 +246,7 @@ class ProductController extends Controller
                                         if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
                                             $color_name = \App\Color::where('color_code', $item)->first()->color_name;
                                             $str .= $color_name;
-                                        }
-                                        else{
+                                        }else{
                                             $str .= str_replace(' ', '', $item);
                                         }
                                     }
@@ -828,7 +827,7 @@ class ProductController extends Controller
 
         if($request->hasFile('photos')){
             foreach ($request->photos as $key => $photo) {
-                
+
                 $photoName = uniqid() . "." . $photo->getClientOriginalExtension();
                 $resizedPhoto = Image::make($photo)->resize(600, 600)->save($photoName);
                 Storage::disk('public')->put($photoName, $resizedPhoto);

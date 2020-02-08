@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-12">
             <a class="btn btn-success" href="{{ url('/') }}">Continue Shopping</a>
-                <h1 class="alert alert-success text-center">Thank you, Successfully Payment Accepted.:)</h1>
+                <h1 class="alert alert-success text-center">Thank you, Successfully Payment Accepted.</h1>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -20,8 +20,12 @@
                    <table class="table">
                        <tbody>
                             <tr class="text-left">
-                                <td>Prodiver Name</td>
+                                <td>Provider Name</td>
                                 <td>SSL-COMMERCZ</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td>Invoice No:</td>
+                                <td>{{ $information['tran_id'] }}</td>
                             </tr>
                             <tr class="text-left">
                                 <td>Paid Amount </td>
