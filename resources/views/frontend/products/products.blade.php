@@ -495,7 +495,12 @@
                                 $products = App\Product::where('is_deleted',0)->where('cate_id',$category->id)->orderBy('id','DESC')->limit(9)->get();
                                 @endphp
                                 @foreach($products as $product)
+                                <form id="option-choice-form">
+                                <input type="hidden" value="1" name="quantity">
+                                <input type="hidden" value="{{$product->id}}" name="product_id">
+                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                 <div class="product-layout col-lg-4 col-md-4 col-sm-6 col-xs-6">
+
                                     <div class="product-item-container">
                                         <div class="left-block">
                                             <div class="product-image-container  second_img  ">
@@ -541,11 +546,25 @@
                                                 <a class="quickview iframe-link visible-lg btn-button" data-fancybox-type="iframe" href="{{url('product/details/'.$product->id)}}"> <i class="fa fa-search"></i> </a>
                                                 <button class="wishlist btn-button" type="button" data-toggle="tooltip" title="" onclick="wishlist.add('105');" data-original-title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
                                                 <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('105');" data-original-title="Compare this Product"><i class="fa fa-retweet"></i></button>
-                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('105', '2');" data-original-title="Add to Cart"><span class="hidden">Add to Cart </span></button>
+
+
+
+
+
+                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('105', '2');cataddtocart(this);" data-original-title="Add to Cart"><span class="hidden">Add to Cart </span></button>
+
+
+
+
+
+
+
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                                 @endforeach
                                 <!-- endcategory product -->
                             </div>
@@ -579,6 +598,28 @@
 <!-- //Main Container -->
 @endsection
 @push('js')
+
+<script>
+
+function cataddtocart(){
+    
+    $.ajax({
+type:'GET',
+url:"{{ route('product.add.cart') }}",
+data: $('#option-choice-form').serializeArray(),
+success: function (data) {
+    console.log(data);
+    document.getElementById('cartdatacount').innerHTML =data.quantity;
+    document.getElementById('product_price').innerHTML =data.total;
+
+}
+});
+
+}
+cataddtocart();
+</script>
+
+
 <script>
     $(document).ready(function(){
         $(".fa-chevron-down").on('click',function(){
@@ -618,4 +659,6 @@
         })
     });
 </script>
+
+
 @endpush

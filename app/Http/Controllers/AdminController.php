@@ -138,4 +138,11 @@ class AdminController extends Controller
           return Redirect()->route('admin.login')->with($notification); 
     }
 
+
+    // flash deal area start
+    public function flashDealShow()
+    {
+      
+    }
+
 }
