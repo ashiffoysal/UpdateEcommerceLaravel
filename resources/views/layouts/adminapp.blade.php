@@ -359,16 +359,17 @@ $logo=DB::table('logos')->first();
                             <span class="menu-text">Order @if($pending > 0)<span class="badge badge-secondary">New</span> @else @endif</span>
                         </a>
                         <ul class="dashboard-menu">
-                            <li><a href="{{route('admin.productorder')}}">All Pending Orders <span class="badge badge-light">{{$pending}}</span></a></li>
+                            <li><a href="{{route('admin.productorder')}}">Pending Orders <span class="badge badge-light">{{$pending}}</span></a></li>
+                            @php
+                              $onprocess=App\OrderPlace::where('delevary',4)->count();
+                            @endphp
+                            <li><a href="{{route('admin.productprocess')}}">Processing Orders <span class="badge badge-light">{{$onprocess}}</span></a></li>
                             @php
                             $ondevelery=App\OrderPlace::where('delevary',2)->count();
                             @endphp
                             <li><a href="{{route('admin.ondevelery')}}">On Delevery Orders <span class="badge badge-light">{{$ondevelery}}</span></a></li>
-                            @php
-                            $complate=App\OrderPlace::where('delevary',3)->count();
-                            @endphp
-                            <li><a href="{{route('admin.complateorder')}}">All Compleate Orders <span class="badge badge-light">{{$complate}}</span></a></li>
-                            
+                            <li><a href="{{route('admin.complateorder')}}">Compleate Orders</a></li>
+                            <li><a href="{{route('admin.rejecteorder')}}">Reject Orders<span class="badge badge-light"></span></a></li>
                         </ul>
                     </li>
 
@@ -381,7 +382,7 @@ $logo=DB::table('logos')->first();
                                 <li><a href="{{ route('admin.product.stock') }}">Product Stock</a></li>
                                 <li><a href="{{ route('admin.bestsell')}}">Best Sell Product</a></li>
                                 <li><a href="{{route('admin.product.wishlistpro')}}">Product Wish Report</a></li>
-                                
+
                             </ul>
                         </li>
 

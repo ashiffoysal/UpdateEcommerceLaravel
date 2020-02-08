@@ -17,7 +17,7 @@
 										</div>
 									</div>
 									<div class="col-md-6 text-right">
-										
+
 									</div>
 								</div>
 							</div>
@@ -39,7 +39,7 @@
 		                                      <th>#</th>
 		                                      <th>Order Code</th>
 		                                      <th>Order Quantity</th>
-                                              <th>Amount</th>
+                                          <th>Amount</th>
 		                                      <th>Customer</th>
 		                                      <th>Delevery Status</th>
 		                                      <th>Payment Method</th>
@@ -81,11 +81,11 @@
 		                                            @endif
 	                                          	</td>
 		                                    <td>
-												@if($data->payment_status==1)
-											    <span class="btn btn-success">paid</span>
-												@else
-											    <span class="btn btn-danger">unpaid</span>
-												@endif
+																					@if($data->payment_status==1)
+																				    <span class="btn btn-success">paid</span>
+																					@else
+																				    <span class="btn btn-danger">unpaid</span>
+																					@endif
 		                                    </td>
                                           <td>
                                               <label class="switch">
@@ -96,9 +96,6 @@
 
 		                                       <td>
 		                                          <a  href="{{url('admin/product/order/invoice/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-eye"></i></a>
-
-												  <!-- <a href="" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a> -->
-
 		                                          <a id="delete" href="{{url('admin/product/order/pendingsoftdelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 		                                       </td>
 		                                  </tr>
@@ -146,14 +143,14 @@
 		//alert('success');
             if(el.checked){
                 var payment_status = 1;
-                
+
             }
             else{
                 var payment_status = 0;
             }
-            $.post('{{ route('products.orderpayment') }}', 
-            	{_token:'{{ csrf_token() }}', 
-            	id:el.value, payment_status:payment_status}, 
+            $.post('{{ route('products.orderpayment') }}',
+            	{_token:'{{ csrf_token() }}',
+            	id:el.value, payment_status:payment_status},
             	function(data){
                 if(data == 1){
                     //alert('success');

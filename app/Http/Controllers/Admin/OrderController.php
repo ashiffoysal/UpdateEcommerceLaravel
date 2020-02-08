@@ -20,12 +20,20 @@ class OrderController extends Controller
     $allorder = OrderPlace::orderBy('id', 'DESC')->where('delevary', 1)->where('is_deleted', 0)->get();
     return view('admin.ecommerce.order.all', compact('allorder'));
   }
+  // processing product
+  public function processproduct()
+  {
+    $process = OrderPlace::orderBy('id', 'DESC')->where('delevary', 4)->where('is_deleted', 0)->get();
+    return view('admin.ecommerce.order.processing', compact('process'));
+  }
 
+// ondevelery product
   public function ondelevery()
   {
     $ondevelery = OrderPlace::orderBy('id', 'DESC')->where('delevary', 2)->where('is_deleted', 0)->get();
     return view('admin.ecommerce.order.ondelevery', compact('ondevelery'));
   }
+  //
   public function complateorder()
   {
     $complate = OrderPlace::orderBy('id', 'DESC')->where('delevary', 3)->where('is_deleted', 0)->get();
@@ -37,6 +45,14 @@ class OrderController extends Controller
     $invoice = OrderPlace::where('id', $id)->first();
     return view('admin.ecommerce.invoice.invoice', compact('invoice'));
   }
+
+  public function rejecteorder(){
+    $rejectorder = OrderPlace::orderBy('id', 'DESC')->where('delevary',5)->where('is_deleted', 0)->get();
+    return view('admin.ecommerce.order.rejectproduct', compact('rejectorder'));
+  }
+
+
+
   public function deleverystatus(Request $request)
   {
     $id = $request->orderplaceid;
@@ -154,7 +170,7 @@ class OrderController extends Controller
   }
 
 
-  // order hearddelete 
+  // order hearddelete
   public function orderhearddelete($id)
   {
     $delete = OrderPlace::where('id', $id)->delete();
