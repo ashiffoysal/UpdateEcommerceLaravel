@@ -1084,7 +1084,7 @@ $bottomimage=App\SiteBanner::where('section',1)->where('is_deleted',0)->where('s
 @foreach($bottomimage as $bimage)
 <div class="col-lg-6 col-md-6 col-sm-6 banners">
 <div>
-<a title="Static Image" href="#"><img src="{{asset('public/uploads/sitebanner/'.$bimage->image)}}" alt="Static Image"></a>
+<a title="Static Image" href="#"><img src="{{asset('public/uploads/sitebanner/'.$bimage->image)}}" alt="{{$bimage->image}}"></a>
 </div>
 </div>
 @endforeach    
