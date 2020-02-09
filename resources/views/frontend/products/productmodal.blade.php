@@ -69,8 +69,8 @@
                                 <div class="owl2-item ">
                                     <div class="image-additional">
 
-                                        <a data-index="0" class="img thumbnail" data-image="{{url('storage/app/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio">
-                                            <img src="{{url('storage/app/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio" alt="Canada Travel One or Two European Facials at  Studio">
+                                        <a data-index="0" class="img thumbnail" data-image="{{url('storage/app/public/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio">
+                                            <img src="{{url('storage/app/public/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio" alt="Canada Travel One or Two European Facials at  Studio">
 
                                         </a>
                                     </div>
@@ -176,14 +176,14 @@
 												</label>
                                             </div>
 
-                                            
+
                                         @endforeach
-											
+
 										</div>
 									</div>
-								
+
                                 </div>
-                                
+
 
 
 
@@ -330,7 +330,7 @@
 
 
 function modeladdtocart(){
-    
+
 
 
 

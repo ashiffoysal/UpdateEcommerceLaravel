@@ -1,10 +1,10 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
       <!-- content wrpper -->
 			<div class="content_wrapper">
 				<!--middle content wrapper-->
 				<div class="middle_content_wrapper">
-					
+
 				<section class="page_area">
 					<div class="panel">
 						<div class="panel_header">
@@ -17,7 +17,7 @@
 									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.product.all')}}" style="color: #fff;">All Product</a></button>
 								</div>
 							</div>
-							
+
 						</div>
 						<div class="panel_body">
 							<form action="{{route('admin.product.update',$data->id)}}" method="POST" id="choice_form" enctype="multipart/form-data">
@@ -134,14 +134,14 @@
 									$mainlicenceid=App\ProductLicense::where('product_id',$licenceid)->get();
 								  @endphp
 								  @foreach($mainlicenceid as $productlicense)
-								  
+
 									  <div class="form-group row">
 									    <label for="inputPassword" class="col-sm-3 col-form-label text-right"></label>
 									    <div class="col-md-2">
 									      <input type="text" class="form-control" name="license_key[]" placeholder="License Key" value="{{$productlicense->license_key}}">
 									      <input type="hidden" name="licenseid[]" value="{{$productlicense->id}}">
 									      <input type="hidden" name="proid" value="{{$productlicense->product_id}}">
-									    
+
 									    </div>
 									     <div class="col-md-2">
 									      <input type="number" class="form-control" name="license_quantity[]" placeholder="License Quantity" value="{{$productlicense->license_quantity}}">
@@ -153,10 +153,10 @@
 									  </div>
 									 @endforeach
 
-									 
+
 								    <div  id="customer_choice_options" name="customer_choice_options">
-								   		
-								   			
+
+
 								   	</div>
 								   <div class="form-group row">
 								   		 <label for="inputPassword" class="col-md-3 col-form-label text-right"></label>
@@ -164,8 +164,8 @@
 									      <a class="btn btn-success text-white" onclick="add_more_customer_choice_option()"><i class="fas fa-plus"></i> Add More Field</a>
 									    </div>
 								    </div>
-		                      
-								 <div class="row">
+
+								 {{-- <div class="row">
 		                          	<div class="col-md-3"></div>
 		                          	<div class="col-md-8">
 		                             	<label class="chech_container mb-4">
@@ -174,9 +174,9 @@
 											Flash Deal
 										</label>
 		                          	</div>
-		                        </div>
+		                        </div> --}}
 
-		                         <div id="flash_deal_section" @if($data->allow_flash_deal==1) @else style="display: none;" @endif>
+		                         {{-- <div id="flash_deal_section" @if($data->allow_flash_deal==1) @else style="display: none;" @endif>
 		                              <div  class="row">
 		                                <div class="col-md-3"></div>
 		                                <div class="col-md-6 row">
@@ -210,7 +210,7 @@
 		                                    </div>
 		                                </div>
 		                             </div>
-                          		</div>
+                          		</div> --}}
                           		<div style="margin-top: 15px">
 	                          		<div class="row">
 	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
@@ -258,7 +258,7 @@
 													<div class="img-upload-preview">
 														<img src="{{url('storage/app/'.$photo) }}" alt="" height="150px" width="170px;">
 														<input type="hidden" name="previous_photos[]" value="{{ $photo }}">
-														
+
 													</div>
 												</div>
 											@endforeach
@@ -282,16 +282,16 @@
 										<br>
 									</div>
 									<div class="col-md-5">
-										
+
 										<div id="thumbnail_img" class="">
-										
+
 									   </div>
 									</div>
-									
-								</div>
-								 
 
-							
+								</div>
+
+
+
 								<!-- image end -->
 								<div class="form-group row">
 									<div class="col-md-12 text-center">
@@ -299,11 +299,11 @@
 									</div>
 								</div>
 							</form>
-								
-						</div>	
+
+						</div>
 					</div>
 				</section>
-			</div><!--/middle content wrapper-->  
+			</div><!--/middle content wrapper-->
 			</div><!--/ content wrapper -->
    <!-- script code start -->
  <script>
@@ -321,7 +321,7 @@
  <script>
  $(document).ready(function(){
   $(".delete").click(function(){
-  	
+
    	var id=$(this).attr('id');
    	//alert(id);
    	$.ajax({
@@ -357,20 +357,20 @@
   $(document).ready(function() {
      $('select[name="cate_id"]').on('change', function(){
          var cate_id = $(this).val();
-        
+
          if(cate_id) {
              $.ajax({
                  url: "{{  url('/get/subcategory/all/') }}/"+cate_id,
                  type:"GET",
                  dataType:"json",
                  success:function(data) {
-                     
+
                         $('#subcate_id').empty();
                         $('#subcate_id').append(' <option value="0">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
                        });
-                     } 
+                     }
              });
          } else {
              alert('danger');
@@ -391,13 +391,13 @@
                  type:"GET",
                  dataType:"json",
                  success:function(data) {
-                     
+
                         $('#resubcate_id').empty();
                         $('#resubcate_id').append(' <option value="0">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#resubcate_id').append('<option value="' + districtObj.id + '">'+districtObj.resubcate_name+'</option>');
                        });
-                     } 
+                     }
              });
          } else {
              alert('danger');
@@ -457,7 +457,7 @@
 				$("#selectlink").hide();
 			}
 	});
-	
+
 });
 
 </script>

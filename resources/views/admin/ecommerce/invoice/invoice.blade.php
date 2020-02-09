@@ -126,10 +126,10 @@
                                           </td>
                                           <td>{{$data->quantity}}</td>
                                           <td>৳ {{$data->price}}</td>
-
                                           <td>৳ 27,98 </td>
                                       </tr>
                                     @endforeach
+
 
                                   </tbody>
                               </table>

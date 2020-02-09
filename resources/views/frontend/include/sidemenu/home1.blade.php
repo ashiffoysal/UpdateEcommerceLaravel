@@ -38,11 +38,10 @@
                                                 <span>
                                                     <strong><img src="{{asset('public/frontend')}}/image/catalog/demo/menu/icon/icon-6.png" alt="">Hot Deals</strong>
                                                 </span>
-                                                
                                             </a>
                                         </li>
                                         @php
-                                        $category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
+                                        $category = App\Category::where('is_deleted',0)->where('cate_status',1)->get();
                                         @endphp
                                         @foreach($category as $menu)
                                         <li class="item-vertical  vertical-style2 with-sub-menu hover">
@@ -66,7 +65,6 @@
                                                                     @php
                                                                     $subcategory=App\SubCategory::where('cate_id',$menu->id)->where('is_deleted',0)->get();
                                                                     @endphp
-                                                                    
                                                                     <div class="col-md-7 col-sm-8">
                                                                         @foreach($subcategory as $subcate)
                                                                         <div class="item-3 col-md-6 cat-child icon-2 parent">
@@ -82,7 +80,7 @@
                                                                         </div>
                                                                         @endforeach
                                                                     </div>
-                                                                    
+
                                                                     <div class="img-banner col-lg-5 col-md-5 col-sm-4">
                                                                         <a href="#"><img src="{{asset('public/frontend/')}}/image/catalog/demo/menu/img-static-megamenu-h.jpg" alt="banner"></a>
                                                                     </div>
@@ -100,11 +98,18 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        
+
                                         @endif
-                                        
+
                                         @endforeach
-                                        <li class="loadmore"><i class="fa fa-plus-square"></i><span class="more-view"> More Categories</span></li>
+                                        <li class="loadmore">
+                                            <i class="fa fa-plus-square">
+
+                                            </i><span class="more-view">More Categories
+                                                
+                                            </span>
+                                        </li>
+
                                     </ul>
                                 </div>
                             </div>

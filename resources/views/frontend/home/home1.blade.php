@@ -15,9 +15,6 @@
     </div>
 </div>
 
-
-
-
 <div id="main_content">
 <div class="so-page-builder">
     <div class="container page-builder-ltr">
@@ -80,7 +77,9 @@
                             <span>Hot Deals</span>
                             </h2>
                             <div class="cs-item-timer">
-                                <div class="Countdown-1"></div>
+                                <div class="Countdown-1">
+
+                                </div>
                             </div>
                         </div>
                         <div class="modcontent">
@@ -88,7 +87,7 @@
                                 <div class="category-slider-inner products-list yt-content-slider" data-rtl="yes" data-autoplay="yes" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="4" data-items_column0="4" data-items_column1="4" data-items_column2="2" data-items_column3="2" data-items_column4="1" data-arrows="no" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
                                     <!-- product start -->
                                     @php
-                                    $flash_id=$hotdeals->id;
+                                    $flash_id = $hotdeals->id;
                                     $flashdetails=App\FlashDealDetail::where('flash_deal_id',$flash_id)->get();
                                     @endphp
                                     @foreach($flashdetails as $flasdetail)
@@ -806,7 +805,7 @@
                                                   @php
                                                     $sitbanmain=$neban_image->siteban_id;
                                                     $maiimage=App\SiteBanner::where('id',$sitbanmain)->where('is_deleted',0)->where('status',1)->first();
-                                                    
+
                                                   @endphp
                                                     @if($maiimage)
                                                       <div>
@@ -1316,5 +1315,16 @@ success: function (data) {
     });
 </script>
 
+<script>
+
+    $(function () {
+    $('.Countdown-1').countdown('{{ $hotdeals->end_date }}', function(event) {
+        $(this).html(event.strftime(''+ '<div class="time-item time-day"><div class="num-time">%D</div><div class="name-time"> D </div></div>'
+        + '<div class="time-item time-hour"><div class="num-time">%H</div><div class="name-time">H</div></div>'
+        + '<div class="time-item time-min"><div class="num-time">%M</div><div class="name-time">M </div></div>'
+        + '<div class="time-item time-sec"><div class="num-time">%S</div><div class="name-time">S</div></div>'));
+      });
+});
+</script>
 
 @endsection

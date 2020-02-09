@@ -441,6 +441,13 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
     );
 
     public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Twocheckout' => 
+            array (
+                0 => __DIR__ . '/..' . '/2checkout/2checkout-php/lib',
+            ),
+        ),
         'M' => 
         array (
             'Mockery' => 
@@ -541,6 +548,7 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Logo' => __DIR__ . '/../..' . '/app/Logo.php',
         'App\\MailDraft' => __DIR__ . '/../..' . '/app/MailDraft.php',
+        'App\\Mail\\PaymentSuccessMail' => __DIR__ . '/../..' . '/app/Mail/PaymentSuccessMail.php',
         'App\\Mail\\ReplyMailToVisitor' => __DIR__ . '/../..' . '/app/Mail/ReplyMailToVisitor.php',
         'App\\Mail\\SendMailToSubscriber' => __DIR__ . '/../..' . '/app/Mail/SendMailToSubscriber.php',
         'App\\Mail\\UserVerificationMail' => __DIR__ . '/../..' . '/app/Mail/UserVerificationMail.php',
@@ -4831,6 +4839,21 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+        'Twocheckout' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout.php',
+        'Twocheckout_Api_Requester' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutApi.php',
+        'Twocheckout_Charge' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/TwocheckoutCharge.php',
+        'Twocheckout_Company' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutAccount.php',
+        'Twocheckout_Contact' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutAccount.php',
+        'Twocheckout_Coupon' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutCoupon.php',
+        'Twocheckout_Error' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutError.php',
+        'Twocheckout_Message' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/TwocheckoutMessage.php',
+        'Twocheckout_Notification' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/TwocheckoutNotification.php',
+        'Twocheckout_Option' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutOption.php',
+        'Twocheckout_Payment' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutPayment.php',
+        'Twocheckout_Product' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutProduct.php',
+        'Twocheckout_Return' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/TwocheckoutReturn.php',
+        'Twocheckout_Sale' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutSale.php',
+        'Twocheckout_Util' => __DIR__ . '/..' . '/2checkout/2checkout-php/lib/Twocheckout/Api/TwocheckoutUtil.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',

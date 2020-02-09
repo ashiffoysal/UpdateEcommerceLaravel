@@ -7,7 +7,7 @@
 			<div class="row">
 				<div class="col-lg-3 col-xs-6 header-logo ">
 					<div class="navbar-logo">
-						<a href="#"><img src="{{asset('public/frontend/image/catalog/demo/logo/logo-2.png')}}" alt="Your Store" width="110" height="27" title="Your Store"></a>
+						<a href="{{ url('/') }}"><img src="{{asset('public/frontend/image/catalog/demo/logo/logo-2.png')}}" alt="Your Store" width="110" height="27" title="Your Store"></a>
 					</div>
 				</div>
 				<div class="col-lg-7 header-sevices">
@@ -60,7 +60,7 @@
 											@php
 												$userid =  \Request::getClientIp(true);
 											@endphp
-											
+
 											<span class="items_cart" id="cartdatacount">{{Cart::session($userid)->getTotalQuantity() }}</span>
 											<span class="items_cart2">item(s)</span>
 											<span class="items_carts" id="product_price"> - {{Cart::session($userid)->getTotal()}}</span>
@@ -167,7 +167,7 @@
 <script>
     function myAddToCartData() {
 		var userip =$("#cartdataid").data("id");
-		
+
         $.post('{{ route('add.cart.show') }}', {_token: '{{ csrf_token() }}',user_id: userip},
             function(data) {
 			   $('#addtocartshow').html(data);

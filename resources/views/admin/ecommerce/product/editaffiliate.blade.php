@@ -1,10 +1,10 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
       <!-- content wrpper -->
 			<div class="content_wrapper">
 				<!--middle content wrapper-->
 				<div class="middle_content_wrapper">
-					
+
 				<section class="page_area">
 					<div class="panel">
 						<div class="panel_header">
@@ -16,7 +16,7 @@
 									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.product.all')}}" style="color: #fff;">All Affiliate Product</a></button>
 								</div>
 							</div>
-							
+
 						</div>
 						<div class="panel_body">
 							<form action="{{route('admin.product.update',$data->id)}}" method="POST" id="choice_form" enctype="multipart/form-data">
@@ -120,7 +120,7 @@
 								     <input type="text" name="upload_link" class="form-control" value="{{$data->upload_link}}">
 								    </div>
 								 </div>
-								 <div class="row">
+								 {{-- <div class="row">
 		                          	<div class="col-md-3"></div>
 		                          	<div class="col-md-8">
 		                             	<label class="chech_container mb-4">
@@ -129,9 +129,9 @@
 											Flash Deal
 										</label>
 		                          	</div>
-		                        </div>
+		                        </div> --}}
 
-		                         <div id="flash_deal_section"@if($data->allow_flash_deal==1) checked  @else style="display: none;" @endif>
+		                         {{-- <div id="flash_deal_section"@if($data->allow_flash_deal==1) checked  @else style="display: none;" @endif>
 		                              <div  class="row">
 		                                <div class="col-md-3"></div>
 		                                <div class="col-md-6 row">
@@ -165,7 +165,7 @@
 		                                    </div>
 		                                </div>
 		                             </div>
-                          		</div>
+                          		</div> --}}
                           		<div style="margin-top: 15px">
 	                          		<div class="row">
 	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
@@ -213,7 +213,7 @@
 													<div class="img-upload-preview">
 														<img src="{{url('storage/app/'.$photo) }}" alt="" height="150px" width="170px;">
 														<input type="hidden" name="previous_photos[]" value="{{ $photo }}">
-														
+
 													</div>
 												</div>
 											@endforeach
@@ -237,20 +237,20 @@
 										<br>
 									</div>
 									<div class="col-md-5">
-										
+
 										<div id="thumbnail_img" class="">
-										
+
 									   </div>
 									</div>
-									
+
 								</div>
 								<div class="form-group row">
 									<div class="col-md-12 text-center">
 										<button type="submit" class="btn btn-primary">Add Product</button>
 									</div>
 								</div>
-							</form>	
-						</div>	
+							</form>
+						</div>
 					</div>
 				</section>
 			</div>
@@ -260,20 +260,20 @@
   $(document).ready(function() {
      $('select[name="cate_id"]').on('change', function(){
          var cate_id = $(this).val();
-        
+
          if(cate_id) {
              $.ajax({
                  url: "{{  url('/get/subcategory/all/') }}/"+cate_id,
                  type:"GET",
                  dataType:"json",
                  success:function(data) {
-                     
+
                         $('#subcate_id').empty();
                         $('#subcate_id').append(' <option value="0">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
                        });
-                     } 
+                     }
              });
          } else {
              alert('danger');
@@ -297,13 +297,13 @@
                  type:"GET",
                  dataType:"json",
                  success:function(data) {
-                     
+
                         $('#resubcate_id').empty();
                         $('#resubcate_id').append(' <option value="0">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#resubcate_id').append('<option value="' + districtObj.id + '">'+districtObj.resubcate_name+'</option>');
                        });
-                     } 
+                     }
              });
          } else {
              alert('danger');
@@ -357,7 +357,7 @@
 				$("#selectlink").hide();
 			}
 	});
-	
+
 });
 
 </script>

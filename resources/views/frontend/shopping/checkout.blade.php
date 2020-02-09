@@ -12,7 +12,6 @@
 		<div id="content" class="col-sm-12">
 			<h1>Place Order</h1>
 
-
 			<form action="{{route('place.order.submit')}}" method="post">
 				@csrf
 				<div class="so-onepagecheckout layout1">
@@ -229,15 +228,6 @@
 					</div>
 
 
-
-
-
-
-
-
-
-
-
 					<div class="col-right col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<section class="section-left">
 							<div class="ship-payment">
@@ -267,7 +257,8 @@
 												<input type="radio" name="payment_method_id" value="1" > Cash On Delivery <br>
 												<input type="radio" name="payment_method_id" value="2" >Stripe<br>
 												<input type="radio" name="payment_method_id" value="3" > Paypal<br>
-												<input type="radio" name="payment_method_id" value="4" > SSL Commerce
+												<input type="radio" name="payment_method_id" value="4" > SSL Commerce<br/>
+												<input type="radio" name="payment_method_id" value="5" > 2Checkout<br/>
 												@error('payment_method_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
 												@enderror
@@ -510,19 +501,15 @@
 
         myVar = setTimeout(function(){
 
-            $.post('{{ route('product.order.update') }}', {_token: '{{ csrf_token() }}',quantity: el.value,rowid:el.id},
+            $.post('{{ route('product.order.update') }}', {_token: '{{ csrf_token() }}', quantity: el.value, rowid:el.id },
             function(data) {
 				$('#orderdata').html(data);
                 if (data) {
-
                     toastr.success("Product Quantity Changed successfully");
                 }
             });
 			toastr.success("Product Quantity Changed successfully");
         }, 1000);
-
-
-
     }
 
     myUpdateOrder();
@@ -625,10 +612,5 @@
         })
     });
 </script>
-
-
-
-
-
 
 @endsection

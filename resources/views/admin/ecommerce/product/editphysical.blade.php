@@ -14,7 +14,7 @@
 								</div>
 								<div class="col-md-6 text-right">
 									<button type="submit" class="btn btn-primary"><i class="fas fa-undo-alt"></i> <a href="{{route('admin.product.producttype')}}" style="color: #fff;"> Back</a></button>
-									
+
 									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.product.all')}}" style="color: #fff;">All Product</a></button>
 								</div>
 							</div>
@@ -204,7 +204,7 @@
 									     </select>
 								    </div>
 								 </div>
-								 <div class="row">
+								 {{-- <div class="row">
 		                          	<div class="col-md-3"></div>
 		                          	<div class="col-md-8">
 		                             	<label class="chech_container mb-4">
@@ -213,9 +213,9 @@
 											Flash Deal
 										</label>
 		                          	</div>
-		                        </div>
+		                        </div> --}}
 
-		                         <div id="flash_deal_section" @if($data->allow_flash_deal==1)  @else style="display:none" @endif>
+		                         {{-- <div id="flash_deal_section" @if($data->allow_flash_deal==1)  @else style="display:none" @endif>
 		                              <div  class="row">
 		                                <div class="col-md-3"></div>
 		                                <div class="col-md-6 row">
@@ -249,7 +249,7 @@
 		                                    </div>
 		                                </div>
 		                             </div>
-                          		</div>
+                          		</div> --}}
                           		<div style="margin-top: 15px">
 	                          		<div class="row">
 	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
@@ -298,7 +298,7 @@
 													<div class="img-upload-preview">
 														<img src="{{url('storage/app/'.$photo) }}" alt="" height="150px" width="170px;">
 														<input type="hidden" name="previous_photos[]" value="{{ $photo }}">
-														
+
 													</div>
 												</div>
 											@endforeach
@@ -322,12 +322,12 @@
 										<br>
 									</div>
 									<div class="col-md-5">
-										
+
 										<div id="thumbnail_img" class="">
-										
+
 									   </div>
 									</div>
-									
+
 								</div>
 
 								<div class="form-group row">
@@ -341,7 +341,7 @@
 						</div>
 					</div>
 				</section>
-			</div><!--/middle content wrapper-->  
+			</div><!--/middle content wrapper-->
 			</div><!--/ content wrapper -->
    <!-- script code start -->
  <script>
@@ -391,7 +391,7 @@ $('input[name="unit_price"]').on('keyup', function() {
 	   });
 	}
 
-	
+
 
  </script>
 
