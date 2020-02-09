@@ -15,9 +15,6 @@
     </div>
 </div>
 
-
-
-
 <div id="main_content">
     <div class="so-page-builder">
         <div class="container page-builder-ltr">
@@ -70,47 +67,49 @@
                 </div>
             </div>
         </div>
-        <section id="box-link1" class="section-style">
-            <div class="container page-builder-ltr">
-                <div class="row row-style row_a1">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_a1c  block block_3 title_neo1">
-                        <div class="module so-deals-1tr home1_deals so-deals">
-                            <div class="head-title">
-                                <h2 class="modtitle font-ct">
-                                    <span>Hot Deals</span>
-                                </h2>
-                                <div class="cs-item-timer">
-                                    <div class="Countdown-1"></div>
+
+    </div>
+    <section id="box-link1" class="section-style">
+        <div class="container page-builder-ltr">
+            <div class="row row-style row_a1">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_a1c  block block_3 title_neo1">
+                    <div class="module so-deals-1tr home1_deals so-deals">
+                        <div class="head-title">
+                            <h2 class="modtitle font-ct">
+                            <span>Hot Deals</span>
+                            </h2>
+                            <div class="cs-item-timer">
+                                <div class="Countdown-1">
+
                                 </div>
                             </div>
-                            <div class="modcontent">
-                                <div class="so-deal modcontent products-list grid clearfix clearfix preset00-3 preset01-3 preset02-2 preset03-2 preset04-1  button-type1  style2">
-                                    <div class="category-slider-inner products-list yt-content-slider" data-rtl="yes" data-autoplay="yes" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="4" data-items_column0="4" data-items_column1="4" data-items_column2="2" data-items_column3="2" data-items_column4="1" data-arrows="no" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
-                                        <!-- product start -->
-                                        @php
-                                        $flash_id=$hotdeals->id;
-                                        $flashdetails=App\FlashDealDetail::where('flash_deal_id',$flash_id)->get();
-                                        @endphp
-                                        @foreach($flashdetails as $flasdetail)
+                        </div>
+                        <div class="modcontent">
+                            <div class="so-deal modcontent products-list grid clearfix clearfix preset00-3 preset01-3 preset02-2 preset03-2 preset04-1  button-type1  style2">
+                                <div class="category-slider-inner products-list yt-content-slider" data-rtl="yes" data-autoplay="yes" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="4" data-items_column0="4" data-items_column1="4" data-items_column2="2" data-items_column3="2" data-items_column4="1" data-arrows="no" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+                                    <!-- product start -->
+                                    @php
+                                    $flash_id = $hotdeals->id;
+                                    $flashdetails=App\FlashDealDetail::where('flash_deal_id',$flash_id)->get();
+                                    @endphp
+                                    @foreach($flashdetails as $flasdetail)
 
-                                        <div class="item">
-                                            <div class="transition product-layout">
-                                                <div class="product-item-container ">
-                                                    <div class="left-block so-quickview">
-                                                        <div class="image">
-                                                            <a href="product.html" target="_self">
-                                                                <img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" alt="Bougainvilleas on Lombard Street,  San Francisco, Tokyo" class="img-responsive">
+                                    <div class="item">
+                                        <div class="transition product-layout">
+                                            <div class="product-item-container ">
+                                                <div class="left-block so-quickview">
+                                                    <div class="image">
+                                                        <a href="product.html" target="_self">
+                                                        <img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" alt="Bougainvilleas on Lombard Street,  San Francisco, Tokyo" class="img-responsive">
+                                                        </a>
+                                                    </div>
+                                                    <div class="box-label">
+                                                        <span class="label-product label-sale">Sale</span>
+                                                    </div>
+                                                    <div class="button-group">
+                                                        <div class="button-inner so-quickview">
+                                                            <a class="lt-image hidden" data-product="35" href="#" target="_self" title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">
                                                             </a>
-                                                        </div>
-                                                        <div class="box-label">
-                                                            <span class="label-product label-sale">Sale</span>
-                                                        </div>
-                                                        <div class="button-group">
-                                                            <div class="button-inner so-quickview">
-                                                                <a class="lt-image hidden" data-product="35" href="#" target="_self" title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">
-                                                                </a>
-
-
                                                             <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('admin/product/modal/show')}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe"> <i class="fa fa-search"></i> </a>
                                                             @if(Auth::guard('web')->check())
                                                             <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$flasdetail->product->id}}"> <i class="fa fa-heart"></i></button>
@@ -1410,5 +1409,16 @@
         });
     </script>
 
+<script>
+
+    $(function () {
+    $('.Countdown-1').countdown('{{ $hotdeals->end_date }}', function(event) {
+        $(this).html(event.strftime(''+ '<div class="time-item time-day"><div class="num-time">%D</div><div class="name-time"> D </div></div>'
+        + '<div class="time-item time-hour"><div class="num-time">%H</div><div class="name-time">H</div></div>'
+        + '<div class="time-item time-min"><div class="num-time">%M</div><div class="name-time">M </div></div>'
+        + '<div class="time-item time-sec"><div class="num-time">%S</div><div class="name-time">S</div></div>'));
+      });
+});
+</script>
 
     @endsection

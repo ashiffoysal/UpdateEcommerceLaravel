@@ -3,28 +3,32 @@
 namespace App\Http\Controllers\Frontend;
 
 use Cart;
-use App\User;
+use PayPal;
 // use Auth;
+use App\User;
 use App\Cupon;
 use App\Product;
+use Twocheckout;
 use Carbon\Carbon;
 use App\OrderPlace;
 use App\UserAddress;
 use App\OrderStorage;
 use App\UserUsedCupon;
+use Twocheckout_Error;
+use Twocheckout_Charge;
 use App\ShippingAddress;
 use App\UpozilaCouriers;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+
 use App\DatabaseStorageModel;
 use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Console\Presets\React;
-
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Srmklive\PayPal\Services\AdaptivePayments;
-use PayPal;
+use Illuminate\Foundation\Console\Presets\React;
 
 class CheckoutController extends Controller
 {
@@ -34,8 +38,8 @@ class CheckoutController extends Controller
     {
         if (Auth::check()) {
             $order_id = rand(100, 100000);
-            $useraddress =UserAddress::where('user_id',Auth::user()->id)->first();
-            return view('frontend.shopping.checkout', compact('order_id','useraddress'));
+            $useraddress = UserAddress::where('user_id', Auth::user()->id)->first();
+            return view('frontend.shopping.checkout', compact('order_id', 'useraddress'));
         } else {
 
             return view('frontend.accounts.checkout_login');
@@ -88,11 +92,11 @@ class CheckoutController extends Controller
                     $cuponminimum = Cupon::where('cupon_code', $request->cuponvalue)->first()->minimum_shopping;
                     $cupondiscount = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount;
                     $cupondiscounttype = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount_type;
-                    $cupondiscountspers = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount.'%';
+                    $cupondiscountspers = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount . '%';
                     if ($cuponminimum <= $carttotal) {
 
 
-                        if($cupondiscounttype ==2){
+                        if ($cupondiscounttype == 2) {
 
                             $condition = new \Darryldecode\Cart\CartCondition(array(
                                 'name' => 'Minimum_shopping',
@@ -100,13 +104,13 @@ class CheckoutController extends Controller
                                 'target' => 'total',
                                 'value' => -$cupondiscount,
                             ));
-                        }else{
+                        } else {
 
                             $condition = new \Darryldecode\Cart\CartCondition(array(
                                 'name' => 'Minimum_shopping',
                                 'type' => 'coupon',
                                 'target' => 'total',
-                                'value' => '-'.$cupondiscountspers,
+                                'value' => '-' . $cupondiscountspers,
                             ));
                         }
                         Cart::session($userid)->condition($condition);
@@ -118,10 +122,9 @@ class CheckoutController extends Controller
                         ]);
 
                         return response()->json([
-                            'cuponid'=>$cuponuser->id,
-                            'cuponalert'=>'Cupon Insert Fuccessfully',
+                            'cuponid' => $cuponuser->id,
+                            'cuponalert' => 'Cupon Insert Fuccessfully',
                         ]);
-
                     } else {
                         return "Your minimum purchese is less than minimum shopping criteria";
                     }
@@ -131,7 +134,7 @@ class CheckoutController extends Controller
                     $cartdatas = Cart::session($userid)->getContent();
 
                     $cuponminproducts = Cupon::where('cupon_code', $request->cuponvalue)->first()->product_id;
-                    $cupondiscountspers = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount.'%';
+                    $cupondiscountspers = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount . '%';
                     $cupondiscounts = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount;
                     $cupondiscounttype = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount_type;
 
@@ -141,7 +144,7 @@ class CheckoutController extends Controller
                             if ($cartdata->attributes->product_id == $cuponminproduct) {
 
 
-                                if($cupondiscounttype == 2){
+                                if ($cupondiscounttype == 2) {
                                     $condition = new \Darryldecode\Cart\CartCondition(array(
                                         'name' => 'Percentage',
                                         'type' => 'coupon',
@@ -149,15 +152,13 @@ class CheckoutController extends Controller
                                         'value' => -$cupondiscounts,
                                     ));
                                     Cart::session($userid)->condition($condition);
-                                }else{
+                                } else {
 
-                                    if( $cartdata->attributes->has('variation') )
-                                    {
+                                    if ($cartdata->attributes->has('variation')) {
                                         Cart::update($cartdata->id, array(
-                                            'price' =>$cartdata->price - $cartdata->price *$cupondiscounts/100,
-                                          ));
+                                            'price' => $cartdata->price - $cartdata->price * $cupondiscounts / 100,
+                                        ));
                                     }
-
                                 }
                                 UserUsedCupon::insert([
                                     'user_ip' => Auth::user()->id,
@@ -166,15 +167,9 @@ class CheckoutController extends Controller
                                     'created_at' => Carbon::now(),
 
                                 ]);
-
-
-
-
                             }
                         }
                     }
-
-
                 }
             } else {
                 return "You are alrady used this cupon";
@@ -223,7 +218,7 @@ class CheckoutController extends Controller
 
         if (UserAddress::findOrFail($usseraddress_id)->is_shipping_address == NULL) {
 
-             $request->validate([
+            $request->validate([
                 'shipping_name' => 'required',
                 'shipping_name' => 'required',
                 'shipping_phone' => 'required',
@@ -273,9 +268,9 @@ class CheckoutController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        DatabaseStorageModel::where('id',$useriditem)->first()->delete();
-        if(DatabaseStorageModel::where('id',$useridcondition)->first()){
-            DatabaseStorageModel::where('id',$useridcondition)->first()->delete();
+        DatabaseStorageModel::where('id', $useriditem)->first()->delete();
+        if (DatabaseStorageModel::where('id', $useridcondition)->first()) {
+            DatabaseStorageModel::where('id', $useridcondition)->first()->delete();
         }
 
         $getPaymentSecureId = OrderPlace::where('id', $orderPlaceId)->select('payment_secure_id')->first();
@@ -286,10 +281,9 @@ class CheckoutController extends Controller
         if ($request->payment_method_id == 2) {
 
             return redirect()->route('stripe.index', $getPaymentSecureId->payment_secure_id);
-        }elseif($request->payment_method_id == 3){
+        } elseif ($request->payment_method_id == 3) {
             return redirect()->route('payment.paypal');
-        }
-        elseif ($request->payment_method_id == 4) {
+        } elseif ($request->payment_method_id == 4) {
             /* PHP */
             $post_data = array();
             $post_data['store_id'] = "durba5e37a51cb40c6";
@@ -385,7 +379,7 @@ class CheckoutController extends Controller
             } else {
                 echo "JSON Data parsing error!";
             }
-        }
+        } 
 
         // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
     }
@@ -467,94 +461,89 @@ class CheckoutController extends Controller
     }
 
     // paypal add
-    public function paywithpaypal(){
+    public function paywithpaypal()
+    {
 
-   $provider = new ExpressCheckout;
-   $invoiceId=uniqid();
-   $data=$this->cartData($invoiceId);
+        $provider = new ExpressCheckout;
+        $invoiceId = uniqid();
+        $data = $this->cartData($invoiceId);
 
-   // $data['total'] = $total;
-   $response = $provider->setExpressCheckout($data);
+        // $data['total'] = $total;
+        $response = $provider->setExpressCheckout($data);
 
-    //dd($response);
-    // This will redirect user to PayPal
-    return redirect($response['paypal_link']);
-
- }
-// success
-
-
-public function paymentsuccess(Request $request){
-
- $provider= new ExpressCheckout;
- $token=$request->token;
- $PayerID=$request->PayerID;
- $response = $provider->getExpressCheckoutDetails($token);
-
- $invoiceId=$response['INVNUM']??uniqid();
+        //dd($response);
+        // This will redirect user to PayPal
+        return redirect($response['paypal_link']);
+    }
+    // success
 
 
- $data=$this->cartData($invoiceId);
+    public function paymentsuccess(Request $request)
+    {
 
- $response = $provider->doExpressCheckoutPayment($data,$token,$PayerID);
- //dd($response);
- $userid=Auth::user()->id;
- $usercartdatas=OrderPlace::where('user_id',$userid)->orderBy('id','DESC')->first();
- $update=OrderPlace::where('id',$usercartdatas->id)->update([
-   'is_paid'=>'1',
- ]);
-  return $response;
-
-}
-
- protected function cartData($invoiceId){
-
-     $data = [];
-     $data['items'] = [];
-
-     // $userid =  \Request::getClientIp(true);
-     // $usercartdatas = Cart::session($userid)->getContent();
-     $userid=Auth::user()->id;
-     $usercartdatas=OrderPlace::where('user_id',$userid)->orderBy('id','DESC')->first();
-     $cartid=$usercartdatas->cart_id;
-
-     $orderstorage=OrderStorage::where('purchase_key',$cartid)->first();
-
-     foreach(json_decode($orderstorage->cart_data) as $key => $cart){
-       $itemdetails=[
-         'name'=>$cart->name,
-         'price'=>$cart->price,
-         'qty'=>$cart->quantity,
-       ];
-         $data['items'][]=$itemdetails;
-     }
+        $provider = new ExpressCheckout;
+        $token = $request->token;
+        $PayerID = $request->PayerID;
+        $response = $provider->getExpressCheckoutDetails($token);
 
 
-     $data['invoice_id'] = $usercartdatas->order_id;
-     $data['invoice_description'] = $invoiceId;
-     $data['return_url'] = url('/payment/success');
-     $data['cancel_url'] = url('/text');
+        $invoiceId = $response['INVNUM'] ?? uniqid();
 
-       $total = 0;
-       foreach($data['items'] as $item) {
-           $total += $item['price']*$item['qty'];
-       }
-       $data['total']=$total;
 
-       return $data;
 
- }
 
-    public function text(){
-    return "ok";
+        $data = $this->cartData($invoiceId);
+
+        $response = $provider->doExpressCheckoutPayment($data, $token, $PayerID);
+        //dd($response);
+        $userid = Auth::user()->id;
+        $usercartdatas = OrderPlace::where('user_id', $userid)->orderBy('id', 'DESC')->first();
+        $update = OrderPlace::where('id', $usercartdatas->id)->update([
+            'is_paid' => '1',
+        ]);
+        return "order completed";
     }
 
+    protected function cartData($invoiceId)
+    {
+
+        $data = [];
+        $data['items'] = [];
+
+        // $userid =  \Request::getClientIp(true);
+        // $usercartdatas = Cart::session($userid)->getContent();
+        $userid = Auth::user()->id;
+        $usercartdatas = OrderPlace::where('user_id', $userid)->orderBy('id', 'DESC')->first();
+        $cartid = $usercartdatas->cart_id;
+
+        $orderstorage = OrderStorage::where('purchase_key', $cartid)->first();
+
+        foreach (json_decode($orderstorage->cart_data) as $key => $cart) {
+            $itemdetails = [
+                'name' => $cart->name,
+                'price' => $cart->price,
+                'qty' => $cart->quantity,
+            ];
+            $data['items'][] = $itemdetails;
+        }
 
 
+        $data['invoice_id'] = $usercartdatas->order_id;
+        $data['invoice_description'] = $invoiceId;
+        $data['return_url'] = url('/payment/success');
+        $data['cancel_url'] = url('/text');
 
+        $total = 0;
+        foreach ($data['items'] as $item) {
+            $total += $item['price'] * $item['qty'];
+        }
+        $data['total'] = $total;
 
+        return $data;
+    }
 
-
-
-
+    public function text()
+    {
+        return "ok";
+    }
 }

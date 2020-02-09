@@ -69,7 +69,12 @@ class FlashDealController extends Controller
     // Change Flash Deal Status Method
     public function changeStatus($flashDeal)
     {
+       $allActiveFlashDeal = FlashDeal::where('status', 1)->get();
 
+       foreach ($allActiveFlashDeal as $value) {
+            $value->status = 0;
+            $value->save();
+       }
         $changeFlashDealStatus = FlashDeal::where('id', $flashDeal)->first();
 
         if ($changeFlashDealStatus->status == 1) {

@@ -14,7 +14,6 @@
 								</div>
 								<div class="col-md-6 text-right">
 									<button type="submit" class="btn btn-primary"><i class="fas fa-undo-alt"></i> <a href="{{route('admin.product.producttype')}}" style="color: #fff;"> Back</a></button>
-									
 									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.product.all')}}" style="color: #fff;">All Product</a></button>
 								</div>
 							</div>
@@ -27,19 +26,22 @@
 									<input type="hidden" name="product_type" value="1">
 								    <label for="" class="col-sm-3 col-form-label text-right">Product Name:</label>
 								    <div class="col-sm-6">
-								      <input type="text" name="product_name" class="form-control" onchange="update_sku()">
+                                    <input type="text" value="{{ old('product_name') }}" name="product_name" class="form-control" onchange="update_sku()">
+                                      <span class="text-danger">{{ $errors->first('product_name') }}</span>
 								    </div>
 								  </div>
 								  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Sku:</label>
 								    <div class="col-sm-6">
-								      <input type="text" class="form-control" name="product_sku">
+                                      <input type="text" value="{{ old('product_sku') }}" class="form-control" name="product_sku">
+                                      <span class="text-danger">{{ $errors->first('product_sku') }}</span>
 								    </div>
 								  </div>
 								  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Quantity:</label>
 								    <div class="col-sm-6">
-								      <input type="number" class="form-control" name="product_qty">
+                                      <input type="number" value="{{ old('product_qty') }}" class="form-control" name="product_qty">
+                                      <span class="text-danger">{{ $errors->first('product_qty') }}</span>
 								    </div>
 								  </div>
 								  <div class="form-group row">
@@ -51,16 +53,17 @@
 								      <select class="form-control" name="cate_id" id="cate_id">
 								      	<option >Select</option>
 								      	@foreach($category as $cate)
-								      	<option  value="{{$cate->id}}">{{$cate->cate_name}}</option>
+								      	<option {{ $cate->id == old('cate_id') ? "SELECTED" : "" }} value="{{$cate->id}}">{{$cate->cate_name}}</option>
 								      	@endforeach
-								      </select>
+                                      </select>
+                                      <span class="text-danger">{{ $errors->first('cate_id') }}</span>
 								    </div>
 								  </div>
 								   <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product SubCategory</label>
 								    <div class="col-sm-6">
 								      <select class="form-control" name="subcate_id" id="subcate_id">
-								      	<option value="0">Select</option>
+								      	<option value="0">Select Sub-category</option>
 								      </select>
 								    </div>
 								  </div>
@@ -68,14 +71,15 @@
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product ReSubCategory</label>
 								    <div class="col-sm-6">
 								      <select class="form-control" name="resubcate_id" id="resubcate_id">
-								      	<option value="0">Select</option>
+								      	<option value="0">Select Re-Sub-Category</option>
 								      </select>
 								    </div>
 								  </div>
 								   <div class="form-group row">
-								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Current Price:</label>
+								    <label for="inputPassword"  class="col-sm-3 col-form-label text-right">Current Unit Price:</label>
 								    <div class="col-sm-6">
-								      <input min="0" value="0" step="0.01" name="unit_price" class="form-control">
+                                      <input min="0"  value="{{ old('unit_price') }}" step="0.01" name="unit_price" class="form-control">
+                                      <span class="text-danger">{{ $errors->first('unit_price') }}</span>
 								    </div>
 								  </div>
 								  <!-- combination -->
@@ -148,7 +152,7 @@
 											$allbrand=App\Brand::where('is_deleted',0)->where('brand_status',1)->get();
 								    	@endphp
 								     <select class="form-control" name="brand">
-								     	<option>Select</option>
+								     	<option value="">Select</option>
 								     	@foreach($allbrand as $brand)
 								     	<option value="{{$brand->id}}">{{$brand->brand_name}}</option>
 								     	@endforeach
@@ -179,7 +183,7 @@
 									     </select>
 								    </div>
 								 </div>
-								 <div class="row">
+								 {{-- <div class="row">
 		                          	<div class="col-md-3"></div>
 		                          	<div class="col-md-8">
 		                             	<label class="chech_container mb-4">
@@ -188,9 +192,9 @@
 											Flash Deal
 										</label>
 		                          	</div>
-		                        </div>
+		                        </div> --}}
 
-		                         <div id="flash_deal_section" style="display: none;">
+		                         {{-- <div id="flash_deal_section" style="display: none;">
 		                              <div  class="row">
 		                                <div class="col-md-3"></div>
 		                                <div class="col-md-6 row">
@@ -205,7 +209,6 @@
 		                                    <div class="col-md-3">
 		                                      	<label>% / Amount</label>
 		                                        <select class="form-control" name="flash_deal_type">
-		                                        	<option>--Select--</option>
 		                                        	<option value="1">Amount</option>
 		                                        	<option value="2">%</option>
 		                                        </select>
@@ -216,12 +219,13 @@
 		                                    </div>
 		                                </div>
 		                             </div>
-                          		</div>
+                          		</div> --}}
                           		<div style="margin-top: 15px">
 	                          		<div class="row">
 	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
 									    <div class="col-sm-6">
-									      <textarea name="product_description" id="editor1" rows="10" cols="80"></textarea>
+                                        <textarea name="product_description" id="editor1" rows="10" cols="80">{{ old('product_description')  }}</textarea>
+                                        <span class="text-danger">{{ $errors->first('product_description') }}</span>
 									    </div>
 									</div>
                           	   </div>
@@ -229,14 +233,17 @@
 	                          		<div class="row">
 	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Buy and Return Policy:</label>
 									    <div class="col-sm-6">
-									      <textarea class="editor3" name="buy_and_return_policy" id="editor3" rows="10" cols="80"></textarea>
+                                          <textarea class="editor3" name="buy_and_return_policy" id="editor3" rows="10" cols="80">
+                                            {{ old('buy_and_return_policy')  }}
+                                          </textarea>
+                                          <span class="text-danger">{{ $errors->first('buy_and_return_policy') }}</span>
 									    </div>
 									</div>
                           	   </div>
 		                         <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Estimated Shipping Time</label>
 								    <div class="col-sm-6">
-								      <input type="text" class="form-control" name="shipping_time">
+                                    <input type="text" class="form-control" value="{{ old('shipping_time') }}" name="shipping_time">
 								    </div>
 								  </div>
 
@@ -249,36 +256,12 @@
 								  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Meta Description</label>
 								    <div class="col-sm-6">
-								      <input type="text" class="form-control" name="meta_description">
+								      <input type="text" value="{{ old('meta_description') }}" class="form-control" name="meta_description">
 								    </div>
 								  </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 								<div class="form-group row">
-									<label for="" class="col-sm-3 col-form-label text-right">Main Image</label>
+									<label for="" class="col-sm-3 col-form-label text-right">Gallery Images</label>
 									 <div class="col-sm-6">
 										<div id="photos" class="row"></div>
 									</div>
@@ -289,7 +272,8 @@
 									<div class="col-sm-6">
 									<div id="thumbnail_img" class="row">
 
-									</div>
+                                    </div>
+                                    <span class="text-danger">{{ $errors->first('thumbnail_img') }}</span>
 									</div>
 								</div>
 
@@ -304,7 +288,7 @@
 						</div>
 					</div>
 				</section>
-			</div><!--/middle content wrapper-->  
+			</div><!--/middle content wrapper-->
 			</div><!--/ content wrapper -->
    <!-- script code start -->
  <script>
@@ -350,7 +334,7 @@ $('input[name="unit_price"]').on('keyup', function() {
 	   });
 	}
 
-	
+
 
  </script>
 

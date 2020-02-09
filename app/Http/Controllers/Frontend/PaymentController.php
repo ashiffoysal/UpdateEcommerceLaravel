@@ -172,4 +172,9 @@ class PaymentController extends Controller
     {
         return view('frontend.payment.ssl_commerce.cancel');
     }
+
+    public function redirectToCheckout(Request $request)
+    {
+       
+    }
 }

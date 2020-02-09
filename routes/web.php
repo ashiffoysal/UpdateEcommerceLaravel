@@ -557,6 +557,8 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
     Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
     Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
     Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
+    // 2checkout
+    Route::get('2checkout/redirect', 'PaymentController@redirectToCheckout');
 });
 
 // Payment Route Created By Harrison Ended
