@@ -110,23 +110,16 @@
                                                                 <a class="lt-image hidden" data-product="35" href="#" target="_self" title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">
                                                                 </a>
 
-                                                                <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('admin/product/modal/show')}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe"> <i class="fa fa-search"></i> </a>
 
+                                                            <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('admin/product/modal/show')}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe"> <i class="fa fa-search"></i> </a>
+                                                            @if(Auth::guard('web')->check())
+                                                            <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$flasdetail->product->id}}"> <i class="fa fa-heart"></i></button>
+                                                            @else
+                                                            <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                            @endif
+                                                            <button class="compare btn-button compareproduct" type="button"  id="compareproduct" value="{{$flasdetail->product->id }}"><i class="fa fa-exchange"></i></button>
+                                                            <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('35');" data-original-title="Add to Cart"> <span class="hidden">Add to Cart</span></button>
 
-                                                                @if(Auth::guard('web')->check())
-                                                                <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$flasdetail->product->id}}"> <i class="fa fa-heart"></i></button>
-                                                                @else
-                                                                <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
-                                                                @endif
-
-                                                                <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$flasdetail->product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-                                                                <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title=" to Wish List"><i class="fa fa-heart"></i></button>
-                                                                <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('35');" data-original-title="Compare this Product"><i class="fa fa-exchange"></i></button>
-
-                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('35');" data-original-title="Add to Cart"> <span class="hidden">Add to Cart</span></button>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="right-block">
@@ -246,6 +239,7 @@
                                                                     </div>
                                                                     <div class="box-label"><span class="label-product label-sale">Sale</span></div>
                                                                 </div>
+
                                                                 <div class="right-block">
                                                                     <div class="caption">
                                                                         <h4>
@@ -256,21 +250,26 @@
                                                                             <div class="price-sale price-right"><span class="discount 123">-13%<strong>OFF</strong></span></div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="button-group">
-                                                                        <div class="button-inner so-quickview">
-                                                                            <a class="lt-image hidden" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
-                                                                            <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                <i class="fa fa-search"></i>
-                                                                            </a>
+                                                                    
 
-                                                                            <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                <div class="button-group">
+                                                                    <div class="button-inner so-quickview">
+                                                                        <a class="lt-image hidden" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
+                                                                        <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                            <i class="fa fa-search"></i>
+                                                                        </a>
+                                                                        @if(Auth::guard('web')->check())
+                                                                        <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                        @else
+                                                                        <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                        @endif
+                                                                        <button class="compare btn-button compareproduct" type="button"  id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
 
-                                                                            <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}">
-                                                                                <i class="fa fa-exchange"></i>
-                                                                            </button>
-                                                                            <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                <span class="hidden">Add to cart</span>
-                                                                            </button>
+
+                                                                        <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');homeadtocart(this);" data-original-title="Add to cart">
+                                                                        <span class="hidden">Add to cart</span>
+                                                                        </button>
+
 
                                                                         </div>
                                                                     </div>
@@ -317,6 +316,7 @@
                                                                         </div>
                                                                         <div class="box-label"><span class="label-product label-sale">Sale</span></div>
                                                                     </div>
+
                                                                     <div class="right-block">
                                                                         <div class="caption">
                                                                             <h4><a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a></h4>
@@ -325,23 +325,24 @@
                                                                                 <div class="price-sale price-right"><span class="discount 123">-13%<strong>OFF</strong></span></div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="button-group">
-                                                                            <div class="button-inner so-quickview">
-                                                                                <a class="lt-image hidden" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
-                                                                                <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                    <i class="fa fa-search"></i>
-                                                                                </a>
-                                                                                <button class="mywishlist btn-button" type="button" data-toggle="tooltip" data-id="{{$product->id}}" title="" data-original-title="Add to Wish List">
-                                                                                    <i class="fa fa-heart"></i>
-                                                                                </button>
-                                                                                <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}">
-                                                                                    <i class="fa fa-exchange"></i>
-                                                                                </button>
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
+                                                                      
+                                                                <div class="button-group">
+                                                                    <div class="button-inner so-quickview">
+                                                                        <a class="lt-image hidden" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
+                                                                        <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                            <i class="fa fa-search"></i>
+                                                                        </a>
+                                                                        @if(Auth::guard('web')->check())
+                                                                        <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                        @else
+                                                                        <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                        @endif
+                                                                        <button class="compare btn-button compareproduct" type="button"  id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
+
+                                                                        <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');homeadtocart(this);" data-original-title="Add to cart">
+                                                                        <span class="hidden">Add to cart</span>
+                                                                        </button>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -502,6 +503,7 @@
                                                                                 View" data-fancybox-type="iframe">
                                                                                     <i class="fa
                                                                                 fa-search"></i>
+
                                                                                 </a>
                                                                                 <button class="mywishlist
                                                                             btn-button" type="button" data-id="{{$product->id}}" data-toggle="tooltip" title="" data-original-title="Add
@@ -523,10 +525,10 @@
                                                             </form>
 
                                                             @endforeach
-                                                            <!--
-                                                            -->
-                                                        </div>
-                                                        <div class="ltabs-item">
+                                                          
+                                                            </div> <div
+                                                            class="ltabs-item">
+
                                                             @php
                                                             $cate_id=$catename->id;
                                                             $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(2)->limit(2)->get();
@@ -583,6 +585,7 @@
                                                                                 View" data-fancybox-type="iframe">
                                                                                     <i class="fa
                                                                                 fa-search"></i>
+
                                                                                 </a>
                                                                                 <button class="mywishlist
                                                                             btn-button" type="button" data-id="{{$product->id}}" data-toggle="tooltip" title="" data-original-title="Add
@@ -607,7 +610,9 @@
                                                             <!--
                                                             -->
                                                         </div>
-                                                        <div class="ltabs-item">
+                                                       <div
+                                                            class="ltabs-item">
+
                                                             @php
                                                             $cate_id=$catename->id;
                                                             $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(4)->limit(2)->get();
@@ -664,6 +669,7 @@
                                                                                 View" data-fancybox-type="iframe">
                                                                                     <i class="fa
                                                                                 fa-search"></i>
+
                                                                                 </a>
                                                                                 <button class="mywishlist
                                                                             btn-button" type="button" data-id="{{$product->id}}" data-toggle="tooltip" title="" data-original-title="Add
@@ -685,8 +691,8 @@
                                                             </form>
 
                                                             @endforeach
-                                                            <!--
-                                                            -->
+                                                          </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -750,17 +756,26 @@
                                                 $neban_image=App\CategoryBanner::where('section',3)->where('category_id',$maicate_id)->orderBy('id','DESC')->first();
                                                 @endphp
                                                 @if($neban_image)
-                                                @php
-                                                $sitbanmain=$neban_image->siteban_id;
-                                                $maiimage=App\SiteBanner::where('id',$sitbanmain)->where('is_deleted',0)->where('status',1)->first();
 
-                                                @endphp
-                                                @if($maiimage)
-                                                <div>
-                                                    <a href="product.html" title="" target="_self">
-                                                        <img class="categories-loadimage" src="{{asset('public/uploads/sitebanner/'.$maiimage->image)}}">
-                                                    </a>
-                                                </div>
+                                                  @php
+                                                    $sitbanmain=$neban_image->siteban_id;
+                                                    $maiimage=App\SiteBanner::where('id',$sitbanmain)->where('is_deleted',0)->where('status',1)->first();
+
+                                                  @endphp
+                                                    @if($maiimage)
+                                                      <div>
+                                                      <a href="product.html" title="" target="_self">
+                                                      <img class="categories-loadimage" src="{{asset('public/uploads/sitebanner/'.$maiimage->image)}}">
+                                                      </a>
+                                                      </div>
+                                                    @else
+                                                      <div>
+                                                      <a href="product.html" title="" target="_self">
+                                                      <img class="categories-loadimage" title="" alt="" src="{{asset('public/frontend/')}}/image/catalog/demo/banners/home1/md-banner-1.jpg">
+                                                      </a>
+                                                      </div>
+                                                    @endif
+
                                                 @else
                                                 <div>
                                                     <a href="product.html" title="" target="_self">
@@ -818,6 +833,7 @@
                                                                                     <span class="discount 123">-11%<strong>OFF</strong></span>
                                                                                 </div>
                                                                             </div>
+
                                                                         </div>
                                                                         <div class="button-group">
                                                                             <div class="button-inner so-quickview">
@@ -838,8 +854,7 @@
                                                             @endforeach
                                                             <!-- product end -->
                                                         </div> <!-- grid end -->
-                                                        <div class="ltabs-item
-                                                                                    col-md-4"> @php $catego=$catesection->id;
+                                                        <div class="ltabs-item col-md-4"> @php $catego=$catesection->id;
                                                             $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->skip(2)->limit(2)->get();
                                                             @endphp @foreach($pro as $product) 
                                                             <form class="option-choice-form" onclick="homeadtocart(this);">
@@ -865,6 +880,7 @@
                                                                                     <span class="price-new">৳ {{$product->product_price}}</span> <span class="price-old">$122.00</span> </div>
                                                                                 <div class="price-sale
                                                                                     price-right"> <span class="discount 123">-11%<strong>OFF</strong></span>
+
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -877,6 +893,65 @@
                                                                             btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('28');" data-original-title="Add to cart"> <span class="hidden">Add to cart</span> </button> </div>
                                                                         </div>
                                                                     </div>
+=======
+                                                                                </div> </div> </div> <div class="button-group"> <div class="button-inner
+                                                                                so-quickview"> <a class="lt-image hidden" href="#" target="_self"
+                                                                                title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a> <a
+                                                                                class="btn-button btn-quickview quickview quickview_handler"
+                                                                                href="{{url('product/details/'.$product->id)}}" title="Quick View"
+                                                                                data-title="Quick View" data-fancybox-type="iframe"> <i class="fa
+                                                                            fa-search"></i> </a> @if(Auth::guard('web')->check())
+                                                                            <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                            @else
+                                                                            <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                            @endif
+                                                                            <button class="compare btn-button compareproduct" type="button"  id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button> <button class="addToCart
+                                                                            btn-button" type="button" data-toggle="tooltip" title=""
+                                                                            onclick="cart.add('28');" data-original-title="Add to cart"> <span
+                                                                            class="hidden">Add to cart</span> </button> </div> </div> </div> </div>
+                                                                            </div> @endforeach <!-- product end --> </div> <div class="ltabs-item
+                                                                            col-md-4"> @php $catego=$catesection->id;
+                                                                            $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->limit(2)->skip(4)->get();
+                                                                            @endphp @foreach($pro as $product) <div class="item-inner product-layout
+                                                                                transition product-grid"> <div class="product-item-container"> <div
+                                                                                    class="left-block"> <div class="image product-image-container "> <a
+                                                                                        class="lt-image" href="#" target="_self" title="Bougainvilleas On
+                                                                                        Lombard Street, San Francisco, Tokyo"> <img
+                                                                                        src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                    alt="Bougainvilleas On Lombard Street, San Francisco, Tokyo"> </a>
+                                                                                </div> <div class="box-label"> <span class="label-product
+                                                                            label-sale">Sale</span> </div> </div> <div class="right-block"> <div
+                                                                            class="caption"> <h4> <a
+                                                                            href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                            </h4> <div class="total-price clearfix"> <div class="price price-left">
+                                                                                <span class="price-new">৳ {{$product->product_price}}</span> <span
+                                                                            class="price-old">$122.00</span> </div> <div class="price-sale
+                                                                            price-right"> <span class="discount 123">-11%<strong>OFF</strong></span>
+                                                                        </div> </div> </div> <div class="button-group"> <div class="button-inner
+                                                                        so-quickview"> <a class="lt-image hidden" href="#" target="_self"
+                                                                        title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a> <a
+                                                                        class="btn-button btn-quickview quickview quickview_handler"
+                                                                        href="{{url('product/details/'.$product->id)}}" title="Quick View"
+                                                                        data-title="Quick View" data-fancybox-type="iframe"> <i class="fa
+                                                                    fa-search"></i> </a>
+                                                                    @if(Auth::guard('web')->check())
+                                                                    <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                    @else
+                                                                    <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                    @endif
+                                                                    <button class="compare btn-button compareproduct" type="button"  id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
+
+
+                                                                     <button class="addToCart btn-button"
+                                                                    type="button" data-toggle="tooltip" title="" onclick="cart.add('28');"
+                                                                    data-original-title="Add to cart"> <span class="hidden">Add to
+                                                                    cart</span> </button> </div> </div> </div> </div> </div> @endforeach
+                                                                    <!-- product end --> </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ltabs-items  items-category-7 grid" data-total="16">
+                                                                <div class="ltabs-loading">
+
                                                                 </div>
                                                             </div>
                                                             </form>
@@ -984,58 +1059,98 @@
                                             </div>
                                             <!-- End Tabs-->
                                         </div>
-                                        <div class="wap-listing-tabs products-list grid">
-                                            <div class="ltabs-items-container ">
-                                                <!--Begin Items-->
-                                                <div class="ltabs-items ltabs-items-selected items-category-1" data-total="16">
-                                                    <div class="ltabs-items-inner ltabs-slider">
-                                                        <!-- grid -->
-                                                        @php
-                                                        $category_id=$catefour->id;
-                                                        $products=App\Product::where('is_deleted',0)->where('cate_id',$category_id)->orderBy('id','DESC')->limit(4)->get();
-                                                        @endphp
-                                                        @foreach($products as $product)
-                                                        <div class="ltabs-item">
-                                                            <!-- product -->
+                                        <div class="modcontent">
+                                            <div id="so_listing_tabs_4" class="so-listing-tabs first-load">
+                                                <div class="ltabs-wrap">
+                                                    <div class="ltabs-tabs-container" data-delay="300" data-duration="600" data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="4" data-md="3" data-sm="3" data-xs="2" data-margin="0">
+                                                        <!--Begin Tabs-->
+                                                        <div class="ltabs-tabs-wrap">
+                                                            <span class="ltabs-tab-selected"></span>
+                                                            <span class="ltabs-tab-arrow">▼</span>
+                                                            <div class="item-sub-cat">
+                                                                <ul class="ltabs-tabs cf">
+                                                                    <li class="ltabs-tab tab-sel" data-category-id="1" data-active-content=".items-category-1"> <span class="ltabs-tab-label">Best Seller</span> </li>
+                                                                    <li class="ltabs-tab " data-category-id="9" data-active-content=".items-category-9"> <span class="ltabs-tab-label">New Arrivals</span> </li>
+                                                                    <li class="ltabs-tab " data-category-id="10" data-active-content=".items-category-10"> <span class="ltabs-tab-label">Most Rating</span> </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Tabs-->
+                                                    </div>
+                                                    <div class="wap-listing-tabs products-list grid">
+                                                        <div class="ltabs-items-container ">
+                                                            <!--Begin Items-->
+                                                            <div class="ltabs-items ltabs-items-selected items-category-1" data-total="16">
+                                                                <div class="ltabs-items-inner ltabs-slider">
+                                                                    <!-- grid -->
+                                                                    @php
+                                                                    $category_id=$catefour->id;
+                                                                    $products=App\Product::where('is_deleted',0)->where('cate_id',$category_id)->orderBy('id','DESC')->limit(4)->get();
+                                                                    @endphp
+                                                                    @foreach($products as $product)
+                                                                    <div class="ltabs-item">
+                                                                        <!-- product -->
 
-                                                            <div class="item-inner product-layout transition product-grid">
-                                                                <div class="product-item-container">
-                                                                    <div class="left-block">
-                                                                        <div class="image product-image-container ">
-                                                                            <a class="lt-image" data-product="114" href="#" target="_self" title=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
-                                                                                <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="box-label"><span class="label-product label-sale">Sale</span></div>
-                                                                    </div>
-                                                                    <div class="right-block">
-                                                                        <div class="caption">
-                                                                            <h4><a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a></h4>
-                                                                            <div class="total-price clearfix">
-                                                                                <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span><span class="price-old">$122.00</span></div>
-                                                                                <div class="price-sale price-right"><span class="discount 123">-20%<strong>OFF</strong></span></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="button-group">
-                                                                            <div class="button-inner so-quickview">
-                                                                                <a class="lt-image hidden" data-product="114" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
-                                                                                <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                    <i class="fa fa-search"></i>
-                                                                                </a>
-                                                                                <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-id="{{$product->id}}" data-original-title="Add to Wish List">
-                                                                                    <i class="fa fa-heart"></i>
-                                                                                </button>
-                                                                                <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('114');" data-original-title="Compare this Product">
-                                                                                    <i class="fa fa-exchange"></i>
-                                                                                </button>
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
-                                                                                </button>
+                                                                        <div class="item-inner product-layout transition product-grid">
+                                                                            <div class="product-item-container">
+                                                                                <div class="left-block">
+                                                                                    <div class="image product-image-container ">
+                                                                                        <a class="lt-image" data-product="114" href="#" target="_self" title=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
+                                                                                            <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div class="box-label"><span class="label-product label-sale">Sale</span></div>
+                                                                                </div>
+                                                                                <div class="right-block">
+                                                                                    <div class="caption">
+                                                                                        <h4><a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a></h4>
+                                                                                        <div class="total-price clearfix">
+                                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span><span class="price-old">$122.00</span></div>
+                                                                                            <div class="price-sale price-right"><span class="discount 123">-20%<strong>OFF</strong></span></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="button-group">
+                                                                                        <div class="button-inner so-quickview">
+                                                                                            <a class="lt-image hidden" data-product="114" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
+                                                                                            <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                                <i class="fa fa-search"></i>
+                                                                                            </a>
+                                                                                            @if(Auth::guard('web')->check())
+                                                                                            <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                                            @else
+                                                                                            <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                                            @endif
+                                                                                            <button class="compare btn-button compareproduct" type="button"  id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
+
+                                                                                            <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                            <span class="hidden">Add to cart</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            <div class="ltabs-items items-category-9 grid" data-total="16">
+                                                                <div class="ltabs-loading"></div>
+                                                            </div>
+                                                            
+                                                            <div class="row clearfix banner-tab">
+                                                            @php
+                                                            $bottomimage=App\SiteBanner::where('section',1)->where('is_deleted',0)->where('status',1)->skip(2)->limit(2)->inRandomOrder()->get();
+                                                            @endphp
+                                                            @foreach($bottomimage as $bimage)
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 banners">
+                                                            <div>
+                                                            <a title="Static Image" href="#"><img src="{{asset('public/uploads/sitebanner/'.$bimage->image)}}" alt="{{$bimage->image}}"></a>
+                                                            </div>
+                                                            </div>
+                                                            @endforeach
+
 
                                                         </div>
                                                         @endforeach

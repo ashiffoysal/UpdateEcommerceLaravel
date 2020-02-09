@@ -19,7 +19,7 @@
 
 									</div>
 								</div>
-								
+
 							</div>
 							<br>
 							<form action="{{url('/get/admin/report/category/filter')}}" method="get">
@@ -47,23 +47,28 @@
 								   <table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">
 								          <thead>
 								              <tr class="text-center">
-								                 
+																	<th>#</th>
+								                  <th>Product ID</th>
 								                  <th>Product Name</th>
+																	<th>Product SKU</th>
 								                  <th>Current qty</th>
 								              </tr>
 								          </thead>
 								          <tbody id="result">
-								          	@foreach($report as $data)
+								          	@foreach($report as $key => $data)
 												<tr class="text-center">
+													<td>{{++$key}}</td>
+													<td>{{$data->id}}</td>
 													<td>{{$data->product_name}}</td>
-													<td>{{$data->product_qty}}</td>
+													<td>{{$data->product_sku}}</td>
+													<td>{{$data->product_qty - $data->number_of_sale}}</td>
 												</tr>
 								          	@endforeach
 								          </tbody>
 								 </table>
 		                      </div>
 							</div>
-						 
+
 						</div>
 					</section>
 				</div>

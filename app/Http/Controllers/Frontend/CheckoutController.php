@@ -503,7 +503,7 @@ public function paymentsuccess(Request $request){
  $update=OrderPlace::where('id',$usercartdatas->id)->update([
    'is_paid'=>'1',
  ]);
-  return "order completed";
+  return $response;
 
 }
 

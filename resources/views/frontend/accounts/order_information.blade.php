@@ -6,7 +6,7 @@
 			<li><a href="#"><i class="fa fa-home"></i></a></li>
 			<li><a href="#">Order Infomation</a></li>
 		</ul>
-		
+
 		<div class="row">
 			<!--Middle Part Start-->
 			<div id="content" class="col-md-9">
@@ -20,12 +20,18 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td style="width: 50%;" class="text-left"> <b>Order ID:</b> #214521
+							<td style="width: 50%;" class="text-left"> <b>Order ID:</b> #{{$orderplaceid->order_id}}
 								<br>
-								<b>Date Added:</b> 20/06/2016</td>
-							<td style="width: 50%;" class="text-left"> <b>Payment Method:</b> Cash On Delivery
+								<b>Date Added:</b> {{$orderplaceid->created_at}}</td>
+							<td style="width: 50%;" class="text-left"> <b>Payment Method:</b>
+								@if($orderplaceid->payment_method_id==1)Cash on Delevery
+								@elseif($orderplaceid->payment_method_id==2) Stripe
+								@elseif($orderplaceid->payment_method_id==3)PayPal
+								@elseif($orderplaceid->payment_method_id==4)SSLCommercz
+								@else
+								@endif
 								<br>
-								<b>Shipping Method:</b> Flat Shipping Rate </td>
+								<b>Shipping Method:</b></td>
 						</tr>
 					</tbody>
 				</table>
@@ -38,16 +44,78 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td class="text-left">Jhone Cary
-								<br>Central Square
-								<br>22 Hoi Wing Road
-								<br>New Delhi
-								<br>India</td>
-							<td class="text-left">Jhone Cary
-								<br>Central Square
-								<br>22 Hoi Wing Road
-								<br>New Delhi
-								<br>India</td>
+							<td class="text-left">{{$orderplaceid->usermain->first_name}} {{$orderplaceid->usermain->last_name}}
+								<br>{{$orderplaceid->usermain->phone}}
+								@php
+									$id=$orderplaceid->user_id;
+								 $address=App\UserAddress::where('user_id',$id)->orderBy('id','DESC')->first();
+								@endphp
+								<br>{{$address->user_address}}
+								<br>{{$address->user_post_office}}
+								<br>{{$address->user_postcode}}
+								@php
+									$country_id=$address->user_country_id;
+									$division_id=$address->user_division_id;
+									$district_id=$address->user_district_id;
+									$upazila_id=$address->user_upazila_id;
+									$country_name=DB::table('countries')->where('id',$country_id)->first();
+									$division_name=DB::table('divisions')->where('id',$division_id)->first();
+									$districts_name=DB::table('districts')->where('id',$district_id)->first();
+									$upazila_name=DB::table('upazilas')->where('id',$upazila_id)->first();
+								@endphp
+								<br>{{$upazila_name->name}},{{$districts_name->name}},{{$division_name->name}},{{$country_name->name}}
+							</td>
+							@if($address->is_shipping_address==1)
+							<td class="text-left">{{$orderplaceid->usermain->first_name}} {{$orderplaceid->usermain->last_name}}
+								<br>{{$orderplaceid->usermain->phone}}
+								@php
+									$id=$orderplaceid->user_id;
+								 $address=App\UserAddress::where('user_id',$id)->orderBy('id','DESC')->first();
+								@endphp
+								<br>{{$address->user_address}}
+								<br>{{$address->user_post_office}}
+								<br>{{$address->user_postcode}}
+								@php
+									$country_id=$address->user_country_id;
+									$division_id=$address->user_division_id;
+									$district_id=$address->user_district_id;
+									$upazila_id=$address->user_upazila_id;
+
+									$country_name=DB::table('countries')->where('id',$country_id)->first();
+									$division_name=DB::table('divisions')->where('id',$division_id)->first();
+									$districts_name=DB::table('districts')->where('id',$district_id)->first();
+									$upazila_name=DB::table('upazilas')->where('id',$upazila_id)->first();
+								@endphp
+								<br>{{$upazila_name->name}},{{$districts_name->name}},{{$division_name->name}},{{$country_name->name}}
+							</td>
+							@else
+							@php
+							$siporder_id=$orderplaceid->order_id;
+							$shippingaddress=App\ShippingAddress::where('order_id',$siporder_id)->first();
+							@endphp
+							@if($shippingaddress)
+								<td class="text-left">{{$shippingaddress->shipping_name}}
+									<br>{{$shippingaddress->shipping_phone}}
+									<br>{{$shippingaddress->shipping_address}}
+									@php
+										$country_id=$shippingaddress->user_country_id;
+										$division_id=$shippingaddress->user_division_id;
+										$district_id=$shippingaddress->user_district_id;
+										$upazila_id=$shippingaddress->user_upazila_id;
+
+										$country_name=DB::table('countries')->where('id',$country_id)->first();
+										$division_name=DB::table('divisions')->where('id',$division_id)->first();
+										$districts_name=DB::table('districts')->where('id',$district_id)->first();
+										$upazila_name=DB::table('upazilas')->where('id',$upazila_id)->first();
+
+									@endphp
+									<br>New Delhi
+									<br>{{$upazila_name->name}},{{$districts_name->name}},{{$division_name->name}},{{$country_name->name}}
+								</td>
+								@else
+
+								@endif
+							@endif
 						</tr>
 					</tbody>
 				</table>
@@ -56,7 +124,8 @@
 						<thead>
 							<tr>
 								<td class="text-left">Product Name</td>
-								<td class="text-left">Model</td>
+								<td class="text-left">SKU</td>
+
 								<td class="text-right">Quantity</td>
 								<td class="text-right">Price</td>
 								<td class="text-right">Total</td>
@@ -64,20 +133,27 @@
 							</tr>
 						</thead>
 						<tbody>
+							@php
+								$m_order_id=$orderplaceid->cart_id;
+								$allproduct=App\OrderStorage::where('purchase_key',$m_order_id)->first();
+							@endphp
+							@foreach($allproduct->cart_data as $new)
 							<tr>
-								<td class="text-left">iPhone5 </td>
-								<td class="text-left">product 11</td>
-								<td class="text-right">1</td>
-								<td class="text-right">$123.20</td>
-								<td class="text-right">$123.20</td>
+								<td class="text-left">{{$new->name}}</td>
+								<td class="text-left"></td>
+								<td class="text-right">{{$new->quantity}}</td>
+								<td class="text-right">{{$new->price}}</td>
+								<td class="text-right">{{$new->quantity * $new->price}} </td>
+								<!-- <td class="text-right">$123.20</td> -->
 								<td style="white-space: nowrap;" class="text-right"> <a class="btn btn-primary" title="" data-toggle="tooltip" href="#" data-original-title="Reorder"><i class="fa fa-shopping-cart"></i></a>
 									<a class="btn btn-danger" title="" data-toggle="tooltip" href="return.html" data-original-title="Return"><i class="fa fa-reply"></i></a>
 								</td>
 							</tr>
+							@endforeach
 
 						</tbody>
 						<tfoot>
-							<tr>
+							<!-- <tr>
 								<td colspan="3"></td>
 								<td class="text-right"><b>Sub-Total</b>
 								</td>
@@ -104,12 +180,12 @@
 								</td>
 								<td class="text-right">$21.20</td>
 								<td></td>
-							</tr>
+							</tr> -->
 							<tr>
 								<td colspan="3"></td>
 								<td class="text-right"><b>Total</b>
 								</td>
-								<td class="text-right">$133.20</td>
+								<td class="text-right">{{$orderplaceid->total_price}}</td>
 								<td></td>
 							</tr>
 						</tfoot>
@@ -154,12 +230,12 @@
                      <h3 class="modtitle"><span>Account </span></h3>
                      <div class="module-content custom-border">
                        <ul class="list-box">
-                          
+
                          <li><a href="login.html">Login </a> / <a href="register.html">Register </a></li>
                          <li><a href="#">Forgotten Password </a></li>
-                          
+
                          <li><a href="#">My Account </a></li>
-                          
+
                          <li><a href="#">Address Book </a></li>
                          <li><a href="wishlist.html">Wish List </a></li>
                          <li><a href="#">Order History </a></li>
@@ -169,7 +245,7 @@
                          <li><a href="#">Returns </a></li>
                          <li><a href="#">Transactions </a></li>
                          <li><a href="#">Newsletter </a></li>
-                          
+
                        </ul>
                      </div>
                    </div>
