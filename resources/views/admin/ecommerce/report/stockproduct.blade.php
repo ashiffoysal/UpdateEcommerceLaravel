@@ -19,7 +19,7 @@
 
 									</div>
 								</div>
-								
+
 							</div>
 							<br>
 							<form action="{{url('/get/admin/report/category/filter')}}" method="get">
@@ -42,7 +42,7 @@
 						     </div>
 						    </form>
 							<br>
-				
+
 										<div class="panel_body">
 											<div class="table-responsive result" >
 											   <table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">
@@ -50,6 +50,7 @@
 											              <tr class="text-center">
 											                  <th class="text-center">#</th>
 											                  <th>Product Name</th>
+											                  <th>Product SKU</th>
 											                  <th>Current qty</th>
 											              </tr>
 											          </thead>
@@ -58,22 +59,23 @@
 															<tr class="text-center">
 																<td>{{++$key}}</td>
 																<td>{{$data->product_name}}</td>
-																<td>{{$data->product_qty}}</td>
+																<td>{{$data->product_sku}}</td>
+																<td>{{$data->product_qty - $data->number_of_sale}}</td>
 															</tr>
 											          	@endforeach
-											          	
+
 											          </tbody>
 											 </table>
 					                      </div>
 										</div>
-						 
+
 						</div>
 					</section>
 				</div>
 			</div>
 <!-- <script>
-	
- 
+
+
   $(document).ready(function() {
      $('select[name="cate_id"]').on('change', function(){
          var cate_id = $(this).val();
@@ -89,7 +91,7 @@
                    }
              });
          } else {
-            
+
          }
 
      });

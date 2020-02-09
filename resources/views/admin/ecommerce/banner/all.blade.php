@@ -190,7 +190,23 @@
 
 						</div>
 					</div>
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Slider Bottom Image</label>
 
+						<div class="col-sm-8">
+							<input type="file" name="bottom_image">
+							<p>(435px*175px)</p>
+						</div>
+						<div class="col-sm-3" id="store-bottom-img">
+
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right"></label>
+						<div class="col-sm-8" id="bottomimg">
+
+						</div>
+					</div>
 
 
 					<div class="form-group text-right">
@@ -241,9 +257,10 @@
 						$("#ban_link").val(data.ban_link);
 						$("#id").val(data.id);
 						$("#img").html("<img src={{asset('')}}public/uploads/banner/" + data.ban_image + " height='70px'/>");
+						$("#bottomimg").html("<img src={{asset('')}}public/uploads/banner/" + data.bottom_image + " height='70px'/>");
 
 						$("#store-img").append("<input type='hidden' name='old_image' value='" + data.ban_image + "' />");
-
+						$("#store-bottom-img").append("<input type='hidden' name='bottomimage' value='" + data.bottom_image + "' />");
 
 					}
 				});

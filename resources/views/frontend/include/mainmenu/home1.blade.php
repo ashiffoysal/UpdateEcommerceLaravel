@@ -90,8 +90,7 @@
 																								<li><a href="{{route('login')}}">Login Page</a></li>
 																								<li><a href="{{route('register')}}">Register Page</a></li>
 																								<li><a href="{{route('customer.account')}}">My Account</a></li>
-																								<li><a href="{{route('customer.order')}}">Order History</a></li>
-																								<li><a href="{{route('customer.order.info')}}">Order Information</a></li>
+																								<li><a href="{{url('/customer/order')}}">Order History</a></li>
 																								<li><a href="{{route('customer.order.return')}}">Product Returns</a></li>
 																								<li><a href="{{route('customer.gift.voucher')}}">Gift Voucher</a></li>
 																							</ul>

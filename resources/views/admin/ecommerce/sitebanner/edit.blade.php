@@ -14,7 +14,7 @@
 									<div class="panel_title"><span class="panel_icon"><i class="fas fa-plus-square"></i></span><span>Update SiteBanner</span></div>
 								</div>
 								<div class="col-md-6 text-right">
-									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.cupon.all')}}" style="color: #fff;">All SiteBanner</a></button>
+									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.sitebanner.all')}}" style="color: #fff;">All SiteBanner</a></button>
 								</div>
 							</div>
 
@@ -79,7 +79,7 @@
 	 			  <div class="form-group row">
 	 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right"></label>
 	 			    <div class="col-sm-8">
-							<input type="hidden" name="old-img" value="{{$data->image}}">
+							<input type="hidden" name="old_image" value="{{$data->image}}">
 	 			    </div>
 	 			  </div>
 	 		    <div class="form-group text-right">
@@ -104,12 +104,12 @@
 	  });
 	 </script>
 
-	 <script>
-	 $(document).ready(function() {
-	 // subdistrict
+ <script>
+ $(document).ready(function() {
+
 	 $('select[name="section"]').on('change', function(){
 	   var id = $(this).val();
-	   //alert("id");
+	   //alert(id);
 	     if( id==2 || id==3 || id==4) {
 	     	//alert("success");
 	     	$("#catebox").show();
@@ -121,6 +121,6 @@
 	   });
 	 });
 
-	 </script>
+ </script>
 
 @endsection

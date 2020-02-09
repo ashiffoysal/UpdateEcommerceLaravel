@@ -19,7 +19,7 @@
 
 									</div>
 								</div>
-								
+
 							</div>
 							<div class="panel_body">
 								<div class="table-responsive result" >
@@ -27,7 +27,9 @@
 								          <thead>
 								              <tr class="text-center">
 								                  <th class="text-center">#</th>
+								                  <th>Product ID</th>
 								                  <th>Product Name</th>
+								                  <th>Product SKU</th>
 								                  <th>Sell Of Product</th>
 								              </tr>
 								          </thead>
@@ -35,7 +37,9 @@
 								          	@foreach($bestsell as $key => $data)
 												<tr class="text-center">
 													<td>{{++$key}}</td>
+													<td>{{$data->id}}</td>
 													<td>{{$data->product_name}}</td>
+													<td>{{$data->product_sku}}</td>
 													<td>{{$data->number_of_sale}}</td>
 												</tr>
 											@endforeach
@@ -43,7 +47,7 @@
 								 </table>
 		                      </div>
 							</div>
-						 
+
 						</div>
 					</section>
 				</div>
