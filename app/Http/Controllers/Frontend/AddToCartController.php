@@ -58,7 +58,7 @@ class AddToCartController extends Controller
             $data['attributes']['product_id'] = $product->id;
             $data['attributes']['variation'] = 'variation';
 
-            $productdetails =Product::findOrFail($request->id);
+            $productdetails =Product::findOrFail($request->product_id);
             
             foreach(json_decode($productdetails->choice_options) as $key => $choice){
                     $choicename =$choice->name;
@@ -71,7 +71,8 @@ class AddToCartController extends Controller
             $product->number_of_sale++;
             $product->save();
 
-        } else {
+        } 
+        else {
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->addtocart_id)->first();
             if ($flashDealdiscounts) {
                 if ($flashDealdiscounts->discount_type == 1) {

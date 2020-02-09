@@ -30,9 +30,31 @@
 
     <div class="container product-detail">
         <div class="row">
-            <aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-offcanvas">
+            
+
+
+
+
+        <aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-offcanvas">
                 <span id="close-sidebar" class="fa fa-times"></span>
                 <!-- start search -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div class="module so_filter_wrap filter-horizontal">
                     <h3 class="modtitle"><span>SHOP BY</span></h3>
                     <div class="modcontent">
@@ -203,6 +225,11 @@
                     </div>
                     </form>
                 </div>
+
+
+
+
+                
 
 
                 <!-- end search item -->
@@ -418,6 +445,9 @@
                         </div>
                     </div>
                 </div>
+
+
+
                 <div class="module banner-left hidden-xs ">
                     <div class="static-image-home-left banners">
                         <div>
@@ -429,6 +459,25 @@
                 </div>
 
             </aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
             <div id="content" class="col-md-9 col-sm-12 col-xs-12">
                 <div class="module banners-effect-9 form-group">
                     <div class="banners">
