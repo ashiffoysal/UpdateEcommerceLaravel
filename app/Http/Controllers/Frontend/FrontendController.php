@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\ThemeSelector;
 use Illuminate\Http\Request;
 use App\Product;
+use App\OrderPlace;
 use App\Category;
 use App\SubCategory;
 use App\FlashDeal;
@@ -13,7 +14,7 @@ use App\ReSubCategory;
 use App\Color;
 use Carbon\Carbon;
 use DB;
-
+use Auth;
 class FrontendController extends Controller
 {
 
@@ -59,7 +60,7 @@ class FrontendController extends Controller
     }
     // resubcate product
      public function resubcateproduct($cate_slug,$subcate_slug,$resub_slug){
-         
+
         $resubcate=ReSubCategory::where('resubcate_slug',$resub_slug)->first();
         return view('frontend.products.resubcategory',compact('resubcate'));
     }
@@ -71,9 +72,9 @@ class FrontendController extends Controller
         return view('frontend.products.product_details',compact('productdetails'));
 
     }
-    
+
     // Product compare page show
-    
+
     // Product wishlist page show
 
     public function productWishlist()
@@ -101,16 +102,19 @@ class FrontendController extends Controller
     // }
 
     // customer Order page show
-    public function customerOrder ()
+    public function customerOrder()
     {
-        return view('frontend.accounts.order_history');
+        $user_id = Auth::id();
+  		  $history=OrderPlace::where('user_id',$user_id)->orderBy('id','DESC')->paginate(5);
+        return view('frontend.accounts.order_history',compact('history'));
     }
 
 
     // customer Order information page show
-    public function customerOrderInfo ()
+    public function customerOrderInfo($id)
     {
-        return view('frontend.accounts.order_information');
+        $orderplaceid=OrderPlace::where('id',$id)->first();
+        return view('frontend.accounts.order_information',compact('orderplaceid'));
     }
 
     // Customer Order Return page show
@@ -178,14 +182,8 @@ class FrontendController extends Controller
 
             // return json_encode($productsearch);
             return view('frontend.products.search',compact('productsearch'));
-           
+
     }
-
-     
-     
-
-
-
 
 
 }

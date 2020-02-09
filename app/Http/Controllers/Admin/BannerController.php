@@ -25,7 +25,7 @@ class BannerController extends Controller
         // return $request;
          $data = new Banner;
          $data->ban_link = $request->ban_link;
-         
+
          if($request->hasFile('pic')){
             $image=$request->file('pic');
             $ImageName='th'.'_'.time().'.'.$image->getClientOriginalExtension();
@@ -37,23 +37,23 @@ class BannerController extends Controller
             $ImageName='bottom_image'.'_'.time().'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(435,174)->save('public/uploads/banner/'.$ImageName);
             $data->bottom_image =$ImageName;
-            
+
           }
            if($data->save()){
                 $notification=array(
                     'messege'=>'Banner Insert Successfully',
                     'alert-type'=>'success'
                      );
-                   return Redirect()->back()->with($notification); 
+                   return Redirect()->back()->with($notification);
              }else{
                   $notification=array(
                 'messege'=>'Banner Insert Faild',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
              }
-     
-		
+
+
 	}
 	// active
 	public function active($id){
@@ -66,13 +66,13 @@ class BannerController extends Controller
 	                'messege'=>'Banner Active Success',
 	                'alert-type'=>'success'
 	                 );
-	               return Redirect()->back()->with($notification); 
+	               return Redirect()->back()->with($notification);
              }else{
              	 $notification=array(
                 'messege'=>'Banner active Faild',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
              }
 	}
 	// deactive
@@ -86,13 +86,13 @@ class BannerController extends Controller
 	                'messege'=>'Banner deActive Success',
 	                'alert-type'=>'success'
 	                 );
-	               return Redirect()->back()->with($notification); 
+	               return Redirect()->back()->with($notification);
              }else{
              	 $notification=array(
                 'messege'=>'Banner Deactive Faild',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
              }
 	}
 	// softdelete
@@ -106,13 +106,13 @@ class BannerController extends Controller
 	                'messege'=>'Banner delete Success',
 	                'alert-type'=>'success'
 	                 );
-	               return Redirect()->back()->with($notification); 
+	               return Redirect()->back()->with($notification);
              }else{
              	 $notification=array(
                 'messege'=>'Banner delete Faild',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
              }
 	}
 	// multiple soft delete
@@ -169,6 +169,15 @@ class BannerController extends Controller
                     }
 
                 }
+        if($request->hasFile('bottom_image')){
+           $image=$request->file('bottom_image');
+           $ImageName='bottom_image'.'_'.time().'.'.$image->getClientOriginalExtension();
+           Image::make($image)->resize(435,174)->save('public/uploads/banner/'.$ImageName);
+           Banner::where('id',$id)->update([
+               'bottom_image'=>$ImageName,
+           ]);
+
+         }
 
         	if($update){
                  $notification=array(
@@ -195,13 +204,13 @@ class BannerController extends Controller
 	                'messege'=>'Banner Restore Success',
 	                'alert-type'=>'success'
 	                 );
-	               return Redirect()->back()->with($notification); 
+	               return Redirect()->back()->with($notification);
              }else{
              	 $notification=array(
                 'messege'=>'Banner Restore Faild',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
              }
 	}
 

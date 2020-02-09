@@ -486,7 +486,10 @@ class CheckoutController extends Controller
         $PayerID = $request->PayerID;
         $response = $provider->getExpressCheckoutDetails($token);
 
+
         $invoiceId = $response['INVNUM'] ?? uniqid();
+
+
 
 
         $data = $this->cartData($invoiceId);

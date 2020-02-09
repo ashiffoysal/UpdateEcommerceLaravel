@@ -49,7 +49,9 @@ Route::post('admin/mollie/gateway', 'Admin\GatewayController@MollieUpdate')->nam
 Route::get(md5('admin/category/add'), 'Admin\CategoryController@add')->name('admin.category.add');
 Route::get(md5('admin/category/all'), 'Admin\CategoryController@index')->name('admin.category.all');
 Route::post(md5('admin/category/insert'), 'Admin\CategoryController@insert')->name('admin.category.insert');
-Route::get('/get/category/edit/{cate_id}', 'Admin\CategoryController@edit');
+
+Route::get('admin/category/edit/{cate_id}', 'Admin\CategoryController@edit');
+
 Route::post(md5('admin/category/update'), 'Admin\CategoryController@update')->name('admin.category.update');
 Route::get('admin/category/softdelete/{id}', 'Admin\CategoryController@softdelete');
 Route::post('admin/category/multiplesoftdelete', 'Admin\CategoryController@multiplesoftdelete');
@@ -296,8 +298,8 @@ Route::group(['prefix' => 'dashboard', 'namespace'=> 'Frontend',], function () {
     Route::get('customer/account', 'CustomerController@customerAccount')->name('customer.account');
 });
 
-Route::get(md5('/customer/order'), 'Frontend\FrontendController@customerOrder')->name('customer.order');
-Route::get(md5('/customer/order/info'), 'Frontend\FrontendController@customerOrderInfo')->name('customer.order.info');
+Route::get('/customer/order', 'Frontend\FrontendController@customerOrder')->name('customer.order');
+Route::get('/customer/order/info/{id}', 'Frontend\FrontendController@customerOrderInfo')->name('customer.order.info');
 Route::get(md5('/customer/order/return'), 'Frontend\FrontendController@customerOrderReturn')->name('customer.order.return');
 Route::get(md5('/customer/gift/voucher'), 'Frontend\FrontendController@customerGiftVoucher')->name('customer.gift.voucher');
 
@@ -309,6 +311,8 @@ Route::get('/product/detailssearch/', 'Frontend\FrontendController@searchcate')-
 
 
 Route::get('admin/product/varient', 'Frontend\FrontendController@provarient')->name('products.variant_price');
+
+
 
 //Route::get('category/details/{slug}', 'Frontend\FrontendController@categorydetails');
 
