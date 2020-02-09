@@ -25,17 +25,17 @@
 </div>
 
 <div id="main_content">
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="title-breadcrumb">
-            Canada Travel One or Two European Facials at Studio
+<div class="breadcrumbs" style="background: url({{asset('public/frontend/image/breadcrumbs.jpg')}}) no-repeat center top;">
+        <div class="container">
+            <div class="title-breadcrumb">
+                This is BreadCrumb Title
+            </div>
+            <ul class="breadcrumb-cate">
+                <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
+                <li><a href="">gfdsgdfsa</a></li>
+            </ul>
         </div>
-        <ul class="breadcrumb-cate">
-            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
-            <li><a href="#">One or Two European Facials at Studio</a></li>
-        </ul>
     </div>
-</div>
 
 <div class="container product-detail">
     <div class="row">
@@ -45,16 +45,6 @@
         <div id="content" class="col-md-9 col-sm-12 col-xs-12">
             <a href="javascript:void(0)" class="open-sidebar hidden-lg hidden-md"><i class="fa fa-bars"></i>Sidebar</a>
             <div class="sidebar-overlay "></div>
-
-
-
-
-
-
-
-
-
-
           <form id="option-choice-form">
                 <div class="product-view product-detail">
                     <div class="product-view-inner clearfix">
