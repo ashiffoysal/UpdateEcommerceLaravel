@@ -27,7 +27,12 @@ class SiteBannerController extends Controller
         $data = new SiteBanner;
          $data->section = $request->section;
          $data->link = $request->link;
-         $data->category_id = json_encode($request->category_id);
+         if($request->category_id){
+           $data->category_id = json_encode($request->category_id);
+         }else{
+            $data->category_id = NULL;
+         }
+
 
          // $data->save();
 
@@ -220,19 +225,32 @@ class SiteBannerController extends Controller
     //  return $request;
         $id=$request->id;
         $old_image=$request->old_image;
+        // return $old_image;
 
         $update=SiteBanner::where('id',$id)->update([
             'section'=>$request['section'],
             'link'=>$request['link'],
-            'category_id'=>json_encode($request['category_id']),
+            'category_id'=>NULL,
+
         ]);
+
+        if($request->category_id){
+            SiteBanner::where('id',$id)->update([
+              'category_id'=>json_encode($request['category_id']),
+          ]);
+        }else{
+          SiteBanner::where('id',$id)->update([
+             'category_id'=>NULL,
+          ]);
+        }
+
         //
         if($request->section == 1){
              if($request->hasFile('pic')){
                 unlink('public/uploads/sitebanner/'. $old_image);
                 $image=$request->file('pic');
                 $ImageName='th'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(435,175)->save('public/uploads/banner/sitebanner/'.$ImageName);
+                Image::make($image)->resize(570,300)->save('public/uploads/sitebanner/'.$ImageName);
                 SiteBanner::where('id',$id)->update([
                       'image'=>$ImageName,
                  ]);
@@ -244,7 +262,7 @@ class SiteBannerController extends Controller
                 unlink('public/uploads/sitebanner/'. $old_image);
                 $image=$request->file('pic');
                 $ImageName='th'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(570,300)->save('public/uploads/banner/sitebanner/'.$ImageName);
+                Image::make($image)->resize(1120,220)->save('public/uploads/sitebanner/'.$ImageName);
                 SiteBanner::where('id',$id)->update([
                             'image'=>$ImageName,
                  ]);
@@ -256,7 +274,7 @@ class SiteBannerController extends Controller
                  unlink('public/uploads/sitebanner/'. $old_image);
                 $image=$request->file('pic');
                 $ImageName='th'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(270,854)->save('public/uploads/banner/sitebanner/'.$ImageName);
+                Image::make($image)->resize(270,854)->save('public/uploads/sitebanner/'.$ImageName);
                  SiteBanner::where('id',$id)->update([
                             'image'=>$ImageName,
                  ]);
@@ -268,7 +286,7 @@ class SiteBannerController extends Controller
                  unlink('public/uploads/sitebanner/'. $old_image);
                 $image=$request->file('pic');
                 $ImageName='th'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(270,427)->save('public/uploads/banner/sitebanner/'.$ImageName);
+                Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
                  SiteBanner::where('id',$id)->update([
                         'image'=>$ImageName,
                  ]);
@@ -281,7 +299,7 @@ class SiteBannerController extends Controller
                 unlink('public/uploads/sitebanner/'. $old_image);
                 $image=$request->file('pic');
                 $ImageName='th'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(362,495)->save('public/uploads/banner/sitebanner/'.$ImageName);
+                Image::make($image)->resize(270,427)->save('public/uploads/sitebanner/'.$ImageName);
                  SiteBanner::where('id',$id)->update([
                         'image'=>$ImageName,
                  ]);

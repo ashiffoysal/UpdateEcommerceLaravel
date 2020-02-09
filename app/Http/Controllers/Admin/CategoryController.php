@@ -49,24 +49,6 @@ class CategoryController extends Controller
         }else{
              $data->cate_slug=$slug;
         }
-        if($request->hasFile('header_image')){
-                $image=$request->file('header_image');
-                $ImageName='header_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(1920,180)->save('public/uploads/category/'.$ImageName);
-                $data->header_image =$ImageName;
-        }
-        if($request->hasFile('top_image')){
-                $image=$request->file('top_image');
-                $ImageName='top_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(1170,220)->save('public/uploads/category/'.$ImageName);
-                $data->top_image =$ImageName;
-        }
-        if($request->hasFile('side_image')){
-                $image=$request->file('side_image');
-                $ImageName='side_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(270,427)->save('public/uploads/category/'.$ImageName);
-                $data->side_image =$ImageName;
-        }
         if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='pic_'.'_'.time().'.'.$image->getClientOriginalExtension();
@@ -104,16 +86,15 @@ class CategoryController extends Controller
 
    public function edit($cate_id){
        $data=Category::where('id',$cate_id)->first();
-        return json_encode($data);
+        return view('admin.ecommerce.category.edit',compact('data'));
    }
 
 
 // update Category
-   public function update(Request $request,$id){
+   public function update(Request $request){
 
-    //return $id;
+
         $cate_id=$request->id;
-
         $title=strtolower($request['cate_name']);
         $cate_slug=$request['cate_slug'];
         $inputslug=preg_replace('/[^A-Za-z0-9-]+/', '-',$cate_slug);
@@ -130,27 +111,7 @@ class CategoryController extends Controller
         }else{
              $data->cate_slug=$slug;
         }
-        if($request->hasFile('header_image')){
-                $image=$request->file('header_image');
-                $ImageName='header_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(1920,180)->save('public/uploads/category/'.$ImageName);
-                $data->header_image =$ImageName;
 
-        }
-        if($request->hasFile('top_image')){
-
-                $image=$request->file('top_image');
-                $ImageName='top_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(1170,220)->save('public/uploads/category/'.$ImageName);
-                $data->top_image =$ImageName;
-
-        }
-        if($request->hasFile('side_image')){
-                $image=$request->file('side_image');
-                $ImageName='side_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(270,427)->save('public/uploads/category/'.$ImageName);
-                $data->side_image =$ImageName;
-        }
         if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='pic_'.'_'.time().'.'.$image->getClientOriginalExtension();
