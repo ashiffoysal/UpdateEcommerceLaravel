@@ -12,7 +12,11 @@ use App\SubCategory;
 use App\FlashDeal;
 use App\ReSubCategory;
 use App\Color;
+
 use App\FlashDealDetail;
+
+use App\OrderStorage;
+
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -195,10 +199,27 @@ class FrontendController extends Controller
         return view('frontend.products.search', compact('productsearch'));
     }
 
+
     public function flashDealProducts()
     {
         $flash_deal = FlashDeal::with('flash_deal_details')->where('status', 1)->where('is_deleted', 0)->first();
         $flash_deal_details = FlashDealDetail::with('product')->where('flash_deal_id', $flash_deal->id)->paginate(9);
         return view('frontend.hot_deal.hot_deal_products', compact('flash_deal_details'));
     }
+
+
+    // tracking
+    public function tracking(){
+      return view('frontend.tracking.trakingproduct');
+    }
+    //
+    public function ordertracking(Request $request){
+        $orderid=$request->order_id;
+      $trackingresult=OrderPlace::where('order_id',$orderid)->first();
+      return view('frontend.tracking.trackingresult',compact('trackingresult'));
+
+    }
+
+
+
 }

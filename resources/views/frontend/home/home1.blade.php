@@ -271,13 +271,6 @@
                                                     $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->limit(4)->get();
                                                     @endphp
                                                     @foreach($products as $product)
-
-
-
-
-
-
-
                                                     <form class="option-choice-form" onclick="homeadtocart(this);">
 
                                                         <input type="hidden" value="1" name="quantity">
@@ -286,7 +279,9 @@
                                                             name="product_price">
 
 
+
                                                         <div class="ltabs-item col-md-3">
+
 
                                                             <div
                                                                 class="item-inner product-layout transition product-grid ">
@@ -336,26 +331,21 @@
                                                                                     <i class="fa fa-search"></i>
                                                                                 </a>
 
-                                                                                <button class="mywishlist btn-button"
-                                                                                    type="button" data-toggle="tooltip"
-                                                                                    title=""
-                                                                                    data-original-title="add to Wish List"
-                                                                                    data-id="{{$product->id}}"> <i
-                                                                                        class="fa fa-heart"></i></button>
 
-                                                                                <button
-                                                                                    class="compare btn-button compareproduct"
-                                                                                    type="button" id="compareproduct"
-                                                                                    value="{{$product->id }}">
-                                                                                    <i class="fa fa-exchange"></i>
+                                                                            <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}">
+                                                                                <i class="fa fa-exchange"></i>
+                                                                            </button>
+                                                                            @if($product->product_type ==1)
+                                                                            <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <i class="fa fa-search"></i>
+                                                                                <input type="hidden" name="combination">
+                                                                            </a>
+                                                                            @else
+                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to cart</span>
                                                                                 </button>
-                                                                                <button class="addToCart btn-button"
-                                                                                    type="button" data-toggle="tooltip"
-                                                                                    title="" onclick="cart.add('114');"
-                                                                                    data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to
-                                                                                        cart</span>
-                                                                                </button>
+                                                                            @endif
+
 
                                                                             </div>
                                                                         </div>
@@ -448,13 +438,18 @@
                                                                                     value="{{$product->id }}">
                                                                                     <i class="fa fa-exchange"></i>
                                                                                 </button>
-                                                                                <button class="addToCart btn-button"
-                                                                                    type="button" data-toggle="tooltip"
-                                                                                    title="" onclick="cart.add('114');"
-                                                                                    data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to
-                                                                                        cart</span>
+
+                                                                                @if($product->product_type ==1)
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                    <i class="fa fa-search"></i>
+                                                                                    <input type="hidden" name="combination">
+                                                                                </a>
+                                                                            @else
+                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to cart</span>
+
                                                                                 </button>
+                                                                            @endif
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -651,15 +646,19 @@
                                                                                         data-original-title="Compare
                                                                             this Product"> <i class="fa
                                                                             fa-exchange"></i>
-                                                                                    </button> <button class="addToCart
-                                                                            btn-button" type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="cart.add('28')"
-                                                                                        data-original-title="Add
-                                                                            to cart"> <span class="hidden">Add
-                                                                                            to cart</span>
-                                                                                    </button> </div>
-                                                                            </div>
+
+                                                                            </button>
+                                                                            @if($product->product_type ==1)
+                                                                            <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <i class="fa fa-search"></i>
+                                                                                <input type="hidden" name="combination">
+                                                                            </a>
+                                                                            @else
+                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to cart</span>
+                                                                                </button>
+                                                                            @endif</div>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -751,15 +750,19 @@
                                                                                         data-original-title="Compare
                                                                             this Product"> <i class="fa
                                                                             fa-exchange"></i>
-                                                                                    </button> <button class="addToCart
-                                                                            btn-button" type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="cart.add('28')"
-                                                                                        data-original-title="Add
-                                                                            to cart"> <span class="hidden">Add
-                                                                                            to cart</span>
-                                                                                    </button> </div>
-                                                                            </div>
+
+                                                                            </button>
+                                                                            @if($product->product_type ==1)
+                                                                            <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <i class="fa fa-search"></i>
+                                                                                <input type="hidden" name="combination">
+                                                                            </a>
+                                                                            @else
+                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to cart</span>
+                                                                                </button>
+                                                                            @endif </div>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -836,30 +839,30 @@
                                                                                 View" data-fancybox-type="iframe">
                                                                                         <i class="fa
                                                                                 fa-search"></i>
-                                                                                    </a>
-                                                                                    <button class="mywishlist
-                                                                            btn-button" type="button"
-                                                                                        data-id="{{$product->id}}"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        data-original-title="Add
+
+                                                                                </a>
+
+                                                                                <button class="mywishlist
+                                                                            btn-button" type="button" data-id="{{$product->id}}" data-toggle="tooltip" title="" data-original-title="Add
                                                                             to Wish List"> <i class="fa
                                                                             fa-heart"></i>
-                                                                                    </button> <button class="compare
-                                                                            btn-button" type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="compare.add('28');"
-                                                                                        data-original-title="Compare
+                                                                                </button>
+                                                                         <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('28');" data-original-title="Compare
                                                                             this Product"> <i class="fa
                                                                             fa-exchange"></i>
-                                                                                    </button> <button class="addToCart
-                                                                            btn-button" type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="cart.add('28')"
-                                                                                        data-original-title="Add
-                                                                            to cart"> <span class="hidden">Add
-                                                                                            to cart</span>
-                                                                                    </button> </div>
-                                                                            </div>
+                                                                         </button>
+                                                                            @if($product->product_type ==1)
+                                                                            <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <i class="fa fa-search"></i>
+                                                                                <input type="hidden" name="combination">
+                                                                            </a>
+                                                                            @else
+                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to cart</span>
+                                                                                </button>
+                                                                            @endif 
+                                                                        </div>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1021,40 +1024,33 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="button-group">
-                                                                                <div class="button-inner so-quickview">
-                                                                                    <a class="lt-image hidden" href="#"
-                                                                                        target="_self"
-                                                                                        title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a>
-                                                                                    <a class="btn-button btn-quickview quickview quickview_handler"
-                                                                                        href="{{url('product/details/'.$product->id)}}"
-                                                                                        title="Quick View"
-                                                                                        data-title="Quick View"
-                                                                                        data-fancybox-type="iframe">
-                                                                                        <i class="fa fa-search"></i>
-                                                                                    </a>
-                                                                                    <button class="mywishlist
-                                                                                    btn-button" type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        data-id="{{$product->id}}"
-                                                                                        data-original-title="Add to Wish List">
-                                                                                        <i class="fa fa-heart"></i>
-                                                                                    </button> <button
-                                                                                        class="compare btn-button"
-                                                                                        type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="compare.add('28');"
-                                                                                        data-original-title="Compare this Product">
-                                                                                        <i class="fa
-                                                                                    fa-exchange"></i> </button> <button
-                                                                                        class="addToCart btn-button"
-                                                                                        type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="cart.add('28');"
-                                                                                        data-original-title="Add to cart">
-                                                                                        <span class="hidden">Add to
-                                                                                            cart</span> </button> </div>
-                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="button-group">
+                                                                            <div class="button-inner so-quickview">
+                                                                                <a class="lt-image hidden" href="#" target="_self" title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a>
+                                                                                <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                    <i class="fa fa-search"></i>
+                                                                                </a>
+                                                                                <button class="mywishlist
+                                                                                    btn-button" type="button" data-toggle="tooltip" title="" data-id="{{$product->id}}" data-original-title="Add to Wish List"> <i class="fa fa-heart"></i>
+                                                                                </button> <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('28');" data-original-title="Compare this Product"> <i class="fa
+                                                                                    fa-exchange"></i> </button>
+
+                                                                                    @if($product->product_type ==1)
+                                                                            <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <i class="fa fa-search"></i>
+                                                                                <input type="hidden" name="combination">
+                                                                            </a>
+                                                                            @else
+                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to cart</span>
+                                                                                </button>
+                                                                            @endif
+
+
+                                                                                 </div>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1108,40 +1104,26 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="button-group">
-                                                                                <div class="button-inner
-                                                                                so-quickview"> <a
-                                                                                        class="lt-image hidden" href="#"
-                                                                                        target="_self"
-                                                                                        title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a>
-                                                                                    <a class="btn-button btn-quickview quickview quickview_handler"
-                                                                                        href="{{url('product/details/'.$product->id)}}"
-                                                                                        title="Quick View"
-                                                                                        data-title="Quick View"
-                                                                                        data-fancybox-type="iframe"> <i
-                                                                                            class="fa
-                                                                            fa-search"></i> </a> <button
-                                                                                        class="mywishlist btn-button"
-                                                                                        type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        data-id="{{$product->id}}"
-                                                                                        data-original-title="Add to Wish List">
-                                                                                        <i class="fa fa-heart"></i>
-                                                                                    </button> <button
-                                                                                        class="compare btn-button"
-                                                                                        type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="compare.add('28');"
-                                                                                        data-original-title="Compare this Product">
-                                                                                        <i class="fa fa-exchange"></i>
-                                                                                    </button> <button class="addToCart
-                                                                            btn-button" type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="cart.add('28');"
-                                                                                        data-original-title="Add to cart">
-                                                                                        <span class="hidden">Add to
-                                                                                            cart</span> </button> </div>
-                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="button-group">
+                                                                            <div class="button-inner
+                                                                                so-quickview"> <a class="lt-image hidden" href="#" target="_self" title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a> <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe"> <i class="fa
+                                                                            fa-search"></i> </a> <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-id="{{$product->id}}" data-original-title="Add to Wish List">
+                                                                                    <i class="fa fa-heart"></i> </button> <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('28');" data-original-title="Compare this Product">
+                                                                                    <i class="fa fa-exchange"></i> </button> 
+                                                                                    @if($product->product_type ==1)
+                                                                            <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <i class="fa fa-search"></i>
+                                                                                <input type="hidden" name="combination">
+                                                                            </a>
+                                                                            @else
+                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to cart</span>
+                                                                                </button>
+                                                                            @endif 
+                                                                        </div>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1194,40 +1176,27 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="button-group">
-                                                                                <div class="button-inner
-                                                                        so-quickview"> <a class="lt-image hidden"
-                                                                                        href="#" target="_self"
-                                                                                        title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a>
-                                                                                    <a class="btn-button btn-quickview quickview quickview_handler"
-                                                                                        href="{{url('product/details/'.$product->id)}}"
-                                                                                        title="Quick View"
-                                                                                        data-title="Quick View"
-                                                                                        data-fancybox-type="iframe"> <i
-                                                                                            class="fa
-                                                                    fa-search"></i> </a> <button
-                                                                                        class="mywishlist btn-button"
-                                                                                        type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        data-id="{{$product->id}}"
-                                                                                        data-original-title="Add to Wish List">
-                                                                                        <i class="fa fa-heart"></i>
-                                                                                    </button> <button
-                                                                                        class="compare btn-button"
-                                                                                        type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="compare.add('28');"
-                                                                                        data-original-title="Compare this Product">
-                                                                                        <i class="fa
-                                                                    fa-exchange"></i> </button> <button
-                                                                                        class="addToCart btn-button"
-                                                                                        type="button"
-                                                                                        data-toggle="tooltip" title=""
-                                                                                        onclick="cart.add('28');"
-                                                                                        data-original-title="Add to cart">
-                                                                                        <span class="hidden">Add to
-                                                                                            cart</span> </button> </div>
-                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="button-group">
+                                                                            <div class="button-inner
+                                                                        so-quickview"> <a class="lt-image hidden" href="#" target="_self" title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a> <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe"> <i class="fa
+                                                                    fa-search"></i> </a> <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-id="{{$product->id}}" data-original-title="Add to Wish List"> <i class="fa fa-heart"></i>
+                                                                                </button> <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('28');" data-original-title="Compare this Product"> <i class="fa
+                                                                    fa-exchange"></i> </button> 
+                                                                    @if($product->product_type ==1)
+                                                                            <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <i class="fa fa-search"></i>
+                                                                                <input type="hidden" name="combination">
+                                                                            </a>
+                                                                            @else
+                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to cart</span>
+                                                                                </button>
+                                                                            @endif
+                                                                                    
+                                                                                    </div>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1373,12 +1342,11 @@
                                                                                     data-original-title="Compare this Product">
                                                                                     <i class="fa fa-exchange"></i>
                                                                                 </button>
-                                                                                <button class="addToCart btn-button"
-                                                                                    type="button" data-toggle="tooltip"
-                                                                                    title="" onclick="cart.add('114');"
-                                                                                    data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to
-                                                                                        cart</span>
+
+
+                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to cart</span>
+
                                                                                 </button>
                                                                             </div>
                                                                         </div>
@@ -1585,28 +1553,33 @@
     </script>
 
     <script>
-                        function homeadtocart(el) {
 
-                            var product_id = el.product_id.value;
-                            var product_price = el.product_price.value;
-                            var quantity = el.quantity.value;
-                            $.ajax({
-                                type: 'GET',
-                                url: "{{ route('product.add.cart') }}",
-                                data: {
-                                    product_id: product_id,
-                                    product_price: product_price,
-                                    quantity: quantity
-                                },
-                                success: function (data) {
-                                    // console.log(data);
-                                    document.getElementById('cartdatacount').innerHTML = data.quantity;
-                                    document.getElementById('product_price').innerHTML = data.total;
+        function homeadtocart(el) {
+                var product_id = el.product_id.value;
+                var product_price = el.product_price.value;
+                var quantity = el.quantity.value;
+                if(!el.combination){
+                    $.ajax({
+                    type: 'GET',
+                    url: "{{ route('product.add.cart') }}",
+                    data: {
+                        product_id: product_id,
+                        product_price: product_price,
+                        quantity: quantity,
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        document.getElementById('cartdatacount').innerHTML = data.quantity;
+                        document.getElementById('product_price').innerHTML = data.total;
 
-                                }
-                            })
-                        }
+                    }
+                })
+                }
+           
+        }
+
     </script>
+
 
 
 

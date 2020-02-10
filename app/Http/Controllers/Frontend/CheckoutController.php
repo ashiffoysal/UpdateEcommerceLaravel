@@ -25,6 +25,7 @@ use App\DatabaseStorageModel;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
+use App\ProductStorage;
 use Illuminate\Support\Facades\Auth;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Srmklive\PayPal\Services\AdaptivePayments;
@@ -184,71 +185,92 @@ class CheckoutController extends Controller
     public function orderSubmit(Request $request)
     {
 
-        $validatedData = $request->validate([
-            'user_id' => 'required',
-            'user_address' => 'required',
-            'user_post_office' => 'required',
-            'user_postcode' => 'required',
-            'user_country_id' => 'required',
-            'user_division_id' => 'required',
-            'user_district_id' => 'required',
-            'user_upazila_id' => 'required',
-            'shipping_id' => 'required',
-            'payment_method_id' => 'required',
+        // $validatedData = $request->validate([
+        //     'user_id' => 'required',
+        //     'user_address' => 'required',
+        //     'user_post_office' => 'required',
+        //     'user_postcode' => 'required',
+        //     'user_country_id' => 'required',
+        //     'user_division_id' => 'required',
+        //     'user_district_id' => 'required',
+        //     'user_upazila_id' => 'required',
+        //     'shipping_id' => 'required',
+        //     'payment_method_id' => 'required',
 
 
-        ]);
+        // ]);
 
 
-        $usseraddress_id = UserAddress::insertGetId([
-            'user_id' => $request->user_id,
-            'user_address' => $request->user_address,
-            'user_post_office' => $request->user_post_office,
-            'user_postcode' => $request->user_postcode,
-            'user_country_id' => $request->user_country_id,
-            'user_division_id' => $request->user_division_id,
-            'user_district_id' => $request->user_district_id,
-            'user_upazila_id' => $request->user_upazila_id,
-            'is_shipping_address' => $request->is_shipping_address,
-            'created_at' => Carbon::now(),
-        ]);
+        // $usseraddress_id = UserAddress::insertGetId([
+        //     'user_id' => $request->user_id,
+        //     'user_address' => $request->user_address,
+        //     'user_post_office' => $request->user_post_office,
+        //     'user_postcode' => $request->user_postcode,
+        //     'user_country_id' => $request->user_country_id,
+        //     'user_division_id' => $request->user_division_id,
+        //     'user_district_id' => $request->user_district_id,
+        //     'user_upazila_id' => $request->user_upazila_id,
+        //     'is_shipping_address' => $request->is_shipping_address,
+        //     'created_at' => Carbon::now(),
+        // ]);
 
 
 
 
 
-        if (UserAddress::findOrFail($usseraddress_id)->is_shipping_address == NULL) {
+        // if (UserAddress::findOrFail($usseraddress_id)->is_shipping_address == NULL) {
 
-            $request->validate([
-                'shipping_name' => 'required',
-                'shipping_name' => 'required',
-                'shipping_phone' => 'required',
-                'shipping_address' => 'required',
-                'shipping_post_office' => 'required',
-                'shipping_postcode' => 'required',
-                'shipping_country_id' => 'required',
-                'shipping_division_id' => 'required',
-                'shipping_district_id' => 'required',
-                'shipping_upazila_id' => 'required',
-            ]);
+        //     $request->validate([
+        //         'shipping_name' => 'required',
+        //         'shipping_name' => 'required',
+        //         'shipping_phone' => 'required',
+        //         'shipping_address' => 'required',
+        //         'shipping_post_office' => 'required',
+        //         'shipping_postcode' => 'required',
+        //         'shipping_country_id' => 'required',
+        //         'shipping_division_id' => 'required',
+        //         'shipping_district_id' => 'required',
+        //         'shipping_upazila_id' => 'required',
+        //     ]);
 
 
-            ShippingAddress::insert([
-                'shipping_user_id' => $request->shipping_user_id,
-                'shipping_name' => $request->shipping_name,
-                'shipping_phone' => $request->shipping_phone,
-                'shipping_address' => $request->shipping_customer_address,
-                'shipping_post_office' => $request->shipping_post_office,
-                'shipping_postcode' => $request->shipping_postcode,
-                'shipping_country_id' => $request->shipping_country_id,
-                'shipping_division_id' => $request->shipping_division_id,
-                'shipping_district_id' => $request->shipping_district_id,
-                'shipping_upazila_id' => $request->shipping_upazila_id,
-                'order_id' => $request->order_id,
-                'created_at' => Carbon::now(),
-            ]);
+        //     ShippingAddress::insert([
+        //         'shipping_user_id' => $request->shipping_user_id,
+        //         'shipping_name' => $request->shipping_name,
+        //         'shipping_phone' => $request->shipping_phone,
+        //         'shipping_address' => $request->shipping_customer_address,
+        //         'shipping_post_office' => $request->shipping_post_office,
+        //         'shipping_postcode' => $request->shipping_postcode,
+        //         'shipping_country_id' => $request->shipping_country_id,
+        //         'shipping_division_id' => $request->shipping_division_id,
+        //         'shipping_district_id' => $request->shipping_district_id,
+        //         'shipping_upazila_id' => $request->shipping_upazila_id,
+        //         'order_id' => $request->order_id,
+        //         'created_at' => Carbon::now(),
+        //     ]);
+        // }
+
+        $orderid =$request->order_id;
+        $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
+        
+        $products = array();
+
+        foreach($usercartdatas as $usercartdata){
+            $item['name']=$usercartdata->name;
+            $item['price']=$usercartdata->price;
+            $item['quantity']=$usercartdata->quantity; 
+            array_push($products, $item);
         }
 
+        ProductStorage::insert([
+            'product_details'=>json_encode($products),
+            'order_id'=>$orderid,
+            'user_id'=>Auth::user()->id,
+            'created_at'=>Carbon::now(),
+        ]);
+
+
+        return ProductStorage::all();
 
         $userid =  \Request::getClientIp(true);
         $useriditem =  \Request::getClientIp(true) . '_cart_items';
@@ -269,10 +291,15 @@ class CheckoutController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
+        
+
         DatabaseStorageModel::where('id', $useriditem)->first()->delete();
         if (DatabaseStorageModel::where('id', $useridcondition)->first()) {
             DatabaseStorageModel::where('id', $useridcondition)->first()->delete();
         }
+
+
+
 
         $getPaymentSecureId = OrderPlace::where('id', $orderPlaceId)->select('payment_secure_id')->first();
 
@@ -519,7 +546,7 @@ class CheckoutController extends Controller
 
         $orderstorage = OrderStorage::where('purchase_key', $cartid)->first();
 
-        foreach (json_decode($orderstorage->cart_data) as $key => $cart) {
+        foreach (json_decode($orderstorage->cart_data) as $key => $cart){
             $itemdetails = [
                 'name' => $cart->name,
                 'price' => $cart->price,

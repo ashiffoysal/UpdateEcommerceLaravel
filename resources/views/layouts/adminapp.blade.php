@@ -409,6 +409,7 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.page.all')}}">Page</a></li>
                             <li><a href="{{route('admin.banner.all')}}">Slider</a></li>
                             <li><a href="{{route('admin.sitebanner.all')}}">Site Banner </a></li>
+                            <li><a href="{{route('admin.themecolor.all')}}">Theme Color</a></li>
 
                         </ul>
                     </li>
