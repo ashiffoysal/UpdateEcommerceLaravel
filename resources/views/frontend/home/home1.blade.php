@@ -1294,6 +1294,18 @@
             });
         });
     </script>
+    
+    <script>
+
+$(function () {
+$('.Countdown-1').countdown('{{ $hotdeals->end_date }}', function (event) {
+$(this).html(event.strftime('' + '<div class="time-item time-day"><div class="num-time">%D</div><div class="name-time"> D </div></div>'
++ '<div class="time-item time-hour"><div class="num-time">%H</div><div class="name-time">H</div></div>'
++ '<div class="time-item time-min"><div class="num-time">%M</div><div class="name-time">M</div></div>'
++ '<div class="time-item time-sec"><div class="num-time">%S</div><div class="name-time">S</div></div>'));
+});
+});
+</script>
 
 
     @endsection
