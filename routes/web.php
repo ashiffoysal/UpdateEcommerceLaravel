@@ -260,7 +260,7 @@ Route::get('resubacete/{cate_slug}/{subacet_slug}/{resub_slug}', 'Frontend\Front
 
 Route::get('/product/details/page/{id}', 'Frontend\FrontendController@productDetails')->name('product.details');
 
-
+Route::get('flash_deal_products', 'Frontend\FrontendController@flashDealProducts')->name('hot.deal.products');
 
 
 // product add to cart in front end
@@ -563,9 +563,19 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
 
 // Payment Route Created By Harrison Ended
 
+// Route::get('cart_data', function(){
 
+//     $cartItems = App\OrderStorage::where('purchase_key', 24)->first();
+//     //dd($cartItems);
+//    foreach ($cartItems->cart_data as $cart){
 
-
-
-Route::get('hllow worldff', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
-Route::get('qayumhasantestroute', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
+//      $product = App\Product::where('id', $cart->attributes->product_id)->select('product_sku')->first();
+//      echo $cart->id ."<br>";
+//      echo $cart->name ."<br>";
+//      echo $cart->price ."<br>";
+//      echo $cart->quantity ."<br>";
+//      echo $cart->attributes->colors ."<br>";
+//      echo $cart->attributes->size ."<br>";
+//      echo $product->product_sku;
+//     }
+// });

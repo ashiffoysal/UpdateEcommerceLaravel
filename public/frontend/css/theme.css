@@ -4,7 +4,7 @@
  *	Author: Magentech
  *	Author URI: http://www.magentech.com
  *	Version: 1.0.0
- *	Description: This is html5 Sass template 
+ *	Description: This is html5 Sass template
  *******************************************/
 /* [2] */
 /* [8] */
@@ -263,7 +263,7 @@
  [5] NO RESPONSIVE BOOTSTRAP
  [6] PRELOADING SCREEN
  [7] BANNER EFFECT
- [8] POPUP ADDED TO CART 
+ [8] POPUP ADDED TO CART
  [9] PAGE COMINGSOON
  ==============================================*/
 /*============BACK TO TOP ==================*/
@@ -535,7 +535,7 @@
 
   .lazy.lazy-loaded img {
     opacity: 1; } }
-/* Overlay pattern 
+/* Overlay pattern
  --------------------------------------- */
 body.no-bgbody {
   background-image: none; }
@@ -724,7 +724,7 @@ header.navbar-compact {
 
   .lazy.lazy-loaded img {
     opacity: 1; } }
-/* Overlay pattern 
+/* Overlay pattern
  --------------------------------------- */
 body.no-bgbody {
   background-image: none; }
@@ -2634,7 +2634,7 @@ ul.breadcrumb {
       position: static;
       font-weight: 400; }
   .content-aside .product-simple .so-extraslider:hover .owl2-controls {
-    /*@include transform(scale(1));          
+    /*@include transform(scale(1));
      @include effect-block-show();*/ }
   .content-aside .product-simple .so-extraslider .extraslider-inner .item {
     padding-top: 0;
@@ -2861,7 +2861,7 @@ ul.breadcrumb {
      display: block ;
      .content{
      display: block ;
-     } 
+     }
      }*/ }
   .container-megamenu.horizontal ul.megamenu .item-style1 {
     /*.sub-menu{
@@ -2869,7 +2869,7 @@ ul.breadcrumb {
      display: block ;
      .content{
      display: block ;
-     } 
+     }
      }*/ }
   .container-megamenu.horizontal ul.megamenu .item-style1 .subcategory li a {
     float: left;
@@ -2885,7 +2885,7 @@ ul.breadcrumb {
      display: block ;
      .content{
      display: block ;
-     } 
+     }
      }*/ }
   .container-megamenu.horizontal ul.megamenu .blog-item .sub-menu .content {
     padding: 30px 25px; }
@@ -4291,7 +4291,7 @@ table.table-bordered thead > * {
  [1]   Page Faq
  [2]   Page About us
  [3]   Page Contact
- [4]   page 404 
+ [4]   page 404
  */
 #map-canvas {
   height: 600px; }
@@ -4831,7 +4831,7 @@ ul.yt-accordion li.accordion-group h3.accordion-heading:hover .fa {
  [SASS DIRECTORY ]
  [1] BOX SALE,NEW
  [2] RATE
- [3] TODAY'S DEALS 
+ [3] TODAY'S DEALS
  [4] PRODUCT CATEGORY
  [5] TOOLBAR
  [6] PRODUCT LIST GRID SIMPLE
@@ -5336,7 +5336,7 @@ span.fa-stack {
   font-weight: bold;
   display: inline-block;
   font-size: 16px;
-  width: 40px;
+  width: 60px;
   height: 40px;
   padding: 3px 0;
   text-align: center;
@@ -7189,7 +7189,7 @@ footer a:hover {
   background-color: #ff5e00; }
 /*===============================================
  [SASS DIRECTORY ]
- [1] 
+ [1]
  ==============================================*/
 /*===============================*/
 h1, h2, h3, h4, h5, h6 {
@@ -7400,7 +7400,7 @@ btx textarea, input[type="text"], input[type="password"], input[type="datetime"]
  margin-bottom: 30px;
  }*/
 /************************************************************************************************
- SHORTCODE HTML 
+ SHORTCODE HTML
  *************************************************************************************************/
 .banners3 {
   margin: 0 -5px 30px -5px;
@@ -8919,7 +8919,7 @@ div#content .col-lg-2:nth-child(6n+1), #content .col-lg-2:nth-child(6n+1), #cont
 .modcontent {
   clear: both; }
 /************************************************************************************************
- MODULE HOME SLIDER  
+ MODULE HOME SLIDER
  *************************************************************************************************/
 .module.sohomepage-slider {
   margin: 0; }

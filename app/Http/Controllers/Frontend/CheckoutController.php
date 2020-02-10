@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Auth;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Srmklive\PayPal\Services\AdaptivePayments;
 use Illuminate\Foundation\Console\Presets\React;
+use Illuminate\Support\Facades\Hash;
 
 class CheckoutController extends Controller
 {
@@ -264,7 +265,7 @@ class CheckoutController extends Controller
             'cart_id' => $purchase_key,
             'total_price' => $request->total_price,
             'total_quantity' => $request->total_quantity,
-            'payment_secure_id' => substr(md5(time()), 10, 100),
+            'payment_secure_id' => Hash::make($request->order_id),
             'created_at' => Carbon::now(),
         ]);
 
@@ -379,7 +380,7 @@ class CheckoutController extends Controller
             } else {
                 echo "JSON Data parsing error!";
             }
-        } 
+        }
 
         // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
     }

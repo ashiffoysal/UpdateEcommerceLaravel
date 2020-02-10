@@ -30,7 +30,7 @@
 
     <div class="container product-detail">
         <div class="row">
-            
+
 
 
 
@@ -38,20 +38,6 @@
         <aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-offcanvas">
                 <span id="close-sidebar" class="fa fa-times"></span>
                 <!-- start search -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -229,7 +215,7 @@
 
 
 
-                
+
 
 
                 <!-- end search item -->
@@ -473,7 +459,7 @@
 
 
 
-        
+
 
 
 
@@ -637,7 +623,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -651,7 +637,7 @@
 <script>
 
 function cataddtocart(){
-    
+
     $.ajax({
 type:'GET',
 url:"{{ route('product.add.cart') }}",

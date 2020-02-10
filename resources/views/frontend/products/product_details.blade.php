@@ -25,20 +25,17 @@
 </div>
 
 <div id="main_content">
-
-<div class="breadcrumbs" style="background: url({{asset('public/frontend/image/breadcrumbs.jpg')}}) no-repeat center top;">
+    <div class="breadcrumbs">
         <div class="container">
             <div class="title-breadcrumb">
-                This is BreadCrumb Title
+                Canada Travel One or Two European Facials at Studio
             </div>
             <ul class="breadcrumb-cate">
-                <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
-                <li><a href="">gfdsgdfsa</a></li>
-
+                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+                <li><a href="#">One or Two European Facials at Studio</a></li>
             </ul>
         </div>
     </div>
-
 
     <div class="container product-detail">
         <div class="row">
@@ -59,17 +56,6 @@
                                         <span class="label-product label-sale">
                                             -30%
                                         </span>
-                                </div>
-                                <img class="product-image-zoom" src="{{asset('public/uploads/products/thumbnail/productdetails/'.$productdetails->thumbnail_img)}}" data-zoom-image="{{asset('public/uploads/products/thumbnail/productdetails/'.$productdetails->thumbnail_img)}}" title="Canada Travel One or Two European Facials at  Studio" alt="Canada Travel One or Two European Facials at  Studio">
-                            </div>
-                            <div id="thumb-slider" class="full_slider category-slider-inner products-list yt-content-slider" data-rtl="no" data-autoplay="no" data-pagination="no" data-delay="4" data-speed="0.6" data-margin="10" data-items_column0="3" data-items_column1="3" data-items_column2="3" data-items_column3="3" data-items_column4="2" data-arrows="yes" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
-                                @foreach (json_decode($productdetails->photos) as $key => $photo)
-                                <div class="owl2-item ">
-                                    <div class="image-additional">
-                                        <a data-index="0" class="img thumbnail" data-image="{{url('storage/app/public/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio">
-                                            <img src="{{url('storage/app/public/'.$photo) }}" title="Canada Travel One or Two European Facials at  Studio" alt="Canada Travel One or Two European Facials at  Studio">
-                                        </a>
-
                                     </div>
                                     <img class="product-image-zoom"
                                         src="{{asset('public/uploads/products/thumbnail/productdetails/'.$productdetails->thumbnail_img)}}"
@@ -100,12 +86,15 @@
                                 </div>
                             </div>
                             <div class="content-product-right col-md-7 col-sm-6 col-xs-12">
+                              @if ($checkFlashDeal == 1)
                                 <div class="countdown_box">
                                     <div class="countdown_inner">
                                         <div class="Countdown-1">
+
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="title-product">
                                     <h1>{{$productdetails->product_name}}</h1>
                                 </div>
@@ -401,8 +390,7 @@
                                                             </div>
                                                             <div class="price-sale price-right">
                                                                 @php
-                                                                $flashdealdetail
-                                                                =App\FlashDealDetail::where('product_id',
+                                                                $flashdealdetail = App\FlashDealDetail::where('product_id',
                                                                 $products->id)->get();
                                                                 @endphp
                                                                 @foreach($flashdealdetail as $row)
@@ -739,4 +727,17 @@
         });
     });
 </script>
+
+<script>
+    $(function () {
+        $('.Countdown-1').countdown('{{ $flashDealEndDate }}', function (event) {
+            $(this).html(event.strftime('' + '<div class="time-item time-day"><div class="num-time">%D</div><div class="name-time"> D </div></div>'
+                + '<div class="time-item time-hour"><div class="num-time">%H</div><div class="name-time">H</div></div>'
+                + '<div class="time-item time-min"><div class="num-time">%M</div><div class="name-time">M</div></div>'
+                + '<div class="time-item time-sec"><div class="num-time">%S</div><div class="name-time">S</div></div>'));
+        });
+    });
+</script>
 @endsection
+
+

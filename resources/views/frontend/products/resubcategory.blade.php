@@ -18,7 +18,7 @@
     </div>
 </div>
 <div id="main_content">
-  
+
     <div class="breadcrumbs" style="background: url({{asset('public/frontend/image/breadcrumbs.jpg')}}) no-repeat center top;">
         <div class="container">
             <div class="title-breadcrumb">
@@ -36,7 +36,7 @@
 
 
 
-        
+
         <aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column sidebar-offcanvas">
 				<span id="close-sidebar" class="fa fa-times"></span>
 				<div class="module so_filter_wrap filter-horizontal">
@@ -47,7 +47,7 @@
 
 
                     <div class="row">
-						
+
                             <div class="col-md-12 p-0">
                                 <li class="so-filter-options" data-option="search">
                                     <div class="so-filter-heading">
@@ -56,13 +56,13 @@
                                         </div>
                                         <i class="fa fa-chevron-down"></i>
                                     </div>
-                                    
+
                                     <div class="so-filter-content-opts">
                                         <div class="so-filter-content-opts-container">
                                             <div class="so-filter-option" data-type="search">
                                                 <div class="so-option-container">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="text_search" id="text_search" value="">
+                                                        <input type="text" class="form-control" data-id="{{ $resubcate->id }}" name="search_field" id="search_field">
                                                         <div class="input-group-btn">
                                                             <button class="btn btn-default" type="button" id="submit_text_search"><i class="fa fa-search"></i></button>
                                                         </div>
@@ -198,7 +198,7 @@
 								</div>
                             </li>
                             </div>
-                        
+
                     </div>
 
 
@@ -235,7 +235,7 @@
 													<!-- Begin title -->
 													<div class="item-title">
 														<a href="product.html" target="_self" title="Toshiba Pro 21&quot;(21:9) FHD  IPS LED 1920X1080 HDMI(2) ">
-														  Toshiba Pro 21"(21:9) FHD  IPS LED 1920X1080 HDMI(2) 
+														  Toshiba Pro 21"(21:9) FHD  IPS LED 1920X1080 HDMI(2)
 														</a>
 													</div>
 													   <!-- Begin ratting -->
@@ -276,7 +276,7 @@
 											   <!-- Begin title -->
 											   <div class="item-title">
 												  <a href="product.html" target="_self" title="Compact Portable Charger (Power Bank) with Premium ">
-												  Compact Portable Charger (Power Bank) with Premium 
+												  Compact Portable Charger (Power Bank) with Premium
 												  </a>
 											   </div>
 											   <!-- Begin ratting -->
@@ -317,7 +317,7 @@
 											   <!-- Begin title -->
 											   <div class="item-title">
 												  <a href="product.html" target="_self" title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
-												  Philipin Tour Group Manila/ Pattaya / Mactan  
+												  Philipin Tour Group Manila/ Pattaya / Mactan
 												  </a>
 											   </div>
 											   <!-- Begin ratting -->
@@ -358,7 +358,7 @@
 											   <!-- Begin title -->
 											   <div class="item-title">
 												  <a href="product.html" target="_self" title="Portable  Compact Charger (External Battery) t45 ">
-												  Portable  Compact Charger (External Battery) t45 
+												  Portable  Compact Charger (External Battery) t45
 												  </a>
 											   </div>
 											   <!-- Begin ratting -->
@@ -392,14 +392,14 @@
 					</div>
 				 </div>
             </aside>
-            
 
 
 
-            
 
 
-            
+
+
+
             <div id="content" class="col-md-9 col-sm-12 col-xs-12">
                 <div class="module banners-effect-9 form-group">
                     <div class="banners">
