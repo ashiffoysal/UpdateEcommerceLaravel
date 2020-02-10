@@ -12,9 +12,11 @@ use App\SubCategory;
 use App\FlashDeal;
 use App\ReSubCategory;
 use App\Color;
+use App\OrderStorage;
 use Carbon\Carbon;
 use DB;
 use Auth;
+
 class FrontendController extends Controller
 {
 
@@ -184,6 +186,8 @@ class FrontendController extends Controller
             return view('frontend.products.search',compact('productsearch'));
 
     }
+
+  
 
 
 }
