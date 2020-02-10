@@ -92,6 +92,14 @@ Route::post('admin/color/multisoftdelete', 'Admin\ColorController@multisoftdel')
 Route::get('admin/color/delete/{id}', 'Admin\ColorController@delete');
 Route::get('/get/color/edit/{color_id}', 'Admin\ColorController@edit');
 Route::post(md5('admin/color/update'), 'Admin\ColorController@update')->name('admin.color.update');
+// theme color setup
+Route::get(md5('admin/themecolor/all'), 'Admin\ThemeColorController@index')->name('admin.themecolor.all');
+Route::post(md5('admin/themecolor/insert'), 'Admin\ThemeColorController@insert')->name('admin.themcolor.insert');
+Route::post(md5('admin/themecolor/update'), 'Admin\ThemeColorController@update')->name('admin.themecolor.update');
+Route::get('/get/admin/themecolor/{id}', 'Admin\ThemeColorController@edit');
+Route::get('admin/themecolor/softDelete/{id}', 'Admin\ThemeColorController@softDelete');
+Route::get('admin/themecolor/active/{id}', 'Admin\ThemeColorController@active');
+
 // brand controller
 Route::get(md5('admin/brand/all'), 'Admin\BrandController@index')->name('admin.brand.all');
 Route::post('admin/brand/insert', 'Admin\BrandController@insert')->name('admin.brand.insert');
@@ -305,8 +313,9 @@ Route::get(md5('/customer/gift/voucher'), 'Frontend\FrontendController@customerG
 
 Route::get('/product/detailssearch/', 'Frontend\FrontendController@searchcate')->name('products.search.cate');
 
-
-
+// traking
+Route::get('/tracking', 'Frontend\FrontendController@tracking');
+Route::get('tracking/order', 'Frontend\FrontendController@ordertracking');
 // Route Created By Harrison
 
 
