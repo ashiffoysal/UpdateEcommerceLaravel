@@ -12,9 +12,11 @@ use App\SubCategory;
 use App\FlashDeal;
 use App\ReSubCategory;
 use App\Color;
+use App\OrderStorage;
 use Carbon\Carbon;
 use DB;
 use Auth;
+
 class FrontendController extends Controller
 {
 
@@ -185,6 +187,7 @@ class FrontendController extends Controller
 
     }
 
+
     // tracking
     public function tracking(){
       return view('frontend.tracking.trakingproduct');
@@ -196,6 +199,7 @@ class FrontendController extends Controller
       return view('frontend.tracking.trackingresult',compact('trackingresult'));
 
     }
+
 
 
 }

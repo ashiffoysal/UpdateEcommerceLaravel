@@ -578,3 +578,6 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
 
 Route::get('hllow worldff', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
 Route::get('qayumhasantestroute', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
+Route::get('test', 'Frontend\FrontendController@test');
+
+
