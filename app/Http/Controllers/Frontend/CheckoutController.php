@@ -406,7 +406,7 @@ class CheckoutController extends Controller
             } else {
                 echo "JSON Data parsing error!";
             }
-        } 
+        }
 
         // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
     }
@@ -545,7 +545,7 @@ class CheckoutController extends Controller
 
         $orderstorage = OrderStorage::where('purchase_key', $cartid)->first();
 
-        foreach (json_decode($orderstorage->cart_data) as $key => $cart) {
+        foreach (json_decode($orderstorage->cart_data) as $key => $cart){
             $itemdetails = [
                 'name' => $cart->name,
                 'price' => $cart->price,

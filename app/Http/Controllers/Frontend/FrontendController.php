@@ -187,7 +187,19 @@ class FrontendController extends Controller
 
     }
 
-  
+
+    // tracking
+    public function tracking(){
+      return view('frontend.tracking.trakingproduct');
+    }
+    //
+    public function ordertracking(Request $request){
+        $orderid=$request->order_id;
+      $trackingresult=OrderPlace::where('order_id',$orderid)->first();
+      return view('frontend.tracking.trackingresult',compact('trackingresult'));
+
+    }
+
 
 
 }

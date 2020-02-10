@@ -46,9 +46,9 @@ class DatabaseStorage
             DatabaseStorageModel::create([
                 'id' => $key,
                 'cart_data' => $value,
-                
+
             ]);
-            
+
             OrderStorage::create([
                 'id' => $key,
                 'cart_data' => $value,
