@@ -268,7 +268,7 @@ Route::get('resubacete/{cate_slug}/{subacet_slug}/{resub_slug}', 'Frontend\Front
 
 Route::get('/product/details/page/{id}', 'Frontend\FrontendController@productDetails')->name('product.details');
 
-
+Route::get('flash_deal_products', 'Frontend\FrontendController@flashDealProducts')->name('hot.deal.products');
 
 
 // product add to cart in front end
@@ -571,13 +571,5 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
 });
 
 // Payment Route Created By Harrison Ended
-
-
-
-
-
-Route::get('hllow worldff', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
-Route::get('qayumhasantestroute', 'afdsafllsdkafhe@getProductsfsafldsafhldsaafh');
-Route::get('test', 'Frontend\FrontendController@test');
 
 
