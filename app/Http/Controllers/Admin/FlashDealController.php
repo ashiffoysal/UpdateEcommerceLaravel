@@ -263,6 +263,20 @@ class FlashDealController extends Controller
 
     }
 
+    public function inactiveAll()
+    {
+        $allActiveFlashDeal = FlashDeal::where('status', 1)->get();
+        foreach ($allActiveFlashDeal as $value) {
+             $value->status = 0;
+             $value->save();
+        }
+        $notification = array(
+            'messege' => 'Successfully All Flash Deal Is Deactivated',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
     // get product by ajax and method is here
     public function getProductsByAjax(Request $request)
     {
@@ -276,4 +290,5 @@ class FlashDealController extends Controller
         $product_ids = $request->productId;
         return view('admin.ecommerce.flash_deal.partial.previous_flash_deal_product', compact('flash_deal_id', 'product_ids'));
     }
+
 }

@@ -43,7 +43,7 @@
                                 <label class="control-label" for="input-password">Password</label>
                                 <input type="password" name="password" value="" placeholder="Password" id="input-password" class="form-control">
                                 <span class="error_text"> {{ $errors->first('password') }} </span><br/>
-                                <a href="#">Forgotten Password</a></div>
+                            <a href="{{ route('password.request') }}">Forgotten Password</a></div>
 
                             <input type="submit" value="Login" class="btn btn-primary pull-left">
                         </form>
@@ -61,6 +61,7 @@
                 </div>
             </div>
         </div>
+
         <aside class="col-md-3 col-sm-4 col-xs-12 content-aside right_column sidebar-offcanvas">
             <span id="close-sidebar" class="fa fa-times"></span>
             <div class="module">

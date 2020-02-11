@@ -302,6 +302,7 @@ class CheckoutController extends Controller
         ]);
 
 
+
         $userdetails = UserAddress::where('user_id',Auth::user()->id)->get();
         $userdatacount =count($userdetails);
         $userdatacount =$userdatacount -1;
