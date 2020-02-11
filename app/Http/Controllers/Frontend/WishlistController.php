@@ -41,16 +41,28 @@ class WishlistController extends Controller
 		}else{
 			return redirect()->back();
 		}
-    		
+
 	}
 	// delete
 	public function delete($id){
 		$delete=wishlist::where('id',$id)->delete();
-		return response()->json($delete);
+		if($delete){
+          $notification=array(
+         'messege'=>'Wish List Product Delete',
+         'alert-type'=>'success'
+          );
+      return redirect()->back()->with($notification);
+    }else{
+        $notification=array(
+       'messege'=>'Wish List Product Delete Faild',
+       'alert-type'=>'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 	}
 
-	
-	
+
+
 
 
 

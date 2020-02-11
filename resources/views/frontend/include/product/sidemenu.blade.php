@@ -8,7 +8,7 @@
                 @endphp
                 <div class="mod-content box-category">
 
-                
+
                 @foreach($category as $menu)
 
                     <ul class="accordion" id="accordion-category">
@@ -37,7 +37,7 @@
                             <a href="#">{{$menu->cate_name}}</a>
                         </li>
                         @endif
-                      
+
 
 
                     </ul>
@@ -51,7 +51,7 @@
                     <div id="so_extra_slider" class="so-extraslider buttom-type1 preset00-1 preset01-1 preset02-1 preset03-1 preset04-1 button-type1">
                         <div class="extraslider-inner owl2-carousel owl2-theme owl2-loaded extra-animate" data-effect="none">
                             <div class="item ">
-                                
+
 
 
 
@@ -78,7 +78,7 @@
                                                 <!-- Begin title -->
                                                 <div class="item-title">
                                                     <a href="{{url('/product/details/page/'.$row->id)}}" target="_self" title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
-                                                        {{Str::limit($row->product_name,40)}}
+                                                        {{Str::limit($row->product_name,20)}}
                                                     </a>
                                                 </div>
                                                 <!-- Begin ratting -->
@@ -103,19 +103,14 @@
                                 <!-- End item-wrap -->
                                 @endforeach
 
-
-
-
-
-                                
                                 <!-- End item-wrap -->
                             </div>
 
 
                             <div class="item ">
-                                
 
-                                    
+
+
                                 @php
                                     $products = App\Product::whereNotNull('number_of_sale')->orderBy('number_of_sale','desc')->offset(5)->limit(5)->get();
                                 @endphp
@@ -164,7 +159,7 @@
                                 <!-- End item-wrap -->
                                 @endforeach
 
-                                
+
 
 
 

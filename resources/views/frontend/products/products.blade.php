@@ -15,7 +15,29 @@
         </div>
     </div>
 </div>
+@php
+  $caid=$category->id;
+  $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->orderBy('id','DESC')->limit(1)->first();
+@endphp
 <div id="main_content">
+  @if($nbanimage)
+    @php
+      $sitebanmainhead=$nbanimage->siteban_id;
+      $maiimage=App\SiteBanner::where('id',$sitebanmainhead)->where('is_deleted',0)->where('status',1)->first();
+    @endphp
+    @if($maiimage)
+    <div class="breadcrumbs" style="background: url({{asset('public/uploads/sitebanner/'.$maiimage->image)}}) no-repeat center top;">
+        <div class="container">
+            <div class="title-breadcrumb">
+                {{$category->cate_name}}
+            </div>
+            <ul class="breadcrumb-cate">
+                <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
+                <li><a href="">{{$category->cate_name}}</a></li>
+            </ul>
+        </div>
+    </div>
+    @else
     <div class="breadcrumbs" style="background: url({{asset('public/frontend/image/breadcrumbs.jpg')}}) no-repeat center top;">
         <div class="container">
             <div class="title-breadcrumb">
@@ -27,6 +49,20 @@
             </ul>
         </div>
     </div>
+    @endif
+    @else
+    <div class="breadcrumbs" style="background: url({{asset('public/frontend/image/breadcrumbs.jpg')}}) no-repeat center top;">
+        <div class="container">
+            <div class="title-breadcrumb">
+                {{$category->cate_name}}
+            </div>
+            <ul class="breadcrumb-cate">
+                <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
+                <li><a href="">{{$category->cate_name}}</a></li>
+            </ul>
+        </div>
+    </div>
+    @endif
 
     <div class="container product-detail">
         <div class="row">
@@ -446,30 +482,28 @@
 
             </aside>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            @php
+            $cid=$category->id;
+            $newban_image=App\CategoryBanner::where('section',2)->where('category_id',$cid)->orderBy('id','DESC')->limit(1)->first();
+            @endphp
             <div id="content" class="col-md-9 col-sm-12 col-xs-12">
                 <div class="module banners-effect-9 form-group">
                     <div class="banners">
+                      @if($newban_image)
+                        @php
+                          $sitebanmain=$newban_image->siteban_id;
+                          $main_image=App\SiteBanner::where('id',$sitebanmain)->where('is_deleted',0)->where('status',1)->first();
+                        @endphp
+                        @if($main_image)
                         <div>
-                            <a href="#"><img src="{{asset('public/uploads/category/'.$category->top_image)}}"></a>
+                            <a href="{{$main_image->link}}"><img src="{{asset('public/uploads/sitebanner/'.$main_image->image)}}"></a>
                         </div>
+                        @else
+
+                        @endif
+                      @else
+
+                      @endif
                     </div>
                 </div>
                 <a href="javascript:void(0)" class="open-sidebar hidden-lg hidden-md"><i
@@ -527,7 +561,7 @@
                             <div class="products-list grid row number-col-3 so-filter-gird search_main_top" id="search_main_top">
                                 <!-- category product -->
                                 @php
-                                $products = App\Product::where('is_deleted',0)->where('cate_id',$category->id)->orderBy('id','DESC')->limit(9)->get();
+                                $products = App\Product::where('is_deleted',0)->where('cate_id',$category->id)->orderBy('id','DESC')->paginate(6);
                                 @endphp
                                 @foreach($products as $product)
                                 <form id="option-choice-form">
@@ -581,20 +615,7 @@
                                                 <a class="quickview iframe-link visible-lg btn-button" data-fancybox-type="iframe" href="{{url('product/details/'.$product->id)}}"> <i class="fa fa-search"></i> </a>
                                                 <button class="wishlist btn-button" type="button" data-toggle="tooltip" title="" onclick="wishlist.add('105');" data-original-title="Add to Wish List"><i class="fa fa-heart-o"></i></button>
                                                 <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('105');" data-original-title="Compare this Product"><i class="fa fa-retweet"></i></button>
-
-
-
-
-
                                                 <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('105', '2');cataddtocart(this);" data-original-title="Add to Cart"><span class="hidden">Add to Cart </span></button>
-
-
-
-
-
-
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -609,14 +630,7 @@
                             <div class="product-filter product-filter-bottom filters-panel">
                                 <div class="col-sm-6 text-left">
                                     <ul class="pagination">
-                                        <li class="active"><span>1</span>
-                                        </li>
-                                        <li><a href="#">2</a>
-                                        </li>
-                                        <li><a href="#">&gt;</a>
-                                        </li>
-                                        <li><a href="#">&gt;|</a>
-                                        </li>
+                                        {{ $products->links() }}
                                     </ul>
                                 </div>
                                 <div class="col-sm-6 text-right">Showing 1 to 9 of 9 (1 Pages)</div>
@@ -629,7 +643,6 @@
         </div>
     </div>
 </div>
-
 <!-- //Main Container -->
 @endsection
 @push('js')

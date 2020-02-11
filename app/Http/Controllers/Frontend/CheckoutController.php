@@ -197,7 +197,6 @@ class CheckoutController extends Controller
     public function orderSubmit(Request $request)
     {
 
-        
         $validatedData = $request->validate([
             'user_id' => 'required',
             'user_address' => 'required',
@@ -265,13 +264,13 @@ class CheckoutController extends Controller
 
         $orderid =$request->order_id;
         $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
-        
+
         $products = array();
 
         foreach($usercartdatas as $usercartdata){
             $item['name']=$usercartdata->name;
             $item['price']=$usercartdata->price;
-            $item['quantity']=$usercartdata->quantity; 
+            $item['quantity']=$usercartdata->quantity;
             array_push($products, $item);
         }
 
@@ -282,8 +281,7 @@ class CheckoutController extends Controller
             'created_at'=>Carbon::now(),
         ]);
 
-        
-        
+
         $userid =  \Request::getClientIp(true);
         $useriditem =  \Request::getClientIp(true) . '_cart_items';
         $useridcondition =  \Request::getClientIp(true) . '_cart_conditions';
@@ -303,6 +301,7 @@ class CheckoutController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
+
         $userdetails = UserAddress::where('user_id',Auth::user()->id)->get();
         $userdatacount =count($userdetails);
         $userdatacount =$userdatacount -1;
@@ -311,7 +310,7 @@ class CheckoutController extends Controller
             
         }
 
-        
+
 
         DatabaseStorageModel::where('id', $useriditem)->first()->delete();
         if (DatabaseStorageModel::where('id', $useridcondition)->first()) {

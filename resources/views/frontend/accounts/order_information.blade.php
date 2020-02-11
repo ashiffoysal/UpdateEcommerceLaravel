@@ -124,7 +124,6 @@
 						<thead>
 							<tr>
 								<td class="text-left">Product Name</td>
-								<td class="text-left">SKU</td>
 
 								<td class="text-right">Quantity</td>
 								<td class="text-right">Price</td>
@@ -134,19 +133,20 @@
 						</thead>
 						<tbody>
 							@php
-								$m_order_id=$orderplaceid->cart_id;
-								$allproduct=App\OrderStorage::where('purchase_key',$m_order_id)->first();
+								$m_order_id=$orderplaceid->order_id;
+								$allproduct=App\ProductStorage::where('order_id',$m_order_id)->first();
 							@endphp
-							@foreach($allproduct->cart_data as $new)
+							@foreach(json_decode($allproduct->product_details	) as $new)
 							<tr>
 								<td class="text-left">{{$new->name}}</td>
-								<td class="text-left"></td>
+
 								<td class="text-right">{{$new->quantity}}</td>
 								<td class="text-right">{{$new->price}}</td>
 								<td class="text-right">{{$new->quantity * $new->price}} </td>
 								<!-- <td class="text-right">$123.20</td> -->
-								<td style="white-space: nowrap;" class="text-right"> <a class="btn btn-primary" title="" data-toggle="tooltip" href="#" data-original-title="Reorder"><i class="fa fa-shopping-cart"></i></a>
-									<a class="btn btn-danger" title="" data-toggle="tooltip" href="return.html" data-original-title="Return"><i class="fa fa-reply"></i></a>
+								<td style="white-space: nowrap;" class="text-right">
+
+									<a class="btn btn-danger" title="" data-toggle="tooltip" href="" data-original-title="Return"><i class="fa fa-reply"></i></a>
 								</td>
 							</tr>
 							@endforeach
@@ -182,7 +182,7 @@
 								<td></td>
 							</tr> -->
 							<tr>
-								<td colspan="3"></td>
+								<td colspan="2"></td>
 								<td class="text-right"><b>Total</b>
 								</td>
 								<td class="text-right">{{$orderplaceid->total_price}}</td>
@@ -191,31 +191,9 @@
 						</tfoot>
 					</table>
 				</div>
-				<h3>Order History</h3>
-				<table class="table table-bordered table-hover">
-					<thead>
-						<tr>
-							<td class="text-left">Date Added</td>
-							<td class="text-left">Status</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="text-left">20/06/2016</td>
-							<td class="text-left">Processing</td>
-						</tr>
-						<tr>
-							<td class="text-left">21/06/2016</td>
-							<td class="text-left">Shipped</td>
-						</tr>
-						<tr>
-							<td class="text-left">24/06/2016</td>
-							<td class="text-left">Complete</td>
-						</tr>
-					</tbody>
-				</table>
+
 				<div class="buttons clearfix">
-					<div class="pull-right"><a class="btn btn-primary" href="#">Continue</a>
+					<div class="pull-right"><a class="btn btn-primary" href="{{url('/')}}">Continue</a>
 					</div>
 				</div>
 
