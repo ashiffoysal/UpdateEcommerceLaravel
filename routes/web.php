@@ -242,13 +242,39 @@ Route::get(md5('admin/trash/banner'), 'Admin\TrashController@banner')->name('adm
 Route::post(md5('admin/trash/banmultidel'), 'Admin\TrashController@banmultidel')->name('admin.trash.multidelban');
 Route::get(md5('admin/trash/allorder'), 'admin\trashcontroller@alldeleteorder')->name('admin.trash.allorder');
 Route::post(md5('admin/trash/allorder/multidel'), 'admin\trashcontroller@ordermultdel')->name('admin.trash.ordermultdel');
+// Warranty trash
+Route::get(md5('admin/trash/warrantytrash'), 'admin\trashcontroller@warrantytrash')->name('admin.trash.warrantytrash');
+Route::post(md5('admin/trash/warranty/multidelete'), 'admin\trashcontroller@warrantytrashdelete')->name('admin.warranty.multidelete');
+// support
+Route::get(md5('admin/trash/support'), 'admin\trashcontroller@support')->name('admin.trash.support');
+Route::post(md5('admin/trash/support/multidelete'), 'admin\trashcontroller@supportnnmultidel')->name('admin.support.multidelete');
+
 
 // footer option area start
 Route::get(md5('admin/footer/option'), 'Admin\FooterController@footerShow')->name('admin.footer.option');
-
-
 Route::post('admin/footer/option/update', 'Admin\FooterController@footerupdate')->name('admin.footer.option.update');
-
+// warranty controller index
+Route::get(md5('admin/warranty/all'), 'Admin\WarrantyController@index')->name('admin.warranty.all');
+Route::post(md5('admin/warranty/insert'), 'Admin\WarrantyController@insert')->name('admin.warranty.insert');
+Route::post(md5('admin/warranty/update'), 'Admin\WarrantyController@update')->name('admin.warranty.update');
+Route::post(md5('admin/warranty/multipleSoftDelete'), 'Admin\WarrantyController@multipleSoftDelete')->name('admin.warranty.multiplesoftdelete');
+Route::get('admin/warranty/active/{id}', 'Admin\WarrantyController@active');
+Route::get('admin/warranty/deactive/{id}', 'Admin\WarrantyController@deactive');
+Route::get('admin/warranty/softDelete/{id}', 'Admin\WarrantyController@softDelete');
+Route::get('admin/warranty/restore/{id}', 'Admin\WarrantyController@restore');
+Route::get('admin/warranty/delete/{id}', 'Admin\WarrantyController@delete');
+Route::get('get/admin/warranty/edit/{id}', 'Admin\WarrantyController@edit');
+// support controller
+Route::get(md5('admin/support/all'), 'Admin\SupportController@index')->name('admin.support.all');
+Route::post(md5('admin/support/insert'), 'Admin\SupportController@insert')->name('admin.support.insert');
+Route::post(md5('admin/warranty/update'), 'Admin\SupportController@update')->name('admin.support.update');
+Route::get('admin/support/active/{id}', 'Admin\SupportController@active');
+Route::get('admin/support/deactive/{id}', 'Admin\SupportController@deactive');
+Route::get('admin/support/softDelete/{id}', 'Admin\SupportController@softDelete');
+Route::get('admin/support/restore/{id}', 'Admin\SupportController@restore');
+Route::get('admin/support/delete/{id}', 'Admin\SupportController@delete');
+Route::post(md5('admin/support/multipleSoftDelete'), 'Admin\SupportController@multipleSoftDelete')->name('admin.support.multiplesoftdelete');
+Route::get('get/admin/support/edit/{id}', 'Admin\SupportController@edit');
 
 
 
@@ -299,6 +325,7 @@ Route::get(md5('/customer/register'), 'Frontend\FrontendController@customerRegis
 
 Route::get('/product/compare/page', 'Frontend\CompareProductController@productCompare')->name('product.compare');
 Route::get('/product/compare/{com_id}', 'Frontend\CompareProductController@necompare');
+Route::get('/compare/delete/{id}', 'Frontend\CompareProductController@delete');
 // wish list end
 
 
@@ -316,6 +343,10 @@ Route::get('/product/detailssearch/', 'Frontend\FrontendController@searchcate')-
 // traking
 Route::get('/tracking', 'Frontend\FrontendController@tracking');
 Route::get('tracking/order', 'Frontend\FrontendController@ordertracking');
+// faq
+Route::get('/faq', 'Frontend\FrontendController@faqpage');
+Route::get('/support', 'Frontend\FrontendController@supportpage');
+Route::get('/warranty', 'Frontend\FrontendController@warrantypage');
 // Route Created By Harrison
 
 
@@ -571,5 +602,3 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
 });
 
 // Payment Route Created By Harrison Ended
-
-

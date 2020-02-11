@@ -1,5 +1,33 @@
 @extends('layouts.websiteapp')
 @section('main_content')
+@php
+  $image=App\SiteBanner::where('section',6)->where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->first();
+@endphp
+@if($image)
+<div class="breadcrumbs" style="background: url({{asset('public/uploads/sitebanner/'.$image->image)}}) no-repeat center top;">
+    <div class="container">
+        <div class="title-breadcrumb">
+          About Us
+        </div>
+        <ul class="breadcrumb-cate">
+            <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
+            <li><a href="">About Us</a></li>
+        </ul>
+    </div>
+</div>
+@else
+<div class="breadcrumbs" style="background: url({{asset('public/frontend/image/breadcrumbs.jpg')}}) no-repeat center top;">
+    <div class="container">
+        <div class="title-breadcrumb">
+          About Us
+        </div>
+        <ul class="breadcrumb-cate">
+            <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
+            <li><a href="">About Us</a></li>
+        </ul>
+    </div>
+</div>
+@endif
     <!-- Main Container  -->
     <div class="search-section">
         <div class="container">
@@ -16,12 +44,6 @@
     </div>
     <div id="main_content">
         <div class="main-container container">
-            <ul class="breadcrumb">
-                <li><a href="#"><i class="fa fa-home"></i></a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">About Us 4</a></li>
-            </ul>
-
             <div class="row">
                 <div id="content" class="col-sm-12">
                     <div class="about-us about-demo-4">

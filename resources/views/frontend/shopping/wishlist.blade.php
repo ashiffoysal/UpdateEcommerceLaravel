@@ -1,5 +1,5 @@
 @extends('layouts.websiteapp')
-@section('main_content') 
+@section('main_content')
 <!-- Main Container  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="container">
@@ -25,7 +25,7 @@
                     </thead>
                     <tbody>
                         @foreach($allwishlist as $wish)
-                        
+
                         <tr>
                             <td class="text-center">
                                 <a href=""><img src="{{asset('public/uploads/products/thumbnail/'.$wish->product->thumbnail_img)}}" alt="Burger King Japan debuts Monster  Baby Force Bralette"title="Burger King Japan debuts Monster  Baby Force Bralette" height="75px" width= "75px"></a>
@@ -45,16 +45,16 @@
                                     class="btn btn-primary" data-original-title="Add to Cart"><i
                                         class="fa fa-shopping-cart"></i></button>
 
-                                    <a  title="Remove" class="delete btn btn-danger" data-id="{{$wish->id}}"><i class="fa fa-times"></i></a></td>
+                                    <a href="{{url('/wishlist/delete/'.$wish->id)}}" title="Remove" class="delete btn btn-danger"><i class="fa fa-times"></i></a></td>
                         </tr>
                         @endforeach
-                       
+
                     </tbody>
 
                 </table>
             </div>
             <div class="buttons clearfix">
-                <div class="pull-right"><a href="#" class="btn btn-primary">Continue</a></div>
+                <div class="pull-right"><a href="{{url('/')}}" class="btn btn-primary">Continue</a></div>
             </div>
         </div>
         <aside class="col-md-3 content-aside right_column sidebar-offcanvas">
@@ -101,7 +101,7 @@
     });
 </script>
 
-   <script>
+   <!-- <script>
     $(document).ready(function() {
        $('.delete').on('click', function(){
        var id = $(this).data('id');
@@ -126,6 +126,6 @@
         }
     });
     });
-    </script>
+    </script> -->
 
 @endsection
