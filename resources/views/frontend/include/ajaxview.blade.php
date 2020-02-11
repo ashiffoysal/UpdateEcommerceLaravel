@@ -28,8 +28,8 @@
         $.post('{{ route('add.cart.delete') }}', {_token: '{{ csrf_token() }}',user_id: el.value},
             function(data) {
                 
-                document.getElementById('cartdatacount').innerHTML =data.quantity;
-                document.getElementById('product_price').innerHTML =data.price;
+                document.getElementById('cartdatacount').innerHTML =Math.abs(data.quantity);
+                document.getElementById('product_price').innerHTML =Math.abs(data.price);
                 if (data == 1) {
                     toastr.success("Product Delete From Cart");
                 } 

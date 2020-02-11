@@ -122,10 +122,10 @@ class CheckoutController extends Controller
                             'order_id' => $request->order,
                             'created_at' => Carbon::now(),
                         ]);
-
+                        $cuponinfo = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount;
                         return response()->json([
                             'cuponid' => $cuponuser->id,
-                            'cuponalert' => 'Cupon Insert Fuccessfully',
+                            'cuponalert' => $cuponinfo,
                         ]);
                     } else {
                         return "Your minimum purchese is less than minimum shopping criteria";
@@ -154,33 +154,45 @@ class CheckoutController extends Controller
                                         'value' => -$cupondiscounts,
                                     ));
                                     Cart::session($userid)->condition($condition);
+                                    UserUsedCupon::insert([
+                                        'user_ip' => Auth::user()->id,
+                                        'cupon_id' => $cuponuser->id,
+                                        'order_id' => $request->order,
+                                        'created_at' => Carbon::now(),
+    
+                                    ]);
                                 } else {
 
                                     if ($cartdata->attributes->has('variation')) {
                                         Cart::update($cartdata->id, array(
                                             'price' => $cartdata->price - $cartdata->price * $cupondiscounts / 100,
                                         ));
+                                        UserUsedCupon::insert([
+                                            'user_ip' => Auth::user()->id,
+                                            'cupon_id' => $cuponuser->id,
+                                            'order_id' => $request->order,
+                                            'created_at' => Carbon::now(),
+        
+                                        ]);
                                     }
                                 }
-                                UserUsedCupon::insert([
-                                    'user_ip' => Auth::user()->id,
-                                    'cupon_id' => $cuponuser->id,
-                                    'order_id' => $request->order,
-                                    'created_at' => Carbon::now(),
-
-                                ]);
+                                
                             }
                         }
+                        
                     }
+                    
                 }
             } else {
                 return "You are alrady used this cupon";
             }
+            
         } else {
             return "No Cupon Available On this code.";
         }
     }
 
+    // order submit area start
 
     public function orderSubmit(Request $request)
     {
@@ -270,8 +282,6 @@ class CheckoutController extends Controller
         ]);
 
 
-
-
         $userid =  \Request::getClientIp(true);
         $useriditem =  \Request::getClientIp(true) . '_cart_items';
         $useridcondition =  \Request::getClientIp(true) . '_cart_conditions';
@@ -290,6 +300,15 @@ class CheckoutController extends Controller
             'payment_secure_id' => Hash::make($request->order_id),
             'created_at' => Carbon::now(),
         ]);
+
+
+        $userdetails = UserAddress::where('user_id',Auth::user()->id)->get();
+        $userdatacount =count($userdetails);
+        $userdatacount =$userdatacount -1;
+        if($userdatacount > 1){
+            $userdatas = UserAddress::where('user_id',Auth::user()->id)->skip(1)->take($userdatacount)->delete();
+            
+        }
 
 
 

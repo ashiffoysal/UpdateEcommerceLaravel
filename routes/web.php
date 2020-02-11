@@ -496,6 +496,10 @@ Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
 Route::get('admin/delevary/rejecteorder', 'Admin\OrderController@rejecteorder')->name('admin.rejecteorder');
 
 
+// Blog route start from here
+Route::get('admin/blog/page', 'Admin\BlogController@blogpage')->name('admin.blog.page');
+
+
 //
 Route::get('admin/product/order/pendingsoftdelete/{id}', 'Admin\OrderController@pendingsoftdelete');
 Route::get('admin/product/order/invoice/{id}', 'Admin\OrderController@invoice');
