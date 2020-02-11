@@ -37,23 +37,20 @@
                                                 <p class="close-menu"></p>
                                             <a class="clearfix" href="{{ route('hot.deal.products') }}">
                                                     <span>
-                                                        <strong><img
-                                                                src="{{asset('public/frontend')}}/image/catalog/demo/menu/icon/icon-6.png"
-                                                                alt="">Hot Deals</strong>
+                                                        <strong><img src="{{asset('public/frontend')}}/image/catalog/demo/menu/icon/icon-6.png" alt="">Flash Deals</strong>
                                                     </span>
                                                 </a>
                                             </li>
                                             @php
 
-                                            $category =
-                                            App\Category::where('is_deleted',0)->where('cate_status',1)->take(10)->get();
+                                            $category = App\Category::where('is_deleted',0)->where('cate_status',1)->take(10)->get();
                                             $idArray = [];
                                             @endphp
                                             @foreach($category as $menu)
                                             <li class="item-vertical  vertical-style2 with-sub-menu hover">
                                                 @php
                                                 array_push($idArray, $menu->id);
-                                                $check=App\SubCategory::where('cate_id',$menu->id)->first();
+                                                $check = App\SubCategory::where('cate_id',$menu->id)->first();
                                                 @endphp
                                                 @if($check)
                                                 <p class="close-menu"></p>
@@ -72,7 +69,7 @@
                                                                 <div class="html item-1">
                                                                     <div class="row">
                                                                         @php
-                                                                        $subcategory=App\SubCategory::where('cate_id',$menu->id)->where('is_deleted',0)->get();
+                                                                        $subcategory = App\SubCategory::where('cate_id',$menu->id)->where('is_deleted',0)->get();
                                                                         @endphp
                                                                         <div class="col-md-7 col-sm-8">
                                                                             @foreach($subcategory as $subcate)
@@ -82,7 +79,7 @@
                                                                                     title="Sound">{{$subcate->subcate_name}}</a>
                                                                                 <ul>
                                                                                     @php
-                                                                                    $resubcate=App\ReSubCategory::where('is_deleted',0)->where('subcate_id',$subcate->id)->get();
+                                                                                    $resubcate = App\ReSubCategory::where('is_deleted',0)->where('subcate_id',$subcate->id)->get();
                                                                                     @endphp
                                                                                     @foreach($resubcate as $resub)
                                                                                     <li><a href="{{url('resubacete/'.$resub->category->cate_slug.'/'.$resub->subcate->subcate_slug.'/'.$resub->resubcate_slug)}}"
@@ -151,7 +148,7 @@
                                                                 <div class="html item-1">
                                                                     <div class="row">
                                                                         @php
-                                                                        $subcategory=App\SubCategory::where('cate_id',$menu->id)->where('is_deleted',0)->get();
+                                                                        $subcategory = App\SubCategory::where('cate_id',$menu->id)->where('is_deleted',0)->get();
                                                                         @endphp
                                                                         <div class="col-md-7 col-sm-8">
                                                                             @foreach($subcategory as $subcate)
@@ -200,7 +197,9 @@
 
                                             @endif
                                             @endforeach
-
+                                            {{-- @php
+                                                dd($category->count());
+                                            @endphp --}}
                                             @if ($category->count() > 10)
                                             <li class="loadmore show_hidden_menu"><i class="fa fa-plus-square"></i>
                                                 <span class="more-view"> More Categories</span>

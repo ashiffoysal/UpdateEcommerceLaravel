@@ -6,6 +6,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['prefix' => 'forget/password', 'namespace'=> 'Auth'], function () {
+    Route::get('verification/code/{remember_token}','ForgotPasswordController@forgetPassVerificationCodeFrom')->name('forget.password.verify.code.form');
+    Route::post('verification/code/','ForgotPasswordController@checkForgetPassVerificationCode')->name('user.check.verification.code');
+    Route::get('reset/{remember_token}','ForgotPasswordController@forgetResetPasswordForm')->name('forget.reset.password');
+    Route::post('forget/reset/password/submit','ForgotPasswordController@forgetResetPasswordSubmit')->name('forget.reset.password.submit');
+    Route::post('resend/verification/code/mail/{remember_token}','ForgotPasswordController@forgetResendVerificationCodeMail')->name('resend.verification.code');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 //admin routes
    Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -497,6 +505,7 @@ Route::group(['prefix' => 'admin/flash/deal', 'middleware' => 'auth:admin', 'nam
     Route::get('single/refactor/{flashDealId}', 'FlashDealController@singleRefactor')->name('admin.flash.deal.single.refactor');
     Route::get('single/force/delete/{flashDealId}', 'FlashDealController@singleForceDelete')->name('admin.flash.deal.single.force.delete');
     Route::post('multiple/force/delete', 'FlashDealController@multipleForceDelete')->name('admin.flash.deal.multiple.force.delete');
+    Route::get('deactive/all', 'FlashDealController@inactiveAll')->name('admin.flash.deal.all.decative');
     // Ajax call route
     Route::get('get/selected/products/by/ajax', 'FlashDealController@getProductsByAjax');
     Route::get('get/selected/previous/and/new/products/by/ajax', 'FlashDealController@getProductsPreviousAndNewByAjax');

@@ -15,9 +15,6 @@
     </div>
 </div>
 
-
-
-
 <div id="main_content">
     <div class="so-page-builder">
         <div class="container page-builder-ltr">
@@ -79,6 +76,33 @@
                 </div>
             </div>
         </div>
+        <section id="box-link1" class="section-style">
+            <div class="container page-builder-ltr">
+                <div class="row row-style row_a1">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_a1c  block block_3 title_neo1">
+
+                        <div>
+                            <div class="home1-banner-2 clearfix">
+
+
+                                @php
+                                $banimg=App\SiteBanner::where('section',1)->where('is_deleted',0)->where('status',1)->inRandomOrder()->limit(2)->get();
+                                @endphp
+                                @foreach($banimg as $key => $mbanimg)
+                                <div class="item-{{$key}} col-lg-6 col-md-6 col-sm-6 banners">
+                                    <div>
+                                        <a title="Static Image" href="#"><img
+                                                src="{{asset('public/uploads/sitebanner/'.$mbanimg->image)}}"
+                                                alt="Static Image"></a>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="box-link1" class="section-style">
             <div class="container page-builder-ltr">
                 <div class="row row-style row_a1">
@@ -860,7 +884,7 @@
                                                                                 <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
                                                                                     <span class="hidden">Add to cart</span>
                                                                                 </button>
-                                                                            @endif 
+                                                                            @endif
                                                                         </div>
 
                                                                         </div>
@@ -1111,7 +1135,7 @@
                                                                                 so-quickview"> <a class="lt-image hidden" href="#" target="_self" title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a> <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe"> <i class="fa
                                                                             fa-search"></i> </a> <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-id="{{$product->id}}" data-original-title="Add to Wish List">
                                                                                     <i class="fa fa-heart"></i> </button> <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('28');" data-original-title="Compare this Product">
-                                                                                    <i class="fa fa-exchange"></i> </button> 
+                                                                                    <i class="fa fa-exchange"></i> </button>
                                                                                     @if($product->product_type ==1)
                                                                             <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
                                                                                 <i class="fa fa-search"></i>
@@ -1121,7 +1145,7 @@
                                                                                 <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
                                                                                     <span class="hidden">Add to cart</span>
                                                                                 </button>
-                                                                            @endif 
+                                                                            @endif
                                                                         </div>
 
                                                                         </div>
@@ -1183,7 +1207,7 @@
                                                                         so-quickview"> <a class="lt-image hidden" href="#" target="_self" title="Bougainvilleas On Lombard Street, San Francisco, Tokyo"></a> <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe"> <i class="fa
                                                                     fa-search"></i> </a> <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-id="{{$product->id}}" data-original-title="Add to Wish List"> <i class="fa fa-heart"></i>
                                                                                 </button> <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('28');" data-original-title="Compare this Product"> <i class="fa
-                                                                    fa-exchange"></i> </button> 
+                                                                    fa-exchange"></i> </button>
                                                                     @if($product->product_type ==1)
                                                                             <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
                                                                                 <i class="fa fa-search"></i>
@@ -1194,7 +1218,7 @@
                                                                                     <span class="hidden">Add to cart</span>
                                                                                 </button>
                                                                             @endif
-                                                                                    
+
                                                                                     </div>
 
                                                                         </div>
@@ -1575,7 +1599,7 @@
                     }
                 })
                 }
-           
+
         }
 
     </script>

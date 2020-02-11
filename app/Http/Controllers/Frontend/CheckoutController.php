@@ -252,13 +252,13 @@ class CheckoutController extends Controller
 
         $orderid =$request->order_id;
         $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
-        
+
         $products = array();
 
         foreach($usercartdatas as $usercartdata){
             $item['name']=$usercartdata->name;
             $item['price']=$usercartdata->price;
-            $item['quantity']=$usercartdata->quantity; 
+            $item['quantity']=$usercartdata->quantity;
             array_push($products, $item);
         }
 
@@ -291,7 +291,7 @@ class CheckoutController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        
+
 
         DatabaseStorageModel::where('id', $useriditem)->first()->delete();
         if (DatabaseStorageModel::where('id', $useridcondition)->first()) {
