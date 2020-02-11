@@ -23,19 +23,56 @@
         </div>
     </div>
 </div>
+@php
+  $productdetails->cate_id;
+  $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$productdetails->cate_id)->orderBy('id','DESC')->first();
+
+@endphp
 
 <div id="main_content">
-    <div class="breadcrumbs">
+  @if($nbanimage)
+    @php
+      $siteban=$nbanimage->siteban_id;
+      $maiimage=App\SiteBanner::where('id',$siteban)->where('is_deleted',0)->where('status',1)->first();
+    @endphp
+    @if($maiimage)
+    <div class="breadcrumbs" style="background: url({{asset('public/uploads/sitebanner/'.$maiimage->image)}}) no-repeat center top;">
         <div class="container">
             <div class="title-breadcrumb">
-                Canada Travel One or Two European Facials at Studio
+                {{$productdetails->product_name}}
             </div>
             <ul class="breadcrumb-cate">
-                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
-                <li><a href="#">One or Two European Facials at Studio</a></li>
+                <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
+                <li><a href="">Product Details</a></li>
             </ul>
         </div>
     </div>
+    @else
+    <div class="breadcrumbs" style="background: url({{asset('public/frontend/image/breadcrumbs.jpg')}}) no-repeat center top;">
+        <div class="container">
+            <div class="title-breadcrumb">
+                {{$productdetails->product_name}}
+            </div>
+            <ul class="breadcrumb-cate">
+                <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
+              <li><a href="">Product Details</a></li>
+            </ul>
+        </div>
+    </div>
+    @endif
+  @else
+  <div class="breadcrumbs" style="background: url({{asset('public/frontend/image/breadcrumbs.jpg')}}) no-repeat center top;">
+      <div class="container">
+          <div class="title-breadcrumb">
+              {{$productdetails->product_name}}
+          </div>
+          <ul class="breadcrumb-cate">
+              <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
+              <li><a href="">Product Details</a></li>
+          </ul>
+      </div>
+  </div>
+  @endif
 
     <div class="container product-detail">
         <div class="row">
@@ -739,5 +776,3 @@
     });
 </script>
 @endsection
-
-

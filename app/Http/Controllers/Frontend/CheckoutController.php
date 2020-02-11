@@ -122,10 +122,10 @@ class CheckoutController extends Controller
                             'order_id' => $request->order,
                             'created_at' => Carbon::now(),
                         ]);
-
+                        $cuponinfo = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount;
                         return response()->json([
                             'cuponid' => $cuponuser->id,
-                            'cuponalert' => 'Cupon Insert Fuccessfully',
+                            'cuponalert' => $cuponinfo,
                         ]);
                     } else {
                         return "Your minimum purchese is less than minimum shopping criteria";
@@ -154,101 +154,113 @@ class CheckoutController extends Controller
                                         'value' => -$cupondiscounts,
                                     ));
                                     Cart::session($userid)->condition($condition);
+                                    UserUsedCupon::insert([
+                                        'user_ip' => Auth::user()->id,
+                                        'cupon_id' => $cuponuser->id,
+                                        'order_id' => $request->order,
+                                        'created_at' => Carbon::now(),
+    
+                                    ]);
                                 } else {
 
                                     if ($cartdata->attributes->has('variation')) {
                                         Cart::update($cartdata->id, array(
                                             'price' => $cartdata->price - $cartdata->price * $cupondiscounts / 100,
                                         ));
+                                        UserUsedCupon::insert([
+                                            'user_ip' => Auth::user()->id,
+                                            'cupon_id' => $cuponuser->id,
+                                            'order_id' => $request->order,
+                                            'created_at' => Carbon::now(),
+        
+                                        ]);
                                     }
                                 }
-                                UserUsedCupon::insert([
-                                    'user_ip' => Auth::user()->id,
-                                    'cupon_id' => $cuponuser->id,
-                                    'order_id' => $request->order,
-                                    'created_at' => Carbon::now(),
-
-                                ]);
+                                
                             }
                         }
+                        
                     }
+                    
                 }
             } else {
                 return "You are alrady used this cupon";
             }
+            
         } else {
             return "No Cupon Available On this code.";
         }
     }
 
+    // order submit area start
 
     public function orderSubmit(Request $request)
     {
 
-        // $validatedData = $request->validate([
-        //     'user_id' => 'required',
-        //     'user_address' => 'required',
-        //     'user_post_office' => 'required',
-        //     'user_postcode' => 'required',
-        //     'user_country_id' => 'required',
-        //     'user_division_id' => 'required',
-        //     'user_district_id' => 'required',
-        //     'user_upazila_id' => 'required',
-        //     'shipping_id' => 'required',
-        //     'payment_method_id' => 'required',
+        $validatedData = $request->validate([
+            'user_id' => 'required',
+            'user_address' => 'required',
+            'user_post_office' => 'required',
+            'user_postcode' => 'required',
+            'user_country_id' => 'required',
+            'user_division_id' => 'required',
+            'user_district_id' => 'required',
+            'user_upazila_id' => 'required',
+            'shipping_id' => 'required',
+            'payment_method_id' => 'required',
 
 
-        // ]);
+        ]);
 
 
-        // $usseraddress_id = UserAddress::insertGetId([
-        //     'user_id' => $request->user_id,
-        //     'user_address' => $request->user_address,
-        //     'user_post_office' => $request->user_post_office,
-        //     'user_postcode' => $request->user_postcode,
-        //     'user_country_id' => $request->user_country_id,
-        //     'user_division_id' => $request->user_division_id,
-        //     'user_district_id' => $request->user_district_id,
-        //     'user_upazila_id' => $request->user_upazila_id,
-        //     'is_shipping_address' => $request->is_shipping_address,
-        //     'created_at' => Carbon::now(),
-        // ]);
+        $usseraddress_id = UserAddress::insertGetId([
+            'user_id' => $request->user_id,
+            'user_address' => $request->user_address,
+            'user_post_office' => $request->user_post_office,
+            'user_postcode' => $request->user_postcode,
+            'user_country_id' => $request->user_country_id,
+            'user_division_id' => $request->user_division_id,
+            'user_district_id' => $request->user_district_id,
+            'user_upazila_id' => $request->user_upazila_id,
+            'is_shipping_address' => $request->is_shipping_address,
+            'created_at' => Carbon::now(),
+        ]);
 
 
 
 
 
-        // if (UserAddress::findOrFail($usseraddress_id)->is_shipping_address == NULL) {
+        if (UserAddress::findOrFail($usseraddress_id)->is_shipping_address == NULL) {
 
-        //     $request->validate([
-        //         'shipping_name' => 'required',
-        //         'shipping_name' => 'required',
-        //         'shipping_phone' => 'required',
-        //         'shipping_address' => 'required',
-        //         'shipping_post_office' => 'required',
-        //         'shipping_postcode' => 'required',
-        //         'shipping_country_id' => 'required',
-        //         'shipping_division_id' => 'required',
-        //         'shipping_district_id' => 'required',
-        //         'shipping_upazila_id' => 'required',
-        //     ]);
+            $request->validate([
+                'shipping_name' => 'required',
+                'shipping_name' => 'required',
+                'shipping_phone' => 'required',
+                'shipping_address' => 'required',
+                'shipping_post_office' => 'required',
+                'shipping_postcode' => 'required',
+                'shipping_country_id' => 'required',
+                'shipping_division_id' => 'required',
+                'shipping_district_id' => 'required',
+                'shipping_upazila_id' => 'required',
+            ]);
 
 
-        //     ShippingAddress::insert([
-        //         'shipping_user_id' => $request->shipping_user_id,
-        //         'shipping_name' => $request->shipping_name,
-        //         'shipping_phone' => $request->shipping_phone,
-        //         'shipping_address' => $request->shipping_customer_address,
-        //         'shipping_post_office' => $request->shipping_post_office,
-        //         'shipping_postcode' => $request->shipping_postcode,
-        //         'shipping_country_id' => $request->shipping_country_id,
-        //         'shipping_division_id' => $request->shipping_division_id,
-        //         'shipping_district_id' => $request->shipping_district_id,
-        //         'shipping_upazila_id' => $request->shipping_upazila_id,
-        //         'order_id' => $request->order_id,
-        //         'created_at' => Carbon::now(),
-        //     ]);
-        // }
+            ShippingAddress::insert([
+                'shipping_user_id' => $request->shipping_user_id,
+                'shipping_name' => $request->shipping_name,
+                'shipping_phone' => $request->shipping_phone,
+                'shipping_address' => $request->shipping_customer_address,
+                'shipping_post_office' => $request->shipping_post_office,
+                'shipping_postcode' => $request->shipping_postcode,
+                'shipping_country_id' => $request->shipping_country_id,
+                'shipping_division_id' => $request->shipping_division_id,
+                'shipping_district_id' => $request->shipping_district_id,
+                'shipping_upazila_id' => $request->shipping_upazila_id,
+                'order_id' => $request->order_id,
+                'created_at' => Carbon::now(),
+            ]);
+        }
 
         $orderid =$request->order_id;
         $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
@@ -270,8 +282,6 @@ class CheckoutController extends Controller
         ]);
 
 
-        return ProductStorage::all();
-
         $userid =  \Request::getClientIp(true);
         $useriditem =  \Request::getClientIp(true) . '_cart_items';
         $useridcondition =  \Request::getClientIp(true) . '_cart_conditions';
@@ -290,6 +300,16 @@ class CheckoutController extends Controller
             'payment_secure_id' => Hash::make($request->order_id),
             'created_at' => Carbon::now(),
         ]);
+
+
+
+        $userdetails = UserAddress::where('user_id',Auth::user()->id)->get();
+        $userdatacount =count($userdetails);
+        $userdatacount =$userdatacount -1;
+        if($userdatacount > 1){
+            $userdatas = UserAddress::where('user_id',Auth::user()->id)->skip(1)->take($userdatacount)->delete();
+            
+        }
 
 
 

@@ -10,10 +10,12 @@ use App\ReSubCategory;
 use App\Mesurement;
 use App\Color;
 use App\Product;
+use App\Support;
 use App\Brand;
 use App\Cupon;
 use App\Faq;
 use App\Page;
+use App\Warranty;
 use App\Banner;
 use Carbon\Carbon;
 use App\SiteBanner;
@@ -825,7 +827,7 @@ class TrashController extends Controller
         if ($deleteid) {
           $deleid = SiteBanner::whereIn('id', $deleteid)->first();
           $image_thumb = $deleid->image;
-          unlink('public/uploads/banner/sitebanner/' . $image_thumb);
+          unlink('public/uploads/sitebanner/' . $image_thumb);
           $deletpost = SiteBanner::whereIn('id', $deleteid)->delete();
           if ($deletpost) {
             $notification = array(
@@ -946,4 +948,136 @@ class TrashController extends Controller
         break;
     }
   }
+
+  // warranty
+  public function warrantytrash(){
+    $allwarranty=Warranty::where('is_deleted',1)->get();
+    return view('admin.ecommerce.trash.warranty',compact('allwarranty'));
+  }
+
+  // multi delete warranty
+  public function warrantytrashdelete(Request $request){
+    switch ($request->input('submit')) {
+      case 'delete':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $deletpost = Warranty::whereIn('id', $deleteid)->delete();
+          if ($deletpost) {
+            $notification = array(
+              'messege' => 'Multiple Delete Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Delete Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Delete',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+      case 'restore':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $delet = Warranty::whereIn('id', $deleteid)->update([
+            'is_deleted' => '0',
+            'updated_at' => Carbon::now()->toDateTimeString(),
+          ]);
+          if ($delet) {
+            $notification = array(
+              'messege' => 'Multiple Recover Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Recover Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Recover',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+    }
+  }
+
+  //Support
+  public function support(){
+    $allsupport=Support::where('is_deleted',1)->get();
+    return view('admin.ecommerce.trash.support',compact('allsupport'));
+  }
+
+  public function supportnnmultidel(Request $request){
+
+    switch ($request->input('submit')) {
+      case 'delete':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $deletpost = Support::whereIn('id', $deleteid)->delete();
+          if ($deletpost) {
+            $notification = array(
+              'messege' => 'Multiple Delete Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Delete Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Delete',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+      case 'restore':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $delet = Support::whereIn('id', $deleteid)->update([
+            'is_deleted' => '0',
+            'updated_at' => Carbon::now()->toDateTimeString(),
+          ]);
+          if ($delet) {
+            $notification = array(
+              'messege' => 'Multiple Recover Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Recover Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Recover',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+    }
+  }
+
+
 }

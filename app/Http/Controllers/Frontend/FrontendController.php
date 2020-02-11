@@ -49,6 +49,21 @@ class FrontendController extends Controller
         return view('frontend.aboutus.aboutus1');
     }
 
+    public function faqpage()
+    {
+        return view('frontend.faq.faq');
+    }
+    // support
+    public function supportpage()
+    {
+        return view('frontend.support.support');
+    }
+    public function warrantypage()
+    {
+        return view('frontend.warranty.warranty');
+    }
+
+
     // Category page show
 
     public function cateproduct($slug)

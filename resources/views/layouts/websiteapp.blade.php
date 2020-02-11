@@ -6,7 +6,8 @@
 	<title>TopDeal</title>
 	<meta charset="utf-8">
 	<meta name="keywords" content="html5 template, best html5 template, best html template, html5 basic template, multipurpose html5 template, multipurpose html template, creative html templates, creative html5 templates" />
-	<meta name="description" content="SuperMarket is a powerful Multi-purpose HTML5 Template with clean and user friendly design. It is definite a great starter for any eCommerce web project." />
+    <meta name="description" content="SuperMarket is a powerful Multi-purpose HTML5 Template with clean and user friendly design. It is definite a great starter for any eCommerce web project." />
+    
 	<meta name="author" content="Magentech">
 
 	<meta name="robots" content="index, follow" />
@@ -93,32 +94,16 @@
 </script>
 
 
-<script>
-    function cuponApply() {
-      
-	
-    var cuponvalue =document.getElementById('input-coupon').value;
-    var ordervalue =document.getElementById('input_order').value;
-        
-    $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
-            function(data) {
-				
-                // console.log(data.cuponalert);
-                // console.log(data);
-        
-                toastr.success(data);
-                    
-            });
-           
-            
-           
-    }
-    cuponApply();
 
 
-	
-    
-</script>
+
+
+
+
+
+
+
+
 
 
 

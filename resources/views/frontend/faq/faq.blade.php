@@ -1,6 +1,35 @@
 @extends('layouts.websiteapp')
 @section('main_content')
-<div class="modal fade in" id="so_sociallogin" tabindex="-1" role="dialog" aria-hidden="true" >
+@php
+  $image=App\SiteBanner::where('section',9)->where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->first();
+@endphp
+@if($image)
+<div class="breadcrumbs" style="background: url({{asset('public/uploads/sitebanner/'.$image->image)}}) no-repeat center top;">
+    <div class="container">
+        <div class="title-breadcrumb">
+          Faq
+        </div>
+        <ul class="breadcrumb-cate">
+            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+            <li><a href="support.html">Faq</a></li>
+        </ul>
+    </div>
+</div>
+@else
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="title-breadcrumb">
+          Faq
+        </div>
+        <ul class="breadcrumb-cate">
+            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+            <li><a href="support.html">Faq</a></li>
+        </ul>
+    </div>
+</div>
+@endif
+    <!-- //Header Container  -->
+    <div class="modal fade in" id="so_sociallogin" tabindex="-1" role="dialog" aria-hidden="true" >
             <div class="modal-dialog block-popup-login">
                 <a href="javascript:void(0)" title="Close" class="close close-login fa fa-times-circle" data-dismiss="modal"></a>
                 <div class="tt_popup_login"><strong>Sign in Or Register</strong></div>
@@ -60,97 +89,36 @@
                 </div>
             </div>
          </div>
-
-		<div class="breadcrumbs">
-			<div class="container">
-				<div class="title-breadcrumb">
-					PRODUCT COMPARISON
-				</div>
-				<ul class="breadcrumb-cate">
-					<li><a href="index.html"><i class="fa fa-home"></i></a></li>
-					<li><a href="#">Product Comparison</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div id="content" class="col-sm-12">
-					<h1>Product Comparison</h1>
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<td colspan="4"><strong>Product Details</strong></td>
-								</tr>
-							</thead>
+	<!-- Main Container  -->
+	<div class="main-container container">
+		<div class="row">
+			<div id="content" class="col-sm-12">
+				<h3>Got Questions? We’ve Got Answers!</h3>
+				<p>
+					<br>
+				</p>
+				<div class="row">
+					<div class="col-sm-12">
+						<ul class="yt-accordion">
               @php
-                $userid =  \Request::getClientIp(true);
-                $com=App\CompareProduct::where('ip_address',$userid)->orderBy('id','DESC')->limit(3)->get();
+                  $faqall=App\Faq::where('is_deleted',0)->where('faq_status',1)->get();
               @endphp
-							<tbody>
-								<tr>
-									<td>Product</td>
-                  @foreach($com as $data)
-									<td><a href="#"><strong>{{$data->product->product_name}}</strong></a></td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>Image</td>
-                  @foreach($com as $data)
-									<td class="text-center"> <img src="{{asset('public/uploads/products/thumbnail/smallthum/'.$data->product->thumbnail_img)}}"class="img-thumbnail" /> </td>
-                  @endforeach
-                </tr>
-								<tr>
-									<td>Price</td>
-                  @foreach($com as $data)
-									<td> {{$data->product->product_price}}</td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>SKU</td>
-                  @foreach($com as $data)
-									<td>{{$data->product->product_sku}}</td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>Brand</td>
-                  @foreach($com as $data)
-									<td>New</td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>Availability</td>
-                  @foreach($com as $data)
-									<td>{{$data->product->product_qty}}</td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>Rating</td>
-                    @foreach($com as $data)
-									<td class="rating">
-										<span class="fa fa-stack">
-											<i class="fa fa-star fa-stack-2x"></i>
-											<i class="fa fa-star-o fa-stack-2x"></i>
-											</span>
+              @foreach($faqall as $key => $faq)
+							<li class="accordion-group">
+								<h3 class="accordion-heading"><i class="fa fa-plus-square"></i><span>{{$faq->faq_ques}}</span></h3>
+								<div class="accordion-inner">
+									<p>{{$faq->faq_ans}}</p>
 
-										<br /> Based on 1 reviews.
-                  </td>
-                  @endforeach
-								</tr>
-							</tbody>
-
-							<tr>
-								<td></td>
-                @foreach($com as $data)
-								<td>
-									<input type="button" value="Add to Cart" class="btn btn-primary btn-block" onclick="cart.add('30', '1');" />
-									<a href="{{url('/compare/delete/'.$data->id)}}" class="btn btn-danger btn-block">Remove</a></td>
-                  @endforeach
-
-							</tr>
-						</table>
+								</div>
+							</li>
+              @endforeach
+						</ul>
 					</div>
 				</div>
+
+
 			</div>
 		</div>
-    @endsection
+	</div>
+	<!-- //Main Container -->
+@endsection
