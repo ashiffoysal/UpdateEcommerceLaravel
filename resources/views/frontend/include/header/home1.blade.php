@@ -62,6 +62,7 @@
 											@endphp
 
 											<span class="items_cart" id="cartdatacount">{{Cart::session($userid)->getTotalQuantity() }}</span>
+											
 											<span class="items_cart2">item(s)</span>
 											<span class="items_carts" id="product_price"> - {{Cart::session($userid)->getTotal()}}</span>
 										</span>
@@ -98,69 +99,66 @@
 
 
 	<div class="header-form hidden-compact">
-		<div class="button-header current">
-			<i class="fa fa-bars"></i>
-		</div>
-		<div class="dropdown-form toogle_content">
-			<div class="pull-left">
-				<form action="#" method="post" enctype="multipart/form-data" id="form-language">
-					<div class="btn-group">
-						<button class="btn-link dropdown-toggle" data-toggle="dropdown">
-							<img src="{{asset('public/frontend/')}}/image/catalog/flags/gb.png" alt="English" title="English">
-							<span class="hidden-xs hidden-sm hidden-md">English</span>&nbsp;<i class="fa fa-angle-down"></i>
-						</button>
-
-						<ul class="dropdown-menu">
-							<li>
-								<button class="btn-block language-select" type="button" name="ar-ar"><img src="{{asset('public/frontend/')}}/image/catalog/flags/ar.png" alt="Arabic" title="Arabic"> Arabic</button>
-							</li>
-							<li>
-								<button class="btn-block language-select" type="button" name="en-gb"><img src="{{asset('public/frontend/')}}/image/catalog/flags/gb.png" alt="English" title="English"> English</button>
-							</li>
-						</ul>
-					</div>
-					<input type="hidden" name="code" value="">
-					<input type="hidden" name="redirect" value="index.html">
-				</form>
-			</div>
-			<div class="pull-left">
-				<form action="#" method="post" enctype="multipart/form-data" id="form-currency">
-					<div class="btn-group">
-						<button class="btn-link dropdown-toggle" data-toggle="dropdown">
-							$<span class="hidden-xs"> US Dollar</span>
-							<i class="fa fa-angle-down"></i>
-						</button>
-						<ul class="dropdown-menu">
-							<li>
-								<button class="currency-select btn-block" type="button" name="EUR">€ Euro</button>
-							</li>
-							<li>
-								<button class="currency-select btn-block" type="button" name="GBP">£ Pound Sterling</button>
-							</li>
-							<li>
-								<button class="currency-select btn-block" type="button" name="USD">$ US Dollar</button>
-							</li>
-						</ul>
-					</div>
-					<input type="hidden" name="code" value="">
-					<input type="hidden" name="redirect" value="index.html">
-				</form>
-			</div>
-			<span class="text">More</span>
-			<ul class="dropdown-menu">
-				<li class="wishlist"><a href="wishlist.html" id="wishlist-total" class="top-link-wishlist" title="Wish List (2) "><span>Wish List (0) </span></a></li>
-				<li class="checkout"><a href="cart.html" class="top-link-checkout" title="Checkout"><span>Checkout</span></a></li>
-			</ul>
-        </div>
-
-        {{-- <div class="button-user">
-			<div class="user-info asd">
-				<a data-toggle="modal" data-target="#so_sociallogin" href="#">Login</a>
-			</div>
-		</div> --}}
-
-
-	</div>
+							<div class="button-header current">
+								<i class="fa fa-bars"></i>
+							</div>
+							<div class="dropdown-form toogle_content">
+								<div class="pull-left">
+									<form action="#" method="post" enctype="multipart/form-data" id="form-language">
+										<div class="btn-group">
+											<button class="btn-link dropdown-toggle" data-toggle="dropdown">
+												<img src="image/catalog/flags/gb.png" alt="English" title="English">
+												<span class="hidden-xs hidden-sm hidden-md">English</span>&nbsp;<i class="fa fa-angle-down"></i>
+											</button>
+											
+										<ul class="dropdown-menu">
+											<li>
+												<button class="btn-block language-select" type="button" name="ar-ar"><img src="image/catalog/flags/ar.png" alt="Arabic" title="Arabic"> Arabic</button>
+											</li>
+											<li>
+												<button class="btn-block language-select" type="button" name="en-gb"><img src="image/catalog/flags/gb.png" alt="English" title="English"> English</button>
+											</li>
+										</ul>
+										</div>
+										<input type="hidden" name="code" value="">
+										<input type="hidden" name="redirect" value="index.html">
+									</form>
+								</div>
+								<div class="pull-left">
+									<form action="#" method="post" enctype="multipart/form-data" id="form-currency">
+										<div class="btn-group">
+											<button class="btn-link dropdown-toggle" data-toggle="dropdown">
+												$<span class="hidden-xs"> US Dollar</span> 
+												<i class="fa fa-angle-down"></i>    
+											</button>
+											<ul class="dropdown-menu">
+												<li>
+													<button class="currency-select btn-block" type="button" name="EUR">€ Euro</button>
+												</li>
+												<li>
+													<button class="currency-select btn-block" type="button" name="GBP">£ Pound Sterling</button>
+												</li>
+												<li>
+													<button class="currency-select btn-block" type="button" name="USD">$ US Dollar</button>
+												</li>
+											</ul>
+										</div>
+										<input type="hidden" name="code" value="">
+										<input type="hidden" name="redirect" value="index.html">
+									</form>
+								</div>
+								<span class="text">More</span>
+								<ul class="dropdown-menu">
+									<li class="wishlist"><a href="wishlist.html" id="wishlist-total" class="top-link-wishlist" title="Wish List (2) "><span>Wish List (0) </span></a></li>
+									<li class="checkout"><a href="cart.html" class="top-link-checkout" title="Checkout"><span>Checkout</span></a></li>
+								</ul>
+							</div>
+							<div class="button-user">
+								<div class="user-info asd">
+									<a data-toggle="modal" data-target="#so_sociallogin" href="#">Login</a>
+								</div>
+							</div>
+						</div>
 </header>
 <!-- //Header Container  -->
 
@@ -177,6 +175,12 @@
 	}
 
 	myAddToCartData();
+</script>
+
+<script>
+	function test(){
+		console.log('ok');
+	}
 </script>
 
 

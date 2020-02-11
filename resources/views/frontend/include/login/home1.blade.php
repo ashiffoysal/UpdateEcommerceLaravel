@@ -5,16 +5,30 @@
 				<div class="block-content">
 					<div class=" col-reg registered-account">
 						<div class="block-content">
-							<form class="form form-login" action="#" method="post" id="login-form">
+						
+							<form class="form form-login" method="POST" action="{{ route('admin.login') }}" id="login-form">
+								@csrf
 								<fieldset class="fieldset login" data-hasrequired="* Required Fields">
 									<div class="field email required email-input">
 										<div class="control">
 											<input name="email" value="" autocomplete="off" id="email" type="email" class="input-text" title="Email" placeholder="E-Mail Address">
+											@error('email')
+												<span class="invalid-feedback" role="alert">
+													<strong>{{ $message }}</strong>
+												</span>
+                                    		@enderror
 										</div>
 									</div>
+									
 									<div class="field password required pass-input">
 										<div class="control">
 											<input name="password" type="password" autocomplete="off" class="input-text" id="pass" title="Password" placeholder="Password">
+											@error('password')
+												<span class="invalid-feedback" role="alert">
+													<strong>{{ $message }}</strong>
+												</span>
+											@enderror
+									
 										</div>
 									</div>
 

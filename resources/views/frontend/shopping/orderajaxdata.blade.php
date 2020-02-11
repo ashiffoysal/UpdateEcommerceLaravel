@@ -1,3 +1,4 @@
+
 <div class="table-responsive checkout-product">
     <table class="table table-bordered table-hover">
         <thead>
@@ -19,7 +20,7 @@
                     <div class="input-group">
                         <input type="text" onkeyup="myUpdateOrder(this)" name="quantity" id="{{$usercartdata->id}}" value="{{$usercartdata->quantity}}" size="1" class="form-control">
                         <span class="input-group-btn">
-                            <button type="button" onclick="orderdelete(this)" data-toggle="tooltip" value="{{$usercartdata->id}}" title="" data-product-key="317" class="btn-delete" data-original-title="Remove"><i class="fa fa-trash-o"></i></button>
+                            <button type="button" onclick="orderdelete(this)" data-toggle="tooltip" value="{{$usercartdata->id}}" title="" data-product-key="317" class="btn-delete" data-original-title="Remove" style="border:none;background:none;padding-right:50px;"><i class="fa fa-trash-o"></i></button>
                             <!-- <button type="submit" data-toggle="tooltip" title="" class="btn btn-primary hidden" data-original-titl="Update"><i class="fa fa-refresh"></i></button> -->
                             <!-- <span data-toggle="tooltip" title="" data-product-key="317" class="btn-update" data-original-title="Update"><i class="fa fa-refresh"></i></span> -->
                         </span>
@@ -51,7 +52,9 @@
 
             <tr>
                 <td colspan="4" class="text-left">Cupon Discount:</td>
-                <td class="text-right" id="cupondiscount"> </td>
+                <td class="text-right" id="cupondiscount"> 
+                    
+                </td>
             </tr>
             
             <tr>
@@ -67,14 +70,7 @@
     
 </script>
 
-@php
 
-$limit = \Carbon\Carbon::now()->subMinutes(10);
-if(App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->exists()){
-    $cartdatas =App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->first()->cupon_id;
-    $cupondiscount = App\Cupon::findOrFail($cartdatas)->discount;
-}
-@endphp
 <script>
     function orderdelete(el) {
     
@@ -103,4 +99,5 @@ if(App\UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',
     ?>;
 
 </script>
+
 

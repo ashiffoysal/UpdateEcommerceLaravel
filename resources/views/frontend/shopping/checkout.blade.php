@@ -78,7 +78,11 @@
 													<select name="user_division_id" id="user_division" class="form-control">
 														<option disabled selected> --- Please Select Your Division --- </option>
 														@foreach(DB::table('divisions')->get() as $division)
-															<option value="{{$division->id}}" @if(isset($useraddress->user_division_id) == $division->id) selected @endif>{{$division->name}} </option>
+															@if(isset($useraddress->user_division_id))
+																<option value="{{$division->id}}" @if($useraddress->user_division_id == $division->id) selected @endif>{{$division->name}} </option>
+															@else
+																<option value="{{$division->id}}">{{$division->name}} </option>
+															@endif
 														@endforeach
 
 													</select>
@@ -95,7 +99,12 @@
 
 														@endphp
 														@foreach($dis as $district)
-															<option value="{{$district->id}}" @if(isset($useraddress->user_district_id) == $district->id) selected @endif>{{$district->name}} </option>
+															@if(isset($useraddress->user_district_id))
+																<option value="{{$district->id}}" @if($useraddress->user_district_id == $district->id) selected @endif>{{$district->name}} </option>
+															@else
+																<option value="{{$district->id}}">{{$district->name}} </option>
+															@endif
+
 														@endforeach
 
 													</select>
@@ -110,7 +119,11 @@
 
 													@endphp
 													@foreach($upa as $upazila)
-														<option value="{{$upazila->id}}" @if(isset($useraddress->user_upazila_id) == $upazila->id) selected @endif>{{$upazila->name}} </option>
+														@if($useraddress)
+															<option value="{{$upazila->id}}" @if($useraddress->user_upazila_id == $upazila->id) selected @endif>{{$upazila->name}} </option>
+														@else
+															<option value="{{$upazila->id}}">{{$upazila->name}} </option>
+														@endif
 													@endforeach
 
 												</div>
@@ -305,13 +318,6 @@
 							<div class="checkout-content checkout-cart">
 								<h2 class="secondary-title"><i class="fa fa-shopping-cart"></i>Shopping Cart (0.00kg) </h2>
 								<div class="box-inner" id="orderdata">
-
-
-
-
-
-
-
 									<div id="payment-confirm-button" class="payment-">
 										<h2 class="secondary-title"><i class="fa fa-credit-card"></i>Payment Details</h2>
 
@@ -363,6 +369,43 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+    function cuponApply() {
+      
+	
+    var cuponvalue =document.getElementById('input-coupon').value;
+    var ordervalue =document.getElementById('input_order').value;
+        
+    $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
+            function(data) {
+				
+                // console.log(data.cuponalert);
+                // console.log(data);
+                console.log(data);
+                if(data.cuponid){
+                    toastr.success('Cupon Insert Succssfully!');    
+                };
+                if(data){
+                    toastr.success(data);
+                }
+                
+                var cupondiscount =document.getElementById('cupondiscount').innerHTML=data.cuponalert;
+                
+                
+                    
+            });
+           
+            
+           
+    }
+    cuponApply();
+
+
+	
+    
+</script>
+
 
 <script>
     $(document).ready(function() {

@@ -341,16 +341,13 @@ data: $('#option-choice-form').serializeArray(),
 success: function (data) {
     
     
-    
+
     console.log(data);
-    document.getElementById('cartdatacount').innerHTML =data.quantity;
-    document.getElementById('product_price').innerHTML =data.total;
+    // document.getElementById('cartdatacount').innerHTML =data.quantity;
+    // document.getElementById('product_price').innerHTML =data.total;
 
 }
 });
-
-
-window.location.href = "http://www.w3schools.com";
 
 }
 

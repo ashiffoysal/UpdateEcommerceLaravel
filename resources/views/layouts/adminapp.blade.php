@@ -461,7 +461,16 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.trash.allorder')}}">All Deleted Order</a></li>
                         </ul>
                     </li>
-
+                    <!-- blog menu start from here -->
+                    <li class="single-nav-wrapper">
+                        <a class="has-arrow menu-item" href="{{route('admin.blog.page')}}" aria-expanded="false">
+                            <span class="left-icon"><i class="far fa-copy"></i></span>
+                            <span class="menu-text">Blogs</span>
+                        </a>
+                        <!-- <ul class="dashboard-menu">
+                            <li><a href="{{ route('admin.seo.setting') }}">SEO Settin</a></li>
+                        </ul> -->
+                    </li>
 
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
@@ -488,6 +497,15 @@ $logo=DB::table('logos')->first();
         @yield('admin_content')
 
     </div>
+
+
+
+
+
+
+        
+
+
 
 
     <!-- jquery -->
@@ -726,6 +744,9 @@ $logo=DB::table('logos')->first();
             });
         });
     </script>
+
+ 
+
 
 
 </body>
