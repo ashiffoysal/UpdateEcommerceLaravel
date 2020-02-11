@@ -410,6 +410,8 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.banner.all')}}">Slider</a></li>
                             <li><a href="{{route('admin.sitebanner.all')}}">Site Banner </a></li>
                             <li><a href="{{route('admin.themecolor.all')}}">Theme Color</a></li>
+                            <li><a href="{{route('admin.warranty.all')}}">Warranty Information</a></li>
+                            <li><a href="{{route('admin.support.all')}}">Support Information</a></li>
 
                         </ul>
                     </li>
@@ -459,6 +461,8 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.trash.banner')}}">Slider</a></li>
                             <li><a href="{{route('admin.trash.sitebanner')}}">SiteBanner</a></li>
                             <li><a href="{{route('admin.trash.allorder')}}">All Deleted Order</a></li>
+                            <li><a href="{{route('admin.trash.warrantytrash')}}">All Delete Warranty</a></li>
+                            <li><a href="{{route('admin.trash.support')}}">All Delete Support</a></li>
                         </ul>
                     </li>
 

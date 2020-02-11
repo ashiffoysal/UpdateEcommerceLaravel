@@ -81,6 +81,42 @@ class SiteBannerController extends Controller
 
              }
        }
+       if($request->section == 6){
+           if($request->hasFile('pic')){
+              $image=$request->file('pic');
+              $ImageName='aboutus_'.'_'.time().'.'.$image->getClientOriginalExtension();
+              Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+              $data->image =$ImageName;
+
+            }
+      }
+      if($request->section == 7){
+          if($request->hasFile('pic')){
+             $image=$request->file('pic');
+             $ImageName='warranty'.'_'.time().'.'.$image->getClientOriginalExtension();
+             Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+             $data->image =$ImageName;
+
+           }
+     }
+     if($request->section == 8){
+         if($request->hasFile('pic')){
+            $image=$request->file('pic');
+            $ImageName='support'.'_'.time().'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+            $data->image =$ImageName;
+
+          }
+    }
+    if($request->section == 9){
+        if($request->hasFile('pic')){
+           $image=$request->file('pic');
+           $ImageName='faq'.'_'.time().'.'.$image->getClientOriginalExtension();
+           Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+           $data->image =$ImageName;
+
+         }
+   }
 
         $data->save();
 
@@ -306,6 +342,55 @@ class SiteBannerController extends Controller
 
               }
         }
+        if($request->section == 6){
+           if($request->hasFile('pic')){
+               unlink('public/uploads/sitebanner/'. $old_image);
+              $image=$request->file('pic');
+              $ImageName='aboutus'.'_'.time().'.'.$image->getClientOriginalExtension();
+              Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+               SiteBanner::where('id',$id)->update([
+                      'image'=>$ImageName,
+               ]);
+
+            }
+      }
+
+      if($request->section == 7){
+         if($request->hasFile('pic')){
+             unlink('public/uploads/sitebanner/'. $old_image);
+            $image=$request->file('pic');
+            $ImageName='warranty'.'_'.time().'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+             SiteBanner::where('id',$id)->update([
+                    'image'=>$ImageName,
+             ]);
+
+          }
+    }
+    if($request->section == 8){
+       if($request->hasFile('pic')){
+           unlink('public/uploads/sitebanner/'. $old_image);
+          $image=$request->file('pic');
+          $ImageName='support'.'_'.time().'.'.$image->getClientOriginalExtension();
+          Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+           SiteBanner::where('id',$id)->update([
+                  'image'=>$ImageName,
+           ]);
+
+        }
+  }
+  if($request->section == 9){
+     if($request->hasFile('pic')){
+         unlink('public/uploads/sitebanner/'. $old_image);
+        $image=$request->file('pic');
+        $ImageName='faq'.'_'.time().'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+         SiteBanner::where('id',$id)->update([
+                'image'=>$ImageName,
+         ]);
+
+      }
+}
 
       if($request->category_id){
         $cate_img=CategoryBanner::where('siteban_id',$id)->delete();

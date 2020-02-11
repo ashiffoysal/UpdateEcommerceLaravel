@@ -1,6 +1,7 @@
 @extends('layouts.websiteapp')
 @section('main_content')
-<div class="modal fade in" id="so_sociallogin" tabindex="-1" role="dialog" aria-hidden="true" >
+    <!-- //Header Container  -->
+    <div class="modal fade in" id="so_sociallogin" tabindex="-1" role="dialog" aria-hidden="true" >
             <div class="modal-dialog block-popup-login">
                 <a href="javascript:void(0)" title="Close" class="close close-login fa fa-times-circle" data-dismiss="modal"></a>
                 <div class="tt_popup_login"><strong>Sign in Or Register</strong></div>
@@ -61,96 +62,64 @@
             </div>
          </div>
 
-		<div class="breadcrumbs">
-			<div class="container">
-				<div class="title-breadcrumb">
-					PRODUCT COMPARISON
-				</div>
-				<ul class="breadcrumb-cate">
-					<li><a href="index.html"><i class="fa fa-home"></i></a></li>
-					<li><a href="#">Product Comparison</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div id="content" class="col-sm-12">
-					<h1>Product Comparison</h1>
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<td colspan="4"><strong>Product Details</strong></td>
-								</tr>
-							</thead>
-              @php
-                $userid =  \Request::getClientIp(true);
-                $com=App\CompareProduct::where('ip_address',$userid)->orderBy('id','DESC')->limit(3)->get();
-              @endphp
-							<tbody>
-								<tr>
-									<td>Product</td>
-                  @foreach($com as $data)
-									<td><a href="#"><strong>{{$data->product->product_name}}</strong></a></td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>Image</td>
-                  @foreach($com as $data)
-									<td class="text-center"> <img src="{{asset('public/uploads/products/thumbnail/smallthum/'.$data->product->thumbnail_img)}}"class="img-thumbnail" /> </td>
-                  @endforeach
-                </tr>
-								<tr>
-									<td>Price</td>
-                  @foreach($com as $data)
-									<td> {{$data->product->product_price}}</td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>SKU</td>
-                  @foreach($com as $data)
-									<td>{{$data->product->product_sku}}</td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>Brand</td>
-                  @foreach($com as $data)
-									<td>New</td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>Availability</td>
-                  @foreach($com as $data)
-									<td>{{$data->product->product_qty}}</td>
-                  @endforeach
-								</tr>
-								<tr>
-									<td>Rating</td>
-                    @foreach($com as $data)
-									<td class="rating">
-										<span class="fa fa-stack">
-											<i class="fa fa-star fa-stack-2x"></i>
-											<i class="fa fa-star-o fa-stack-2x"></i>
-											</span>
+  <!-- Main Container  -->
+  @php
+    $image=App\SiteBanner::where('section',7)->where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->first();
+  @endphp
+  @if($image)
+  <div class="breadcrumbs" style="background: url({{asset('public/uploads/sitebanner/'.$image->image)}}) no-repeat center top;">
+      <div class="container">
+          <div class="title-breadcrumb">
 
-										<br /> Based on 1 reviews.
-                  </td>
-                  @endforeach
-								</tr>
-							</tbody>
+              Warranty And Services
 
-							<tr>
-								<td></td>
-                @foreach($com as $data)
-								<td>
-									<input type="button" value="Add to Cart" class="btn btn-primary btn-block" onclick="cart.add('30', '1');" />
-									<a href="{{url('/compare/delete/'.$data->id)}}" class="btn btn-danger btn-block">Remove</a></td>
+          </div>
+          <ul class="breadcrumb-cate">
+              <li><a href="{{url('/')}}"><i class="fa fa-home"></i></a></li>
+              <li><a href="">Warranty And Services</a></li>
+          </ul>
+      </div>
+  </div>
+  @else
+  <div class="breadcrumbs">
+      <div class="container">
+          <div class="title-breadcrumb">
+
+              Warranty And Services
+
+          </div>
+          <ul class="breadcrumb-cate">
+              <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+              <li><a href="">Warranty And Services</a></li>
+          </ul>
+      </div>
+  </div>
+
+  @endif
+  <div class="container">
+      <div class="row">
+          <div id="content" class="col-sm-12">
+              <div class="page_warranity">
+                  <div class="title-box">
+                      <h1 class="text-left text-uppercase title-under">Warranty and services</h1>
+                  </div>
+                  @php
+                    $allwarranty=App\Warranty::where('is_deleted',0)->where('status',1)->get();
+                  @endphp
+                  @foreach($allwarranty as $key => $data)
+                  <h3 class="color title-decimal font30" data-content="{{++$key}}">{{$data->w_ques}}</h3>
+                  <p>{{$data->w_ans}}</p>
+
+                  <hr class="hr-lg">
                   @endforeach
 
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-    @endsection
+
+
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <!-- //Main Container -->
+@endsection

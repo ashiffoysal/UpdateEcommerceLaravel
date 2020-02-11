@@ -32,6 +32,10 @@
 									<option value="3" @if($data->section==3) selected @else @endif>Category Home(270*854)</option>
 									<option value="4" @if($data->section==4) selected @else @endif>Category HeaderTop(1920*180)</option>
 									<option value="5" @if($data->section==5) selected @else @endif>Details Banner(270*427)</option>
+									<option value="6" @if($data->section==6) selected @else @endif>AboutUs HeaderTop(1920*180)</option>
+									<option value="7" @if($data->section==7) selected @else @endif>Warranty HeaderTop(1920*180)</option>
+									<option value="8" @if($data->section==8) selected @else @endif>Support HeaderTop(1920*180)</option>
+									<option value="9" @if($data->section==9) selected @else @endif>Faq HeaderTop(1920*180)</option>
 	 			      </select>
 	 			    </div>
 	 			  </div>
