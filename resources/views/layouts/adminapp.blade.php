@@ -34,6 +34,7 @@ $logo=DB::table('logos')->first();
     <!-- tag -->
     <link rel="stylesheet" href="{{asset('public/adminpanel')}}/assets/plugins/Bootstrap-4-Tag-Input-Plugin-jQuery/tagsinput.css">
     <!--Custom CSS-->
+    <link href="{{asset('public/adminpanel')}}/assets/plugins/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('public/adminpanel/assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -49,7 +50,6 @@ $logo=DB::table('logos')->first();
             <img src="{{ asset($logo->preloader) }}" >
         </div> -->
     <!-- wrapper -->
-
     @guest
     @else
     <div class="wrapper">
@@ -82,195 +82,72 @@ $logo=DB::table('logos')->first();
                         </form>
                     </div>
                 </li>
-                <li><a data-toggle="dropdown" href="#"><i class="far fa-envelope"></i><span>4</span></a>
+                @php
+                  $totalmessage=App\Contract::where('is_seen',0)->count();
+                @endphp
+                <li><a data-toggle="dropdown" href="#"><i class="far fa-envelope"></i><span>{{$totalmessage}}</span></a>
                     <div class="dropdown_wrapper messages_item dropdown-menu dropdown-menu-right">
                         <div class="dropdown_header">
-                            <p>you have 4 messages</p>
+                            <p>you have {{$totalmessage}} messages</p>
                         </div>
                         <ul class="dropdown_body nice_scroll scrollbar">
+                          @php
+                            $totalmessagelist=App\Contract::where('is_seen',0)->get();
+                            $date=Carbon\Carbon::now();
+
+                          @endphp
+                          @foreach($totalmessagelist as $message)
                             <li>
-                                <a href="#">
+                                <a href="{{route('admin.subscriber.mail.details',$message->id)}}">
                                     <div class="img-part">
                                         <img src="{{asset('public/adminpanel/')}}/assets/images/user1.jpg" alt="" class="img-fluid">
                                     </div>
                                     <div class="text-part">
-                                        <h6>Madelyn <span><i class="far fa-clock"></i> today</span></h6>
-                                        <p>Hello Sam...</p>
+                                        <h6>{{$message->visitor_name}} <span><i class="far fa-clock"></i>@if($date==$message->created_at)today @else  @endif</span></h6>
+                                        <p>{{Str::limit($message->visitor_message,25)}}</p>
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <img src="{{asset('public/adminpanel/')}}/assets/images/user2.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="text-part">
-                                        <h6>Melvin <span><i class="far fa-clock"></i> today</span></h6>
-                                        <p>Hello jhon...</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <img src="{{asset('public/adminpanel/')}}/assets/images/user3.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="text-part">
-                                        <h6>Olinda <span><i class="far fa-clock"></i> today</span></h6>
-                                        <p>Hello jhon...</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <img src="{{asset('public/adminpanel/')}}/assets/images/user1.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="text-part">
-                                        <h6>Johnson <span><i class="far fa-clock"></i> today</span></h6>
-                                        <p>Hello Olinda...</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <img src="{{asset('public/adminpanel/')}}/assets/images/user3.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="text-part">
-                                        <h6>Madelyn <span><i class="far fa-clock"></i> today</span></h6>
-                                        <p>Hello Sam...</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <img src="{{asset('public/adminpanel/')}}/assets/images/user2.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="text-part">
-                                        <h6>Melvin <span><i class="far fa-clock"></i> today</span></h6>
-                                        <p>Hello jhon...</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <img src="{{asset('public/adminpanel/')}}/assets/images/user3.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="text-part">
-                                        <h6>Olinda <span><i class="far fa-clock"></i> today</span></h6>
-                                        <p>Hello jhon...</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <img src="{{asset('public/adminpanel/')}}/assets/images/user1.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="text-part">
-                                        <h6>Johnson <span><i class="far fa-clock"></i> today</span></h6>
-                                        <p>Hello Olinda...</p>
-                                    </div>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
                         <div class="dropdown_footer">
-                            <a href="#">See All Messages</a>
+                            <a href="{{ route('admin.subscriber.send.section') }}">See All Messages</a>
                         </div>
                     </div>
                 </li>
-                <li><a href="#" data-toggle="dropdown"><i class="far fa-bell"></i><span>9</span></a>
+                @php
+                  $pending_order=App\OrderPlace::where('delevary',1)->count();
+                @endphp
+                <li><a href="#" data-toggle="dropdown"><i class="far fa-bell"></i><span>{{$pending_order}}</span></a>
                     <div class="dropdown_wrapper notification_item dropdown-menu dropdown-menu-right">
+
                         <div class="dropdown_header">
-                            <p>You have 9 notifications</p>
+                          @if($pending_order)
+                            <p>You have {{$pending_order}} Pending Order</p>
+                          @else
+                            <p>You have 0 Pending Order</p>
+                          @endif
                         </div>
                         <ul class="dropdown_body scrollbar nice_scroll">
+                          @php
+                            $allpendingorder=App\OrderPlace::where('delevary',1)->orderBy('id','DESC')->get();
+                          @endphp
+                          @foreach($allpendingorder as $key => $val)
                             <li>
-                                <a href="#">
+                                <a href="{{url('admin/product/order/invoice/'.$val->id)}}">
                                     <div class="img-part">
-                                        <span class="text-success"><i class="fas fa-users"></i></span>
+                                        <span class="">{{++$key}}</span>
                                     </div>
                                     <div class="text-part">
-                                        <p>5 new members joined</p>
+                                        <p>#{{$val->order_id}}</p>
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i></span>
-                                    </div>
-                                    <div class="text-part">
-                                        <p> Very long description here that may...</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <span class="text-success"><i class="fas fa-cart-plus"></i></span>
-                                    </div>
-                                    <div class="text-part">
-                                        <p> 25 sales made</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <span class="text-warning"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <div class="text-part">
-                                        <p> You changed your username</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <span class="text-success"><i class="fas fa-users"></i></span>
-                                    </div>
-                                    <div class="text-part">
-                                        <p>5 new members joined</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i></span>
-                                    </div>
-                                    <div class="text-part">
-                                        <p> Very long description here that may...</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <span class="text-success"><i class="fas fa-cart-plus"></i></span>
-                                    </div>
-                                    <div class="text-part">
-                                        <p> 25 sales made</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img-part">
-                                        <span class="text-warning"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <div class="text-part">
-                                        <p> You changed your username</p>
-                                    </div>
-                                </a>
-                            </li>
+                          @endforeach
+
                         </ul>
                         <div class="dropdown_footer">
-                            <a href="#">view All</a>
+                            <a href="{{route('admin.productorder')}}">view All</a>
                         </div>
                     </div>
                 </li>
@@ -280,7 +157,10 @@ $logo=DB::table('logos')->first();
                             @if(Auth::user()->avatar == NULL)
                             <a href="#" class="user_link"><img src="{{ asset('public/admin/assets/images/admin.jpg') }}" alt=""></a>
                             @else
-                            <a href="#" class="user_link"><img src="{{ asset(Auth::user()->avatar) }}" alt=""></a>
+                            @php
+                              $image=Auth::user()->avatar;
+                            @endphp
+                            <a href="#" class="user_link"><img src="{{ asset('public/uploads/user/'.$image) }}" alt=""></a>
                             @endif
 
                         </div>
@@ -306,6 +186,7 @@ $logo=DB::table('logos')->first();
                             <span class="menu-text">home</span>
                         </a>
                     </li>
+                    @if(Auth::user()->category==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
                             <span class="left-icon"><i class="far fa-copyright"></i></span>
@@ -317,6 +198,22 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.resubcategory.all')}}">All ReSubCategory</a></li>
                         </ul>
                     </li>
+                    @else
+                    @endif
+                    @if(Auth::user()->user==1)
+                    <li class="single-nav-wrapper">
+                        <a class="has-arrow menu-item" href="#" aria-expanded="false">
+                            <span class="left-icon"><i class="fas fa-external-link-alt"></i></span>
+                            <span class="menu-text">User</span>
+                        </a>
+                        <ul class="dashboard-menu">
+                            <li><a href="{{route('admin.user.add')}}">Add User</a></li>
+                            <li><a href="{{route('admin.user.all')}}">All User</a></li>
+                        </ul>
+                    </li>
+                    @else
+                    @endif
+                    @if(Auth::user()->extra==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
                             <span class="left-icon"><i class="fas fa-external-link-alt"></i></span>
@@ -328,6 +225,9 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.measurement.all')}}">All Measurement</a></li>
                         </ul>
                     </li>
+                    @else
+                    @endif
+                    @if(Auth::user()->product==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
                             <span class="left-icon"><i class="fas fa-cart-plus"></i></span>
@@ -338,9 +238,12 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.product.all')}}">All Product</a></li>
                         </ul>
                     </li>
+                    @else
+                    @endif
+                    @if(Auth::user()->ecommerce_setup==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                            <span class="left-icon"><i class="fas fa-people-carry"></i></span>
+                            <span class="left-icon"><i class="fas fa-laptop"></i></span>
                             <span class="menu-text">E-commerce Setup</span>
                         </a>
                         <ul class="dashboard-menu">
@@ -348,34 +251,47 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.cupon.add')}}">Add Cupon</a></li>
                         </ul>
                     </li>
-
-
+                    @else
+                    @endif
                     <li class="single-nav-wrapper">
                         @php
                         $pending=App\OrderPlace::where('delevary',1)->count();
                         @endphp
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                            <span class="left-icon"><i class="fas fa-people-carry"></i></span>
+                            <span class="left-icon"><i class="fas fa-luggage-cart"></i></span>
                             <span class="menu-text">Order @if($pending > 0)<span class="badge badge-secondary">New</span> @else @endif</span>
                         </a>
                         <ul class="dashboard-menu">
+                          @if(Auth::user()->pending_order==1)
                             <li><a href="{{route('admin.productorder')}}">Pending Orders <span class="badge badge-light">{{$pending}}</span></a></li>
+                          @else
+                          @endif
+
+                          @if(Auth::user()->process_order==1)
                             @php
                               $onprocess=App\OrderPlace::where('delevary',4)->count();
                             @endphp
                             <li><a href="{{route('admin.productprocess')}}">Processing Orders <span class="badge badge-light">{{$onprocess}}</span></a></li>
+                          @else
+                          @endif
+                          @if(Auth::user()->on_delevery==1)
                             @php
                             $ondevelery=App\OrderPlace::where('delevary',2)->count();
                             @endphp
                             <li><a href="{{route('admin.ondevelery')}}">On Delevery Orders <span class="badge badge-light">{{$ondevelery}}</span></a></li>
+                          @else
+                          @endif
                             <li><a href="{{route('admin.complateorder')}}">Compleate Orders</a></li>
+                          @if(Auth::user()->reject_order==1)
                             <li><a href="{{route('admin.rejecteorder')}}">Reject Orders<span class="badge badge-light"></span></a></li>
+                          @else
+                          @endif
                         </ul>
                     </li>
-
+                    @if(Auth::user()->reports==1)
                     <li class="single-nav-wrapper">
                             <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                              <span class="left-icon"><i class="fas fa-people-carry"></i></span>
+                              <span class="left-icon"><i class="fas fa-file"></i></span>
                                 <span class="menu-text">Reports</span>
                             </a>
                             <ul class="dashboard-menu">
@@ -384,22 +300,26 @@ $logo=DB::table('logos')->first();
                                 <li><a href="{{route('admin.product.wishlistpro')}}">Product Wish Report</a></li>
 
                             </ul>
-                        </li>
+                      </li>
+                      @else
+                      @endif
 
-
+                    @if(Auth::user()->messaging==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                            <span class="left-icon"><i class="fas fa-people-carry"></i></span>
+                            <span class="left-icon"><i class="fas fa-envelope-open-text"></i></span>
                             <span class="menu-text">Messaging</span>
                         </a>
                         <ul class="dashboard-menu">
                             <li><a href="{{ route('admin.subscriber.send.section') }}">Newsletter</a></li>
                         </ul>
                     </li>
-
+                    @else
+                    @endif
+                    @if(Auth::user()->frontend_setup==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                            <span class="left-icon"><i class="fas fa-people-carry"></i></span>
+                            <span class="left-icon"><i class="fas fa-desktop"></i></span>
                             <span class="menu-text">Forntend Setup</span>
                         </a>
                         <ul class="dashboard-menu">
@@ -415,12 +335,12 @@ $logo=DB::table('logos')->first();
 
                         </ul>
                     </li>
-
-
-
+                    @else
+                    @endif
+                    @if(Auth::user()->flash_deal==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                            <span class="left-icon"><i class="fas fa-people-carry"></i></span>
+                            <span class="left-icon"><i class="fas fa-bolt"></i></span>
                             <span class="menu-text">Flash Deal</span>
                         </a>
                         <ul class="dashboard-menu">
@@ -428,10 +348,13 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{ route('admin.flash.deal.index') }}">All Flash Deal</a></li>
                         </ul>
                     </li>
+                    @else
+                    @endif
 
+                    @if(Auth::user()->courier_setting==1)
                     <li class="single-nav-wrapper">
                             <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                                <span class="left-icon"><i class="fas fa-people-carry"></i></span>
+                                <span class="left-icon"><i class="fas fa-truck"></i></span>
                                 <span class="menu-text">Courier Settings</span>
                             </a>
                             <ul class="dashboard-menu">
@@ -439,8 +362,39 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{ route('courier.index') }}">View Courier Info</a></li>
                             </ul>
                         </li>
+                      @else
+                      @endif
+                    @if(Auth::user()->blog==1)
+                    <!-- blog menu start from here -->
+                    <li class="single-nav-wrapper">
+                        <a class="has-arrow menu-item" href="{{route('admin.blog.page')}}" aria-expanded="false">
+                            <span class="left-icon"><i class="far fa-copy"></i></span>
+                            <span class="menu-text">Blogs</span>
+                        </a>
+                    </li>
+                    @else
+                    @endif
+                    @if(Auth::user()->settings==1)
+                    <li class="single-nav-wrapper">
+                        <a class="has-arrow menu-item" href="#" aria-expanded="false">
+                            <span class="left-icon"><i class="fas fa-cogs"></i></span>
+                            <span class="menu-text">Settings</span>
+                        </a>
+                        <ul class="dashboard-menu">
+                            <li><a href="{{ route('admin.seo.setting') }}">SEO Setting</a></li>
+                            <li><a href="{{ route('admin.social.setting') }}">Company Information</a></li>
+                            <li><a href="#">Database Backup</a></li>
+                            <li><a href="{{ route('admin.logo.setting') }}">Logo Setting</a></li>
+                            <li><a href="{{ route('admin.mail.setting') }}">Mail Setting</a></li>
+                            <li><a href="{{ route('admin.payment.gateway') }}">Payment Gateway</a></li>
+                            <li><a href="{{ route('theme.selector.show') }}">Theme Option</a></li>
+                            <li><a href="{{ route('admin.footer.option') }}">Footer Option</a></li>
+                        </ul>
+                    </li>
+                    @else
+                    @endif
 
-
+                    @if(Auth::user()->trash==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
                             <span class="left-icon"><i class="far fa-trash-alt"></i></span>
@@ -465,34 +419,8 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.trash.support')}}">All Delete Support</a></li>
                         </ul>
                     </li>
-                    <!-- blog menu start from here -->
-                    <li class="single-nav-wrapper">
-                        <a class="has-arrow menu-item" href="{{route('admin.blog.page')}}" aria-expanded="false">
-                            <span class="left-icon"><i class="far fa-copy"></i></span>
-                            <span class="menu-text">Blogs</span>
-                        </a>
-                        <!-- <ul class="dashboard-menu">
-                            <li><a href="{{ route('admin.seo.setting') }}">SEO Settin</a></li>
-                        </ul> -->
-                    </li>
-
-                    <li class="single-nav-wrapper">
-                        <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                            <span class="left-icon"><i class="far fa-copy"></i></span>
-                            <span class="menu-text">Settings</span>
-                        </a>
-                        <ul class="dashboard-menu">
-                            <li><a href="{{ route('admin.seo.setting') }}">SEO Settin</a></li>
-                            <li><a href="{{ route('admin.social.setting') }}">Company Information</a></li>
-                            <li><a href="#">Database Backup</a></li>
-                            <li><a href="{{ route('admin.logo.setting') }}">Logo Setting</a></li>
-                            <li><a href="{{ route('admin.mail.setting') }}">Mail Setting</a></li>
-                            <li><a href="{{ route('admin.payment.gateway') }}">Payment Gateway</a></li>
-                            <li><a href="{{ route('theme.selector.show') }}">Theme Option</a></li>
-                            <li><a href="{{ route('admin.footer.option') }}">Footer Option</a></li>
-                        </ul>
-                    </li>
-
+                    @else
+                    @endif
                 </ul>
             </nav>
         </aside><!-- /sidebar Area-->
@@ -507,7 +435,7 @@ $logo=DB::table('logos')->first();
 
 
 
-        
+
 
 
 
@@ -549,7 +477,9 @@ $logo=DB::table('logos')->first();
     <script src="{{asset('public/adminpanel')}}/assets/plugins/ckeditor/ckeditor.js"></script>
     <script src="{{asset('public/adminpanel')}}/assets/plugins/ckeditor/ckeditor-active.js"></script>
     <script src="{{asset('public/adminpanel')}}/assets/plugins/select2/js/select2.full.min.js"></script>
-
+    <script src="{{asset('public/adminpanel')}}/assets/plugins/icheck/icheck.min.js"></script>
+    <script src="{{asset('public/adminpanel')}}/assets/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+    <script src="{{asset('public/adminpanel')}}/assets/plugins/icheck/icheck-active.js"></script>
     {{-- TestJs --}}
 
     <!-- nice scroll bar -->
@@ -576,13 +506,7 @@ $logo=DB::table('logos')->first();
     <script>
         CKEDITOR.replace('aboutus');
     </script>
-    <!--   <script>
-            CKEDITOR.replace('editor3');
-        </script>
-        <script>
-            CKEDITOR.replace('editor4');
-        </script> -->
-    <!-- tag -->
+
     <script src="{{asset('public/adminpanel')}}/assets/plugins/Bootstrap-4-Tag-Input-Plugin-jQuery/tagsinput.js"></script>
     <!-- Main js -->
     <script src="{{ asset('public/adminpanel/assets/js/main.js') }}"></script>
@@ -749,7 +673,7 @@ $logo=DB::table('logos')->first();
         });
     </script>
 
- 
+
 
 
 

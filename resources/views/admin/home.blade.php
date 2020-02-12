@@ -11,40 +11,64 @@
                         <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="counter">
+                                  @php
+                                    $total_product=App\Product::count();
+                                  @endphp
                                     <div class="counter_item">
                                          <span><i class="fa fa-code"></i></span>
-                                          <h2 class="timer count-number" data-to="300" data-speed="1500"></h2>
+                                         @if($total_product)
+                                         <h2 class="timer count-number" data-to="{{$total_product}}" data-speed="1500"></h2>
+                                        @else
+                                          <h2 class="timer count-number" data-to="700" data-speed="1500"></h2>
+                                        @endif
                                     </div>
-                                 
-                                   <p class="count-text ">SomeText GoesHere</p>
+                                   <p class="count-text ">Total Product</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="counter">
+                                    <div class="counter_item">
+                                      @php
+                                        $total_category=App\Category::count();
+                                      @endphp
+                                        <span><i class="fas fa-user"></i></span>
+                                        @if($total_category)
+                                         <h2 class="timer count-number" data-to="{{$total_category}}" data-speed="1500"></h2>
+                                        @else
+                                         <h2 class="timer count-number" data-to="11900" data-speed="1500"></h2>
+                                        @endif
+                                    </div>
+                                    <p class="count-text ">Total Catgeory</p>
+
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="counter">
+                                    <div class="counter_item">
+                                      @php
+                                        $total_complate_order=App\OrderPlace::where('delevary',3)->count();
+                                      @endphp
+                                        <span><i class="fa fa-bug"></i></span>
+                                         <h2 class="timer count-number" data-to="{{$total_complate_order}}" data-speed="1500"></h2>
+                                    </div>
+                                     <p class="count-text ">Total Compleate Order</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="counter">
+                                  @php
+                                    $total_pending_product=App\OrderPlace::where('delevary',1)->count();
+                                  @endphp
                                     <div class="counter_item">
                                         <span><i class="fa fa-coffee"></i></span>
-                                         <h2 class="timer count-number" data-to="1700" data-speed="1500"></h2>
+                                        @if($total_pending_product)
+                                         <h2 class="timer count-number" data-to="{{$total_pending_product}}" data-speed="1500"></h2>
+                                        @else
+                                        <h2 class="timer count-number" data-to="0" data-speed="1500"></h2>
+                                        @endif
                                     </div>
-                                    <p class="count-text ">SomeText GoesHere</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="counter">
-                                    <div class="counter_item">
-                                        <span><i class="fas fa-user"></i></span>
-                                         <h2 class="timer count-number" data-to="11900" data-speed="1500"></h2>
-                                    </div>
-                                    <p class="count-text ">SomeText GoesHere</p>
-                                      
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="counter">
-                                    <div class="counter_item">
-                                        <span><i class="fa fa-bug"></i></span>
-                                         <h2 class="timer count-number" data-to="157" data-speed="1500"></h2>
-                                    </div>
-                                     <p class="count-text ">SomeText GoesHere</p>
+                                    <p class="count-text ">Pending Order</p>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +78,7 @@
                     <section class="table_area">
                         <div class="panel">
                             <div class="panel_header">
-                                <div class="panel_title"><span>FooTable with row toggler, sorting, filter and pagination</span></div>
+                                <div class="panel_title"><span>Best Sell product</span></div>
                             </div>
                             <div class="panel_body">
                                 <div class="table-responsive">
@@ -163,7 +187,7 @@
                                             <canvas id="bar-canvas" ></canvas>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="panel">
@@ -176,7 +200,7 @@
                                     <div class="panel_body">
                                         <div id="piechart"></div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </section>

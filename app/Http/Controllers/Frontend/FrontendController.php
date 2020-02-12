@@ -12,6 +12,7 @@ use App\SubCategory;
 use App\FlashDeal;
 use App\ReSubCategory;
 use App\Color;
+use App\ProductReview;
 
 use App\FlashDealDetail;
 
@@ -235,5 +236,28 @@ class FrontendController extends Controller
         $orderid = $request->order_id;
         $trackingresult = OrderPlace::where('order_id', $orderid)->first();
         return view('frontend.tracking.trackingresult', compact('trackingresult'));
+    }
+    // product review
+    public function productreview(Request $request){
+      $insert=ProductReview::insertGetId([
+          'name'=>$request['name'],
+          'description'=>$request['description'],
+          'review'=>$request['review'],
+          'product_id'=>$request['product_id'],
+      ]);
+      if($insert){
+        $notification=array(
+            'messege'=>'Your Review Has been Success',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }else{
+        $notification=array(
+            'messege'=>'Your Review Has been Faild,Please try Again!!',
+            'alert-type'=>'error'
+             );
+           return Redirect()->back()->with($notification);
+      }
+
     }
 }

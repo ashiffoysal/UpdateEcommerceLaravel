@@ -1,5 +1,5 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
 <div class="content_wrapper">
 				<!--middle content wrapper-->
 				<!-- page content -->
@@ -20,7 +20,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</div>
 							<form action="{{url('admin/product/multisoftdelete')}}" method="post">
 						     @csrf
@@ -37,11 +37,12 @@
 													<span class="checkmark"></span>
 												</label>
 		                                      </th>
+		                                      <th>#</th>
 		                                      <th>Product Name</th>
 		                                      <th>Current qty</th>
 		                                      <th>Price</th>
 		                                      <th>Category</th>
-		                                      
+
 		                                      <th>Image</th>
 		                                      <th>Today Deal</th>
 		                                      <th>Publish</th>
@@ -49,47 +50,48 @@
 		                                  </tr>
 		                              </thead>
 		                              <tbody>
-		          						@foreach($allproduct as $data)
+		          						@foreach($allproduct as $key => $data)
 		                                  <tr>
 	                                  		  <td>
-												<label class="chech_container mb-4">
-													<input type="checkbox" name="delid[]" class="checkbox" value="{{$data->id}}">
-													<span class="checkmark"></span>
-												</label>
+																						<label class="chech_container mb-4">
+																							<input type="checkbox" name="delid[]" class="checkbox" value="{{$data->id}}">
+																							<span class="checkmark"></span>
+																						</label>
 		                                      </td>
-		                                      <td>{{$data->product_name}}</td>
+																					<td>{{++$key}}</td>
+		                                      <td>{{Str::limit($data->product_name,40)}}</td>
 		                                      <td>{{$data->product_qty}}</td>
 		                                      <td>{{$data->product_price}}</td>
 		                                      <td>{{$data->category->cate_name}}</td>
-		                                      
+
 		                                      <td>
 		                                      	<img src="{{asset('public/uploads/products/thumbnail/'.$data->thumbnail_img)}}" height="45px">
 		                                      </td>
 		                                      <td>
 		                                      	<label class="switch">
-												  <input type="checkbox" onchange="update_todays_deal(this)" value="{{ $data->id }}" <?php if($data->today_deal == 1) echo "checked"; ?> >
-												  <span class="slider round"></span>
-												</label>
-											 </td>
-		                                    	
-					                          <td>
-					                          	<label class="switch">
-												  <input type="checkbox" onchange="update_published(this)" value="{{ $data->id }}" <?php if($data->status == 1) echo "checked"; ?> >
-												  <span class="slider round"></span>
-												</label>
-					                          </td>
-					                    	
+																					  <input type="checkbox" onchange="update_todays_deal(this)" value="{{ $data->id }}" <?php if($data->today_deal == 1) echo "checked"; ?> >
+																					  <span class="slider round"></span>
+																					</label>
+																				 </td>
+
+								                          <td>
+								                          	<label class="switch">
+																						  <input type="checkbox" onchange="update_published(this)" value="{{ $data->id }}" <?php if($data->status == 1) echo "checked"; ?> >
+																						  <span class="slider round"></span>
+																						</label>
+								                          </td>
+
 		                                       <td>
-		                         				
-													<a  href="{{url('admin/product/view/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-eye"></i></a>
-													@if($data->product_type==1)
-		                                           	| <a  href="{{url('admin/product/edittypeone/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="Deactive"><i class="fas fa-pencil-alt"></i></a>|
+
+
+																								@if($data->product_type==1)
+		                                           	 <a  href="{{url('admin/product/edittypeone/'.$data->id)}}" class="btn btn-info btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="Deactive"><i class="fas fa-pencil-alt"></i></a>|
 		                                           	@elseif($data->product_type==2)
-		                                           	| <a  href="{{url('admin/product/productedittwo/'.$data->id)}}" class="btn btn-info btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="Deactive"><i class="fas fa-pencil-alt"></i></a>|
+		                                           	<a  href="{{url('admin/product/productedittwo/'.$data->id)}}" class="btn btn-info btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="Deactive"><i class="fas fa-pencil-alt"></i></a>|
 		                                           	@elseif($data->product_type==3)
-		                                           	| <a  href="{{url('admin/product/producteditthree/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="Deactive"><i class="fas fa-pencil-alt"></i></a>|
+		                                           	<a  href="{{url('admin/product/producteditthree/'.$data->id)}}" class="btn btn-info btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="Deactive"><i class="fas fa-pencil-alt"></i></a>|
 		                                           	@else
-		                                           	| <a  href="{{url('admin/product/producteditfour/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="edit"><i class="fas fa-pencil-alt"></i></a>|
+		                                           	<a  href="{{url('admin/product/producteditfour/'.$data->id)}}" class="btn btn-info btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="edit"><i class="fas fa-pencil-alt"></i></a>|
 		                                           	@endif
 
 		                                            <a id="delete" href="{{url('admin/product/softdelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
@@ -114,16 +116,16 @@
 
         $('#check_all').on('click', function(e) {
 
-         if($(this).is(':checked',true))  
+         if($(this).is(':checked',true))
 
          {
-            $(".checkbox").prop('checked', true);  
+            $(".checkbox").prop('checked', true);
 
-         } else {  
+         } else {
 
-            $(".checkbox").prop('checked',false);  
+            $(".checkbox").prop('checked',false);
 
-         }  
+         }
 
         });
 
