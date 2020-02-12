@@ -10,9 +10,13 @@
         </div>
     </div>
 </div>
+@php
+$image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->first();
 
+@endphp
 <div id="main_content">
-    <div class="breadcrumbs">
+  @if($image)
+    <div class="breadcrumbs" style="background: url({{asset('public/uploads/sitebanner/'.$image->image)}}) no-repeat center top;">
         <div class="container">
             <div class="title-breadcrumb">
                 Flash Deal Products
@@ -25,6 +29,21 @@
             </ul>
         </div>
     </div>
+  @else
+  <div class="breadcrumbs">
+      <div class="container">
+          <div class="title-breadcrumb">
+              Flash Deal Products
+          </div>
+          <ul class="breadcrumb-cate">
+              <li>
+                  <a href="{{ url('/') }}"><i class="fa fa-home"></i></a>
+              </li>
+              <li><a href="">Flash Deal Products</a></li>
+          </ul>
+      </div>
+  </div>
+  @endif
 
     <div class="container product-detail">
         <div class="row">

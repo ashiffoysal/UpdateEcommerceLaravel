@@ -49,8 +49,31 @@
 													</li>
 													<!-- About us menu end -->
 
-													
 													<!-- Contact us menu start -->
+													<li class="">
+														<p class="close-menu"></p>
+														<a href="{{url('/warranty')}}" class="clearfix">
+															<strong>
+															Warranty
+															</strong>
+														</a>
+													</li>
+													<li class="">
+														<p class="close-menu"></p>
+														<a href="{{url('/support')}}" class="clearfix">
+															<strong>
+															Support
+															</strong>
+														</a>
+													</li>
+													<li class="">
+														<p class="close-menu"></p>
+														<a href="{{url('/faq')}}" class="clearfix">
+															<strong>
+															Faq
+															</strong>
+														</a>
+													</li>
 													<li class="">
 														<p class="close-menu"></p>
 														<a href="{{route('frontend.contract.us.index')}}" class="clearfix">

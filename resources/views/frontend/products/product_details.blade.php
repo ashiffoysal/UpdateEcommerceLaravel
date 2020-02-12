@@ -90,9 +90,9 @@
                                 <div class="so-loadeding"></div>
                                 <div class="large-image  class-honizol">
                                     <div class="box-label">
-                                        <span class="label-product label-sale">
+                                        <!-- <span class="label-product label-sale">
                                             -30%
-                                        </span>
+                                        </span> -->
                                     </div>
                                     <img class="product-image-zoom"
                                         src="{{asset('public/uploads/products/thumbnail/productdetails/'.$productdetails->thumbnail_img)}}"
@@ -136,24 +136,78 @@
                                     <h1>{{$productdetails->product_name}}</h1>
                                 </div>
                                 <div class="box-review">
+                                  @php
+                                    $rcount=App\ProductReview::where('product_id',$productdetails->id)->count();
+
+                                  @endphp
                                     <div class="rating">
                                         <div class="rating-box">
+                                        @if($rcount)
+                                          @php
+                                          $sumofreview =App\ProductReview::where('product_id',$productdetails->id)->sum('review');
+                                          $rating=$sumofreview/$rcount;
+                                          @endphp
+
+                                          @if($rating == 1)
+                                            <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
                                             <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
                                             <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
                                             <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
                                             <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          @elseif($rating < 2)
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          @elseif($rating < 3)
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          @elseif($rating < 4)
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          @elseif($rating < 5)
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          @elseif($rating == 5)
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                          @elseif($rating == 0)
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                          @endif
+
+                                      @endif
+
+
                                         </div>
                                     </div>
-                                    <a class="reviews_button"
-                                        onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">0
+                                    @php
+                                      $revcount=App\ProductReview::where('product_id',$productdetails->id)->count();
+                                    @endphp
+                                    <a class="reviews_button"onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">{{$revcount}}
                                         reviews</a> / <a class="write_review_button"
                                         onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">Write a
                                         review</a>
                                 </div>
                                 <div class="product_page_price price" itemscope=""
                                     itemtype="http://data-vocabulary.org/Offer">
-                                    <span class="price-new"><span id="chosen_price""> ‎৳ {{$productdetails->product_price}}</span></span>
+                                    <span class="price-new"><span id="chosen_price"> ‎৳ {{$productdetails->product_price}}</span></span>
 
 
                                 <span class=" price-old" id="price-old">‎৳ {{$productdetails->product_price}}</span>
@@ -292,7 +346,10 @@
                                     <ul class="nav nav-tabs font-sn">
                                         <li class="active"><a data-toggle="tab" href="#tab-description">Description</a>
                                         </li>
-                                        <li><a href="#tab-review" data-toggle="tab">Review (0)</a></li>
+                                        @php
+                                          $reviewcount=App\ProductReview::where('product_id',$productdetails->id)->count();
+                                        @endphp
+                                        <li><a href="#tab-review" data-toggle="tab">Review ({{$reviewcount}})</a></li>
                                         <li><a href="#tab-tags" data-toggle="tab">Tags</a></li>
                                         <li><a href="#tab-ctab" data-toggle="tab">Custom tab</a></li>
                                     </ul>
@@ -303,7 +360,8 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="tab-review">
-                                            <form class="form-horizontal" id="form-review">
+                                            <form action="{{url('product/review')}}" method="post" class="form-horizontal" id="form-review">
+                                              @csrf
                                                 <div id="review">
                                                     <p>There are no reviews for this product.</p>
                                                 </div>
@@ -311,16 +369,15 @@
                                                 <div class="form-group required">
                                                     <div class="col-sm-12">
                                                         <label class="control-label" for="input-name">Your Name</label>
-                                                        <input type="text" name="name" value="" id="input-name"
-                                                            class="form-control">
+                                                        <input type="text" name="name" class="form-control" required>
+                                                        <input type="hidden" name="product_id" value="{{$productdetails->id}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group required">
                                                     <div class="col-sm-12">
                                                         <label class="control-label" for="input-review">Your
                                                             Review</label>
-                                                        <textarea name="text" rows="5" id="input-review"
-                                                            class="form-control"></textarea>
+                                                        <textarea name="description" rows="5"class="form-control" required></textarea>
                                                         <div class="help-block"><span class="text-danger">Note:</span>
                                                             HTML is not translated!</div>
                                                     </div>
@@ -329,22 +386,22 @@
                                                     <div class="col-sm-12">
                                                         <label class="control-label">Rating</label>
                                                         &nbsp;&nbsp;&nbsp; Bad&nbsp;
-                                                        <input type="radio" name="rating" value="1">
+                                                        <input type="radio" name="review" value="1">
                                                         &nbsp;
-                                                        <input type="radio" name="rating" value="2">
+                                                        <input type="radio" name="review" value="2">
                                                         &nbsp;
-                                                        <input type="radio" name="rating" value="3">
+                                                        <input type="radio" name="review" value="3">
                                                         &nbsp;
-                                                        <input type="radio" name="rating" value="4">
+                                                        <input type="radio" name="review" value="4">
                                                         &nbsp;
-                                                        <input type="radio" name="rating" value="5">
+                                                        <input type="radio" name="review" value="5" checked>
                                                         &nbsp;Good
                                                     </div>
                                                 </div>
                                                 <div class="buttons clearfix"
                                                     style="visibility: hidden; display: block;">
                                                     <div class="pull-right">
-                                                        <button type="button" id="button-review"
+                                                        <button type="submit" id="button-review"
                                                             data-loading-text="Loading..."
                                                             class="btn btn-primary">Continue</button>
                                                     </div>
@@ -355,18 +412,7 @@
                                             <a href="#">{{$productdetails->meta_tag}}</a>
                                         </div>
                                         <div class="tab-pane" id="tab-ctab">
-                                            <p>Lorem ipsum dolor sit amet, consetetur
-                                                sadipscing elitr, sed diam nonumy eirmod
-                                                tempor invidunt ut labore et dolore
-                                                magna aliquyam erat, sed diam voluptua.
-                                                At vero eos et accusam et justo duo
-                                                dolores et ea rebum. Stet clita kasd
-                                                gubergren, no sea takimata sanctus est
-                                                Lorem ipsum dolor sit amet. Lorem ipsum
-                                                dolor sit amet, consetetur sadipscing
-                                                elitr, sed diam nonumy eirmod tempor
-                                                invidunt ut labore et dolore magna aliquyam
-                                                erat, sed diam voluptua. </p>
+                                            <p></p>
                                         </div>
                                     </div>
                                 </div>
@@ -421,8 +467,8 @@
                                                             style="visibility: hidden; display: block;">
                                                             <div class="price price-left">
                                                                 <span
-                                                                    class="price-new">{{$products->product_price}}</span>
-                                                                <span class="price-old">$122.00</span>
+                                                                    class="price-new">৳ {{$products->product_price}}</span>
+                                                                <span class="price-old"></span>
 
                                                             </div>
                                                             <div class="price-sale price-right">
@@ -494,8 +540,7 @@
                         <div id="product-upsell" class="tab-pane fade in">
                             <div class="clearfix module horizontal">
                                 <div class="products-category">
-                                    <div class="category-slider-inner products-list yt-content-slider releate-products grid"
-                                        releate-products products-list grid contentslider" data-rtl="no"
+                                    <div class="category-slider-inner products-list yt-content-slider releate-products grid releate-products products-list grid contentslider" data-rtl="no"
                                         data-autoplay="no" data-pagination="no" data-delay="4" data-speed="0.6"
                                         data-margin="30" data-items_column0="3" data-items_column1="3"
                                         data-items_column2="2" data-items_column3="2" data-items_column4="1"
@@ -526,7 +571,7 @@
                                                             style="visibility: hidden; display: block;">
                                                             <div class="price price-left">
                                                                 <span class="price-new">$74.00</span>
-                                                                <span class="price-old">$122.00</span>
+                                                                <span class="price-old"></span>
                                                             </div>
                                                             <div class="price-sale price-right">
                                                                 <span class="discount">
@@ -595,7 +640,7 @@
                                                             style="visibility: hidden; display: block;">
                                                             <div class="price price-left">
                                                                 <span class="price-new">$74.00</span>
-                                                                <span class="price-old">$122.00</span>
+                                                                <span class="price-old"></span>
                                                             </div>
                                                             <div class="price-sale price-right">
                                                                 <span class="discount">
@@ -664,7 +709,7 @@
                                                             style="visibility: hidden; display: block;">
                                                             <div class="price price-left">
                                                                 <span class="price-new">$74.00</span>
-                                                                <span class="price-old">$122.00</span>
+                                                                <span class="price-old"></span>
                                                             </div>
                                                             <div class="price-sale price-right">
                                                                 <span class="discount">

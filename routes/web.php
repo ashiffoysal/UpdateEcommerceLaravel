@@ -356,6 +356,7 @@ Route::get('tracking/order', 'Frontend\FrontendController@ordertracking');
 Route::get('/faq', 'Frontend\FrontendController@faqpage');
 Route::get('/support', 'Frontend\FrontendController@supportpage');
 Route::get('/warranty', 'Frontend\FrontendController@warrantypage');
+Route::post('product/review', 'Frontend\FrontendController@productreview');
 // Route Created By Harrison
 
 
@@ -456,14 +457,19 @@ Route::get('/pay-with-paypal', 'Frontend\CheckoutController@paywithpaypal')->nam
 Route::get('/payment/success', 'Frontend\CheckoutController@paymentsuccess');
 Route::get('/text', 'Frontend\CheckoutController@text');
 
-
-
+// user controller
+route::get(md5('admin/user/add'),'admin\UserController@add')->name('admin.user.add');
+route::get(md5('admin/user/all'),'admin\UserController@index')->name('admin.user.all');
+route::get('admin/user/edit/{id}','admin\UserController@edit');
+route::post(md5('admin/user/insert'),'admin\UserController@insert')->name('admin.userlist.insert');
+route::post(md5('admin/user/update'),'admin\UserController@update')->name('admin.userlist.update');
+route::get('admin/user/delete/{id}','admin\UserController@delete');
 
 
 
 
 // site banner
-route::get(md5('admin/sitebanner/all'),'admin\sitebannercontroller@sitebanner')->name('admin.sitebanner.all');
+route::get(md5('admin/sitebanner/all'),'admin\SiteBannerController@sitebanner')->name('admin.sitebanner.all');
 Route::get('admin/sitebanner/deactive/{id}','Admin\SiteBannerController@sitebannerdeactive');
 Route::get('admin/sitebanner/active/{id}','Admin\SiteBannerController@sitebanneractive');
 Route::get('admin/sitebanner/softdelete/{id}','Admin\SiteBannerController@sitebabnsoftdelete');

@@ -288,7 +288,7 @@
 
 
 								<div class="form-group row">
-									<label for="" class="col-sm-3 col-form-label text-right">Main Image</label>
+									<label for="" class="col-sm-3 col-form-label text-right">Gallary Image</label>
 									 <div class="col-sm-6">
 										<div id="photos" class="row">
 											@if(is_array(json_decode($data->photos)))
@@ -296,7 +296,7 @@
 												<div class="col-md-4 col-sm-4 col-xs-6">
 													<button type="button" class="btn btn-danger close-btn remove-files"><i class="fa fa-times"></i></button>
 													<div class="img-upload-preview">
-														<img src="{{url('storage/app/'.$photo) }}" alt="" height="150px" width="170px;">
+														<img src="{{url('storage/app/public/'.$photo) }}" alt="" height="150px" width="170px;">
 														<input type="hidden" name="previous_photos[]" value="{{ $photo }}">
 
 													</div>

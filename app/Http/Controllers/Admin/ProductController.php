@@ -776,7 +776,6 @@ class ProductController extends Controller
             'cate_id' => 'required',
             'product_qty' => 'required|numeric',
             'product_description' => 'required',
-            'thumbnail_img' => 'required'
         ]);
         // return $request;
         $product = Product::findOrFail($id);

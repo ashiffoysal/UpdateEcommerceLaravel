@@ -150,7 +150,7 @@
 		                                        	<option value="1" selected>Amount</option>
 		                                        	<option value="2">%</option>
 		                                        	@elseif($data->flash_deal_type==2)
-													<option value="1">Amount</option>
+																							<option value="1">Amount</option>
 		                                        	<option value="2" selected>%</option>
 		                                        	@else
 		                                        	<option>--Select--</option>
@@ -169,10 +169,10 @@
                           		<div style="margin-top: 15px">
 	                          		<div class="row">
 	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
-									    <div class="col-sm-6">
-									      <textarea name="product_description" id="editor1" rows="10" cols="80">{{$data->product_description}}</textarea>
-									    </div>
-									</div>
+															    <div class="col-sm-6">
+															      <textarea name="product_description" id="editor1" rows="10" cols="80">{{$data->product_description}}</textarea>
+															    </div>
+															</div>
                           	   </div>
                           	   <div style="margin: 15px 0px">
 	                          		<div class="row">
@@ -211,7 +211,7 @@
 												<div class="col-md-4 col-sm-4 col-xs-6">
 													<button type="button" class="btn btn-danger close-btn remove-files"><i class="fa fa-times"></i></button>
 													<div class="img-upload-preview">
-														<img src="{{url('storage/app/'.$photo) }}" alt="" height="150px" width="170px;">
+														<img src="{{url('storage/app/public/'.$photo) }}" alt="" height="150px" width="170px;">
 														<input type="hidden" name="previous_photos[]" value="{{ $photo }}">
 
 													</div>

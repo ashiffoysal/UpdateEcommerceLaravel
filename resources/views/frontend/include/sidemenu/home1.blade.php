@@ -200,7 +200,7 @@
                                             {{-- @php
                                                 dd($category->count());
                                             @endphp --}}
-                                            @if ($category->count() > 10)
+                                            @if ($category->count() > 9)
                                             <li class="loadmore show_hidden_menu"><i class="fa fa-plus-square"></i>
                                                 <span class="more-view"> More Categories</span>
                                             </li>

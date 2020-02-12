@@ -74,6 +74,8 @@
   																						 Support HeaderTop(1920*180)
 																						@elseif($data->section==9)
 	   																				faq HeaderTop(1920*180)
+																						@elseif($data->section==10)
+	   																				FlashDeal HeaderTop(1920*180)
 		                                      	@endif
 		                                      </td>
 		                                      <td>{{Str::limit($data->link,25)}}</td>
@@ -144,6 +146,7 @@
 							<option value="7">Warranty HeaderTop(1920*180)</option>
 							<option value="8">Support HeaderTop(1920*180)</option>
 							<option value="9">Faq HeaderTop(1920*180)</option>
+							<option value="10">FlashDeal HeaderTop(1920*180)</option>
 			      </select>
 			    </div>
 			  </div>
