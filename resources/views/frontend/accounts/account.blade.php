@@ -11,235 +11,180 @@
     <div class="row">
         <!--Middle Part Start-->
         <div class="col-md-9" id="content">
-            <h2 class="title">My Account</h2>
-            <p class="lead">Hello, <strong>Jhone Cary!</strong> - To update your account information.</p>
-            <form>
+            <h2 class="title">{{ __('My Account') }}</h2>
+            <p class="lead">
+                {{ __('Hello,') }} <strong>{{$user->first_name}} {{ $user->last_name }}!</strong>
+                {{ __('- To update your account information.')}}
+            </p>
+            <form action="{{ route('customer.account.update') }}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-sm-6">
                         <fieldset id="personal-details">
-                            <legend>Personal Details</legend>
+                            <legend>{{ __('Personal Details') }}</legend>
                             <div class="form-group required">
-                                <label for="input-firstname" class="control-label">First Name</label>
-                                <input type="text" class="form-control" id="input-firstname" placeholder="First Name" value="" name="firstname">
+                                <label for="input-firstname" class="control-label">{{ __('First Name') }}</label>
+                                <input type="text" class="form-control" id="input-firstname" placeholder="First Name"
+                                    value="{{ $user->first_name }}" name="first_name">
+                                @error('first_name')
+                                <span class="text-danger">{{ $errors->first('first_name') }}</span>
+                                @enderror
                             </div>
                             <div class="form-group required">
-                                <label for="input-lastname" class="control-label">Last Name</label>
-                                <input type="text" class="form-control" id="input-lastname" placeholder="Last Name" value="" name="lastname">
+                                <label for="input-lastname" class="control-label">{{ __('Last name') }}</label>
+                                <input type="text" class="form-control" id="input-lastname" placeholder="Last Name"
+                                    value="{{ $user->last_name }}" name="last_name">
+                                @error('last_name')
+                                <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                                @enderror
                             </div>
                             <div class="form-group required">
-                                <label for="input-email" class="control-label">E-Mail</label>
-                                <input type="email" class="form-control" id="input-email" placeholder="E-Mail" value="" name="email">
+                                <label for="input-email" class="control-label">{{ __('E-Mail') }}</label>
+                                <input type="email" class="form-control" id="input-email" readonly
+                                    value="{{ $user->email }}">
                             </div>
                             <div class="form-group required">
-                                <label for="input-telephone" class="control-label">Telephone</label>
-                                <input type="tel" class="form-control" id="input-telephone" placeholder="Telephone" value="" name="telephone">
-                            </div>
-                            <div class="form-group">
-                                <label for="input-fax" class="control-label">Fax</label>
-                                <input type="text" class="form-control" id="input-fax" placeholder="Fax" value="" name="fax">
+                                <label for="input-telephone" class="control-label"> {{ __('phone') }}</label>
+                                <input type="tel" class="form-control" id="input-telephone" placeholder="phone number"
+                                    value="{{ $user->phone }}" name="phone">
+                                @error('phone')
+                                <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                @enderror
                             </div>
                         </fieldset>
                         <br>
                     </div>
                     <div class="col-sm-6">
                         <fieldset>
+
                             <legend>Change Password</legend>
+                            @if (Session::has('errorMsg'))
+                            <span class="alert alert-danger d-block">{{ session('errorMsg') }}</span>
+                            @endif
                             <div class="form-group required">
                                 <label for="input-password" class="control-label">Old Password</label>
-                                <input type="password" class="form-control" placeholder="Old Password" value="" name="old-password">
+                                <input type="password" class="form-control" placeholder="Old Password" value=""
+                                    name="old_password">
+                                @error('old_password')
+                                <span class="text-danger">{{ $errors->first('old_password') }}</span>
+                                @enderror
                             </div>
                             <div class="form-group required">
                                 <label for="input-password" class="control-label">New Password</label>
-                                <input type="password" class="form-control" placeholder="New Password" value="" name="new-password">
+                                <input type="password" class="form-control" placeholder="New Password" value=""
+                                    name="password">
+                                @error('password')
+                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                                @enderror
                             </div>
                             <div class="form-group required">
                                 <label for="input-confirm" class="control-label">New Password Confirm</label>
-                                <input type="password" class="form-control" id="input-confirm" placeholder="New Password Confirm" value="" name="new-confirm">
+                                <input type="password" class="form-control" id="input-confirm"
+                                    placeholder="New Password Confirm" value="" name="password_confirmation">
                             </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend>Newsletter</legend>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-3 control-label">Subscribe</label>
-                                <div class="col-md-10 col-sm-9 col-xs-9">
-                                    <label class="radio-inline">
-                                        <input type="radio" value="1" name="newsletter"> Yes
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" checked="checked" value="0" name="newsletter"> No
-                                    </label>
-                                </div>
+                            <div class="form-group required">
+                                <input type="submit" class="btn btn-sm btn-success" id="input-confir"
+                                    value="Change password" formaction="{{route('password.update')}}">
                             </div>
                         </fieldset>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <fieldset id="address">
-                            <legend>Payment Address</legend>
+                            <legend>Address</legend>
                             <div class="form-group">
                                 <label for="input-company" class="control-label">Company</label>
-                                <input type="text" class="form-control" placeholder="Company" value="" name="company">
+                                <input type="text" class="form-control" placeholder="Company"
+                                    value="{{ $user->company ? $user->company : old('company') }}" name="company">
                             </div>
                             <div class="form-group required">
-                                <label for="input-address-1" class="control-label">Address 1</label>
-                                <input type="text" class="form-control" placeholder="Address 1" value="" name="address_1">
-                            </div>
-                            <div class="form-group required">
-                                <label for="input-city" class="control-label">City</label>
-                                <input type="text" class="form-control" placeholder="City" value="" name="city">
+                                <label for="input-address-1" class="control-label">Address</label>
+                                <input type="text" class="form-control" placeholder="Address"
+                                    value="{{ $user->address ? $user->address : old('address') }}" name="address">
                             </div>
                             <div class="form-group required">
                                 <label for="input-postcode" class="control-label">Post Code</label>
-                                <input type="text" class="form-control" placeholder="Post Code" value="" name="postcode">
+                                <input type="text" class="form-control" placeholder="Post Code"
+                                    value="{{ $user->postal_code }}" name="postal_code">
+                                @error('postal_code')
+                                <span class="text-danger">{{ $errors->first('postal_code') }}</span>
+                                @enderror
                             </div>
                             <div class="form-group required">
                                 <label for="input-country" class="control-label">Country</label>
                                 <select class="form-control" name="country_id">
-                                    <option value=""> --- Please Select --- </option>
-                                    <option value="244">Aaland Islands</option>
-                                    <option value="1">Afghanistan</option>
-                                    <option value="2">Albania</option>
-                                    <option value="3">Algeria</option>
-                                    <option value="4">American Samoa</option>
-                                    <option value="5">Andorra</option>
-                                    <option value="6">Angola</option>
-                                    <option value="7">Anguilla</option>
-                                    <option value="8">Antarctica</option>
-                                    <option value="9">Antigua and Barbuda</option>
-                                    <option value="10">Argentina</option>
-                                    <option value="11">Armenia</option>
-                                    <option value="12">Aruba</option>
-
+                                    <option value="18">Bangladesh</option>
                                 </select>
                             </div>
                             <div class="form-group required">
-                                <label for="input-zone" class="control-label">Region / State</label>
-                                <select class="form-control" name="zone_id">
-                                    <option value=""> --- Please Select --- </option>
-                                    <option value="3513">Aberdeen</option>
-                                    <option value="3514">Aberdeenshire</option>
-                                    <option value="3515">Anglesey</option>
-                                    <option value="3516">Angus</option>
-                                    <option value="3517">Argyll and Bute</option>
-                                    <option value="3518">Bedfordshire</option>
-                                    <option value="3519">Berkshire</option>
-
-                                </select>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="col-sm-6">
-                        <fieldset id="shipping-address">
-                            <legend>Shipping Address</legend>
-                            <div class="form-group">
-                                <label for="input-company" class="control-label">Company</label>
-                                <input type="text" class="form-control" id="input-company" placeholder="Company" value="" name="company">
-                            </div>
-                            <div class="form-group required">
-                                <label for="input-address-1" class="control-label">Address 1</label>
-                                <input type="text" class="form-control" id="input-address-1" placeholder="Address 1" value="" name="address_1">
-                            </div>
-                            <div class="form-group required">
-                                <label for="input-city" class="control-label">City</label>
-                                <input type="text" class="form-control" id="input-city" placeholder="City" value="" name="city">
-                            </div>
-                            <div class="form-group required">
-                                <label for="input-postcode" class="control-label">Post Code</label>
-                                <input type="text" class="form-control" id="input-postcode" placeholder="Post Code" value="" name="postcode">
-                            </div>
-                            <div class="form-group required">
-                                <label for="input-country" class="control-label">Country</label>
-                                <select class="form-control" id="input-country" name="country_id">
-                                    <option value=""> --- Please Select --- </option>
-                                    <option value="244">Aaland Islands</option>
-                                    <option value="1">Afghanistan</option>
-                                    <option value="2">Albania</option>
-                                    <option value="3">Algeria</option>
-                                    <option value="4">American Samoa</option>
-                                    <option value="5">Andorra</option>
-                                    <option value="6">Angola</option>
-                                    <option value="7">Anguilla</option>
-                                    <option value="8">Antarctica</option>
-                                    <option value="9">Antigua and Barbuda</option>
-                                    <option value="10">Argentina</option>
-                                    <option value="11">Armenia</option>
-                                    <option value="12">Aruba</option>
-
+                                <label for="input-zone" class="control-label">State / Division</label>
+                                <select class="form-control selectpicker" data-live-search="true" name="division_id">
+                                    <option value=""> ---Select division --- </option>
+                                    @foreach ($divisions as $division)
+                                    <option value="{{ $division->id }}"
+                                        {{ $division->id == old('division_id') ? "SELECTED" : "" }}
+                                        {{ $user->division_id == $division->id ? "SELECTED" : ""}}>
+                                        {{ $division->name }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group required">
-                                <label for="input-zone" class="control-label">Region / State</label>
-                                <select class="form-control" id="input-zone" name="zone_id">
-                                    <option value=""> --- Please Select --- </option>
-                                    <option value="3513">Aberdeen</option>
-                                    <option value="3514">Aberdeenshire</option>
-                                    <option value="3515">Anglesey</option>
-                                    <option value="3516">Angus</option>
-                                    <option value="3517">Argyll and Bute</option>
-                                    <option value="3518">Bedfordshire</option>
-                                    <option value="3519">Berkshire</option>
-
+                                <label for="input-zone" class="control-label">District</label>
+                                <select class="form-control selectpicker" data-live-search="true" name="district_id">
+                                    <option value=""> --- Select District--- </option>
+                                    @foreach ($districts as $district)
+                                    <option {{ $district->id == old('district_id') ? "SELECTED" : "" }}
+                                        {{ $user->district_id == $district->id ? "SELECTED" : ''  }}
+                                        value="{{ $district->id }}">
+                                        {{ $district->name }}
+                                    </option>
+                                    @endforeach
                                 </select>
+                                @error('district_id')
+                                <span class="text-danger">{{ $errors->first('district_id') }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-zone" class="control-label">Upazila</label>
+                                <select class="form-control selectpicker" data-live-search="true" name="upazila_id">
+                                    <option value=""> --- Select Upazila--- </option>
+                                    @foreach ($upazilas as $upazila)
+                                    <option {{ $upazila->id == old('upazila_id') ? "SELECTED" : "" }}
+                                        {{ $user->upazila_id == $upazila->id ? "SELECTED" : "" }}
+                                        value="{{ $upazila->id }}">
+                                        {{ $upazila->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('upazila_id')
+                                <span class="text-danger">{{ $errors->first('upazila_id') }}</span>
+                                @enderror
                             </div>
                         </fieldset>
                     </div>
                 </div>
 
-
-
                 <div class="buttons clearfix">
                     <div class="pull-right">
-                        <input type="submit" class="btn btn-md btn-primary" value="Save Changes">
+                        <input type="submit" class="btn btn-primary bg-success" value="Save Changes">
                     </div>
                 </div>
             </form>
         </div>
         <!--Middle Part End-->
         <!--Right Part Start -->
-        <aside class="col-md-3 col-sm-4 col-xs-12 content-aside right_column sidebar-offcanvas">
-            <span id="close-sidebar" class="fa fa-times"></span>
-            <div class="module">
-                <h3 class="modtitle"><span> My Account </span></h3>
-                <div class="module-content custom-border">
-                    <ul class="list-box">
-                        @auth
-                        <li>
-                            <a onclick="
-                                event.preventDefault();
-                                document.getElementById('logout').submit();
-                            "
-                            href="#">Logout
-                            </a>
-                        </li>
-                        <form style="display:none;" id="logout" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                        </form>
-                        @endauth
-                        @guest
-                        <li><a href="login.html">Login </a> / <a href="register.html">Register </a></li>
-                        @endguest
-
-                        <li><a href="#">Forgotten Password </a></li>
-
-                        <li><a href="#">My Account </a></li>
-
-                        <li><a href="#">Address Book </a></li>
-                        <li><a href="wishlist.html">Wish List </a></li>
-                        <li><a href="#">Order History </a></li>
-                        <li><a href="#">Downloads </a></li>
-                        <li><a href="#">Recurring payments </a></li>
-                        <li><a href="#">Reward Points </a></li>
-                        <li><a href="#">Returns </a></li>
-                        <li><a href="#">Transactions </a></li>
-                        <li><a href="#">Newsletter </a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </aside>
+        @include('frontend.include.account_sidebar.account_sidebar')
         <!--Right Part End -->
     </div>
 </div>
 <!-- //Main Container -->
+
+
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').select2();
+    });
+</script>
 @endsection

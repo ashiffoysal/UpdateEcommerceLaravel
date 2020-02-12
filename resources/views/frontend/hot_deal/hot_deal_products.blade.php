@@ -99,10 +99,10 @@
                                                         $discountPrice =
                                                         $flash_deal_detail->product->product_price /100 *
                                                         $flash_deal_detail->discount @endphp @endif
-                                                        {{ $discountPrice }}
+                                                       ৳ {{ $discountPrice }}
                                                     </span>
                                                     <span class="price-old">
-                                                        {{ $flash_deal_detail->product->product_price }}
+                                                        ৳ {{ $flash_deal_detail->product->product_price }}
                                                     </span>
                                                 </div>
                                                 <div class="price-sale price-right px-2">

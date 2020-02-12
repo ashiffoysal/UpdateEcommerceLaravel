@@ -339,6 +339,7 @@ Route::get('/compare/delete/{id}', 'Frontend\CompareProductController@delete');
 
 Route::group(['prefix' => 'dashboard', 'namespace'=> 'Frontend',], function () {
     Route::get('customer/account', 'CustomerController@customerAccount')->name('customer.account');
+    Route::post('customer/account/update', 'CustomerController@customerAccountUpdate')->name('customer.account.update');
 });
 
 Route::get('/customer/order', 'Frontend\FrontendController@customerOrder')->name('customer.order');

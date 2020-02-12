@@ -21,6 +21,8 @@
 <link href="{{asset('public/frontend/css/responsive.css')}}" rel="stylesheet">
 <link href="{{asset('public/frontend/css/quickview/quickview.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{asset('public/frontend/css/toaster_alert.css')}}">
+{{-- <link rel="stylesheet" href="{{asset('public/frontend/css/select_bootstrap/bootstrap-select.css')}}"> --}}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <!-- Google web fonts
 				 ============================================ -->
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
