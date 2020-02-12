@@ -62,7 +62,7 @@
 											@endphp
 
 											<span class="items_cart" id="cartdatacount">{{Cart::session($userid)->getTotalQuantity() }}</span>
-											
+
 											<span class="items_cart2">item(s)</span>
 											<span class="items_carts" id="product_price"> - {{Cart::session($userid)->getTotal()}}</span>
 										</span>
@@ -110,7 +110,7 @@
 												<img src="image/catalog/flags/gb.png" alt="English" title="English">
 												<span class="hidden-xs hidden-sm hidden-md">English</span>&nbsp;<i class="fa fa-angle-down"></i>
 											</button>
-											
+
 										<ul class="dropdown-menu">
 											<li>
 												<button class="btn-block language-select" type="button" name="ar-ar"><img src="image/catalog/flags/ar.png" alt="Arabic" title="Arabic"> Arabic</button>
@@ -128,8 +128,8 @@
 									<form action="#" method="post" enctype="multipart/form-data" id="form-currency">
 										<div class="btn-group">
 											<button class="btn-link dropdown-toggle" data-toggle="dropdown">
-												$<span class="hidden-xs"> US Dollar</span> 
-												<i class="fa fa-angle-down"></i>    
+												$<span class="hidden-xs"> US Dollar</span>
+												<i class="fa fa-angle-down"></i>
 											</button>
 											<ul class="dropdown-menu">
 												<li>
@@ -155,7 +155,13 @@
 							</div>
 							<div class="button-user">
 								<div class="user-info asd">
-									<a data-toggle="modal" data-target="#so_sociallogin" href="#">Login</a>
+                                    @auth
+                                <a href="{{route('customer.account')}}">Login</a>
+                                    @endauth
+                                    @guest
+                                    <a data-toggle="modal" data-target="#so_sociallogin" href="#">Login</a>
+                                    @endguest
+
 								</div>
 							</div>
 						</div>
