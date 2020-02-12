@@ -18,9 +18,9 @@ class AddToCartController extends Controller
     {
         
         
-
+        
         $product = Product::findOrFail($request->product_id);
-        $product_price = $request->product_price;
+        
         $userid = $request->ip();
 
 
@@ -32,16 +32,17 @@ class AddToCartController extends Controller
 
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->product_id)->first();
             if ($flashDealdiscounts) {
+                
                 if ($flashDealdiscounts->discount_type == 1) {
-
-                    $product_price = $product_price - $flashDealdiscounts->discount;
+                    
+                    $product_price = $request->product_price - $flashDealdiscounts->discount;
                 } else {
-                    $perdiscount = ($flashDealdiscounts->discount * $product_price) / 100;
+                    $perdiscount = ($flashDealdiscounts->discount * $request->product_price) / 100;
 
-                    $product_price = $product_price - $perdiscount;
+                    $product_price = $request->product_price - $perdiscount;
                 }
             } else {
-                $product_price = $product_price;
+                $product_price = $request->product_price;
             }
 
 
@@ -50,7 +51,6 @@ class AddToCartController extends Controller
             $data = array();
             $data['id'] = $id;
             $data['name'] = $product->product_name;
-            $data['price'] = $product_price;
             $data['price'] = $product_price;
             $data['quantity'] = + $request->quantity;
             $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
@@ -73,18 +73,19 @@ class AddToCartController extends Controller
 
         } 
         else {
-            $flashDealdiscounts = FlashDealDetail::where('product_id', $request->addtocart_id)->first();
+            $flashDealdiscounts = FlashDealDetail::where('product_id', $request->product_id)->first();
             if ($flashDealdiscounts) {
+                
                 if ($flashDealdiscounts->discount_type == 1) {
 
-                    $product_price = $product_price - $flashDealdiscounts->discount;
+                    $product_price = $request->product_price - $flashDealdiscounts->discount;
                 } else {
-                    $perdiscount = ($flashDealdiscounts->discount * $product_price) / 100;
+                    $perdiscount = ($flashDealdiscounts->discount * $request->product_price) / 100;
 
-                    $product_price = $product_price - $perdiscount;
+                    $product_price = $request->product_price - $perdiscount;
                 }
             } else {
-                $product_price = $product_price;
+                $product_price = $request->product_price;
             }
 
 
