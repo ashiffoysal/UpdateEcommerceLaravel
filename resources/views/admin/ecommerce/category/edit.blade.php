@@ -14,8 +14,6 @@
 									<div class="panel_title"><span class="panel_icon"><i class="fas fa-plus-square"></i></span><span>update Category</span></div>
 								</div>
 								<div class="col-md-6 text-right">
-									<button type="submit" class="btn btn-primary"><i class="fas fa-undo-alt"></i> <a href="{{route('admin.product.producttype')}}" style="color: #fff;"> Back</a></button>
-
 									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.category.all')}}" style="color: #fff;">All Category</a></button>
 								</div>
 							</div>

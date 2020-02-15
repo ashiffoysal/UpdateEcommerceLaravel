@@ -1,5 +1,5 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
 <div class="content_wrapper">
 				<!--middle content wrapper-->
 				<!-- page content -->
@@ -20,7 +20,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</div>
 							<form action="{{url('admin/subcategory/multiplesoftdelete')}}" method="post">
 						     @csrf
@@ -63,16 +63,16 @@
 		                                      <td><img src="{{asset('public/uploads/subcategory/'.$data->subcate_image)}}" height="55px"></td>
 		                                      <td>{{$data->subcate_tag}}</td>
 		                                      @if($data->subcate_status==1)
-					                          <td class="center"><span class="btn-success">Active</span></td>
-					                          @else
-					                          <td class="center"><span class="btn-danger">Deactive</span></td>
-						                      @endif
+								                          <td class="center"><span class="btn btn-success">Active</span></td>
+								                          @else
+								                          <td class="center"><span class="btn btn-danger">Deactive</span></td>
+									                      @endif
 		                                       <td>
-		                                       	@if($data->subcate_status==1)
+		                                       			@if($data->subcate_status==1)
 		                                           	<a  href="{{url('admin/subcategory/deactive/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
-												 @else
-													<a  href="{{url('admin/subcategory/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
-												 @endif
+																							 @else
+																								<a  href="{{url('admin/subcategory/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
+																							 @endif
 		                                           	| <a class="editcat btn btn-sm btn-blue text-white" data-id="{{$data->id}}" title="edit"  data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt"></i></a> |
 		                                            <a id="delete" href="{{url('admin/subcategory/softdelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 		                                       </td>
@@ -92,13 +92,13 @@
   <div class="modal fade bd-example-modal-lg" id="myModal1">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Add SubCategory</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
           <form class="form-horizontal" action="{{route('admin.subcategory.insert')}}" method="POST" enctype="multipart/form-data" >
@@ -128,7 +128,7 @@
 					@foreach($category as $cate)
 			      	<option value="{{$cate->id}}">{{$cate->cate_name}}</option>
 			      	@endforeach
-			      	
+
 			      </select>
 			    </div>
 			  </div>
@@ -146,11 +146,11 @@
 
 			    <div class="col-sm-8">
 			      <input type="file" name="icon" required>
-			      <p>(32px*32px)</p>
+			      <p>(20px*20px)</p>
 			    </div>
 			  </div>
 
-			 
+
 			  <div class="form-group row">
 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Meta Tag:</label>
 			    <div class="col-sm-8">
@@ -158,17 +158,17 @@
 			    </div>
 			  </div>
 		    <div class="form-group text-right">
-		    	<input type="reset" value="Reset" class="btn btn-warning">
+		    	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
 		    	<button type="submit" class="btn btn-blue">Submit</button>
 		    </div>
 		  </form>
         </div>
-        
+
         <!-- Modal footer -->
        <!--  <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div> -->
-        
+
       </div>
     </div>
   </div>
@@ -211,7 +211,7 @@
 					@foreach($category as $cate)
 			      	<option value="{{$cate->id}}">{{$cate->cate_name}}</option>
 			      	@endforeach
-			      	
+
 			      </select>
 			    </div>
 			  </div>
@@ -223,16 +223,16 @@
 			  		 <p>(120px*120px)</p>
 			    </div>
 			    <div class="col-sm-4" id="store-img">
-			      
+
 			    </div>
 			  </div>
 			  <div class="form-group row">
-			    
+
 			    <div class="col-sm-3">
-			 
+
 			    </div>
 			    <div class="col-sm-4" id="img">
-			      
+
 			    </div>
 			  </div>
 
@@ -241,22 +241,22 @@
 
 			    <div class="col-sm-4">
 			      <input type="file" name="icon">
-			      <p>(32px*32px)</p>
+			      <p>(20px*20px)</p>
 			    </div>
 			     <div class="col-sm-3" id="store-icon">
-			    	
+
 			    </div>
 			  </div>
 			   <div class="form-group row">
 			    <div class="col-sm-3">
-		
+
 			    </div>
 			    <div class="col-sm-4" id="icon">
-		
+
 			    </div>
 			  </div>
 
-			 
+
 			  <div class="form-group row">
 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Meta Tag:</label>
 			    <div class="col-sm-8">
@@ -264,7 +264,7 @@
 			    </div>
 			  </div>
 		    <div class="form-group text-right">
-		    	<input type="reset" value="Reset" class="btn btn-warning">
+		     <button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
 		    	<button type="submit" class="btn btn-blue">Submit</button>
 		    </div>
 		  </form>
@@ -278,16 +278,16 @@
 
         $('#check_all').on('click', function(e) {
 
-         if($(this).is(':checked',true))  
+         if($(this).is(':checked',true))
 
          {
-            $(".checkbox").prop('checked', true);  
+            $(".checkbox").prop('checked', true);
 
-         } else {  
+         } else {
 
-            $(".checkbox").prop('checked',false);  
+            $(".checkbox").prop('checked',false);
 
-         }  
+         }
 
         });
 
@@ -295,7 +295,7 @@
 
 </script>
 <script type="text/javascript">
-  
+
       $(document).ready(function() {
          $('.editcat').on('click', function(){
              var subcate_id = $(this).data('id');
@@ -306,7 +306,7 @@
                      type:"GET",
                      dataType:"json",
                      success:function(data) {
-                      
+
                             $("#subcate_name").val(data.subcate_name);
                             $("#id").val(data.id);
                             $("#subcate_slug").val(data.subcate_slug);
@@ -316,8 +316,8 @@
                             $("#store-img").append("<input type='hidden' name='old_image' value='"+data.subcate_image+"' />");
                             $("#icon").html("<img src={{asset('')}}public/uploads/subcategory/"+data.subcate_icon+" height='70px'/>");
                             $("#store-icon").append("<input type='hidden' name='old_icon' value='"+data.subcate_icon+"' />");
-                          
-                        } 
+
+                        }
                  });
              } else {
                  alert('danger');

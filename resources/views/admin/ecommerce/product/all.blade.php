@@ -62,7 +62,7 @@
 		                                      <td>{{Str::limit($data->product_name,40)}}</td>
 		                                      <td>{{$data->product_qty}}</td>
 		                                      <td>{{$data->product_price}}</td>
-		                                      <td>{{$data->category->cate_name}}</td>
+		                                      <td>{{$data->cate_name}}</td>
 
 		                                      <td>
 		                                      	<img src="{{asset('public/uploads/products/thumbnail/'.$data->thumbnail_img)}}" height="45px">
@@ -143,10 +143,10 @@
             }
             $.post('{{ route('products.todays_deal') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
                 if(data == 1){
-                    showAlert('success');
+                    toastr.success('Today Deal Update Success');
                 }
                 else{
-                    showAlert('danger', 'Something went wrong');
+                    toastr.danger('Error!Today Deal Update Faild');
                 }
             });
         }
@@ -161,16 +161,12 @@
             }
             $.post('{{ route('products.published') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
                 if(data == 1){
-                    showAlert('success', 'Published products updated successfully');
+                    toastr.success('Published products updated successfully');
                 }
                 else{
-                    showAlert('danger', 'Something went wrong');
+                    toastr.danger('Something went wrong');
                 }
             });
         }
-
 </script>
-
-
-
 @endsection

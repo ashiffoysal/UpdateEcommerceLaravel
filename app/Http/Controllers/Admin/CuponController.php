@@ -24,17 +24,20 @@ class CuponController extends Controller
     	return view('admin.ecommerce.cupon.add');
     }
     public function insert(Request $request){
-        $insert=Cupon::insertGetId([
-            'cupon_type'=>$request['cupon_type'],
-            'cupon_code'=>$request['cupon_code'],
-            'minimum_shopping'=>$request['minimum_shopping'],
-            'product_id'=>json_encode($request['product_id']),
-            'discount'=>$request['discount'],
-            'discount_type'=>$request['discount_type'],
-            'cupon_start_date'=>$request['cupon_start_date'],
-            'cupon_end_date'=>$request['cupon_end_date'],
-        ]);
-        if($insert){
+        $data = new Cupon;
+        $data->cupon_type = $request->cupon_type;
+        $data->cupon_code = $request->cupon_code;
+        $data->minimum_shopping = $request->minimum_shopping;
+        $data->discount = $request->discount;
+        $data->discount_type = $request->discount_type;
+        $data->cupon_start_date = $request->cupon_start_date;
+        $data->cupon_end_date = $request->cupon_end_date;
+        if($request->has('product_id')){
+            $data->product_id = json_encode($request->product_id);
+        }else{
+            $data->product_id= NULL;
+        }
+        if($data->save()){
             $notification=array(
                 'messege'=>'Cupon Insert Success',
                 'alert-type'=>'success'

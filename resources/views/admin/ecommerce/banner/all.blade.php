@@ -57,7 +57,7 @@
 										</td>
 										<td>{{++$key}}</td>
 
-										<td>{{$data->ban_link}}</td>
+										<td>{{Str::limit($data->ban_link,25)}}</td>
 
 										<td>
 											<img src="{{asset('public/uploads/banner/'.$data->ban_image)}}" height="45px;">
@@ -129,7 +129,7 @@
 						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Slider Bottom Image</label>
 
 						<div class="col-sm-8">
-							<input type="file" name="bottom_image">
+							<input type="file" name="bottom_image" required>
 							<p>(435px*175px)</p>
 						</div>
 					</div>

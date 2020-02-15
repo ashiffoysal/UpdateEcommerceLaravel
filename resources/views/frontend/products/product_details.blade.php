@@ -1,5 +1,13 @@
 @extends('layouts.websiteapp')
 @section('main_content')
+@section('meta')
+   <meta property="og:url"           content="{{URL::current()}}"/>
+   <meta property="og:type"          content="website"/>
+   <meta property="og:title"         content="{{$productdetails->product_name}}"/>
+   <meta property="og:description"   content="{{$productdetails->meta_description}}"/>
+   <meta property="og:tag"           content="{{$productdetails->meta_tag}}"/>
+   <meta property="og:image"         content="{{asset('public/uploads/products/thumbnail_img/'.$productdetails->thumbnail_img)}}" />
+@endsection
 <style>
     #product .radio-type-button .option-content-box :hover {
         background: #ff5e00;

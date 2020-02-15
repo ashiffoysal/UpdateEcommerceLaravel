@@ -16,7 +16,7 @@
 								<div class="col-md-6 text-right">
 									<button type="submit" class="btn btn-primary"><i class="fas fa-undo-alt"></i> <a href="{{route('admin.user.all')}}" style="color: #fff;"> Back</a></button>
 
-								
+
 								</div>
 							</div>
 						</div>
@@ -160,6 +160,10 @@
                       <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Trash</label>
                       <div class="col-sm-2">
                         <label class="switch"><input name="trash" type="checkbox" value="1" @if($data->trash==1) checked @else @endif><span class="slider round"></span></label>
+                      </div>
+                      <label for="inputEmail3" class="col-sm-2 col-form-label text-right">Customer</label>
+                      <div class="col-sm-2">
+                        <label class="switch"><input name="customer" type="checkbox" value="1" @if($data->customer==1) checked @else @endif><span class="slider round"></span></label>
                       </div>
                     </div>
 

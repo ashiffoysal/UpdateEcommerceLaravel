@@ -55,9 +55,9 @@
 		                                      <td>{{$data->w_ques}}</td>
 		                                      <td>{{Str::limit($data->w_ans,100)}}</td>
 						                               @if($data->status==1)
-									                          <td class="center"><span class="btn-success">Active</span></td>
+									                          <td class="center"><span class="btn btn-success">Active</span></td>
 									                          @else
-									                          <td class="center"><span class="btn-danger">Deactive</span></td>
+									                          <td class="center"><span class="btn btn-danger">Deactive</span></td>
 										                      @endif
 		                                       <td>
 		                                       	@if($data->status==1)
@@ -109,7 +109,7 @@
                 </div>
           </div>
 		    <div class="form-group text-right">
-		    	<input type="reset" value="Reset" class="btn btn-warning">
+		    	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
 		    	<button type="submit" class="btn btn-blue">Submit</button>
 		    </div>
 		  </form>
@@ -134,7 +134,7 @@
         </button>
       </div>
       <div class="modal-body">
-         <form class="form-horizontal" action="{{route('admin.warranty.update')}}" method="POST" enctype="multipart/form-data" >
+         <form class="form-horizontal" action="{{url('admin/warranty/update')}}" method="POST" enctype="multipart/form-data" >
           	@csrf
 						<div class="form-group row">
 		 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Question?</label>
@@ -151,7 +151,7 @@
 		                 </div>
 		           </div>
 		 		    <div class="form-group text-right">
-		 		    	<input type="reset" value="Reset" class="btn btn-warning">
+		 		    	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
 		 		    	<button type="submit" class="btn btn-blue">Submit</button>
 		 		    </div>
 

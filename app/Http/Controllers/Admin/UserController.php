@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Admin;
+use App\User;
+use App\UserAddress;
 use Carbon\Carbon;
 use Session;
 use Image;
@@ -49,6 +51,7 @@ class UserController extends Controller
          'courier_setting'=>$request['courier_setting'],
          'settings'=>$request['settings'],
          'blog'=>$request['blog'],
+         'customer'=>$request['customer'],
          'trash'=>$request['trash'],
          'created_at'=>Carbon::now()->todateTimeString(),
        ]);
@@ -103,6 +106,7 @@ class UserController extends Controller
           'flash_deal'=>$request['flash_deal'],
           'courier_setting'=>$request['courier_setting'],
           'settings'=>$request['settings'],
+          'customer'=>$request['customer'],
           'blog'=>$request['blog'],
           'trash'=>$request['trash'],
           'updated_at'=>Carbon::now()->todateTimeString(),
@@ -159,7 +163,29 @@ class UserController extends Controller
           return Redirect()->back()->with($notification);
         }
       }
-
+      // customer
+      public function customer(){
+        $allcustommer=User::orderBy('id','DESC')->get();
+        return view('admin.ecommerce.customer.all',compact('allcustommer'));
+      }
+      // customer delete
+      public function customerdelete($id){
+        $deladdreess=UserAddress::where('user_id',$id)->orderBy('id','DESC')->delete();
+        $deluser=User::where('id',$id)->orderBy('id','DESC')->delete();
+        if($deluser){
+          $notification = array(
+            'messege' => 'Customer Delete Successfully',
+            'alert-type' => 'success'
+          );
+          return Redirect()->back()->with($notification);
+        }else{
+          $notification = array(
+            'messege' => 'Customer Delete Faild',
+            'alert-type' => 'error'
+          );
+          return Redirect()->back()->with($notification);
+        }
+      }
 
 
 

@@ -31,6 +31,7 @@
 									<option value="2" @if($data->section==2) selected @else @endif>Category Top(1170*220)</option>
 									<option value="3" @if($data->section==3) selected @else @endif>Category Home(270*854)</option>
 									<option value="4" @if($data->section==4) selected @else @endif>Category HeaderTop(1920*180)</option>
+									<option value="11" @if($data->section==11) selected @else @endif>Category Menu(362*495)</option>
 									<option value="5" @if($data->section==5) selected @else @endif>Details Banner(270*427)</option>
 									<option value="6" @if($data->section==6) selected @else @endif>AboutUs HeaderTop(1920*180)</option>
 									<option value="7" @if($data->section==7) selected @else @endif>Warranty HeaderTop(1920*180)</option>
@@ -87,7 +88,7 @@
 							<input type="hidden" name="old_image" value="{{$data->image}}">
 	 			    </div>
 	 			  </div>
-	 		    <div class="form-group text-right">
+	 		    <div class="form-group text-center">
 
 	 		    	<button type="submit" class="btn btn-blue">Update</button>
 	 		    </div>

@@ -127,6 +127,16 @@ class SiteBannerController extends Controller
         }
   }
 
+  if($request->section == 11){
+      if($request->hasFile('pic')){
+         $image=$request->file('pic');
+         $ImageName='category_'.'_'.time().'.'.$image->getClientOriginalExtension();
+         Image::make($image)->resize(362,495)->save('public/uploads/sitebanner/'.$ImageName);
+         $data->image =$ImageName;
+
+       }
+ }
+
         $data->save();
 
         //
@@ -406,6 +416,18 @@ if($request->section == 10){
       $image=$request->file('pic');
       $ImageName='flashdeal_'.'_'.time().'.'.$image->getClientOriginalExtension();
       Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+       SiteBanner::where('id',$id)->update([
+              'image'=>$ImageName,
+       ]);
+
+    }
+}
+if($request->section == 11){
+   if($request->hasFile('pic')){
+       unlink('public/uploads/sitebanner/'. $old_image);
+      $image=$request->file('pic');
+      $ImageName='flashdeal_'.'_'.time().'.'.$image->getClientOriginalExtension();
+      Image::make($image)->resize(362,495)->save('public/uploads/sitebanner/'.$ImageName);
        SiteBanner::where('id',$id)->update([
               'image'=>$ImageName,
        ]);

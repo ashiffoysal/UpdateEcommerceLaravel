@@ -1,5 +1,5 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
             <!-- content wrpper -->
 			<div class="content_wrapper">
 				<!--middle content wrapper-->
@@ -21,7 +21,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</div>
 							<form action="{{url('admin/cupon/multiplesoftdelete')}}" method="Post">
 						     @csrf
@@ -40,7 +40,7 @@
 		                                      </th>
 		                                      <th>Cupon Type</th>
 		                                      <th>Cupon Code</th>
-		                           
+
 		                                      <th>Discount</th>
 		                                      <th>Status</th>
 		                                      <th>manage</th>
@@ -57,12 +57,12 @@
 		                                      </td>
 		                                      <td>@if($data->cupon_type==1) For Total Order @else For Products @endif</td>
 		                                      <td>{{$data->cupon_code}}</td>
-		                                   
+
 		                                      <td>{{$data->discount}}</td>
 		                                      @if($data->status==1)
-					                          <td class="center"><span class="btn-success">Active</span></td>
+					                          <td class="center"><span class="btn btn-success">Active</span></td>
 					                     	  @else
-					                          <td class="center"><span class="btn-danger">Deactive</span></td>
+					                          <td class="center"><span class="btn btn-danger">Deactive</span></td>
 						                      @endif
 		                                       <td>
 		                                       	@if($data->status==1)
@@ -90,13 +90,13 @@
   <div class="modal fade bd-example-modal-lg" id="myModal1">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Add Cupon</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
           <form class="form-horizontal" action="{{route('admin.category.insert')}}" method="POST" enctype="multipart/form-data" >
@@ -108,26 +108,26 @@
 			      <input type="text" class="form-control" name="cate_name" required>
 			    </div>
 			  </div>
-			  
 
-			
 
-			  
 
-			 
-			
+
+
+
+
+
 		    <div class="form-group text-right">
 		    	<input type="reset" value="Reset" class="btn btn-warning">
 		    	<button type="submit" class="btn btn-blue">Submit</button>
 		    </div>
 		  </form>
         </div>
-        
+
         <!-- Modal footer -->
        <!--  <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div> -->
-        
+
       </div>
     </div>
   </div>
@@ -171,16 +171,16 @@
 			      <p>(120px*120px)</p>
 			    </div>
 			    <div class="col-sm-4" id="store-img">
-			      
+
 			    </div>
 			  </div>
 			  <div class="form-group row">
-			    
+
 			    <div class="col-sm-3">
-			 
+
 			    </div>
 			    <div class="col-sm-4" id="img">
-			      
+
 			    </div>
 			  </div>
 
@@ -193,22 +193,22 @@
 
 			    </div>
 			    <div class="col-sm-3" id="store-icon">
-			    	
+
 			    </div>
 			  </div>
 
 			  <div class="form-group row">
 			    <div class="col-sm-3">
-		
+
 			    </div>
 			    <div class="col-sm-4" id="icon">
-		
+
 			    </div>
 			  </div>
 			  <div class="form-group row">
 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Meta Tag:</label>
 			    <div class="col-sm-8">
-			      <input type="text" name="cate_tag_edit" id="cate_tag_edit" class="form-control cate_tag_edit"> 
+			      <input type="text" name="cate_tag_edit" id="cate_tag_edit" class="form-control cate_tag_edit">
 			    </div>
 			  </div>
 		    <div class="form-group text-right">
@@ -229,16 +229,16 @@
 
         $('#check_all').on('click', function(e) {
 
-         if($(this).is(':checked',true))  
+         if($(this).is(':checked',true))
 
          {
-            $(".checkbox").prop('checked', true);  
+            $(".checkbox").prop('checked', true);
 
-         } else {  
+         } else {
 
-            $(".checkbox").prop('checked',false);  
+            $(".checkbox").prop('checked',false);
 
-         }  
+         }
 
         });
 

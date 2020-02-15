@@ -264,7 +264,7 @@ Route::post('admin/footer/option/update', 'Admin\FooterController@footerupdate')
 // warranty controller index
 Route::get(md5('admin/warranty/all'), 'Admin\WarrantyController@index')->name('admin.warranty.all');
 Route::post(md5('admin/warranty/insert'), 'Admin\WarrantyController@insert')->name('admin.warranty.insert');
-Route::post(md5('admin/warranty/update'), 'Admin\WarrantyController@update')->name('admin.warranty.update');
+Route::post('admin/warranty/update', 'Admin\WarrantyController@update')->name('admin.warranty.update');
 Route::post(md5('admin/warranty/multipleSoftDelete'), 'Admin\WarrantyController@multipleSoftDelete')->name('admin.warranty.multiplesoftdelete');
 Route::get('admin/warranty/active/{id}', 'Admin\WarrantyController@active');
 Route::get('admin/warranty/deactive/{id}', 'Admin\WarrantyController@deactive');
@@ -300,7 +300,7 @@ Route::get('subacete/{cate_slug}/{subacet_slug}', 'Frontend\FrontendController@s
 // resubcate
 Route::get('resubacete/{cate_slug}/{subacet_slug}/{resub_slug}', 'Frontend\FrontendController@resubcateproduct');
 
-Route::get('/product/details/page/{id}', 'Frontend\FrontendController@productDetails')->name('product.details');
+Route::get('product/{slug}/{id}', 'Frontend\FrontendController@productDetails')->name('product.details');
 
 Route::get('flash_deal_products', 'Frontend\FrontendController@flashDealProducts')->name('hot.deal.products');
 
@@ -464,6 +464,10 @@ route::get('admin/user/edit/{id}','admin\UserController@edit');
 route::post(md5('admin/user/insert'),'admin\UserController@insert')->name('admin.userlist.insert');
 route::post(md5('admin/user/update'),'admin\UserController@update')->name('admin.userlist.update');
 route::get('admin/user/delete/{id}','admin\UserController@delete');
+// custommer
+
+route::get(md5('admin/custommer/all'),'admin\UserController@customer')->name('admin.custommer.all');
+route::get('admin/customer/delete/{id}','admin\UserController@customerdelete');
 
 
 

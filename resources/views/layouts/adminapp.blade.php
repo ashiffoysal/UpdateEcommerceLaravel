@@ -203,7 +203,7 @@ $logo=DB::table('logos')->first();
                     @if(Auth::user()->user==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                            <span class="left-icon"><i class="fas fa-external-link-alt"></i></span>
+                            <span class="left-icon"><i class="fas fa-users"></i></span>
                             <span class="menu-text">User</span>
                         </a>
                         <ul class="dashboard-menu">
@@ -213,20 +213,7 @@ $logo=DB::table('logos')->first();
                     </li>
                     @else
                     @endif
-                    @if(Auth::user()->extra==1)
-                    <li class="single-nav-wrapper">
-                        <a class="has-arrow menu-item" href="#" aria-expanded="false">
-                            <span class="left-icon"><i class="fas fa-external-link-alt"></i></span>
-                            <span class="menu-text">Extra</span>
-                        </a>
-                        <ul class="dashboard-menu">
-                            <li><a href="{{route('admin.brand.all')}}">All Brand</a></li>
-                            <li><a href="{{route('admin.color.all')}}">All Color</a></li>
-                            <li><a href="{{route('admin.measurement.all')}}">All Measurement</a></li>
-                        </ul>
-                    </li>
-                    @else
-                    @endif
+
                     @if(Auth::user()->product==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
@@ -316,6 +303,18 @@ $logo=DB::table('logos')->first();
                     </li>
                     @else
                     @endif
+                    @if(Auth::user()->customer==1)
+                    <li class="single-nav-wrapper">
+                        <a class="has-arrow menu-item" href="#" aria-expanded="false">
+                            <span class="left-icon"><i class="fas fa-user-tie"></i></span>
+                            <span class="menu-text">Customer</span>
+                        </a>
+                        <ul class="dashboard-menu">
+                            <li><a href="{{route('admin.custommer.all')}}">All Customer</a></li>
+                        </ul>
+                    </li>
+                    @else
+                    @endif
                     @if(Auth::user()->frontend_setup==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
@@ -367,7 +366,7 @@ $logo=DB::table('logos')->first();
                     @if(Auth::user()->blog==1)
                     <!-- blog menu start from here -->
                     <li class="single-nav-wrapper">
-                        <a class="has-arrow menu-item" href="{{route('admin.blog.page')}}" aria-expanded="false">
+                        <a class="has-arrow menu-item" href="" aria-expanded="false">
                             <span class="left-icon"><i class="far fa-copy"></i></span>
                             <span class="menu-text">Blogs</span>
                         </a>
@@ -394,6 +393,20 @@ $logo=DB::table('logos')->first();
                     @else
                     @endif
 
+                    @if(Auth::user()->extra==1)
+                    <li class="single-nav-wrapper">
+                        <a class="has-arrow menu-item" href="#" aria-expanded="false">
+                            <span class="left-icon"><i class="fas fa-external-link-alt"></i></span>
+                            <span class="menu-text">Extra</span>
+                        </a>
+                        <ul class="dashboard-menu">
+                            <li><a href="{{route('admin.brand.all')}}">All Brand</a></li>
+                            <li><a href="{{route('admin.color.all')}}">All Color</a></li>
+                            <li><a href="{{route('admin.measurement.all')}}">All Measurement</a></li>
+                        </ul>
+                    </li>
+                    @else
+                    @endif
                     @if(Auth::user()->trash==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">

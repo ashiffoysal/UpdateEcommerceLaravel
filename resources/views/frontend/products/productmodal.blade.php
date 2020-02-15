@@ -339,8 +339,8 @@ type:'GET',
 url:"{{ route('product.add.cart') }}",
 data: $('#option-choice-form').serializeArray(),
 success: function (data) {
-    
-    
+
+
 
     console.log(data);
     // document.getElementById('cartdatacount').innerHTML =data.quantity;

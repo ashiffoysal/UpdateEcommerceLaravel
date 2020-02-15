@@ -59,13 +59,13 @@
                     <div class="form-group row">
 									    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Password<span style="color:red">*<span></label>
 									    <div class="col-sm-6">
-									      <input type="text" name="password" class="form-control" required>
+									      <input type="password" name="password" class="form-control" required>
 									    </div>
 									  </div>
                     <div class="form-group row">
 									    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Confirm Password<span style="color:red">*<span></label>
 									    <div class="col-sm-6">
-									      <input type="text" name="password_confirmation" class="form-control" required>
+									      <input type="password" name="password_confirmation" class="form-control" required>
 									    </div>
 									  </div>
                     <div class="form-group row">
@@ -166,6 +166,10 @@
                       <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Trash</label>
                       <div class="col-sm-2">
                         <label class="switch"><input name="trash" type="checkbox" value="1"><span class="slider round"></span></label>
+                      </div>
+                      <label for="inputEmail3" class="col-sm-2 col-form-label text-right">Customer</label>
+                      <div class="col-sm-2">
+                        <label class="switch"><input name="customer" type="checkbox" value="1"><span class="slider round"></span></label>
                       </div>
                     </div>
 

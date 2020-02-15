@@ -34,10 +34,10 @@
 		                              <thead>
 		                                  <tr>
 		                                      <th>
-												<label class="chech_container mb-4">
-													<input type="checkbox"  id="check_all">
-													<span class="checkmark"></span>
-												</label>
+																							<label class="chech_container mb-4">
+																								<input type="checkbox"  id="check_all">
+																								<span class="checkmark"></span>
+																							</label>
 		                                      </th>
 		                                      <th>#</th>
 		                                      <th>Banner Link</th>
@@ -57,7 +57,7 @@
 		                                      </td>
 		                                      <td>
 		                                      	@if($data->section==1)
-		                                      	Site Banner(435*175)
+		                                      	Home Banner(435*175)
 		                                      	@elseif($data->section==2)
 		                                        Category Top(1170*220)
 		                                      	@elseif($data->section==3)
@@ -76,6 +76,8 @@
 	   																				faq HeaderTop(1920*180)
 																						@elseif($data->section==10)
 	   																				FlashDeal HeaderTop(1920*180)
+																						@elseif($data->section==11)
+	   																				Category Menu(362*495)
 		                                      	@endif
 		                                      </td>
 		                                      <td>{{Str::limit($data->link,25)}}</td>
@@ -91,8 +93,6 @@
 																					<span class="btn btn-danger">Deactive</span>
 																					@endif
 		                                      </td>
-
-
 		                                       <td>
 		                                       		@if($data->status==1)
 		                                          <a  href="{{url('admin/sitebanner/deactive/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
@@ -137,16 +137,18 @@
 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Select Image Section</label>
 			    <div class="col-sm-8">
 			      <select class="form-control" name="section">
-				      <option value="1" >Site Banner(570*300)</option>
+				      <option value="1" >Home Banner(570*300)</option>
 							<option value="2">Category Top(1170*220)</option>
 							<option value="3">Category Home(270*854)</option>
 							<option value="4">Category HeaderTop(1920*180)</option>
+							<option value="11">Category Menu(362*495)</option>
 							<option value="5">Details Banner(270*427)</option>
 							<option value="6">About Us HeaderTop(1920*180)</option>
 							<option value="7">Warranty HeaderTop(1920*180)</option>
 							<option value="8">Support HeaderTop(1920*180)</option>
 							<option value="9">Faq HeaderTop(1920*180)</option>
 							<option value="10">FlashDeal HeaderTop(1920*180)</option>
+
 			      </select>
 			    </div>
 			  </div>

@@ -43,15 +43,13 @@ class ProductController extends Controller
     }
     public function index()
     {
-        $allproduct = Product::where('is_deleted', 0)->where('status', 1)->get();
-        // $allproduct = DB::table('products')
-        //     ->join('categories', 'products.cate_id', '=', 'categories.id')
-        //     ->join('sub_categories', 'products.subcate_id', '=', 'sub_categories.id')
-        //     ->join('re_sub_categories', 'products.resubcate_id', '=', 're_sub_categories.id')
-        //     ->select('products.*', 'categories.cate_name', 'sub_categories.subcate_name', 're_sub_categories.resubcate_name')
-        //     ->where('products.is_deleted',0)
-        //     ->OrderBy('products.id','DESC')
-        //     ->get();
+        // $allproduct = Product::where('is_deleted', 0)->where('status', 1)->get();
+        $allproduct = DB::table('products')
+            ->join('categories', 'products.cate_id', '=', 'categories.id')
+            ->select('products.*', 'categories.cate_name')
+            ->where('products.is_deleted',0)
+            ->OrderBy('products.id','DESC')
+            ->get();
         return view('admin.ecommerce.product.all', compact('allproduct'));
     }
 
@@ -135,6 +133,8 @@ class ProductController extends Controller
     // product insert
     public function insert(Request $request)
     {
+        $proname=$request->product_name;
+        $slug=preg_replace('/[^A-Za-z0-9-]+/', '-', $proname);
         //return $request;
         $this->validate($request, [
             'product_name' => 'required',
@@ -178,6 +178,9 @@ class ProductController extends Controller
         $product->buy_and_return_policy = $request->buy_and_return_policy;
         $product->shipping_time = $request->shipping_time;
         $product->meta_tag = $request->m_tag;
+
+        $product->slug = $slug;
+
         $product->meta_description = $request->meta_description;
         $product->select_upload_type = $request->upload_type;
         $product->upload_link = $request->upload_link;
@@ -768,6 +771,9 @@ class ProductController extends Controller
     // update product
     public function update(Request $request, $id)
     {
+      $proname=$request->product_name;
+      $slug=preg_replace('/[^A-Za-z0-9-]+/', '-', $proname);
+
         $this->validate($request, [
             'product_name' => 'required',
             'product_type' => 'required',
@@ -787,6 +793,9 @@ class ProductController extends Controller
         $product->resubcate_id = $request->resubcate_id;
         $product->brand = $request->brand;
         $product->product_qty = $request->product_qty;
+
+        $product->slug = $slug;
+
         $product->allow_product_condition = $request->allow_product_condition;
         $product->product_condition = $request->product_condition;
         $product->allow_product_measurement = $request->allow_product_measurement;

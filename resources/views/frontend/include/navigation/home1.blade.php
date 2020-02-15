@@ -1,6 +1,21 @@
 <!-- Main Container  -->
+<style>
+.custom-scoll .scoll-cate li {
+    width: 40px;
+    height: 40px;
+    display: block;
+    font-size: 0;
+
+    cursor: pointer;
+    transition: 0.3s all ease 0s;
+    -webkit-transition: 0.3s all ease 0s;
+    position: relative;
+},
+
+</style>
 <div id="content">
-    <div class="custom-scoll hidden-sm hidden-md hidden-xs">
+
+    <!-- <div class="custom-scoll hidden-sm hidden-md hidden-xs">
         <div class="custom-html">
             <div class="scoll-cate list_diemneo">
                 <ul id="nav-scroll">
@@ -9,7 +24,7 @@
                     $cate=App\Category::where('section_id',1)->where('is_deleted',0)->orderBy('id','DESC')->get();
                     @endphp
                     @foreach($cate as $mcate)
-                    <li class="neo2"><a href="#box-link2"><span>{{$mcate->cate_name}}</span></a></li>
+                    <li class="neo2" style="background:url({{asset('public/uploads/category/'.$mcate->cate_icon)}}) no-repeat center center; transition: 0.3s all ease 0s;"><a href="#box-link2"><span>{{$mcate->cate_name}}</span></a></li>
                     @endforeach
                     @php
                     $catesecond=App\Category::where('section_id',2)->where('is_deleted',0)->orderBy('id','DESC')->get();
@@ -34,4 +49,4 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->

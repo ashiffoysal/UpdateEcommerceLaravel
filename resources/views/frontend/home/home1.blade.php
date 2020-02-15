@@ -92,7 +92,7 @@
                 </div>
             </div>
         </section>
-        <section id="box-link1" class="section-style">
+        <section id="hot" class="section-style">
             <div class="container page-builder-ltr">
                 <div class="row row-style row_a1">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_a1c  block block_3 title_neo1">
@@ -140,13 +140,7 @@
                                                                 @else
                                                                 <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
                                                                 @endif
-
                                                                 <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$flasdetail->product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-                                                                <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title=" to Wish List"><i class="fa fa-heart"></i></button>
-                                                                <button class="compare btn-button" type="button" data-toggle="tooltip" title="" onclick="compare.add('35');" data-original-title="Compare this Product"><i class="fa fa-exchange"></i></button>
-
                                                                 <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('35');" data-original-title="Add to Cart"> <span class="hidden">Add to Cart</span></button>
                                                             </div>
                                                         </div>
@@ -247,7 +241,7 @@
                                                             <div class="product-item-container">
                                                                 <div class="left-block">
                                                                     <div class="image product-image-container ">
-                                                                        <a class="lt-image" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
+                                                                        <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
                                                                             <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
                                                                         </a>
                                                                     </div>
@@ -257,7 +251,7 @@
                                                                 <div class="right-block">
                                                                     <div class="caption">
                                                                         <h4>
-                                                                            <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                            <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                                         </h4>
 
                                                                         @php
@@ -276,7 +270,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -290,7 +284,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -321,14 +315,6 @@
                                                                             @endif
 
                                                                             <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-
-
-
-
-
-
 
                                                                             <form class="option-choice-form" onclick="homeadtocart(this);">
 
@@ -369,7 +355,7 @@
                                                             <div class="product-item-container">
                                                                 <div class="left-block">
                                                                     <div class="image product-image-container ">
-                                                                        <a class="lt-image" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
+                                                                        <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
                                                                             <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
                                                                         </a>
                                                                     </div>
@@ -379,7 +365,7 @@
                                                                 <div class="right-block">
                                                                     <div class="caption">
                                                                         <h4>
-                                                                            <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                            <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                                         </h4>
 
                                                                         @php
@@ -416,7 +402,7 @@
                                                                                 </span>
                                                                                 @else
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     -{{$row->discount}}%
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -441,14 +427,6 @@
                                                                             @endif
 
                                                                             <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-
-
-
-
-
-
 
                                                                             <form class="option-choice-form" onclick="homeadtocart(this);">
 
@@ -581,15 +559,12 @@
                                                             @foreach($products
                                                             as $product)
 
-                                                                <div class="item-inner
-                                                            product-layout
-                                                            transition
-                                                            product-grid">
+                                                                <div class="item-inner  product-layout transition product-grid">
                                                                     <div class="product-item-container">
                                                                         <div class="left-block">
                                                                             <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="#" target="_self" title="Invisible
+                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                             Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
@@ -600,7 +575,7 @@
                                                                         </div>
                                                                         <div class="right-block">
                                                                             <div class="caption">
-                                                                                <h4> <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
                                                                                 </h4>
@@ -620,7 +595,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -688,17 +663,17 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            
+
 
                                                             @endforeach
                                                             <!--
@@ -720,7 +695,7 @@
                                                                         <div class="left-block">
                                                                             <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="#" target="_self" title="Invisible
+                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                             Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
@@ -751,7 +726,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -765,7 +740,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -780,12 +755,12 @@
                                                                             </div>
                                                                         </div>
 
-                                                                        
+
                                                                             </div>
                                                                             <div class="button-group">
                                                                                 <div class="button-inner
                                                                                 so-quickview"> <a class="lt-image
-                                                                                    hidden" href="#" target="_self" title="Invisible
+                                                                                    hidden" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
                                                                                     Hidden Spy
                                                                                     Earphone Micro
                                                                                 Wireless"></a> <a class="btn-button
@@ -822,17 +797,17 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            
+
 
                                                             @endforeach
                                                             <!--
@@ -854,7 +829,7 @@
                                                                         <div class="left-block">
                                                                             <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="#" target="_self" title="Invisible
+                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                             Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
@@ -865,7 +840,7 @@
                                                                         </div>
                                                                         <div class="right-block">
                                                                             <div class="caption">
-                                                                                <h4> <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
                                                                                 </h4>
@@ -885,7 +860,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -899,7 +874,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -954,17 +929,17 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            
+
 
                                                             @endforeach
                                                             <!--
@@ -1070,7 +1045,7 @@
                                                             $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->limit(2)->get();
                                                             @endphp
                                                             @foreach($pro as $product)
-                                    
+
                                                             <div class="item-inner
                                                             product-layout
                                                             transition
@@ -1079,7 +1054,7 @@
                                                                         <div class="left-block">
                                                                             <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="#" target="_self" title="Invisible
+                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                             Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
@@ -1090,7 +1065,7 @@
                                                                         </div>
                                                                         <div class="right-block">
                                                                             <div class="caption">
-                                                                                <h4> <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
                                                                                 </h4>
@@ -1110,7 +1085,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -1124,7 +1099,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -1179,17 +1154,17 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                          
+
                                                             @endforeach
                                                             <!-- product end -->
                                                         </div> <!-- grid end -->
@@ -1207,7 +1182,7 @@
                                                                         <div class="left-block">
                                                                             <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="#" target="_self" title="Invisible
+                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                             Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
@@ -1218,7 +1193,7 @@
                                                                         </div>
                                                                         <div class="right-block">
                                                                             <div class="caption">
-                                                                                <h4> <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
                                                                                 </h4>
@@ -1238,7 +1213,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -1252,7 +1227,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -1307,12 +1282,12 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1333,7 +1308,7 @@
                                                                         <div class="left-block">
                                                                             <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="#" target="_self" title="Invisible
+                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                             Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
@@ -1344,7 +1319,7 @@
                                                                         </div>
                                                                         <div class="right-block">
                                                                             <div class="caption">
-                                                                                <h4> <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
                                                                                 </h4>
@@ -1364,7 +1339,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -1378,7 +1353,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -1432,12 +1407,12 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1519,7 +1494,7 @@
                                                                 <div class="product-item-container">
                                                                     <div class="left-block">
                                                                         <div class="image product-image-container ">
-                                                                            <a class="lt-image" data-product="114" href="#" target="_self" title=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
+                                                                            <a class="lt-image" data-product="114" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
                                                                                 <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
                                                                             </a>
                                                                         </div>
@@ -1528,7 +1503,7 @@
                                                                     </div>
                                                                     <div class="right-block">
                                                                         <div class="caption">
-                                                                            <h4><a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                            <h4><a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                                             </h4>
 
 
@@ -1549,7 +1524,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -1563,7 +1538,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -1578,7 +1553,7 @@
                                                                             </div>
                                                                         </div>
 
-                                                                            
+
                                                                         </div>
                                                                         <div class="button-group">
                                                                         <div class="button-inner so-quickview">
@@ -1643,7 +1618,7 @@
                                                     @foreach($bottomimage as $bimage)
                                                     <div class="col-lg-6 col-md-6 col-sm-6 banners">
                                                         <div>
-                                                            <a title="Static Image" href="#"><img src="{{asset('public/uploads/sitebanner/'.$bimage->image)}}" alt="{{$bimage->image}}"></a>
+                                                            <a title="Static Image" href="{{$bimage->link}}"><img src="{{asset('public/uploads/sitebanner/'.$bimage->image)}}" alt="{{$bimage->image}}"></a>
                                                         </div>
                                                     </div>
                                                     @endforeach
@@ -1688,7 +1663,7 @@
                                                     <div class="left-block">
                                                         <div class="item-image">
                                                             <div class="item-img-info product-image-container ">
-                                                                <a class="lt-image" data-product="55" href="#" target="_self" title="Men Collection Outfit Grid, Outfit and  Colored Sport ">
+                                                                <a class="lt-image" data-product="55" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Men Collection Outfit Grid, Outfit and  Colored Sport ">
                                                                     <img src="{{asset('public/uploads/products/thumbnail/smallthum/'.$product->thumbnail_img)}}" alt="Men Collection Outfit Grid, Outfit and  Colored Sport " height="120px" width="120px">
                                                                 </a>
                                                             </div>
@@ -1700,7 +1675,7 @@
                                                     <div class="right-block">
                                                         <div class="caption">
                                                             <h4 class="item-title">
-                                                                <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                             </h4>
                                                             <!-- Begin item-content -->
 
@@ -1736,11 +1711,11 @@
                                                                     @endif
                                                                     </div>
                                                                     <div class="price-sale price-right">
-                                                    
+
                                                                 @foreach($flashdealdetail as $row)
                                                                 @if($row ->discount_type == 1 )
                                                                 <span class="discount">
-                                                                    
+
                                                                     - ৳ {{$row->discount}}
                                                                     <strong>OFF</strong>
                                                                 </span>
@@ -1773,7 +1748,7 @@
                                             </div>
                                         </div>
 
-                                        
+
                                         <div class="item products-list grid">
                                             <div class="item-wrap product-layout style1 ">
                                                 @php
@@ -1781,12 +1756,12 @@
                                                 $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(3)->limit(3)->get();
                                                 @endphp
                                                 @foreach($products as $product)
-                                                
+
                                                 <div class="item-wrap-inner product-item-container">
                                                     <div class="left-block">
                                                         <div class="item-image">
                                                             <div class="item-img-info product-image-container ">
-                                                                <a class="lt-image" data-product="55" href="#" target="_self" title="Drumstick uttempor the actual teachings of the great">
+                                                                <a class="lt-image" data-product="55" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Drumstick uttempor the actual teachings of the great">
                                                                     <img src="{{asset('public/uploads/products/thumbnail/smallthum/'.$product->thumbnail_img)}}" alt="Drumstick uttempor the actual teachings of the great">
                                                                 </a>
                                                             </div>
@@ -1797,10 +1772,10 @@
                                                     <div class="right-block">
                                                         <div class="caption">
                                                             <h4 class="item-title">
-                                                            
-                                                                <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+
+                                                                <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                             </h4>
-                                                            
+
                                                             <!-- Begin item-content -->
                                                             <div class="item-content">
                                                                 <div class="total-price">

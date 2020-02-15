@@ -60,14 +60,14 @@ class ForntendSetupController extends Controller
 	            'messege'=>'AboutUs Update Successfully',
 	            'alert-type'=>'success'
 	             );
-	           return Redirect()->back()->with($notification); 
-			}else{
-				$notification=array(
-                'messege'=>'AboutUs Update Faild',
-                'alert-type'=>'danger'
-                 );
-               return Redirect()->back()->with($notification);
-			}
+	           return Redirect()->back()->with($notification);
+      			}else{
+      				$notification=array(
+                      'messege'=>'AboutUs Update Faild',
+                      'alert-type'=>'danger'
+                       );
+                     return Redirect()->back()->with($notification);
+      			}
       }
 
       public function termsandcondition(){
@@ -226,14 +226,14 @@ class ForntendSetupController extends Controller
                             'messege'=>'Multiple Delete Success',
                             'alert-type'=>'success'
                              );
-                            return Redirect()->back()->with($notification); 
+                            return Redirect()->back()->with($notification);
                         }
                         else{
                             $notification=array(
                                 'messege'=>'Multiple Delete Faild',
                                 'alert-type'=>'errors'
                                  );
-                               return Redirect()->back()->with($notification); 
+                               return Redirect()->back()->with($notification);
                         }
                     }else{
                         $notification=array(
@@ -242,7 +242,7 @@ class ForntendSetupController extends Controller
                                  );
                                return Redirect()->back()->with($notification);
                     }
-        
+
             }
             // restore faq
            public function faqrecover($id){
@@ -255,13 +255,13 @@ class ForntendSetupController extends Controller
                     'messege'=>'Recover Success',
                     'alert-type'=>'success'
                      );
-                    return Redirect()->back()->with($notification); 
+                    return Redirect()->back()->with($notification);
                 }else{
                 	$notification=array(
                 	'messege'=>'Recover Faild',
                     'alert-type'=>'error'
                      );
-                    return Redirect()->back()->with($notification); 
+                    return Redirect()->back()->with($notification);
                 }
            }
             public function faqhearddelete($id){
@@ -271,15 +271,15 @@ class ForntendSetupController extends Controller
                     'messege'=>'Recover Success',
                     'alert-type'=>'success'
                      );
-                    return Redirect()->back()->with($notification); 
+                    return Redirect()->back()->with($notification);
                 }else{
                 	$notification=array(
                 	'messege'=>'Recover Faild',
                     'alert-type'=>'error'
                      );
-                    return Redirect()->back()->with($notification); 
+                    return Redirect()->back()->with($notification);
                 }
            }
-    
-    
+
+
 }

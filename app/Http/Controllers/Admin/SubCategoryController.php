@@ -49,7 +49,7 @@ class SubCategoryController extends Controller
 
     	]);
             if($request->hasFile('pic') && $request->hasFile('icon')){
-                   
+
                         $image=$request->file('pic');
                         $ImageName='subcategory_'.'_'.time().'.'.$image->getClientOriginalExtension();
                         Image::make($image)->resize(350,182)->save('public/uploads/subcategory/'.$ImageName);
@@ -58,10 +58,10 @@ class SubCategoryController extends Controller
                         ]);
                         $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$insert)->update([
                             'subcate_icon'=>$ImageName,
-                        ]); 
+                        ]);
               }
               elseif($request->hasFile('pic')){
                         $image=$request->file('pic');
@@ -74,7 +74,7 @@ class SubCategoryController extends Controller
               elseif($request->hasFile('icon')){
                     $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$insert)->update([
                             'subcate_icon'=>$ImageName,
                         ]);
@@ -89,14 +89,14 @@ class SubCategoryController extends Controller
                 'messege'=>'Category Insert Successfully',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
     	else{
     		$notification=array(
                 'messege'=>'Category Insert Faild',
                 'alert-type'=>'danger'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
     }else{
     	$insert=SubCategory::insertGetId([
@@ -109,7 +109,7 @@ class SubCategoryController extends Controller
     		'created_at'=>Carbon::now()->toDateTimeString(),
     	]);
             if($request->hasFile('pic') && $request->hasFile('icon')){
-                   
+
                         $image=$request->file('pic');
                         $ImageName='subactegory'.'_'.time().'.'.$image->getClientOriginalExtension();
                         Image::make($image)->resize(350,182)->save('public/uploads/subcategory/'.$ImageName);
@@ -118,10 +118,10 @@ class SubCategoryController extends Controller
                         ]);
                         $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$insert)->update([
                             'subcate_icon'=>$ImageName,
-                        ]); 
+                        ]);
               }
               elseif($request->hasFile('pic')){
                         $image=$request->file('pic');
@@ -134,7 +134,7 @@ class SubCategoryController extends Controller
               elseif($request->hasFile('icon')){
                     $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$insert)->update([
                             'subcate_icon'=>$ImageName,
                         ]);
@@ -149,14 +149,14 @@ class SubCategoryController extends Controller
                 'messege'=>'SubCategory Insert Successfully',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
     	else{
     		$notification=array(
                 'messege'=>'SubCategory Insert Faild',
                 'alert-type'=>'danger'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
      }
   }
@@ -197,10 +197,10 @@ class SubCategoryController extends Controller
                         SubCategory::where('id',$id)->update([
                             'subcate_image'=>$ImageName,
                         ]);
-                      
+
                         $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$id)->update([
                             'subcate_icon'=>$ImageName,
                         ]);
@@ -214,7 +214,7 @@ class SubCategoryController extends Controller
                         ]);
                         $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$id)->update([
                             'subcate_icon'=>$ImageName,
                         ]);
@@ -243,7 +243,7 @@ class SubCategoryController extends Controller
               elseif($request->hasFile('icon')){
                     $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$id)->update([
                             'subcate_icon'=>$ImageName,
                         ]);
@@ -257,14 +257,14 @@ class SubCategoryController extends Controller
             'messege'=>'SubCategory Update Successfully',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
 			}
     	else{
     		$notification=array(
                 'messege'=>'SubCategory Update Faild',
                 'alert-type'=>'danger'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
 
         }else{
@@ -285,10 +285,10 @@ class SubCategoryController extends Controller
                         SubCategory::where('id',$id)->update([
                             'subcate_image'=>$ImageName,
                         ]);
-                      
+
                         $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$id)->update([
                             'subcate_icon'=>$ImageName,
                         ]);
@@ -302,7 +302,7 @@ class SubCategoryController extends Controller
                         ]);
                         $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$id)->update([
                             'subcate_icon'=>$ImageName,
                         ]);
@@ -331,7 +331,7 @@ class SubCategoryController extends Controller
               elseif($request->hasFile('icon')){
                     $image=$request->file('icon');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                        Image::make($image)->resize(32,32)->save('public/uploads/subcategory/'.$ImageName);
+                        Image::make($image)->resize(20,20)->save('public/uploads/subcategory/'.$ImageName);
                         SubCategory::where('id',$id)->update([
                             'subcate_icon'=>$ImageName,
                         ]);
@@ -345,18 +345,18 @@ class SubCategoryController extends Controller
             'messege'=>'SubCategory Update Successfully',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
 			}
     	else{
     		$notification=array(
                 'messege'=>'SubCategory Update Faild',
                 'alert-type'=>'danger'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
 
         }
-        
+
 
    }
    // active
@@ -371,13 +371,13 @@ class SubCategoryController extends Controller
             'messege'=>'SubCategory Active Successfully',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
    		}else{
    			$notification=array(
             'messege'=>'SubCategory Active Faild',
             'alert-type'=>'error'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
    		}
    }
    // deactive
@@ -392,13 +392,13 @@ class SubCategoryController extends Controller
             'messege'=>'SubCategory DeActive Successfully',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
    		}else{
    			$notification=array(
             'messege'=>'SubCategory DeActive Faild',
             'alert-type'=>'error'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
    		}
    }
    // soft delete
@@ -514,7 +514,7 @@ class SubCategoryController extends Controller
                 'alert-type'=>'error'
                  );
              return redirect()->back()->with($notification);
-    
+
             }
          }
 

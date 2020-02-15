@@ -1,5 +1,5 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
             <!-- content wrpper -->
 			<div class="content_wrapper">
 				<!--middle content wrapper-->
@@ -21,7 +21,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</div>
 							<form action="{{url('admin/color/multisoftdelete')}}" method="post">
 						     @csrf
@@ -60,16 +60,16 @@
 		                                      	<div style="background:{{$data->color_code}};height: 20px;width: 30px"></div>
 		                                      </td>
 		                                      @if($data->color_status==1)
-					                          <td class="center"><span class="btn-success">Active</span></td>
+					                          <td class="center"><span class="btn btn-success">Active</span></td>
 					                    	  @else
-					                          <td class="center"><span class="btn-danger">Deactive</span></td>
+					                          <td class="center"><span class="btn btn-danger">Deactive</span></td>
 						              		  @endif
 		                                       <td>
-		                    					 @if($data->color_status==1)
-		                                           	<a  href="{{url('admin/color/deactive/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
-												@else
-													<a  href="{{url('admin/color/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
-												@endif
+															                   @if($data->color_status==1)
+															                    <a  href="{{url('admin/color/deactive/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
+																									@else
+																										<a  href="{{url('admin/color/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
+																									@endif
 		                                           	| <a class="editcat btn btn-sm btn-blue text-white" data-id="{{$data->id}}" title="edit"  data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt"></i></a> |
 		                                            <a id="delete" href="{{url('admin/color/softdelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 		                                       </td>
@@ -89,13 +89,13 @@
   <div class="modal fade bd-example-modal-lg" id="myModal1">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Add Color</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
           <form class="form-horizontal" action="{{route('admin.color.insert')}}" method="POST" enctype="multipart/form-data" >
@@ -113,17 +113,17 @@
                 </div>
                </div>
 		    <div class="form-group text-right">
-		    	<input type="reset" value="Reset" class="btn btn-warning">
+		    	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
 		    	<button type="submit" class="btn btn-blue">Submit</button>
 		    </div>
 		  </form>
         </div>
-        
+
         <!-- Modal footer -->
        <!--  <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div> -->
-        
+
       </div>
     </div>
   </div>
@@ -158,7 +158,7 @@
                 </div>
                </div>
 		    <div class="form-group text-right">
-		    	<input type="reset" value="Reset" class="btn btn-warning">
+		    	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
 		    	<button type="submit" class="btn btn-blue">Submit</button>
 		    </div>
 		  </form>
@@ -174,16 +174,16 @@
 
         $('#check_all').on('click', function(e) {
 
-         if($(this).is(':checked',true))  
+         if($(this).is(':checked',true))
 
          {
-            $(".checkbox").prop('checked', true);  
+            $(".checkbox").prop('checked', true);
 
-         } else {  
+         } else {
 
-            $(".checkbox").prop('checked',false);  
+            $(".checkbox").prop('checked',false);
 
-         }  
+         }
 
         });
 
@@ -191,7 +191,7 @@
 
 </script>
 <script type="text/javascript">
-  
+
       $(document).ready(function() {
          $('.editcat').on('click', function(){
              var cate_id = $(this).data('id');
@@ -202,11 +202,11 @@
                      type:"GET",
                      dataType:"json",
                      success:function(data) {
-                      
+
                             $("#color_name").val(data.color_name);
                             $("#id").val(data.id);
                             $("#color_code").val(data.color_code);
-                        } 
+                        }
                  });
              } else {
                  alert('danger');

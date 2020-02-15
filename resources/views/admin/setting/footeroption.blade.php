@@ -8,7 +8,6 @@
                     <div class="panel">
                         <div class="panel_header">
                             <div class="panel_title"><span class="text-center">Footer Option </span></div>
-                            {{$footeroption}}
                         </div>
                         <div class="panel_body">
                             <form class="py-2" action="{{ route('admin.footer.option.update') }}" method="post" enctype="multipart/form-data">
@@ -18,7 +17,7 @@
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Company Address:</label>
                                     <div class="col-sm-9">
                                         <input class="form-control" type="text" value="{{$footeroption->address}}" require="" name="address">
-                                        <small class="text-danger"> 
+                                        <small class="text-danger">
                                             @error('address')
                                                     {{$message}}
                                             @enderror
@@ -30,7 +29,7 @@
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Company Phone:</label>
                                     <div class="col-sm-9">
                                         <input class="form-control" type="text" value="{{$footeroption->phone}}" required="" name="phone">
-                                        <small class="text-danger"> 
+                                        <small class="text-danger">
                                             @error('phone')
                                                     {{$message}}
                                             @enderror
@@ -42,7 +41,7 @@
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Company Email:</label>
                                     <div class="col-sm-9">
                                         <input class="form-control" type="text" value="{{$footeroption->email}}" required="" name="email">
-                                        <small class="text-danger"> 
+                                        <small class="text-danger">
                                             @error('email')
                                                     {{$message}}
                                             @enderror
@@ -54,7 +53,7 @@
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Company Copyright Text:</label>
                                     <div class="col-sm-9">
                                         <input class="form-control" type="text" value="{{$footeroption->copyright}}" required="" name="copyright">
-                                        <small class="text-danger"> 
+                                        <small class="text-danger">
                                             @error('copyright')
                                                     {{$message}}
                                             @enderror
@@ -66,13 +65,13 @@
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Accepted Payment Methods:</label>
                                     <div class="col-sm-9">
                                         <input class="form-control" type="file" value="" required="" name="payment_image">
-                                        <small class="text-danger"> 
+                                        <small class="text-danger">
                                             @error('payment_image')
                                                     {{$message}}
                                             @enderror
                                         </small>
                                         <img src="{{asset('public/uploads/footerpayment/')}}/{{$footeroption->payment_image}}" width="330px" height="33px">
-                                        
+
                                     </div>
                                 </div>
 
@@ -80,7 +79,7 @@
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Accepted Payment Methods:</label>
                                     <div class="col-sm-9">
                                         <textarea rows="3" class="form-control" name="footer_text">{{$footeroption->footer_text}}</textarea>
-                                        <small class="text-danger"> 
+                                        <small class="text-danger">
                                             @error('footer_text')
                                                     {{$message}}
                                             @enderror
@@ -124,7 +123,7 @@
                     room_id: room_id
                 },
                 success: function(data) {
-                    
+
 
                 }
             });

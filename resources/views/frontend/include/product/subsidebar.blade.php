@@ -19,7 +19,7 @@
                                             <div class="so-filter-option" data-type="search">
                                                 <div class="so-option-container">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" data-id="{{ $resubcate->id }}" name="search_field" id="search_field">
+                                                        <input type="text" class="form-control" data-id="" name="search_field" id="search_field">
                                                         <div class="input-group-btn">
                                                             <button class="btn btn-default" type="button" id="submit_text_search"><i class="fa fa-search"></i></button>
                                                         </div>
@@ -168,7 +168,7 @@
 						</div>
 					</div>
 				</div>
-                
+
                 <div class="moduletable module so-extraslider-ltr best-seller best-seller-custom">
                 <h3 class="modtitle"><span>Best Sellers</span></h3>
                 <div class="modcontent">
@@ -295,12 +295,19 @@
                     </div>
                 </div>
             </div>
-
-
-
 				 <div class="module banner-left hidden-xs ">
 					<div class="static-image-home-left banners">
-					   <div><a title="Static Image" href="#"><img src="image/catalog/demo/banners/image-left.jpg" alt="Static Image"></a></div>
+					   <div>
+							 @php
+							 	$img=App\SiteBanner::where('section',5)->orderBy('id','DESC')->limit(1)->inRandomOrder()->get();
+							 @endphp
+
+							 @foreach($img as $newimg)
+							 <a title="Static Image" href="{{$newimg->link}}">
+								 <img src="{{asset('public/uploads/sitebanner/'.$newimg->image)}}" alt="Static Image">
+							 </a>
+							 @endforeach
+						 </div>
 					</div>
 				 </div>
         </aside>

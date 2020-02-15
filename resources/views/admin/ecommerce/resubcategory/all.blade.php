@@ -1,5 +1,5 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
 <div class="content_wrapper">
 				<!--middle content wrapper-->
 				<!-- page content -->
@@ -20,7 +20,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</div>
 							<form action="{{url('admin/resubcategory/multisoftdelete')}}" method="post">
 						     @csrf
@@ -63,9 +63,9 @@
 		                                      	<img src="{{asset('public/uploads/resubcategory/'.$data->resubcate_icon)}}" height="35px">
 		                                      </td>
 		                                      @if($data->resubcate_status==1)
-					                          <td class="center"><span class="btn-success">Active</span></td>
+					                          <td class="center"><span class="btn btn-success">Active</span></td>
 					                    	  @else
-					                          <td class="center"><span class="btn-danger">Deactive</span></td>
+					                          <td class="center"><span class="btn btn-danger">Deactive</span></td>
 						                   	  @endif
 		                                       <td>
 		                         				@if($data->resubcate_status==1)
@@ -92,13 +92,13 @@
   <div class="modal fade bd-example-modal-lg" id="myModal1">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Add ReSubCategory</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
           <form class="form-horizontal" action="{{route('admin.resubcategory.insert')}}" method="POST" enctype="multipart/form-data" >
@@ -127,7 +127,7 @@
 					@foreach($category as $cate)
 			      	<option value="{{$cate->id}}">{{$cate->cate_name}}</option>
 					@endforeach
-			      	
+
 			      </select>
 			    </div>
 			  </div>
@@ -153,17 +153,17 @@
 			    </div>
 			  </div>
 		    <div class="form-group text-right">
-		    	<input type="reset" value="Reset" class="btn btn-warning">
+		    	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
 		    	<button type="submit" class="btn btn-blue">Submit</button>
 		    </div>
 		  </form>
         </div>
-        
+
         <!-- Modal footer -->
        <!--  <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div> -->
-        
+
       </div>
     </div>
   </div>
@@ -206,7 +206,7 @@
 					@foreach($category as $cate)
 			      	<option value="{{$cate->id}}">{{$cate->cate_name}}</option>
 			      	@endforeach
-			      	
+
 			      </select>
 			    </div>
 			  </div>
@@ -221,7 +221,7 @@
 					@foreach($subcategory as $subcate)
 			      	<option value="{{$subcate->id}}">{{$subcate->subcate_name}}</option>
 			      	@endforeach
-			      	
+
 			      </select>
 			    </div>
 			  </div>
@@ -233,19 +233,19 @@
 			      <p>(32px*32px)</p>
 			    </div>
 			     <div class="col-sm-3" id="store-icon">
-			    	
+
 			    </div>
 			  </div>
 			   <div class="form-group row">
 			    <div class="col-sm-3">
-		
+
 			    </div>
 			    <div class="col-sm-4" id="img">
-			      
+
 			    </div>
 			  </div>
 
-			 
+
 			  <div class="form-group row">
 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Meta Tag:</label>
 			    <div class="col-sm-8">
@@ -253,8 +253,8 @@
 			    </div>
 			  </div>
 		    <div class="form-group text-right">
-		    	<input type="reset" value="Reset" class="btn btn-warning">
-		    	<button type="submit" class="btn btn-blue">Submit</button>
+		    	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
+		    	<button type="submit" class="btn btn-blue">Update</button>
 		    </div>
 		  </form>
       </div>
@@ -267,16 +267,16 @@
 
         $('#check_all').on('click', function(e) {
 
-         if($(this).is(':checked',true))  
+         if($(this).is(':checked',true))
 
          {
-            $(".checkbox").prop('checked', true);  
+            $(".checkbox").prop('checked', true);
 
-         } else {  
+         } else {
 
-            $(".checkbox").prop('checked',false);  
+            $(".checkbox").prop('checked',false);
 
-         }  
+         }
 
         });
 
@@ -284,24 +284,24 @@
 
 </script>
 <script type="text/javascript">
-  
+
       $(document).ready(function() {
          $('select[name="cate_id"]').on('change', function(){
              var cate_id = $(this).val();
-            
+
              if(cate_id) {
                  $.ajax({
                      url: "{{  url('/get/subcategory/all/') }}/"+cate_id,
                      type:"GET",
                      dataType:"json",
                      success:function(data) {
-                         
+
                             $('#subcate_id').empty();
                             $('#subcate_id').append(' <option value="0">--Select--</option>');
                             $.each(data,function(index,districtObj){
                              $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
                            });
-                         } 
+                         }
                  });
              } else {
                  alert('danger');
@@ -311,18 +311,18 @@
      });
 </script>
 <script type="text/javascript">
-  
+
       $(document).ready(function() {
          $('.editcat').on('click', function(){
              var resubcate_id = $(this).data('id');
-     		
+
              if(resubcate_id) {
                  $.ajax({
                      url: "{{ url('/get/resubcategory/edit/') }}/"+resubcate_id,
                      type:"GET",
                      dataType:"json",
                      success:function(data) {
-                      
+
                              $(".resubcate_name").val(data.resubcate_name);
                              $("#id").val(data.id);
                              $(".cate_id").val(data.cate_id).select;
@@ -332,9 +332,9 @@
                              $("#img").html("<img src={{asset('')}}public/uploads/resubcategory/"+data.resubcate_icon+" height='70px'/>");
                              $("#store-icon").append("<input type='hidden' name='old_icon' value='"+data.resubcate_icon+"' />");
                              $("#resubcate_tag_edit").val(data.resubcate_tag);
-                           
-                          
-                        } 
+
+
+                        }
                  });
              } else {
                  alert('danger');

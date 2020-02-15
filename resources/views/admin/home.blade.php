@@ -9,13 +9,29 @@
                     <!-- counter_area -->
                     <section class="counter_area">
                         <div class="row">
+                          <div class="col-lg-3 col-sm-6">
+                              <div class="counter">
+                                @php
+                                  $admin=App\Admin::count();
+                                @endphp
+                                  <div class="counter_item">
+                                       <span><i class="fas fa-award"></i></span>
+                                       @if($admin)
+                                       <h2 class="timer count-number" data-to="{{$admin}}" data-speed="1500"></h2>
+                                      @else
+                                        <h2 class="timer count-number" data-to="700" data-speed="1500"></h2>
+                                      @endif
+                                  </div>
+                                 <p class="count-text ">Total Staffs</p>
+                              </div>
+                          </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="counter">
                                   @php
                                     $total_product=App\Product::count();
                                   @endphp
                                     <div class="counter_item">
-                                         <span><i class="fa fa-code"></i></span>
+                                         <span><i class="fab fa-product-hunt"></i></span>
                                          @if($total_product)
                                          <h2 class="timer count-number" data-to="{{$total_product}}" data-speed="1500"></h2>
                                         @else
@@ -32,7 +48,7 @@
                                       @php
                                         $total_category=App\Category::count();
                                       @endphp
-                                        <span><i class="fas fa-user"></i></span>
+                                        <span><i class="fas fa-copyright"></i></span>
                                         @if($total_category)
                                          <h2 class="timer count-number" data-to="{{$total_category}}" data-speed="1500"></h2>
                                         @else
@@ -45,14 +61,51 @@
                             </div>
                             <div class="col-lg-3 col-sm-6">
                                 <div class="counter">
+                                  @php
+                                    $subcate=App\SubCategory::count();
+                                  @endphp
                                     <div class="counter_item">
-                                      @php
-                                        $total_complate_order=App\OrderPlace::where('delevary',3)->count();
-                                      @endphp
-                                        <span><i class="fa fa-bug"></i></span>
-                                         <h2 class="timer count-number" data-to="{{$total_complate_order}}" data-speed="1500"></h2>
+                                        <span><i class="fab fa-stripe-s"></i></span>
+                                        @if($subcate)
+                                         <h2 class="timer count-number" data-to="{{$subcate}}" data-speed="1500"></h2>
+                                        @else
+                                        <h2 class="timer count-number" data-to="0" data-speed="1500"></h2>
+                                        @endif
                                     </div>
-                                     <p class="count-text ">Total Compleate Order</p>
+                                    <p class="count-text ">Total SubCategory</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="counter">
+                                  @php
+                                    $cutomer=App\User::count();
+                                  @endphp
+                                    <div class="counter_item">
+                                        <span><i class="fa fa-user"></i></span>
+                                        @if($cutomer)
+                                         <h2 class="timer count-number" data-to="{{$cutomer}}" data-speed="1500"></h2>
+                                        @else
+                                        <h2 class="timer count-number" data-to="0" data-speed="1500"></h2>
+                                        @endif
+                                    </div>
+                                    <p class="count-text ">Total Customer</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="counter">
+                                  @php
+                                    $amount=App\OrderPlace::sum('total_price');
+                                  @endphp
+                                    <div class="counter_item">
+                                        <span><i class="fas fa-envelope-square"></i></span>
+                                        @if($amount)
+                                         <h2 class="timer count-number" data-to="{{$amount}}" data-speed="1500"></h2>
+                                        @else
+                                        <h2 class="timer count-number" data-to="0" data-speed="1500"></h2>
+                                        @endif
+                                    </div>
+                                    <p class="count-text ">Total Sell</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
@@ -61,7 +114,7 @@
                                     $total_pending_product=App\OrderPlace::where('delevary',1)->count();
                                   @endphp
                                     <div class="counter_item">
-                                        <span><i class="fa fa-coffee"></i></span>
+                                        <span><i class="fas fa-cart-plus"></i></span>
                                         @if($total_pending_product)
                                          <h2 class="timer count-number" data-to="{{$total_pending_product}}" data-speed="1500"></h2>
                                         @else
@@ -69,6 +122,19 @@
                                         @endif
                                     </div>
                                     <p class="count-text ">Pending Order</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="counter">
+                                    <div class="counter_item">
+                                      @php
+                                        $total_complate_order=App\OrderPlace::where('delevary',3)->count();
+                                      @endphp
+                                        <span><i class="fas fa-mug-hot"></i></span>
+                                         <h2 class="timer count-number" data-to="{{$total_complate_order}}" data-speed="1500"></h2>
+                                    </div>
+                                     <p class="count-text ">Total Compleate Order</p>
                                 </div>
                             </div>
                         </div>
