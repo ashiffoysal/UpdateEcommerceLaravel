@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -47,7 +50,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'email' => 'required',
             'password' => 'required'
         ]);
@@ -58,20 +61,112 @@ class LoginController extends Controller
                 $checkInformation = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
                 if ($checkInformation) {
                     return redirect()->intended(route('customer.account'));
-                }else {
+                } else {
                     session()->flash('errorMsg', 'Email ID or Password not matched!');
                     return redirect()->back();
                 }
-            }else {
+            } else {
                 session()->flash('errorMsg', 'You Email ID Is Not Verified!');
                 return redirect()->back();
             }
-        }else {
+        } else {
             session()->flash('errorMsg', 'Email ID or Password not matched!');
             return redirect()->back();
         }
     }
 
+    public function modalLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required'
+        ]);
 
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if ($user->status == 1) {
+                $checkInformation = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
+                if ($checkInformation) {
+                    // return redirect()->intended(route('customer.account'));
+                    Auth::login($user);
+                    return response()->json(['login' => route('customer.account')]);
+                } else {
+                    // session()->flash('errorMsg', 'Email ID or Password not matched!');
+                    // return redirect()->back();
+                    return response()->json(['error' => 'Email ID or Password not matched!']);
+                }
+            } else {
+                // session()->flash('errorMsg', 'You Email ID Is Not Verified!');
+                //return redirect()->back();
+                return response()->json(['error' => 'You Email ID Is Not Verified!']);
+            }
+        } else {
+            // session()->flash('errorMsg', 'Email ID or Password not matched!');
+            // return redirect()->back();
+            return response()->json(['error' => 'Email ID or Password not matched!']);
+        }
+    }
 
+    public function redirectToProviderGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleProviderGoogleCallback(Request $request)
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+        $checkUser = User::where('email', $user->email)->first();
+        if ($checkUser) {
+            $checkUser->update([
+                'status' => 1,
+                'remember_token' => NULL
+            ]);
+            Auth::login($checkUser);
+            return redirect()->intended(route('customer.account'));
+        } else {
+
+            $addUser = User::insert([
+                'first_name' => $user->name,
+                'last_name' => $user->name,
+                'password' => Hash::make(12345),
+                'email' => $user->email,
+                'status' => 1,
+                'ip_address' => $request->ip(),
+                'email_verified_at' => Carbon::now(),
+            ]);
+            Auth::login($addUser);
+            return redirect()->intended(route('customer.account'));
+        }
+    }
+    public function redirectToProviderFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleProviderFacebookCallback(Request $request)
+    {
+        $user = Socialite::driver('facebook')->stateless()->user();
+        $checkUser = User::where('email', $user->email)->first();
+        if ($checkUser) {
+            $checkUser->update([
+                'status' => 1,
+                'remember_token' => NULL
+            ]);
+            Auth::login($checkUser);
+            return redirect()->intended(route('customer.account'));
+        } else {
+
+            $addUser = User::insert([
+                'first_name' => $user->name,
+                'last_name' => $user->name,
+                'password' => Hash::make(12345),
+                'email' => $user->email,
+                'status' => 1,
+                'ip_address' => $request->ip(),
+                'email_verified_at' => Carbon::now(),
+            ]);
+            Auth::login($addUser);
+            return redirect()->intended(route('customer.account'));
+        }
+    }
 }

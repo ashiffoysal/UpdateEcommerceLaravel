@@ -35,4 +35,16 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => 'http://localhost/git/durbarit_eco/user/login/google/callback',
+    ],
+
+    'facebook' => [
+        'client_id' => env('facebook_CLIENT_ID'),
+        'client_secret' => env('facebook_CLIENT_SECRET'),
+        'redirect' => 'http://localhost/git/durbarit_eco/user/login/facebook/callback',
+    ],
+
 ];

@@ -26,6 +26,27 @@
 {{-- <script type="text/javascript" src="{{asset('public/frontend/js/select_bootstrap/bootstrap-select.min.js')}}"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    @if(Session::has('messege'))
+    var type = "{{Session::get('alert-type','info')}}"
+    switch (type) {
+        case 'info':
+            toastr.info("{{ Session::get('messege') }}");
+            break;
+        case 'success':
+            toastr.success("{{ Session::get('messege') }}");
+            break;
+        case 'warning':
+            toastr.warning("{{ Session::get('messege') }}");
+            break;
+        case 'error':
+            toastr.error("{{ Session::get('messege') }}");
+            break;
+    }
+    @endif
+</script>
+
 @if (!Request::is('login'))
 <script>
     $(document).ready(function(){
@@ -60,4 +81,37 @@
     });
 </script>
 @endif
+<script>
+    $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $('.login-error-message').hide();
+    $('#login-form').on('submit', function(e){
+        e.preventDefault();
+        var url = $(this).attr('action');
+        var data = $(this).serialize();
+        $.ajax({
+            url: url,
+            type:'post',
+            data:data,
+            dataType:'json',
+            success:function(data){
+                if($.isEmptyObject(data.login)){
+                    $('.login-error-message').show();
+                    $('.errorMsgAll').html(data.error);
+                }else{
+                    window.location = data.login
+                }
+            },
+            error:function(err){
+                console.log(err.responseJSON.errors);
+            }
+        });
+    });
+    })
+</script>
 @stack('js')
