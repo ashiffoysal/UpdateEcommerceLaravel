@@ -36,7 +36,7 @@ class CustomerController extends Controller
        $this->validate($request, [
            'first_name' => 'required',
            'last_name' => 'required',
-           'phone' => 'required',
+           'phone' => 'required|unique:users,phone',
        ]);
 
        if ($request->division_id) {
@@ -65,7 +65,12 @@ class CustomerController extends Controller
            'upazila_id' => $request->upazila_id ? $request->upazila_id : NULL,
        ]);
 
-       return redirect()->back();
+       $notification = array(
+        'messege' => 'Successfully profile updated.',
+        'alert-type' => 'success'
+       );
+
+       return redirect()->back()->with($notification);
     }
 
 }

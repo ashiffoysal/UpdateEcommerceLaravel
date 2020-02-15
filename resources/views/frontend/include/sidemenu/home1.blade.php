@@ -45,6 +45,7 @@
 
                                             $category = App\Category::where('is_deleted',0)->where('cate_status',1)->take(10)->get();
                                             $idArray = [];
+
                                             @endphp
                                             @foreach($category as $menu)
                                             <li class="item-vertical  vertical-style2 with-sub-menu hover">
@@ -116,6 +117,7 @@
 
                                             @endif
 
+
                                             @endforeach
 
                                             {{-- collapseable Categories --}}
@@ -135,9 +137,7 @@
                                                 <p class="close-menu"></p>
                                                 <a class="clearfix">
                                                     <span>
-                                                        <strong><img
-                                                                src="{{asset('public/uploads/category/'.$menu->cate_icon)}}"
-                                                                alt="">{{$menu->cate_name}}</strong>
+                                                        <strong><img src="{{asset('public/uploads/category/'.$menu->cate_icon)}}" alt="">{{$menu->cate_name}}</strong>
                                                     </span>
                                                     <b class="fa fa-caret-right"></b>
                                                 </a>
@@ -197,9 +197,7 @@
 
                                             @endif
                                             @endforeach
-                                            {{-- @php
-                                                dd($category->count());
-                                            @endphp --}}
+                                            
                                             @if ($category->count() > 9)
                                             <li class="loadmore show_hidden_menu"><i class="fa fa-plus-square"></i>
                                                 <span class="more-view"> More Categories</span>

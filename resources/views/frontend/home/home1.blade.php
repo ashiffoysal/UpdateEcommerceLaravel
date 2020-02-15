@@ -40,7 +40,6 @@
                                                 </div>
                                             </div>
                                             @endforeach
-
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +61,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -86,6 +84,7 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                
                             </div>
                         </div>
                     </div>
@@ -276,7 +275,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -290,7 +289,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -416,7 +415,7 @@
                                                                                 </span>
                                                                                 @else
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     -{{$row->discount}}%
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -620,7 +619,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -688,17 +687,17 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            
+
 
                                                             @endforeach
                                                             <!--
@@ -751,7 +750,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -765,7 +764,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -780,7 +779,7 @@
                                                                             </div>
                                                                         </div>
 
-                                                                        
+
                                                                             </div>
                                                                             <div class="button-group">
                                                                                 <div class="button-inner
@@ -822,17 +821,17 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            
+
 
                                                             @endforeach
                                                             <!--
@@ -885,7 +884,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -899,7 +898,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -954,17 +953,17 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            
+
 
                                                             @endforeach
                                                             <!--
@@ -1070,7 +1069,7 @@
                                                             $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->limit(2)->get();
                                                             @endphp
                                                             @foreach($pro as $product)
-                                    
+
                                                             <div class="item-inner
                                                             product-layout
                                                             transition
@@ -1110,7 +1109,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -1124,7 +1123,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -1179,17 +1178,17 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                          
+
                                                             @endforeach
                                                             <!-- product end -->
                                                         </div> <!-- grid end -->
@@ -1238,7 +1237,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -1252,7 +1251,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -1307,12 +1306,12 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1364,7 +1363,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -1378,7 +1377,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -1432,12 +1431,12 @@
                                                                                 @endif
                                                                             </form>
 
-                                                                                    
-                                                                                
+
+
                                                                                 </div>
 
 
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1549,7 +1548,7 @@
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            
+
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
                                                                         </div>
                                                                             @endif
@@ -1563,7 +1562,7 @@
                                                                                 @foreach($flashdealdetail as $row)
                                                                                 @if($row ->discount_type == 1 )
                                                                                 <span class="discount">
-                                                                                    
+
                                                                                     - ৳ {{$row->discount}}
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -1578,7 +1577,7 @@
                                                                             </div>
                                                                         </div>
 
-                                                                            
+
                                                                         </div>
                                                                         <div class="button-group">
                                                                         <div class="button-inner so-quickview">
@@ -1736,11 +1735,11 @@
                                                                     @endif
                                                                     </div>
                                                                     <div class="price-sale price-right">
-                                                    
+
                                                                 @foreach($flashdealdetail as $row)
                                                                 @if($row ->discount_type == 1 )
                                                                 <span class="discount">
-                                                                    
+
                                                                     - ৳ {{$row->discount}}
                                                                     <strong>OFF</strong>
                                                                 </span>
@@ -1773,7 +1772,7 @@
                                             </div>
                                         </div>
 
-                                        
+
                                         <div class="item products-list grid">
                                             <div class="item-wrap product-layout style1 ">
                                                 @php
@@ -1781,7 +1780,7 @@
                                                 $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(3)->limit(3)->get();
                                                 @endphp
                                                 @foreach($products as $product)
-                                                
+
                                                 <div class="item-wrap-inner product-item-container">
                                                     <div class="left-block">
                                                         <div class="item-image">
@@ -1797,10 +1796,10 @@
                                                     <div class="right-block">
                                                         <div class="caption">
                                                             <h4 class="item-title">
-                                                            
+
                                                                 <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                             </h4>
-                                                            
+
                                                             <!-- Begin item-content -->
                                                             <div class="item-content">
                                                                 <div class="total-price">

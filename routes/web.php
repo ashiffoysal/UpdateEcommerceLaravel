@@ -6,12 +6,22 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
 Route::group(['prefix' => 'forget/password', 'namespace'=> 'Auth'], function () {
     Route::get('verification/code/{remember_token}','ForgotPasswordController@forgetPassVerificationCodeFrom')->name('forget.password.verify.code.form');
     Route::post('verification/code/','ForgotPasswordController@checkForgetPassVerificationCode')->name('user.check.verification.code');
     Route::get('reset/{remember_token}','ForgotPasswordController@forgetResetPasswordForm')->name('forget.reset.password');
     Route::post('forget/reset/password/submit','ForgotPasswordController@forgetResetPasswordSubmit')->name('forget.reset.password.submit');
     Route::post('resend/verification/code/mail/{remember_token}','ForgotPasswordController@forgetResendVerificationCodeMail')->name('resend.verification.code');
+});
+
+Route::group(['prefix' => 'user/login/', 'namespace' => 'Auth'], function () {
+    Route::post('modal', 'LoginController@modalLogin')->name('modal.login');
+    Route::get('login/google', 'LoginController@redirectToProviderGoogle')->name('google.login');
+    Route::get('google/callback', 'LoginController@handleProviderGoogleCallback');
+    Route::get('login/facebook', 'LoginController@redirectToProviderFacebook')->name('facebook.login');
+    Route::get('facebook/callback', 'LoginController@handleProviderFacebookCallback');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
