@@ -53,7 +53,17 @@
             <tr>
                 <td colspan="4" class="text-left">Cupon Discount:</td>
                 <td class="text-right" id="cupondiscount"> 
-                    
+                    <?php
+                        if(isset($cupondatavalue)){
+                            echo $cupondatavalue;
+                            
+                        }
+                       
+                        
+                        
+                    ?>
+
+
                 </td>
             </tr>
             
@@ -87,17 +97,7 @@
 	orderdelete();
 </script>
 
-<script>
-    document.getElementById('cupondiscount').innerHTML =<?php 
-        
 
-        if(isset($cupondiscount)){
-            echo $cupondiscount;
-        }else{
-            echo 'No discount found!';
-        }
-    ?>;
 
-</script>
 
 

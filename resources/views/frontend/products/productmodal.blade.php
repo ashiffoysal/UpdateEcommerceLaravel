@@ -36,15 +36,25 @@
 		<link href="{{asset('public/frontend')}}/css/header/header1.css" rel="stylesheet">
 		<link id="color_scheme" href="{{asset('public/frontend')}}/css/theme.css" rel="stylesheet">
 		<link href="{{asset('public/frontend')}}/css/responsive.css" rel="stylesheet">
-		<link href="{{asset('public/frontend')}}/css/quickview/quickview.css" rel="stylesheet">
+        <link href="{{asset('public/frontend')}}/css/quickview/quickview.css" rel="stylesheet">
+        <link href="{{asset('public/frontend/css/product.css')}}" rel="stylesheet">
 		<!-- Google web fonts
-		============================================ -->
+        ============================================ -->
+        <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('frontend/css/line-awesome.min.css') }}" type="text/css">
+        <link href="{{asset('public/frontend/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" type="text/css">
 		<style type="text/css">
 		body {
 		font-family: Roboto, sans-serif;
-		}
+        }
+        .checkbox-alphanumeric input:checked ~ label {
+            transform: scale(1.1);
+            border: 1px solid red;
+        }
 		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	</head>
@@ -129,28 +139,35 @@
 
                                         <div class="col-md-12">
                                         <div id="product">
-                                        <div class="form-group required " style="display: block; margin-left:17px">
-                                            <span>Color:</span>
+                                        <div class="form-group required " style="display: block; margin-left:17px"> 
                                             <input type="hidden" name="id" value="{{$productdetails->id}}">
                                             @if (count(json_decode($productdetails->colors)) > 0)
+                                            <ul class="list-inline checkbox-color mb-1">
+                                            <li><strong>Color: &nbsp;<strong> </li>
                                             @foreach (json_decode($productdetails->colors) as $key => $color)
+                                            <li>
+                                                <input type="radio" id="{{ $productdetails->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key==0) checked @endif>
+                                                <label style="background: {{ $color }};" for="{{ $productdetails->id }}-color-{{ $key }}" data-toggle="tooltip" data-original-title="{{$color}}"></label>
 
-
-
-                                            <div class="radio  radio-type-button">
-												<label>
-													<input type="radio" id="{{ $productdetails->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key==0) checked @endif>
-													<span class="option-content-box active" data-title="M +$12.00" data-toggle="tooltip" data-original-title="" title="" style="background:{{ $color }};">
-														<span class="option-name"> </span>
-													</span>
-												</label>
-                                            </div>
-
-
+                                            </li>
                                             @endforeach
+                                            </ul>
+
+
+                                         
                                             @endif
                                         </div>
                                         </div>
+
+
+
+
+
+
+
+
+
+                                        
 
                                         @foreach (json_decode($productdetails->choice_options) as $key => $choice)
 
@@ -163,21 +180,21 @@
 
 
 									<div class="form-group required " style="display: block;">
-										<label class="control-label">{{ $choice->title }}:</label>
 										<div id="input-option224">
 
-                                        @foreach ($choice->options as $key => $option)
-											<div class="radio  radio-type-button">
-												<label>
-													<input type="radio" id="{{ $choice->name }}-{{ $option }}" name="{{ $choice->name }}" value="{{ $option }}" @if($key==0) checked @endif>
-													<span class="option-content-box active" data-title="M +$12.00" data-toggle="tooltip" data-original-title="" title="" style="background: none;">
-														<span class="option-name">{{ $option }} </span>
-													</span>
-												</label>
-                                            </div>
+                                        
+                                        <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
+                                            <li>{{ $choice->title }}:</li>
+                                            @foreach ($choice->options as $key => $option)
+                                            <li>
+                                                <input type="radio" id="{{ $choice->name }}-{{ $option }}" name="{{ $choice->name }}" value="{{ $option }}" @if($key==0) checked @endif>
+                                                <label for="{{ $choice->name }}-{{ $option }}">{{ $option }}</label>
+                                            </li>
+                                            @endforeach
+                                        </ul>
 
 
-                                        @endforeach
+                                        
 
 										</div>
 									</div>
@@ -339,8 +356,8 @@ type:'GET',
 url:"{{ route('product.add.cart') }}",
 data: $('#option-choice-form').serializeArray(),
 success: function (data) {
-    
-    
+
+
 
     console.log(data);
     // document.getElementById('cartdatacount').innerHTML =data.quantity;
@@ -354,3 +371,5 @@ success: function (data) {
 </script>
 	</body>
 </html>
+
+                              

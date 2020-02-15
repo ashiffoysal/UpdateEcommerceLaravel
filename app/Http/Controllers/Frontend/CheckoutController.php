@@ -590,8 +590,24 @@ class CheckoutController extends Controller
         return $data;
     }
 
-    public function text()
-    {
-        return "ok";
-    }
+   public function applyCuponValue($oderid)
+   {
+       
+       $userusedcupon =UserUsedCupon::where('order_id',$oderid)->where('user_ip',Auth::user()->id)->first();
+       
+       $cupon =Cupon::findOrFail($userusedcupon->cupon_id);
+      if($cupon->cupon_type == 1){
+          
+        $cupondatavalue ='৳ '. $cupon->discount;
+      }else{
+       
+        $cupondatavalue =$cupon->discount.'%';
+        
+      }
+
+      $userid =  \Request::getClientIp(true);
+
+        $usercartdatas = Cart::session($userid)->getContent();
+        return view('frontend.shopping.orderajaxdata', compact('usercartdatas','cupondatavalue'));
+   }
 }

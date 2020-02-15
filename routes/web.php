@@ -444,6 +444,7 @@ Route::get('addtocart/test/', 'Frontend\AddToCartController@adtest')->name('addt
 Route::post('customer/used/cupon', 'Frontend\CheckoutController@usedCupon')->name('customer.used.cupon');
 
 Route::post('customer/apply/cupon', 'Frontend\CheckoutController@applyCupon')->name('customer.apply.cupon');
+Route::get('get/cupon/value/{oderid}', 'Frontend\CheckoutController@applyCuponValue');
 
 // place order area start
 
