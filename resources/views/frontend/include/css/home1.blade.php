@@ -8,6 +8,7 @@
 <link href="{{asset('public/frontend/css/themecss/so_onepagecheckout.css')}}" rel="stylesheet">
 <!-- Theme CSS
 				 ============================================ -->
+
 <link href="{{asset('public/frontend/css/themecss/so_sociallogin.css')}}" rel="stylesheet">
 <link href="{{asset('public/frontend/css/themecss/so_searchpro.css')}}" rel="stylesheet">
 <link href="{{asset('public/frontend/css/themecss/so_megamenu.css')}}" rel="stylesheet">
