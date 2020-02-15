@@ -1,35 +1,30 @@
+@php
+$seo=DB::table('seo')->first();
+@endphp
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-	<title>TopDeal</title>
+	<title>{{ $seo->meta_title }}</title>
 	<meta charset="utf-8">
-	<meta name="keywords" content="html5 template, best html5 template, best html template, html5 basic template, multipurpose html5 template, multipurpose html template, creative html templates, creative html5 templates" />
-    <meta name="description" content="SuperMarket is a powerful Multi-purpose HTML5 Template with clean and user friendly design. It is definite a great starter for any eCommerce web project." />
-    
-	<meta name="author" content="Magentech">
-
-	<meta name="robots" content="index, follow" />
+	<meta name="keywords" content="{{$seo->meta_key}}" />
+  <meta name="description" content="{{$seo->meta_description}}" />
+	<meta name="author" content="{{$seo->meta_author}}">
+	<meta name="robots" content="index, follow"/>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	
+	{{$seo->google_verification}}
+	{{$seo->bing_verification}}
+	@yield('meta')
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <meta name="robots" content="index, follow" />
-
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
-	<link rel="shortcut icon" type="image/png" href="ico/favicon-16x16.png" />
-
+  <meta name="robots" content="index, follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+	<link rel="shortcut icon" type="image/png" href="ico/favicon-16x16.png"/>
 	<!-- Include all css for home page ============================================ -->
-
 		@foreach(App\ThemeSelector::where('status',1)->get() as $css)
 			@include($css->css_name)
 		@endforeach
-
+  {{$seo->google_analytic}}
+  {{$seo->alexa_analytic}}
 </head>
 
 <body class="common-home res layout-1">
@@ -113,7 +108,7 @@
         $('#user_country').click(function(params) {
             var country_id = $(this).val();
             console.log(country_id);
-			
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -123,10 +118,10 @@
                 type: 'GET',
                 url: "{{ url('/user/division/name') }}/" +country_id,
 				dataType:"json",
-                
+
                 success: function(data) {
-                  
-						
+
+
                         $('#user_division').empty();
                         $('#user_division').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data,function(index,divisionobj){
@@ -135,9 +130,9 @@
                 }
 
             });
-   
-            
-    
+
+
+
             });
     });
 </script>
@@ -145,7 +140,7 @@
 <script>
     $(document).ready(function() {
         $('#user_division').click(function(params) {
-            
+
             var division_id = $(this).val();
             $.ajaxSetup({
                 headers: {
@@ -156,9 +151,9 @@
                 type: 'GET',
                 url: "{{ url('/user/district/name') }}/" +division_id,
 				dataType:"json",
-                
+
                 success: function(data) {
-                  
+
 						console.log(data);
                         $('#user_district').empty();
                         $('#user_district').append(' <option value="0">--Please Select Your Division--</option>');
@@ -174,9 +169,9 @@
 <script>
     $(document).ready(function() {
         $('#user_district').click(function(params) {
-            
+
             var upazila_id = $(this).val();
-            
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -186,9 +181,9 @@
                 type: 'GET',
                 url: "{{ url('/user/upazila/name') }}/" +upazila_id,
 				dataType:"json",
-                
+
                 success: function(data) {
-                  
+
 						console.log(data);
                         $('#user_upazila').empty();
                         $('#user_upazila').append(' <option value="0">--Please Select Your Division--</option>');

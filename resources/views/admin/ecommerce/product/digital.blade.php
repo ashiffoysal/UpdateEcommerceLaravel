@@ -1,10 +1,10 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
       <!-- content wrpper -->
 			<div class="content_wrapper">
 				<!--middle content wrapper-->
 				<div class="middle_content_wrapper">
-					
+
 				<section class="page_area">
 					<div class="panel">
 						<div class="panel_header">
@@ -15,11 +15,11 @@
 								<div class="col-md-6 text-right">
 									<button type="submit" class="btn btn-primary"><i class="fas fa-undo-alt"></i> <a href="{{route('admin.product.producttype')}}" style="color: #fff;"> Back</a></button>
 									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.product.all')}}" style="color: #fff;">All Product</a></button>
-									
-							
+
+
 								</div>
 							</div>
-							
+
 						</div>
 						<div class="panel_body">
 							<form action="{{route('admin.product.insert')}}" method="POST" id="choice_form" enctype="multipart/form-data">
@@ -102,61 +102,23 @@
 								     <input type="text" name="upload_link" class="form-control">
 								    </div>
 								 </div>
-								 <div class="row">
-		                          	<div class="col-md-3"></div>
-		                          	<div class="col-md-8">
-		                             	<label class="chech_container mb-4">
-											<input type="checkbox"  id="allow_flash_deal"  name="allow_flash_deal" value="1">
-											<span class="checkmark"></span>
-											Flash Deal
-										</label>
-		                          	</div>
-		                        </div>
-
-		                         <div id="flash_deal_section" style="display: none;">
-		                              <div  class="row">
-		                                <div class="col-md-3"></div>
-		                                <div class="col-md-6 row">
-		                                   <div class="col-md-3">
-		                                      	<label>Start Date:</label>
-		                                        <input type="date" name="flash_deal_start_date" class="form-control">
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                      	<label>End Date:</label>
-		                                        <input type="date" name="flash_deal_end_date" class="form-control">
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                      	<label>% / Amount</label>
-		                                        <select class="form-control" name="flash_deal_type">
-		                                        	<option>--Select--</option>
-		                                        	<option value="1">Amount</option>
-		                                        	<option value="2">%</option>
-		                                        </select>
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                      	<label>Price</label>
-		                                        <input type="number" name="flash_deal_price" class="form-control">
-		                                    </div>
-		                                </div>
-		                             </div>
-                          		</div>
-                          		<div style="margin-top: 15px">
-	                          		<div class="row">
-	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
-									    <div class="col-sm-6">
-									      <textarea name="product_description" id="editor1" rows="10" cols="80"> </textarea>
-									    </div>
-									</div>
-                          	   </div>
-                          	   <div style="margin: 15px 0px">
-	                          		<div class="row">
-	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Buy and Return Policy:</label>
-									    <div class="col-sm-6">
-									      <textarea class="editor2" name="buy_and_return_policy" id="editor2" rows="10" cols="80"> </textarea>
-									    </div>
-									</div>
-                          	   </div>
-		                         <div class="form-group row">
+                    		<div style="margin-top: 15px">
+                      		<div class="row">
+                      			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
+													    <div class="col-sm-6">
+													      <textarea name="product_description" id="editor1" rows="10" cols="80"> </textarea>
+													    </div>
+													</div>
+                    	   </div>
+                  	   <div style="margin: 15px 0px">
+                    		<div class="row">
+                    			<label for="" class="col-sm-3 col-form-label text-right">Product Buy and Return Policy:</label>
+											    <div class="col-sm-6">
+											      <textarea class="editor2" name="buy_and_return_policy" id="editor2" rows="10" cols="80"> </textarea>
+											    </div>
+											</div>
+                  	   </div>
+		                  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Estimated Shipping Time</label>
 								    <div class="col-sm-6">
 								      <input type="text" class="form-control" name="shipping_time">
@@ -175,7 +137,7 @@
 								      <input type="text" class="form-control" name="meta_description">
 								    </div>
 								  </div>
-								 
+
 
 
 
@@ -211,19 +173,19 @@
 								  <label for="" class="col-sm-3 col-form-label text-right">Thumbnail Image</label>
 									<div class="col-sm-6">
 									<div id="thumbnail_img" class="row">
-										
+
 									</div>
 									</div>
 								</div>
-							
+
 								<div class="form-group row">
-							
+
 									<div class="col-md-12 text-center">
 										<button type="submit" class="btn btn-primary">Add Product</button>
 									</div>
 								</div>
-							</form>	
-						</div>	
+							</form>
+						</div>
 					</div>
 				</section>
 			</div>
@@ -233,20 +195,20 @@
   $(document).ready(function() {
      $('select[name="cate_id"]').on('change', function(){
          var cate_id = $(this).val();
-        
+
          if(cate_id) {
              $.ajax({
                  url: "{{  url('/get/subcategory/all/') }}/"+cate_id,
                  type:"GET",
                  dataType:"json",
                  success:function(data) {
-                     
+
                         $('#subcate_id').empty();
                         $('#subcate_id').append(' <option value="0">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
                        });
-                     } 
+                     }
              });
          } else {
              alert('danger');
@@ -267,13 +229,13 @@
                  type:"GET",
                  dataType:"json",
                  success:function(data) {
-                     
+
                         $('#resubcate_id').empty();
                         $('#resubcate_id').append(' <option value="0">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#resubcate_id').append('<option value="' + districtObj.id + '">'+districtObj.resubcate_name+'</option>');
                        });
-                     } 
+                     }
              });
          } else {
              alert('danger');
@@ -327,7 +289,7 @@
 				$("#selectlink").hide();
 			}
 	});
-	
+
 });
 
 </script>

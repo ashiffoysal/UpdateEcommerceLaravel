@@ -107,6 +107,7 @@
                </div>
 		    <div class="form-group text-right">
 		    	<!-- <input type="reset" value="cancel" class="btn btn-default"> -->
+					<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
 		    	<button type="submit" class="btn btn-blue">Submit</button>
 		    </div>
 		  </form>
@@ -147,8 +148,8 @@
            </div>
 
 			    <div class="form-group text-right">
-			    	<input type="reset" value="Reset" class="btn btn-warning">
-			    	<button type="submit" class="btn btn-blue">Submit</button>
+			      <button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
+			    	<button type="submit" class="btn btn-blue">Update</button>
 			    </div>
 		  </form>
       </div>

@@ -91,7 +91,7 @@ class FrontendController extends Controller
 
     // Product Details page show
 
-    public function productDetails($id)
+    public function productDetails($slug,$id)
     {
         $productdetails = Product::where('id', $id)->first();
         $checkFlashDeal = 0;

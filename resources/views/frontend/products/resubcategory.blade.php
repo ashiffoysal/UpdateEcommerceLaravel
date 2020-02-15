@@ -1,5 +1,6 @@
 @extends('layouts.websiteapp')
 @section('main_content')
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link id="color_scheme" href="{{asset('public/frontend/css/theme.css')}}" rel="stylesheet">
 
@@ -72,7 +73,7 @@
 
 
 
-        
+
         @include('frontend.include.product.subsidebar')
 
             <div id="content" class="col-md-9 col-sm-12 col-xs-12">
@@ -170,8 +171,7 @@
                                     <div class="product-item-container">
                                         <div class="left-block">
                                             <div class="product-image-container  second_img  ">
-                                                <a href="#"
-                                                    title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium ">
+                                                <a href="{{url('product/'.$product->slug.'/'.$product->id)}}" title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium ">
                                                     <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
                                                         alt="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
                                                         title="Lorem Ipsum dolor at vero eos et iusto odi  with Premium "
@@ -195,7 +195,7 @@
 
                                         <div class="right-block">
                                             <div class="caption">
-                                                <h4><a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                <h4><a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                 </h4>
                                                 <div class="total-price">
                                                 @php
@@ -207,7 +207,7 @@
                                                             <?php    $productdiscount =($product->product_price * $row->discount)/100; ?>
                                                                 @if($row ->discount_type == 1 )
                                                                     <span class="price-new">
-                                                                     
+
                                                                     ৳ {{$product->product_price - $row->discount}} </span> <span class="price-old">৳ {{$product->product_price}}
                                                                     </span>
                                                                 @else
@@ -222,14 +222,14 @@
                                                             </span>
 
                                                         @endif
-                                                        
+
                                                     </div>
                                                     <div class="price-sale price-right">
-                                                    
+
                                                                 @foreach($flashdealdetail as $row)
                                                                 @if($row ->discount_type == 1 )
                                                                 <span class="discount">
-                                                                    
+
                                                                     - ৳ {{$row->discount}}
                                                                     <strong>OFF</strong>
                                                                 </span>
@@ -251,7 +251,7 @@
                                                 </div>
                                                 <div class="list-block hidden">
 
-                                                
+
                                                                             <form class="option-choice-form" onclick="producttocart(this);">
 
                                                                                 <input type="hidden" value="1" name="quantity">
@@ -262,7 +262,7 @@
                                                         <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
                                                             <button class="addToCart" type="button" data-toggle="tooltip" title="" onclick="cart.add('30 ', '1 ');" data-original-title="Add to Cart "><span>Add to Cart </span></button>
                                                         </a>
-                                                        
+
 
                                                         @else
                                                             <button class="addToCart" type="button" data-toggle="tooltip" title="" onclick="cart.add('30 ', '1 ');productaddtocart(this);" data-original-title="Add to Cart "><span>Add to Cart </span></button>

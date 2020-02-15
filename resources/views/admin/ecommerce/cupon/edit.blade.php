@@ -1,11 +1,11 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
 <link rel="stylesheet" href="{{asset('public/adminpanel')}}/assets/plugins/select2/css/select2.min.css">
       <!-- content wrpper -->
 			<div class="content_wrapper">
 				<!--middle content wrapper-->
 				<div class="middle_content_wrapper">
-					
+
 				<section class="page_area">
 					<div class="panel">
 						<div class="panel_header">
@@ -17,7 +17,7 @@
 									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.cupon.all')}}" style="color: #fff;">All Cupon</a></button>
 								</div>
 							</div>
-							
+
 						</div>
 						<div class="panel_body">
 							<form action="{{route('admin.cupon.update')}}" method="POST" id="choice_form" enctype="multipart/form-data">
@@ -26,7 +26,7 @@
 								    <label for="" class="col-sm-3 col-form-label text-right">Cupon Type:</label>
 								    <div class="col-sm-6">
 								      <select class="form-control" name="cupon_type">
-								     
+
 								      	@if($data->cupon_type==1)
 								      	<option>Select</option>
 								      	<option value="1" selected>For Total Order</option>
@@ -51,7 +51,7 @@
 								    </div>
 								  </div>
 								<div id="fortotalorder" @if($data->cupon_type==1) @else style="display: none" @endif>
-								  
+
 								  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Minimum Shopping:</label>
 								    <div class="col-sm-6">
@@ -69,13 +69,17 @@
 													@php
 														$allproduct=App\Product::where('is_deleted',0)->OrderBy('id','DESC')->get();
 													@endphp
-													<option value="">select</option>
+													@if($data->cupon_type==1)
+													<option value="1" selected>select</option>
 													@foreach($allproduct as $product)
-													
-									
-
-<option value="{{$product->id}}"  @if( in_array($product->id ,json_decode($data->product_id))) selected @else @endif > {{$product->product_name}}</option>
+													<option value="{{$product->id}}"@if(in_array($product->id,json_decode($data->product_id))) selected @else @endif> {{$product->product_name}}</option>
 													@endforeach
+													@else
+													<option value="1">select</option>
+													@foreach($allproduct as $product)
+													<option value="{{$product->id}}"@if(in_array($product->id,json_decode($data->product_id))) selected @else @endif> {{$product->product_name}}</option>
+													@endforeach
+													@endif
 												</select>
 											</div>
 										</div>
@@ -103,8 +107,8 @@
 								      <input type="date" class="form-control" name="cupon_end_date" placeholder="End Date" value="{{$data->cupon_end_date}}" required>
 								    </div>
 								</div>
-								  
-								 
+
+
 
 
 
@@ -134,11 +138,11 @@
 									</div>
 								</div>
 							</form>
-								
-						</div>	
+
+						</div>
 					</div>
 				</section>
-			</div><!--/middle content wrapper-->  
+			</div><!--/middle content wrapper-->
 			</div><!--/ content wrapper -->
    <!-- script code start -->
  <script>
@@ -164,7 +168,7 @@
         	$("#forproduct").hide();
         	$("#fortotalorder").hide();
         }
-        
+
 
      });
  });
