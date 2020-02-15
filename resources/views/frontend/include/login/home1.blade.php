@@ -5,13 +5,15 @@
 				<div class="block-content">
 					<div class=" col-reg registered-account">
 						<div class="block-content">
-						
-							<form class="form form-login" method="POST" action="{{ route('admin.login') }}" id="login-form">
+                            <div class="login-error-message">
+                                <samll style="font-size: 12px;" class="alert alert-danger errorMsgAll"></samll style="font-size: 12px;">
+                            </div>
+							<form class="form form-login" method="POST" action="{{ route('modal.login') }}" id="login-form">
 								@csrf
 								<fieldset class="fieldset login" data-hasrequired="* Required Fields">
 									<div class="field email required email-input">
 										<div class="control">
-											<input name="email" value="" autocomplete="off" id="email" type="email" class="input-text" title="Email" placeholder="E-Mail Address">
+											<input name="email" required value="" autocomplete="off" id="email" type="email" class="input-text" title="Email" placeholder="E-Mail Address">
 											@error('email')
 												<span class="invalid-feedback" role="alert">
 													<strong>{{ $message }}</strong>
@@ -19,16 +21,15 @@
                                     		@enderror
 										</div>
 									</div>
-									
+
 									<div class="field password required pass-input">
 										<div class="control">
-											<input name="password" type="password" autocomplete="off" class="input-text" id="pass" title="Password" placeholder="Password">
+											<input required name="password" type="password" autocomplete="off" class="input-text" id="pass" title="Password" placeholder="Password">
 											@error('password')
 												<span class="invalid-feedback" role="alert">
 													<strong>{{ $message }}</strong>
 												</span>
 											@enderror
-									
 										</div>
 									</div>
 
@@ -36,14 +37,9 @@
 										<label class="control-label">Login with your social account</label>
 										<div>
 
-											<a href="#" class="btn btn-social-icon btn-sm btn-google-plus"><i class="fa fa-google fa-fw" aria-hidden="true"></i></a>
-
-											<a href="#" class="btn btn-social-icon btn-sm btn-facebook"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></a>
-
+                                        <a href="{{ route('google.login') }}" class="btn btn-social-icon btn-sm btn-google-plus"><i class="fa fa-google fa-fw" aria-hidden="true"></i></a>
+                                        <a href="{{ route('facebook.login') }}" class="btn btn-social-icon btn-sm btn-facebook"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></a>
 											<a href="#" class="btn btn-social-icon btn-sm btn-twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></a>
-
-											<a href="#" class="btn btn-social-icon btn-sm btn-linkdin"><i class="fa fa-linkedin fa-fw" aria-hidden="true"></i></a>
-
 										</div>
 									</div>
 

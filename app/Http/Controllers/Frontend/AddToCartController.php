@@ -70,7 +70,7 @@ class AddToCartController extends Controller
             // non variation product add
             $product->number_of_sale++;
             $product->save();
-
+            
         } 
         else {
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->product_id)->first();

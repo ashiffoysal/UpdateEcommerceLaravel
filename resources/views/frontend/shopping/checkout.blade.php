@@ -290,13 +290,13 @@
 										<div class="panel-body checkout-coupon">
 											<label class="col-sm-2 control-label" for="input-coupon">Enter coupon code</label>
 											<div class="input-group">
-												<input type="text" name="coupon" value="" placeholder="Enter coupon code" id="input-coupon" class="form-control">
-												<input type="hidden" name="order_id" value="{{$order_id}}" placeholder="Enter coupon code" id="input_order" class="form-control">
-												<form id="apply_coupon">
+												
+													<input type="hidden" name="order_id" value="{{$order_id}}" placeholder="Enter coupon code" id="input_order" class="form-control">
+													<input type="text" name="coupon" value="" placeholder	="Enter coupon code" id="input-coupon" class="form-control">
 													<span class="input-group-btn">
 														<input type="button" value="Apply Coupon" id="input-coupon"  onclick="cuponApply()" data-loading-text="Loading..." class="btn-primary button">
 													</span>
-												</form>
+											
 											</div>
 										</div>
 
@@ -373,13 +373,13 @@
 <script>
     function cuponApply() {
       
-	
     var cuponvalue =document.getElementById('input-coupon').value;
     var ordervalue =document.getElementById('input_order').value;
-        
+	
     $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
             function(data) {
 				
+				getCuponValue(ordervalue);
                 // console.log(data.cuponalert);
                 // console.log(data);
                 console.log(data);
@@ -390,21 +390,47 @@
                     toastr.success(data);
                 }
                 
-                var cupondiscount =document.getElementById('cupondiscount').innerHTML=data.cuponalert;
+                
                 
                 
                     
             });
-           
+			
             
            
     }
-    cuponApply();
+    
 
 
 	
     
 </script>
+
+<script>
+	function getCuponValue(ordervalue){
+		$.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/get/cupon/value/') }}/" +ordervalue,
+                
+                success: function(data) {
+					
+					console.log(data);
+					$('#orderdata').html(data);
+					toastr.success('Cupon Insert Succssfully!');   
+					
+					
+                }
+            });
+	}
+	getCuponValue();
+</script>
+
+
 
 
 <script>

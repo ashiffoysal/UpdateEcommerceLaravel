@@ -40,7 +40,6 @@
                                                 </div>
                                             </div>
                                             @endforeach
-
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +61,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -86,6 +84,7 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                
                             </div>
                         </div>
                     </div>
@@ -1774,6 +1773,7 @@
                                                             <h4 class="item-title">
 
                                                                 <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+
                                                             </h4>
 
                                                             <!-- Begin item-content -->

@@ -48,8 +48,6 @@
                                     </div>
                                 </div>
 
-								<!--  -->
-
                                 <div class="form-group row">
                                     <label for="inputPassword" class="col-sm-3 col-form-label text-right">Select Product</label>
                                     <div class="col-sm-6">
@@ -98,7 +96,7 @@
 					</div>
 				</section>
 			</div><!--/middle content wrapper-->
-			</div><!--/ content wrapper -->
+		</div><!--/ content wrapper -->
    <!-- script code start -->
 
 
@@ -125,7 +123,6 @@
                },
                success:function(data){
                    console.log(data);
-
                    $('.products-table-body').empty();
                    $('.products-table-body').append(data);
                }
