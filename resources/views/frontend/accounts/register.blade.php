@@ -78,6 +78,7 @@
                 </div>
             </form>
         </div>
+
         <aside class="col-md-3 col-sm-4 col-xs-12 content-aside right_column sidebar-offcanvas">
             <span id="close-sidebar" class="fa fa-times"></span>
             <div class="module">
@@ -91,6 +92,7 @@
                 </div>
             </div>
         </aside>
+
     </div>
 </div>
 <!-- //Main Container -->

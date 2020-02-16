@@ -321,7 +321,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add to Cart" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>
@@ -433,7 +433,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>
@@ -651,7 +651,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add to Cart" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>
@@ -785,7 +785,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add to Cart" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>
@@ -917,7 +917,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>
@@ -1142,7 +1142,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>
@@ -1270,7 +1270,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>
@@ -1395,7 +1395,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>
@@ -1582,7 +1582,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>

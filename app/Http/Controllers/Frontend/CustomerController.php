@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\UserAddress;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
@@ -20,26 +21,30 @@ class CustomerController extends Controller
         $user = User::where('id', Auth::user('web')->id)->firstOrFail();
         if ($user->id != Auth::user('web')->id) {
             return redirect()->back();
-        }else{
-            $divisions = DB::table('divisions')->where('country_id', 18)->get();
-            $districts = DB::table('districts')->get();
-            $upazilas = DB::table('upazilas')->get();
-            return view('frontend.accounts.account', compact('user', 'divisions', 'districts', 'upazilas'));
         }
+        $userAddress = '';
+        if (UserAddress::where('user_id', Auth::user()->id)->first()) {
+            $userAddress = UserAddress::where('user_id', Auth::user()->id)->first();
+        }
+
+        $divisions = DB::table('divisions')->where('country_id', 18)->get();
+        $districts = DB::table('districts')->get();
+        $upazilas = DB::table('upazilas')->get();
+
+        return view('frontend.accounts.account', compact('user', 'divisions', 'districts', 'upazilas', 'userAddress'));
+
 
     }
 
     public function customerAccountUpdate(Request $request)
     {
-
-
        $this->validate($request, [
            'first_name' => 'required',
            'last_name' => 'required',
-           'phone' => 'required|unique:users,phone',
+           'phone' => 'required|unique:users,phone,'.Auth::user()->id,
        ]);
 
-       if ($request->division_id) {
+        if ($request->division_id) {
             $this->validate($request, [
                 'district_id' => 'required',
                 'upazila_id' => 'required',
@@ -50,20 +55,36 @@ class CustomerController extends Controller
                 'upazila_id.required' => 'You have selected division, so now upazila field is required.',
                 'postal_code.required' => 'You have selected division, so now postal code field is required.',
             ]);
+        }
+        User::where('id', Auth::user('web')->id)->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
+            'company' => $request->company ? $request->company : NULL,
+        ]);
+       $checkUserAddress = UserAddress::where('user_id', Auth::user()->id)->first();
+       if ($checkUserAddress) {
+            $checkUserAddress->user_address = $request->address ? $request->address : NULL;
+            $checkUserAddress->user_post_office = $request->post_office ? $request->post_office : NULL;
+            $checkUserAddress->user_postcode = $request->postal_code ? $request->postal_code : NULL;
+            $checkUserAddress->user_country_id = $request->country_id ? $request->country_id : NULL;
+            $checkUserAddress->user_division_id = $request->division_id ? $request->division_id : NULL;
+            $checkUserAddress->user_district_id = $request->district_id ? $request->district_id : NULL;
+            $checkUserAddress->user_upazila_id = $request->upazila_id ? $request->upazila_id : NULL;
+            $checkUserAddress->save();
+       }else {
+           UserAddress::insert([
+                'user_id' => Auth::user()->id,
+                'user_address' => $request->address ? $request->address : NULL,
+                'user_post_office' => $request->post_office ? $request->post_office : NULL,
+                'user_postcode' => $request->postal_code ? $request->postal_code : NULL,
+                'user_country_id' => $request->country_id ? $request->country_id : NULL,
+                'user_division_id' => $request->division_id ? $request->division_id : NULL,
+                'user_district_id' => $request->district_id ? $request->district_id : NULL,
+                'user_upazila_id' => $request->upazila_id ? $request->upazila_id : NULL,
+           ]);
        }
 
-       User::where('id', Auth::user('web')->id)->update([
-           'first_name' => $request->first_name,
-           'last_name' => $request->last_name,
-           'phone' => $request->phone,
-           'company' => $request->company ? $request->company : NULL,
-           'address' => $request->address ? $request->address : NULL,
-           'postal_code' => $request->postal_code ? $request->postal_code : NULL,
-           'country_id' => $request->country_id ? $request->country_id : NULL,
-           'division_id' => $request->division_id ? $request->division_id : NULL,
-           'district_id' => $request->district_id ? $request->district_id : NULL,
-           'upazila_id' => $request->upazila_id ? $request->upazila_id : NULL,
-       ]);
 
        $notification = array(
         'messege' => 'Successfully profile updated.',

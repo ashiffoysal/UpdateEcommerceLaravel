@@ -15196,6 +15196,9 @@ span.fa-stack .fa-star.fa-stack-2x:before {
 
 #content .filter-horizontal .clear_filter {
     border-top: 1px solid #eaeaea;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .so_filter_wrap .modcontent {

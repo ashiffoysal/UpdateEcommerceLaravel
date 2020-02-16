@@ -99,9 +99,9 @@
 
 
 	<div class="header-form hidden-compact">
-							<div class="button-header current">
+							<!-- <div class="button-header current">
 								<i class="fa fa-bars"></i>
-							</div>
+							</div> -->
 							<div class="dropdown-form toogle_content">
 								<div class="pull-left">
 									<form action="#" method="post" enctype="multipart/form-data" id="form-language">

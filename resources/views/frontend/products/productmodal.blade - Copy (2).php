@@ -1,20 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<!-- Basic page needs
-		============================================ -->
-		<title>TopDeal</title>
-		<meta charset="utf-8">
-		<meta name="keywords" content="html5 template, best html5 template, best html template, html5 basic template, multipurpose html5 template, multipurpose html template, creative html templates, creative html5 templates" />
-		<meta name="description" content="SuperMarket is a powerful Multi-purpose HTML5 Template with clean and user friendly design. It is definite a great starter for any eCommerce web project." />
-		<meta name="author" content="Magentech">
-        <meta name="robots" content="index, follow" />
-        <meta http-equiv = "refresh" content = "2; url = https://ide.geeksforgeeks.org"/>
-		<!-- Mobile specific metas
-		============================================ -->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<!-- Favicon
-		============================================ -->
+
+		
 		<link rel="shortcut icon" type="image/png" href="ico/favicon-16x16.png" />
 		<!-- Libs CSS
 		============================================ -->
@@ -59,7 +44,7 @@
 		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	</head>
-	<body class="loaded page-quickview">
+	
 		<div id="wrapper">
 			<!-- Main Container -->
 			<form id="option-choice-form">
@@ -409,9 +394,6 @@ success: function (data) {
 
 
 
-    console.log(data);
-    // document.getElementById('cartdatacount').innerHTML =data.quantity;
-    // document.getElementById('product_price').innerHTML =data.total;
 
 }
 });
@@ -419,5 +401,4 @@ success: function (data) {
 }
 
 </script>
-	</body>
-</html>
+

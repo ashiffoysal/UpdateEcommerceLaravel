@@ -101,12 +101,20 @@
                             <div class="form-group required">
                                 <label for="input-address-1" class="control-label">Address</label>
                                 <input type="text" class="form-control" placeholder="Address"
-                                    value="{{ $user->address ? $user->address : old('address') }}" name="address">
+                                    value="{{ $userAddress ? $userAddress->user_address ? $userAddress->user_address : old('address') : old('address') }}" name="address">
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-postcode" class="control-label">Post Office</label>
+                                <input type="text" class="form-control" placeholder="Post office"
+                                    value="{{ $userAddress ? $userAddress->user_post_office ? $userAddress->user_post_office : old('post_office') : old('post_office') }}" name="post_office">
+                                @error('postal_office')
+                                <span class="text-danger">{{ $errors->first('postal_office') }}</span>
+                                @enderror
                             </div>
                             <div class="form-group required">
                                 <label for="input-postcode" class="control-label">Post Code</label>
                                 <input type="text" class="form-control" placeholder="Post Code"
-                                    value="{{ $user->postal_code }}" name="postal_code">
+                                    value="{{ $userAddress ? $userAddress->user_postcode ? $userAddress->user_postcode : old('postal_code') : old('postal_code') }}" name="postal_code">
                                 @error('postal_code')
                                 <span class="text-danger">{{ $errors->first('postal_code') }}</span>
                                 @enderror
@@ -124,7 +132,7 @@
                                     @foreach ($divisions as $division)
                                     <option value="{{ $division->id }}"
                                         {{ $division->id == old('division_id') ? "SELECTED" : "" }}
-                                        {{ $user->division_id == $division->id ? "SELECTED" : ""}}>
+                                        {{ $userAddress ? $userAddress->user_division_id == $division->id ? "SELECTED" : "" : ""}}>
                                         {{ $division->name }}
                                     </option>
                                     @endforeach
@@ -136,7 +144,7 @@
                                     <option value=""> --- Select District--- </option>
                                     @foreach ($districts as $district)
                                     <option {{ $district->id == old('district_id') ? "SELECTED" : "" }}
-                                        {{ $user->district_id == $district->id ? "SELECTED" : ''  }}
+                                        {{ $userAddress ? $userAddress->user_district_id == $district->id  ? "SELECTED" : '' : ''  }}
                                         value="{{ $district->id }}">
                                         {{ $district->name }}
                                     </option>
@@ -152,7 +160,7 @@
                                     <option value=""> --- Select Upazila--- </option>
                                     @foreach ($upazilas as $upazila)
                                     <option {{ $upazila->id == old('upazila_id') ? "SELECTED" : "" }}
-                                        {{ $user->upazila_id == $upazila->id ? "SELECTED" : "" }}
+                                        {{ $userAddress ? $userAddress->user_upazila_id == $upazila->id ? "SELECTED" : "" : "" }}
                                         value="{{ $upazila->id }}">
                                         {{ $upazila->name }}
                                     </option>
