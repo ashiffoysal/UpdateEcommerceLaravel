@@ -1,6 +1,10 @@
 @extends('layouts.websiteapp')
 @section('main_content')
-
+<style>
+    .courier_message_modal {
+    transform: translateY(400px);
+}
+</style>
 <!-- Main Container  -->
 <div class="container">
 	<ul class="breadcrumb">
@@ -140,7 +144,7 @@
 								@php
 									$userid =  \Request::getClientIp(true);
 								@endphp
-								<input type="hidden" value="{{Cart::session($userid)->getTotalQuantity()}}" name="total_quantity">
+								<input type="hidden" value="{{ Cart::session($userid)->getTotalQuantity() }}" name="total_quantity">
 
 
 							<div class="checkbox">
@@ -240,7 +244,6 @@
 						</div>
 					</div>
 
-
 					<div class="col-right col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<section class="section-left">
 							<div class="ship-payment">
@@ -251,11 +254,21 @@
 										<div class="radio">
 											<label>
 												<select name="shipping_id" id="shipping_courier" class="form-control">
-
-
+                                                    @if (isset($useraddress))
+                                                        @if ($useraddress->user_upazila_id)
+                                                            @php
+                                                                $upazila_couriers = DB::table('upazila_couriers')->where('upazila_id', $useraddress->user_upazila_id)->get();
+                                                            @endphp
+                                                            @foreach ($upazila_couriers as $upazila_courier)
+                                                                <option value="{{ $upazila_courier->courier_id }}">
+                                                                    {{ DB::table('couriers')->where('id', $upazila_courier->courier_id)->first()->courier_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    @endif
 												</select>
 												@error('shipping_id')
-														<div class="text-danger alert alert-danger">{{ $message }}</div>
+													<div class="text-danger alert alert-danger">{{ $message }}</div>
 												@enderror
 											</label>
 										</div>
@@ -267,11 +280,10 @@
                                     <div class="box-inner">
 										<div class="radio">
 											<label>
-												<input type="radio" name="payment_method_id" value="1" > Cash On Delivery <br>
-												<input type="radio" name="payment_method_id" value="2" >Stripe<br>
-												<input type="radio" name="payment_method_id" value="3" > Paypal<br>
-												<input type="radio" name="payment_method_id" value="4" > SSL Commerce<br/>
-												<input type="radio" name="payment_method_id" value="5" > 2Checkout<br/>
+												<input type="radio" id="pay_method" name="payment_method_id" value="1" > Cash On Delivery <br>
+												<input type="radio" id="pay_method" name="payment_method_id" value="2" >Stripe<br>
+												<input type="radio" id="pay_method" name="payment_method_id" value="3" > Paypal<br>
+												<input type="radio" id="pay_method" name="payment_method_id" value="4" > SSL Commerce<br/>
 												@error('payment_method_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
 												@enderror
@@ -290,13 +302,13 @@
 										<div class="panel-body checkout-coupon">
 											<label class="col-sm-2 control-label" for="input-coupon">Enter coupon code</label>
 											<div class="input-group">
-												
+
 													<input type="hidden" name="order_id" value="{{$order_id}}" placeholder="Enter coupon code" id="input_order" class="form-control">
 													<input type="text" name="coupon" value="" placeholder	="Enter coupon code" id="input-coupon" class="form-control">
 													<span class="input-group-btn">
 														<input type="button" value="Apply Coupon" id="input-coupon"  onclick="cuponApply()" data-loading-text="Loading..." class="btn-primary button">
 													</span>
-											
+
 											</div>
 										</div>
 
@@ -365,7 +377,27 @@
 			</form>
 
 		</div>
-	</div>
+    </div>
+
+    {{-- Modal Message --}}
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content courier_message_modal">
+            <div class="modal-header">
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body text-center">
+              <span style="color:red;" class="message_modal jambotron"><strong>This shipping method doesn't support cash on deliviry in your address!</strong></span>
+            </div>
+        </div>
+        </div>
+    </div>
+    {{-- Modal Message --}}
 
 
 </div>
@@ -373,41 +405,57 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script>
+
+    $(document).ready(function(){
+        $('#shipping_courier').on('change', function(){
+            var courier_id = $(this).val();
+            var user_upazila = $('#user_upazila').val();
+            var shipping_upazila = $('#shipping_upazila').val();
+            if (!shipping_upazila) {
+                $.ajax({
+                    url:"{{ url('check/courier/cash_on_deliviry') }}" + "/" + user_upazila + "/" + courier_id,
+                    type: 'get',
+                    dataType: 'json',
+                    success:function(data){
+                        console.log(data);
+                        if (data.data == 0) {
+                            $('#exampleModalCenter').modal('show');
+                        }
+                    }
+                });
+            }
+
+        })
+    });
+
+</script>
+
+<script>
     function cuponApply() {
-      
+
     var cuponvalue =document.getElementById('input-coupon').value;
     var ordervalue =document.getElementById('input_order').value;
-	
+
     $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
             function(data) {
-				
 				getCuponValue(ordervalue);
                 
                 console.log(data);
+
                 if(data.cuponalert){
                     toastr.success(data.cuponalert);    
                 };
                 
-                
-                
-                
-                
-                    
+
             });
-			
-            
-           
+
     }
-    
-
-
-	
-    
 </script>
 
 <script>
 	function getCuponValue(ordervalue){
 		$.ajaxSetup({
+
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
@@ -426,26 +474,21 @@
 					
                 }
             });
+
 	}
 	getCuponValue();
 </script>
 
-
-
-
 <script>
     $(document).ready(function() {
-			$( "#is_shipping" ).click(function() {
-				if(this.checked){
-					$('#shipping-address').css('display', 'none');
-				}
-				if(!this.checked){
-					$('#shipping-address').css('display', 'block');
-				}
-			});
-
-
-
+        $( "#is_shipping" ).click(function() {
+            if(this.checked){
+                $('#shipping-address').css('display', 'none');
+            }
+            if(!this.checked){
+                $('#shipping-address').css('display', 'block');
+            }
+        });
     });
 </script>
 
@@ -454,8 +497,6 @@
     $(document).ready(function() {
         $('#shipping_country').click(function(params) {
             var country_id = $(this).val();
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -465,15 +506,12 @@
                 type: 'GET',
                 url: "{{ url('/user/division/name') }}/" +country_id,
 				dataType:"json",
-
                 success: function(data) {
-
-
-                        $('#shipping_division').empty();
-                        $('#shipping_division').append(' <option value="0">--Please Select Your Division--</option>');
-                        $.each(data,function(index,divisionobj){
-                         $('#shipping_division').append('<option value="' + divisionobj.id + '">'+divisionobj.name+'</option>');
-                       });
+                    $('#shipping_division').empty();
+                    $('#shipping_division').append(' <option value="0">--Please Select Your Division--</option>');
+                    $.each(data,function(index,divisionobj){
+                        $('#shipping_division').append('<option value="' + divisionobj.id + '">'+divisionobj.name+'</option>');
+                    });
                 }
             });
         });
@@ -494,7 +532,6 @@
                 type: 'GET',
                 url: "{{ url('/user/district/name') }}/" +division_id,
 				dataType:"json",
-
                 success: function(data) {
 
 						console.log(data);
@@ -526,8 +563,6 @@
 				dataType:"json",
 
                 success: function(data) {
-
-
                         $('#shipping_upazila').empty();
                         $('#shipping_upazila').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data,function(index,upazilabj){
@@ -542,22 +577,21 @@
 <script>
     $( document ).ready(function() {
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('get.order.data') }}",
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('get.order.data') }}",
 
-                success: function(data) {
+            success: function(data) {
 
+                $('#orderdata').html(data);
 
-                    $('#orderdata').html(data);
-
-                }
-            });
+            }
+        });
 
 });
 
@@ -567,9 +601,7 @@
     var myVar;
     function myUpdateOrder(el) {
 
-
         myVar = setTimeout(function(){
-
             $.post('{{ route('product.order.update') }}', {_token: '{{ csrf_token() }}', quantity: el.value, rowid:el.id },
             function(data) {
 				$('#orderdata').html(data);
@@ -582,8 +614,6 @@
     }
 
     myUpdateOrder();
-
-
 </script>
 
 <script>
@@ -626,17 +656,13 @@
                 type: 'GET',
                 url: "{{ url('/user/division/name') }}/" +country_id,
 				dataType:"json",
-
                 success: function(data) {
-
-
-                        $('#user_division').empty();
-                        $('#user_division').append(' <option value="0">--Please Select Your Division--</option>');
-                        $.each(data,function(index,divisionobj){
-                         $('#user_division').append('<option value="' + divisionobj.id + '">'+divisionobj.name+'</option>');
-                       });
+                    $('#user_division').empty();
+                    $('#user_division').append(' <option value="0">--Please Select Your Division--</option>');
+                    $.each(data,function(index,divisionobj){
+                        $('#user_division').append('<option value="' + divisionobj.id + '">'+divisionobj.name+'</option>');
+                    });
                 }
-
             }
          });
      } else {
@@ -680,6 +706,12 @@
             }
         })
     });
+</script>
+
+<script>
+
+
+
 </script>
 
 @endsection

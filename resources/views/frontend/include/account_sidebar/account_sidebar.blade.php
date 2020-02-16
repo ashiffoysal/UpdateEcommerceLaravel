@@ -4,17 +4,16 @@
         <h3 class="modtitle"><span> My Account </span></h3>
         <div class="module-content custom-border">
             <ul class="list-box">
-
                 @guest
-                <li><a href="login.html">Login </a> / <a href="register.html"> Register </a></li>
+                    <li><a href="{{ route('login') }}">Login </a> / <a href="{{ route('register') }}"> Register </a></li>
                 @endguest
-                <li><a href="#">My Account </a></li>
+
+                @auth
+                <li><a href="{{ route('customer.account') }}"> My Account </a></li>
                 <li><a href="wishlist.html">Wish List </a></li>
                 <li><a href="#">Order History </a></li>
                 <li><a href="#">Returns </a></li>
                 <li><a href="#">Reset Password </a></li>
-                @auth
-
                 <li>
                     <a onclick="
                         event.preventDefault();

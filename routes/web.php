@@ -439,6 +439,7 @@ Route::post(md5('/order/data/delete'), 'Frontend\CheckoutController@orderDataDel
 //  Add Ajax route for getting courier by upazila ID !
 // Created By Harrison
 Route::get('get/courier/by/upazila/id/{upazilaId}', 'Frontend\CheckoutController@getCourierByUpazila');
+Route::get('check/courier/cash_on_deliviry/{upazila_id}/{courier_id}', 'Frontend\CheckoutController@checkCourierCashOnDeliviry');
 
 // cart all product show
 

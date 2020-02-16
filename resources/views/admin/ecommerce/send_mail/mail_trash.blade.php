@@ -65,7 +65,12 @@
                                             $user = \App\User::where('email', $mail->visitor_email)->first();
                                             @endphp
                                             @if ($user)
-                                                <img src="{{asset('public/adminpanel/uploads/user_photo/', $user->avater)}}" alt="img">
+                                                @if ($user->avater)
+                                                    <img src="{{asset('public/adminpanel/uploads/user_photo/', $user->avater)}}" alt="img">
+                                                @else
+                                                    <img src="{{asset('public/adminpanel/assets/images/user1.jpg')}}" alt="img">
+                                                @endif
+
                                             @else
                                                 <img src="{{asset('public/adminpanel/assets/images/user1.jpg')}}" alt="img">
                                             @endif

@@ -100,20 +100,6 @@
 
 
 
-    <div class="product-filter product-filter-bottom filters-panel">
-        <div class="col-sm-6 text-left">
-            <ul class="pagination">
-                <li class="active"><span>1</span>
-                </li>
-                <li><a href="#">2</a>
-                </li>
-                <li><a href="#">&gt;</a>
-                </li>
-                <li><a href="#">&gt;|</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-sm-6 text-right">Showing 1 to 9 of 9 (1 Pages)</div>
-    </div>
+  
 </div>
 @endif
