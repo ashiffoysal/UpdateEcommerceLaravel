@@ -101,18 +101,66 @@
                             </div>
                             <div class="box-review">
                                 <div class="rating">
+																	@php
+																		$rcount=App\ProductReview::where('product_id',$productdetails->id)->count();
+																	@endphp
                                     <div class="rating-box">
+																			@if($rcount)
+																				@php
+																				$sumofreview =App\ProductReview::where('product_id',$productdetails->id)->sum('review');
+																				$rating=$sumofreview/$rcount;
+																				@endphp
+                                      @if($rating == 1)
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
                                         <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
                                         <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
                                         <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
                                         <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      @elseif($rating < 2)
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      @elseif($rating < 3)
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      @elseif($rating < 4)
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      @elseif($rating < 5)
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      @elseif($rating == 5)
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                                      @elseif($rating == 0)
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                      @endif
+
+                                  @endif
                                     </div>
                                 </div>
-                                <a class="reviews_button" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">0 reviews</a> / <a class="write_review_button" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">Write a review</a>
+                                <a class="reviews_button" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">{{$rcount}} reviews</a> / <a class="write_review_button" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">Write a review</a>
                             </div>
-                            <div class="product_page_price price" itemscope="" itemtype="http://data-vocabulary.org/Offer">
-                                <span class="price-new"><span id="chosen_price""> ‎৳ {{$productdetails->product_price}}</span></span>
+                            <div class="product_page_price price" itemscope="" itemtype="http://data-vocabulary.org/Offer" id="chosen_price_div">
+                                <span class="price-new"><span id="chosen_price"> ‎৳ {{$productdetails->product_price}}</span></span>
 
                                 <span class="price-old" id="price-old">‎৳ {{$productdetails->product_price}}</span>
                                 <!--    <div class="price-tax"><span>Ex Tax:</span> $70.00</div> -->
@@ -139,7 +187,7 @@
 
                                         <div class="col-md-12">
                                         <div id="product">
-                                        <div class="form-group required " style="display: block; margin-left:17px"> 
+                                        <div class="form-group required " style="display: block; margin-left:17px">
                                             <input type="hidden" name="id" value="{{$productdetails->id}}">
                                             @if (count(json_decode($productdetails->colors)) > 0)
                                             <ul class="list-inline checkbox-color mb-1">
@@ -154,7 +202,7 @@
                                             </ul>
 
 
-                                         
+
                                             @endif
                                         </div>
                                         </div>
@@ -167,7 +215,7 @@
 
 
 
-                                        
+
 
                                         @foreach (json_decode($productdetails->choice_options) as $key => $choice)
 
@@ -182,7 +230,7 @@
 									<div class="form-group required " style="display: block;">
 										<div id="input-option224">
 
-                                        
+
                                         <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
                                             <li>{{ $choice->title }}:</li>
                                             @foreach ($choice->options as $key => $option)
@@ -194,7 +242,7 @@
                                         </ul>
 
 
-                                        
+
 
 										</div>
 									</div>
@@ -315,32 +363,32 @@
 		<script type="text/javascript" src="{{asset('public/frontend')}}/js/themejs/homepage.js"></script>
 		<script type="text/javascript" src="{{asset('public/frontend')}}/js/themejs/custom_h1.js"></script>
 		<script type="text/javascript" src="{{asset('public/frontend')}}/js/themejs/addtocart.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#option-choice-form input').on('change', function() {
-            getVariantPrice();
-        });
-    });
+		<script>
+		    $(document).ready(function() {
+		        $('#option-choice-form input').on('change', function() {
+		            getVariantPrice();
+		        });
+		    });
 
-    function getVariantPrice() {
-        //alert("success");
-        if ($('#option-choice-form input[id=quantity]').val() > 0) {
+		    function getVariantPrice() {
+		        //alert("success");
+		        if ($('#option-choice-form input[id=quantity]').val() > 0) {
 
-            $.ajax({
-                type: "GET",
-                url: '{{ route('products.variant_price')}}',
-                data: $('#option-choice-form').serializeArray(),
-                success: function(data) {
+		            $.ajax({
+		                type: "GET",
+		                url: '{{ route('products.variant_price')}}',
+		                data: $('#option-choice-form').serializeArray(),
+		                success: function(data) {
 
-                    //console.log(data.price);
-                    // $('#option-choice-form #chosen_price_div').removeClass('d-none');
-                    $('#option-choice-form #chosen_price_div #chosen_price').html(data.price);
-                    // $('#available-quantity').html(data.quantity);
-                }
-            });
-        }
-    }
-</script>
+		                    //console.log(data.price);
+		                    // $('#option-choice-form #chosen_price_div').removeClass('d-none');
+		                    $('#option-choice-form #chosen_price_div #chosen_price').html(data.price);
+		                    // $('#available-quantity').html(data.quantity);
+		                }
+		            });
+		        }
+		    }
+		</script>
 
 
 <script>
@@ -371,5 +419,3 @@ success: function (data) {
 </script>
 	</body>
 </html>
-
-                              

@@ -322,7 +322,7 @@ Route::get(md5('/product/cart/page'), 'Frontend\FrontendController@cart')->name(
 Route::get(md5('/product/checkout/page'), 'Frontend\FrontendController@checkout')->name('product.checkout');
 
 
-Route::get('product/details/{id}', 'Frontend\FrontendController@productmodal');
+Route::get('details/{id}', 'Frontend\FrontendController@productmodal');
 
 // Route::get(md5('/customer/login'), 'Frontend\FrontendController@customerLogin')->name('customer.login');
 
