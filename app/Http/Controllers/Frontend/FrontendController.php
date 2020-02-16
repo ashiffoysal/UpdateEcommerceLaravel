@@ -13,32 +13,23 @@ use App\FlashDeal;
 use App\ReSubCategory;
 use App\Color;
 use App\ProductReview;
-
 use App\FlashDealDetail;
-
 use App\OrderStorage;
-
 use Carbon\Carbon;
 use DB;
 use Auth;
 
 class FrontendController extends Controller
 {
-
     // Frontend showing page
-
     public function index()
     {
         foreach (ThemeSelector::where('status', 1)->get() as $themeselector) {
 
             $to = Carbon::now()->format('Y-m-d');
-
             $from = date('Y-m-d', strtotime('+30 days', strtotime($to)));
-
             $hotdeals = FlashDeal::where('status', 1)->where('is_deleted', 0)->orderBy('id', 'DESC')->first();
             //return  $hotdeals;
-
-
             return view($themeselector->theme_name, compact('hotdeals'));
         }
     }
@@ -91,7 +82,7 @@ class FrontendController extends Controller
 
     // Product Details page show
 
-    public function productDetails($slug,$id)
+    public function productDetails($slug, $id)
     {
         $productdetails = Product::where('id', $id)->first();
         $checkFlashDeal = 0;
@@ -238,26 +229,26 @@ class FrontendController extends Controller
         return view('frontend.tracking.trackingresult', compact('trackingresult'));
     }
     // product review
-    public function productreview(Request $request){
-      $insert=ProductReview::insertGetId([
-          'name'=>$request['name'],
-          'description'=>$request['description'],
-          'review'=>$request['review'],
-          'product_id'=>$request['product_id'],
-      ]);
-      if($insert){
-        $notification=array(
-            'messege'=>'Your Review Has been Success',
-            'alert-type'=>'success'
-             );
-           return Redirect()->back()->with($notification);
-      }else{
-        $notification=array(
-            'messege'=>'Your Review Has been Faild,Please try Again!!',
-            'alert-type'=>'error'
-             );
-           return Redirect()->back()->with($notification);
-      }
-
+    public function productreview(Request $request)
+    {
+        $insert = ProductReview::insertGetId([
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'review' => $request['review'],
+            'product_id' => $request['product_id'],
+        ]);
+        if ($insert) {
+            $notification = array(
+                'messege' => 'Your Review Has been Success',
+                'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+                'messege' => 'Your Review Has been Faild,Please try Again!!',
+                'alert-type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
+        }
     }
 }

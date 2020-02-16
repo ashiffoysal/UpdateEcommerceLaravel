@@ -109,7 +109,6 @@ class SubscriberController extends Controller
                 'alert-type' => 'success'
             );
             return redirect()->route('admin.mail.all.draft')->with($notification);
-           
         }
     }
 
@@ -172,7 +171,15 @@ class SubscriberController extends Controller
             return redirect()->back()->with($notification);
         }
         if ($request->submit === "delete") {
-            Contract::whereIn('id', $request->mailId)->delete();
+            foreach ($request->mailId as $id) {
+                $getContract = Contract::where('id', $id)->first();
+                if ($getContract->contract_images) {
+                    foreach ($getContract->contract_images as  $image) {
+                        unlink('public/uploads/visitor_attach_files/' . $image->image);
+                    }
+                }
+                $getContract->delete();
+            }
             $notification = array(
                 'messege' => 'Mail deleted successfully',
                 'alert-type' => 'success'
@@ -227,8 +234,6 @@ class SubscriberController extends Controller
                 'alert-type' => 'success'
             );
             return redirect()->route('admin.mail.all.draft')->with($notification);
-
-
         }
     }
 }

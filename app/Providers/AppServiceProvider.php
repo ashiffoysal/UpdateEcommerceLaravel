@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        $unseen_mail = Contract::where('is_seen', 0)->count();
+        $unseen_mail = Contract::where('is_seen', 0)->where('is_deleted', 0)->count();
         view()->share('unseen_mail', $unseen_mail);
         $search_categories = Category::with('sub_categories')->where('cate_status', 1)->get();
         view()->share('search_categories', $search_categories);

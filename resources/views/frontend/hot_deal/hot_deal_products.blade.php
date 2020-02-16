@@ -12,11 +12,11 @@
 </div>
 @php
 $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->first();
-
 @endphp
 <div id="main_content">
-  @if($image)
-    <div class="breadcrumbs" style="background: url({{asset('public/uploads/sitebanner/'.$image->image)}}) no-repeat center top;">
+    @if($image)
+    <div class="breadcrumbs"
+        style="background: url({{asset('public/uploads/sitebanner/'.$image->image)}}) no-repeat center top;">
         <div class="container">
             <div class="title-breadcrumb">
                 Flash Deal Products
@@ -25,26 +25,26 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
                 <li>
                     <a href="{{ url('/') }}"><i class="fa fa-home"></i></a>
                 </li>
-                <li><a href="">Flash Deal Products</a></li>
+                <li><a href="">{{ __('Flash Deal Products') }}</a></li>
             </ul>
         </div>
     </div>
-  @else
-  <div class="breadcrumbs">
-      <div class="container">
-          <div class="title-breadcrumb">
-              Flash Deal Products
-          </div>
-          <ul class="breadcrumb-cate">
-              <li>
-                  <a href="{{ url('/') }}"><i class="fa fa-home"></i></a>
-              </li>
-              <li><a href="">Flash Deal Products</a></li>
-          </ul>
-      </div>
-  </div>
-  @endif
-
+    @else
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="title-breadcrumb">
+                Flash Deal Products
+            </div>
+            <ul class="breadcrumb-cate">
+                <li>
+                    <a href="{{ url('/') }}"><i class="fa fa-home"></i></a>
+                </li>
+                <li><a href="">{{ __('Flash Deal Products') }}</a></li>
+            </ul>
+        </div>
+    </div>
+    @endif
+    @if ($flash_deal_details)
     <div class="container product-detail">
         <div class="row">
             <div id="content" class="col-md-12 col-sm-12 col-xs-12">
@@ -111,21 +111,23 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
                                             <div class="total-price">
                                                 <div class="price price-left">
                                                     <span class="price-new">
-                                                        @php $discountPrice = 0; @endphp @if($flash_deal_detail->discount_type == 1) @php
+                                                        @php $discountPrice = 0; @endphp
+                                                        @if($flash_deal_detail->discount_type == 1) @php
                                                         $discountPrice =
                                                         $flash_deal_detail->product->product_price -
                                                         $flash_deal_detail->discount @endphp @else @php
                                                         $discountPrice =
                                                         $flash_deal_detail->product->product_price /100 *
                                                         $flash_deal_detail->discount @endphp @endif
-                                                       ৳ {{ $discountPrice }}
+                                                        ৳ {{ $discountPrice }}
                                                     </span>
                                                     <span class="price-old">
                                                         ৳ {{ $flash_deal_detail->product->product_price }}
                                                     </span>
                                                 </div>
                                                 <div class="price-sale price-right px-2">
-                                                    <span class="discount px-2">-{{ $flash_deal_detail->discount }}{{ $flash_deal_detail->discount_type == 2 ? '%' : '৳' }}
+                                                    <span
+                                                        class="discount px-2">-{{ $flash_deal_detail->discount }}{{ $flash_deal_detail->discount_type == 2 ? '%' : '৳' }}
                                                         <strong>OFF</strong>
                                                     </span>
                                                 </div>
@@ -197,8 +199,16 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
             </div>
         </div>
     </div>
-</div>
+    @else
+    <div class="row">
+        <div class="container text-center">
+            <h2 class="jumbotron">{{ __('There is no flash deal.') }}</h2>
+        </div>
+    </div>
+    @endif
 
+</div>
+@if ($flash_deal_end_date)
 <script>
     $(function () {
         $(".Countdown-1").countdown("{{ $flash_deal_end_date }}", function (event) {
@@ -213,6 +223,7 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
             );
         });
     });
-
 </script>
+@endif
+
 @endsection
