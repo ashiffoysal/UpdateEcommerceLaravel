@@ -336,21 +336,23 @@
 									</label>
 								</div>
 
-								<div class="checkbox check-newsletter">
-									<label for="newsletter">
-										<input type="checkbox" name="newsletter" value="1" id="newsletter"> I wish to subscribe to the Your Store newsletter.
-									</label>
-								</div>
+							
 
 								<div class="checkbox check-privacy">
 									<label>
 										<input type="checkbox" name="privacy" value="1"> I have read and agree to the <a href="#" class="agree"><b>Support 24/7 page</b></a>
+										@error('privacy')
+												<div class="text-danger alert alert-danger">{{ $message }}</div>
+										@enderror
 									</label>
 								</div>
 
 								<div class="checkbox check-terms">
 									<label>
 										<input type="checkbox" name="agree" value="1"> I have read and agree to the <a href="#" class="agree"><b>Warranty And Services</b></a>
+										@error('agree')
+												<div class="text-danger alert alert-danger">{{ $message }}</div>
+										@enderror
 									</label>
 								</div>
 								<div class="confirm-order">
@@ -380,15 +382,12 @@
             function(data) {
 				
 				getCuponValue(ordervalue);
-                // console.log(data.cuponalert);
-                // console.log(data);
+                
                 console.log(data);
-                if(data.cuponid){
-                    toastr.success('Cupon Insert Succssfully!');    
+                if(data.cuponalert){
+                    toastr.success(data.cuponalert);    
                 };
-                if(data){
-                    toastr.success(data);
-                }
+                
                 
                 
                 
@@ -418,10 +417,11 @@
                 url: "{{ url('/get/cupon/value/') }}/" +ordervalue,
                 
                 success: function(data) {
-					
+					  
 					console.log(data);
 					$('#orderdata').html(data);
-					toastr.success('Cupon Insert Succssfully!');   
+					
+					
 					
 					
                 }

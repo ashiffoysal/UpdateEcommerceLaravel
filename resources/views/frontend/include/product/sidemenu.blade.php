@@ -52,7 +52,7 @@
                                 @endphp
                                 <!-- End item-wrap -->
                                 @foreach($products as $row)
-                                <div class="item-wrap style1 ">
+                                <div class="item-wrap style1 clearfix">
                                     <div class="item-wrap-inner">
                                         <div class="media-left">
                                             <div class="item-image">
@@ -166,7 +166,7 @@
                                 @endphp
                                 <!-- End item-wrap -->
                                 @foreach($products as $row)
-                                <div class="item-wrap style1 ">
+                                <div class="item-wrap style1 clearfix">
                                     <div class="item-wrap-inner">
                                         <div class="media-left">
                                             <div class="item-image">
