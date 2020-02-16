@@ -216,7 +216,7 @@ $(document).ready(function() {
 $('select[name="section"]').on('change', function(){
   var id = $(this).val();
   //alert("id");
-    if( id==2 || id==3 || id==4) {
+    if( id==2 || id==3 || id==4 || id==11) {
     	//alert("success");
     	$("#catebox").show();
 

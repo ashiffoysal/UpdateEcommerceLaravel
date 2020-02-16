@@ -283,6 +283,7 @@
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Meta Description</label>
 								    <div class="col-sm-6">
 								      <input type="text" class="form-control" name="meta_description" value="{{$data->meta_description}}">
+											<input type="hidden" name="old_img" value="{{ $data->thumbnail_img }}">
 								    </div>
 								  </div>
 
@@ -322,7 +323,6 @@
 										<br>
 									</div>
 									<div class="col-md-5">
-
 										<div id="thumbnail_img" class="">
 
 									   </div>

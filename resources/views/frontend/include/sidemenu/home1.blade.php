@@ -92,11 +92,24 @@
                                                                             @endforeach
                                                                         </div>
 
-                                                                        <div
-                                                                            class="img-banner col-lg-5 col-md-5 col-sm-4">
-                                                                            <a href="#"><img
-                                                                                    src="{{asset('public/frontend/')}}/image/catalog/demo/menu/img-static-megamenu-h.jpg"
-                                                                                    alt="banner"></a>
+                                                                        <div class="img-banner col-lg-5 col-md-5 col-sm-4">
+                                                                          @php
+                                                                            $mainc_id=$menu->id;
+                                                                            $n_image=App\CategoryBanner::where('section',11)->where('category_id',$mainc_id)->orderBy('id','DESC')->limit(1)->first();
+                                                                          @endphp
+                                                                          @if($n_image)
+                                                                            @php
+                                                                            $siteanmain=$n_image->siteban_id;
+                                                                            $mainimage=App\SiteBanner::where('id',$siteanmain)->where('is_deleted',0)->where('status',1)->first();
+                                                                            @endphp
+                                                                            @if($mainimage)
+                                                                            <a href="{{$mainimage->link}}"><img src="{{asset('public/uploads/sitebanner/'.$mainimage->image)}}" alt="banner"></a>
+                                                                            @else
+                                                                            <a href="#"><img src="{{asset('public/frontend/')}}/image/catalog/demo/menu/img-static-megamenu-h.jpg" alt="banner"></a>
+                                                                            @endif
+                                                                          @else
+                                                                            <a href="#"><img src="{{asset('public/frontend/')}}/image/catalog/demo/menu/img-static-megamenu-h.jpg" alt="banner"></a>
+                                                                          @endif
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -197,7 +210,7 @@
 
                                             @endif
                                             @endforeach
-                                            
+
                                             @if ($category->count() > 9)
                                             <li class="loadmore show_hidden_menu"><i class="fa fa-plus-square"></i>
                                                 <span class="more-view"> More Categories</span>

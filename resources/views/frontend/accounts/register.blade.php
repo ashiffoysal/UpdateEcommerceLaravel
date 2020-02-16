@@ -78,9 +78,21 @@
                 </div>
             </form>
         </div>
-        <!--Right Part Start -->
-        @include('frontend.include.account_sidebar.account_sidebar')
-        <!--Right Part End -->
+
+        <aside class="col-md-3 col-sm-4 col-xs-12 content-aside right_column sidebar-offcanvas">
+            <span id="close-sidebar" class="fa fa-times"></span>
+            <div class="module">
+                <h3 class="modtitle"><span>Register Account </span></h3>
+                <div class="module-content custom-border">
+                    <ul class="list-box">
+
+                        <li><a href="{{url('login')}}">Login </a> / <a href="{{ route('register') }}">Register </a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
     </div>
 </div>
 <!-- //Main Container -->

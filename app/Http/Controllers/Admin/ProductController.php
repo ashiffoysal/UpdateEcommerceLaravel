@@ -161,26 +161,11 @@ class ProductController extends Controller
         $product->product_condition = $request->product_condition;
         $product->allow_product_measurement = $request->allow_product_measurement;
         $product->product_measurement = $request->product_measurement;
-        // if($request->allow_flash_deal){
-        //     $this->validate($request, [
-        //         'flash_deal_start_date' => 'required',
-        //         'flash_deal_end_date' => 'required',
-        //         'flash_deal_price' => 'required',
-        //     ]);
-        //     $product->flash_deal_start_date = $request->flash_deal_start_date;
-        //     $product->flash_deal_end_date = $request->flash_deal_end_date;
-        //     $product->flash_deal_type = $request->flash_deal_type;
-        //     $product->flash_deal_price = $request->flash_deal_price;
-        // }
-        //$product->allow_flash_deal = $request->allow_flash_deal;
-
         $product->product_description = $request->product_description;
         $product->buy_and_return_policy = $request->buy_and_return_policy;
         $product->shipping_time = $request->shipping_time;
         $product->meta_tag = $request->m_tag;
-
         $product->slug = $slug;
-
         $product->meta_description = $request->meta_description;
         $product->select_upload_type = $request->upload_type;
         $product->upload_link = $request->upload_link;
@@ -188,7 +173,6 @@ class ProductController extends Controller
         $product->affiliate_link = $request->affiliate_link;
         // upload file
         if ($request->hasFile('pdf')) {
-
             $product->upload_file = $request->file('pdf')->store('public/uploads/products/file/');
         }
         // main image
@@ -215,7 +199,6 @@ class ProductController extends Controller
             Image::make($image)->resize(120, 120)->save('public/uploads/products/thumbnail/smallthum/' . $ImageName);
             Image::make($image)->resize(600, 600)->save('public/uploads/products/thumbnail/productdetails/' . $ImageName);
             $product->thumbnail_img = $ImageName;
-
             Image::make($image)->resize(64, 64)->save('public/uploads/products/thumbnail/cartthum/' . $ImageName);
             $product->thumbnail_img = $ImageName;
         }
@@ -771,6 +754,8 @@ class ProductController extends Controller
     // update product
     public function update(Request $request, $id)
     {
+
+
       $proname=$request->product_name;
       $slug=preg_replace('/[^A-Za-z0-9-]+/', '-', $proname);
 
@@ -793,18 +778,11 @@ class ProductController extends Controller
         $product->resubcate_id = $request->resubcate_id;
         $product->brand = $request->brand;
         $product->product_qty = $request->product_qty;
-
         $product->slug = $slug;
-
         $product->allow_product_condition = $request->allow_product_condition;
         $product->product_condition = $request->product_condition;
         $product->allow_product_measurement = $request->allow_product_measurement;
         $product->product_measurement = $request->product_measurement;
-        // $product->allow_flash_deal = $request->allow_flash_deal;
-        // $product->flash_deal_start_date = $request->flash_deal_start_date;
-        // $product->flash_deal_end_date = $request->flash_deal_end_date;
-        // $product->flash_deal_type = $request->flash_deal_type;
-        // $product->flash_deal_price = $request->flash_deal_price;
         $product->product_description = $request->product_description;
         $product->buy_and_return_policy = $request->buy_and_return_policy;
         $product->shipping_time = $request->shipping_time;
@@ -821,20 +799,16 @@ class ProductController extends Controller
         // affiliate prodact edit field
         $product->affiliate_link = $request->affiliate_link;
         // affiliate prodact edit field
-
         // license product edit field
         $product->license_type = $request->license_type;
         //lincense product edit end
-
         if ($request->has('previous_photos')) {
             $photos = $request->previous_photos;
         } else {
             $photos = array();
         }
-
         if ($request->hasFile('photos')) {
             foreach ($request->photos as $key => $photo) {
-
                 $photoName = uniqid() . "." . $photo->getClientOriginalExtension();
                 $resizedPhoto = Image::make($photo)->resize(600, 600)->save($photoName);
                 Storage::disk('public')->put($photoName, $resizedPhoto);
@@ -847,7 +821,22 @@ class ProductController extends Controller
         }
         $product->photos = json_encode($photos);
         $product->thumbnail_img = $request->previous_thumbnail_img;
+        $oldimage=$request->old_img;
         if ($request->hasFile('thumbnail_img')) {
+            if($oldimage){
+            unlink('public/uploads/products/thumbnail/'.$oldimage);
+            unlink('public/uploads/products/thumbnail/smallthum/'.$oldimage);
+            unlink('public/uploads/products/thumbnail/cartthum/'.$oldimage);
+            unlink('public/uploads/products/thumbnail/productdetails/'.$oldimage);
+            $image = $request->file('thumbnail_img');
+            $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(270, 270)->save('public/uploads/products/thumbnail/' . $ImageName);
+            Image::make($image)->resize(120, 120)->save('public/uploads/products/thumbnail/smallthum/' . $ImageName);
+            Image::make($image)->resize(600, 600)->save('public/uploads/products/thumbnail/productdetails/' . $ImageName);
+            $product->thumbnail_img = $ImageName;
+            Image::make($image)->resize(64, 64)->save('public/uploads/products/thumbnail/cartthum/' . $ImageName);
+            $product->thumbnail_img = $ImageName;
+          }else{
             $image = $request->file('thumbnail_img');
             $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
             Image::make($image)->resize(270, 270)->save('public/uploads/products/thumbnail/' . $ImageName);
@@ -857,6 +846,8 @@ class ProductController extends Controller
 
             Image::make($image)->resize(64, 64)->save('public/uploads/products/thumbnail/cartthum/' . $ImageName);
             $product->thumbnail_img = $ImageName;
+          }
+
         }
 
         //combinations start

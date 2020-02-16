@@ -8,12 +8,13 @@
                     <li><a href="{{ route('login') }}">Login </a> / <a href="{{ route('register') }}"> Register </a></li>
                 @endguest
 
+                <li><a href="">My Account </a></li>
+                <li><a href="{{url('/product/wishlist')}}">Wish List </a></li>
+                <li><a href="{{url('/customer/order')}}">Order History </a></li>
+                <li><a href="{{route('customer.order.return')}}">Returns </a></li>
                 @auth
-                <li><a href="{{ route('customer.account') }}"> My Account </a></li>
-                <li><a href="wishlist.html">Wish List </a></li>
-                <li><a href="#">Order History </a></li>
-                <li><a href="#">Returns </a></li>
-                <li><a href="#">Reset Password </a></li>
+
+
                 <li>
                     <a onclick="
                         event.preventDefault();

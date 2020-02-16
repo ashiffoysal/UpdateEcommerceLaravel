@@ -86,10 +86,10 @@
                               </div>
                               <div class="col-sm-6 item_right text-right">
                                   <h3 class="mt-0">Invoice #{{$invoice->order_id}}</h3>
-                                  <div class="fs-13">Order Date: Issued March 19th, 2019</div>
+                                  <div class="fs-13">Order Date & Time: {{$invoice->created_at}}</div>
                                   <div class="fs-13">Total Amount: {{$invoice->total_price}} ৳</div>
                                   <div class="fs-13">Total Quanty: {{$invoice->total_quantity}}</div>
-                                  <div class="text-danger fs-13">Payment Date: April 21th, 2019</div>
+                                  <!-- <div class="text-danger fs-13">Payment Date: April 21th, 2019</div> -->
                                   <div class="fs-13">Payment Method: Paypal</div>
                                   <!-- <address class="fs-13 mt-3">
                                       <strong>Address</strong><br>
@@ -113,11 +113,11 @@
                                   </thead>
                                   <tbody>
                                     @php
-                                      $cartid=$invoice->cart_id;
-                                      $allproduct=App\OrderStorage::where('purchase_key',$cartid)->first();
+                                      $cartid=$invoice->order_id;
+                                      $allproduct=App\ProductStorage::where('order_id',$cartid)->first();
                                     @endphp
 
-                                      @foreach (json_decode($allproduct->cart_data) as $key => $data)
+                                      @foreach (json_decode($allproduct->product_details) as $key => $data)
                                       <tr>
                                           <td>
                                             <div>
@@ -126,7 +126,7 @@
                                           </td>
                                           <td>{{$data->quantity}}</td>
                                           <td>৳ {{$data->price}}</td>
-                                          <td>৳ 27,98 </td>
+                                          <td>৳ {{($data->price)*($data->quantity) }}</td>
                                       </tr>
                                     @endforeach
 
@@ -138,7 +138,7 @@
                               <div class="col-sm-6">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <strong>Sub - Total amount:</strong> $9265 </li>
+                                        <!-- <strong>Sub - Total amount:</strong> $9265 </li> -->
                                     <!-- <li>
                                         <strong>Discount:</strong> 12.9%
                                     </li> -->

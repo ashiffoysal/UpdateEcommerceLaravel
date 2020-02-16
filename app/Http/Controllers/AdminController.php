@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Hash;
+
+use App\Charts\UserChart;
 use App\Admin;
+use App\User;
+use App\OrderPlace;
 use Image;
 use DB;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -18,7 +23,20 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.home');
+      $month= Carbon::now()->format('m');
+      $users = OrderPlace::select(\DB::raw("SUM(total_quantity) as count"))
+                    ->groupBy(\DB::raw("month(created_at)"))
+                    ->pluck('count');
+
+
+      $chart = new UserChart;
+      $chart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
+      $chart->dataset('product Sell', 'line', $users)->options([
+          'fill' => 'true',
+          'borderColor' => '#51C1C0'
+      ]);
+
+        return view('admin.home',compact('chart'));
     }
 
     public function AdminProfile()
@@ -51,16 +69,16 @@ class AdminController extends Controller
                  $notification=array(
                      'messege'=>'Successfully Profile Updated ',
                      'alert-type'=>'success'
-                  );    
-             return Redirect()->back()->with($notification);         
+                  );
+             return Redirect()->back()->with($notification);
         }else{
             $bank=DB::table('admins')->where('id',$id)
                        ->update($data);
             $notification=array(
                  'messege'=>'Successfully Profile Updated ',
                  'alert-type'=>'success'
-                  );    
-             return Redirect()->back()->with($notification);  
+                  );
+             return Redirect()->back()->with($notification);
         }
     }
 
@@ -83,19 +101,19 @@ class AdminController extends Controller
                          $user=Admin::find(Auth::id());
                          $user->password=Hash::make($request->password);
                          $user->save();
-                         Auth::logout();  
+                         Auth::logout();
                          $notification=array(
                            'messege'=>'Password Changed Successfully ! Now Login with Your New Password',
                            'alert-type'=>'success'
                             );
-                          return Redirect()->route('admin.login')->with($notification); 
+                          return Redirect()->route('admin.login')->with($notification);
                     }else{
                         $notification=array(
                            'messege'=>'New password and Confirm Password not matched!',
                            'alert-type'=>'error'
                             );
                           return Redirect()->back()->with($notification);
-                    }     
+                    }
          }else{
            $notification=array(
                    'messege'=>'Old Password not matched!',
@@ -130,19 +148,19 @@ class AdminController extends Controller
 
     public function AdminLogOut()
     {
-          Auth::logout();  
+          Auth::logout();
          $notification=array(
            'messege'=>'Profile Logout',
            'alert-type'=>'success'
             );
-          return Redirect()->route('admin.login')->with($notification); 
+          return Redirect()->route('admin.login')->with($notification);
     }
 
 
     // flash deal area start
     public function flashDealShow()
     {
-      
+
     }
 
 }
