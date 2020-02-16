@@ -228,11 +228,11 @@
 
 
 
-
+                    <form id="option-choice-form">
 
                                 <div class="product_page_price price" itemscope=""
                                     itemtype="http://data-vocabulary.org/Offer">
-                                    <input type="hidden" id="product_chosen_price" value="" name="">
+                                    
                                     <span class="price-new"><span id="chosen_price"> ‎৳ {{$productdetails->product_price}}</span></span>
 
 
@@ -266,6 +266,7 @@
                                         <div id="product">
                                         <div class="form-group required " style="display: block; margin-left:17px"> 
                                             <input type="hidden" name="id" value="{{$productdetails->id}}">
+                                            <input type="hidden" name="product_id" value="{{$productdetails->id}}">
                                             @if (count(json_decode($productdetails->colors)) > 0)
                                             <ul class="list-inline checkbox-color mb-1">
                                             <li><strong>Color: &nbsp;<strong> </li>
@@ -369,8 +370,7 @@
                                                     style="user-select: none;">
                                                     <input class="form-control" type="number" id="quantity"
                                                         name="quantity" value="1">
-                                                    <input type="text" name="product_id"
-                                                        value="{{$productdetails->id}}">
+                                                    
                                                     <span
                                                         class="input-group-addon product_quantity_down fa fa-caret-down"></span>
                                                     <span
@@ -379,7 +379,7 @@
                                             </div>
                                             <div class="cart">
                                                 <div class="product_page_price price" id="chosen_price_div">
-                                                    <input type="text" id="product_chosen_price"
+                                                    <input type="hidden" id="product_chosen_price"
                                                         value="{{$productdetails->product_price}}" name="product_price">
                                                     <input type="button" id="addtocart" value="Add to Cart"
                                                         class="addToCart btn btn-mega btn-lg " data-toggle="tooltip"
@@ -848,7 +848,6 @@
                 url: '{{ route('products.variant_price')}}',
                 data: $('#option-choice-form').serializeArray(),
                 success: function (data) {
-                    //console.log(data.price);
                     // $('#option-choice-form #chosen_price_div').removeClass('d-none');
                     // $('#option-choice-form #chosen_price_div #chosen_price').html(data.price);
                     $('#chosen_price').html('৳ ' + data.price);
@@ -864,7 +863,7 @@
     $(document).ready(function () {
         $('#addtocart').on('click', function () {
 
-
+            
             $.ajax({
                 type: 'GET',
                 url: "{{ route('product.add.cart') }}",

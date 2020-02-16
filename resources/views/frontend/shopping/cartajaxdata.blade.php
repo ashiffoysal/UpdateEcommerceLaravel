@@ -45,8 +45,8 @@
                                 <button type="submit" onclick="cartDatadelete(this)" data-toggle="tooltip" title="" class="btn btn-danger" value="{{$usercartdata->id}}" data-original-title="Remove"><i class="fa fa-times-circle"></i></button>
                             </span></div>
                     </td>
-                    <td class="text-right">${{$usercartdata->price}}</td>
-                    <td class="text-right" id="carttotalpric">{{$usercartdata->quantity *$usercartdata->price}}</td>
+                    <td class="text-right">৳ {{$usercartdata->price}}</td>
+                    <td class="text-right" id="carttotalpric">৳ {{$usercartdata->quantity *$usercartdata->price}}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -61,7 +61,7 @@
                 <tbody>
                     <tr>
                         <td class="text-right"><strong>Sub-Total:</strong></td>
-                        <td class="text-right product_price">$ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</td>
+                        <td class="text-right product_price">৳ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</td>
                     </tr>
                     <tr>
                         <td class="text-right"><strong>Quentity:</strong></td>
@@ -69,7 +69,7 @@
                     </tr>
                     <tr>
                         <td class="text-right"><strong>Total:</strong></td>
-                        <td class="text-right"><span class="product_price">${{Cart::session(\Request::getClientIp(true))->getTotal()}}</span></td>
+                        <td class="text-right"><span class="product_price">৳ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</span></td>
                     </tr>
                 </tbody>
             </table>

@@ -86,6 +86,11 @@ $seo=DB::table('seo')->first();
                     break;
             }
         @endif
+
+
+        @if(Session::has('alertmessege'))
+            toastr.warning("{{ Session::get('alertmessege') }}");
+        @endif
 </script>
 
 
