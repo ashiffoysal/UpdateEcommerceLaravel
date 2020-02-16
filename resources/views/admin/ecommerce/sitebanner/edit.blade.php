@@ -44,7 +44,7 @@
 					@if($data->category_id == NULL)
 
 					@else
-					<div class="form-group row catebox" id="catebox" @if($data->section==2 || $data->section==3 || $data->section==4) @else style="display:none" @endif>
+					<div class="form-group row catebox" id="catebox" @if($data->section==2 || $data->section==3 || $data->section==4 || $data->section==11) @else style="display:none" @endif>
 						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Catgeory</label>
 						<div class="col-sm-8">
 							@php

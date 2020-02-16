@@ -53,7 +53,7 @@
                                 $bottomimage=App\Banner::where('is_deleted',0)->limit(2)->inRandomOrder()->get();
                                 @endphp
                                 @foreach($bottomimage as $key => $banbottom)
-                                <div class="item-{{++$key}} col-lg-6 col-md-6 col-sm-6 banners">
+                                <div class="item-1 col-lg-6 col-md-6 col-sm-6 banners">
                                     <div>
                                         <a title="Static Image" href="#"><img src="{{asset('public/uploads/banner/'.$banbottom->bottom_image)}}" alt="Bottom Image"></a>
                                     </div>
@@ -91,6 +91,7 @@
                 </div>
             </div>
         </section>
+        @if($hotdeals)
         <section id="hot" class="section-style">
             <div class="container page-builder-ltr">
                 <div class="row row-style row_a1">
@@ -190,6 +191,8 @@
                 </div>
             </div>
         </section>
+        @else
+        @endif
         <!-- first category -->
         @php
         $cate=App\Category::where('section_id',1)->where('is_deleted',0)->orderBy('id','DESC')->get();
@@ -228,7 +231,7 @@
                                                     <!-- grid -->
                                                     @php
                                                     $cate_id=$maincate->id;
-                                                    $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->limit(4)->get();
+                                                    $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->where('status',1)->limit(4)->get();
                                                     @endphp
                                                     @foreach($products as $product)
 
@@ -343,7 +346,7 @@
                                                     @endforeach
                                                     @php
                                                     $cate_id=$maincate->id;
-                                                    $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(4)->limit(4)->get();
+                                                    $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(4)->where('status',1)->limit(4)->get();
                                                     @endphp
                                                     @foreach($products as $product)
                                                     <div class="ltabs-item col-md-3">
@@ -550,7 +553,7 @@
                                                         <div class="ltabs-item">
                                                             @php
                                                             $cate_id=$catename->id;
-                                                            $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->limit(2)->get();
+                                                            $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->where('status',1)->limit(2)->get();
                                                             @endphp
                                                             @foreach($products
                                                             as $product)
@@ -678,7 +681,7 @@
                                                         <div class="ltabs-item">
                                                             @php
                                                             $cate_id=$catename->id;
-                                                            $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(2)->limit(2)->get();
+                                                            $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(2)->where('status',1)->limit(2)->get();
                                                             @endphp
                                                             @foreach($products
                                                             as $product)
@@ -812,7 +815,7 @@
                                                         <div class="ltabs-item">
                                                             @php
                                                             $cate_id=$catename->id;
-                                                            $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(4)->limit(2)->get();
+                                                            $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(4)->where('status',1)->limit(2)->get();
                                                             @endphp
                                                             @foreach($products
                                                             as $product)
@@ -1038,7 +1041,7 @@
                                                         <div class="ltabs-item col-md-4">
                                                             @php
                                                             $catego=$catesection->id;
-                                                            $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->limit(2)->get();
+                                                            $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->where('status',1)->limit(2)->get();
                                                             @endphp
                                                             @foreach($pro as $product)
 
@@ -1167,7 +1170,7 @@
                                                         <div class="ltabs-item col-md-4">
                                                             @php
                                                             $catego=$catesection->id;
-                                                            $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->skip(2)->limit(2)->get();
+                                                            $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->skip(2)->where('status',1)->limit(2)->get();
                                                             @endphp
                                                              @foreach($pro as $product)
                                                              <div class="item-inner
@@ -1293,7 +1296,7 @@
                                                         </div>
                                                         <div class="ltabs-item col-md-4">
                                                             @php $catego=$catesection->id;
-                                                            $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->limit(2)->skip(4)->get();
+                                                            $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->limit(2)->where('status',1)->skip(4)->get();
                                                             @endphp
                                                             @foreach($pro as $product)
                                                             <div class="item-inner
@@ -1480,7 +1483,7 @@
                                                         <!-- grid -->
                                                         @php
                                                         $category_id=$catefour->id;
-                                                        $products=App\Product::where('is_deleted',0)->where('cate_id',$category_id)->orderBy('id','DESC')->limit(4)->get();
+                                                        $products=App\Product::where('is_deleted',0)->where('cate_id',$category_id)->orderBy('id','DESC')->where('status',1)->limit(4)->get();
                                                         @endphp
                                                         @foreach($products as $product)
                                                         <!-- Qayum Hasan -->
@@ -1652,7 +1655,7 @@
                                             <div class="item-wrap product-layout style1 ">
                                                 @php
                                                 $cate_id=$cate->id;
-                                                $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->limit(3)->get();
+                                                $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->where('status',1)->orderBy('id','DESC')->limit(3)->get();
                                                 @endphp
                                                 @foreach($products as $product)
                                                 <div class="item-wrap-inner product-item-container">
@@ -1749,7 +1752,7 @@
                                             <div class="item-wrap product-layout style1 ">
                                                 @php
                                                 $cate_id=$cate->id;
-                                                $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(3)->limit(3)->get();
+                                                $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->where('status',1)->orderBy('id','DESC')->skip(3)->limit(3)->get();
                                                 @endphp
                                                 @foreach($products as $product)
 
@@ -1881,9 +1884,11 @@
 
         }
     </script>
-
+@if($hotdeals)
     <script>
+
         $(function() {
+
             $('.Countdown-1').countdown('{{ $hotdeals->end_date }}', function(event) {
                 $(this).html(event.strftime('' + '<div class="time-item time-day"><div class="num-time">%D</div><div class="name-time"> D </div></div>' +
                     '<div class="time-item time-hour"><div class="num-time">%H</div><div class="name-time">H</div></div>' +
@@ -1892,6 +1897,8 @@
             });
         });
     </script>
+@else
+@endif
 
 
     @endsection

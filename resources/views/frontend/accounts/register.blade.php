@@ -85,20 +85,7 @@
                 <div class="module-content custom-border">
                     <ul class="list-box">
 
-                        <li><a href="login.html">Login </a> / <a href="{{ route('register') }}">Register </a></li>
-                        <li><a href="#">Forgotten Password </a></li>
-
-                        <li><a href="#">My Account </a></li>
-
-                        <li><a href="#">Address Book </a></li>
-                        <li><a href="wishlist.html">Wish List </a></li>
-                        <li><a href="#">Order History </a></li>
-                        <li><a href="#">Downloads </a></li>
-                        <li><a href="#">Recurring payments </a></li>
-                        <li><a href="#">Reward Points </a></li>
-                        <li><a href="#">Returns </a></li>
-                        <li><a href="#">Transactions </a></li>
-                        <li><a href="#">Newsletter </a></li>
+                        <li><a href="{{url('login')}}">Login </a> / <a href="{{ route('register') }}">Register </a></li>
 
                     </ul>
                 </div>

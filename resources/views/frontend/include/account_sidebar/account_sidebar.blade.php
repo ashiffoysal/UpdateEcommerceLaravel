@@ -8,11 +8,10 @@
                 @guest
                 <li><a href="login.html">Login </a> / <a href="register.html"> Register </a></li>
                 @endguest
-                <li><a href="#">My Account </a></li>
-                <li><a href="wishlist.html">Wish List </a></li>
-                <li><a href="#">Order History </a></li>
-                <li><a href="#">Returns </a></li>
-                <li><a href="#">Reset Password </a></li>
+                <li><a href="">My Account </a></li>
+                <li><a href="{{url('/product/wishlist')}}">Wish List </a></li>
+                <li><a href="{{url('/customer/order')}}">Order History </a></li>
+                <li><a href="{{route('customer.order.return')}}">Returns </a></li>
                 @auth
 
                 <li>
