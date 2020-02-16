@@ -8,6 +8,7 @@
    <meta property="og:tag"           content="{{$productdetails->meta_tag}}"/>
    <meta property="og:image"         content="{{asset('public/uploads/products/thumbnail_img/'.$productdetails->thumbnail_img)}}" />
 @endsection
+<link href="{{asset('public/frontend/css/product.css')}}" rel="stylesheet">
 <style>
     #product .radio-type-button .option-content-box :hover {
         background: #ff5e00;
@@ -15,6 +16,10 @@
         color: white;
         padding: 5px;
     }
+    .checkbox-alphanumeric input:checked ~ label {
+            transform: scale(1.1);
+            border: 1px solid red;
+        }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- Main Container  -->
@@ -213,8 +218,21 @@
                                         onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">Write a
                                         review</a>
                                 </div>
+
+
+
+
+
+
+
+
+
+
+                    <form id="option-choice-form">
+
                                 <div class="product_page_price price" itemscope=""
                                     itemtype="http://data-vocabulary.org/Offer">
+                                    
                                     <span class="price-new"><span id="chosen_price"> ‎৳ {{$productdetails->product_price}}</span></span>
 
 
@@ -236,67 +254,111 @@
                                             @endif
                                         </div>
                                         @if($productdetails->product_type==1)
-                                        <!--variation start-->
+                                    <!--variation start-->
+
+
+
+
+
+
 
                                         <div class="col-md-12">
-                                            <div id="product">
-                                                <div class="form-group required "
-                                                    style="display: block; margin-left:17px">
-                                                    <span>Color:</span>
-                                                    <input type="hidden" name="id" value="{{$productdetails->id}}">
-                                                    @if (count(json_decode($productdetails->colors)) > 0)
-                                                    @foreach (json_decode($productdetails->colors) as $key => $color)
-                                                    <div class="radio  radio-type-button">
-                                                        <label>
-                                                            <input type="radio"
-                                                                id="{{ $productdetails->id }}-color-{{ $key }}"
-                                                                name="color" value="{{ $color }}" @if($key==0) checked
-                                                                @endif>
-                                                            <span class="option-content-box active"
-                                                                data-title="M +$12.00" data-toggle="tooltip"
-                                                                data-original-title="" title=""
-                                                                style="background:{{ $color }};">
-                                                                <span class="option-name"> </span>
-                                                            </span>
-                                                        </label>
-                                                    </div>
-                                                    @endforeach
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            @foreach (json_decode($productdetails->choice_options) as $key => $choice)
-                                            <div class="col-md-12">
-                                                <div id="product">
-                                                    <div class="form-group required " style="display: block;">
-                                                        <label class="control-label">{{ $choice->title }}:</label>
-                                                        <div id="input-option224">
-                                                            @foreach ($choice->options as $key => $option)
-                                                            <div class="radio  radio-type-button">
-                                                                <label>
-                                                                    <input type="radio"
-                                                                        id="{{ $choice->name }}-{{ $option }}"
-                                                                        name="{{ $choice->name }}" value="{{ $option }}"
-                                                                        @if($key==0) checked @endif>
-                                                                    <span class="option-content-box active"
-                                                                        data-title="M +$12.00" data-toggle="tooltip"
-                                                                        data-original-title="" title=""
-                                                                        style="background: none;">
-                                                                        <span class="option-name">{{ $option }} </span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div id="product">
+                                        <div class="form-group required " style="display: block; margin-left:17px"> 
+                                            <input type="hidden" name="id" value="{{$productdetails->id}}">
+                                            <input type="hidden" name="product_id" value="{{$productdetails->id}}">
+                                            @if (count(json_decode($productdetails->colors)) > 0)
+                                            <ul class="list-inline checkbox-color mb-1">
+                                            <li><strong>Color: &nbsp;<strong> </li>
+                                            @foreach (json_decode($productdetails->colors) as $key => $color)
+                                            <li>
+                                                <input type="radio" id="{{ $productdetails->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key==0) checked @endif>
+                                                <label style="background: {{ $color }};" for="{{ $productdetails->id }}-color-{{ $key }}" data-toggle="tooltip" data-original-title="{{$color}}"></label>
+
+                                            </li>
                                             @endforeach
+                                            </ul>
+
+
+                                         
+                                            @endif
                                         </div>
-                                        <!-- variation end -->
-                                        @else
-                                        @endif
-                                    </div>
+                                        </div>
+
+
+
+
+
+
+
+
+
+                                        
+
+                                        @foreach (json_decode($productdetails->choice_options) as $key => $choice)
+
+
+                                        <div class="col-md-12">
+                                        <div id="product">
+
+
+
+
+
+									<div class="form-group required " style="display: block;">
+										<div id="input-option224">
+
+                                        
+                                        <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
+                                            <li>{{ $choice->title }}:</li>
+                                            @foreach ($choice->options as $key => $option)
+                                            <li>
+                                                <input type="radio" id="{{ $choice->name }}-{{ $option }}" name="{{ $choice->name }}" value="{{ $option }}" @if($key==0) checked @endif>
+                                                <label for="{{ $choice->name }}-{{ $option }}">{{ $option }}</label>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+
+
+                                        
+
+										</div>
+									</div>
+
                                 </div>
+
+
+
+
+                                        </div>
+                                        @endforeach
+                                    </div>
+
+                                    <!-- variation end -->
+                                    @else
+
+                                    @endif
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 <div class="short_description form-group">
                                     <h3>OverView</h3>
                                 </div>
@@ -308,8 +370,7 @@
                                                     style="user-select: none;">
                                                     <input class="form-control" type="number" id="quantity"
                                                         name="quantity" value="1">
-                                                    <input type="hidden" name="product_id"
-                                                        value="{{$productdetails->id}}">
+                                                    
                                                     <span
                                                         class="input-group-addon product_quantity_down fa fa-caret-down"></span>
                                                     <span
@@ -787,7 +848,6 @@
                 url: '{{ route('products.variant_price')}}',
                 data: $('#option-choice-form').serializeArray(),
                 success: function (data) {
-                    //console.log(data.price);
                     // $('#option-choice-form #chosen_price_div').removeClass('d-none');
                     // $('#option-choice-form #chosen_price_div #chosen_price').html(data.price);
                     $('#chosen_price').html('৳ ' + data.price);
@@ -803,7 +863,7 @@
     $(document).ready(function () {
         $('#addtocart').on('click', function () {
 
-
+            
             $.ajax({
                 type: 'GET',
                 url: "{{ route('product.add.cart') }}",

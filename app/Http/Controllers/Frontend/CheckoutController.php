@@ -33,18 +33,23 @@ class CheckoutController extends Controller
 
     public function checkoutshow()
     {
-        if (Auth::check()) {
-            $order_id = rand(100, 100000);
-            $useraddress = UserAddress::where('user_id', Auth::user()->id)->first();
-            $upazilaCourier = "";
-            if (Auth::user()->updazila_id) {
-                $upazilaCourier = UpozilaCouriers::where('upazila_id', Auth::user()->upazila_id)->get();
-            }
-            return view('frontend.shopping.checkout', compact('order_id', 'useraddress', 'upazilaCourier'));
-        } else {
 
-            return view('frontend.accounts.checkout_login');
+        $userid =  \Request::getClientIp(true);
+        $cartdata = Cart::session($userid)->getContent();
+        if(count($cartdata) >0){
+            if (Auth::check()) {
+                $order_id = rand(100, 100000);
+                $useraddress = UserAddress::where('user_id', Auth::user()->id)->first();
+                return view('frontend.shopping.checkout', compact('order_id', 'useraddress'));
+            } else {
+    
+                return view('frontend.accounts.checkout_login');
+            }
+        }else{
+            return redirect('/')->with('alertmessege','Please add some product');
+
         }
+       
     }
 
     // Show Checkout Login form
@@ -97,7 +102,7 @@ class CheckoutController extends Controller
                     if ($cuponminimum <= $carttotal) {
 
 
-                        if ($cupondiscounttype == 2) {
+                        if ($cupondiscounttype == 1) {
 
                             $condition = new \Darryldecode\Cart\CartCondition(array(
                                 'name' => 'Minimum_shopping',
@@ -123,11 +128,14 @@ class CheckoutController extends Controller
                         ]);
                         $cuponinfo = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount;
                         return response()->json([
-                            'cuponid' => $cuponuser->id,
-                            'cuponalert' => $cuponinfo,
+                            'cuponalert' => "Cupon insert successfully!",
                         ]);
                     } else {
-                        return "Your minimum purchese is less than minimum shopping criteria";
+                        return response()->json([
+                            
+                            'cuponalert' => "Your minimum purchese is less than minimum shopping criteria!",
+                        ]);
+                        
                     }
                 } else {
                     $userid =  \Request::getClientIp(true);
@@ -145,7 +153,7 @@ class CheckoutController extends Controller
                             if ($cartdata->attributes->product_id == $cuponminproduct) {
 
 
-                                if ($cupondiscounttype == 2) {
+                                if ($cupondiscounttype == 1) {
                                     $condition = new \Darryldecode\Cart\CartCondition(array(
                                         'name' => 'Percentage',
                                         'type' => 'coupon',
@@ -153,7 +161,7 @@ class CheckoutController extends Controller
                                         'value' => -$cupondiscounts,
                                     ));
                                     Cart::session($userid)->condition($condition);
-                                    UserUsedCupon::insert([
+                                    $insertcupon =UserUsedCupon::insertGetId([
                                         'user_ip' => Auth::user()->id,
                                         'cupon_id' => $cuponuser->id,
                                         'order_id' => $request->order,
@@ -166,7 +174,7 @@ class CheckoutController extends Controller
                                         Cart::update($cartdata->id, array(
                                             'price' => $cartdata->price - $cartdata->price * $cupondiscounts / 100,
                                         ));
-                                        UserUsedCupon::insert([
+                                        $insertcupon =UserUsedCupon::insertGetId([
                                             'user_ip' => Auth::user()->id,
                                             'cupon_id' => $cuponuser->id,
                                             'order_id' => $request->order,
@@ -183,11 +191,26 @@ class CheckoutController extends Controller
 
                 }
             } else {
-                return "You are alrady used this cupon";
+                return response()->json([
+                    'cuponalert' => "You are alrady used this cupon",
+                ]);
             }
 
         } else {
-            return "No Cupon Available On this code.";
+            
+            return response()->json([
+                'cuponalert' => "No Cupon Available On this code.",
+            ]);
+        }
+
+        if(isset($insertcupon)){
+            return response()->json([
+                'cuponalert' => "Cupon insert successfully!",
+            ]);
+        }else{
+            return response()->json([
+                'cuponalert' => "Cupon is not applicable for this Product!",
+            ]);
         }
     }
 
@@ -196,6 +219,8 @@ class CheckoutController extends Controller
     public function orderSubmit(Request $request)
     {
 
+        
+        
         $validatedData = $request->validate([
             'user_id' => 'required',
             'user_address' => 'required',
@@ -207,8 +232,8 @@ class CheckoutController extends Controller
             'user_upazila_id' => 'required',
             'shipping_id' => 'required',
             'payment_method_id' => 'required',
-
-
+            'privacy' => 'accepted',
+            'agree' => 'accepted',
         ]);
 
         $usseraddress_id = UserAddress::insertGetId([
@@ -230,7 +255,7 @@ class CheckoutController extends Controller
                 'shipping_name' => 'required',
                 'shipping_name' => 'required',
                 'shipping_phone' => 'required',
-                'shipping_address' => 'required',
+                'shipping_customer_address' => 'required',
                 'shipping_post_office' => 'required',
                 'shipping_postcode' => 'required',
                 'shipping_country_id' => 'required',
@@ -564,7 +589,9 @@ class CheckoutController extends Controller
        $userusedcupon =UserUsedCupon::where('order_id',$oderid)->where('user_ip',Auth::user()->id)->first();
 
        $cupon =Cupon::findOrFail($userusedcupon->cupon_id);
+
       if($cupon->cupon_type == 1){
+
 
         $cupondatavalue ='৳ '. $cupon->discount;
       }else{

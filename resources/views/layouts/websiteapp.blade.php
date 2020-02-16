@@ -11,8 +11,8 @@ $seo=DB::table('seo')->first();
 	<meta name="author" content="{{$seo->meta_author}}">
 	<meta name="robots" content="index, follow"/>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	{{$seo->google_verification}}
-	{{$seo->bing_verification}}
+	<!-- {{$seo->google_verification}}
+	{{$seo->bing_verification}} -->
 	@yield('meta')
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="robots" content="index, follow" />
@@ -85,6 +85,11 @@ $seo=DB::table('seo')->first();
                             toastr.error("{{ Session::get('messege') }}");
                     break;
             }
+        @endif
+
+
+        @if(Session::has('alertmessege'))
+            toastr.warning("{{ Session::get('alertmessege') }}");
         @endif
 </script>
 
