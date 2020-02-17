@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\AboutUs' => $baseDir . '/app/AboutUs.php',
+    'App\\Activation' => $baseDir . '/app/Activation.php',
     'App\\AddToCart' => $baseDir . '/app/AddToCart.php',
     'App\\Admin' => $baseDir . '/app/Admin.php',
     'App\\Banner' => $baseDir . '/app/Banner.php',
@@ -117,7 +118,11 @@ return array(
     'App\\ReSubCategory' => $baseDir . '/app/ReSubCategory.php',
     'App\\ShippingAddress' => $baseDir . '/app/ShippingAddress.php',
     'App\\SiteBanner' => $baseDir . '/app/SiteBanner.php',
+
+    'App\\SocialMediaLogin' => $baseDir . '/app/SocialMediaLogin.php',
+
     'App\\SmsModel' => $baseDir . '/app/SmsModel.php',
+
     'App\\SubCategory' => $baseDir . '/app/SubCategory.php',
     'App\\Subscriber' => $baseDir . '/app/Subscriber.php',
     'App\\Support' => $baseDir . '/app/Support.php',

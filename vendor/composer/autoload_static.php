@@ -486,6 +486,7 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
 
     public static $classMap = array (
         'App\\AboutUs' => __DIR__ . '/../..' . '/app/AboutUs.php',
+        'App\\Activation' => __DIR__ . '/../..' . '/app/Activation.php',
         'App\\AddToCart' => __DIR__ . '/../..' . '/app/AddToCart.php',
         'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\Banner' => __DIR__ . '/../..' . '/app/Banner.php',
@@ -596,7 +597,11 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\ReSubCategory' => __DIR__ . '/../..' . '/app/ReSubCategory.php',
         'App\\ShippingAddress' => __DIR__ . '/../..' . '/app/ShippingAddress.php',
         'App\\SiteBanner' => __DIR__ . '/../..' . '/app/SiteBanner.php',
+
+        'App\\SocialMediaLogin' => __DIR__ . '/../..' . '/app/SocialMediaLogin.php',
+
         'App\\SmsModel' => __DIR__ . '/../..' . '/app/SmsModel.php',
+
         'App\\SubCategory' => __DIR__ . '/../..' . '/app/SubCategory.php',
         'App\\Subscriber' => __DIR__ . '/../..' . '/app/Subscriber.php',
         'App\\Support' => __DIR__ . '/../..' . '/app/Support.php',

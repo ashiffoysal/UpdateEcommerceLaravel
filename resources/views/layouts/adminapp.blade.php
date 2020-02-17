@@ -380,12 +380,15 @@ $logo=DB::table('logos')->first();
                             <span class="menu-text">Settings</span>
                         </a>
                         <ul class="dashboard-menu">
+                            <li><a href="{{ route('admin.activation') }}">Activation</a></li>
                             <li><a href="{{ route('admin.seo.setting') }}">SEO Setting</a></li>
                             <li><a href="{{ route('admin.social.setting') }}">Company Information</a></li>
                             <li><a href="#">Database Backup</a></li>
                             <li><a href="{{ route('admin.logo.setting') }}">Logo Setting</a></li>
                             <li><a href="{{ route('admin.mail.setting') }}">Mail & SMS Setting</a></li>
                             <li><a href="{{ route('admin.payment.gateway') }}">Payment Gateway</a></li>
+                            <li><a href="{{ url('admin/smtp/setup') }}">Smtp Setup</a></li>
+                            <li><a href="{{ route('admin.sociallogin') }}">Social Login</a></li>
                             <li><a href="{{ route('theme.selector.show') }}">Theme Option</a></li>
                             <li><a href="{{ route('admin.footer.option') }}">Footer Option</a></li>
                         </ul>

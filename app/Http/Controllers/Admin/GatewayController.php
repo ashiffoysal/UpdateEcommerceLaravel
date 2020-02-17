@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use App\SocialMediaLogin;
+use Carbon\Carbon;
 class GatewayController extends Controller
 {
      public function __construct()
@@ -14,64 +16,78 @@ class GatewayController extends Controller
 
     public function PaymentGateway()
     {
-    	$payment=DB::table('gateway')->first();
-    	return view('admin.setting.gateway',compact('payment'));
+    	return view('admin.setting.gateway');
     }
 
-    public function StripeUpdate(Request $request)
+    public function update(Request $request){
+        $id=$request->id;
+        $update=DB::table('gateway')->where('id',$id)->update([
+          'client_id'=>$request['client_id'],
+          'secret_id'=>$request['secret_id'],
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+        ]);
+        if($update){
+          $notification=array(
+              'messege'=>'Gateway Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else {
+          $notification=array(
+              'messege'=>'Gateway Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+    }
+//
+    public function sociallogin()
     {
-          $id=$request->id;
-          $data=array();
-          $data['str_publish_key']=$request->str_publish_key;
-          $data['str_secret_key']=$request->str_secret_key;
-         DB::table('gateway')->where('id',$id)->update($data);
-         $notification=array(
-                         'messege'=>'Successfully  Updated',
-                         'alert-type'=>'success'
-          );
-       return Redirect()->back()->with($notification);  
+    	 return view('admin.setting.social');
     }
 
-    public function PaypalUpdate(Request $request)
+
+    // smtp
+    public function smtp()
     {
-          $id=$request->id;
-          $data=array();
-          $data['pay_client_id']=$request->pay_client_id;
-          $data['pay_secret_key']=$request->pay_secret_key;
-         DB::table('gateway')->where('id',$id)->update($data);
-         $notification=array(
-                         'messege'=>'Successfully  Updated',
-                         'alert-type'=>'success'
-          );
-       return Redirect()->back()->with($notification);  
+    	 return view('admin.setting.smtp');
     }
 
-    public function twocheckoutUpdate(Request $request)
-    {
-          $id=$request->id;
-          $data=array();
-          $data['twocheck_publish_key']=$request->twocheck_publish_key;
-          $data['twocheck_secret_key']=$request->twocheck_secret_key;
-         DB::table('gateway')->where('id',$id)->update($data);
-         $notification=array(
-                         'messege'=>'Successfully  Updated',
-                         'alert-type'=>'success'
-          );
-       return Redirect()->back()->with($notification);  
+
+
+
+    public function socialloginupdate(Request $request){
+
+      foreach ($request->types as $key => $type) {
+                $this->overWriteEnvFile($type, $request[$type]);
+        }
+        return back();
     }
 
-    public function MollieUpdate(Request $request)
+    public function overWriteEnvFile($type, $val)
     {
-          $id=$request->id;
-          $data=array();
-          $data['mol_secret_key']=$request->mol_secret_key;
-          $data['mol_publish_key']=$request->mol_publish_key;
-         DB::table('gateway')->where('id',$id)->update($data);
-         $notification=array(
-                         'messege'=>'Successfully  Updated',
-                         'alert-type'=>'success'
-          );
-       return Redirect()->back()->with($notification);  
+        $path = base_path('.env');
+        if (file_exists($path)) {
+            $val = '"'.trim($val).'"';
+            if(strpos(file_get_contents($path), $type) >= 0){
+                file_put_contents($path, str_replace(
+                    $type.'="'.env($type).'"', $type.'='.$val, file_get_contents($path)
+                ));
+            }
+            else{
+                file_put_contents($path, file_get_contents($path).$type.'='.$val);
+            }
+      }
+
+    }
+
+
+    public function activation(){
+      return view('admin.activation.all');
+    }
+    //
+    public function fbupdate($id){
+      return $id;
     }
 
 
