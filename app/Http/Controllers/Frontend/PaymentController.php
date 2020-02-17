@@ -7,11 +7,15 @@ use Throwable;
 use Stripe\Charge;
 use Stripe\Stripe;
 use App\OrderPlace;
+use App\UserAddress;
 use App\PaymentDetail;
+use App\ProductStorage;
 use Illuminate\Http\Request;
 use App\Mail\PaymentSuccessMail;
+use Illuminate\Support\Facades\DB;
 use Stripe\Exception\CardException;
 use App\Http\Controllers\Controller;
+use App\ShippingAddress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -29,6 +33,165 @@ class PaymentController extends Controller
     public function successStripePaymentView()
     {
         return view('frontend.payment.stripe_success_payment_page');
+    }
+
+    public function redirectToCheckout(Request $request)
+    {
+    }
+
+    public function paymentPage($paymentSecureId)
+    {
+        $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $paymentSecureId)->first();
+        abort_if(!$orderPlace, 403);
+        $orderProducts = ProductStorage::where('order_id', $orderPlace->order_id)->first();
+        $address = '';
+        $shippingAddress = ShippingAddress::where('order_id', $orderPlace->order_id)
+                            ->where('shipping_user_id', Auth::user()->id)
+                            ->select('shipping_address')
+                            ->first();
+        if ($shippingAddress) {
+            $address = $shippingAddress->shipping_address;
+        }else{
+            $userAddress = UserAddress::where('user_id', Auth::user()->id)->select('user_address')->first();
+            $address = $userAddress->user_address;
+        }
+        return view('frontend.shopping.order_payment', compact('orderPlace', 'orderProducts', 'address'));
+    }
+
+    public function makePayment(Request $request)
+    {
+
+        if (!$request->payment_method_id) {
+            $notification = array(
+                'messege' => 'Select a payment method',
+                'alert-type' => 'warning'
+            );
+            return redirect()->back()->with($notification);
+        }
+        $getOrderInfo = OrderPlace::where('user_id', Auth::user()->id)
+            ->where('order_id', $request->order_id)
+            ->where('payment_secure_id', $request->payment_secure_id)
+            ->firstOrFail();
+
+        $userAddress = UserAddress::where('user_id', Auth::user()->id)->first();
+        $shippingAddress = ShippingAddress::where('shipping_user_id', Auth::user()->id)->where('order_id', $request->order_id)->first();
+
+        if ($request->payment_method_id == 2) {
+            return redirect()->route('stripe.index', $getOrderInfo->payment_secure_id);
+        } elseif ($request->payment_method_id == 3) {
+            return redirect()->route('payment.paypal');
+        } elseif ($request->payment_method_id == 4) {
+            /* PHP */
+            $post_data = array();
+            $post_data['store_id'] = env('SSLCOMMERZ_STORE_ID');
+            $post_data['store_passwd'] = env('SSLCOMMERZ_STORE_PASSWORD');
+            $post_data['total_amount'] = $getOrderInfo->total_price;
+            $post_data['currency'] = "BDT";
+            // $post_data['tran_id'] = "SSLCZ_TEST_" . uniqid();
+            $post_data['tran_id'] = $getOrderInfo->order_id;
+            $post_data['success_url'] = url('payment/ssl_commercez/success');
+            $post_data['fail_url'] = url('payment/ssl_commercez/fail');
+            $post_data['cancel_url'] = url('payment/ssl_commercez/cancel');
+            # $post_data['multi_card_name'] = "mastercard,visacard,amexcard";  # DISABLE TO DISPLAY ALL AVAILABLE
+
+            # EMI INFO
+            // $post_data['emi_option'] = "1";
+            // $post_data['emi_max_inst_option'] = "9";
+            // $post_data['emi_selected_inst'] = "9";
+
+            # CUSTOMER INFORMATION
+            $post_data['cus_name'] = Auth::user()->first_name . " " . Auth::user()->last_name;
+            $post_data['cus_email'] = Auth::user()->email ? Auth::user()->email : NULL;
+            $post_data['cus_add1'] = $userAddress->user_address;
+            // $post_data['cus_add2'] = "Dhaka";
+            //$post_data['cus_city'] = DB::table('divisions')->where('id', $request->user_division_id)->select('name')->first()->name;
+            $post_data['cus_state'] = DB::table('divisions')->where('id', $userAddress->user_division_id)->select('name')->first()->name;
+            $post_data['cus_postcode'] = $userAddress->user_postcode;
+            $post_data['cus_country'] = DB::table('countries')->where('id', $userAddress->user_country_id)->select('name')->first()->name;
+            $post_data['cus_phone'] = Auth::user()->phone;
+            //$post_data['cus_fax'] = "01711111111";
+
+            if ($shippingAddress) {
+                $post_data['ship_name'] = $shippingAddress->shipping_name;
+                $post_data['ship_add1 '] = $shippingAddress->shipping_address;
+                //$post_data['ship_add2'] = "Dhaka";
+
+                //$post_data['ship_city'] = 'Dhaka';
+                $post_data['ship_state'] = DB::table('divisions')
+                    ->where('id', $shippingAddress->shipping_division_id)
+                    ->select('name')
+                    ->first()
+                    ->name;
+                $post_data['ship_postcode'] = $shippingAddress->shipping_postcode;
+
+                $post_data['ship_country'] = DB::table('countries')
+                    ->where('id', $shippingAddress->shipping_country_id)
+                    ->select('name')
+                    ->first()
+                    ->name;
+            } else {
+                $post_data['ship_name'] = Auth::user()->first_name . " " . Auth::user()->last_name;
+                $post_data['ship_add1 '] = $userAddress->user_address;
+                $post_data['ship_state'] = DB::table('divisions')->where('id', $userAddress->user_division_id)->select('name')->first()->name;
+                $post_data['ship_postcode'] = $userAddress->user_postcode;
+                $post_data['ship_country'] = DB::table('countries')->where('id', $userAddress->user_country_id)->select('name')->first()->name;
+            }
+
+            # SHIPMENT INFORMATION
+            # OPTIONAL PARAMETERS
+            // $post_data['value_a'] = "ref001";
+            // $post_data['value_b '] = "ref002";
+            // $post_data['value_c'] = "ref003";
+            // $post_data['value_d'] = "ref004";
+
+            # CART PARAMETERS
+            // $post_data['cart'] = json_encode(array(
+            //     array("product" => "DHK TO BRS AC A1", "amount" => "200.00"),
+            //     array("product" => "DHK TO BRS AC A2", "amount" => "200.00"),
+            //     array("product" => "DHK TO BRS AC A3", "amount" => "200.00"),
+            //     array("product" => "DHK TO BRS AC A4", "amount" => "200.00")
+            // ));
+            // $post_data['product_amount'] = "100";
+            // $post_data['vat'] = "5";
+            // $post_data['discount_amount'] = "5";
+            // $post_data['convenience_fee'] = "3";
+
+            # REQUEST SEND TO SSLCOMMERZ
+            $direct_api_url = "https://sandbox.sslcommerz.com/gwprocess/v3/api.php";
+            $handle = curl_init();
+            curl_setopt($handle, CURLOPT_URL, $direct_api_url);
+            curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+            curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 30);
+            curl_setopt($handle, CURLOPT_POST, 1);
+            curl_setopt($handle, CURLOPT_POSTFIELDS, $post_data);
+            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, FALSE); # KEEP IT FALSE IF YOU RUN FROM LOCAL PC
+
+
+            $content = curl_exec($handle);
+            $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+            if ($code == 200 && !(curl_errno($handle))) {
+                curl_close($handle);
+                $sslcommerzResponse = $content;
+            } else {
+                curl_close($handle);
+                echo "FAILED TO CONNECT WITH SSLCOMMERZ API";
+                exit;
+            }
+
+            # PARSE THE JSON RESPONSE
+            $sslcz = json_decode($sslcommerzResponse, true);
+
+            if (isset($sslcz['GatewayPageURL']) && $sslcz['GatewayPageURL'] != "") {
+                # THERE ARE MANY WAYS TO REDIRECT - Javascript, Meta Tag or Php Header Redirect or Other
+                # echo "<script>window.location.href = '". $sslcz['GatewayPageURL'] ."';</script>";
+                echo "<meta http-equiv='refresh' content='0;url=" . $sslcz['GatewayPageURL'] . "'>";
+                # header("Location: ". $sslcz['GatewayPageURL']);
+                exit;
+            } else {
+                echo "JSON Data parsing error!";
+            }
+        }
     }
 
     public function stripeSubmit(Request $request, $payment_secure_id)
@@ -120,6 +283,7 @@ class PaymentController extends Controller
         // echo $amount = $request->input('amount');
         // echo $currency = $request->input('currency');
         //dd($request->all());
+
         date_default_timezone_set('Asia/Dhaka');
         $information = $request->all();
         if ($request->status === "VALID") {
@@ -129,7 +293,6 @@ class PaymentController extends Controller
                 'status' => 1
             ]);
             $getOrderPlace = OrderPlace::where('order_id', $request->tran_id)->first();
-
             PaymentDetail::insert([
                 'provider_name' => "SSL-COMMERZ",
                 'order_place_id' => $getOrderPlace->id,
@@ -152,6 +315,7 @@ class PaymentController extends Controller
             OrderPlace::where('id', $request->order_id)->update([
                 'status' => 1,
                 'is_paid' => 1,
+                'payment_secure_id' => NULL,
             ]);
 
             if (Auth::user()->email) {
@@ -161,6 +325,7 @@ class PaymentController extends Controller
             return view('frontend.payment.ssl_commerce.success', compact('information'));
         }
     }
+
     public function sslFail(Request $request)
     {
         // dd($request->all());
@@ -168,13 +333,9 @@ class PaymentController extends Controller
             return view('frontend.payment.ssl_commerce.failed');
         }
     }
+
     public function sslCancel()
     {
         return view('frontend.payment.ssl_commerce.cancel');
-    }
-
-    public function redirectToCheckout(Request $request)
-    {
-       
     }
 }

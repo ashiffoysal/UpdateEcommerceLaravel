@@ -170,7 +170,7 @@ return [
 
         Darryldecode\Cart\CartServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
-
+        Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -234,6 +234,7 @@ return [
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

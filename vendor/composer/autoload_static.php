@@ -532,6 +532,7 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\Http\\Controllers\\Admin\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ReportController.php',
         'App\\Http\\Controllers\\Admin\\SeoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SeoController.php',
         'App\\Http\\Controllers\\Admin\\SiteBannerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SiteBannerController.php',
+        'App\\Http\\Controllers\\Admin\\SmsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SmsController.php',
         'App\\Http\\Controllers\\Admin\\SubCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SubCategoryController.php',
         'App\\Http\\Controllers\\Admin\\SubscriberController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SubscriberController.php',
         'App\\Http\\Controllers\\Admin\\SupportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SupportController.php',
@@ -596,7 +597,11 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\ReSubCategory' => __DIR__ . '/../..' . '/app/ReSubCategory.php',
         'App\\ShippingAddress' => __DIR__ . '/../..' . '/app/ShippingAddress.php',
         'App\\SiteBanner' => __DIR__ . '/../..' . '/app/SiteBanner.php',
+
         'App\\SocialMediaLogin' => __DIR__ . '/../..' . '/app/SocialMediaLogin.php',
+
+        'App\\SmsModel' => __DIR__ . '/../..' . '/app/SmsModel.php',
+
         'App\\SubCategory' => __DIR__ . '/../..' . '/app/SubCategory.php',
         'App\\Subscriber' => __DIR__ . '/../..' . '/app/Subscriber.php',
         'App\\Support' => __DIR__ . '/../..' . '/app/Support.php',

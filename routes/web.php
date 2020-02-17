@@ -51,10 +51,12 @@ Route::post('admin/social/update', 'Admin\SeoController@SocialUpdate')->name('ad
 Route::get('admin/logo/setting', 'Admin\SeoController@LogoSetting')->name('admin.logo.setting');
 Route::post('admin/panel/logo/update', 'Admin\SeoController@AdminLogoUpdate')->name('admin.panel.logo');
 Route::post('admin/frontlogo/update', 'Admin\SeoController@AdminFrontLogoUpdate')->name('admin.front.logo');
-     //mail setting
+     //mail and Sms setting
 Route::get('admin/mail/setting', 'Admin\SeoController@MailSetting')->name('admin.mail.setting');
 Route::post('admin/smtp/update', 'Admin\SeoController@smtpUpdate')->name('admin.smtp.update');
 Route::post('admin/mailgun/update', 'Admin\SeoController@mailgunUpdate')->name('admin.mailgun.update');
+// sms setting area start
+Route::post('admin/sms/setting', 'Admin\SmsController@smsUpdate')->name('admin.sms.update');
    //payment gateway
 Route::get('admin/payment/gateway', 'Admin\GatewayController@PaymentGateway')->name('admin.payment.gateway');
 Route::get('admin/social/login', 'Admin\GatewayController@sociallogin')->name('admin.sociallogin');
@@ -432,6 +434,7 @@ Route::post('add/to/cart/delete', 'Frontend\AddToCartController@addToCartDelete'
 Route::get(md5('/product/cart/page'), 'Frontend\AddToCartController@productViewCart')->name('product.cart.add');
 Route::post('/product/cart/update', 'Frontend\AddToCartController@viewCartUpdate')->name('product.cart.update');
 Route::post('/product/cart/delete', 'Frontend\AddToCartController@viewCartDelete')->name('product.cart.delete');
+Route::get('/show/total/price', 'Frontend\AddToCartController@showTotalPrice')->name('product.cart.delete');
 
 
 // checkout route start here
@@ -634,6 +637,9 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
     Route::get('stripe/{payment_secure_id}', 'PaymentController@index')->name('stripe.index');
     Route::post('stripe/submit/{payment_secure_id}', 'PaymentController@stripeSubmit')->name('payment.stripe.submit');
     Route::get('stripe/success/payment', 'PaymentController@successStripePaymentView')->name('payment.stripe.success.view');
+    Route::get('order_payment/{paymentSecureId}', 'PaymentController@paymentPage')->name('order.payment');
+    Route::post('make_payment/', 'PaymentController@makePayment')->name('payment.make.payment');
+
     //SSL COMMERCEZ
 
     Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');

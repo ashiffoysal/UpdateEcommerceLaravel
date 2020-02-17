@@ -9,7 +9,6 @@
 		<meta name="description" content="SuperMarket is a powerful Multi-purpose HTML5 Template with clean and user friendly design. It is definite a great starter for any eCommerce web project." />
 		<meta name="author" content="Magentech">
         <meta name="robots" content="index, follow" />
-        <meta http-equiv = "refresh" content = "2; url = https://ide.geeksforgeeks.org"/>
 		<!-- Mobile specific metas
 		============================================ -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -300,6 +299,7 @@
                                         <div class="cart">
                                         <div class="product_page_price price" id="chosen_price_div">
                                             <input type="hidden" id="product_chosen_price" value="{{$productdetails->product_price}}" name="product_price">
+                                            <input type="hidden" id="product_chosen_sku" value="{{$productdetails-> product_sku}}" name="product_sku">
 
                                             <input type="button" id="addtocart" value="Add to Cart" class="addToCart btn btn-mega btn-lg" data-toggle="tooltip" title="" onclick="cart.add('30');modeladdtocart(this);" data-original-title="Add to cart" id="addtocart">
                                         </div>
@@ -385,6 +385,7 @@
 		                    // $('#option-choice-form #chosen_price_div').removeClass('d-none');
 		                    $('#option-choice-form #chosen_price_div #chosen_price').html('৳ ' +data.price);
 		                    $('#product_chosen_price').val(data.price);
+                            $('#product_chosen_sku').val(data.sku);
 		                    // $('#available-quantity').html(data.quantity);
 		                }
 		            });

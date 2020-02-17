@@ -53,6 +53,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\ReportController' => $baseDir . '/app/Http/Controllers/Admin/ReportController.php',
     'App\\Http\\Controllers\\Admin\\SeoController' => $baseDir . '/app/Http/Controllers/Admin/SeoController.php',
     'App\\Http\\Controllers\\Admin\\SiteBannerController' => $baseDir . '/app/Http/Controllers/Admin/SiteBannerController.php',
+    'App\\Http\\Controllers\\Admin\\SmsController' => $baseDir . '/app/Http/Controllers/Admin/SmsController.php',
     'App\\Http\\Controllers\\Admin\\SubCategoryController' => $baseDir . '/app/Http/Controllers/Admin/SubCategoryController.php',
     'App\\Http\\Controllers\\Admin\\SubscriberController' => $baseDir . '/app/Http/Controllers/Admin/SubscriberController.php',
     'App\\Http\\Controllers\\Admin\\SupportController' => $baseDir . '/app/Http/Controllers/Admin/SupportController.php',
@@ -117,7 +118,11 @@ return array(
     'App\\ReSubCategory' => $baseDir . '/app/ReSubCategory.php',
     'App\\ShippingAddress' => $baseDir . '/app/ShippingAddress.php',
     'App\\SiteBanner' => $baseDir . '/app/SiteBanner.php',
+
     'App\\SocialMediaLogin' => $baseDir . '/app/SocialMediaLogin.php',
+
+    'App\\SmsModel' => $baseDir . '/app/SmsModel.php',
+
     'App\\SubCategory' => $baseDir . '/app/SubCategory.php',
     'App\\Subscriber' => $baseDir . '/app/Subscriber.php',
     'App\\Support' => $baseDir . '/app/Support.php',
