@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\SmsModel;
 use Illuminate\Http\Request;
 use DB;
 use Image;
@@ -241,7 +242,8 @@ class SeoController extends Controller
     public function MailSetting()
     {
         $smtp=DB::table('smtp')->first();
-        return view('admin.setting.mail',compact('smtp'));
+        $smssetting = SmsModel::first();
+        return view('admin.setting.mail',compact('smtp','smssetting'));
     }
 
     public function smtpUpdate(Request $request)
