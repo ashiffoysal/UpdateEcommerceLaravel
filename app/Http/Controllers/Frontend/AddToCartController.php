@@ -57,6 +57,7 @@ class AddToCartController extends Controller
             $data['attributes']['colors'] = $request->color;
             $data['attributes']['product_id'] = $product->id;
             $data['attributes']['variation'] = 'variation';
+            $data['attributes']['sku'] = $request->product_sku;
 
             $productdetails =Product::findOrFail($request->product_id);
             
@@ -97,6 +98,7 @@ class AddToCartController extends Controller
                 'attributes' => [
                     'thumbnail_img' => $product->thumbnail_img,
                     'product_id' => $product->id,
+                    'sku'=>$product->product_sku,
                 ],
             ]);
         }
@@ -240,4 +242,22 @@ class AddToCartController extends Controller
          return view('frontend.shopping.cartajaxdata', compact('usercartdatas'));
      }
 
+
+     // show total price in frontend
+
+        public function showTotalPrice()
+        {
+            $userid =  \Request::getClientIp(true);
+        // $getcartdatas = Cart::session($userid)->getContent();
+            $quantity = Cart::session($userid)->getTotalQuantity();
+            $gettotal = Cart::session($userid)->getTotal();
+            return response()->json([
+                
+                'quantity' => $quantity,
+                'total' => $gettotal,
+            ]);
+        }
+
 }
+
+

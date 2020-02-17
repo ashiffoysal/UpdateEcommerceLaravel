@@ -201,6 +201,29 @@ $seo=DB::table('seo')->first();
     });
 </script>
 
+<script>
+    window.onmouseover = function(){
+
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/show/total/price') }}",
+				
+
+                success: function(data) {
+                    
+                    document.getElementById('cartdatacount').innerHTML = data.quantity;
+                    document.getElementById('product_price').innerHTML = data.total;
+						
+                }
+            });
+    }
+</script>
+
 
 
 </body>
