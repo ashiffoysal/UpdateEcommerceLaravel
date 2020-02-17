@@ -114,6 +114,7 @@ class LoginController extends Controller
 
     public function handleProviderGoogleCallback(Request $request)
     {
+        //$user = Socialite::driver('google')->user();
         $user = Socialite::driver('google')->stateless()->user();
         $checkUser = User::where('email', $user->email)->first();
         if ($checkUser) {
@@ -136,6 +137,7 @@ class LoginController extends Controller
             ]);
             Auth::login($addUser);
             return redirect()->intended(route('customer.account'));
+            
         }
     }
     public function redirectToProviderFacebook()

@@ -120,7 +120,6 @@
 													<select name="user_upazila_id" id="user_upazila" class="form-control">
 													@php
 														$upa=DB::table('upazilas')->get();
-
 													@endphp
 													@foreach($upa as $upazila)
 														@if($useraddress)
@@ -274,24 +273,6 @@
 										</div>
 									</div>
 								</div>
-
-								<div class="checkout-content checkout-payment-methods">
-									<h2 class="secondary-title"><i class="fa fa-credit-card"></i>Payment Method</h2>
-                                    <div class="box-inner">
-										<div class="radio">
-											<label>
-												<input type="radio" id="pay_method" name="payment_method_id" value="1" > Cash On Delivery <br>
-												<input type="radio" id="pay_method" name="payment_method_id" value="2" >Stripe<br>
-												<input type="radio" id="pay_method" name="payment_method_id" value="3" > Paypal<br>
-												<input type="radio" id="pay_method" name="payment_method_id" value="4" > SSL Commerce<br/>
-												@error('payment_method_id')
-														<div class="text-danger alert alert-danger">{{ $message }}</div>
-												@enderror
-											</label>
-										</div>
-									</div>
-								</div>
-
 							</div>
 						</section>
 						<section class="section-right">
@@ -302,13 +283,11 @@
 										<div class="panel-body checkout-coupon">
 											<label class="col-sm-2 control-label" for="input-coupon">Enter coupon code</label>
 											<div class="input-group">
-
 													<input type="hidden" name="order_id" value="{{$order_id}}" placeholder="Enter coupon code" id="input_order" class="form-control">
 													<input type="text" name="coupon" value="" placeholder	="Enter coupon code" id="input-coupon" class="form-control">
 													<span class="input-group-btn">
 														<input type="button" value="Apply Coupon" id="input-coupon"  onclick="cuponApply()" data-loading-text="Loading..." class="btn-primary button">
 													</span>
-
 											</div>
 										</div>
 
@@ -348,7 +327,7 @@
 									</label>
 								</div>
 
-							
+
 
 								<div class="checkbox check-privacy">
 									<label>
@@ -439,13 +418,13 @@
     $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
             function(data) {
 				getCuponValue(ordervalue);
-                
+
                 console.log(data);
 
                 if(data.cuponalert){
-                    toastr.success(data.cuponalert);    
+                    toastr.success(data.cuponalert);
                 };
-                
+
 
             });
 
@@ -463,15 +442,15 @@
             $.ajax({
                 type: 'GET',
                 url: "{{ url('/get/cupon/value/') }}/" +ordervalue,
-                
+
                 success: function(data) {
-					  
+
 					console.log(data);
 					$('#orderdata').html(data);
-					
-					
-					
-					
+
+
+
+
                 }
             });
 

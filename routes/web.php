@@ -628,6 +628,9 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
     Route::get('stripe/{payment_secure_id}', 'PaymentController@index')->name('stripe.index');
     Route::post('stripe/submit/{payment_secure_id}', 'PaymentController@stripeSubmit')->name('payment.stripe.submit');
     Route::get('stripe/success/payment', 'PaymentController@successStripePaymentView')->name('payment.stripe.success.view');
+    Route::get('order_payment/{paymentSecureId}', 'PaymentController@paymentPage')->name('order.payment');
+    Route::post('make_payment/', 'PaymentController@makePayment')->name('payment.make.payment');
+
     //SSL COMMERCEZ
 
     Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
@@ -638,3 +641,7 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
 });
 
 // Payment Route Created By Harrison Ended
+
+Route::get('test/payment/page', function () {
+    return view('frontend.shopping.order_payment');
+});
