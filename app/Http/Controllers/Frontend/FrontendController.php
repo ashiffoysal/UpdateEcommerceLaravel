@@ -183,10 +183,12 @@ class FrontendController extends Controller
 
         if ($str != null) {
             $price = json_decode($product->variations)->$str->price;
+            $sku = json_decode($product->variations)->$str->sku;
         } else {
             $price = $product->product_price;
+            $sku = $product->product_sku;
         }
-        return array('price' => $price);
+        return array('price' => $price,'sku'=>$sku);
     }
 
     // category details

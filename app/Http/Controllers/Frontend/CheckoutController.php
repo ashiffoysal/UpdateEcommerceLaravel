@@ -279,7 +279,7 @@ class CheckoutController extends Controller
         }
 
         $orderid =$request->order_id;
-        $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
+       return $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
 
         $products = array();
 
@@ -287,6 +287,7 @@ class CheckoutController extends Controller
             $item['name']=$usercartdata->name;
             $item['price']=$usercartdata->price;
             $item['quantity']=$usercartdata->quantity;
+            $item['sku']=$usercartdata->attributes->sku;
             array_push($products, $item);
         }
 
@@ -330,7 +331,7 @@ class CheckoutController extends Controller
         $getPaymentSecureId = OrderPlace::where('id', $orderPlaceId)->select('payment_secure_id')->first();
         return redirect()->route('order.payment', $getPaymentSecureId->payment_secure_id);
 
-        // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
+        return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
     }
 
 

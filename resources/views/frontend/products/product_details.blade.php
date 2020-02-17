@@ -266,7 +266,7 @@
                                         <div id="product">
                                         <div class="form-group required " style="display: block; margin-left:17px"> 
                                             <input type="hidden" name="id" value="{{$productdetails->id}}">
-                                            <input type="hidden" name="product_id" value="{{$productdetails->id}}">
+                                            
                                             @if (count(json_decode($productdetails->colors)) > 0)
                                             <ul class="list-inline checkbox-color mb-1">
                                             <li><strong>Color: &nbsp;<strong> </li>
@@ -379,8 +379,9 @@
                                             </div>
                                             <div class="cart">
                                                 <div class="product_page_price price" id="chosen_price_div">
-                                                    <input type="hidden" id="product_chosen_price"
-                                                        value="{{$productdetails->product_price}}" name="product_price">
+                                                    <input type="hidden" id="product_chosen_price" value="{{$productdetails->product_price}}" name="product_price">
+                                                    <input type="hidden" id="product_chosen_sku" value="{{$productdetails-> product_sku}}" name="product_sku">
+                                                    <input type="hidden" name="product_id" value="{{$productdetails->id}}">
                                                     <input type="button" id="addtocart" value="Add to Cart"
                                                         class="addToCart btn btn-mega btn-lg " data-toggle="tooltip"
                                                         title="" onclick="cart.add('30');"
@@ -439,7 +440,7 @@
                                                     <div class="col-sm-12">
                                                         <label class="control-label" for="input-name">Your Name</label>
                                                         <input type="text" name="name" class="form-control" required>
-                                                        <input type="hidden" name="product_id" value="{{$productdetails->id}}">
+                                                        <input type="hidden" name="" value="{{$productdetails->id}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group required">
@@ -848,9 +849,11 @@
                 url: '{{ route('products.variant_price')}}',
                 data: $('#option-choice-form').serializeArray(),
                 success: function (data) {
+                    console.log(data);
                     // $('#option-choice-form #chosen_price_div').removeClass('d-none');
                     // $('#option-choice-form #chosen_price_div #chosen_price').html(data.price);
                     $('#chosen_price').html('৳ ' + data.price);
+                    $('#product_chosen_sku').val(data.sku);
                     $('#product_chosen_price').val(data.price);
                     // $('#available-quantity').html(data.quantity);
                 }
@@ -871,7 +874,7 @@
                 success: function (data) {
                     console.log(data);
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
-                    document.getElementById('product_price').innerHTML = data.total;
+                    document.getElementById('product_price').innerHTML = toFixed(data.total);
                 }
             });
         });
