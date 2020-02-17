@@ -486,12 +486,14 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
 
     public static $classMap = array (
         'App\\AboutUs' => __DIR__ . '/../..' . '/app/AboutUs.php',
+        'App\\Activation' => __DIR__ . '/../..' . '/app/Activation.php',
         'App\\AddToCart' => __DIR__ . '/../..' . '/app/AddToCart.php',
         'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\Banner' => __DIR__ . '/../..' . '/app/Banner.php',
         'App\\Brand' => __DIR__ . '/../..' . '/app/Brand.php',
         'App\\Category' => __DIR__ . '/../..' . '/app/Category.php',
         'App\\CategoryBanner' => __DIR__ . '/../..' . '/app/CategoryBanner.php',
+        'App\\Charts\\UserChart' => __DIR__ . '/../..' . '/app/Charts/UserChart.php',
         'App\\Checkout' => __DIR__ . '/../..' . '/app/Checkout.php',
         'App\\Color' => __DIR__ . '/../..' . '/app/Color.php',
         'App\\CompareProduct' => __DIR__ . '/../..' . '/app/CompareProduct.php',
@@ -594,6 +596,7 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\ReSubCategory' => __DIR__ . '/../..' . '/app/ReSubCategory.php',
         'App\\ShippingAddress' => __DIR__ . '/../..' . '/app/ShippingAddress.php',
         'App\\SiteBanner' => __DIR__ . '/../..' . '/app/SiteBanner.php',
+        'App\\SocialMediaLogin' => __DIR__ . '/../..' . '/app/SocialMediaLogin.php',
         'App\\SubCategory' => __DIR__ . '/../..' . '/app/SubCategory.php',
         'App\\Subscriber' => __DIR__ . '/../..' . '/app/Subscriber.php',
         'App\\Support' => __DIR__ . '/../..' . '/app/Support.php',

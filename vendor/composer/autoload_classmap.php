@@ -7,12 +7,14 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\AboutUs' => $baseDir . '/app/AboutUs.php',
+    'App\\Activation' => $baseDir . '/app/Activation.php',
     'App\\AddToCart' => $baseDir . '/app/AddToCart.php',
     'App\\Admin' => $baseDir . '/app/Admin.php',
     'App\\Banner' => $baseDir . '/app/Banner.php',
     'App\\Brand' => $baseDir . '/app/Brand.php',
     'App\\Category' => $baseDir . '/app/Category.php',
     'App\\CategoryBanner' => $baseDir . '/app/CategoryBanner.php',
+    'App\\Charts\\UserChart' => $baseDir . '/app/Charts/UserChart.php',
     'App\\Checkout' => $baseDir . '/app/Checkout.php',
     'App\\Color' => $baseDir . '/app/Color.php',
     'App\\CompareProduct' => $baseDir . '/app/CompareProduct.php',
@@ -115,6 +117,7 @@ return array(
     'App\\ReSubCategory' => $baseDir . '/app/ReSubCategory.php',
     'App\\ShippingAddress' => $baseDir . '/app/ShippingAddress.php',
     'App\\SiteBanner' => $baseDir . '/app/SiteBanner.php',
+    'App\\SocialMediaLogin' => $baseDir . '/app/SocialMediaLogin.php',
     'App\\SubCategory' => $baseDir . '/app/SubCategory.php',
     'App\\Subscriber' => $baseDir . '/app/Subscriber.php',
     'App\\Support' => $baseDir . '/app/Support.php',

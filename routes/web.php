@@ -57,11 +57,17 @@ Route::post('admin/smtp/update', 'Admin\SeoController@smtpUpdate')->name('admin.
 Route::post('admin/mailgun/update', 'Admin\SeoController@mailgunUpdate')->name('admin.mailgun.update');
    //payment gateway
 Route::get('admin/payment/gateway', 'Admin\GatewayController@PaymentGateway')->name('admin.payment.gateway');
-Route::post('admin/stripe/gateway', 'Admin\GatewayController@StripeUpdate')->name('admin.stripe.update');
-Route::post('admin/paypal/gateway', 'Admin\GatewayController@PaypalUpdate')->name('admin.paypal.update');
-Route::post('admin/twocheckout/gateway', 'Admin\GatewayController@twocheckoutUpdate')->name('admin.twocheckout.update');
-Route::post('admin/mollie/gateway', 'Admin\GatewayController@MollieUpdate')->name('admin.mollie.update');
+Route::get('admin/social/login', 'Admin\GatewayController@sociallogin')->name('admin.sociallogin');
 
+Route::get('admin/smtp/setup', 'Admin\GatewayController@smtp')->name('admin.smtp');
+Route::post('admin/sociallogin/update', 'Admin\GatewayController@socialloginupdate');
+Route::post('admin/checkout/update', 'Admin\GatewayController@update');
+Route::post('admin/mollie/gateway', 'Admin\GatewayController@MollieUpdate')->name('admin.mollie.update');
+Route::get(md5('admin/Activation'), 'Admin\GatewayController@activation')->name('admin.activation');
+
+// facebook activation
+
+Route::get('admin/facebook/update/{id}', 'Admin\GatewayController@fbupdate');
 
 // category
 Route::get(md5('admin/category/add'), 'Admin\CategoryController@add')->name('admin.category.add');
