@@ -72,21 +72,9 @@
 </div>
 
 <!-- Main Container  -->
-<div class="search-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="search-content">
-                    <div class="row" id="search_result_product">
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div id="main_content">
+
     @php
     $image=App\SiteBanner::where('section',7)->where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->first();
     @endphp
@@ -121,6 +109,20 @@
     </div>
 
     @endif
+    <div class="search-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="search-content">
+                        <div class="row" id="search_result_product">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="main_content">
     <div class="container">
         <div class="row">
             <div id="content" class="col-sm-12">

@@ -25,7 +25,6 @@ class FrontendController extends Controller
     public function index()
     {
         foreach (ThemeSelector::where('status', 1)->get() as $themeselector) {
-
             $to = Carbon::now()->format('Y-m-d');
             $from = date('Y-m-d', strtotime('+30 days', strtotime($to)));
             $hotdeals = FlashDeal::where('status', 1)->where('is_deleted', 0)->orderBy('id', 'DESC')->first();
@@ -61,7 +60,6 @@ class FrontendController extends Controller
     public function cateproduct($slug)
     {
         $category = Category::where('cate_slug', $slug)->first();
-
 
         return view('frontend.products.products', compact('category'));
     }

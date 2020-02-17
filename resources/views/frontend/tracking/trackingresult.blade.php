@@ -118,8 +118,8 @@
 							<td style="width: 50%;" class="text-left"> <b>Payment Method:</b>
                 @if($trackingresult->payment_method_id==1)Cash on Delevery
 								@elseif($trackingresult->payment_method_id==2) Stripe
-								@elseif($trackingresult->payment_method_id==3)PayPal
-								@elseif($trackingresult->payment_method_id==4)SSLCommercz
+								@elseif($trackingresult->payment_method_id==3) PayPal
+								@elseif($trackingresult->payment_method_id==4) SSLCommercz
 								@else
 								@endif
 								<br>

@@ -44,8 +44,8 @@
                                             @php
 
                                             $category = App\Category::where('is_deleted',0)->where('cate_status',1)->take(10)->get();
+                                            $countCategory = App\Category::count();
                                             $idArray = [];
-
                                             @endphp
                                             @foreach($category as $menu)
                                             <li class="item-vertical  vertical-style2 with-sub-menu hover">
@@ -211,7 +211,7 @@
                                             @endif
                                             @endforeach
 
-                                            @if ($category->count() > 9)
+                                            @if ($countCategory > 10)
                                             <li class="loadmore show_hidden_menu"><i class="fa fa-plus-square"></i>
                                                 <span class="more-view"> More Categories</span>
                                             </li>
