@@ -46,6 +46,7 @@ php artisan vendor:publish --provider="Darryldecode\Cart\CartServiceProvider" --
 
 ## HOW TO USE
 
+-   [Quick Usage](#usage-usage-example)
 -   [Usage](#usage)
 -   [Conditions](#conditions)
 -   [Items](#items)
@@ -57,6 +58,51 @@ php artisan vendor:publish --provider="Darryldecode\Cart\CartServiceProvider" --
 -   [Examples](#examples)
 -   [Using Different Storage](#storage)
 -   [License](#license)
+
+## Quick Usage Example
+
+```php
+// Quick Usage with the Product Model Association & User session binding
+
+$Product = Product::find($productId); // assuming you have a Product model with id, name, description & price
+$rowId = 456; // generate a unique() row ID
+$userID = 2; // the user ID to bind the cart contents
+
+// add the product to cart
+Cart::session($userID)->add(array(
+    'id' => $rowId,
+    'name' => $Product->name,
+    'price' => $Product->price,
+    'quantity' => 4,
+    'attributes' => array(),
+    'associatedModel' => $Product
+));
+
+// update the item on cart
+Cart::session($userID)->update($rowId,[
+	'quantity' => 2,
+	'price' => 98.67
+]);
+
+// delete an item on cart
+Cart::session($userID)->remove($rowId);
+
+// view the cart items
+$items = Cart::getContent();
+foreach($items as $row) {
+
+	echo $row->id; // row ID
+	echo $row->name;
+	echo $row->qty;
+	echo $row->price;
+	
+	echo $row->model->id; // whatever properties your model have
+	echo $row->model->name; // whatever properties your model have
+	echo $row->model->description; // whatever properties your model have
+}
+
+// FOR FULL USAGE, SEE BELOW..
+```
 
 ## Usage
 
@@ -112,13 +158,22 @@ There are several ways you can add items on your cart, see below:
  # ALWAYS REMEMBER TO BIND THE CART TO A USER BEFORE CALLING ANY CART FUNCTION
  # SO CART WILL KNOW WHO'S CART DATA YOU WANT TO MANIPULATE. SEE IMPORTANT NOTICE ABOVE.
  # EXAMPLE: \Cart::session($userId); then followed by cart normal usage.
+ 
+ # NOTE:
+ # the 'id' field in adding a new item on cart is not intended for the Model ID (example Product ID)
+ # instead make sure to put a unique ID for every unique product or product that has it's own unique prirce, 
+ # because it is used for updating cart and how each item on cart are segregated during calculation and quantities. 
+ # You can put the model_id instead as an attribute for full flexibility.
+ # Example is that if you want to add same products on the cart but with totally different attribute and price.
+ # If you use the Product's ID as the 'id' field in cart, it will result to increase in quanity instead
+ # of adding it as a unique product with unique attribute and price.
 
 // Simplest form to add item on your cart
 Cart::add(455, 'Sample Item', 100.99, 2, array());
 
 // array format
 Cart::add(array(
-    'id' => 456,
+    'id' => 456, // inique row ID
     'name' => 'Sample Item',
     'price' => 67.99,
     'quantity' => 4,
@@ -148,7 +203,14 @@ Cart::add(array(
 
 // add cart items to a specific user
 $userId = auth()->user()->id; // or any string represents user identifier
-Cart::session($userId)->add(455, 'Sample Item', 100.99, 2, array());
+Cart::session($userId)->add(array(
+    'id' => 456, // inique row ID
+    'name' => 'Sample Item',
+    'price' => 67.99,
+    'quantity' => 4,
+    'attributes' => array(),
+    'associatedModel' => $Product
+));
 
 // NOTE:
 // Please keep in mind that when adding an item on cart, the "id" should be unique as it serves as

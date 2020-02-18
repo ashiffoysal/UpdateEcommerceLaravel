@@ -242,10 +242,11 @@ class PaymentController extends Controller
                 OrderPlace::where('id', $request->order_id)->update([
                     'status' => 1,
                     'is_paid' => 1,
+                    'payment_method_id' => 2,
                 ]);
-
+                $placeOrder = OrderPlace::where('payment_secure_id', $payment_secure_id)->first();
                 if (Auth::user()->email) {
-                    Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getPlaceOrder));
+                    Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($placeOrder));
                 }
 
                 OrderPlace::where('id', $request->order_id)->update([
@@ -312,11 +313,17 @@ class PaymentController extends Controller
                 'time' => date('h:i:s'),
             ]);
 
-            OrderPlace::where('id', $request->order_id)->update([
-                'status' => 1,
-                'is_paid' => 1,
-                'payment_secure_id' => NULL,
-            ]);
+            // $getOrderPlace->update([
+            //     'status' => 1,
+            //     'is_paid' => 1,
+            //     'payment_method_id' => 4,
+            //     'payment_secure_id' => NULL,
+            // ]);
+
+            $getOrderPlace->is_paid = 1;
+            $getOrderPlace->payment_method_id = 4;
+            $getOrderPlace->payment_secure_id = NULL;
+            $getOrderPlace->save();
 
             if (Auth::user()->email) {
                 Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getOrderPlace));

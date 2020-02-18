@@ -50,16 +50,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator($request)
-    {
-        return $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'phone' => 'required|numeric|unique:users,phone',
-            'password' => 'required|string|min:3|confirmed',
-        ]);
-    }
+
 
     public function showRegistrationForm()
     {
@@ -77,7 +68,13 @@ class RegisterController extends Controller
     protected function register(Request $request)
     {
 
-        $this->validator($request);
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'phone' => 'required|numeric|unique:users,phone',
+            'password' => 'required|string|min:3|confirmed',
+        ]);
 
         $user = User::create([
             'first_name' => $request->firstname,
@@ -114,6 +111,5 @@ class RegisterController extends Controller
         $user = User::where('email', $email)->first();
         return view('frontend.accounts.registration_success_page', compact('user'));
     }
-
 
 }

@@ -122,7 +122,6 @@ class ForgotPasswordController extends Controller
 
     public function forgetResendVerificationCodeMail($remember_token)
     {
-
         $number_length = 5;
         $i = 0; //counter
         $random_number = ''; //our default pin is blank.
@@ -140,6 +139,6 @@ class ForgotPasswordController extends Controller
         Mail::to($user->email)->send(new SendForgetPasswordVerifyCodeMail($user));
         session()->flash('successMsg', 'Mail sended again.');
         return redirect()->route('forget.password.verify.code.form', $remember_token);
-        
+
     }
 }

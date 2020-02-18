@@ -13,19 +13,21 @@ use App\OrderPlace;
 use App\UserAddress;
 use App\OrderStorage;
 use App\UserUsedCupon;
+use App\ProductStorage;
 use App\ShippingAddress;
 use App\UpozilaCouriers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\DatabaseStorageModel;
+use App\Mail\OrderSuccessfullMail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\ProductStorage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Srmklive\PayPal\Services\AdaptivePayments;
 use Illuminate\Foundation\Console\Presets\React;
-use Illuminate\Support\Facades\Hash;
 
 class CheckoutController extends Controller
 {
@@ -218,8 +220,6 @@ class CheckoutController extends Controller
     public function orderSubmit(Request $request)
     {
 
-
-
         $validatedData = $request->validate([
             'user_id' => 'required',
             'user_address' => 'required',
@@ -232,6 +232,7 @@ class CheckoutController extends Controller
             'shipping_id' => 'required',
             'privacy' => 'accepted',
             'agree' => 'accepted',
+            'payment_type' => 'required',
         ]);
 
         $usseraddress_id = UserAddress::insertGetId([
@@ -279,7 +280,7 @@ class CheckoutController extends Controller
         }
 
         $orderid =$request->order_id;
-       return $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
+        $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
 
         $products = array();
 
@@ -305,7 +306,8 @@ class CheckoutController extends Controller
 
         $orderPlaceId = OrderPlace::insertGetId([
             'shipping_id' => $request->shipping_id,
-            'payment_method_id' => $request->payment_method_id,
+            // 'payment_method_id' => $request->payment_method_id,
+            'payment_type' => $request->payment_type,
             'comment' => $request->comment,
             'order_id' => $request->order_id,
             'user_id' => Auth::user()->id,
@@ -313,6 +315,7 @@ class CheckoutController extends Controller
             'total_price' => $request->total_price,
             'total_quantity' => $request->total_quantity,
             'payment_secure_id' => md5($request->order_id),
+
             'created_at' => Carbon::now(),
         ]);
 
@@ -328,10 +331,18 @@ class CheckoutController extends Controller
             DatabaseStorageModel::where('id', $useridcondition)->first()->delete();
         }
 
-        $getPaymentSecureId = OrderPlace::where('id', $orderPlaceId)->select('payment_secure_id')->first();
-        return redirect()->route('order.payment', $getPaymentSecureId->payment_secure_id);
+        $getOrder = OrderPlace::where('id', $orderPlaceId)->first();
+        if (Auth::user()->email) {
+            Mail::to(Auth::user()->email)->send(new OrderSuccessfullMail($getOrder));
+        }
+        
+        if ($request->payment_type == 1) {
+            return redirect()->route('customer.order');
+        }else{
+            return redirect()->route('order.payment', $getOrder->payment_secure_id);
+        }
 
-        return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
+        //return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
     }
 
 
@@ -379,9 +390,7 @@ class CheckoutController extends Controller
 
 
         if ($updatecart) {
-
             $userid =  \Request::getClientIp(true);
-
             $usercartdatas = Cart::session($userid)->getContent();
             // return view('frontend.shopping.cartajaxdata', compact('usercartdatas'));
             return view('frontend.shopping.orderajaxdata', compact('usercartdatas'));
@@ -450,7 +459,6 @@ class CheckoutController extends Controller
 
         $data = [];
         $data['items'] = [];
-
         // $userid =  \Request::getClientIp(true);
         // $usercartdatas = Cart::session($userid)->getContent();
         $userid = Auth::user()->id;
