@@ -52,6 +52,10 @@ $seo=DB::table('seo')->first();
 
         @yield('main_content')
 
+
+
+
+
     </div>
 
     <!-- Include footer option for home page one ============================================ -->
@@ -187,6 +191,7 @@ $seo=DB::table('seo')->first();
 
                 success: function(data) {
 
+
                     
                     var totalPrice = data.total;
                     var totalPrice = totalPrice.toFixed(2);
@@ -194,6 +199,7 @@ $seo=DB::table('seo')->first();
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
                     document.getElementById('product_price').innerHTML = totalPrice;
 						
+
 
                 }
             });

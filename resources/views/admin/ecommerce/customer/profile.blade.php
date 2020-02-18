@@ -12,7 +12,7 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="panel_title">
-											<span class="panel_icon"><i class="fas fa-border-all"></i></span><span>All Customer</span>
+											<span class="panel_icon"><i class="fas fa-border-all"></i></span><span>View Customer</span>
 										</div>
 									</div>
 									<div class="col-md-6 text-right">
@@ -21,51 +21,33 @@
 								</div>
 
 							</div>
-							<form action="" method="post">
-						     @csrf
-							<!-- <button type="submit" style="margin: 5px;" class="btn btn-danger" ><i class="fa fa-trash"></i> Delete All</button>
-             				<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-recycle"></i> <a href="{{route('admin.trash.color')}}" style="color: #fff;">Restore</a></button> -->
-							<div class="panel_body">
-								<div class="table-responsive">
-		                         <table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">
-		                              <thead>
-		                                  <tr>
-		                                      <th>
-												<!-- <label class="chech_container mb-4">
-													<input type="checkbox"  id="check_all">
-													<span class="checkmark"></span>
-												</label> -->#
-		                                      </th>
-		                                      <th>Name</th>
-		                                      <th>Phone</th>
-		                                      <th>Email</th>
-		                                      <th>manage</th>
-		                                  </tr>
-		                              </thead>
-		                              <tbody>
-		                       			@foreach($allcustommer as $key => $data)
-		                                  <tr>
-	                                  		  <td>
-																					<!-- <label class="chech_container mb-4">
-																						<input type="checkbox" name="delid[]" class="checkbox" value="">
-																						<span class="checkmark"></span>
-																					</label> -->
-																					{{++$key}}
-		                                      </td>
-		                                      <td>{{$data->first_name}} {{$data->last_name}}</td>
-		                                      <td>{{$data->phone}}</td>
-		                                      <td>{{$data->email}}</td>
-		                                       <td>
-		                                           <a href="{{url('admin/custommer/view/'.$data->id)}}" class="btn btn-sm btn-default text-white"  title="edit"><i class="fas fa-eye"></i></a>
-		                                           <a id="delete" href="{{url('admin/customer/delete/'.$data->id)}}" class="btn btn-sm btn-danger text-white"  title="delete"><i class="fas fa-trash"></i></a>
-		                                       </td>
-		                                  </tr>
-		                             	@endforeach
-		                              </tbody>
-		                          </table>
-		                      </div>
+							<div class="row">
+								<div class="col-md-2"></div>
+								<div class="col-md-3">
+									<div class="panel_body">
+										@php
+											$cid=$profile->id;
+											$userAddress=App\UserAddress::where('id',$cid)->orderBy('id','DESC')->first();
+										@endphp
+											<div class="card" style="width: 18rem;">
+
+
+												<div class="card-body">
+													<h5 class="card-title">{{$profile->first_name}} {{$profile->last_name}}</h5>
+													<p class="card-text">{{$profile->phone}}</p>
+													<p class="card-text">{{$profile->email}}</p>
+													@if($userAddress)
+													<p class="card-text">{{$userAddress->user_address}}</p>
+													<p class="card-text">{{$userAddress->user_postcode}}</p>
+													@endif
+
+												</div>
+											</div>
+									</div>
+								</div>
 							</div>
-						  </form>
+
+
 						</div>
 					</section>
 				</div>

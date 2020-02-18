@@ -232,7 +232,7 @@
 
                                 <div class="product_page_price price" itemscope=""
                                     itemtype="http://data-vocabulary.org/Offer">
-                                    
+
                                     <span class="price-new"><span id="chosen_price"> ‎৳ {{$productdetails->product_price}}</span></span>
 
 
@@ -241,8 +241,9 @@
                                 </div>
                                 <div class="product-box-desc">
                                     <div class="inner-box-desc">
-                                        <div class="brand"><span>Brand: </span><a
-                                                href="#">{{$productdetails->brand}}</a></div>
+                                      @if($productdetails->brand)
+                                        <div class="brand"><span>Brand: </span><a href="#">{{$productdetails->totalbrand->brand_name}}</a></div>
+                                        @endif
                                         <div class="model"><span>Product Code: </span>{{$productdetails-> product_sku}}
                                         </div>
                                         <div class="stock"><span>Availability:</span>
@@ -264,9 +265,9 @@
 
                                         <div class="col-md-12">
                                         <div id="product">
-                                        <div class="form-group required " style="display: block; margin-left:17px"> 
+                                        <div class="form-group required " style="display: block; margin-left:17px">
                                             <input type="hidden" name="id" value="{{$productdetails->id}}">
-                                            
+
                                             @if (count(json_decode($productdetails->colors)) > 0)
                                             <ul class="list-inline checkbox-color mb-1">
                                             <li><strong>Color: &nbsp;<strong> </li>
@@ -280,7 +281,7 @@
                                             </ul>
 
 
-                                         
+
                                             @endif
                                         </div>
                                         </div>
@@ -293,7 +294,7 @@
 
 
 
-                                        
+
 
                                         @foreach (json_decode($productdetails->choice_options) as $key => $choice)
 
@@ -308,7 +309,7 @@
 									<div class="form-group required " style="display: block;">
 										<div id="input-option224">
 
-                                        
+
                                         <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
                                             <li>{{ $choice->title }}:</li>
                                             @foreach ($choice->options as $key => $option)
@@ -320,7 +321,7 @@
                                         </ul>
 
 
-                                        
+
 
 										</div>
 									</div>
@@ -370,7 +371,7 @@
                                                     style="user-select: none;">
                                                     <input class="form-control" type="number" id="quantity"
                                                         name="quantity" value="1">
-                                                    
+
                                                     <span
                                                         class="input-group-addon product_quantity_down fa fa-caret-down"></span>
                                                     <span
@@ -440,7 +441,7 @@
                                                     <div class="col-sm-12">
                                                         <label class="control-label" for="input-name">Your Name</label>
                                                         <input type="text" name="name" class="form-control" required>
-                                                        <input type="hidden" name="" value="{{$productdetails->id}}">
+                                                        <input type="hidden" name="product_id" value="{{$productdetails->id}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group required">
@@ -866,7 +867,7 @@
     $(document).ready(function () {
         $('#addtocart').on('click', function () {
 
-            
+
             $.ajax({
                 type: 'GET',
                 url: "{{ route('product.add.cart') }}",
@@ -880,7 +881,7 @@
         });
     });
 </script>
-
+@if(isset($flashDealEndDate))
 <script>
     $(function () {
         $('.Countdown-1').countdown('{{ $flashDealEndDate }}', function (event) {
@@ -891,4 +892,5 @@
         });
     });
 </script>
+@endif
 @endsection

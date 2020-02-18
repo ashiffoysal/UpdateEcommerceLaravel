@@ -357,8 +357,9 @@ $logo=DB::table('logos')->first();
                                 <span class="menu-text">Courier Settings</span>
                             </a>
                             <ul class="dashboard-menu">
-                                <li><a href="{{ route('courier.sync.view') }}">Courier sync</a></li>
-                            <li><a href="{{ route('courier.index') }}">View Courier Info</a></li>
+                            <li><a href="{{ route('courier.sync.view') }}">Add Courier</a></li>
+                            <li><a href="{{ route('courier.all') }}">All Courier</a></li>
+                            <li><a href="{{ route('courier.index') }}">Courier Info</a></li>
                             </ul>
                         </li>
                       @else
@@ -478,7 +479,137 @@ $logo=DB::table('logos')->first();
         <script src="{{ asset('public/adminpanel/assets/plugins/chartjs-bar-chart/chart.js') }}"></script> -->
     <!-- pie chart -->
     <script src="{{ asset('public/adminpanel/assets/plugins/pie_chart/chart.loader.js') }}"></script>
-    <script src="{{ asset('public/adminpanel/assets/plugins/pie_chart/pie.active.js') }}"></script>
+    <!-- <script src="{{ asset('public/adminpanel/assets/plugins/pie_chart/pie.active.js') }}"></script> -->
+
+		<!-- basic-donut-chart -->
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
+    @php
+      $total_complate_or=App\OrderPlace::where('delevary',3)->count();
+      $totalcustommer=App\User::count();
+      $total_pending_produc=App\OrderPlace::where('delevary',1)->count();
+      $total_sell=App\OrderPlace::sum('total_quantity');
+    @endphp
+    <script>
+    var dataset = [
+        { name: 'Total order', percent: {{$total_complate_or}}},
+        { name: 'Custommer', percent: {{$totalcustommer}} },
+        { name: 'Pending order', percent: {{$total_pending_produc}} },
+        { name: 'Total Sell', percent: {{$total_sell}} },
+
+    ];
+
+    var pie=d3.layout.pie()
+            .value(function(d){return d.percent})
+            .sort(null)
+            .padAngle(.03);
+
+    var w=300,h=400;
+
+    var outerRadius=w/2;
+    var innerRadius=100;
+
+    var color = d3.scale.category10();
+
+    var arc=d3.svg.arc()
+            .outerRadius(outerRadius)
+            .innerRadius(innerRadius);
+
+    var svg=d3.select("#chart")
+            .append("svg")
+            .attr({
+                width:w,
+                height:h,
+                class:'shadow'
+            }).append('g')
+            .attr({
+                transform:'translate('+w/2+','+h/2+')'
+            });
+    var path=svg.selectAll('path')
+            .data(pie(dataset))
+            .enter()
+            .append('path')
+            .attr({
+                d:arc,
+                fill:function(d,i){
+                    return color(d.data.name);
+                }
+            });
+
+    path.transition()
+            .duration(1000)
+            .attrTween('d', function(d) {
+                var interpolate = d3.interpolate({startAngle: 0, endAngle: 0}, d);
+                return function(t) {
+                    return arc(interpolate(t));
+                };
+            });
+
+
+    var restOfTheData=function(){
+        var text=svg.selectAll('text')
+                .data(pie(dataset))
+                .enter()
+                .append("text")
+                .transition()
+                .duration(200)
+                .attr("transform", function (d) {
+                    return "translate(" + arc.centroid(d) + ")";
+                })
+                .attr("dy", ".4em")
+                .attr("text-anchor", "middle")
+                .text(function(d){
+                    return d.data.percent+"%";
+                })
+                .style({
+                    fill:'#fff',
+                    'font-size':'10px'
+                });
+
+        var legendRectSize=20;
+        var legendSpacing=7;
+        var legendHeight=legendRectSize+legendSpacing;
+
+
+        var legend=svg.selectAll('.legend')
+                .data(color.domain())
+                .enter()
+                .append('g')
+                .attr({
+                    class:'legend',
+                    transform:function(d,i){
+                        //Just a calculation for x & y position
+                        return 'translate(-35,' + ((i*legendHeight)-65) + ')';
+                    }
+                });
+        legend.append('rect')
+                .attr({
+                    width:legendRectSize,
+                    height:legendRectSize,
+                    rx:20,
+                    ry:20
+                })
+                .style({
+                    fill:color,
+                    stroke:color
+                });
+
+        legend.append('text')
+                .attr({
+                    x:30,
+                    y:15
+                })
+                .text(function(d){
+                    return d;
+                }).style({
+                    fill:'#929DAF',
+                    'font-size':'14px'
+                });
+    };
+
+    setTimeout(restOfTheData,1000);
+
+
+    </script>
     <!-- data table js -->
     <!-- DataTable Js -->
     <script src="{{asset('public/adminpanel')}}/assets/plugins/datatables/dataTables.min.js"></script>
@@ -688,6 +819,7 @@ $logo=DB::table('logos')->first();
             });
         });
     </script>
+
 
 
 

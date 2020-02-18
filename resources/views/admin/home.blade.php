@@ -15,7 +15,7 @@
                                   $admin=App\Admin::count();
                                 @endphp
                                   <div class="counter_item">
-                                       <span><i class="fas fa-award"></i></span>
+                                       <span><i class="fas fa-user-tie"></i></span>
                                        @if($admin)
                                        <h2 class="timer count-number" data-to="{{$admin}}" data-speed="1500"></h2>
                                       @else
@@ -65,7 +65,7 @@
                                     $subcate=App\SubCategory::count();
                                   @endphp
                                     <div class="counter_item">
-                                        <span><i class="fab fa-stripe-s"></i></span>
+                                        <span><i class="fab fa-bandcamp"></i></span>
                                         @if($subcate)
                                          <h2 class="timer count-number" data-to="{{$subcate}}" data-speed="1500"></h2>
                                         @else
@@ -95,17 +95,17 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="counter">
                                   @php
-                                    $amount=App\OrderPlace::sum('total_price');
+                                    $amount=App\OrderPlace::sum('total_quantity');
                                   @endphp
                                     <div class="counter_item">
-                                        <span><i class="fas fa-envelope-square"></i></span>
+                                        <span><i class="fas fa-luggage-cart"></i></span>
                                         @if($amount)
                                          <h2 class="timer count-number" data-to="{{$amount}}" data-speed="1500"></h2>
                                         @else
                                         <h2 class="timer count-number" data-to="0" data-speed="1500"></h2>
                                         @endif
                                     </div>
-                                    <p class="count-text ">Total Sell</p>
+                                    <p class="count-text ">Total Sell Product</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6">
@@ -167,7 +167,7 @@
                                       </div>
                                   </div>
                                   <div class="panel_body">
-                                      <div id="piechart"></div>
+                                    <div id="chart" class="chart-container d-flex justify-content-center"></div>
                                   </div>
                               </div>
                           </div>
@@ -177,7 +177,10 @@
                         <div class="col-md-6">
                         <div class="panel">
                             <div class="panel_header">
-                                <div class="panel_title"><span>Pending Order</span></div>
+                                <div class="panel_title">
+                                    <span class="panel_icon"><i class="fas fa-cart-plus"></i></span>
+                                  <span>New Order</span>
+                                </div>
                             </div>
 
                                 <div class="panel_body">
@@ -195,7 +198,7 @@
                                           </thead>
                                           <tbody>
                                             @php
-                                              $pendingorder=App\OrderPlace::where('delevary',1)->orderBy('id','DESC')->get();
+                                              $pendingorder=App\OrderPlace::where('delevary',1)->orderBy('id','DESC')->limit(5)->get();
                                             @endphp
                                             @foreach($pendingorder as $key => $pending)
                                               <tr>
@@ -227,7 +230,10 @@
                             <div class="col-md-6">
                             <div class="panel">
                                 <div class="panel_header">
-                                    <div class="panel_title"><span>Customer</span></div>
+                                    <div class="panel_title">
+                                        <span class="panel_icon"><i class="fas fa-users"></i></span>
+                                      <span>New Customer</span>
+                                    </div>
                                 </div>
 
                                     <div class="panel_body">
@@ -245,7 +251,7 @@
                                               </thead>
                                               <tbody>
                                                 @php
-                                                  $alluser=App\User::orderBy('id','DESC')->get();
+                                                  $alluser=App\User::orderBy('id','DESC')->limit(5)->get();
                                                 @endphp
                                                 @foreach($alluser as $key => $data)
                                                   <tr>
@@ -255,7 +261,7 @@
                                                       <td>{{$data->phone}}</td>
                                                       <td>{{$data->email}}</td>
                                                       <td>
-                                                        <a href="" class="btn btn-default btn-sm text-white"><i class="fa fa-eye"></i></a>
+                                                        <a href="{{url('admin/custommer/view/'.$data->id)}}" class="btn btn-default btn-sm text-white"><i class="fa fa-eye"></i></a>
 
                                                       </td>
                                                   </tr>

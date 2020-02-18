@@ -23,14 +23,13 @@ class AdminController extends Controller
 
     public function index()
     {
-      $month= Carbon::now()->format('m');
+      // $month= Carbon::now()->format('m');
       $users = OrderPlace::select(\DB::raw("SUM(total_quantity) as count"))
-                    ->groupBy(\DB::raw("month(created_at)"))
+                    ->groupBy(\DB::raw("created_at"))
                     ->pluck('count');
 
-
       $chart = new UserChart;
-      $chart->labels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
+      $chart->labels(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31']);
       $chart->dataset('product Sell', 'line', $users)->options([
           'fill' => 'true',
           'borderColor' => '#51C1C0'

@@ -97,8 +97,8 @@
                         </div>
                         <div class="button-area">
                             <div class="row">
-                                <div class="col-md-6 offset-3">
-                                    <button class="btn btn-sm btn-success" type="submit">Submit</button>
+                                <div class="col-md-6 offset-3 text-center">
+                                    <button class="btn btn-success" type="submit">Submit</button>
                                 </div>
                             </div>
                         </div>

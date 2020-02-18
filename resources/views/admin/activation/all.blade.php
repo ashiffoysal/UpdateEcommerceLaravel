@@ -24,8 +24,7 @@
 								@php
 									$update=App\Activation::where('id',1)->first();
 								@endphp
-							<form action="" method="post">
-							@csrf
+
 							<div class="panel_body">
 								<div class="table-responsive">
 									<table  class="table table-bordered table-striped table-hover mb-2">
@@ -42,9 +41,9 @@
 											</td>
 											<td>
 											@if($update->facebook==1)
-											<a href="{{url('admin/facebook/update/'.$update->id)}}" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
+											<a href="{{url('admin/facebook/update/deactive/'.$update->id)}}" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
 											@else
-											<a href="" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
+											<a href="{{url('admin/facebook/update/active/'.$update->id)}}" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
 											@endif
 											</td>
 										</tr>
@@ -52,7 +51,7 @@
 									</table>
 								</div>
 							</div>
-							</form>
+
 							</div>
 							<!--  -->
 							<!--  -->
@@ -87,9 +86,9 @@
 									</td>
 										<td>
 											@if($update->google==1)
-											<a href="" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
+											<a href="{{url('admin/google/update/active/'.$update->id)}}" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
 											@else
-											<a href="" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
+											<a href="{{url('admin/google/update/deactive/'.$update->id)}}" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
 											@endif
 										</td>
 									</tr>
@@ -132,9 +131,9 @@
 										@endif</td>
 										<td>
 											@if($update->smtp==1)
-											<a href="" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
+											<a href="{{url('admin/smtp/update/active/'.$update->id)}}" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
 											@else
-											<a href="" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
+											<a href="{{url('admin/smtp/update/deactive/'.$update->id)}}" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
 											@endif
 										</td>
 									</tr>
@@ -174,9 +173,9 @@
 										@endif</td>
 										<td>
 											@if($update->paypal==1)
-											<a href="" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
+											<a href="{{url('admin/paypal/update/active/'.$update->id)}}" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
 											@else
-											<a href="" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
+											<a href="{{url('admin/paypal/update/deactive/'.$update->id)}}" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
 											@endif
 										</td>
 									</tr>
@@ -219,9 +218,9 @@
 							</td>
 							<td>
 								@if($update->stripe==1)
-								<a href="" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
+								<a href="{{url('admin/stripe/update/deactive/'.$update->id)}}" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
 								@else
-								<a href="" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
+								<a href="{{url('admin/stripe/update/active/'.$update->id)}}" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
 								@endif
 							</td>
 						</tr>
@@ -264,9 +263,9 @@
 						@endif</td>
 						<td>
 							@if($update->ssl_commercez==1)
-							<a href="" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
+							<a href="{{url('admin/ssl/update/deactive/'.$update->id)}}" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
 							@else
-							<a href="" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
+							<a href="{{url('admin/ssl/update/active/'.$update->id)}}" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
 							@endif
 						</td>
 					</tr>
@@ -307,9 +306,9 @@
 							@endif</td>
 							<td>
 								@if($update->cashondelevery==1)
-								<a href="" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
+								<a href="{{url('admin/cash/update/deactive/'.$update->id)}}" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
 								@else
-								<a href="" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
+								<a href="{{url('admin/cash/update/active/'.$update->id)}}" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
 								@endif
 							</td>
 						</tr>
@@ -349,9 +348,9 @@
 					@endif</td>
 					<td>
 						@if($update->sms==1)
-						<a href="" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
+						<a href="{{url('admin/sms/update/deactive/'.$update->id)}}" class="btn btn-success btn-sm text-white"><i class="fa fa-thumbs-up"></i></a>
 						@else
-						<a href="" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
+						<a href="{{url('admin/sms/update/active/'.$update->id)}}" class="btn btn-danger btn-sm text-white"><i class="far fa-thumbs-down"></i></a>
 						@endif
 					</td>
 				</tr>

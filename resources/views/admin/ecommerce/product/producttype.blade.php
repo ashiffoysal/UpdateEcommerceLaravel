@@ -1,10 +1,10 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
       <!-- content wrpper -->
 			<div class="content_wrapper">
 				<!--middle content wrapper-->
 				<div class="middle_content_wrapper">
-					
+
 				<section class="page_area">
 					<div class="panel">
 						<div class="panel_header">
@@ -12,9 +12,9 @@
 								<div class="col-md-6">
 									<div class="panel_title"><span class="panel_icon"><i class="fas fa-plus-square"></i></span><span>Choice Product Type</span></div>
 								</div>
-								
+
 							</div>
-							
+
 						</div>
 						<div class="panel_body">
 							<div class="row text-center">
@@ -31,17 +31,17 @@
 									<a class="btn btn-danger" href="{{route('admin.product.affiliate')}}">Appiliate Product </a>
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
 				</section>
-			</div><!--/middle content wrapper-->  
+			</div><!--/middle content wrapper-->
 			</div><!--/ content wrapper -->
    <!-- script code start -->
  <script>
  var i = 0;
 
  		function add_more_customer_choice_option(){
- 			
+
 		$('#customer_choice_options').append('<div class="form-group row"><div class="col-lg-3"></div><div class="col-lg-2"><input type="hidden" name="choice_no[]" value="'+i+'"><input type="text" class="form-control" name="choice[]" value="" placeholder="Choice Title"></div><div class="col-lg-4"><input type="text" class="form-control choice_tag" name="choice_options_'+i+'[]" id="choice_tag" placeholder="Enter choice values" data-role="tagsinput" onchange="update_sku()"></div><div class="col-lg-2"><button onclick="delete_row(this)" class="btn btn-danger btn-icon"><i class="fa fa-times"></i></button></div></div>');
 		i++;
 		 $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
@@ -93,20 +93,20 @@
   $(document).ready(function() {
      $('select[name="cate_id"]').on('change', function(){
          var cate_id = $(this).val();
-        
+
          if(cate_id) {
              $.ajax({
                  url: "{{  url('/get/subcategory/all/') }}/"+cate_id,
                  type:"GET",
                  dataType:"json",
                  success:function(data) {
-                     
+
                         $('#subcate_id').empty();
                         $('#subcate_id').append(' <option value="0">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
                        });
-                     } 
+                     }
              });
          } else {
              alert('danger');
@@ -127,13 +127,13 @@
                  type:"GET",
                  dataType:"json",
                  success:function(data) {
-                     
+
                         $('#resubcate_id').empty();
                         $('#resubcate_id').append(' <option value="0">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#resubcate_id').append('<option value="' + districtObj.id + '">'+districtObj.resubcate_name+'</option>');
                        });
-                     } 
+                     }
              });
          } else {
              alert('danger');

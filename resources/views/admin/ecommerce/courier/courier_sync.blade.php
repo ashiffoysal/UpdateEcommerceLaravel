@@ -15,7 +15,8 @@
                             </div>
                         </div>
                         <div class="col-md-6 text-right">
-
+                            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#myModal1"><i class="fas fa-plus"></i></span> <span>Add Courier</span>
+                            </a>
                         </div>
                     </div>
 
@@ -111,7 +112,33 @@
     <!--/middle content wrapper-->
 </div>
 <!--/ content wrapper -->
+<div class="modal fade bd-example-modal-lg" id="myModal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Courier</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+            <form class="form-horizontal" action="{{ route('courier.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Name:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="courier_name" required>
+                        </div>
+                    </div>
 
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-blue mr-5">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- script code start -->
 {{-- Get District By Country Script Block --}}
 <script>

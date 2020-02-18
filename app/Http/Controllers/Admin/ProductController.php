@@ -1308,7 +1308,15 @@ class ProductController extends Controller
         $thum_image = $product_id->thumbnail_img;
 
         if ($thum_image) {
-            unlink('' . $thum_image);
+            unlink('public/uploads/products/thumbnail/' . $thum_image);
+            unlink('public/uploads/products/thumbnail/cartthum/' . $thum_image);
+            unlink('public/uploads/products/thumbnail/productdetails/' . $thum_image);
+            unlink('public/uploads/products/thumbnail/smallthum/' . $thum_image);
+
+            foreach (json_decode($product_id->photos) as  $value) {
+
+                  unlink('storage/app/public/'.$value);
+            }
 
             $delet = Product::where('id', $id)->delete();
             if ($delet) {

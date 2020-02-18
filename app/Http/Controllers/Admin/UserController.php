@@ -186,6 +186,11 @@ class UserController extends Controller
           return Redirect()->back()->with($notification);
         }
       }
+      // custommer view
+      public function customerview($id){
+        $profile=User::where('id',$id)->first();
+        return view('admin.ecommerce.customer.profile',compact('profile'));
+      }
 
 
 

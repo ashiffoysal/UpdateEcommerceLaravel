@@ -941,14 +941,14 @@ footer .developby a:hover{
 }
 .counter_area .counter span{
   font-size:24px;
-  color: #26abe2;
+  color: #353C48;;
   position: absolute;
   top:-20px;
   left:50%;
   background-color:#fff;
   transform: translateX(-50%);
   padding:5px 10px;
-  border-radius: 50px;
+  /* border-radius: 50px; */
 }
 .counter_area .counter h2{
   padding:30% 0px;
