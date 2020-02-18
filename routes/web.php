@@ -55,8 +55,11 @@ Route::post('admin/frontlogo/update', 'Admin\SeoController@AdminFrontLogoUpdate'
 Route::get('admin/mail/setting', 'Admin\SeoController@MailSetting')->name('admin.mail.setting');
 Route::post('admin/smtp/update', 'Admin\SeoController@smtpUpdate')->name('admin.smtp.update');
 Route::post('admin/mailgun/update', 'Admin\SeoController@mailgunUpdate')->name('admin.mailgun.update');
+
 // sms setting area start
 Route::post('admin/sms/setting', 'Admin\SmsController@smsUpdate')->name('admin.sms.update');
+Route::get('admin/sms/verification/form/{rem_token}', 'Auth\RegisterController@smsVerificationform')->name('sms.verification.form');
+Route::post('admin/sms/verification/submit', 'Auth\RegisterController@smsVerification')->name('sms.verification.submit');
    //payment gateway
 Route::get('admin/payment/gateway', 'Admin\GatewayController@PaymentGateway')->name('admin.payment.gateway');
 Route::get('admin/social/login', 'Admin\GatewayController@sociallogin')->name('admin.sociallogin');
