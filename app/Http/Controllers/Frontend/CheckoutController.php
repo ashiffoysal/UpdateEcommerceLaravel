@@ -65,7 +65,8 @@ class CheckoutController extends Controller
     public function authenticate(Request $request)
     {
 
-        $admin = User::where('email', request('email'))->first();
+        // $admin = User::where('email', request('email'))->first();
+        $admin = User::where('email', request('email'))->where('status',1)->first();
         if ($admin) {
             $credentials = $request->only('email', 'password');
 
@@ -74,7 +75,7 @@ class CheckoutController extends Controller
                 return redirect()->intended(route('checkout.page.show'));
             }
         } else {
-            session()->flash('successMsg', 'Sorry !! Email or Password not matched!');
+            session()->flash('successMsg', 'Sorry !! Email or Password not matched! or You are not verify user!');
             return redirect()->route('checkout.login.show');
         }
     }
@@ -280,7 +281,9 @@ class CheckoutController extends Controller
         }
 
         $orderid =$request->order_id;
-        $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
+
+       $usercartdatas =Cart::session(\Request::getClientIp(true))->getContent();
+
 
         $products = array();
 
@@ -307,7 +310,9 @@ class CheckoutController extends Controller
         $orderPlaceId = OrderPlace::insertGetId([
             'shipping_id' => $request->shipping_id,
             // 'payment_method_id' => $request->payment_method_id,
+
             'payment_type' => $request->payment_type,
+
             'comment' => $request->comment,
             'order_id' => $request->order_id,
             'user_id' => Auth::user()->id,
@@ -342,7 +347,9 @@ class CheckoutController extends Controller
             return redirect()->route('order.payment', $getOrder->payment_secure_id);
         }
 
-        //return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
+
+        // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
+
     }
 
 

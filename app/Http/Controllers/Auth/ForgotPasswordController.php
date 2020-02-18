@@ -75,6 +75,7 @@ class ForgotPasswordController extends Controller
     {
         $checkRememberToken = User::where('remember_token', $remember_token)->firstOrFail();
         $remember_token = $checkRememberToken->remember_token;
+        
         abort_if(!$checkRememberToken, 403);
         return view('frontend.accounts.forget_password_verification_code', compact('remember_token'));
     }

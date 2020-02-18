@@ -17,18 +17,15 @@ class SmsController extends Controller
 
     public function smsUpdate(Request $request)
     {
-        $request->validate([
-            'sms_url' => 'required',
-            'sms_username' => 'required',
-            'sms_password' => 'required',
+        $id = $request->sms_id;
+        $update=SmsModel::where('id',$id)->update([
+            'sms_url'=>$request['sms_url'],
+            'sms_username'=>$request['sms_username'],
+            'sms_password'=>$request['sms_password'],
+            'sms_type'=>$request['sms_type'],
+            'sms_masking'=>$request['sms_masking'],
         ]);
         
-        $data=array();
-        $data['sms_url']=$request->sms_url;
-        $data['sms_username']=$request->sms_username;
-        $data['sms_password']=$request->sms_password;
-
-        SmsModel::findOrFail($request->sms_id)->update($data);
         $notification=array(
             'messege'=>'Successfully  Updated',
             'alert-type'=>'success'
