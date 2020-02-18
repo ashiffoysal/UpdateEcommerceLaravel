@@ -188,8 +188,11 @@ $seo=DB::table('seo')->first();
 
                 success: function(data) {
                     
+                    var totalPrice = data.total;
+                    var totalPrice = totalPrice.toFixed(2);
+                    
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
-                    document.getElementById('product_price').innerHTML = data.total;
+                    document.getElementById('product_price').innerHTML = totalPrice;
 						
                 }
             });
