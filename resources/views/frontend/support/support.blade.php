@@ -94,6 +94,7 @@
                             @php
                             $new=App\Support::where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->skip(2)->limit(2)->get();
                             @endphp
+                            @foreach($new as $data)
                             <div class="media-box-link">
                                 <div class="media-box-link--figure text-center">
                                     <span class="icon icon-help {{$data->icon}}"></span>
@@ -108,6 +109,7 @@
                                 </div>
                             </div>
                             <div class="divider divider--md1"></div>
+                            @endforeach
                             <!--  -->
                         </div>
                     </div>

@@ -23,10 +23,10 @@
 								</div>
 
 							</div>
-							<form action="{{url('admin/color/multisoftdelete')}}" method="post">
+							<form action="{{url('admin/themecolor/multisofdel')}}" method="post">
 						     @csrf
 							<button type="submit" style="margin: 5px;" class="btn btn-danger" ><i class="fa fa-trash"></i> Delete All</button>
-             				<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-recycle"></i> <a href="{{route('admin.trash.color')}}" style="color: #fff;">Restore</a></button>
+             			
 							<div class="panel_body">
 								<div class="table-responsive">
 		                         <table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">

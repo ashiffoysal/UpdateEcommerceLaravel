@@ -6,6 +6,7 @@ use App\UpozilaCouriers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class CourierController extends Controller
 {
@@ -160,4 +161,54 @@ class CourierController extends Controller
         $courier_ids = $request->courierId;
         return view('admin.ecommerce.courier.partials.get_courier_for_update_ajax_view', compact('upazila_courier_id', 'courier_ids'));
     }
+    // allcurier
+    public function allcurier(){
+
+      $allcurier=DB::table('couriers')->get();
+      return view('admin.ecommerce.courier.allcurier',compact('allcurier'));
+    }
+    public function curieredit($id){
+      $allcurier=DB::table('couriers')->where('id',$id)->first();
+      return json_encode($allcurier);
+    }
+    public function curierupdate(Request $request){
+      $id=$request->id;
+      $allcurier=DB::table('couriers')->where('id',$id)->update([
+        'courier_name'=>$request['courier_name'],
+        'updated_at'=>Carbon::now()->toDateTimeString(),
+      ]);
+      if($allcurier){
+        $notification = array(
+            'messege' => 'Successfully Courier Updated',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+      }else{
+        $notification = array(
+            'messege' => 'Successfully Courier Faild',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($notification);
+      }
+
+    }
+    //
+    public function curierdelete($id){
+
+      $allcurier=DB::table('couriers')->where('id',$id)->delete();
+      if($allcurier){
+        $notification = array(
+            'messege' => 'Delete success',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+      }else{
+        $notification = array(
+            'messege' => 'Delete Faild',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($notification);
+      }
+    }
+
 }

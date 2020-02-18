@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\SocialMediaLogin;
 use Carbon\Carbon;
+use App\Activation;
 class GatewayController extends Controller
 {
      public function __construct()
@@ -85,11 +86,351 @@ class GatewayController extends Controller
     public function activation(){
       return view('admin.activation.all');
     }
-    //
+
+    //deacitve
     public function fbupdate($id){
-      return $id;
+      $deactive=Activation::where('id',1)->update([
+        'facebook'=>'1',
+        'updated_at'=>Carbon::now()->toDateTimeString(),
+
+      ]);
+      if($deactive){
+        $notification=array(
+            'messege'=>'Update Successfully',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }else{
+        $notification=array(
+            'messege'=>'Update Faild',
+            'alert-type'=>'error'
+             );
+           return Redirect()->back()->with($notification);
+      }
     }
 
+    //fb  active
+    public function fbupdatedeactive($id){
+      $deactive=Activation::where('id',1)->update([
+        'facebook'=>'0',
+        'updated_at'=>Carbon::now()->toDateTimeString(),
+
+      ]);
+      if($deactive){
+        $notification=array(
+            'messege'=>'Update Successfully',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }else{
+        $notification=array(
+            'messege'=>'Update Faild',
+            'alert-type'=>'error'
+             );
+           return Redirect()->back()->with($notification);
+      }
+
+    }
+    // google active
+    public function googleactive($id){
+      $deactive=Activation::where('id',1)->update([
+        'google'=>'0',
+        'updated_at'=>Carbon::now()->toDateTimeString(),
+
+      ]);
+      if($deactive){
+        $notification=array(
+            'messege'=>'Update Successfully',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }else{
+        $notification=array(
+            'messege'=>'Update Faild',
+            'alert-type'=>'error'
+             );
+           return Redirect()->back()->with($notification);
+      }
+      }
+    // google deactive
+
+    public function googledeactive($id){
+      $deactive=Activation::where('id',1)->update([
+        'google'=>'1',
+        'updated_at'=>Carbon::now()->toDateTimeString(),
+
+      ]);
+      if($deactive){
+        $notification=array(
+            'messege'=>'Update Successfully',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }else{
+        $notification=array(
+            'messege'=>'Update Faild',
+            'alert-type'=>'error'
+             );
+           return Redirect()->back()->with($notification);
+      }
+      }
+      // smtp active
+      public function smtpactive($id){
+        $deactive=Activation::where('id',1)->update([
+          'smtp'=>'0',
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+
+        ]);
+        if($deactive){
+          $notification=array(
+              'messege'=>'Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else{
+          $notification=array(
+              'messege'=>'Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+      }
+      // smtp deactive
+      public function smtpdeactive($id){
+        $deactive=Activation::where('id',1)->update([
+          'smtp'=>'1',
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+
+        ]);
+        if($deactive){
+          $notification=array(
+              'messege'=>'Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else{
+          $notification=array(
+              'messege'=>'Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+      }
+
+      // paypal active
+    public function paypalactive($id){
+      $deactive=Activation::where('id',1)->update([
+        'paypal'=>'0',
+        'updated_at'=>Carbon::now()->toDateTimeString(),
+
+      ]);
+      if($deactive){
+        $notification=array(
+            'messege'=>'Update Successfully',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }else{
+        $notification=array(
+            'messege'=>'Update Faild',
+            'alert-type'=>'error'
+             );
+           return Redirect()->back()->with($notification);
+      }
+      }
+      //paypal deactive
+    public function paypaldeactive($id){
+      $deactive=Activation::where('id',1)->update([
+        'paypal'=>'1',
+        'updated_at'=>Carbon::now()->toDateTimeString(),
+
+      ]);
+      if($deactive){
+        $notification=array(
+            'messege'=>'Update Successfully',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }else{
+        $notification=array(
+            'messege'=>'Update Faild',
+            'alert-type'=>'error'
+             );
+           return Redirect()->back()->with($notification);
+      }
+    }
+
+    // stripe
+    public function stripeactive($id){
+      $deactive=Activation::where('id',1)->update([
+        'stripe'=>'1',
+        'updated_at'=>Carbon::now()->toDateTimeString(),
+
+      ]);
+      if($deactive){
+        $notification=array(
+            'messege'=>'Update Successfully',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }else{
+        $notification=array(
+            'messege'=>'Update Faild',
+            'alert-type'=>'error'
+             );
+           return Redirect()->back()->with($notification);
+      }
+    }
+
+    // stripe
+      public function stripedeactive($id){
+        $deactive=Activation::where('id',1)->update([
+          'stripe'=>'0',
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+
+        ]);
+        if($deactive){
+          $notification=array(
+              'messege'=>'Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else{
+          $notification=array(
+              'messege'=>'Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+      }
+
+      // ssl
+      public function sslactive($id){
+        $deactive=Activation::where('id',1)->update([
+          'ssl_commercez'=>'1',
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+
+        ]);
+        if($deactive){
+          $notification=array(
+              'messege'=>'Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else{
+          $notification=array(
+              'messege'=>'Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+      }
+      //ssl
+      public function ssldeactive($id){
+        $deactive=Activation::where('id',1)->update([
+          'ssl_commercez'=>'0',
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+
+        ]);
+        if($deactive){
+          $notification=array(
+              'messege'=>'Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else{
+          $notification=array(
+              'messege'=>'Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+      }
+// cash
+      public function cashactive($id){
+        $deactive=Activation::where('id',1)->update([
+          'cashondelevery'=>'1',
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+
+        ]);
+        if($deactive){
+          $notification=array(
+              'messege'=>'Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else{
+          $notification=array(
+              'messege'=>'Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+      }
+      // deactive
+      public function cashdeactive($id){
+        $deactive=Activation::where('id',1)->update([
+          'cashondelevery'=>'0',
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+
+        ]);
+        if($deactive){
+          $notification=array(
+              'messege'=>'Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else{
+          $notification=array(
+              'messege'=>'Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+      }
+
+      // sms
+      public function smsactive($id){
+        $deactive=Activation::where('id',1)->update([
+          'sms'=>'1',
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+
+        ]);
+        if($deactive){
+          $notification=array(
+              'messege'=>'Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else{
+          $notification=array(
+              'messege'=>'Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+      }
+
+      public function smsdeactive($id){
+        $deactive=Activation::where('id',1)->update([
+          'sms'=>'0',
+          'updated_at'=>Carbon::now()->toDateTimeString(),
+
+        ]);
+        if($deactive){
+          $notification=array(
+              'messege'=>'Update Successfully',
+              'alert-type'=>'success'
+               );
+             return Redirect()->back()->with($notification);
+        }else{
+          $notification=array(
+              'messege'=>'Update Faild',
+              'alert-type'=>'error'
+               );
+             return Redirect()->back()->with($notification);
+        }
+      }
 
 
 }

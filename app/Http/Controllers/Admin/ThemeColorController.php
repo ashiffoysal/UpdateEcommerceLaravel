@@ -112,7 +112,32 @@ class ThemeColorController extends Controller
                return Redirect()->back()->with($notification);
             }
 
-
+     }
+     // multipleSoftDelete
+     public function multisofdel(Request $request){
+       $deleteid=$request->Input('delid');
+                        if($deleteid){
+                        $delet=ThemeColor::whereIn('id',$deleteid)->delete();
+                        if($delet){
+                            $notification=array(
+                               'messege'=>'success',
+                               'alert-type'=>'success'
+                                );
+                            return redirect()->back()->with($notification);
+                        }else{
+                            $notification=array(
+                               'messege'=>'error',
+                               'alert-type'=>'error'
+                                );
+                            return redirect()->back()->with($notification);
+                           }
+                        }else{
+                           $notification=array(
+                               'messege'=>'Nothing To Delete',
+                               'alert-type'=>'info'
+                                );
+                            return redirect()->back()->with($notification);
+                        }
      }
 
 

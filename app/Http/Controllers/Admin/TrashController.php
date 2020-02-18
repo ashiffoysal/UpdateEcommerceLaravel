@@ -489,7 +489,10 @@ class TrashController extends Controller
         if ($deleteid) {
           $deleid = Product::whereIn('id', $deleteid)->first();
           $image_thumb = $deleid->thumbnail_img;
-          unlink('' . $image_thumb);
+          unlink('public/uploads/products/thumbnail/' . $image_thumb);
+          unlink('public/uploads/products/thumbnail/cartthum/' . $image_thumb);
+          unlink('public/uploads/products/thumbnail/productdetails/' . $image_thumb);
+          unlink('public/uploads/products/thumbnail/smallthum/' . $image_thumb);
           $deletpost = Product::whereIn('id', $deleteid)->delete();
           if ($deletpost) {
             $notification = array(

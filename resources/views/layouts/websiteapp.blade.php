@@ -52,6 +52,10 @@ $seo=DB::table('seo')->first();
 
         @yield('main_content')
 
+
+
+
+
     </div>
 
     <!-- Include footer option for home page one ============================================ -->
@@ -184,13 +188,13 @@ $seo=DB::table('seo')->first();
             $.ajax({
                 type: 'GET',
                 url: "{{ url('/show/total/price') }}",
-				
+
 
                 success: function(data) {
-                    
+
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
                     document.getElementById('product_price').innerHTML = data.total;
-						
+
                 }
             });
     }

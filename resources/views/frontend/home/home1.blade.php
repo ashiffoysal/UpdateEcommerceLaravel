@@ -1808,6 +1808,7 @@
         </div>
     </div>
 
+
     <script>
         $(document).ready(function() {
             $('.compareproduct').on('click', function() {

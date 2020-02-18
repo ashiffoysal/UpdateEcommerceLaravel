@@ -69,7 +69,30 @@ Route::get(md5('admin/Activation'), 'Admin\GatewayController@activation')->name(
 
 // facebook activation
 
-Route::get('admin/facebook/update/{id}', 'Admin\GatewayController@fbupdate');
+Route::get('admin/facebook/update/active/{id}', 'Admin\GatewayController@fbupdate');
+Route::get('admin/facebook/update/deactive/{id}', 'Admin\GatewayController@fbupdatedeactive');
+// google
+Route::get('admin/google/update/active/{id}', 'Admin\GatewayController@googleactive');
+Route::get('admin/google/update/deactive/{id}', 'Admin\GatewayController@googledeactive');
+//smtp
+Route::get('admin/smtp/update/active/{id}', 'Admin\GatewayController@smtpactive');
+Route::get('admin/smtp/update/deactive/{id}', 'Admin\GatewayController@smtpdeactive');
+//paypal
+Route::get('admin/paypal/update/active/{id}', 'Admin\GatewayController@paypalactive');
+Route::get('admin/paypal/update/deactive/{id}', 'Admin\GatewayController@paypaldeactive');
+
+Route::get('admin/stripe/update/active/{id}', 'Admin\GatewayController@stripeactive');
+Route::get('admin/stripe/update/deactive/{id}', 'Admin\GatewayController@stripedeactive');
+// ssl
+Route::get('admin/ssl/update/active/{id}', 'Admin\GatewayController@sslactive');
+Route::get('admin/ssl/update/deactive/{id}', 'Admin\GatewayController@ssldeactive');
+// cash on delevery
+Route::get('admin/cash/update/active/{id}', 'Admin\GatewayController@cashactive');
+Route::get('admin/cash/update/deactive/{id}', 'Admin\GatewayController@cashdeactive');
+// sms
+Route::get('admin/sms/update/active/{id}', 'Admin\GatewayController@smsactive');
+Route::get('admin/sms/update/deactive/{id}', 'Admin\GatewayController@smsdeactive');
+
 
 // category
 Route::get(md5('admin/category/add'), 'Admin\CategoryController@add')->name('admin.category.add');
@@ -125,6 +148,8 @@ Route::post(md5('admin/themecolor/update'), 'Admin\ThemeColorController@update')
 Route::get('/get/admin/themecolor/{id}', 'Admin\ThemeColorController@edit');
 Route::get('admin/themecolor/softDelete/{id}', 'Admin\ThemeColorController@softDelete');
 Route::get('admin/themecolor/active/{id}', 'Admin\ThemeColorController@active');
+Route::post('admin/themecolor/multisofdel', 'Admin\ThemeColorController@multisofdel');
+
 
 // brand controller
 Route::get(md5('admin/brand/all'), 'Admin\BrandController@index')->name('admin.brand.all');
@@ -488,6 +513,7 @@ route::get('admin/user/delete/{id}','admin\UserController@delete');
 // custommer
 
 route::get(md5('admin/custommer/all'),'admin\UserController@customer')->name('admin.custommer.all');
+route::get('admin/custommer/view/{id}','admin\UserController@customerview');
 route::get('admin/customer/delete/{id}','admin\UserController@customerdelete');
 
 
@@ -610,6 +636,11 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::post('sync/sync/update/{subDistrictId}', 'couriercontroller@couriersyncupdate')->name('courier.sync.update');
     Route::get('sync/sync/delete/{subDistrictId}', 'couriercontroller@couriersyncdelete')->name('courier.sync.delete');
     Route::post('store', 'couriercontroller@courierstore')->name('courier.store');
+    Route::get('allcurier', 'couriercontroller@allcurier')->name('courier.all');
+
+    Route::get('/edit/{id}', 'couriercontroller@curieredit');
+    Route::post('/update', 'couriercontroller@curierupdate');
+    Route::get('/curierdelete/{id}', 'couriercontroller@curierdelete');
 
     // Ajax Route
     Route::get('get/district/by/division/id/{divisionId}', 'CourierController@getDistrictByAjax');

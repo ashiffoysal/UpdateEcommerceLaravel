@@ -1,5 +1,5 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
 <div class="content_wrapper">
 				<!--middle content wrapper-->
 				<!-- page content -->
@@ -14,9 +14,9 @@
 											<span class="panel_icon"><i class="fas fa-border-all"></i></span><span>All Deleted Product</span>
 										</div>
 									</div>
-									
+
 								</div>
-								
+
 							</div>
 							<form action="{{route('admin.trash.producthearddel')}}" method="post">
 						     @csrf
@@ -61,10 +61,10 @@
 		                                      <td>{{$data->subcate_name}}</td>
 		                                      <td>{{$data->resubcate_name}}</td>
 		                                      <td>
-		                                      	<img src="{{asset('/'.$data->thumbnail_img)}}" height="45px">
+		                                      	<img src="{{asset('public/uploads/products/thumbnail/'.$data->thumbnail_img)}}" height="45px">
 		                                      </td>
-		                                  
-					                    	
+
+
 		                                       <td>
 		                                           	<a class="btn btn-sm btn-blue text-white" href="{{url('admin/product/restore/'.$data->id)}}"><i class="fas fa-recycle"></i></a> |
 		                                            <a id="delete" href="{{url('admin/product/hearddelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
@@ -89,16 +89,16 @@
 
         $('#check_all').on('click', function(e) {
 
-         if($(this).is(':checked',true))  
+         if($(this).is(':checked',true))
 
          {
-            $(".checkbox").prop('checked', true);  
+            $(".checkbox").prop('checked', true);
 
-         } else {  
+         } else {
 
-            $(".checkbox").prop('checked',false);  
+            $(".checkbox").prop('checked',false);
 
-         }  
+         }
 
         });
 

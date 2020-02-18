@@ -85,13 +85,18 @@ class FrontendController extends Controller
         $productdetails = Product::where('id', $id)->first();
         $checkFlashDeal = 0;
         $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();
+        if($flashDeal){
         $flashDealEndDate = $flashDeal->end_date;
         $flashDealDetails = FlashDealDetail::where('product_id', $id)->where('flash_deal_id', $flashDeal->id)->first();
         if ($flashDealDetails) {
             $checkFlashDeal = 1;
         }
-
         return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal', 'flashDealEndDate'));
+      }else{
+        return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal'));
+      }
+
+
     }
 
     // Product compare page show
