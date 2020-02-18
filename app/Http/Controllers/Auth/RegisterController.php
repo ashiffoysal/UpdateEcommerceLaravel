@@ -53,7 +53,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
- 
+
 
     public function showRegistrationForm()
     {
@@ -71,7 +71,7 @@ class RegisterController extends Controller
     protected function register(Request $request)
     {
 
-        
+
 
         $request->validate([
             'firstname' => 'required|string|max:255',
@@ -190,6 +190,5 @@ class RegisterController extends Controller
         $user = User::where('email', $email)->first();
         return view('frontend.accounts.registration_success_page', compact('user'));
     }
-
 
 }

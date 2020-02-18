@@ -2,7 +2,6 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use App\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,10 +24,9 @@ trait ResetsPasswords
      */
     public function showResetForm(Request $request, $token = null)
     {
-        // return view('auth.passwords.reset')->with(
-        //     ['token' => $token, 'email' => $request->email]
-        // );
-        return redirect()->back();
+        return view('auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
     }
 
     /**
@@ -39,28 +37,23 @@ trait ResetsPasswords
      */
     public function reset(Request $request)
     {
+        $request->validate($this->rules(), $this->validationErrorMessages());
 
-        $this->validate($request, [
-            'old_password' => 'required',
-            'password' => 'required|confirmed'
-        ]);
-
-        if (Hash::check($request->old_password, Auth::user('web')->password)) {
-            if (!Hash::check($request->password, Auth::user('web')->password)) {
-                User::where('id', Auth::user('web')->id)->update([
-                    'password' => Hash::make($request->password),
-                ]);
-                session()->flash('successMsg', 'Successfully your password has been changed.');
-                Auth::logout();
-                return redirect()->route('login');
-            } else {
-                session()->flash('errorMsg', 'Your old password and new password is same.');
-                return redirect()->back();
+        // Here we will attempt to reset the user's password. If it is successful we
+        // will update the password on an actual user model and persist it to the
+        // database. Otherwise we will parse the error and return the response.
+        $response = $this->broker()->reset(
+            $this->credentials($request), function ($user, $password) {
+                $this->resetPassword($user, $password);
             }
-        } else {
-            session()->flash('errorMsg', 'Your old password does not match.');
-            return redirect()->back();
-        }
+        );
+
+        // If the password was successfully reset, we will redirect the user back to
+        // the application's home authenticated view. If there is an error we can
+        // redirect them back to where they came from with their error message.
+        return $response == Password::PASSWORD_RESET
+                    ? $this->sendResetResponse($request, $response)
+                    : $this->sendResetFailedResponse($request, $response);
     }
 
     /**
@@ -96,10 +89,7 @@ trait ResetsPasswords
     protected function credentials(Request $request)
     {
         return $request->only(
-            'email',
-            'password',
-            'password_confirmation',
-            'token'
+            'email', 'password', 'password_confirmation', 'token'
         );
     }
 
@@ -145,7 +135,7 @@ trait ResetsPasswords
     protected function sendResetResponse(Request $request, $response)
     {
         return redirect($this->redirectPath())
-            ->with('status', trans($response));
+                            ->with('status', trans($response));
     }
 
     /**
@@ -158,8 +148,8 @@ trait ResetsPasswords
     protected function sendResetFailedResponse(Request $request, $response)
     {
         return redirect()->back()
-            ->withInput($request->only('email'))
-            ->withErrors(['email' => trans($response)]);
+                    ->withInput($request->only('email'))
+                    ->withErrors(['email' => trans($response)]);
     }
 
     /**
