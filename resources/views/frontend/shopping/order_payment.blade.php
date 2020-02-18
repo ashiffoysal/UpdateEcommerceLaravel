@@ -39,7 +39,6 @@
                                         <div class="box-inner">
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" id="pay_method" name="payment_method_id" value="1" > Cash On Delivery <br>
                                                     <input type="radio" id="pay_method" name="payment_method_id" value="2" > Stripe <br>
                                                     <input type="radio" id="pay_method" name="payment_method_id" value="3" > Paypal <br>
                                                     <input type="radio" id="pay_method" name="payment_method_id" value="4" > SSL Commerce <br/>

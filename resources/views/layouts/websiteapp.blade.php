@@ -74,7 +74,6 @@ $seo=DB::table('seo')->first();
     @endforeach
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
     <script>
         @if (Session:: has('alertmessege'))
         toastr.warning("{{ Session::get('alertmessege') }}");
@@ -192,8 +191,15 @@ $seo=DB::table('seo')->first();
 
                 success: function(data) {
 
+
+                    
+                    var totalPrice = data.total;
+                    var totalPrice = totalPrice.toFixed(2);
+                    
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
-                    document.getElementById('product_price').innerHTML = data.total;
+                    document.getElementById('product_price').innerHTML = totalPrice;
+						
+
 
                 }
             });

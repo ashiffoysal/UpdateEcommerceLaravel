@@ -32,6 +32,6 @@ class PaymentSuccessMail extends Mailable
 
        $orderPlace = $this->orderPlace;
 
-        return $this->view('frontend.payment.mail_template', compact('orderPlace'));
+        return $this->view('frontend.mail_template.success_payment_mail', compact('orderPlace'));
     }
 }

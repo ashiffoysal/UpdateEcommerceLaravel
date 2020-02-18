@@ -18,6 +18,8 @@ class CreateSmsModelsTable extends Migration
             $table->string('sms_url');
             $table->string('sms_username');
             $table->string('sms_password');
+            $table->string('sms_type');
+            $table->string('sms_masking');
             $table->timestamps();
         });
     }
