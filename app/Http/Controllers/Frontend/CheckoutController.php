@@ -35,7 +35,6 @@ class CheckoutController extends Controller
 
     public function checkoutshow()
     {
-
         $userid =  \Request::getClientIp(true);
         $cartdata = Cart::session($userid)->getContent();
         if(count($cartdata) >0){

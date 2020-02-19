@@ -124,7 +124,7 @@ class RegisterController extends Controller
 
         $ch = curl_init();
             curl_setopt_array($ch, array(
-            CURLOPT_URL => $smsurl,
+            // CURLOPT_URL => $smsurl,
             // CURLOPT_URL => 'http://gosms.xyz/api/v1/sendSms',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,

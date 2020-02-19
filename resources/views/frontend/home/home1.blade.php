@@ -1826,10 +1826,235 @@
                 </div>
                 @endforeach
             </div>
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_5dfs  block block_10">
+												<div class="clearfix home1-sevices">
+													 <ul class="category-slider-inner products-list yt-content-slider" data-rtl="yes" data-autoplay="yes" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="0" data-items_column00="4" data-items_column0="4" data-items_column1="3" data-items_column2="2"  data-items_column3="2" data-items_column4="1" data-arrows="no" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+															<li class="item payment col-md-3">
+																 <div class="icon">
+																 </div>
+																 <div class="text">
+																		<h5><a href="#">Payment on Delivery</a></h5>
+																		<p>Cash on delivery option</p>
+																 </div>
+															</li>
+															<li class="item free col-md-3">
+																 <div class="icon">
+																 </div>
+																 <div class="text">
+																		<h5><a href="#">Free shipping</a></h5>
+																		<p>Free shipping on oder over $100</p>
+																 </div>
+															</li>
+															<li class="item secure col-md-3">
+																 <div class="icon">
+																 </div>
+																 <div class="text">
+																		<h5><a href="#">Secure Payment</a></h5>
+																		<p>We value your security</p>
+																 </div>
+															</li>
+															<li class="item support col-md-3">
+																 <div class="icon">
+																 </div>
+																 <div class="text">
+																		<h5><a href="#">Online support</a></h5>
+																		<p>We have support 24/7</p>
+																 </div>
+															</li>
+													 </ul>
+												</div>
+                                         </div>
+                                         
+
+
+                                         <!-- blog area start -->
+
+                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_cfay  block block_11">
+												<div class="module so-latest-blog custom-ourblog clearfix default-nav preset01-2 preset02-2 preset03-2 preset04-2 preset05-1">
+													 <h2 class="modtitle"><span>Latest Blog</span></h2>
+													 <div class="modcontent">
+															<div id="so_latest_blog_1" class="so-blog-external button-type2 button-type2">
+																 <div class="category-slider-inner products-list yt-content-slider blog-external clearfix " data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="2" data-items_column0="2" data-items_column1="2" data-items_column2="2"  data-items_column3="2" data-items_column4="1" data-arrows="no" data-pagination="yes" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+																		<div class="media">
+																			 <div class="item head-button"> 
+																					<div class="content-img col-sm-6 col-xs-12">
+																						 <a href="product.html" target="_self">
+																						 <img src="image/catalog/demo/blog/8-260x190.jpg" alt="Aestibulum ipsum a ornare car">
+																						 </a>
+																					</div>
+																					<div class="content-detail col-sm-6 col-xs-12">
+																						 <div class="media-content so-block">
+																								<div class="entry-date font-ct date-bottom">
+																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
+																								</div>
+																								<h4 class="media-heading head-item">
+																									 <a href="product.html" title="Aestibulum ipsum a ornare car" target="_self">Aestibulum ipsum a ornare car</a>
+																								</h4>
+																								<div class="description">
+																									 Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec ornare lacus turpis ac purus. Mauris cursus in mi v..
+																								</div>
+																								<div class="readmore">
+																									 <a href="product.html" target="_self">Read more</a>
+																								</div>
+																						 </div>
+																					</div>
+																			 </div>
+																		</div>
+																		<div class="media">
+																			 <div class="item head-button">
+																					<div class="content-img col-sm-6 col-xs-12">
+																						 <a href="product.html" target="_self">
+																						 <img src="image/catalog/demo/blog/9-260x190.jpg" alt="Aestibulum ipsum a ornare lectus">
+																						 </a>
+																					</div>
+																					<div class="content-detail col-sm-6 col-xs-12">
+																						 <div class="media-content so-block">
+																								<div class="entry-date font-ct date-bottom">
+																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
+																								</div>
+																								<h4 class="media-heading head-item">
+																									 <a href="product.html" title="Aestibulum ipsum a ornare lectus" target="_self">Aestibulum ipsum a ornare lectus</a>
+																								</h4>
+																								<div class="description">
+																									 Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec ornare lacus turpis ac purus. Mauris cursus in mi v..
+																								</div>
+																								<div class="readmore">
+																									 <a href="product.html" target="_self">Read more</a>
+																								</div>
+																						 </div>
+																					</div>
+																			 </div>
+																		</div>
+									<div class="media">
+																			 <div class="item head-button">
+																					<div class="content-img col-sm-6 col-xs-12">
+																						 <a href="product.html" target="_self">
+																						 <img src="image/catalog/demo/blog/5-260x190.jpg" alt="Baby Came Back! Missed Out? Grab Your">
+																						 </a>
+																					</div>
+																					<div class="content-detail col-sm-6 col-xs-12">
+																						 <div class="media-content so-block">
+																								<div class="entry-date font-ct date-bottom">
+																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
+																								</div>
+																								<h4 class="media-heading head-item">
+																									 <a href="product.html" title="Baby Came Back! Missed Out? Grab Your" target="_self">Baby Came Back! Missed Out? Grab Your</a>
+																								</h4>
+																								<div class="description">
+																									 Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec ornare lacus turpis ac purus. Mauris cursus in mi v..
+																								</div>
+																								<div class="readmore">
+																									 <a href="product.html" target="_self">Read more</a>
+																								</div>
+																						 </div>
+																					</div>
+																			 </div>
+																		</div>
+									<div class="media">
+																			 <div class="item head-button">
+																					<div class="content-img col-sm-6 col-xs-12">
+																						 <a href="product.html" target="_self">
+																						 <img src="image/catalog/demo/blog/2-260x190.jpg" alt="Biten demonstraverunt lector ">
+																						 </a>
+																					</div>
+																					<div class="content-detail col-sm-6 col-xs-12">
+																						 <div class="media-content so-block">
+																								<div class="entry-date font-ct date-bottom">
+																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
+																								</div>
+																								<h4 class="media-heading head-item">
+																									 <a href="product.html" title="Biten demonstraverunt lector " target="_self">Biten demonstraverunt lector </a>
+																								</h4>
+																								<div class="description">
+																									 Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec ornare lacus turpis ac purus. Mauris cursus in mi v..
+																								</div>
+																								<div class="readmore">
+																									 <a href="product.html" target="_self">Read more</a>
+																								</div>
+																						 </div>
+																					</div>
+																			 </div>
+																		</div>
+									<div class="media">
+																			 <div class="item head-button">
+																					<div class="content-img col-sm-6 col-xs-12">
+																						 <a href="product.html" target="_self">
+																						 <img src="image/catalog/demo/blog/7-260x190.jpg" alt="Commodo laoreet semper">
+																						 </a>
+																					</div>
+																					<div class="content-detail col-sm-6 col-xs-12">
+																						 <div class="media-content so-block">
+																								<div class="entry-date font-ct date-bottom">
+																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
+																								</div>
+																								<h4 class="media-heading head-item">
+																									 <a href="product.html" title="Commodo laoreet semper" target="_self">Commodo laoreet semper</a>
+																								</h4>
+																								<div class="description">
+													Commodo laoreet semper tincidunt lorem Vestibulum nunc at In Curabitur magna. Euismod euismod Suspendisse tortor ante ad..
+																								</div>
+																								<div class="readmore">
+																									 <a href="product.html" target="_self">Read more</a>
+																								</div>
+																						 </div>
+																					</div>
+																			 </div>
+																		</div>
+									<div class="media">
+																			 <div class="item head-button">
+																					<div class="content-img col-sm-6 col-xs-12">
+																						 <a href="product.html" target="_self">
+																						 <img src="image/catalog/demo/blog/3-260x190.jpg" alt="Neque porro quisquam est">
+																						 </a>
+																					</div>
+																					<div class="content-detail col-sm-6 col-xs-12">
+																						 <div class="media-content so-block">
+																								<div class="entry-date font-ct date-bottom">
+																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
+																								</div>
+																								<h4 class="media-heading head-item">
+																									 <a href="product.html" title="Neque porro quisquam est" target="_self">Neque porro quisquam est</a>
+																								</h4>
+																								<div class="description">
+																									 Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius ..
+																								</div>
+																								<div class="readmore">
+																									 <a href="product.html" target="_self">Read more</a>
+																								</div>
+																						 </div>
+																					</div>
+																			 </div>
+																		</div>
+																 </div>
+															</div>
+													 </div>
+												</div>
+                                         </div>
+                                         
+
+
+                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_swee  block block_12">
+												<div id="content_slider_mfn4" class="yt-content-slider owl2-theme yt-content-slider-style-default arrow-default top-brand owl2-carousel owl2-responsive-1200 owl2-loaded yt-testimonials-slider" data-transitionin="fadeIn" data-transitionout="fadeOut" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="10" data-items_column00="6" data-items_column0="6" data-items_column1="5" data-items_column2="4" data-items_column3="3" data-items_column4="2" data-arrows="yes" data-pagination="no" data-lazyload="no" data-loop="yes" data-hoverpause="yes">
+													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-1.jpg" alt="title_dsdfg">
+													 </div>
+													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-2.jpg" alt="title_dsdfg">
+													 </div>
+													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-3.jpg" alt="title_dsdfg">
+													 </div>
+													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-4.jpg" alt="title_dsdfg">
+													 </div>
+													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-5.jpg" alt="title_dsdfg">
+													 </div>
+													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-6.jpg" alt="title_dsdfg">
+													 </div>
+												</div>
+										 </div>
         </div>
     </div>
 
-<!--
+
     <script>
         $(document).ready(function() {
             $('.compareproduct').on('click', function() {
