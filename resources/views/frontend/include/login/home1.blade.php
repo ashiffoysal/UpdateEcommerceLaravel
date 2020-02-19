@@ -36,10 +36,16 @@
 									<div class=" form-group">
 										<label class="control-label">Login with your social account</label>
 										<div>
-
-                                        <a href="{{ route('google.login') }}" class="btn btn-social-icon btn-sm btn-google-plus"><i class="fa fa-google fa-fw" aria-hidden="true"></i></a>
-                                        <a href="{{ route('facebook.login') }}" class="btn btn-social-icon btn-sm btn-facebook"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></a>
-											<a href="#" class="btn btn-social-icon btn-sm btn-twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></a>
+											@php
+												$activateion=App\Activation::where('id',1)->first();
+											@endphp
+											@if($activateion->google==1)
+                      <a href="{{ route('google.login') }}" class="btn btn-social-icon btn-sm btn-google-plus"><i class="fa fa-google fa-fw" aria-hidden="true"></i></a>
+											@endif
+											@if($activateion->facebook==1)
+                      <a href="{{ route('facebook.login') }}" class="btn btn-social-icon btn-sm btn-facebook"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></a>
+											@endif
+											<!-- <a href="#" class="btn btn-social-icon btn-sm btn-twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></a> -->
 										</div>
 									</div>
 

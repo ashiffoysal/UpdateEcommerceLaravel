@@ -51,7 +51,7 @@
 											$category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
 								    	@endphp
 								      <select class="form-control" name="cate_id" id="cate_id">
-								      	<option >Select</option>
+								      	<option value="0">Select</option>
 								      	@foreach($category as $cate)
 								      	<option {{ $cate->id == old('cate_id') ? "SELECTED" : "" }} value="{{$cate->id}}">{{$cate->cate_name}}</option>
 								      	@endforeach
@@ -183,43 +183,7 @@
 									     </select>
 								    </div>
 								 </div>
-								 {{-- <div class="row">
-		                          	<div class="col-md-3"></div>
-		                          	<div class="col-md-8">
-		                             	<label class="chech_container mb-4">
-											<input type="checkbox"  id="allow_flash_deal"  name="allow_flash_deal" value="1">
-											<span class="checkmark"></span>
-											Flash Deal
-										</label>
-		                          	</div>
-		                        </div> --}}
 
-		                         {{-- <div id="flash_deal_section" style="display: none;">
-		                              <div  class="row">
-		                                <div class="col-md-3"></div>
-		                                <div class="col-md-6 row">
-		                                   <div class="col-md-3">
-		                                      	<label>Start Date:</label>
-		                                        <input type="date" name="flash_deal_start_date" class="form-control">
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                      	<label>End Date:</label>
-		                                        <input type="date" name="flash_deal_end_date" class="form-control">
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                      	<label>% / Amount</label>
-		                                        <select class="form-control" name="flash_deal_type">
-		                                        	<option value="1">Amount</option>
-		                                        	<option value="2">%</option>
-		                                        </select>
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                      	<label>Price</label>
-		                                        <input type="number" name="flash_deal_price" class="form-control">
-		                                    </div>
-		                                </div>
-		                             </div>
-                          		</div> --}}
                           		<div style="margin-top: 15px">
 	                          		<div class="row">
 	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
@@ -259,6 +223,12 @@
 								      <input type="text" value="{{ old('meta_description') }}" class="form-control" name="meta_description">
 								    </div>
 								  </div>
+									<div class="form-group row">
+								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Youtube Video iframe</label>
+								    <div class="col-sm-6">
+								      <textarea class="form-control" name="video"></textarea>
+								    </div>
+								  </div>
 
 								<div class="form-group row">
 									<label for="" class="col-sm-3 col-form-label text-right">Gallery Images</label>
@@ -272,13 +242,12 @@
 									<div class="col-sm-6">
 									<div id="thumbnail_img" class="row">
 
-                                    </div>
-                                    <span class="text-danger">{{ $errors->first('thumbnail_img') }}</span>
+                  </div>
+                  <span class="text-danger">{{ $errors->first('thumbnail_img') }}</span>
 									</div>
 								</div>
 
 								<div class="form-group row">
-
 									<div class="col-md-12 text-center">
 										<button type="submit" class="btn btn-primary">Add Product</button>
 									</div>

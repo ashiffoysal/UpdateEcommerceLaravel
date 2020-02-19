@@ -39,7 +39,6 @@
 @php
   $productdetails->cate_id;
   $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$productdetails->cate_id)->orderBy('id','DESC')->first();
-
 @endphp
 
 <div id="main_content">
@@ -421,7 +420,7 @@
                                           $reviewcount=App\ProductReview::where('product_id',$productdetails->id)->count();
                                         @endphp
                                         <li><a href="#tab-review" data-toggle="tab">Review ({{$reviewcount}})</a></li>
-                                        <li><a href="#tab-tags" data-toggle="tab">Tags</a></li>
+
                                         <li><a href="#tab-ctab" data-toggle="tab">Custom tab</a></li>
                                     </ul>
                                     <div class="tab-content ">
@@ -479,11 +478,9 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="tab-pane" id="tab-tags">
-                                            <a href="#">{{$productdetails->meta_tag}}</a>
-                                        </div>
+
                                         <div class="tab-pane" id="tab-ctab">
-                                            <p></p>
+                                            {!!$productdetails->video!!}
                                         </div>
                                     </div>
                                 </div>
@@ -515,7 +512,7 @@
                                             <div class="product-item-container">
                                                 <div class="left-block">
                                                     <div class="product-image-container">
-                                                        <a href="{{url('/product/details/page/'.$products->id)}}"
+                                                        <a href="{{url('/product/'.$products->slug.'/'.$products->id)}}"
                                                             title="Portable  Compact Charger (External Battery) t45 ">
                                                             <img src="{{asset('public/uploads/products/thumbnail/productdetails/'.$products->thumbnail_img)}}"
                                                                 alt="Portable  Compact Charger (External Battery) t45"
@@ -532,7 +529,7 @@
                                                 <div class="right-block">
                                                     <div class="caption">
 
-                                                        <h4><a href="{{url('/product/details/page/'.$products->id)}}">{{Str::limit($products->product_name,40)}}</a>
+                                                        <h4><a href="{{url('/product/'.$products->slug.'/'.$products->id)}}">{{Str::limit($products->product_name,40)}}</a>
                                                         </h4>
                                                         <div class="total-price clearfix"
                                                             style="visibility: hidden; display: block;">
@@ -579,16 +576,15 @@
                                                                 data-fancybox-type="iframe" href="{{url('product/details/'.$products->id)}}"
                                                                 data-original-title="Quickview "> <i
                                                                     class="fa fa-search"></i> </a>
-                                                            <button class="wishlist btn-button" type="button"
-                                                                data-toggle="tooltip" title=""
-                                                                onclick="wishlist.add('78');"
-                                                                data-original-title="Add to Wish List"><i
-                                                                    class="fa fa-heart-o"></i></button>
-                                                            <button class="compare btn-button" type="button"
-                                                                data-toggle="tooltip" title=""
-                                                                onclick="compare.add('78');"
-                                                                data-original-title="Compare this Product"><i
-                                                                    class="fa fa-retweet"></i></button>
+
+                                                                    @if(Auth::guard('web')->check())
+                                                                    <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$products->id}}"> <i class="fa fa-heart"></i></button>
+                                                                    @else
+                                                                    <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                    @endif
+
+                                                                    <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$products->id }}"><i class="fa fa-exchange"></i></button>
+
 
 
                                                             <button class="addToCart btn-button" type="button"

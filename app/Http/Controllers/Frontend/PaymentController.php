@@ -34,7 +34,10 @@ class PaymentController extends Controller
     {
         return view('frontend.payment.stripe_success_payment_page');
     }
-
+    public function paypalsuccess()
+    {
+        return view('frontend.payment.paypal_success');
+    }
     public function redirectToCheckout(Request $request)
     {
     }

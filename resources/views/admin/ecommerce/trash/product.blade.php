@@ -38,39 +38,33 @@
 		                                      <th>Product Name</th>
 		                                      <th>Current qty</th>
 		                                      <th>Price</th>
-		                                      <th>Category</th>
-		                                      <th>SubCategory</th>
-		                                      <th>ReSubCategory</th>
+		                                      <th>Sku</th>
 		                                      <th>Image</th>
 		                                      <th>manage</th>
 		                                  </tr>
 		                              </thead>
 		                              <tbody>
-		          						@foreach($allproduct as $data)
+		          									@foreach($allproduct as $data)
 		                                  <tr>
 	                                  		  <td>
-												<label class="chech_container mb-4">
-													<input type="checkbox" name="delid[]" class="checkbox" value="{{$data->id}}">
-													<span class="checkmark"></span>
-												</label>
+																						<label class="chech_container mb-4">
+																							<input type="checkbox" name="delid[]" class="checkbox" value="{{$data->id}}">
+																							<span class="checkmark"></span>
+																						</label>
 		                                      </td>
 		                                      <td>{{$data->product_name}}</td>
 		                                      <td>{{$data->product_qty}}</td>
 		                                      <td>{{$data->product_price}}</td>
-		                                      <td>{{$data->cate_name}}</td>
-		                                      <td>{{$data->subcate_name}}</td>
-		                                      <td>{{$data->resubcate_name}}</td>
+		                                      <td>{{$data->product_sku}}</td>
 		                                      <td>
 		                                      	<img src="{{asset('public/uploads/products/thumbnail/'.$data->thumbnail_img)}}" height="45px">
 		                                      </td>
-
-
 		                                       <td>
-		                                           	<a class="btn btn-sm btn-blue text-white" href="{{url('admin/product/restore/'.$data->id)}}"><i class="fas fa-recycle"></i></a> |
-		                                            <a id="delete" href="{{url('admin/product/hearddelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
+	                                           	<a class="btn btn-sm btn-blue text-white" href="{{url('admin/product/restore/'.$data->id)}}"><i class="fas fa-recycle"></i></a> |
+	                                            <a id="delete" href="{{url('admin/product/hearddelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 		                                       </td>
 		                                  </tr>
-		                    			@endforeach
+		                    					@endforeach
 		                              </tbody>
 		                          </table>
 		                      </div>

@@ -59,7 +59,7 @@
                                                 <div class="item-img-info product-image-container ">
                                                     <div class="box-label">
                                                     </div>
-                                                    <a class="lt-image" target="_self" title="Philipin Tour Group Manila/ Pattaya / Mactan ">
+                                                    <a href="{{url('product/'.$row->slug.'/'.$row->id)}}" class="lt-image" target="_self" title="Philipin Tour Group Manila/ Pattaya / Mactan ">
                                                         <img src="{{asset('public/uploads/products/thumbnail/productdetails/'.$row->thumbnail_img)}}" alt="Philipin Tour Group Manila/ Pattaya / Mactan ">
                                                     </a>
                                                 </div>
@@ -69,7 +69,7 @@
                                             <div class="item-info">
                                                 <!-- Begin title -->
                                                 <div class="item-title">
-                                                    <a href="{{url('/product/details/page/'.$row->id)}}" target="_self" title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
+                                                    <a href="{{url('product/'.$row->slug.'/'.$row->id)}}" target="_self" title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
                                                         {{Str::limit($row->product_name,20)}}
                                                     </a>
                                                 </div>
@@ -173,7 +173,7 @@
                                                 <div class="item-img-info product-image-container ">
                                                     <div class="box-label">
                                                     </div>
-                                                    <a class="lt-image" target="_self" title="{{$row->product_name}}">
+                                                    <a href="{{url('product/'.$row->slug.'/'.$row->id)}}" class="lt-image" target="_self" title="{{$row->product_name}}">
                                                         <img src="{{asset('public/uploads/products/thumbnail/productdetails/'.$row->thumbnail_img)}}" alt="Philipin Tour Group Manila/ Pattaya / Mactan ">
                                                     </a>
                                                 </div>
@@ -183,7 +183,7 @@
                                             <div class="item-info">
                                                 <!-- Begin title -->
                                                 <div class="item-title">
-                                                    <a href="{{url('/product/details/page/'.$row->id)}}" target="_self" title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
+                                                    <a href="{{url('product/'.$row->slug.'/'.$row->id)}}" target="_self" title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
                                                         {{Str::limit($row->product_name,40)}}
                                                     </a>
                                                 </div>
@@ -264,13 +264,6 @@
                                 </div>
                                 <!-- End item-wrap -->
                                 @endforeach
-
-
-
-
-
-
-
                                 <!-- End item-wrap -->
                             </div>
                         </div>

@@ -31,7 +31,7 @@
 
 													<li class="">
 														<p class="close-menu"></p>
-														<a href="blog-page.html" class="clearfix">
+														<a href="" class="clearfix">
 															<strong>
 																Blog
 															</strong>
