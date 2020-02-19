@@ -13,7 +13,7 @@
         <div class="col-md-9" id="content">
             <h2 class="title">{{ __('My Account') }}</h2>
             <p class="lead">
-                {{ __('Hello,') }} <strong>{{$user->first_name}} {{ $user->last_name }}!</strong>
+                {{ __('Hello,') }} <strong>{{$user->username}}!</strong>
                 {{ __('- To update your account information.')}}
             </p>
             <form action="{{ route('customer.account.update') }}" method="POST">
@@ -23,19 +23,11 @@
                         <fieldset id="personal-details">
                             <legend>{{ __('Personal Details') }}</legend>
                             <div class="form-group required">
-                                <label for="input-firstname" class="control-label">{{ __('First Name') }}</label>
-                                <input type="text" class="form-control" id="input-firstname" placeholder="First Name"
-                                    value="{{ $user->first_name }}" name="first_name">
-                                @error('first_name')
-                                <span class="text-danger">{{ $errors->first('first_name') }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group required">
-                                <label for="input-lastname" class="control-label">{{ __('Last name') }}</label>
-                                <input type="text" class="form-control" id="input-lastname" placeholder="Last Name"
-                                    value="{{ $user->last_name }}" name="last_name">
-                                @error('last_name')
-                                <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                                <label for="input-firstname" class="control-label">{{ __('Name') }}</label>
+                                <input type="text" class="form-control" id="input-firstname" placeholder="name"
+                                    value="{{ $user->username }}" name="name">
+                                @error('name')
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
                                 @enderror
                             </div>
                             <div class="form-group required">
@@ -62,7 +54,7 @@
                             <span class="alert alert-danger d-block">{{ session('errorMsg') }}</span>
                             @endif
                             <div class="form-group required">
-                                <label for="input-password" class="control-label">Old Password</label>
+                                <label for="input-password" class="control-label">{{ __('Old Password') }}</label>
                                 <input type="password" class="form-control" placeholder="Old Password" value=""
                                     name="old_password">
                                 @error('old_password')
@@ -70,7 +62,7 @@
                                 @enderror
                             </div>
                             <div class="form-group required">
-                                <label for="input-password" class="control-label">New Password</label>
+                                <label for="input-password" class="control-label">{{ __('New Password') }}</label>
                                 <input type="password" class="form-control" placeholder="New Password" value=""
                                     name="password">
                                 @error('password')
@@ -78,7 +70,7 @@
                                 @enderror
                             </div>
                             <div class="form-group required">
-                                <label for="input-confirm" class="control-label">New Password Confirm</label>
+                                <label for="input-confirm" class="control-label">{{ __('New Password Confirm') }}</label>
                                 <input type="password" class="form-control" id="input-confirm"
                                     placeholder="New Password Confirm" value="" name="password_confirmation">
                             </div>
@@ -94,7 +86,7 @@
                         <fieldset id="address">
                             <legend>Address</legend>
                             <div class="form-group">
-                                <label for="input-company" class="control-label">Company</label>
+                                <label for="input-company" class="control-label"> {{ __('Company') }} </label>
                                 <input type="text" class="form-control" placeholder="Company"
                                     value="{{ $user->company ? $user->company : old('company') }}" name="company">
                             </div>

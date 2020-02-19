@@ -8,7 +8,8 @@
             <li><a href="#">Login</a></li>
         </ul>
 
-        <div id="content" class="col-md-9">
+        <div class="col-md-2"></div>
+        <div id="content" class="col-md-8">
             <div class="session-message">
                 @if (Session::has('successMsg'))
                     <span class="alert alert-success d-block">{{ session('successMsg') }}</span>
@@ -18,34 +19,70 @@
                 @endif
             </div>
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="well ">
-                        <h2>New Customer</h2>
-                        <p><strong>Register Account</strong></p>
-                        <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
-                        <a href="{{route('register')}}" class="btn btn-primary">Continue</a>
-                    </div>
+                <div class="well col-sm-6">
+                    <h2 class="title"><i class="fa fa-user" aria-hidden="true"></i> Registration Account</h2>
+                <form action="{{ route('register') }}" method="post">
+                    @csrf
+                            <legend>Your Personal Details</legend>
+                            <div class="form-group">
+                                <label class="control-label" for="input-firstname">Name</label>
+                                <input type="text" name="name" value="{{ old('name') }}" placeholder="Name" id="input-firstname" class="form-control">
+                                <span class="error_text">{{ $errors->first('name') }}</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label" for="input-email">E-Mail</label>
+                                <input type="email" name="email" value="{{ old('email') }}" placeholder="E-Mail" id="input-email" class="form-control w-75">
+                                <span class="error_text">{{ $errors->first('email') }}</span>
+                            </div>
+
+                            <div class="form-group ">
+                                <label class="control-label" for="input-telephone">Phone</label>
+                                <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="Telephone" id="input-telephone" class="form-control">
+                                <span class="error_text">{{ $errors->first('phone') }}</span>
+                            </div>
+
+                            <div class="form-group ">
+                                <label class="control-label" for="input-password">Password</label>
+                                <input type="password" name="password" value="{{ old('password') }}" placeholder="Password" id="input-password" class="form-control">
+                                <span class="error_text">{{ $errors->first('password') }}</span>
+                            </div>
+
+                            <div class="form-group ">
+                                <label class="control-label" for="input-confirm">Password Confirm</label>
+                                <input type="password" name="password_confirmation" value="" placeholder="Password Confirm" id="input-confirm" class="form-control">
+                            </div>
+
+                        <div class="buttons">
+                            <div class="pull-right">
+                                {{-- I have read and agree to the <a href="#" class="agree"><b>Pricing Tables</b></a>
+                                <input class="box-checkbox" type="checkbox" name="agree" value="1"> &nbsp; --}}
+                                <button type="submit" name="auth_button" value="register_submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+
                 <div class="col-sm-6">
 
                     <div class="well col-sm-12">
 
-                        <h2>Returning Customer</h2>
-                        <p><strong>I am a returning customer</strong></p>
+                        <h2><i class="fa fa-user" aria-hidden="true"></i> Login your account</h2>
+
                     <form action="{{ route('login') }}" method="post">
                         @csrf
                             <div class="form-group">
                                 <label class="control-label" for="input-email">E-Mail Address</label>
-                            <input type="text" name="email" value="{{ old('email') }}" placeholder="E-Mail Address" id="input-email" class="form-control">
-                                <span class="error_text"> {{ $errors->first('email') }} </span>
+                                <input type="text" name="login_email" value="{{ old('login_email') }}" placeholder="E-Mail Address" id="input-email" class="form-control">
+                                <span class="error_text"> {{ $errors->first('login_email') }} </span>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="input-password">Password</label>
-                                <input type="password" name="password" value="" placeholder="Password" id="input-password" class="form-control">
-                                <span class="error_text"> {{ $errors->first('password') }} </span><br/>
+                                <input type="password" name="login_password" value="" placeholder="Password" id="input-password" class="form-control">
+                                <span class="error_text"> {{ $errors->first('login_password') }} </span><br/>
                             <a href="{{ route('password.request') }}">Forgotten Password</a></div>
 
-                            <input type="submit" value="Login" class="btn btn-primary pull-left">
+                            <button type="submit" name="auth_button" value="login_submit" class="btn btn-primary pull-left">Submit</button>
                         </form>
                         <column id="column-login" class="col-sm-8 pull-right">
                             <div class="row">
@@ -59,21 +96,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <aside class="col-md-3 col-sm-4 col-xs-12 content-aside right_column sidebar-offcanvas">
-            <span id="close-sidebar" class="fa fa-times"></span>
-            <div class="module">
-                <h3 class="modtitle"><span>LogIn</span></h3>
-                <div class="module-content custom-border">
-                    <ul class="list-box">
-
-                        <li><a href="">My Account </a></li>
-
-                    </ul>
-                </div>
             </div>
-        </aside>
+        </div>
     </div>
 
 </div>

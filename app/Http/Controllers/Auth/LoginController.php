@@ -50,15 +50,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
         $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required'
+            'login_email' => 'required',
+            'login_password' => 'required'
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->login_email)->first();
         if ($user) {
             if ($user->status == 1) {
-                $checkInformation = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
+                $checkInformation = Auth::guard('web')->attempt(['email' => $request->login_email, 'password' => $request->login_password]);
                 if ($checkInformation) {
                     return redirect()->intended(route('customer.account'));
                 } else {
@@ -127,8 +128,7 @@ class LoginController extends Controller
         } else {
 
             $addUser = User::insert([
-                'first_name' => $user->name,
-                'last_name' => $user->name,
+                'username' => $user->name,
                 'password' => Hash::make(12345),
                 'email' => $user->email,
                 'status' => 1,
@@ -137,7 +137,6 @@ class LoginController extends Controller
             ]);
             Auth::login($addUser);
             return redirect()->intended(route('customer.account'));
-            
         }
     }
     public function redirectToProviderFacebook()
@@ -159,8 +158,7 @@ class LoginController extends Controller
         } else {
 
             $addUser = User::insert([
-                'first_name' => $user->name,
-                'last_name' => $user->name,
+                'username' => $user->name,
                 'password' => Hash::make(12345),
                 'email' => $user->email,
                 'status' => 1,

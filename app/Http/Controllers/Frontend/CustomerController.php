@@ -39,8 +39,7 @@ class CustomerController extends Controller
     public function customerAccountUpdate(Request $request)
     {
        $this->validate($request, [
-           'first_name' => 'required',
-           'last_name' => 'required',
+           'name' => 'required',
            'phone' => 'required|unique:users,phone,'.Auth::user()->id,
        ]);
 
@@ -57,8 +56,7 @@ class CustomerController extends Controller
             ]);
         }
         User::where('id', Auth::user('web')->id)->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'username' => $request->name,
             'phone' => $request->phone,
             'company' => $request->company ? $request->company : NULL,
         ]);

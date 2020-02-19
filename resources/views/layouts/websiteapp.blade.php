@@ -147,7 +147,7 @@ $seo=DB::table('seo')->first();
 
     <script>
         $(document).ready(function () {
-            $('#user_district').click(function (params) {
+            $('#user_district').click(function () {
 
                 var upazila_id = $(this).val();
 
@@ -194,13 +194,12 @@ $seo=DB::table('seo')->first();
 
 
 
+
                     var totalPrice = data.total;
                     var totalPrice = totalPrice.toFixed(2);
 
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
                     document.getElementById('product_price').innerHTML = totalPrice;
-
-
 
                 }
             });

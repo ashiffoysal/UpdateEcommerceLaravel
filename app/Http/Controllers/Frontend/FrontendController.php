@@ -87,7 +87,7 @@ class FrontendController extends Controller
         $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();
         if($flashDeal){
         $flashDealEndDate = $flashDeal->end_date;
-        $flashDealDetails = FlashDealDetail::where('product_id', $id)->where('flash_deal_id', $flashDeal->id)->first();
+        $flashDealDetails = FlashDealDetail::where('product_id', $id)->where('flash_deal_id', $flashDeal->id)->where('status', 1)->first();
         if ($flashDealDetails) {
             $checkFlashDeal = 1;
         }

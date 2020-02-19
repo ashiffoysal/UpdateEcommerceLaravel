@@ -35,6 +35,7 @@ class FlashDealController extends Controller
             'title' => $request->title,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
+            'status' => 0,
             'created_at' => Carbon::now()->toDateTimeString()
         ]);
 
@@ -47,15 +48,18 @@ class FlashDealController extends Controller
                 'flash_deal_id' => $AddFlashDeal,
                 'product_id' => $id,
                 'discount' => $value,
+                'status' => 0,
                 'discount_type' => $discountType[$index],
             ]);
             $index++;
+
         }
 
         $notification = array(
             'messege' => 'Flash Deal Inserted Successfully',
             'alert-type' => 'success'
         );
+
         return Redirect()->back()->with($notification);
     }
 
@@ -69,24 +73,43 @@ class FlashDealController extends Controller
     // Change Flash Deal Status Method
     public function changeStatus($flashDeal)
     {
-       $allActiveFlashDeal = FlashDeal::where('status', 1)->get();
+        $allActiveFlashDeal = FlashDeal::where('status', 1)->get();
+        if ($allActiveFlashDeal->count() > 1) {
+            foreach ($allActiveFlashDeal as $value) {
+                $value->update([
+                    'status' => 0
+                ]);
 
-       foreach ($allActiveFlashDeal as $value) {
-            $value->status = 0;
-            $value->save();
-       }
+                foreach ($value->flash_deal_details as $flash_deal_detail) {
+                    $flash_deal_detail->status = 0;
+                    $flash_deal_detail->save();
+                }
+            }
+        }
+
         $changeFlashDealStatus = FlashDeal::where('id', $flashDeal)->first();
 
         if ($changeFlashDealStatus->status == 1) {
-
             $changeFlashDealStatus->update([
                 'status' => 0
             ]);
+
+            foreach ($changeFlashDealStatus->flash_deal_details as $flash_deal_detail) {
+                $flash_deal_detail->update([
+                    'status' => 0
+                ]);
+            }
         } else {
 
             $changeFlashDealStatus->update([
                 'status' => 1
             ]);
+
+            foreach ($changeFlashDealStatus->flash_deal_details as $flash_deal_detail) {
+                $flash_deal_detail->update([
+                    'status' => 1
+                ]);
+            }
         }
         $notification = array(
             'messege' => 'Successfully Changed Flash Deal Status',
@@ -114,7 +137,6 @@ class FlashDealController extends Controller
         ]);
 
         FlashDeal::where('id', $flashDealId)->update([
-
             'title' => $request->title,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date
@@ -134,6 +156,7 @@ class FlashDealController extends Controller
         $discount = $request->discount;
         $discount_type = $request->discount_type;
         $index = 0;
+        
         foreach ($discount as $pId => $value) {
             FlashDealDetail::insert([
                 'flash_deal_id' => $flashDealId,
@@ -159,9 +182,17 @@ class FlashDealController extends Controller
     // Flash Deal Single Soft Delete
     public function softDelete($flashDealId)
     {
-        FlashDeal::where('id', $flashDealId)->update([
-            'is_deleted' => 1
+        $flashDeal = FlashDeal::where('id', $flashDealId)->first();
+
+        $flashDeal->update([
+            'is_deleted' => 1,
+            'status' => 0
         ]);
+        foreach ($flashDeal->flash_deal_details as $flash_deal_detail) {
+            $flash_deal_detail->update([
+                'status' => 0
+            ]);
+        }
         $notification = array(
             'messege' => 'Flash Deal Deleted Successfully',
             'alert-type' => 'success'
@@ -182,10 +213,20 @@ class FlashDealController extends Controller
         }
         $delId = $request->delid;
 
-        $getFlashDeal = FlashDeal::whereIn('id', $delId)->update([
-            'is_deleted' => '1',
-            'updated_at' => Carbon::now()->toDateTimeString(),
-        ]);
+        $getFlashDeal = FlashDeal::where('id', $delId)->get();
+
+        foreach ($getFlashDeal as $value) {
+
+            $value->update([
+                'is_deleted' => 1,
+                'status' => 0,
+                'updated_at' => Carbon::now()->toDateTimeString(),
+            ]);
+            foreach ($value->flash_deal_details as $flash_deal_detail) {
+                $flash_deal_detail->status = 0;
+                $flash_deal_detail->save();
+            }
+        }
         $notification = array(
             'messege' => 'All Flash Deal has been Deleted Successfully',
             'alert-type' => 'success'
@@ -217,6 +258,9 @@ class FlashDealController extends Controller
     public function singleForceDelete($flashDealId)
     {
         $deleteFlashDeal = FlashDeal::where('id', $flashDealId)->first();
+        foreach ($deleteFlashDeal->flash_deal_details as $flash_deal_detail) {
+            $flash_deal_detail->delete();
+        }
         $deleteFlashDeal->delete();
         $notification = array(
             'messege' => 'Flash Deal Permanent Deleted Successfully',
@@ -240,35 +284,44 @@ class FlashDealController extends Controller
         }
         if ($request->submit === 'delete') {
 
-            FlashDeal::whereIn('id',$delId)->delete();
+            $flashDeals = FlashDeal::where('id', $delId)->get();
+            foreach ($flashDeals as $flashDeal) {
+                foreach ($flashDeal->flash_deal_details as $flash_deal_detail) {
+                    $flash_deal_detail->delete();
+                }
+                $flashDeal->delete();
+            }
             $notification = array(
-                'messege' => 'All Flash Deal Permanent Deleted Successfully',
+                'messege' => 'Your Selected All Flash Deal Permanent Deleted Successfully',
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
+        } elseif ($request->submit === 'restore') {
 
-        }elseif ($request->submit === 'restore') {
-
-            FlashDeal::whereIn('id',$delId)->update([
+            FlashDeal::whereIn('id', $delId)->update([
                 'is_deleted' => 0,
                 'updated_at' => Carbon::now()->toDateTimeString()
             ]);
+
             $notification = array(
-                'messege' => 'All Flash Deal Permanent Deleted Successfully',
+                'messege' => 'Your Selected All Flash Deal Is Refactored Successfully',
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
-
         }
-
     }
 
     public function inactiveAll()
     {
         $allActiveFlashDeal = FlashDeal::where('status', 1)->get();
+
         foreach ($allActiveFlashDeal as $value) {
-             $value->status = 0;
-             $value->save();
+            $value->status = 0;
+            $value->save();
+            foreach ($value->flash_deal_details as $flash_deal_detail) {
+                $flash_deal_detail->status = 0;
+                $flash_deal_detail->save();
+            }
         }
         $notification = array(
             'messege' => 'Successfully All Flash Deal Is Deactivated',
@@ -290,5 +343,4 @@ class FlashDealController extends Controller
         $product_ids = $request->productId;
         return view('admin.ecommerce.flash_deal.partial.previous_flash_deal_product', compact('flash_deal_id', 'product_ids'));
     }
-
 }
