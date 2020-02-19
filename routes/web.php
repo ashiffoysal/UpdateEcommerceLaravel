@@ -1,12 +1,11 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+$agent = new \Jenssegers\Agent\Agent;
+if($agent->isDesktop()){
 
 Auth::routes();
-
-
 
 Route::group(['prefix' => 'forget/password', 'namespace'=> 'Auth'], function () {
     Route::get('verification/code/{remember_token}','ForgotPasswordController@forgetPassVerificationCodeFrom')->name('forget.password.verify.code.form');
@@ -683,4 +682,18 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
     Route::get('2checkout/redirect', 'PaymentController@redirectToCheckout');
 });
 
-// Payment Route Created By Harrison Ended
+
+
+
+
+// ======================================Mobile route start from here=================================//
+
+}elseif($agent->isMobile() || $agent->isTablet()){
+    
+    Route::get('/', 'Mobile\FrontendController@index');
+
+}
+
+
+
+
