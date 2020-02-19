@@ -26,6 +26,7 @@ $seo=DB::table('seo')->first();
     @endforeach
     {{$seo->google_analytic}}
     {{$seo->alexa_analytic}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body class="common-home res layout-1">
@@ -192,18 +193,67 @@ $seo=DB::table('seo')->first();
                 success: function(data) {
 
 
-                    
+
                     var totalPrice = data.total;
                     var totalPrice = totalPrice.toFixed(2);
-                    
+
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
                     document.getElementById('product_price').innerHTML = totalPrice;
-						
+
 
 
                 }
             });
     }
+</script>
+<script>
+    $(document).ready(function() {
+        $('.compareproduct').on('click', function() {
+            var com_id = $(this).val();
+            //alert(com_id);
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/product/compare') }}/" + com_id,
+                processData: false,
+                success: function(data) {
+                    if (data.checkip) {
+                        toastr.error("Already This Product Add Compare");
+
+                    } else {
+                        toastr.success("product add to compare");
+
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.mywishlist').on('click', function() {
+            var id = $(this).data('id');
+            //alert(id);
+            if (id) {
+                $.ajax({
+                    url: "{{ url('/product/add/wishlist/') }}/" + id,
+                    type: "GET",
+                    dataType: "json",
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.check) {
+                            toastr.error("Already This Product Add wishlist");
+                        } else {
+                            toastr.success("Product Add To wishlist");
+                        }
+                    }
+                });
+            } else {
+                alert('danger');
+            }
+        });
+
+    });
 </script>
 
 

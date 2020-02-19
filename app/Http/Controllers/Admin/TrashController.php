@@ -467,15 +467,9 @@ class TrashController extends Controller
   // product
   public function product()
   {
-    $allproduct = DB::table('products')
-      ->join('categories', 'products.cate_id', '=', 'categories.id')
-      ->join('sub_categories', 'products.subcate_id', '=', 'sub_categories.id')
-      ->join('re_sub_categories', 'products.resubcate_id', '=', 're_sub_categories.id')
-      ->select('products.*', 'categories.cate_name', 'sub_categories.subcate_name', 're_sub_categories.resubcate_name')
-      ->where('products.is_deleted', 1)
-      ->OrderBy('products.id', 'DESC')
-      ->get();
-    return view('admin.ecommerce.trash.product', compact('allproduct'));
+    $allproduct = Product::where('is_deleted',1)->get();
+
+    return view('admin.ecommerce.trash.product',compact('allproduct'));
   }
 
   // multi-heard delete

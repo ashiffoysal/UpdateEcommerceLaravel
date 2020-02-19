@@ -125,9 +125,6 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
                                 data-effect="none">
                                 <div class="item ">
 
-
-
-
                                     @php
                                     $products =
                                     App\Product::whereNotNull('number_of_sale')->orderBy('number_of_sale','desc')->limit(5)->get();
@@ -141,7 +138,7 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
                                                     <div class="item-img-info product-image-container ">
                                                         <div class="box-label">
                                                         </div>
-                                                        <a class="lt-image" target="_self"
+                                                        <a href="{{url('products/'.$row->slug.'/'.$row->id)}}"  class="lt-image" target="_self"
                                                             title="Philipin Tour Group Manila/ Pattaya / Mactan ">
                                                             <img src="{{asset('public/uploads/products/thumbnail/productdetails/'.$row->thumbnail_img)}}"
                                                                 alt="Philipin Tour Group Manila/ Pattaya / Mactan ">
@@ -153,7 +150,7 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
                                                 <div class="item-info">
                                                     <!-- Begin title -->
                                                     <div class="item-title">
-                                                        <a href="{{url('/product/details/page/'.$row->id)}}"
+                                                        <a href="{{url('products/'.$row->slug.'/'.$row->id)}}"
                                                             target="_self"
                                                             title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
                                                             {{Str::limit($row->product_name,20)}}
@@ -197,7 +194,6 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
                                 <div class="item ">
 
 
-
                                     @php
                                     $products =
                                     App\Product::whereNotNull('number_of_sale')->orderBy('number_of_sale','desc')->offset(5)->limit(5)->get();
@@ -223,7 +219,7 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
                                                 <div class="item-info">
                                                     <!-- Begin title -->
                                                     <div class="item-title">
-                                                        <a href="{{url('/product/details/page/'.$row->id)}}"
+                                                        <a href="{{url('products/'.$row->slug.'/'.$row->id)}}"
                                                             target="_self"
                                                             title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
                                                             {{Str::limit($row->product_name,40)}}
@@ -259,12 +255,6 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
                                     </div>
                                     <!-- End item-wrap -->
                                     @endforeach
-
-
-
-
-
-
 
                                     <!-- End item-wrap -->
                                 </div>
@@ -416,8 +406,7 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
 
                                             <div class="right-block">
                                                 <div class="caption">
-                                                    <h4><a
-                                                            href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                    <h4><a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                     </h4>
                                                     <div class="total-price">
                                                         @php
@@ -489,7 +478,7 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
 
                                                             @if($product->product_type ==1)
                                                             <a class="addToCart btn-button btn-quickview quickview quickview_handler"
-                                                                href="{{url('product/details/'.$product->id)}}"
+                                                                href="{{url('details/'.$product->id)}}"
                                                                 title="Quick View" data-title="Quick View"
                                                                 data-fancybox-type="iframe">
                                                                 <button class="addToCart" type="button"
@@ -525,7 +514,7 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
                                                         <a class="lt-image hidden" href="#" target="_self"
                                                             title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
                                                         <a class="btn-button btn-quickview quickview quickview_handler"
-                                                            href="{{url('product/details/'.$product->id)}}"
+                                                            href="{{url('details/'.$product->id)}}"
                                                             title="Quick View" data-title="Quick View"
                                                             data-fancybox-type="iframe">
                                                             <i class="fa fa-search"></i>
@@ -562,7 +551,7 @@ $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$caid)->o
                                                                 name="product_price">
                                                             @if($product->product_type ==1)
                                                             <a class="addToCart btn-button btn-quickview quickview quickview_handler"
-                                                                href="{{url('product/details/'.$product->id)}}"
+                                                                href="{{url('details/'.$product->id)}}"
                                                                 title="Quick View" data-title="Quick View"
                                                                 data-fancybox-type="iframe">
                                                                 <i class="fa fa-search"></i>

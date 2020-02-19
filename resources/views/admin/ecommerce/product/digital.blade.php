@@ -49,8 +49,8 @@
 								    	@php
 											$category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
 								    	@endphp
-								      <select class="form-control" name="cate_id" id="cate_id">
-								      	<option >Select</option>
+								      <select class="form-control" name="cate_id" id="cate_id" required>
+								      	<option value="0">Select</option>
 								      	@foreach($category as $cate)
 								      	<option  value="{{$cate->id}}">{{$cate->cate_name}}</option>
 								      	@endforeach
@@ -137,31 +137,12 @@
 								      <input type="text" class="form-control" name="meta_description">
 								    </div>
 								  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+									<div class="form-group row">
+										<label for="inputPassword" class="col-sm-3 col-form-label text-right">Video Link</label>
+										<div class="col-sm-6">
+											<textarea class="form-control" name="video"></textarea>
+										</div>
+									</div>
 								<div class="form-group row">
 									<label for="" class="col-sm-3 col-form-label text-right">Main Image</label>
 									 <div class="col-sm-6">
@@ -177,9 +158,7 @@
 									</div>
 									</div>
 								</div>
-
 								<div class="form-group row">
-
 									<div class="col-md-12 text-center">
 										<button type="submit" class="btn btn-primary">Add Product</button>
 									</div>

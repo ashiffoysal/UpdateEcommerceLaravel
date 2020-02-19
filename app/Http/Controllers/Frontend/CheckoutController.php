@@ -339,7 +339,7 @@ class CheckoutController extends Controller
         if (Auth::user()->email) {
             Mail::to(Auth::user()->email)->send(new OrderSuccessfullMail($getOrder));
         }
-        
+
         if ($request->payment_type == 1) {
             return redirect()->route('customer.order');
         }else{
@@ -427,11 +427,7 @@ class CheckoutController extends Controller
         $provider = new ExpressCheckout;
         $invoiceId = uniqid();
         $data = $this->cartData($invoiceId);
-
-        // $data['total'] = $total;
         $response = $provider->setExpressCheckout($data);
-
-        //dd($response);
         // This will redirect user to PayPal
         return redirect($response['paypal_link']);
     }
@@ -445,11 +441,8 @@ class CheckoutController extends Controller
         $token = $request->token;
         $PayerID = $request->PayerID;
         $response = $provider->getExpressCheckoutDetails($token);
-
         $invoiceId = $response['INVNUM'] ?? uniqid();
-
         $data = $this->cartData($invoiceId);
-
         $response = $provider->doExpressCheckoutPayment($data, $token, $PayerID);
         //dd($response);
         $userid = Auth::user()->id;
@@ -457,7 +450,7 @@ class CheckoutController extends Controller
         $update = OrderPlace::where('id', $usercartdatas->id)->update([
             'is_paid' => '1',
         ]);
-        return "order completed";
+        return redirect()->route('payment.paypal.success');
     }
 
     protected function cartData($invoiceId)
@@ -488,11 +481,14 @@ class CheckoutController extends Controller
         $data['cancel_url'] = url('/text');
 
         $total = 0;
+        $shipping = 10;
+
         foreach ($data['items'] as $item) {
             $total += $item['price'] * $item['qty'];
         }
         $data['total'] = $total;
 
+         
         return $data;
     }
 

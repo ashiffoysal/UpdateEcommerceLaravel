@@ -173,7 +173,7 @@
 											$allbrand=App\Brand::where('is_deleted',0)->where('brand_status',1)->get();
 								    	@endphp
 								     <select class="form-control" name="brand">
-								     	<option>Select</option>
+								     	<option value="">Select</option>
 								     	@foreach($allbrand as $brand)
 								     	<option value="{{$brand->id}}"@if($data->brand==$brand->id) selected @else @endif>{{$brand->brand_name}}</option>
 								     	@endforeach
@@ -279,6 +279,12 @@
 								      <input type="text" class="form-control" data-role="tagsinput" name="m_tag" id="tag" value="{{$data->meta_tag}}">
 								    </div>
 								  </div>
+									<div class="form-group row">
+										<label for="inputPassword" class="col-sm-3 col-form-label text-right">Video Link</label>
+										<div class="col-sm-6">
+											<textarea class="form-control" name="video">{{$data->video}}</textarea>
+										</div>
+									</div>
 								  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Meta Description</label>
 								    <div class="col-sm-6">
@@ -333,7 +339,7 @@
 								<div class="form-group row">
 
 									<div class="col-md-12 text-center">
-										<button type="submit" class="btn btn-primary">Add Product</button>
+										<button type="submit" class="btn btn-primary">Update Product</button>
 									</div>
 								</div>
 							</form>

@@ -132,6 +132,7 @@ Route::post('admin/resubcategory/multisoftdelete', 'Admin\ReSubCategoryControlle
 Route::get('/get/resubcategory/edit/{resubcate_id}', 'Admin\ReSubCategoryController@edit')->name('');
 Route::post('admin/resubcategory/update', 'Admin\ReSubCategoryController@update')->name('admin.resubcategory.update');
 Route::get('admin/resubcategory/restore/{id}', 'Admin\ReSubCategoryController@restore');
+Route::get('admin/resubcategory/delete/{id}', 'Admin\ReSubCategoryController@delete');
 // color
 Route::get(md5('admin/color/all'), 'Admin\ColorController@index')->name('admin.color.all');
 Route::post(md5('admin/color/insert'), 'Admin\ColorController@insert')->name('admin.color.insert');
@@ -670,6 +671,9 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
     Route::get('stripe/{payment_secure_id}', 'PaymentController@index')->name('stripe.index');
     Route::post('stripe/submit/{payment_secure_id}', 'PaymentController@stripeSubmit')->name('payment.stripe.submit');
     Route::get('stripe/success/payment', 'PaymentController@successStripePaymentView')->name('payment.stripe.success.view');
+
+    Route::get('paypal/success/payment', 'PaymentController@paypalsuccess')->name('payment.paypal.success');
+
     Route::get('order_payment/{paymentSecureId}', 'PaymentController@paymentPage')->name('order.payment');
     Route::post('make_payment/', 'PaymentController@makePayment')->name('payment.make.payment');
 

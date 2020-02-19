@@ -355,7 +355,12 @@
                                         <div class="box-inner">
                                             <div class="radio">
                                                 <label>
+                                                  @php
+                                                    $activation=App\Activation::where('id',1)->first();
+                                                  @endphp
+                                                  @if($activation->cashondelevery==1)
                                                     <input type="radio" id="pay_method" name="payment_type" value="1" > Cash On Delivery <br>
+                                                  @endif
                                                     <input type="radio" id="pay_method" name="payment_type" value="2" > Online payment
                                                 </label>
                                                 @error('payment_type')

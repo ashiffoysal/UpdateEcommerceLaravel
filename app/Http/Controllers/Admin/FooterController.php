@@ -55,23 +55,18 @@ class FooterController extends Controller
             ]);
         }
 
-
-
         if ($footer_update) {
             $notification = array(
                 'messege' => 'Data Deactive Success',
                 'alert-type' => 'success'
             );
-
-            $footeroption = FooterOption::findOrFail(11);
-            return view('admin.setting.footeroption', compact('footeroption'));
+            return redirect()->back()->with($notification);;
         } else {
             $notification = array(
                 'messege' => 'Data Deactive Faild',
                 'alert-type' => 'error'
             );
-            $footeroption = FooterOption::findOrFail(11);
-            return view('admin.setting.footeroption', compact('footeroption'));
+            return redirect()->back()->with($notification);;
         }
     }
 }
