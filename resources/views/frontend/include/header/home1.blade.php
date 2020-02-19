@@ -16,10 +16,14 @@
 							<ul>
 								<li class="col-md-4 item home">
 									<div class="icon"></div>
+									@php
+										$addresstop=App\FooterOption::first();
+									@endphp
 									<div class="text">
-										<a>100 S Manhattan St, Amarillo,</a><a>
+
+										<a>{{$addresstop->address}}</a><a>
 										</a>
-										<p><a>TX 79104, North America</a></p>
+										<p><a>Muktabangla</a></p>
 										<a>
 										</a>
 									</div>
@@ -27,15 +31,15 @@
 								<li class="col-md-4 item mail">
 									<div class="icon"> </div>
 									<div class="text">
-										<a class="name" href="#">Sales@MagenTech.Com</a>
-										<p>( +123 ) 456 7890</p>
+										<a class="name" href="#">{{$addresstop->email}}</a>
+										<p>{{$addresstop->phone}}</p>
 									</div>
 								</li>
 								<li class="col-md-4 item delivery">
 									<div class="icon"> </div>
 									<div class="text">
 										<a class="name" href="#">Free Delivery</a>
-										<p>On order over $89.00</p>
+										<p>On order over ৳3000.00</p>
 									</div>
 								</li>
 							</ul>
@@ -73,17 +77,13 @@
 							<ul class="dropdown-menu pull-right shoppingcart-box">
 								<li class="content-item" id="addtocartshow">
 
-
-
-
-
 								</li>
 								<li>
 									<div class="checkout clearfix">
 										<a href="{{route('product.cart.add')}}" class="btn btn-view-cart inverse"> View Cart</a>
 										<a href="{{route('checkout.page.show')}}" class="btn btn-checkout pull-right">Checkout</a>
 									</div>
-                                </li>
+                </li>
 							</ul>
 						</div>
 					</div>
@@ -188,6 +188,3 @@
 		console.log('ok');
 	}
 </script>
-
-
-

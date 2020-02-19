@@ -1711,26 +1711,61 @@ div.dataTables_wrapper div.dataTables_length label{
 }
 /*** invoice
 =========================================================================================================================*/
-.invoice_area{}
-.invoice_area .item_right{
+.panel .panel_body {
+  display: block;
+  overflow: hidden;
+  padding: 25px;
+  background-color: #fff;
+}
+
+.invoice_detail {
+  margin: 40px 0px;
+}
+
+.invoice {
+  font-size: 22px;
+
+  text-transform: uppercase;
+}
+
+.table_invoice {
+  width: 100%;
+}
+
+.invoice_area .item_right {
   text-align: right;
 }
-@media only screen and (max-width:576px){
-  .invoice_area .item_right{
-    text-align: left!important;
+
+.vd_bg-grey {
+  background-color: #777 !important;
+  color: #fff;
+}
+
+.vd_bg-green {
+  background-color: #1fae66 !important;
+  color: #fff;
+}
+
+@media only screen and (max-width:576px) {
+  .invoice_area .item_right {
+    text-align: left !important;
   }
 }
-.invoice_area .logo{
+
+.invoice_area .logo {
   display: inline-block;
-  overflow:hidden;
+  overflow: hidden;
 }
-.invoice_area .logo img{
+
+.invoice_area .logo img {
   display: block;
-  width:160px;
+  width: 160px;
 }
-.invoice_area .paypal img{
-  max-width: 400px;
+.invoice_area{
+  margin: 0 auto;
+  max-width: 90%;
 }
+
 
 /*** multi file upload page
 =============================================================================*/

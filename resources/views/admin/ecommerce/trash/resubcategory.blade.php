@@ -1,5 +1,5 @@
 @extends('layouts.adminapp')
-@section('admin_content')  
+@section('admin_content')
 <div class="content_wrapper">
 				<!--middle content wrapper-->
 				<!-- page content -->
@@ -15,10 +15,10 @@
 										</div>
 									</div>
 									<div class="col-md-6 text-right">
-										
+
 									</div>
 								</div>
-								
+
 							</div>
 							<form action="{{url('admin/trash/resubcategory/multipledelete')}}" method="post">
 						     @csrf
@@ -27,7 +27,7 @@
 				              <button type="submit" style="margin: 5px;" name="submit" class="btn btn-success" value="restore" ><i class="fas fa-trash-restore-alt"></i> Restore All</button>
 
 				             <button type="button"  style="margin: 5px;" class="btn btn-info" ><i class="fas fa-undo"></i> <a href="{{route('admin.resubcategory.all')}}" style="color: #fff;">Back</a></button>
-						
+
 							<div class="panel_body">
 								<div class="table-responsive">
 		                         <table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">
@@ -44,7 +44,7 @@
 		                                      <th>SubCategory</th>
 		                                      <th>SubCategory Tag</th>
 		                                      <th>ReSubCategory Icon</th>
-		                                      
+
 		                                      <th>manage</th>
 		                                  </tr>
 		                              </thead>
@@ -65,8 +65,8 @@
 		                                      	<img src="{{asset('public/uploads/resubcategory/'.$data->resubcate_icon)}}" height="35px">
 		                                      </td>
 		                                       <td>
-													<a  href="{{url('admin/resubcategory/restore/'.$data->id)}}" class="btn btn-info btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="fas fa-recycle"></i></a>
-		                                            <a id="delete" href="{{url('admin/resubcategory/softdelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
+													                      <a  href="{{url('admin/resubcategory/restore/'.$data->id)}}" class="btn btn-info btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="fas fa-recycle"></i></a>
+		                                            <a id="delete" href="{{url('admin/resubcategory/delete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 		                                       </td>
 		                                  </tr>
 		                    			@endforeach
@@ -84,13 +84,13 @@
   <div class="modal fade bd-example-modal-lg" id="myModal1">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Add ReSubCategory</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        
+
         <!-- Modal body -->
         <div class="modal-body">
           <form class="form-horizontal" action="{{route('admin.resubcategory.insert')}}" method="POST" enctype="multipart/form-data" >
@@ -119,7 +119,7 @@
 					@foreach($category as $cate)
 			      	<option value="{{$cate->id}}">{{$cate->cate_name}}</option>
 					@endforeach
-			      	
+
 			      </select>
 			    </div>
 			  </div>
@@ -150,12 +150,12 @@
 		    </div>
 		  </form>
         </div>
-        
+
         <!-- Modal footer -->
        <!--  <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div> -->
-        
+
       </div>
     </div>
   </div>
@@ -198,7 +198,7 @@
 					@foreach($category as $cate)
 			      	<option value="{{$cate->id}}">{{$cate->cate_name}}</option>
 			      	@endforeach
-			      	
+
 			      </select>
 			    </div>
 			  </div>
@@ -210,16 +210,16 @@
 			  		 <p>(120px*120px)</p>
 			    </div>
 			    <div class="col-sm-4" id="store-img">
-			      
+
 			    </div>
 			  </div>
 			  <div class="form-group row">
-			    
+
 			    <div class="col-sm-3">
-			 
+
 			    </div>
 			    <div class="col-sm-4" id="img">
-			      
+
 			    </div>
 			  </div>
 
@@ -231,19 +231,19 @@
 			      <p>(32px*32px)</p>
 			    </div>
 			     <div class="col-sm-3" id="store-icon">
-			    	
+
 			    </div>
 			  </div>
 			   <div class="form-group row">
 			    <div class="col-sm-3">
-		
+
 			    </div>
 			    <div class="col-sm-4" id="icon">
-		
+
 			    </div>
 			  </div>
 
-			 
+
 			  <div class="form-group row">
 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Meta Tag:</label>
 			    <div class="col-sm-8">
@@ -265,16 +265,16 @@
 
         $('#check_all').on('click', function(e) {
 
-         if($(this).is(':checked',true))  
+         if($(this).is(':checked',true))
 
          {
-            $(".checkbox").prop('checked', true);  
+            $(".checkbox").prop('checked', true);
 
-         } else {  
+         } else {
 
-            $(".checkbox").prop('checked',false);  
+            $(".checkbox").prop('checked',false);
 
-         }  
+         }
 
         });
 
@@ -282,24 +282,24 @@
 
 </script>
 <script type="text/javascript">
-  
+
       $(document).ready(function() {
          $('select[name="cate_id"]').on('change', function(){
              var cate_id = $(this).val();
-            
+
              if(cate_id) {
                  $.ajax({
                      url: "{{  url('/get/subcategory/all/') }}/"+cate_id,
                      type:"GET",
                      dataType:"json",
                      success:function(data) {
-                         
+
                             $('#subcate_id').empty();
                             $('#subcate_id').append(' <option value="0">--Select--</option>');
                             $.each(data,function(index,districtObj){
                              $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
                            });
-                         } 
+                         }
                  });
              } else {
                  alert('danger');

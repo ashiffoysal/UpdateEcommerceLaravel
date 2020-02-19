@@ -41,11 +41,8 @@
                                 <div class="price"> <b>{{$wish->product->product_price}}</b></div>
                             </td>
                             <td class="text-right">
-                                <button type="button" onclick="cart.add('106');" data-toggle="tooltip" title=""
-                                    class="btn btn-primary" data-original-title="Add to Cart"><i
-                                        class="fa fa-shopping-cart"></i></button>
-
-                                    <a href="{{url('/wishlist/delete/'.$wish->id)}}" title="Remove" class="delete btn btn-danger"><i class="fa fa-times"></i></a></td>
+                                <a href="{{url('product/'.$wish->product->slug.'/'.$wish->product->id)}}" type="button" class="btn btn-primary" data-original-title="Add to Cart"><i class="fa fa-shopping-cart"></i></a>
+                                <a href="{{url('/wishlist/delete/'.$wish->id)}}" title="Remove" class="delete btn btn-danger"><i class="fa fa-times"></i></a></td>
                         </tr>
                         @endforeach
 

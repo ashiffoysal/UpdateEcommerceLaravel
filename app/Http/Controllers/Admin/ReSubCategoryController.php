@@ -52,14 +52,14 @@ class ReSubCategoryController extends Controller
 
     	]);
             if($request->hasFile('icon')){
-                   
+
                         $image=$request->file('icon');
                         $ImageName='category_'.'_'.time().'.'.$image->getClientOriginalExtension();
                         Image::make($image)->resize(32,32)->save('public/uploads/resubcategory/'.$ImageName);
                         ReSubCategory::where('id',$insert)->update([
                             'resubcate_icon'=>$ImageName,
                         ]);
-                       
+
               }
               else{
 
@@ -69,14 +69,14 @@ class ReSubCategoryController extends Controller
                 'messege'=>'ReSubCategory Insert Successfully',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
     	else{
     		$notification=array(
                 'messege'=>'ReSubCategory Insert Faild',
                 'alert-type'=>'danger'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
     }else{
     	$insert=ReSubCategory::insertGetId([
@@ -95,7 +95,7 @@ class ReSubCategoryController extends Controller
                         Image::make($image)->resize(32,32)->save('public/uploads/resubcategory/'.$ImageName);
                         ReSubCategory::where('id',$insert)->update([
                             'resubcate_icon'=>$ImageName,
-                        ]); 
+                        ]);
               }else{
 
               }
@@ -106,14 +106,14 @@ class ReSubCategoryController extends Controller
                 'messege'=>'ReSubCategory Insert Successfully',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
     	else{
     		$notification=array(
                 'messege'=>'ReSubCategory Insert Faild',
                 'alert-type'=>'danger'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
     }
    }
@@ -128,13 +128,13 @@ class ReSubCategoryController extends Controller
                 'messege'=>'ReSubCategory Active Success',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
    		}else{
    			$notification=array(
                 'messege'=>'ReSubCategory DeActive Success',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
    		}
    }
    public function deactive($id){
@@ -147,13 +147,13 @@ class ReSubCategoryController extends Controller
                 'messege'=>'ReSubCategory Active Success',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
    		}else{
    			$notification=array(
                 'messege'=>'ReSubCategory DeActive Success',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
    		}
    }
    public function softdelete($id){
@@ -166,13 +166,13 @@ class ReSubCategoryController extends Controller
                 'messege'=>'ReSubCategory delete Success',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
    		}else{
    			$notification=array(
                 'messege'=>'ReSubCategory delete Success',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
    		}
    }
    // multuple soft delete
@@ -226,9 +226,9 @@ class ReSubCategoryController extends Controller
     		'resubcate_name'=>$request['resubcate_name'],
     		'cate_id'=>$request['cate_id'],
     		'subcate_id'=>$request['subcate_id'],
-            'resubcate_slug'=>$sluginput,
-            'resubcate_icon'=>'',
-            'resubcate_tag'=>$request['resubcate_tag_edit'],
+        'resubcate_slug'=>$sluginput,
+        'resubcate_icon'=>'',
+        'resubcate_tag'=>$request['resubcate_tag_edit'],
     		'updated_at'=>Carbon::now()->toDateTimeString(),
     	]);
          if($request->hasFile('icon')){
@@ -259,14 +259,14 @@ class ReSubCategoryController extends Controller
             'messege'=>'Category Update Successfully',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
 			}
     	else{
     		$notification=array(
                 'messege'=>'Category Update Faild',
                 'alert-type'=>'danger'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
     	}else{
     		$update=ReSubCategory::where('id',$id)->update([
@@ -306,14 +306,14 @@ class ReSubCategoryController extends Controller
             'messege'=>'Category Update Successfully',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
 			}
     	else{
     		$notification=array(
                 'messege'=>'Category Update Faild',
                 'alert-type'=>'danger'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
     	}
     	}
    }
@@ -328,13 +328,51 @@ class ReSubCategoryController extends Controller
                 'messege'=>'ReSubCategory delete Success',
                 'alert-type'=>'success'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
    		}else{
    			$notification=array(
                 'messege'=>'ReSubCategory delete Success',
                 'alert-type'=>'error'
                  );
-               return Redirect()->back()->with($notification); 
+               return Redirect()->back()->with($notification);
    		}
+   }
+   //
+   public function delete($id){
+     $del=ReSubCategory::where('id',$id)->first();
+     $photo = $del->resubcate_icon;
+     if($photo){
+       unlink('public/uploads/resubcategory/'.$photo);
+       $delete=ReSubCategory::where('id',$id)->delete();
+       if($delete){
+         $notification=array(
+                 'messege'=>'delete Success',
+                 'alert-type'=>'success'
+                  );
+                return Redirect()->back()->with($notification);
+       }else{
+         $notification=array(
+                 'messege'=>'delete Success',
+                 'alert-type'=>'error'
+                  );
+                return Redirect()->back()->with($notification);
+       }
+     }else{
+       $delete=ReSubCategory::where('id',$id)->delete();
+       if($delete){
+         $notification=array(
+                 'messege'=>'delete Success',
+                 'alert-type'=>'success'
+                  );
+                return Redirect()->back()->with($notification);
+       }else{
+         $notification=array(
+                 'messege'=>'delete Success',
+                 'alert-type'=>'error'
+                  );
+                return Redirect()->back()->with($notification);
+       }
+     }
+
    }
 }
