@@ -14,6 +14,9 @@
 			
 			<div class="panel-left__midde">
 				<div class="panel-group" id="panel-category" role="tablist" aria-multiselectable="true">
+
+
+				
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab">
 							<a href="#">Jewelry</a>
@@ -33,186 +36,10 @@
 							</ul>
 						</div>
 					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab">
-							<a href="#">Womens</a>
-							<span class="head"><a class="pull-right accordion-toggle" data-toggle="collapse" data-parent="#panel-category" href="#panel-category2" aria-expanded="true"></a></span>
-						</div>
-						<div id="panel-category2" class="panel-collapse collapse " role="tabpanel">
-							<ul>
-								<li>
-									<a href="#">necklaces</a>
-								</li>
-								<li>
-									<a href="#">Pearl mens</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab">
-							<a href="#">Fashion</a>
-							<span class="head"><a class="pull-right accordion-toggle" data-toggle="collapse" data-parent="#panel-category" href="#panel-category3" aria-expanded="true"></a></span>
-						</div>
 
-						<div id="panel-category3" class="panel-collapse collapse " role="tabpanel">
-							<ul>
-								<li>
-									<a href="#">Gadgets &amp; Auto Parts</a>
-								</li>
-								<li>
-									<a href="#">More Car Accessories</a>
-								</li>
-								<li>
-									<a href="#">Alarms</a>
-								</li>
-								<li>
-									<a href="#">Printers</a>
-								</li>
-								<li>
-									<a href="#">Scanners</a>
-								</li>
-								<li>
-									<a href="#">Speakers</a>
-								</li>
-								<li>
-									<a href="#">Web Cameras</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab">
-							<a href="#">Shop Collection</a>
-							<span class="head"><a class="pull-right accordion-toggle" data-toggle="collapse" data-parent="#panel-category" href="#panel-category4" aria-expanded="true"></a></span>
 
-						</div>
-
-						<div id="panel-category4" class="panel-collapse collapse " role="tabpanel">
-							<ul>
-								<li>
-									<a href="#">Hanet magente</a>
-								</li>
-								<li>
-									<a href="#">Knage unget</a>
-								</li>
-								<li>
-									<a href="#">Latenge mange</a>
-								</li>
-								<li>
-									<a href="#">Punge nenune</a>
-								</li>
-								<li>
-									<a href="#">Qunge genga</a>
-								</li>
-								<li>
-									<a href="#">Tange manue</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab">
-							<a href="#">Electronics </a>
-							<span class="head"><a class="pull-right accordion-toggle" data-toggle="collapse" data-parent="#panel-category" href="#panel-category5" aria-expanded="true"></a></span>
-
-						</div>
-
-						<div id="panel-category5" class="panel-collapse collapse " role="tabpanel">
-							<ul>
-								<li>
-									<a href="#">Angene mafin</a>
-								</li>
-								<li>
-									<a href="#">Body Chains</a>
-								</li>
-								<li>
-									<a href="#">DIY Beads</a>
-								</li>
-								<li>
-									<a href="#">Egante mangetes</a>
-								</li>
-								<li>
-									<a href="#">Necklaces</a>
-								</li>
-								<li>
-									<a href="#">Rengae manges</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab">
-							<a href="#">Sports 2</a>
-							<span class="head"><a class="pull-right accordion-toggle" data-toggle="collapse" data-parent="#panel-category" href="#panel-category6" aria-expanded="true"></a></span>
-
-						</div>
-
-						<div id="panel-category6" class="panel-collapse collapse " role="tabpanel">
-							<ul>
-								<li>
-									<a href="#">Accessories</a>
-								</li>
-								<li>
-									<a href="#">Boys News</a>
-								</li>
-								<li>
-									<a href="#">Computers</a>
-								</li>
-								<li>
-									<a href="#">Electronics</a>
-								</li>
-								<li>
-									<a href="#">Fashion</a>
-								</li>
-								<li>
-									<a href="#">Girls New</a>
-								</li>
-								<li>
-									<a href="#">Men</a>
-								</li>
-								<li>
-									<a href="#">Mobiles</a>
-								</li>
-								<li>
-									<a href="#">Sports</a>
-								</li>
-								<li>
-									<a href="#">Women</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab">
-							<a href="#">Sports</a>
-							<span class="head"><a class="pull-right accordion-toggle" data-toggle="collapse" data-parent="#panel-category" href="#panel-category7" aria-expanded="true"></a></span>
-
-						</div>
-
-						<div id="panel-category7" class="panel-collapse collapse " role="tabpanel">
-							<ul>
-								<li>
-									<a href="#">Camping &amp; Hiking</a>
-								</li>
-								<li>
-									<a href="#">Cusen mariot</a>
-								</li>
-								<li>
-									<a href="#">Denta magela</a>
-								</li>
-								<li>
-									<a href="#">Engite nanet</a>
-								</li>
-								<li>
-									<a href="#">Theid cupensg</a>
-								</li>
-								<li>
-									<a href="#">Verture agoent</a>
-								</li>
-							</ul>
-						</div>
-					</div>
+				
+			
 				</div>
 
 

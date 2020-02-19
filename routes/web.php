@@ -691,6 +691,7 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
 }elseif($agent->isMobile() || $agent->isTablet()){
     
     Route::get('/', 'Mobile\FrontendController@index');
+    Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
 
 }
 
