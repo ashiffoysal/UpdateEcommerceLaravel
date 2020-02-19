@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p>Dear,<br/>
-                                    {{ $first_name }} Please hit the link and verify your email address.
+                                    {{ $username }} Please hit the link and verify your email address.
                                 </p>
                             </div>
                         </div>

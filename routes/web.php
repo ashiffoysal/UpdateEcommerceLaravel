@@ -609,8 +609,6 @@ Route::group(['prefix' => 'admin/flash/deal', 'middleware' => 'auth:admin', 'nam
 
 });
 
-
-
 Route::group(['prefix' => 'admin/subscriber/mail', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
 
     Route::get('send/section', 'SubscriberController@mailSendSection')->name('admin.subscriber.send.section');
@@ -679,8 +677,8 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
     Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
     Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
     Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
-    // 2checkout
-    Route::get('2checkout/redirect', 'PaymentController@redirectToCheckout');
+
 });
 
 // Payment Route Created By Harrison Ended
+

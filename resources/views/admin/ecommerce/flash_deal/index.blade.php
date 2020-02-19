@@ -24,7 +24,10 @@
 						     @csrf
 							<button type="submit" style="margin: 5px;" class="btn btn-danger btn-sm" ><i class="fa fa-trash"></i> Delete All</button>
                             <button type="button"  style="margin: 5px;" class="btn btn-success btn-sm" ><i class="fas fa-recycle"></i> <a href="{{ route('admin.flash.deal.trash.view') }}" style="color: #fff;">Restore</a></button>
-                            <button type="button"  style="margin: 5px;" class="btn btn-secondary btn-sm" ><i class="far fa-thumbs-down"></i> <a href="{{ route('admin.flash.deal.all.decative') }}" style="color: #fff;">Inactive All</a></button>
+                            @if ($flashDeals->count() > 1)
+                                <button type="button"  style="margin: 5px;" class="btn btn-secondary btn-sm" ><i class="far fa-thumbs-down"></i> <a href="{{ route('admin.flash.deal.all.decative') }}" style="color: #fff;">Inactive All</a></button>
+                            @endif
+
 							<div class="panel_body">
 								<div class="table-responsive">
 		                         <table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">

@@ -50,7 +50,7 @@ class ForgotPasswordController extends Controller
             $checkExistsEmail->save();
 
             $getUserInfo = User::where('email', $request->email)
-                ->select(['remember_token', 'verification_code', 'email', 'first_name', 'last_name'])
+                ->select(['remember_token', 'verification_code', 'email', 'username'])
                 ->first();
             Mail::to($request->email)->send(new SendForgetPasswordVerifyCodeMail($getUserInfo));
             return redirect()->route('forget.password.verify.code.form', $getUserInfo->remember_token);
@@ -75,7 +75,7 @@ class ForgotPasswordController extends Controller
     {
         $checkRememberToken = User::where('remember_token', $remember_token)->firstOrFail();
         $remember_token = $checkRememberToken->remember_token;
-        
+
         abort_if(!$checkRememberToken, 403);
         return view('frontend.accounts.forget_password_verification_code', compact('remember_token'));
     }
