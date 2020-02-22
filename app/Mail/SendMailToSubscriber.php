@@ -16,11 +16,11 @@ class SendMailToSubscriber extends Mailable
      *
      * @return void
      */
-    public $subject;
+    public $mail_subject;
     public $mail_text;
     public function __construct($subject, $mail_text)
     {
-        $this->subject = $subject;
+        $this->mail_subject = $subject;
         $this->mail_text = $mail_text;
     }
 
@@ -31,9 +31,8 @@ class SendMailToSubscriber extends Mailable
      */
     public function build()
     {
-        $subject = $this->subject;
+        $subject = $this->mail_subject;
         $mail_text = $this->mail_text;
-
         return $this->view('admin.ecommerce.send_mail.mail_template.mail_template', compact('subject', 'mail_text'));
     }
 }

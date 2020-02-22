@@ -68,7 +68,7 @@
 							<li>Save multiple shipping addresses</li>
 							<li>View and track orders and more</li>
 						</ul>
-						<a class="btn-reg-popup" title="Register" href="{{route('register')}}">Create an account</a>
+						<a class="btn-reg-popup" title="Register/login" href="{{route('login')}}">Create an account</a>
 					</div>
 					<div style="clear:both;"></div>
 				</div>

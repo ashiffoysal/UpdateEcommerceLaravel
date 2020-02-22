@@ -3495,13 +3495,19 @@ span.fa-stack {
   height: 100%;
   background: white; }
 
+  .error_text{
+    color: red;
+  }
+
 #content {
   margin: 10px 0;
   overflow: hidden; }
 
 .mobile-home #content {
   margin: 0;
-  clear: both; }
+  clear: both;
+  padding-bottom: 20px;
+}
 
 .mobile-home .typeheader-1.bar-navhome {
   box-shadow: none; }
@@ -3661,7 +3667,9 @@ span.fa-stack {
   padding: 10px 0 15px;
   overflow: hidden;
   margin-bottom: 0;
-  padding: 0px 15px; }
+  padding: 0px 15px;
+  
+}
   .block-mobile .info {
     float: left;
     width: 33.33%; }

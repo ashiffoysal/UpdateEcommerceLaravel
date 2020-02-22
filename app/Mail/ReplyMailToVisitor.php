@@ -16,14 +16,16 @@ class ReplyMailToVisitor extends Mailable
      *
      * @return void
      */
-    public $reply_subject;
-    public $reply_name;
-    public $reply_content;
+    public $subject;
+    public $content;
+    public $name;
+
     public function __construct($reply_subject, $reply_content, $reply_name)
     {
-        $this->$reply_subject = $reply_subject;
-        $this->$reply_content = $reply_content;
-        $this->$reply_name = $reply_name;
+        $this->subject = $reply_subject;
+        $this->content = $reply_content;
+        $this->name = $reply_name;
+
     }
 
     /**
@@ -33,9 +35,10 @@ class ReplyMailToVisitor extends Mailable
      */
     public function build()
     {
-        $reply_subject = $this->reply_subject;
-        $reply_content = $this->reply_content;
-        $reply_name = $this->reply_name;
+
+        $reply_subject = $this->subject;
+        $reply_content = $this->content;
+        $reply_name = $this->name;
         return $this->view('admin.ecommerce.send_mail.mail_template.reply_mail_template', compact('reply_subject', 'reply_content', 'reply_name'));
     }
 }

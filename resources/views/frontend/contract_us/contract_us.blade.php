@@ -23,8 +23,8 @@
                 Contact Us
             </div>
             <ul class="breadcrumb-cate">
-                <li><a href="index.html"><i class="fa fa-home"></i></a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="{{ url('/') }}"><i class="fa fa-home"></i></a></li>
+                <li><a href="#">Contact Us</a></li>
             </ul>
         </div>
     </div>
