@@ -634,35 +634,5 @@
     </div>
 </div>
 
-<div class="col-xs-12">
-    <div class="block-mobile clearfix">
-        <div class="info info1">
-            <div class="inner">
-                <i class="fa fa-truck"></i>
-                <div class="info-content">
-                    <span>free delivery</span>
-                    <p>From 275 AED</p>
-                </div>
-            </div>
-        </div>
-        <div class="info info2">
-            <div class="inner">
-                <i class="fa fa-money"></i>
-                <div class="info-content">
-                    <span>free delivery</span>
-                    <p>From 275 AED</p>
-                </div>
-            </div>
-        </div>
-        <div class="info info3">
-            <div class="inner">
-                <i class="fa fa-gift"></i>
-                <div class="info-content">
-                    <span>free gift box</span>
-                    <p>&amp; gift note</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection

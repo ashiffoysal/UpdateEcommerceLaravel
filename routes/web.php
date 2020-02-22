@@ -678,8 +678,7 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
     Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
     Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
     Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
-    // 2checkout
-    Route::get('2checkout/redirect', 'PaymentController@redirectToCheckout');
+
 });
 
 
@@ -692,6 +691,8 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
     
     Route::get('/', 'Mobile\FrontendController@index');
     Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
+    Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
+    Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
 
 }
 
