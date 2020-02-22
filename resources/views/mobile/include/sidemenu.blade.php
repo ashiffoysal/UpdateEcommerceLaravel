@@ -11,12 +11,9 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="panel-left__midde">
 				<div class="panel-group" id="panel-category" role="tablist" aria-multiselectable="true">
-
-
-				
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab">
 							<a href="#">Jewelry</a>
@@ -38,8 +35,8 @@
 					</div>
 
 
-				
-			
+
+
 				</div>
 
 

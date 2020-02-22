@@ -1,7 +1,5 @@
 <?php
 
-
-
 $agent = new \Jenssegers\Agent\Agent;
 if ($agent->isDesktop()) {
 
@@ -766,12 +764,13 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
 
-
     Route::get('/', 'Mobile\FrontendController@index');
     Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
-
     Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
     Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
 
+    // Route Created By Harrison
+    Route::get('flashdeal/products', 'Mobile\FrontendController@flashDealProducts')->name('frontend.flash.deal.products');
+    // Route Created By Harrison End
 
 }

@@ -111,11 +111,11 @@
 	<script type="text/javascript" src="{{asset('public/mobile/js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('public/mobile/js/owl-carousel/owl.carousel.js')}}"></script>
 	<script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
+	<script type="text/javascript" src="{{asset('public/mobile/js/count_down/jquery.countdown.min.js')}}"></script>
 
 	<!-- Theme files
 ============================================ -->
 	<script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
-
 </body>
 
 </html>

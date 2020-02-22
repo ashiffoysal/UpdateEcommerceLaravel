@@ -60,8 +60,7 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
                                         </div>
                                     </div>
                                     <div class="modcontent">
-                                        <div
-                                            class="so-deal modcontent products-list grid clearfix clearfix preset00-3 preset01-3 preset02-2 preset03-2 preset04-1  button-type1  style2">
+                                        <div class="so-deal modcontent products-list grid clearfix clearfix preset00-3 preset01-3 preset02-2 preset03-2 preset04-1  button-type1  style2">
                                             <div class="category-slider-inner products-list yt-content-slider"
                                                 data-rtl="yes" data-autoplay="yes" data-autoheight="no" data-delay="4"
                                                 data-speed="0.6" data-margin="30" data-items_column00="4"
@@ -84,10 +83,10 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
                                                 title="{{ $flash_deal_detail->product->product_name }}">
                                                 <img src="{{asset('public/uploads/products/thumbnail/'.$flash_deal_detail->product->thumbnail_img)}} "
                                                     alt="{{ $flash_deal_detail->product->product_name }}"
-                                                    title="{{ $flash_deal_detail->product->product_name }} "
+                                                    title="{{ $flash_deal_detail->product->product_name }}"
                                                     class="img-1 img-responsive" />
                                                 <img src="{{asset('public/uploads/products/thumbnail/'.$flash_deal_detail->product->thumbnail_img)}}"
-                                                    alt="{{ $flash_deal_detail->product->product_name }} "
+                                                    alt="{{ $flash_deal_detail->product->product_name }}"
                                                     title="{{ $flash_deal_detail->product->product_name }}" height="200"
                                                     width="200" class="img-2 img-responsive" />
                                             </a>
@@ -103,22 +102,25 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
                                     <div class="right-block">
                                         <div class="caption">
                                             <h4>
-                                                <a
-                                                    href="{{url('product/'.$flash_deal_detail->product->slug.'/'.$flash_deal_detail->product->id)}}">
+                                                <a href="{{url('product/'.$flash_deal_detail->product->slug.'/'.$flash_deal_detail->product->id)}}">
                                                     {{ Str::limit($flash_deal_detail->product->product_name, 40) }}
                                                 </a>
                                             </h4>
                                             <div class="total-price">
                                                 <div class="price price-left">
                                                     <span class="price-new">
-                                                        @php $discountPrice = 0; @endphp
-                                                        @if($flash_deal_detail->discount_type == 1) @php
-                                                        $discountPrice =
-                                                        $flash_deal_detail->product->product_price -
-                                                        $flash_deal_detail->discount @endphp @else @php
-                                                        $discountPrice =
-                                                        $flash_deal_detail->product->product_price /100 *
-                                                        $flash_deal_detail->discount @endphp @endif
+                                                        @php
+                                                        $discountPrice = 0;
+                                                        @endphp
+                                                        @if($flash_deal_detail->discount_type == 1)
+                                                        @php
+                                                        $discountPrice = $flash_deal_detail->product->product_price - $flash_deal_detail->discount
+                                                        @endphp
+                                                        @else
+                                                        @php
+                                                        $discountPrice = $flash_deal_detail->product->product_price /100 * $flash_deal_detail->discount
+                                                        @endphp
+                                                        @endif
                                                         ৳ {{ $discountPrice }}
                                                     </span>
                                                     <span class="price-old">
