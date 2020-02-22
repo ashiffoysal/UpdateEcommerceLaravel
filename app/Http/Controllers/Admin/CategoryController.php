@@ -53,6 +53,7 @@ class CategoryController extends Controller
                 $image=$request->file('pic');
                 $ImageName='pic_'.'_'.time().'.'.$image->getClientOriginalExtension();
                 Image::make($image)->resize(270,270)->save('public/uploads/category/'.$ImageName);
+                Image::make($image)->resize(210,270)->save('public/uploads/category/mobile/'.$ImageName);
                 $data->cate_image =$ImageName;
         }
         if($request->hasFile('icon')){
@@ -116,6 +117,7 @@ class CategoryController extends Controller
                 $image=$request->file('pic');
                 $ImageName='pic_'.'_'.time().'.'.$image->getClientOriginalExtension();
                 Image::make($image)->resize(270,270)->save('public/uploads/category/'.$ImageName);
+                Image::make($image)->resize(210,270)->save('public/uploads/category/mobile/'.$ImageName);
                 $data->cate_image =$ImageName;
         }
         if($request->hasFile('icon')){
