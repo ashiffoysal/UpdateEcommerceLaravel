@@ -46,7 +46,7 @@ class CourierController extends Controller
             );
 
         $notification = array(
-            'messege' => 'Successfully Courier Synced.:)',
+            'messege' => 'Successfully Courier Assigned.:)',
             'alert-type' => 'success'
         );
 

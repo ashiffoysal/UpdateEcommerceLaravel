@@ -44,7 +44,7 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
         </div>
     </div>
     @endif
-    @if ($flash_deal_details)
+    @if ($flash_deal)
     <div class="container product-detail">
         <div class="row">
             <div id="content" class="col-md-12 col-sm-12 col-xs-12">
@@ -208,10 +208,10 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
     @endif
 
 </div>
-@if ($flash_deal_end_date)
+@if ($flash_deal)
 <script>
     $(function () {
-        $(".Countdown-1").countdown("{{ $flash_deal_end_date }}", function (event) {
+        $(".Countdown-1").countdown("{{ $flash_deal->end_date }}", function (event) {
             $(this).html(
                 event.strftime(
                     "" +

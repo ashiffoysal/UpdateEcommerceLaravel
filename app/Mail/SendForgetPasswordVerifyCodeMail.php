@@ -16,10 +16,10 @@ class SendForgetPasswordVerifyCodeMail extends Mailable
      *
      * @return void
      */
-    public $userInfo;
+    public $Info;
     public function __construct($userInfo)
     {
-        $this->userInfo = $userInfo;
+        $this->Info = $userInfo;
     }
 
     /**
@@ -30,8 +30,7 @@ class SendForgetPasswordVerifyCodeMail extends Mailable
     public function build()
     {
 
-        $userInfo = $this->userInfo;
-        
+        $userInfo = $this->Info;
         return $this->view('frontend.accounts.verification_mail_template.forget_password_mail_template', compact('userInfo'));
     }
 }
