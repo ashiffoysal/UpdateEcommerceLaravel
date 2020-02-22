@@ -1,7 +1,5 @@
 <?php
 
-
-
 $agent = new \Jenssegers\Agent\Agent;
 if ($agent->isDesktop()) {
 
@@ -767,6 +765,11 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
 
 
+    // Route Created By Harrison
+    Route::get('flashdeal/products', 'Mobile\FrontendController@flashDealProducts')->name('frontend.flash.deal.products');
+    // Route Created By Harrison End
+
+
 
 
     Route::get('/', 'Mobile\FrontendController@index');
@@ -780,5 +783,6 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     // product area start
 
     Route::get('/product/details', 'Mobile\ProductController@productDetails');
+
 
 }

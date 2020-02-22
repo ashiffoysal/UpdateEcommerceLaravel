@@ -1,6 +1,6 @@
 <!-- Begin Bar Tab -->
 <nav class="bar bar-tab">
-    <a class="tab-item " href="index.html" data-transition="slide-in">
+<a class="tab-item " href="{{ url('/') }}" data-transition="slide-in">
         <span class="icon icon-home"></span>
         <span class="tab-label">Home</span>
     </a>
