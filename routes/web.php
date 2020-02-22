@@ -517,6 +517,20 @@ if ($agent->isDesktop()) {
 
 
 
+
+// user controller
+route::get(md5('admin/user/add'),'Admin\UserController@add')->name('admin.user.add');
+route::get(md5('admin/user/all'),'Admin\UserController@index')->name('admin.user.all');
+route::get('admin/user/edit/{id}','Admin\UserController@edit');
+route::post(md5('admin/user/insert'),'Admin\UserController@insert')->name('admin.userlist.insert');
+route::post(md5('admin/user/update'),'Admin\UserController@update')->name('admin.userlist.update');
+route::get('admin/user/delete/{id}','Admin\UserController@delete');
+// custommer
+
+route::get(md5('admin/custommer/all'),'Admin\UserController@customer')->name('admin.custommer.all');
+route::get('admin/custommer/view/{id}','Admin\UserController@customerview');
+route::get('admin/customer/delete/{id}','Admin\UserController@customerdelete');
+
     // site banner
     route::get(md5('admin/sitebanner/all'), 'admin\SiteBannerController@sitebanner')->name('admin.sitebanner.all');
     Route::get('admin/sitebanner/deactive/{id}', 'Admin\SiteBannerController@sitebannerdeactive');
@@ -532,11 +546,25 @@ if ($agent->isDesktop()) {
 
 
 
+
     // cupon
     Route::get(md5('admin/trash/cupon'), 'Admin\TrashController@cupon')->name('admin.trash.cupon');
     Route::post('admin/trash/cupon/multipledelete', 'Admin\TrashController@cuponmultidelete')->name('admin.trash.cupondelete');
     Route::get(md5('admin/trash/faq'), 'Admin\TrashController@faqtrash')->name('admin.trash.faq');
     Route::post('admin/trash/multihearddelfaq', 'Admin\TrashController@multihearddelfaq')->name('');
+
+
+// site banner
+route::get(md5('admin/sitebanner/all'),'Admin\SiteBannerController@sitebanner')->name('admin.sitebanner.all');
+Route::get('admin/sitebanner/deactive/{id}','Admin\SiteBannerController@sitebannerdeactive');
+Route::get('admin/sitebanner/active/{id}','Admin\SiteBannerController@sitebanneractive');
+Route::get('admin/sitebanner/softdelete/{id}','Admin\SiteBannerController@sitebabnsoftdelete');
+Route::get('/get/admin/sitebanner/edit/{id}','Admin\SiteBannerController@sitebabnsoftedit');
+Route::get('admin/sitebanner/restore/{id}','Admin\SiteBannerController@sitebanrestore');
+Route::get('admin/sitebanner/hearddelete/{id}','Admin\SiteBannerController@sitebahearddel');
+route::post(md5('admin/sitebanner/insert'),'Admin\SitebannerController@sitebannerinsert')->name('admin.sitebanner.insert');
+route::post(md5('admin/sitebanner/update'),'Admin\SitebannerController@sitebannerupdate')->name('admin.sitebanner.update');
+route::post(md5('admin/sitebanner/multisoftdelete'),'Admin\SitebannerController@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
 
     // page trash
     Route::get(md5('admin/trash/page'), 'Admin\TrashController@page')->name('admin.trash.page');
@@ -546,8 +574,16 @@ if ($agent->isDesktop()) {
 
 
 
+
     // order Controller
 
+
+
+// page trash
+Route::get(md5('admin/trash/page'), 'Admin\TrashController@page')->name('admin.trash.page');
+Route::post(md5('admin/trash/multidelpage'), 'Admin\TrashController@pagemultdel')->name('admin.trash.pagemultidel');
+Route::get(md5('admin/trash/sitebanner'), 'Admin\TrashController@sitebanner')->name('admin.trash.sitebanner');
+Route::post(md5('admin/trash/sitebanner/multipledelete'), 'Admin\TrashController@sitebanmultidel')->name('admin.trash.sitebannerdel');
 
 
     Route::get(md5('admin/product/order'), 'admin\OrderController@index')->name('admin.productorder');
@@ -564,6 +600,14 @@ if ($agent->isDesktop()) {
     Route::get('admin/blog/page', 'Admin\BlogController@blogpage')->name('admin.blog.page');
 
 
+Route::get(md5('admin/product/order'), 'Admin\OrderController@index')->name('admin.productorder');
+Route::get(md5('admin/product/process'), 'Admin\OrderController@processproduct')->name('admin.productprocess');
+
+Route::get(md5('admin/product/ondelevery'), 'Admin\OrderController@ondelevery')->name('admin.ondevelery');
+Route::get(md5('admin/product/complateorder'), 'Admin\OrderController@complateorder')->name('admin.complateorder');
+Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
+
+
     //
     Route::get('admin/product/order/pendingsoftdelete/{id}', 'Admin\OrderController@pendingsoftdelete');
     Route::get('admin/product/order/invoice/{id}', 'Admin\OrderController@invoice');
@@ -571,6 +615,7 @@ if ($agent->isDesktop()) {
     Route::post('admin/product/order/multideletepending', 'admin\OrderController@multideletepending')->name('admin.pendingsoftdelete');
     Route::any('admin/product/status/paymentorder', 'admin\OrderController@paymentorder')->name('products.orderpayment');
     Route::get('admin/product/order/hearddelete/{id}', 'Admin\OrderController@orderhearddelete');
+
 
     // Report controller
 
@@ -602,7 +647,12 @@ if ($agent->isDesktop()) {
         Route::get('get/selected/previous/and/new/products/by/ajax', 'FlashDealController@getProductsPreviousAndNewByAjax');
         // Ajax call route end
 
-    });
+
+Route::get(md5('admin/product/stockreport'),'Admin\ReportController@productstockreport')->name('admin.product.stock');
+Route::get('/get/admin/report/category/filter','Admin\ReportController@categoryreport');
+Route::get(md5('admin/product/wishlist'),'Admin\ReportController@wishproduct')->name('admin.product.wishlistpro');
+Route::get(md5('admin/product/bestsell'),'admin\ReportController@bestsell')->name('admin.bestsell');
+
 
     Route::group(['prefix' => 'admin/subscriber/mail', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
 
@@ -644,6 +694,32 @@ if ($agent->isDesktop()) {
         Route::get('get/couriers/by/courier_id', 'CourierController@getCouriersByAjax');
         Route::get('get/courier/for/update', 'CourierController@getCouriersForUpdateByAjax');
         // Ajax Route Ended
+
+
+});
+//Harrison start ended
+
+
+Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
+    Route::get('selected/show', 'CourierController@index')->name('courier.index');
+    Route::get('sync', 'CourierController@couriersyncview')->name('courier.sync.view');
+    Route::post('sync/insert', 'CourierController@couriersyncinsert')->name('courier.sync.insert');
+    Route::get('sync/edit/{subDistrictId}', 'CourierController@couriersyncedit')->name('courier.sync.edit');
+    Route::post('sync/sync/update/{subDistrictId}', 'CourierController@couriersyncupdate')->name('courier.sync.update');
+    Route::get('sync/sync/delete/{subDistrictId}', 'CourierController@couriersyncdelete')->name('courier.sync.delete');
+    Route::post('store', 'CourierController@courierstore')->name('courier.store');
+    Route::get('allcurier', 'CourierController@allcurier')->name('courier.all');
+
+    Route::get('/edit/{id}', 'CourierController@curieredit');
+    Route::post('/update', 'CourierController@curierupdate');
+    Route::get('/curierdelete/{id}', 'CourierController@curierdelete');
+
+    // Ajax Route
+    Route::get('get/district/by/division/id/{divisionId}', 'CourierController@getDistrictByAjax');
+    Route::get('get/sub_district/by/district/id/{districtId}', 'CourierController@getSubDistrictByAjax');
+    Route::get('get/couriers/by/courier_id', 'CourierController@getCouriersByAjax');
+    Route::get('get/courier/for/update', 'CourierController@getCouriersForUpdateByAjax');
+    // Ajax Route Ended
 
     });
 
@@ -690,10 +766,12 @@ if ($agent->isDesktop()) {
 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
 
+
     Route::get('/', 'Mobile\FrontendController@index');
     Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
 
     Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
     Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
+
 
 }
