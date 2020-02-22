@@ -16,7 +16,7 @@
                 <img src="{{asset('public/mobile')}}/image/demo-mobile/logo2.png" title="Your Store" alt="Your Store">
             </a>
         </div>
-        <div class="navbar-search col-xs-7">
+        <div class="navbar-search col-xs-7" style="padding-right:15px">
             <!-- BOX CONTENT SEARCH -->
             <div id="search-bar" class="input-group">
                 <input type="text" name="search" value="" placeholder="Search" class="form-control input-lg">

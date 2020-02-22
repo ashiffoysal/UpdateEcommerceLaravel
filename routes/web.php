@@ -669,8 +669,16 @@ if ($agent->isDesktop()) {
 
         Route::get('paypal/success/payment', 'PaymentController@paypalsuccess')->name('payment.paypal.success');
 
+
+    Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
+    Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
+    Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
+
+});
+
         Route::get('order_payment/{paymentSecureId}', 'PaymentController@paymentPage')->name('order.payment');
         Route::post('make_payment/', 'PaymentController@makePayment')->name('payment.make.payment');
+
 
         //SSL COMMERCEZ
 
@@ -686,4 +694,8 @@ if ($agent->isDesktop()) {
 
     Route::get('/', 'Mobile\FrontendController@index');
     Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
+
+    Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
+    Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
+
 }
