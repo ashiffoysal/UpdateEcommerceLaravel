@@ -104,7 +104,7 @@ $image=App\SiteBanner::where('section',10)->where('is_deleted',0)->where('status
                                         <div class="caption">
                                             <h4>
                                                 <a
-                                                    href="{{url('/product/details/page/'.$flash_deal_detail->product->id)}}">
+                                                    href="{{url('product/'.$flash_deal_detail->product->slug.'/'.$flash_deal_detail->product->id)}}">
                                                     {{ Str::limit($flash_deal_detail->product->product_name, 40) }}
                                                 </a>
                                             </h4>
