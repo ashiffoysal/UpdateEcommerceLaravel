@@ -507,32 +507,32 @@ Route::get('/payment/success', 'Frontend\CheckoutController@paymentsuccess');
 Route::get('/text', 'Frontend\CheckoutController@text');
 
 // user controller
-route::get(md5('admin/user/add'),'admin\UserController@add')->name('admin.user.add');
-route::get(md5('admin/user/all'),'admin\UserController@index')->name('admin.user.all');
-route::get('admin/user/edit/{id}','admin\UserController@edit');
-route::post(md5('admin/user/insert'),'admin\UserController@insert')->name('admin.userlist.insert');
-route::post(md5('admin/user/update'),'admin\UserController@update')->name('admin.userlist.update');
-route::get('admin/user/delete/{id}','admin\UserController@delete');
+route::get(md5('admin/user/add'),'Admin\UserController@add')->name('admin.user.add');
+route::get(md5('admin/user/all'),'Admin\UserController@index')->name('admin.user.all');
+route::get('admin/user/edit/{id}','Admin\UserController@edit');
+route::post(md5('admin/user/insert'),'Admin\UserController@insert')->name('admin.userlist.insert');
+route::post(md5('admin/user/update'),'Admin\UserController@update')->name('admin.userlist.update');
+route::get('admin/user/delete/{id}','Admin\UserController@delete');
 // custommer
 
-route::get(md5('admin/custommer/all'),'admin\UserController@customer')->name('admin.custommer.all');
-route::get('admin/custommer/view/{id}','admin\UserController@customerview');
-route::get('admin/customer/delete/{id}','admin\UserController@customerdelete');
+route::get(md5('admin/custommer/all'),'Admin\UserController@customer')->name('admin.custommer.all');
+route::get('admin/custommer/view/{id}','Admin\UserController@customerview');
+route::get('admin/customer/delete/{id}','Admin\UserController@customerdelete');
 
 
 
 
 // site banner
-route::get(md5('admin/sitebanner/all'),'admin\SiteBannerController@sitebanner')->name('admin.sitebanner.all');
+route::get(md5('admin/sitebanner/all'),'Admin\SiteBannerController@sitebanner')->name('admin.sitebanner.all');
 Route::get('admin/sitebanner/deactive/{id}','Admin\SiteBannerController@sitebannerdeactive');
 Route::get('admin/sitebanner/active/{id}','Admin\SiteBannerController@sitebanneractive');
 Route::get('admin/sitebanner/softdelete/{id}','Admin\SiteBannerController@sitebabnsoftdelete');
 Route::get('/get/admin/sitebanner/edit/{id}','Admin\SiteBannerController@sitebabnsoftedit');
 Route::get('admin/sitebanner/restore/{id}','Admin\SiteBannerController@sitebanrestore');
 Route::get('admin/sitebanner/hearddelete/{id}','Admin\SiteBannerController@sitebahearddel');
-route::post(md5('admin/sitebanner/insert'),'admin\sitebannercontroller@sitebannerinsert')->name('admin.sitebanner.insert');
-route::post(md5('admin/sitebanner/update'),'admin\sitebannercontroller@sitebannerupdate')->name('admin.sitebanner.update');
-route::post(md5('admin/sitebanner/multisoftdelete'),'admin\sitebannercontroller@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
+route::post(md5('admin/sitebanner/insert'),'Admin\SitebannerController@sitebannerinsert')->name('admin.sitebanner.insert');
+route::post(md5('admin/sitebanner/update'),'Admin\SitebannerController@sitebannerupdate')->name('admin.sitebanner.update');
+route::post(md5('admin/sitebanner/multisoftdelete'),'Admin\SitebannerController@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
 
 
 
@@ -546,8 +546,8 @@ Route::post('admin/trash/multihearddelfaq', 'Admin\TrashController@multihearddel
 // page trash
 Route::get(md5('admin/trash/page'), 'Admin\TrashController@page')->name('admin.trash.page');
 Route::post(md5('admin/trash/multidelpage'), 'Admin\TrashController@pagemultdel')->name('admin.trash.pagemultidel');
-Route::get(md5('admin/trash/sitebanner'), 'admin\trashcontroller@sitebanner')->name('admin.trash.sitebanner');
-Route::post(md5('admin/trash/sitebanner/multipledelete'), 'admin\trashcontroller@sitebanmultidel')->name('admin.trash.sitebannerdel');
+Route::get(md5('admin/trash/sitebanner'), 'Admin\TrashController@sitebanner')->name('admin.trash.sitebanner');
+Route::post(md5('admin/trash/sitebanner/multipledelete'), 'Admin\TrashController@sitebanmultidel')->name('admin.trash.sitebannerdel');
 
 
 
@@ -555,11 +555,11 @@ Route::post(md5('admin/trash/sitebanner/multipledelete'), 'admin\trashcontroller
 
 
 
-Route::get(md5('admin/product/order'), 'admin\ordercontroller@index')->name('admin.productorder');
-Route::get(md5('admin/product/process'), 'admin\ordercontroller@processproduct')->name('admin.productprocess');
+Route::get(md5('admin/product/order'), 'Admin\OrderController@index')->name('admin.productorder');
+Route::get(md5('admin/product/process'), 'Admin\OrderController@processproduct')->name('admin.productprocess');
 
-Route::get(md5('admin/product/ondelevery'), 'admin\ordercontroller@ondelevery')->name('admin.ondevelery');
-Route::get(md5('admin/product/complateorder'), 'admin\ordercontroller@complateorder')->name('admin.complateorder');
+Route::get(md5('admin/product/ondelevery'), 'Admin\OrderController@ondelevery')->name('admin.ondevelery');
+Route::get(md5('admin/product/complateorder'), 'Admin\OrderController@complateorder')->name('admin.complateorder');
 Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
 
 Route::get('admin/delevary/rejecteorder', 'Admin\OrderController@rejecteorder')->name('admin.rejecteorder');
@@ -579,10 +579,10 @@ Route::get('admin/product/order/hearddelete/{id}', 'Admin\OrderController@orderh
 
 // Report controller
 
-Route::get(md5('admin/product/stockreport'),'admin\reportcontroller@productstockreport')->name('admin.product.stock');
+Route::get(md5('admin/product/stockreport'),'Admin\ReportController@productstockreport')->name('admin.product.stock');
 Route::get('/get/admin/report/category/filter','Admin\ReportController@categoryreport');
-Route::get(md5('admin/product/wishlist'),'admin\reportcontroller@wishproduct')->name('admin.product.wishlistpro');
-Route::get(md5('admin/product/bestsell'),'admin\reportcontroller@bestsell')->name('admin.bestsell');
+Route::get(md5('admin/product/wishlist'),'Admin\ReportController@wishproduct')->name('admin.product.wishlistpro');
+Route::get(md5('admin/product/bestsell'),'admin\ReportController@bestsell')->name('admin.bestsell');
 
 
 //Harrison start
@@ -630,18 +630,18 @@ Route::group(['prefix' => 'admin/subscriber/mail', 'namespace' => 'Admin', 'midd
 
 
 Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
-    Route::get('selected/show', 'couriercontroller@index')->name('courier.index');
-    Route::get('sync', 'couriercontroller@couriersyncview')->name('courier.sync.view');
-    Route::post('sync/insert', 'couriercontroller@couriersyncinsert')->name('courier.sync.insert');
-    Route::get('sync/edit/{subDistrictId}', 'couriercontroller@couriersyncedit')->name('courier.sync.edit');
-    Route::post('sync/sync/update/{subDistrictId}', 'couriercontroller@couriersyncupdate')->name('courier.sync.update');
-    Route::get('sync/sync/delete/{subDistrictId}', 'couriercontroller@couriersyncdelete')->name('courier.sync.delete');
-    Route::post('store', 'couriercontroller@courierstore')->name('courier.store');
-    Route::get('allcurier', 'couriercontroller@allcurier')->name('courier.all');
+    Route::get('selected/show', 'CourierController@index')->name('courier.index');
+    Route::get('sync', 'CourierController@couriersyncview')->name('courier.sync.view');
+    Route::post('sync/insert', 'CourierController@couriersyncinsert')->name('courier.sync.insert');
+    Route::get('sync/edit/{subDistrictId}', 'CourierController@couriersyncedit')->name('courier.sync.edit');
+    Route::post('sync/sync/update/{subDistrictId}', 'CourierController@couriersyncupdate')->name('courier.sync.update');
+    Route::get('sync/sync/delete/{subDistrictId}', 'CourierController@couriersyncdelete')->name('courier.sync.delete');
+    Route::post('store', 'CourierController@courierstore')->name('courier.store');
+    Route::get('allcurier', 'CourierController@allcurier')->name('courier.all');
 
-    Route::get('/edit/{id}', 'couriercontroller@curieredit');
-    Route::post('/update', 'couriercontroller@curierupdate');
-    Route::get('/curierdelete/{id}', 'couriercontroller@curierdelete');
+    Route::get('/edit/{id}', 'CourierController@curieredit');
+    Route::post('/update', 'CourierController@curierupdate');
+    Route::get('/curierdelete/{id}', 'CourierController@curierdelete');
 
     // Ajax Route
     Route::get('get/district/by/division/id/{divisionId}', 'CourierController@getDistrictByAjax');
@@ -691,9 +691,8 @@ Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
 // ======================================Mobile route start from here=================================//
 
 }elseif($agent->isMobile() || $agent->isTablet()){
-    
+
     Route::get('/', 'Mobile\FrontendController@index');
     Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
 
 }
-

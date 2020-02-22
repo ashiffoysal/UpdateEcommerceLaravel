@@ -987,7 +987,7 @@
             </div>
         </section>
         @php
-        $newcate=App\Category::where('is_deleted',0)->where('section_id',3)->orderBy('id','DESC')->get();
+        $newcate=App\Category::where('is_deleted',0)->where('section_id',3)->orderBy('id','DESC')->limit(1)->get();
         @endphp
         <section id="box-link4" class="section-style">
             <div class="container page-builder-ltr">
@@ -1059,7 +1059,7 @@
                                             <div class="ltabs-items-container">
                                                 <div class="ltabs-items ltabs-items-selected items-category-{{$catesection->id}}" data-total="16">
                                                     <div class="ltabs-items-inner ltabs-slider">
-                                                        <div class="ltabs-item col-md-4">
+                                                        <div class="ltabs-item col-md-4 asif">
                                                             @php
                                                             $catego=$catesection->id;
                                                             $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->where('status',1)->limit(2)->get();
@@ -1188,7 +1188,7 @@
                                                             @endforeach
                                                             <!-- product end -->
                                                         </div> <!-- grid end -->
-                                                        <div class="ltabs-item col-md-4">
+                                                        <div class="ltabs-item col-md-4 asif">
                                                             @php
                                                             $catego=$catesection->id;
                                                             $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->skip(2)->where('status',1)->limit(2)->get();
@@ -1315,7 +1315,7 @@
                                                             @endforeach
                                                             <!-- product end -->
                                                         </div>
-                                                        <div class="ltabs-item col-md-4">
+                                                        <div class="ltabs-item col-md-4 asif">
                                                             @php $catego=$catesection->id;
                                                             $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->limit(2)->where('status',1)->skip(4)->get();
                                                             @endphp
@@ -1437,10 +1437,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            @endforeach
+
                                                             <!-- product end -->
                                                         </div>
-
+                                                          @endforeach
                                                     </div>
                                                 </div>
                                                 <div class="ltabs-items  items-category-7 grid" data-total="16">
@@ -1866,7 +1866,7 @@
 													 </ul>
 												</div>
                                          </div>
-                                         
+
 
 
                                          <!-- blog area start -->
@@ -1878,7 +1878,7 @@
 															<div id="so_latest_blog_1" class="so-blog-external button-type2 button-type2">
 																 <div class="category-slider-inner products-list yt-content-slider blog-external clearfix " data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="2" data-items_column0="2" data-items_column1="2" data-items_column2="2"  data-items_column3="2" data-items_column4="1" data-arrows="no" data-pagination="yes" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
 																		<div class="media">
-																			 <div class="item head-button"> 
+																			 <div class="item head-button">
 																					<div class="content-img col-sm-6 col-xs-12">
 																						 <a href="product.html" target="_self">
 																						 <img src="image/catalog/demo/blog/8-260x190.jpg" alt="Aestibulum ipsum a ornare car">
@@ -2032,7 +2032,7 @@
 													 </div>
 												</div>
                                          </div>
-                                         
+
 
 
                                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_swee  block block_12">

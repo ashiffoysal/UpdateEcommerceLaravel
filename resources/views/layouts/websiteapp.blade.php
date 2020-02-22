@@ -1,6 +1,9 @@
 @php
 $seo=DB::table('seo')->first();
 @endphp
+@php
+  $fav=App\Logo::where('id',1)->first();
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +22,7 @@ $seo=DB::table('seo')->first();
     <meta name="robots" content="index, follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" type="image/png" href="ico/favicon-16x16.png" />
+    <link rel="shortcut icon" type="image/png" href="{{asset('/'.$fav->favicon)}}" />
     <!-- Include all css for home page ============================================ -->
     @foreach(App\ThemeSelector::where('status',1)->get() as $css)
     @include($css->css_name)
