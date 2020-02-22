@@ -141,7 +141,7 @@
                                                 <div class="item-img-info product-image-container ">
                                                     <div class="box-label">
                                                     </div>
-                                                    <a class="lt-image" target="_self"
+                                                    <a href="{{url('product/'.$row->slug.'/'.$row->id)}}" class="lt-image" target="_self"
                                                         title="Philipin Tour Group Manila/ Pattaya / Mactan ">
                                                         <img src="{{asset('public/uploads/products/thumbnail/productdetails/'.$row->thumbnail_img)}}"
                                                             alt="Philipin Tour Group Manila/ Pattaya / Mactan ">
@@ -153,7 +153,7 @@
                                             <div class="item-info">
                                                 <!-- Begin title -->
                                                 <div class="item-title">
-                                                    <a href="{{url('/product/details/page/'.$row->id)}}"
+                                                    <a href="{{url('product/'.$row->slug.'/'.$row->id)}}"
                                                         target="_self"
                                                         title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
                                                         {{Str::limit($row->product_name,20)}}
@@ -196,8 +196,6 @@
 
                             <div class="item ">
 
-
-
                                 @php
                                 $products =
                                 App\Product::whereNotNull('number_of_sale')->orderBy('number_of_sale','desc')->offset(5)->limit(5)->get();
@@ -211,7 +209,7 @@
                                                 <div class="item-img-info product-image-container ">
                                                     <div class="box-label">
                                                     </div>
-                                                    <a class="lt-image" target="_self"
+                                                    <a href="{{url('product/'.$row->slug.'/'.$row->id)}}" class="lt-image" target="_self"
                                                         title="{{$row->product_name}}">
                                                         <img src="{{asset('public/uploads/products/thumbnail/productdetails/'.$row->thumbnail_img)}}"
                                                             alt="Philipin Tour Group Manila/ Pattaya / Mactan ">
@@ -223,7 +221,7 @@
                                             <div class="item-info">
                                                 <!-- Begin title -->
                                                 <div class="item-title">
-                                                    <a href="{{url('/product/details/page/'.$row->id)}}"
+                                                    <a href="{{url('product/'.$row->slug.'/'.$row->id)}}"
                                                         target="_self"
                                                         title="Philipin Tour Group Manila/ Pattaya / Mactan  ">
                                                         {{Str::limit($row->product_name,40)}}
@@ -467,7 +465,7 @@
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
 
                                                     @if($product->product_type ==1)
-                                                        <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                        <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
                                                             <button class="addToCart" type="button" data-toggle="tooltip" title="" onclick="cart.add('30 ', '1 ');" data-original-title="Add to Cart "><span>Add to Cart </span></button>
                                                         </a>
 
@@ -484,7 +482,7 @@
                                             <div class="button-group">
                                                                         <div class="button-inner so-quickview">
                                                                             <a class="lt-image hidden" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
-                                                                            <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                            <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
                                                                                 <i class="fa fa-search"></i>
                                                                             </a>
                                                                             @if(Auth::guard('web')->check())
@@ -509,7 +507,7 @@
                                                                                 <input type="hidden" value="{{$product->id}}" name="product_id">
                                                                                 <input type="hidden" value="{{$product->product_price}}" name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('product/details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
                                                                                     <input type="hidden" name="combination">
                                                                                 </a>

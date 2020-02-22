@@ -25,12 +25,10 @@
 								<h2 class="secondary-title"><i class="fa fa-user-plus"></i>Your Personal Details</h2>
 								<div class="payment-new box-inner">
 
-									<div class="form-group input-firstname required" style="width: 49%; float: left;">
-										<input type="text" name="firstname" value="{{Auth::user()->first_name}}" placeholder="First Name *" id="input-payment-firstname" class="form-control disabl" disabled>
+									<div class="form-group input-firstname required" >
+										<input type="text" name="name" value="{{Auth::user()->username}}" placeholder="First Name *" id="input-payment-firstname" class="form-control disabl" disabled>
 									</div>
-									<div class="form-group input-lastname required" style="width: 49%; float: right;">
-										<input type="text" name="lastname" value="{{Auth::user()->last_name}}" placeholder="Last Name *" id="input-payment-lastname" class="form-control" disabled>
-									</div>
+
 									<div class="form-group required">
 										<input type="text" name="email" value="{{Auth::user()->email}}" placeholder="E-Mail *" id="input-payment-email" class="form-control" disabled>
 									</div>
@@ -355,7 +353,12 @@
                                         <div class="box-inner">
                                             <div class="radio">
                                                 <label>
+                                                  @php
+                                                    $activation=App\Activation::where('id',1)->first();
+                                                  @endphp
+                                                  @if($activation->cashondelevery==1)
                                                     <input type="radio" id="pay_method" name="payment_type" value="1" > Cash On Delivery <br>
+                                                  @endif
                                                     <input type="radio" id="pay_method" name="payment_type" value="2" > Online payment
                                                 </label>
                                                 @error('payment_type')
@@ -432,317 +435,6 @@
 
 </div>
 
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<script>
-
-    $(document).ready(function(){
-        $('#shipping_courier').on('change', function(){
-            var courier_id = $(this).val();
-            var user_upazila = $('#user_upazila').val();
-            var shipping_upazila = $('#shipping_upazila').val();
-            if (!shipping_upazila) {
-                $.ajax({
-                    url:"{{ url('check/courier/cash_on_deliviry') }}" + "/" + user_upazila + "/" + courier_id,
-                    type: 'get',
-                    dataType: 'json',
-                    success:function(data){
-                        console.log(data);
-                        if (data.data == 0) {
-                            $('#exampleModalCenter').modal('show');
-                        }
-                    }
-                });
-            }
-
-        })
-    });
-
-</script>
-
-<script>
-    function cuponApply() {
-
-    var cuponvalue =document.getElementById('input-coupon').value;
-    var ordervalue =document.getElementById('input_order').value;
-
-    $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
-            function(data) {
-				getCuponValue(ordervalue);
-
-                console.log(data);
-
-                if(data.cuponalert){
-                    toastr.success(data.cuponalert);
-                };
-
-
-            });
-
-    }
-</script>
-
-<script>
-	function getCuponValue(ordervalue){
-		$.ajaxSetup({
-
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('/get/cupon/value/') }}/" +ordervalue,
-
-                success: function(data) {
-
-					console.log(data);
-					$('#orderdata').html(data);
-
-
-
-
-                }
-            });
-
-	}
-	getCuponValue();
-</script>
-
-<script>
-    $(document).ready(function() {
-        $( "#is_shipping" ).click(function() {
-            if(this.checked){
-                $('#shipping-address').css('display', 'none');
-            }
-            if(!this.checked){
-                $('#shipping-address').css('display', 'block');
-            }
-        });
-    });
-</script>
-
-
-<script>
-    $(document).ready(function() {
-        $('#shipping_country').click(function(params) {
-            var country_id = $(this).val();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('/user/division/name') }}/" +country_id,
-				dataType:"json",
-                success: function(data) {
-                    $('#shipping_division').empty();
-                    $('#shipping_division').append(' <option value="0">--Please Select Your Division--</option>');
-                    $.each(data,function(index,divisionobj){
-                        $('#shipping_division').append('<option value="' + divisionobj.id + '">'+divisionobj.name+'</option>');
-                    });
-                }
-            });
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#shipping_division').click(function(params) {
-
-            var division_id = $(this).val();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('/user/district/name') }}/" +division_id,
-				dataType:"json",
-                success: function(data) {
-
-						console.log(data);
-                        $('#shipping_district').empty();
-                        $('#shipping_district').append(' <option value="0">--Please Select Your Division--</option>');
-                        $.each(data,function(index,districtbj){
-                         $('#shipping_district').append('<option value="' + districtbj.id + '">'+districtbj.name+'</option>');
-                       });
-                }
-            });
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#shipping_district').click(function(params) {
-
-            var upazila_id = $(this).val();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('/user/upazila/name') }}/" +upazila_id,
-				dataType:"json",
-
-                success: function(data) {
-                        $('#shipping_upazila').empty();
-                        $('#shipping_upazila').append(' <option value="0">--Please Select Your Division--</option>');
-                        $.each(data,function(index,upazilabj){
-                         $('#shipping_upazila').append('<option value="' + upazilabj.id + '">'+upazilabj.name+'</option>');
-                       });
-                }
-            });
-        });
-    });
-</script>
-
-<script>
-    $( document ).ready(function() {
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: 'GET',
-            url: "{{ route('get.order.data') }}",
-
-            success: function(data) {
-
-                $('#orderdata').html(data);
-
-            }
-        });
-
-});
-
-</script>
-
-<script>
-    var myVar;
-    function myUpdateOrder(el) {
-
-        myVar = setTimeout(function(){
-            $.post('{{ route('product.order.update') }}', {_token: '{{ csrf_token() }}', quantity: el.value, rowid:el.id },
-            function(data) {
-				$('#orderdata').html(data);
-                if (data) {
-                    toastr.success("Product Quantity Changed successfully");
-                }
-            });
-			toastr.success("Product Quantity Changed successfully");
-        }, 1000);
-    }
-
-    myUpdateOrder();
-</script>
-
-<script>
-
-// $(document).ready(function() {
-// $('#orderdelete').on('click', function(){
-
-
-
-// $.ajax({
-// type:'GET',
-// url:"{{ route('product.add.cart') }}",
-// data: $('#option-choice-form').serializeArray(),
-// success: function (data) {
-//     console.log(data);
-//     document.getElementById('cartdatacount').innerHTML =data.quantity;
-//         document.getElementById('product_price').innerHTML =data.price;
-
-// }
-// });
-
-
-// });
-// });
-</script>
-
-
-<script>
-    $(document).ready(function() {
-        $('#user_country').click(function(params) {
-            var country_id = $(this).val();
-
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('/user/division/name') }}/" +country_id,
-				dataType:"json",
-                success: function(data) {
-                    $('#user_division').empty();
-                    $('#user_division').append(' <option value="0">--Please Select Your Division--</option>');
-                    $.each(data,function(index,divisionobj){
-                        $('#user_division').append('<option value="' + divisionobj.id + '">'+divisionobj.name+'</option>');
-                    });
-                }
-            }
-         });
-     } else {
-        // alert('danger');
-     }
-
-
-        });
-
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        //var user_shipping_address = $('#user_upazila').val();
-        $('#user_upazila').on('change', function () {
-            var user_up_id = $(this).val();
-            if (user_up_id) {
-                $.ajax({
-                    url:"{{ url('get/courier/by/upazila/id/') }}"+"/"+user_up_id,
-                    type: 'get',
-                    success:function(data){
-                        $('#shipping_courier').empty();
-                        $('#shipping_courier').append(data);
-                    }
-                });
-            }
-        })
-
-        $('#shipping_upazila').on('change', function () {
-            var ship_up_id = $(this).val();
-            if (ship_up_id) {
-                $.ajax({
-                    url:"{{ url('get/courier/by/upazila/id/') }}"+"/"+ship_up_id,
-                    type: 'get',
-                    success:function(data){
-                        $('#shipping_courier').empty();
-                        $('#shipping_courier').append(data);
-                    }
-                });
-            }
-        })
-    });
-</script>
-
-<script>
-
-
-
-</script> --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script>
@@ -983,7 +675,6 @@
         $('#user_country').click(function(params) {
             var country_id = $(this).val();
 
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1011,6 +702,8 @@
 
     });
 </script>
+
+
 
 <script>
     $(document).ready(function() {
@@ -1045,10 +738,6 @@
     });
 </script>
 
-<script>
 
-
-
-</script>
 
 @endsection

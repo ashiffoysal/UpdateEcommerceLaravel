@@ -12,7 +12,6 @@ use App\Mail\SendMailToSubscriber;
 use App\Http\Controllers\Controller;
 use App\MailDraft;
 use Illuminate\Support\Facades\Mail;
-use PhpParser\Node\Expr\AssignOp\Concat;
 
 class SubscriberController extends Controller
 {
@@ -48,6 +47,7 @@ class SubscriberController extends Controller
         $emails = explode(',', $subscriber_emails);
         $subject = $request->mail_subject;
         $mail_text = $request->mail_content;
+
 
         foreach ($emails as  $email) {
             Mail::to(trim($email))->queue(new SendMailToSubscriber($subject, $mail_text));
@@ -85,8 +85,12 @@ class SubscriberController extends Controller
             'reply_name' => 'required',
         ]);
 
+        //dd($reply_subject, $reply_content, $reply_name);
         if ($request->submit === "send_mail") {
-            Mail::to($request->reply_email)->queue(new ReplyMailToVisitor($request->reply_subject, $request->reply_content, $request->reply_name));
+            $reply_subject = $request->reply_subject;
+            $reply_content = $request->reply_content;
+            $reply_name = $request->reply_name;
+            Mail::to($request->reply_email)->queue(new ReplyMailToVisitor($reply_subject, $reply_content, $reply_name));
             Contract::where('id', $mailId)->update([
                 'is_replied' => 1
             ]);
@@ -95,7 +99,9 @@ class SubscriberController extends Controller
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
+
         } elseif ($request->submit === "draft_mail") {
+
             MailDraft::insert([
                 'contract_id' => $mailId,
                 'reply_subject' => $request->reply_subject,
@@ -109,6 +115,7 @@ class SubscriberController extends Controller
                 'alert-type' => 'success'
             );
             return redirect()->route('admin.mail.all.draft')->with($notification);
+
         }
     }
 

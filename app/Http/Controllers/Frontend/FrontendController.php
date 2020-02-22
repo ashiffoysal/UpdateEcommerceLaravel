@@ -34,7 +34,6 @@ class FrontendController extends Controller
     }
 
     // About us page show
-
     public function aboutus()
     {
         return view('frontend.aboutus.aboutus1');
@@ -49,14 +48,13 @@ class FrontendController extends Controller
     {
         return view('frontend.support.support');
     }
+
     public function warrantypage()
     {
         return view('frontend.warranty.warranty');
     }
 
-
     // Category page show
-
     public function cateproduct($slug)
     {
         $category = Category::where('cate_slug', $slug)->first();
@@ -85,18 +83,16 @@ class FrontendController extends Controller
         $productdetails = Product::where('id', $id)->first();
         $checkFlashDeal = 0;
         $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();
-        if($flashDeal){
-        $flashDealEndDate = $flashDeal->end_date;
-        $flashDealDetails = FlashDealDetail::where('product_id', $id)->where('flash_deal_id', $flashDeal->id)->first();
-        if ($flashDealDetails) {
-            $checkFlashDeal = 1;
+        if ($flashDeal) {
+            $flashDealEndDate = $flashDeal->end_date;
+            $flashDealDetails = FlashDealDetail::where('product_id', $id)->where('flash_deal_id', $flashDeal->id)->where('status', 1)->first();
+            if ($flashDealDetails) {
+                $checkFlashDeal = 1;
+            }
+            return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal', 'flashDealEndDate'));
+        } else {
+            return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal'));
         }
-        return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal', 'flashDealEndDate'));
-      }else{
-        return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal'));
-      }
-
-
     }
 
     // Product compare page show
@@ -193,7 +189,7 @@ class FrontendController extends Controller
             $price = $product->product_price;
             $sku = $product->product_sku;
         }
-        return array('price' => $price,'sku'=>$sku);
+        return array('price' => $price, 'sku' => $sku);
     }
 
     // category details
@@ -214,10 +210,12 @@ class FrontendController extends Controller
 
     public function flashDealProducts()
     {
-        $flash_deal = FlashDeal::with('flash_deal_details')->where('status', 1)->where('is_deleted', 0)->first();
-        $flash_deal_end_date = $flash_deal->end_date;
-        $flash_deal_details = FlashDealDetail::with('product')->where('flash_deal_id', $flash_deal->id)->paginate(16);
-        return view('frontend.hot_deal.hot_deal_products', compact('flash_deal_details', 'flash_deal_end_date'));
+        $flash_deal = FlashDeal::where('status', 1)->where('is_deleted', 0)->select('id', 'end_date')->first();
+        $flash_deal_details = 0;
+        if ($flash_deal) {
+            $flash_deal_details = FlashDealDetail::with('product')->where('flash_deal_id', $flash_deal->id)->paginate(16);
+        }
+        return view('frontend.hot_deal.hot_deal_products', compact('flash_deal', 'flash_deal_details'));
     }
 
 

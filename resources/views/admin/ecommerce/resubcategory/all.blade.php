@@ -143,7 +143,7 @@
 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Icon:</label>
 			    <div class="col-sm-8">
 			      <input type="file" name="icon" required>
-			      <p>(32px*32px)</p>
+			      <p>(20px*20px)</p>
 			    </div>
 			  </div>
 			  <div class="form-group row">

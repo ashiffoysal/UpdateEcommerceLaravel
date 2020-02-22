@@ -64,7 +64,7 @@
                                 <div class="form-group row">
                                     <label for="example-text-input" class="col-sm-3 col-form-label">Accepted Payment Methods:</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="file" value="" required="" name="payment_image">
+                                        <input class="form-control" type="file" value=""name="payment_image">
                                         <small class="text-danger">
                                             @error('payment_image')
                                                     {{$message}}

@@ -246,6 +246,12 @@
 								      <input type="text" class="form-control" name="meta_description" value="{{$data->meta_description}}">
 								    </div>
 								  </div>
+									<div class="form-group row">
+										<label for="inputPassword" class="col-sm-3 col-form-label text-right">Video Link</label>
+										<div class="col-sm-6">
+											<textarea class="form-control" name="video">{{$data->video}</textarea>
+										</div>
+									</div>
 								 <!-- image -->
 								 <div class="form-group row">
 									<label for="" class="col-sm-3 col-form-label text-right">Main Image</label>
@@ -295,7 +301,7 @@
 								<!-- image end -->
 								<div class="form-group row">
 									<div class="col-md-12 text-center">
-										<button type="submit" class="btn btn-primary">Add Product</button>
+										<button type="submit" class="btn btn-primary">Update Product</button>
 									</div>
 								</div>
 							</form>

@@ -171,6 +171,7 @@ class ProductController extends Controller
         $product->upload_link = $request->upload_link;
         $product->license_type = $request->license_type;
         $product->affiliate_link = $request->affiliate_link;
+        $product->video = $request->video;
         // upload file
         if ($request->hasFile('pdf')) {
             $product->upload_file = $request->file('pdf')->store('public/uploads/products/file/');
@@ -791,6 +792,8 @@ class ProductController extends Controller
         // digital product edit field
         $product->select_upload_type = $request->upload_type;
         $product->upload_link = $request->upload_link;
+
+        $product->video = $request->video;
         if ($request->hasFile('pdf')) {
             $product->upload_file = $request->pdf->store('public/uploads/products/file');
         }

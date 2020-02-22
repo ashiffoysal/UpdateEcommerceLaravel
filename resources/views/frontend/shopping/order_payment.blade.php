@@ -39,9 +39,18 @@
                                         <div class="box-inner">
                                             <div class="radio">
                                                 <label>
+                                                  @php
+                                                    $activation=App\Activation::where('id',1)->first();
+                                                  @endphp
+                                                  @if($activation->stripe==1)
                                                     <input type="radio" id="pay_method" name="payment_method_id" value="2" > Stripe <br>
+                                                  @endif
+                                                  @if($activation->paypal==1)
                                                     <input type="radio" id="pay_method" name="payment_method_id" value="3" > Paypal <br>
+                                                  @endif
+                                                  @if($activation->ssl_commercez==1)
                                                     <input type="radio" id="pay_method" name="payment_method_id" value="4" > SSL Commerce <br/>
+                                                  @endif
                                                 </label>
                                             </div>
                                         </div>

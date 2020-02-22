@@ -50,9 +50,9 @@ class ForgotPasswordController extends Controller
             $checkExistsEmail->save();
 
             $getUserInfo = User::where('email', $request->email)
-                ->select(['remember_token', 'verification_code', 'email', 'first_name', 'last_name'])
-                ->first();
-            Mail::to($request->email)->send(new SendForgetPasswordVerifyCodeMail($getUserInfo));
+                            ->select(['remember_token', 'verification_code', 'email', 'username'])
+                            ->first();
+            Mail::to($request->email)->queue(new SendForgetPasswordVerifyCodeMail($getUserInfo));
             return redirect()->route('forget.password.verify.code.form', $getUserInfo->remember_token);
         } else {
             session()->flash('errorMsg', 'Email ID does not exists.');
@@ -75,7 +75,7 @@ class ForgotPasswordController extends Controller
     {
         $checkRememberToken = User::where('remember_token', $remember_token)->firstOrFail();
         $remember_token = $checkRememberToken->remember_token;
-        
+
         abort_if(!$checkRememberToken, 403);
         return view('frontend.accounts.forget_password_verification_code', compact('remember_token'));
     }
@@ -137,7 +137,7 @@ class ForgotPasswordController extends Controller
         $user->save();
         $user->verification_code = $random_number;
         $user->save();
-        Mail::to($user->email)->send(new SendForgetPasswordVerifyCodeMail($user));
+        Mail::to($user->email)->queue(new SendForgetPasswordVerifyCodeMail($user));
         session()->flash('successMsg', 'Mail sended again.');
         return redirect()->route('forget.password.verify.code.form', $remember_token);
 

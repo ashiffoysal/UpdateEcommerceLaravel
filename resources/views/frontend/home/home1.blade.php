@@ -144,19 +144,40 @@
                                                     </div>
                                                     <div class="right-block">
                                                         <div class="caption">
-                                                            <h4><a href="{{url('product/'.$flasdetail->product->slug.'/'.$flasdetail->product->id)}}" target="_self" title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">{{Str::limit($flasdetail->product->product_name,40)}}</a>
+                                                            <h4><a href="{{url('product/'.$flasdetail->product->slug.'/'.$flasdetail->product->id)}}" target="_self" title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">{{Str::limit($flasdetail->product->product_name,35)}}</a>
                                                             </h4>
                                                             <div class="total-price clearfix">
+
+                                                              @if($flasdetail->discount_type==1)
                                                                 <div class="price price-left">
-                                                                    <span class="price-new">৳
-                                                                        {{$flasdetail->product->product_price}}</span>
-                                                                    <span class="price-old">$122.00</span>
+                                                                    <span class="price-new">৳ {{$flasdetail->product->product_price - $flasdetail->discount}}</span>
+                                                                    <span class="price-old">৳ {{$flasdetail->product->product_price}}</span>
                                                                 </div>
+                                                              @elseif($flasdetail->discount_type==2)
+                                                              <div class="price price-left">
+                                                                @php
+                                                                  $dis=($flasdetail->discount * $flasdetail->product->product_price)/100;
+
+                                                                @endphp
+                                                                  <span class="price-new">৳ {{$flasdetail->product->product_price - $dis}}</span>
+                                                                  <span class="price-old">৳ {{$flasdetail->product->product_price}} </span>
+                                                              </div>
+                                                              @endif
+
+
                                                                 <div class="price-sale price-right">
+                                                                  @if($flasdetail->discount_type ==1)
                                                                     <span class="discount">
-                                                                        -{{$flasdetail->discount}}%
+                                                                        -{{$flasdetail->discount}}৳
                                                                         <strong>OFF</strong>
                                                                     </span>
+                                                                  @else
+                                                                  <span class="discount">
+                                                                      -{{$flasdetail->discount}}%
+                                                                      <strong>OFF</strong>
+                                                                  </span>
+                                                                  @endif
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -254,7 +275,7 @@
                                                                         </h4>
 
                                                                         @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -271,7 +292,7 @@
                                                                             @else
 
                                                                             <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                        </div>
+                                                                            </div>
                                                                             @endif
                                                                             @endforeach
                                                                             @else
@@ -368,7 +389,7 @@
                                                                         </h4>
 
                                                                         @php
-                                                                        $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                        $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -579,7 +600,7 @@
 
                                                                                 </h4>
                                                                                 @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -710,7 +731,7 @@
 
                                                                                 </h4>
                                                                                 @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -844,7 +865,7 @@
 
                                                                                 </h4>
                                                                                 @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -1069,7 +1090,7 @@
 
                                                                                 </h4>
                                                                                 @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -1197,7 +1218,7 @@
 
                                                                                 </h4>
                                                                                 @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -1323,7 +1344,7 @@
 
                                                                                 </h4>
                                                                                 @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -1508,7 +1529,7 @@
 
 
                                                                             @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -1682,7 +1703,7 @@
 
 
                                                             @php
-                                                                    $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->get();
+                                                                    $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                             @endphp
 
                                                             <div class="item-content">
@@ -2033,8 +2054,6 @@
         </div>
     </div>
 
-    
-
 
     <script>
         $(document).ready(function() {
@@ -2084,7 +2103,7 @@
             });
 
         });
-    </script>
+    </script> -->
 
     <script>
         function homeadtocart(el) {
