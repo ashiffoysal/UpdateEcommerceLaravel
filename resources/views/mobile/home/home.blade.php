@@ -93,9 +93,9 @@
                                 </div>
                                 <div class="right-block">
                                     <div class="caption">
-                                        <h4 class="font-ct"><a href="product.html" target="_self" title="Hamburger shoulder">Hamburger shoulder</a></h4>
+                                        <h4 class="font-ct"><a href="{{url('product/details')}}" target="_self" title="Hamburger shoulder">Hamburger shoulder</a></h4>
                                         <p class="price">
-                                            <span class="price-new">$60.00</span> <span class="price-old">$71.00</span>
+                                            <span class="price-new">$60.00</span> <span class="price-old">$1971.00</span>
                                         </p>
 
                                     </div>
