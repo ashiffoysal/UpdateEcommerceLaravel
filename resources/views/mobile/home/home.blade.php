@@ -90,7 +90,9 @@
                                             <span class="label-product label-sale">-15%</span>
                                         </div>
                                         <a href="product.html" target="_self">
+
                                             <img src="{{asset('public/uploads/products/thumbnail/mobile/'.$flasdetail->product->thumbnail_img)}}" alt="Hamburger shoulder" class="img-responsive">
+
                                         </a>
                                     </div>
                                 </div>

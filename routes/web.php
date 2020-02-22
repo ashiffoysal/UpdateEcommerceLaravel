@@ -767,11 +767,18 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
 
 
+
+
     Route::get('/', 'Mobile\FrontendController@index');
     Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
+
+    // authentication area start
 
     Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
     Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
 
+    // product area start
+
+    Route::get('/product/details', 'Mobile\ProductController@productDetails');
 
 }
