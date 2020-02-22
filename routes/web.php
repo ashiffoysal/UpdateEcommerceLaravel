@@ -294,14 +294,14 @@ if ($agent->isDesktop()) {
 
     Route::get(md5('admin/trash/banner'), 'Admin\TrashController@banner')->name('admin.trash.banner');
     Route::post(md5('admin/trash/banmultidel'), 'Admin\TrashController@banmultidel')->name('admin.trash.multidelban');
-    Route::get(md5('admin/trash/allorder'), 'admin\trashcontroller@alldeleteorder')->name('admin.trash.allorder');
-    Route::post(md5('admin/trash/allorder/multidel'), 'admin\trashcontroller@ordermultdel')->name('admin.trash.ordermultdel');
+    Route::get(md5('admin/trash/allorder'), 'admin\TrashController@alldeleteorder')->name('admin.trash.allorder');
+    Route::post(md5('admin/trash/allorder/multidel'), 'admin\TrashController@ordermultdel')->name('admin.trash.ordermultdel');
     // Warranty trash
-    Route::get(md5('admin/trash/warrantytrash'), 'admin\trashcontroller@warrantytrash')->name('admin.trash.warrantytrash');
+    Route::get(md5('admin/trash/warrantytrash'), 'admin\TrashController@warrantytrash')->name('admin.trash.warrantytrash');
     Route::post(md5('admin/trash/warranty/multidelete'), 'admin\trashcontroller@warrantytrashdelete')->name('admin.warranty.multidelete');
     // support
-    Route::get(md5('admin/trash/support'), 'admin\trashcontroller@support')->name('admin.trash.support');
-    Route::post(md5('admin/trash/support/multidelete'), 'admin\trashcontroller@supportnnmultidel')->name('admin.support.multidelete');
+    Route::get(md5('admin/trash/support'), 'admin\TrashController@support')->name('admin.trash.support');
+    Route::post(md5('admin/trash/support/multidelete'), 'admin\TrashController@supportnnmultidel')->name('admin.support.multidelete');
 
 
     // footer option area start
@@ -427,7 +427,6 @@ if ($agent->isDesktop()) {
     });
 
     Route::group(['prefix' => 'authentication', 'namespace' => 'Auth'], function () {
-
         Route::get('users/registred/success/{email}', 'RegisterController@userRegistrationSuccess')->name('user.auth.registration.success');
         Route::get('users/email/verification/{token}', 'RegisterController@emailVerification')->name('user.auth.verification');
     });
@@ -526,9 +525,9 @@ if ($agent->isDesktop()) {
     Route::get('/get/admin/sitebanner/edit/{id}', 'Admin\SiteBannerController@sitebabnsoftedit');
     Route::get('admin/sitebanner/restore/{id}', 'Admin\SiteBannerController@sitebanrestore');
     Route::get('admin/sitebanner/hearddelete/{id}', 'Admin\SiteBannerController@sitebahearddel');
-    route::post(md5('admin/sitebanner/insert'), 'admin\sitebannercontroller@sitebannerinsert')->name('admin.sitebanner.insert');
-    route::post(md5('admin/sitebanner/update'), 'admin\sitebannercontroller@sitebannerupdate')->name('admin.sitebanner.update');
-    route::post(md5('admin/sitebanner/multisoftdelete'), 'admin\sitebannercontroller@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
+    route::post(md5('admin/sitebanner/insert'), 'admin\SiteBannerController@sitebannerinsert')->name('admin.sitebanner.insert');
+    route::post(md5('admin/sitebanner/update'), 'admin\SiteBannerController@sitebannerupdate')->name('admin.sitebanner.update');
+    route::post(md5('admin/sitebanner/multisoftdelete'), 'admin\SiteBannerController@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
 
 
 
@@ -542,8 +541,8 @@ if ($agent->isDesktop()) {
     // page trash
     Route::get(md5('admin/trash/page'), 'Admin\TrashController@page')->name('admin.trash.page');
     Route::post(md5('admin/trash/multidelpage'), 'Admin\TrashController@pagemultdel')->name('admin.trash.pagemultidel');
-    Route::get(md5('admin/trash/sitebanner'), 'admin\trashcontroller@sitebanner')->name('admin.trash.sitebanner');
-    Route::post(md5('admin/trash/sitebanner/multipledelete'), 'admin\trashcontroller@sitebanmultidel')->name('admin.trash.sitebannerdel');
+    Route::get(md5('admin/trash/sitebanner'), 'admin\TrashController@sitebanner')->name('admin.trash.sitebanner');
+    Route::post(md5('admin/trash/sitebanner/multipledelete'), 'admin\TrashController@sitebanmultidel')->name('admin.trash.sitebannerdel');
 
 
 
@@ -551,11 +550,11 @@ if ($agent->isDesktop()) {
 
 
 
-    Route::get(md5('admin/product/order'), 'admin\ordercontroller@index')->name('admin.productorder');
-    Route::get(md5('admin/product/process'), 'admin\ordercontroller@processproduct')->name('admin.productprocess');
+    Route::get(md5('admin/product/order'), 'admin\OrderController@index')->name('admin.productorder');
+    Route::get(md5('admin/product/process'), 'admin\OrderController@processproduct')->name('admin.productprocess');
 
-    Route::get(md5('admin/product/ondelevery'), 'admin\ordercontroller@ondelevery')->name('admin.ondevelery');
-    Route::get(md5('admin/product/complateorder'), 'admin\ordercontroller@complateorder')->name('admin.complateorder');
+    Route::get(md5('admin/product/ondelevery'), 'admin\OrderController@ondelevery')->name('admin.ondevelery');
+    Route::get(md5('admin/product/complateorder'), 'admin\OrderController@complateorder')->name('admin.complateorder');
     Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
 
     Route::get('admin/delevary/rejecteorder', 'Admin\OrderController@rejecteorder')->name('admin.rejecteorder');
@@ -569,16 +568,16 @@ if ($agent->isDesktop()) {
     Route::get('admin/product/order/pendingsoftdelete/{id}', 'Admin\OrderController@pendingsoftdelete');
     Route::get('admin/product/order/invoice/{id}', 'Admin\OrderController@invoice');
     Route::get('admin/product/order/restore/{id}', 'Admin\OrderController@orderrestore');
-    Route::post('admin/product/order/multideletepending', 'admin\ordercontroller@multideletepending')->name('admin.pendingsoftdelete');
-    Route::any('admin/product/status/paymentorder', 'admin\ordercontroller@paymentorder')->name('products.orderpayment');
+    Route::post('admin/product/order/multideletepending', 'admin\OrderController@multideletepending')->name('admin.pendingsoftdelete');
+    Route::any('admin/product/status/paymentorder', 'admin\OrderController@paymentorder')->name('products.orderpayment');
     Route::get('admin/product/order/hearddelete/{id}', 'Admin\OrderController@orderhearddelete');
 
     // Report controller
 
     Route::get(md5('admin/product/stockreport'), 'admin\reportcontroller@productstockreport')->name('admin.product.stock');
     Route::get('/get/admin/report/category/filter', 'Admin\ReportController@categoryreport');
-    Route::get(md5('admin/product/wishlist'), 'admin\reportcontroller@wishproduct')->name('admin.product.wishlistpro');
-    Route::get(md5('admin/product/bestsell'), 'admin\reportcontroller@bestsell')->name('admin.bestsell');
+    Route::get(md5('admin/product/wishlist'), 'admin\ReportController@wishproduct')->name('admin.product.wishlistpro');
+    Route::get(md5('admin/product/bestsell'), 'admin\ReportController@bestsell')->name('admin.bestsell');
 
 
     //Harrison start
@@ -681,7 +680,6 @@ if ($agent->isDesktop()) {
 
 
         //SSL COMMERCEZ
-
         Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
         Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
         Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
