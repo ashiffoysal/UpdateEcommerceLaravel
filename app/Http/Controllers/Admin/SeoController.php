@@ -36,8 +36,8 @@ class SeoController extends Controller
         $notification=array(
                        'messege'=>'Successfully SEO Updated ',
                        'alert-type'=>'success'
-                  );    
-        return Redirect()->back()->with($notification);      
+                  );
+        return Redirect()->back()->with($notification);
     }
 
     public function Social()
@@ -67,8 +67,8 @@ class SeoController extends Controller
         $notification=array(
                        'messege'=>'Successfully Setting Updated ',
                        'alert-type'=>'success'
-                  );    
-        return Redirect()->back()->with($notification);   
+                  );
+        return Redirect()->back()->with($notification);
     }
 
     public function LogoSetting()
@@ -89,7 +89,7 @@ class SeoController extends Controller
                               $data['admin_logo']='public/adminpanel/logos/'.$adminpanellogo;
                              $favicons= hexdec(uniqid()).'.'.$background->getClientOriginalExtension();
                               Image::make($background)->resize(2000,1333)->save('public/adminpanel/logos/'.$favicons);
-                              $data['background']='public/adminpanel/logos/'.$favicons; 
+                              $data['background']='public/adminpanel/logos/'.$favicons;
                               $product=DB::table('logos')->where('id',$id)
                                         ->update($data);
                                   $notification=array(
@@ -111,7 +111,7 @@ class SeoController extends Controller
          }elseif( $background){
                              $favicons= hexdec(uniqid()).'.'.$background->getClientOriginalExtension();
                               Image::make($background)->resize(2000,1333)->save('public/adminpanel/logos/'.$favicons);
-                              $data['background']='public/adminpanel/logos/'.$favicons; 
+                              $data['background']='public/adminpanel/logos/'.$favicons;
                               $product=DB::table('logos')->where('id',$id)
                                         ->update($data);
                                   $notification=array(
@@ -139,13 +139,14 @@ class SeoController extends Controller
       if ($front_logo && $favicon && $preloader) {
                        $adminpanellogo= hexdec(uniqid()).'.'.$front_logo->getClientOriginalExtension();
                            Image::make($front_logo)->resize(200,50)->save('public/adminpanel/logos/'.$adminpanellogo);
+                           Image::make($front_logo)->resize(136,36)->save('public/adminpanel/logos/mobile/'.$adminpanellogo);
                            $data['front_logo']='public/adminpanel/logos/'.$adminpanellogo;
                        $favicons= hexdec(uniqid()).'.'.$favicon->getClientOriginalExtension();
                            Image::make($favicon)->resize(32,32)->save('public/adminpanel/logos/'.$favicons);
-                           $data['favicon']='public/adminpanel/logos/'.$favicons; 
+                           $data['favicon']='public/adminpanel/logos/'.$favicons;
                        $website= hexdec(uniqid()).'.'.$preloader->getClientOriginalExtension();
                            Image::make($preloader)->resize(400,300)->save('public/adminpanel/logos/'.$website);
-                           $data['preloader']='public/adminpanel/logos/'.$website;                    
+                           $data['preloader']='public/adminpanel/logos/'.$website;
                            $product=DB::table('logos')->where('id',$id)
                                      ->update($data);
                                $notification=array(
@@ -157,10 +158,11 @@ class SeoController extends Controller
       }elseif($front_logo && $favicon){
                 $adminpanellogo= hexdec(uniqid()).'.'.$front_logo->getClientOriginalExtension();
                            Image::make($front_logo)->resize(200,50)->save('public/adminpanel/logos/'.$adminpanellogo);
+                           Image::make($front_logo)->resize(136,36)->save('public/adminpanel/logos/mobile/'.$adminpanellogo);
                            $data['front_logo']='public/adminpanel/logos/'.$adminpanellogo;
                        $favicons= hexdec(uniqid()).'.'.$favicon->getClientOriginalExtension();
                            Image::make($favicon)->resize(32,32)->save('public/adminpanel/logos/'.$favicons);
-                           $data['favicon']='public/adminpanel/logos/'.$favicons; 
+                           $data['favicon']='public/adminpanel/logos/'.$favicons;
                            $product=DB::table('logos')->where('id',$id)
                                      ->update($data);
                                $notification=array(
@@ -171,10 +173,12 @@ class SeoController extends Controller
       }elseif( $front_logo && $preloader){
                        $favicons= hexdec(uniqid()).'.'.$front_logo->getClientOriginalExtension();
                            Image::make($front_logo)->resize(32,32)->save('public/adminpanel/logos/'.$favicons);
-                           $data['front_logo']='public/adminpanel/logos/'.$favicons; 
+
+                           $data['front_logo']='public/adminpanel/logos/'.$favicons;
                        $website= hexdec(uniqid()).'.'.$preloader->getClientOriginalExtension();
                            Image::make($preloader)->resize(400,300)->save('public/adminpanel/logos/'.$website);
-                           $data['preloader']='public/adminpanel/logos/'.$website; 
+                            Image::make($front_logo)->resize(136,36)->save('public/adminpanel/logos/mobile/'.$adminpanellogo);
+                           $data['preloader']='public/adminpanel/logos/'.$website;
                            $product=DB::table('logos')->where('id',$id)
                                      ->update($data);
                                $notification=array(
@@ -188,7 +192,7 @@ class SeoController extends Controller
                            $data['favicon']='public/adminpanel/logos/'.$adminpanellogo;
                           $website= hexdec(uniqid()).'.'.$preloader->getClientOriginalExtension();
                            Image::make($preloader)->resize(400,300)->save('public/adminpanel/logos/'.$website);
-                           $data['preloader']='public/adminpanel/logos/'.$website;          
+                           $data['preloader']='public/adminpanel/logos/'.$website;
                            $product=DB::table('logos')->where('id',$id)
                                      ->update($data);
                                $notification=array(
@@ -199,6 +203,7 @@ class SeoController extends Controller
       }elseif($front_logo){
                  $adminpanellogo= hexdec(uniqid()).'.'.$front_logo->getClientOriginalExtension();
                            Image::make($front_logo)->resize(200,50)->save('public/adminpanel/logos/'.$adminpanellogo);
+                            Image::make($front_logo)->resize(136,36)->save('public/adminpanel/logos/mobile/'.$adminpanellogo);
                            $data['front_logo']='public/adminpanel/logos/'.$adminpanellogo;
                            $product=DB::table('logos')->where('id',$id)
                                      ->update($data);
@@ -210,7 +215,7 @@ class SeoController extends Controller
       }elseif( $favicon){
                        $favicons= hexdec(uniqid()).'.'.$favicon->getClientOriginalExtension();
                            Image::make($favicon)->resize(32,32)->save('public/adminpanel/logos/'.$favicons);
-                           $data['favicon']='public/adminpanel/logos/'.$favicons; 
+                           $data['favicon']='public/adminpanel/logos/'.$favicons;
                            $product=DB::table('logos')->where('id',$id)
                                      ->update($data);
                                $notification=array(
@@ -221,7 +226,7 @@ class SeoController extends Controller
       }elseif($preloader){
               $website= hexdec(uniqid()).'.'.$preloader->getClientOriginalExtension();
                            Image::make($preloader)->resize(32,32)->save('public/adminpanel/logos/'.$website);
-                           $data['preloader']='public/adminpanel/logos/'.$website; 
+                           $data['preloader']='public/adminpanel/logos/'.$website;
                            $product=DB::table('logos')->where('id',$id)
                                      ->update($data);
                                $notification=array(
@@ -276,7 +281,7 @@ class SeoController extends Controller
                          'messege'=>'Successfully  Updated',
                          'alert-type'=>'success'
              );
-        return Redirect()->back()->with($notification);  
+        return Redirect()->back()->with($notification);
     }
 
     public function mailgunUpdate(Request $request)
@@ -298,7 +303,7 @@ class SeoController extends Controller
                          'messege'=>'Successfully  Updated',
                          'alert-type'=>'success'
              );
-       return Redirect()->back()->with($notification);  
+       return Redirect()->back()->with($notification);
     }
 
 }

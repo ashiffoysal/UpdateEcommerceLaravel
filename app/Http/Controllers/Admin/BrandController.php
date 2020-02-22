@@ -21,17 +21,18 @@ class BrandController extends Controller
     }
     // insert
     public function insert(Request $request){
-        
+
     	$insert=Brand::insertGetId([
     		'brand_name'=>$request['brand_name'],
     		'brand_logo'=>'',
     		'created_at'=>Carbon::now()->toDateTimeString(),
     	]);
 
-    	if($request->hasFile('pic')){   
+    	if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='brand'.'_'.time().'.'.$image->getClientOriginalExtension();
                 Image::make($image)->resize(350,182)->save('public/uploads/brand/'.$ImageName);
+                Image::make($image)->resize(130,90)->save('public/uploads/brand/mobile/'.$ImageName);
                 Brand::where('id',$insert)->update([
                     'brand_logo'=>$ImageName,
                 ]);
@@ -41,13 +42,13 @@ class BrandController extends Controller
             'messege'=>'Brand Insert Success',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
         }else{
         	$notification=array(
             'messege'=>'Brand Insert faild',
             'alert-type'=>'error'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
         }
 
     }
@@ -65,13 +66,13 @@ class BrandController extends Controller
             'messege'=>'Brand Active Success',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
     	}else{
     		$notification=array(
             'messege'=>'Brand Insert faild',
             'alert-type'=>'error'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
     	}
     }
     // deactive
@@ -86,13 +87,13 @@ class BrandController extends Controller
             'messege'=>'Brand Active Success',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
     	}else{
     		$notification=array(
             'messege'=>'Brand Insert faild',
             'alert-type'=>'error'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
     	}
     }
     public function softdelete($id){
@@ -106,13 +107,13 @@ class BrandController extends Controller
             'messege'=>'Brand delete Success',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
     	}else{
     		$notification=array(
             'messege'=>'Brand delete faild',
             'alert-type'=>'error'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
     	}
     }
     // multi delete
@@ -156,13 +157,13 @@ class BrandController extends Controller
             'messege'=>'Brand Recover Success',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
     	}else{
     		$notification=array(
             'messege'=>'Brand Recover faild',
             'alert-type'=>'error'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
     	}
     }
 
@@ -173,13 +174,13 @@ class BrandController extends Controller
 		            'messege'=>'Brand Delete Success',
 		            'alert-type'=>'success'
 		             );
-		           return Redirect()->back()->with($notification); 
+		           return Redirect()->back()->with($notification);
     		}else{
 	    		$notification=array(
 	            'messege'=>'Brand Delete Success',
 	            'alert-type'=>'error'
 	             );
-	           return Redirect()->back()->with($notification); 
+	           return Redirect()->back()->with($notification);
     		}
     }
     public function edit($brand_id){
@@ -200,6 +201,7 @@ class BrandController extends Controller
                         $image=$request->file('pic');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
                         Image::make($image)->resize(350,182)->save('public/uploads/brand/'.$ImageName);
+                          Image::make($image)->resize(130,90)->save('public/uploads/brand/mobile/'.$ImageName);
                         Brand::where('id',$id)->update([
                             'brand_logo'=>$ImageName,
                         ]);
@@ -208,6 +210,7 @@ class BrandController extends Controller
                         $image=$request->file('pic');
                         $ImageName='_'.'_'.time().'.'.$image->getClientOriginalExtension();
                         Image::make($image)->resize(350,182)->save('public/uploads/brand/'.$ImageName);
+                        Image::make($image)->resize(130,90)->save('public/uploads/brand/mobile/'.$ImageName);
                         Brand::where('id',$id)->update([
                             'brand_logo'=>$ImageName,
                         ]);
@@ -222,7 +225,7 @@ class BrandController extends Controller
             'messege'=>'Brand Update Successfully',
             'alert-type'=>'success'
              );
-           return Redirect()->back()->with($notification); 
+           return Redirect()->back()->with($notification);
             }
     }
     // terms and condition

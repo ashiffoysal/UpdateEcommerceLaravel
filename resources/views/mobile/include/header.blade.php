@@ -12,8 +12,11 @@
             </a>
         </div>
         <div class="navbar-logo col-xs-3">
-            <a href="index.html">
-                <img src="{{asset('public/mobile')}}/image/demo-mobile/logo2.png" title="Your Store" alt="Your Store">
+          @php
+            $logo=App\Logo::where('id',1)->first();
+          @endphp
+            <a href="{{url('/')}}">
+                <img src="{{asset('/'.$logo->front_logo)}}" title="Your Store" alt="Your Store">
             </a>
         </div>
         <div class="navbar-search col-xs-7" style="padding-right:15px">
