@@ -249,7 +249,7 @@ class PaymentController extends Controller
                 ]);
                 $placeOrder = OrderPlace::where('payment_secure_id', $payment_secure_id)->first();
                 if (Auth::user()->email) {
-                    Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($placeOrder));
+                    Mail::to(Auth::user()->email)->queue(new PaymentSuccessMail($placeOrder));
                 }
 
                 OrderPlace::where('id', $request->order_id)->update([
@@ -329,7 +329,7 @@ class PaymentController extends Controller
             $getOrderPlace->save();
 
             if (Auth::user()->email) {
-                Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getOrderPlace));
+                Mail::to(Auth::user()->email)->queue(new PaymentSuccessMail($getOrderPlace));
             }
 
             return view('frontend.payment.ssl_commerce.success', compact('information'));
