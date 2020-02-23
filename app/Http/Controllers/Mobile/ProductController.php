@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function productDetails($id)
+
+    public function productDetails($slug,$id)
     {
-        
-        $productdetails =Product::where('id',149)->where('is_deleted',0)->where('status',1)->first();
+        $productdetails = Product::where('id',$id)->first();
+
         return view('mobile.products.product_details',compact('productdetails'));
     }
 }

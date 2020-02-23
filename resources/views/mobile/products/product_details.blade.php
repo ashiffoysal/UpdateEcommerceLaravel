@@ -45,19 +45,6 @@
 							@endforeach
 
 						</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 						<div class="slider-nav ">
 
 							@foreach (json_decode($productdetails->photos) as $key => $photo)
@@ -68,7 +55,9 @@
 							</div>
 							@endforeach
 
+
 						</div>
+
 
 
 
@@ -112,15 +101,17 @@
 								<div class="title-product hidden">
 									<h1>{{$productdetails->product_name}}</h1>
 								</div>
-								
+
+
 								<div class="model font-ct"><span>Product Code:</span> <span class="font-ct">{{$productdetails->product_sku}}</span>
 								</div>
 								<hr>
-								
+
 								<h5 style="line-height: 150%;">{{$productdetails->product_name}}</h5>
-								
-								
-								
+
+
+
+
 								<!-- Review ---->
 								@php
 									$rcount=App\ProductReview::where('product_id',$productdetails->id)->count();
@@ -201,6 +192,7 @@
 								@endforeach
 								@else
 								<div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
+
 										<span class="price-new"><span itemprop="price" id="price-special">৳ {{$productdetails->product_price}}</span></span> 
 									</div>
 								@endif
@@ -225,9 +217,18 @@
 
 									<div class="model"><span>Product Code:</span> SKU-17894-S3825</div>
 									<div class="stock"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
+
 								</div>
 							</div>
 
+							<div class="product-box-desc hidden">
+								<div class="inner-box-desc">
+
+
+									<div class="model"><span>Product Code:</span> SKU-17894-S3825</div>
+									<div class="stock"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
+								</div>
+							</div>
 
 							<div id="product">
 								<div class="options options-mobi clearfix">
@@ -253,6 +254,7 @@
 
 
 
+
 											@endif
 										</div>
 
@@ -270,6 +272,7 @@
 													<div id="input-option224">
 
 
+
 														<ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
 															<li>{{ $choice->title }}:</li>
 															@foreach ($choice->options as $key => $option)
@@ -283,10 +286,12 @@
 
 
 
+
 													</div>
 												</div>
 
 											</div>
+
 
 
 
@@ -296,6 +301,7 @@
 										<!-- color area end -->
 									</div>
 									@else
+
 
 									@endif
 
@@ -329,14 +335,12 @@
 
 								</div>
 
-
-
-
 							</div>
 							<!-- end box info product -->
 
 						</div>
 					</form>
+
 
 
 
@@ -499,6 +503,7 @@
 							</div>
 
 
+
 						</div>
 
 					</div>
@@ -512,10 +517,8 @@
 <script>
 
 
+
 function productaddtocart(){
-
-
-	
 
 
 $.ajax({

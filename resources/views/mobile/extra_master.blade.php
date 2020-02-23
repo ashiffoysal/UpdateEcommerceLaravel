@@ -8,8 +8,10 @@
 	<title>SuperMaket - Multipurpose Responsive HTML5 Template</title>
 	<meta charset="utf-8">
 
+
     <meta name="keywords" content="html5 template, best html5 template, best html template, html5 basic template, multipurpose html5 template, multipurpose html template, creative html templates, creative html5 templates" />
     <meta name="description" content="SuperMaket is a powerful Multi-purpose HTML5 Template with clean and user friendly design. It is definite a great starter for any eCommerce web project." />
+
     <meta name="author" content="Magentech">
     <meta name="robots" content="index, follow" />
 
@@ -25,6 +27,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
     <link rel="shortcut icon" type="image/png" href="ico/favicon-16x16.png"/>
+
 
 	
 	<!-- Google web fonts
@@ -43,11 +46,11 @@
 	<link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
     <link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
 
+
 	<!-- Theme CSS
 	============================================ -->
 	<link href="{{asset('public/mobile/css/mobile.css')}}" rel="stylesheet">
 	<link href="{{asset('public/frontend/css/product.css')}}" rel="stylesheet">
-
 
 </head>
 
@@ -55,7 +58,6 @@
 
 	<!-- Begin Main wrapper -->
     <div id="wrapper" >
-
 
 
 	@include('mobile.include.footermenu')
@@ -70,7 +72,6 @@
 		</div>
 	</div>
 
-
 <!-- Include Libs & Plugins
 ============================================ -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -79,9 +80,10 @@
 <script type="text/javascript" src="{{asset('public/mobile/js/owl-carousel/owl.carousel.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('public/mobile/js/slick-slider/slick.js')}}"></script>
-
 <script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/mobile/js/slick/slick.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/mobile')}}/js/jquery-ui/jquery-ui.min.js"></script>
+
 <script type="text/javascript" src="{{asset('public/mobile/js/themejs/libs.js')}}"></script>
 
 <!-- Theme files
@@ -122,14 +124,58 @@
 			  centerMode: false,
 			  focusOnSelect: true,
 
-			
 			});
 		}
-			
+
 
 	});
 
 </script>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		// Click Button
+		$('.list-view .btn').each(function() {
+			var ua = navigator.userAgent,
+			event = (ua.match(/iPad/i)) ? 'touchstart' : 'click';
+			$(this).bind(event, function() {
+				$(this).addClass(function() {
+					if($(this).hasClass('active')) return '';
+					return 'active';
+				});
+				$(this).siblings('.btn').removeClass('active');
+				$catalog_mode = $(this).data('view');
+				display($catalog_mode);
+			});
+
+		});
+	});
+
+	// Check if Cookie exists
+	if ($.cookie('display')) { view = $.cookie('display');}
+	else {view = 'grid';}
+
+	if(view) display(view);
+
+	function display(view) {
+		$('.products-list').removeClass('list grid').addClass(view);
+		$('.list-view .btn').removeClass('active');
+		if(view == 'list') {
+			$('.products-list .product-layout').removeClass('col-xs-6').addClass('col-xs-12');
+			$('.list-view .' + view).addClass('active');
+			$.cookie('display', 'list');
+		}else{
+			$('.products-list .product-layout').removeClass('col-xs-12').addClass('col-xs-6');
+			$('.list-view .' + view).addClass('active');
+			$.cookie('display', 'grid');
+		}
+	}
+
+
+//--></script>
+
+
 
 
 <script>

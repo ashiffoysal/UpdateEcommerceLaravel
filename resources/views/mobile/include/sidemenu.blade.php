@@ -1,41 +1,76 @@
 <div class="panel-left__top clearfix text-center">
 				<div class="panel-logo">
-					<a href="{{ url('/') }}"><img src="{{asset('public/mobile')}}/image/demo-mobile/logo.png" title="Your Store" alt="Your Store"></a>
-                </div>
-                <form action="{{ route('mobile.product.search') }}" method="get">
-                    <div class="panel-search">
-                        @csrf
-                        <div id="search" class="input-group">
-                        <input type="text" name="search_field" value="{{ isset($search_field) ? $search_field : "" }}" id="search_field" placeholder="Search" class="form-control input-lg">
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default btn-link"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
+
+					@php
+						$logo=App\Logo::where('id',1)->first();
+					@endphp
+					<a href="{{url('/')}}"><img src="{{asset('/'.$logo->front_logo)}}" title="Your Store" alt="Your Store"></a>
+				</div>
+				<div class="panel-search">
+					<div id="search" class="input-group">
+						<input type="text" name="search" value="" placeholder="Search" class="form-control input-lg">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default btn-link"><i class="fa fa-search"></i></button>
+						  </span>
+					</div>
+				</div>
+
+
 			</div>
 
 			<div class="panel-left__midde">
 				<div class="panel-group" id="panel-category" role="tablist" aria-multiselectable="true">
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab">
-							<a href="#">Jewelry</a>
-							<span class="head"><a class="pull-right accordion-toggle" data-toggle="collapse" data-parent="#panel-category" href="#panel-category1" aria-expanded="true"></a></span>
+
+					@php
+						$category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
+					@endphp
+						@foreach($category as $key => $cate)
+						<div class="panel panel-default">
+								@php
+									$cate_id=$cate->id;
+									$subcate=App\SubCategory::where('is_deleted',0)->where('subcate_status',1)->where('cate_id',$cate_id)->first();
+								@endphp
+									@if($subcate)
+									<div class="panel-heading" role="tab">
+										<a href="{{url('category/'.$cate->cate_slug.'/'.$cate->id)}}">{{$cate->cate_name}}</a>
+										<span class="head"><a class="pull-right accordion-toggle" data-toggle="collapse" data-parent="#panel-category" href="#{{$cate->cate_slug}}" aria-expanded="true"></a></span>
+									</div>
+									<div id="{{$cate->cate_slug}}" class="panel-collapse collapse " role="tabpanel">
+										<ul>
+											@php
+												$subcatenew=App\SubCategory::where('is_deleted',0)->where('subcate_status',1)->where('cate_id',$cate_id)->get();
+											@endphp
+											@foreach($subcatenew as $scate)
+												@php
+													$subcategory_id=$scate->id;
+													$resub=App\ReSubCategory::where('is_deleted',0)->where('resubcate_status',1)->where('subcate_id',$subcategory_id)->first();
+												@endphp
+												@if($resub)
+													@php
+													$subcateg_id=$scate->id;
+													$resubcategory=App\ReSubCategory::where('is_deleted',0)->where('resubcate_status',1)->where('subcate_id',$subcateg_id)->get();
+													@endphp
+													<li><a href="{{url('subcategory/'.$scate->subcate_slug.'/'.$scate->id)}}">{{$scate->subcate_name}}</a></li>
+													@foreach($resubcategory as $ress)
+													<li><a href="{{url('resubcategory/'.$ress->resubcate_slug.'/'.$ress->id)}}">{{$ress->resubcate_name}}</a></li>
+													@endforeach
+												@else
+													<li><a href="{{url('subcategory/'.$scate->subcate_slug.'/'.$scate->id)}}">{{$scate->subcate_name}}</a></li>
+												@endif
+
+											@endforeach
+										</ul>
+									</div>
+									@else
+									<div class="panel-heading" role="tab">
+										<a href="{{url('category/'.$cate->cate_slug.'/'.$cate->id)}}">{{$cate->cate_name}}</a>
+									</div>
+									@endif
+
 						</div>
-						<div id="panel-category1" class="panel-collapse collapse " role="tabpanel">
-							<ul>
-								<li>
-									<a href="#">Necklaces</a>
-								</li>
-								<li>
-									<a href="#">Pearl Jewelry</a>
-								</li>
-								<li>
-									<a href="#">Slider 925</a>
-								</li>
-							</ul>
-						</div>
-					</div>
+						@endforeach
+					<!--  -->
+
 				</div>
 			</div>
 

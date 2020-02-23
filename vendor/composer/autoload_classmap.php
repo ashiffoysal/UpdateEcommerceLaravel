@@ -46,6 +46,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\ForntendSetupController' => $baseDir . '/app/Http/Controllers/Admin/ForntendSetupController.php',
     'App\\Http\\Controllers\\Admin\\GatewayController' => $baseDir . '/app/Http/Controllers/Admin/GatewayController.php',
     'App\\Http\\Controllers\\Admin\\MeasurementController' => $baseDir . '/app/Http/Controllers/Admin/MeasurementController.php',
+    'App\\Http\\Controllers\\Admin\\MobileController' => $baseDir . '/app/Http/Controllers/Admin/MobileController.php',
     'App\\Http\\Controllers\\Admin\\OrderController' => $baseDir . '/app/Http/Controllers/Admin/OrderController.php',
     'App\\Http\\Controllers\\Admin\\PageController' => $baseDir . '/app/Http/Controllers/Admin/PageController.php',
     'App\\Http\\Controllers\\Admin\\ProductController' => $baseDir . '/app/Http/Controllers/Admin/ProductController.php',
@@ -85,7 +86,9 @@ return array(
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\Mobile\\AuthController' => $baseDir . '/app/Http/Controllers/Mobile/AuthController.php',
     'App\\Http\\Controllers\\Mobile\\CheckoutController' => $baseDir . '/app/Http/Controllers/Mobile/CheckoutController.php',
+
     'App\\Http\\Controllers\\Mobile\\ContractUsController' => $baseDir . '/app/Http/Controllers/Mobile/ContractUsController.php',
+
     'App\\Http\\Controllers\\Mobile\\FrontendController' => $baseDir . '/app/Http/Controllers/Mobile/FrontendController.php',
     'App\\Http\\Controllers\\Mobile\\ProductController' => $baseDir . '/app/Http/Controllers/Mobile/ProductController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
@@ -106,6 +109,8 @@ return array(
     'App\\Mail\\UserVerificationMail' => $baseDir . '/app/Mail/UserVerificationMail.php',
     'App\\Mail\\WelcomeSubscribeMessage' => $baseDir . '/app/Mail/WelcomeSubscribeMessage.php',
     'App\\Mesurement' => $baseDir . '/app/Mesurement.php',
+    'App\\MobileBanner' => $baseDir . '/app/MobileBanner.php',
+    'App\\MobileSlider' => $baseDir . '/app/MobileSlider.php',
     'App\\OrderPlace' => $baseDir . '/app/OrderPlace.php',
     'App\\OrderStorage' => $baseDir . '/app/OrderStorage.php',
     'App\\Page' => $baseDir . '/app/Page.php',

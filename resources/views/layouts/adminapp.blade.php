@@ -411,6 +411,16 @@ $logo=DB::table('logos')->first();
                     </li>
                     @else
                     @endif
+                    <li class="single-nav-wrapper">
+                        <a class="has-arrow menu-item" href="#" aria-expanded="false">
+                            <span class="left-icon"><i class="fas fa-external-link-alt"></i></span>
+                            <span class="menu-text">Mobile Apps</span>
+                        </a>
+                        <ul class="dashboard-menu">
+                            <li><a href="{{route('admin.mobileslider.all')}}">All Slider</a></li>
+                            <li><a href="{{route('admin.mbanner.all')}}">All Banner</a></li>
+                        </ul>
+                    </li>
                     @if(Auth::user()->trash==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
@@ -434,6 +444,8 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.trash.allorder')}}">All Deleted Order</a></li>
                             <li><a href="{{route('admin.trash.warrantytrash')}}">All Delete Warranty</a></li>
                             <li><a href="{{route('admin.trash.support')}}">All Delete Support</a></li>
+                            <li><a href="{{route('admin.trash.MobileSlider')}}">All Delete Mobile Slider</a></li>
+                            <li><a href="{{route('admin.trash.mobilebanner')}}">All Delete Mobile Banner</a></li>
                         </ul>
                     </li>
                     @else

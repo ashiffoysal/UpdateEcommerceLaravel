@@ -19,24 +19,17 @@
         <div class="modcontent">
             <div id="sohomepage-slider">
                 <div class="so-homeslider contentslider" data-rtl="no" data-autoplay="no" data-autowidth="no" data-delay="4" data-speed="0.6" data-margin="0" data-item_xs="1" data-item_sm="1" data-arrows="no" data-pagination="yes" data-lazyload="no" data-loop="yes" data-hoverpause="yes">
+                  @php
+                    $allslider=App\MobileSlider::where('is_deleted',0)->where('status',1)->get();
+                  @endphp
+                  @foreach($allslider as $slider)
                     <div class="item ">
-                        <a href="index.html?route=mobile/home" title="slider2" target="_self">
-                            <img class="responsive" src="{{asset('public/mobile')}}/image/demo-mobile/slider/banner-mobile-1.png" alt="slider2">
+                        <a href="{{$slider->slider_link}}" title="slider2" target="_self">
+                            <img class="responsive" src="{{asset('public/uploads/banner/mobile/'.$slider->slider_img)}}" alt="slider2">
                         </a>
                         <div class="sohomeslider-description"></div>
                     </div>
-                    <div class="item ">
-                        <a href="#" title="slider3" target="_self">
-                            <img class="responsive" src="{{asset('public/mobile')}}/image/demo-mobile/slider/banner-mobile-2.jpg" alt="slider3">
-                        </a>
-                        <div class="sohomeslider-description"></div>
-                    </div>
-                    <div class="item ">
-                        <a href="#" title="slider1" target="_self">
-                            <img class="responsive" src="{{asset('public/mobile')}}/image/demo-mobile/slider/banner-mobile-3.jpg" alt="slider1">
-                        </a>
-                        <div class="sohomeslider-description"></div>
-                    </div>
+                  @endforeach
                 </div>
                 <div class="loading-placeholder"></div>
             </div>
@@ -47,16 +40,17 @@
 <div class="col-xs-12 no-padding">
     <div class="mobile-bn1-h1 clearfix">
         <div class="banners">
+          @php
+            $allbottom=App\MobileSlider::where('is_deleted',0)->where('status',1)->OrderBy('id','DESC')->limit(2)->get();
+          @endphp
+          @foreach($allbottom as $bottom)
             <div class="banner21">
                 <a href="#">
-                    <img src="{{asset('public/mobile')}}/image/demo-mobile/banner/banner-mobile-2.png" alt="Image Client">
+                    <img src="{{asset('public/uploads/banner/mobile/'.$bottom->bottom_image)}}" alt="Image Client">
                 </a>
             </div>
-            <div class="banner21">
-                <a href="#">
-                    <img src="{{asset('public/mobile')}}/image/demo-mobile/banner/banner-mobile-3.png" alt="Image Client">
-                </a>
-            </div>
+          @endforeach
+
         </div>
     </div>
 </div>
@@ -71,7 +65,7 @@
                 @endphp
                 @foreach($category as $cate)
                 <div class="cate cate1">
-                    <div class="inner"><img src="{{asset('public/uploads/category/mobile/'.$cate->cate_image)}}" alt="Static Image"><a href="#">{{$cate->cate_name}}</a></div>
+                    <div class="inner"><a href="{{url('category/'.$cate->cate_slug.'/'.$cate->id)}}"><img src="{{asset('public/uploads/category/mobile/'.$cate->cate_image)}}" alt="Static Image">{{$cate->cate_name}}</a></div>
                 </div>
                 @endforeach
             </div>
@@ -103,7 +97,7 @@
                                         <div class="box-label">
                                             <span class="label-product label-sale">-15%</span>
                                         </div>
-                                        <a href="product.html" target="_self">
+                                        <a href="{{url('product/details/'.$flasdetail->product->slug.'/'.$flasdetail->product->id)}}" target="_self">
 
                                             <img src="{{asset('public/uploads/products/thumbnail/mobile/'.$flasdetail->product->thumbnail_img)}}" alt="Hamburger shoulder" class="img-responsive">
 
@@ -112,7 +106,7 @@
                                 </div>
                                 <div class="right-block">
                                     <div class="caption">
-                                        <h4 class="font-ct"><a href="product.html" target="_self" title="Hamburger shoulder">{{Str::limit($flasdetail->product->product_name,5)}}</a></h4>
+                                        <h4 class="font-ct"><a href="{{url('product/details/'.$flasdetail->product->slug.'/'.$flasdetail->product->id)}}" target="_self" title="Hamburger shoulder">{{Str::limit($flasdetail->product->product_name,5)}}</a></h4>
                                         <p class="price">
                                             <span class="price-new">$60.00</span> <span class="price-old">{{$flasdetail->product->product_price}}</span>
                                         </p>
@@ -124,6 +118,7 @@
                     </div>
                 @endforeach
 <!--  -->
+
                 </div>
             </div>
 
@@ -134,15 +129,16 @@
 </div>
 @endif
 <!-- flash deal end -->
-
-
+  @php
+    $bannner=App\MobileBanner::where('section',1)->OrderBy('id','DESC')->limit(1)->inRandomOrder()->get();
+  @endphp
 <div class="col-xs-12">
     <div class="mobile-bn2-h1 clearfix">
+      @foreach($bannner as $ban)
         <div class="banners">
-            <a href="index.html">
-                <img src="{{asset('public/mobile')}}/image/demo-mobile/banner/banner-mobile-4.png" alt="Image Client">
-            </a>
+            <a href="{{$ban->link}}"><img src="{{asset('public/uploads/sitebanner/mobile/'.$ban->img)}}" alt="Image Client"></a>
         </div>
+      @endforeach
     </div>
 </div>
 
@@ -167,14 +163,14 @@
                                             <span class="label-product label-sale">-15%</span>
                                         </div>
 
-                                        <a href="product.html" target="_self">
+                                        <a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}" target="_self">
                                             <img src="{{asset('public/uploads/products/thumbnail/mobile/'.$product->thumbnail_img)}}" alt="Hamburger shoulder" class="img-responsive">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="right-block">
                                     <div class="caption">
-                                        <h4 class="font-ct"><a href="product.html" target="_self" title="Hamburger shoulder">{{Str::limit($product->product_name,10)}}</a></h4>
+                                        <h4 class="font-ct"><a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}" target="_self" title="Hamburger shoulder">{{Str::limit($product->product_name,10)}}</a></h4>
                                         <p class="price">
                                             <span class="price-new">৳ {{$product->product_price}}</span> <span class="price-old">$65.00</span>
                                         </p>
@@ -196,17 +192,16 @@
     </div>
 </div>
 
-<div class="col-xs-12 ">
+<div class="col-xs-12">
+  @php
+    $bannner=App\MobileBanner::where('section',1)->OrderBy('id','DESC')->skip(1)->limit(1)->inRandomOrder()->get();
+  @endphp
     <div class="mobile-bn3-h2 clearfix">
+        @foreach($bannner as $ban)
         <a href="#">
-            <img src="{{asset('public/mobile')}}/image/demo-mobile/banner/home3/banner-home34.jpg" alt="Image Client">
+            <img src="{{asset('public/uploads/sitebanner/mobile/'.$ban->img)}}" alt="Image Client">
         </a>
-
-    </div>
-    <div class="mobile-bn3-h2 clearfix">
-        <a href="index.html">
-            <img src="{{asset('public/mobile')}}/image/demo-mobile/banner/home3/banner-home35.jpg" alt="Image Client">
-        </a>
+        @endforeach
     </div>
 </div>
 
@@ -233,14 +228,14 @@
                                             </span>
                                         </div>
 
-                                        <a href="product.html" target="_self">
+                                        <a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}" target="_self">
                                             <img src="{{asset('public/uploads/products/thumbnail/mobile/'.$product->thumbnail_img)}}" alt="Fuzan sumamipon" class="img-responsive">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="right-block">
                                     <div class="caption">
-                                        <h4 class="font-ct"><a href="product.html" target="_self" title="Fuzan sumamipon">{{Str::limit($product->product_name,10)}}</a></h4>
+                                        <h4 class="font-ct"><a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}" target="_self" title="Fuzan sumamipon">{{Str::limit($product->product_name,10)}}</a></h4>
                                         <p class="price">
                                             <span class="price-new">৳ {{$product->product_price}}</span> <span class="price-old">{{$product->product_id}}</span>
                                         </p>
@@ -265,16 +260,17 @@
 <div class="col-xs-12 no-padding">
     <div class="mobile-bn1-h1 clearfix">
         <div class="banners">
+          @php
+            $bottom_img=App\MobileBanner::where('section',2)->OrderBy('id','DESC')->limit(2)->inRandomOrder()->get();
+          @endphp
+          @foreach($bottom_img as $bottom)
             <div class="banner21">
-                <a href="#">
-                    <img src="{{asset('public/mobile')}}/image/demo-mobile/banner/banner-mobile-5.png" alt="Image Client">
+                <a href="{{$bottom->link}}">
+                    <img src="{{asset('public/uploads/sitebanner/mobile/'.$bottom->img)}}" alt="Image Client">
                 </a>
             </div>
-            <div class="banner21">
-                <a href="#">
-                    <img src="{{asset('public/mobile')}}/image/demo-mobile/banner/banner-mobile-6.png" alt="Image Client">
-                </a>
-            </div>
+          @endforeach
+
         </div>
     </div>
 </div>

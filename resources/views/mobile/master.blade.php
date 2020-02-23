@@ -28,18 +28,25 @@
 
 	<!-- Libs CSS
 	============================================ -->
-	<link rel="stylesheet" href="{{asset('public/mobile/css/bootstrap/css/bootstrap.css')}}">
-	<link href="{{asset('public/mobile/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-	<script type="text/javascript" src="js/owl-carousel/owl.carousel.js"></script>
-	<link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
-	<link href="{{asset('public/mobile/js/ratchet/ratchet.css')}}" rel="stylesheet">
 
-	<!-- Theme CSS
-	============================================ -->
-	<link href="{{asset('public/mobile/css/mobile.css')}}" rel="stylesheet">
+	<!-- Libs CSS
+============================================ -->
+<link rel="stylesheet" href="{{asset('public/mobile/css/bootstrap/css/bootstrap.css')}}">
+<link href="{{asset('public/mobile/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<script type="text/javascript" src="js/owl-carousel/owl.carousel.js"></script>
+<link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
+<link href="{{asset('public/mobile/js/ratchet/ratchet.css')}}" rel="stylesheet">
 
-	<link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
-    <link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
+
+<!-- Theme CSS
+============================================ -->
+<link href="{{asset('public/mobile/css/mobile.css')}}" rel="stylesheet">
+
+
+<link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
+<link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
+
+
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('css')
@@ -115,6 +122,7 @@
 	<!-- Include Libs & Plugins
 ============================================ -->
 	<!-- Placed at the end of the document so the pages load faster -->
+
 	<script type="text/javascript" src="{{asset('public/mobile/js/jquery-2.2.4.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('public/mobile/js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('public/mobile/js/owl-carousel/owl.carousel.js')}}"></script>
@@ -198,6 +206,7 @@
     });
 </script>
 @stack('js')
+
 
 </body>
 </html>
