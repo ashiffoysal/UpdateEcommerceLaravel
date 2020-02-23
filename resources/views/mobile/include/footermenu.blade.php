@@ -28,9 +28,12 @@
 </nav>
 <div id="popover" class="popover fade bottom in right">
     <ul class="table-view">
-        <li class="table-view-cell"><a class="tab-item" href="index.html"> Home </a></li>
-        <li class="table-view-cell"><a class="tab-item" href="home2.html"> Home 2 </a></li>
-        <li class="table-view-cell"><a class="tab-item" href="home3.html"> Home 3 </a></li>
+      @php
+      $category=App\Category::where('is_deleted',0)->where('cate_status',1)->OrderBy('id','DESC')->get();
+      @endphp
+      @foreach($category as $cate)
+        <li class="table-view-cell"><a class="tab-item" href=""> {{$cate->cate_name}} </a></li>
+      @endforeach
     </ul>
 </div>
 <!-- //End Bar Tab -->

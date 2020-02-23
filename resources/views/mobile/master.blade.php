@@ -28,19 +28,21 @@
 
 	<!-- Libs CSS
 	============================================ -->
-	<link rel="stylesheet" href="{{asset('public/mobile/css/bootstrap/css/bootstrap.css')}}">
-	<link href="{{asset('public/mobile/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-	<link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
-	<link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
-	<link href="{{asset('public/mobile/js/ratchet/ratchet.css')}}" rel="stylesheet">
+	<!-- Libs CSS
+============================================ -->
+<link rel="stylesheet" href="{{asset('public/mobile/css/bootstrap/css/bootstrap.css')}}">
+<link href="{{asset('public/mobile/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<script type="text/javascript" src="js/owl-carousel/owl.carousel.js"></script>
+<link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
+<link href="{{asset('public/mobile/js/ratchet/ratchet.css')}}" rel="stylesheet">
 
-	<!-- Theme CSS
-	============================================ -->
-	<link href="{{asset('public/mobile/css/mobile.css')}}" rel="stylesheet">
+<!-- Theme CSS
+============================================ -->
+<link href="{{asset('public/mobile/css/mobile.css')}}" rel="stylesheet">
 
+<link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
+<link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
 
-    <link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
-    <link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
 
 
 </head>
@@ -111,64 +113,13 @@
 	<!-- Include Libs & Plugins
 ============================================ -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script type="text/javascript" src="{{asset('public/mobile/js/jquery-2.2.4.min.js')}}"></script>
-	<script type="text/javascript" src="{{asset('public/mobile/js/bootstrap.min.js')}}"></script>
-	<script type="text/javascript" src="{{asset('public/mobile/js/owl-carousel/owl.carousel.js')}}"></script>
-	<script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
-
-	<script type="text/javascript" src="{{asset('public/mobile/js/count_down/jquery.countdown.min.js')}}"></script>
-
-	<script type="text/javascript" src="{{asset('public/mobile/js/slick-slider/slick.js')}}"></script>
-	<script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
-	<script type="text/javascript" src="{{asset('public/mobile/js/slick/slick.min.js')}}"></script>
-	<script type="text/javascript" src="{{asset('public/mobile/js/themejs/libs.js')}}"></script>		
-	<script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
-	<script type="text/javascript" src="{{asset('public/mobile/js/themejs/addtocart.js')}}"></script>
-
-
-	<!-- Theme files
+<script type="text/javascript" src="{{asset('public/mobile/js/jquery-2.2.4.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/mobile/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/mobile/js/owl-carousel/owl.carousel.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
+<!-- Theme files
 ============================================ -->
-	<script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
-
-	<script type="text/javascript" src="{{asset('public/mobile/js/themejs/addtocart.js')}}"></script>
-
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$('.product-options li.radio').click(function(){
-			$(this).addClass(function() {
-				if($(this).hasClass("active")) return "";
-				return "active";
-			});
-			$(this).siblings("li").removeClass("active");
-			$(this).parent().find('.selected-option').html('<span class="label label-success">'+ $(this).find('img').data('original-title') +'</span>');
-		})
-		
-		if(!$('.slider').hasClass('slick-initialized')) {
-			$('.slider-for').slick({
-				slidesToShow: 1,
-				slidesToScroll: 1,
-				fade: true,
-				slideMargin: 10,
-				arrows: false,
-				infinite: true,
-				asNavFor: '.slider-nav'
-			});
-			$('.slider-nav').slick({
-			  slidesToShow: 4,
-			  slidesToScroll: 1,
-			  asNavFor: '.slider-for',
-			  slideMargin: 10,
-			  dots: false,
-			  arrows: false,
-			  centerMode: false,
-			  focusOnSelect: true,
-			});
-		}
-			
-		
-	});
-</script>
-
+<script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
 
 </body>
 

@@ -20,6 +20,8 @@ use App\Banner;
 use Carbon\Carbon;
 use App\SiteBanner;
 use App\OrderPlace;
+use App\MobileSlider;
+use App\MobileBanner;
 use Session;
 use Image;
 use DB;
@@ -1076,5 +1078,134 @@ class TrashController extends Controller
     }
   }
 
+  // mobile slider_img
+  public function mobileslider(){
+    $allslider=MobileSlider::where('is_deleted',1)->get();
+    return view('admin.ecommerce.trash.m_slider',compact('allslider'));
+  }
+
+  // multipleDelete
+
+  public function msliderdel(Request $request){
+    switch ($request->input('submit')) {
+      case 'delete':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $deletpost = MobileSlider::whereIn('id', $deleteid)->delete();
+          if ($deletpost) {
+            $notification = array(
+              'messege' => 'Multiple Delete Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Delete Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Delete',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+      case 'restore':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $delet = MobileSlider::whereIn('id', $deleteid)->update([
+            'is_deleted' => '0',
+            'updated_at' => Carbon::now()->toDateTimeString(),
+          ]);
+          if ($delet) {
+            $notification = array(
+              'messege' => 'Multiple Recover Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Recover Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Recover',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+    }
+  }
+  // mobile banner
+  public function trashmobilebanner(){
+    $allbanner=MobileBanner::where('is_deleted',1)->OrderBy('id','DESC')->get();
+    return view('admin.ecommerce.trash.mobilebanner',compact('allbanner'));
+  }
+// multipleDelete
+  public function mobilebandel(Request $request){
+    switch ($request->input('submit')) {
+      case 'delete':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $deletpost = MobileBanner::whereIn('id', $deleteid)->delete();
+          if ($deletpost) {
+            $notification = array(
+              'messege' => 'Multiple Delete Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Delete Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Delete',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+      case 'restore':
+        $deleteid = $request['delid'];
+        if ($deleteid) {
+          $delet = MobileBanner::whereIn('id', $deleteid)->update([
+            'is_deleted' => '0',
+            'updated_at' => Carbon::now()->toDateTimeString(),
+          ]);
+          if ($delet) {
+            $notification = array(
+              'messege' => 'Multiple Recover Successfully',
+              'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+          } else {
+            $notification = array(
+              'messege' => 'Multiple Recover Faild',
+              'alert-type' => 'errors'
+            );
+            return Redirect()->back()->with($notification);
+          }
+        } else {
+          $notification = array(
+            'messege' => 'Nothing To Recover',
+            'alert-type' => 'info'
+          );
+          return Redirect()->back()->with($notification);
+        }
+        break;
+    }
+  }
+//
 
 }

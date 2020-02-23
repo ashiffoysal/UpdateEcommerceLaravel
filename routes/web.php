@@ -288,8 +288,6 @@ if ($agent->isDesktop()) {
     Route::post('admin/trash/measurement/delete', 'Admin\TrashController@measurementhearddelete')->name('admin.trash.measurement.delete');
     Route::get(md5('admin/trash/product'), 'Admin\TrashController@product')->name('admin.trash.product');
     Route::post(md5('admin/trash/product/hearddelete'), 'Admin\TrashController@producthearddel')->name('admin.trash.producthearddel');
-
-
     Route::get(md5('admin/trash/banner'), 'Admin\TrashController@banner')->name('admin.trash.banner');
     Route::post(md5('admin/trash/banmultidel'), 'Admin\TrashController@banmultidel')->name('admin.trash.multidelban');
     Route::get(md5('admin/trash/allorder'), 'admin\TrashController@alldeleteorder')->name('admin.trash.allorder');
@@ -300,6 +298,16 @@ if ($agent->isDesktop()) {
     // support
     Route::get(md5('admin/trash/support'), 'admin\TrashController@support')->name('admin.trash.support');
     Route::post(md5('admin/trash/support/multidelete'), 'admin\TrashController@supportnnmultidel')->name('admin.support.multidelete');
+    // mobile slider
+    Route::get(md5('admin/trash/mobileslider'), 'admin\TrashController@mobileslider')->name('admin.trash.MobileSlider');
+
+    Route::post(md5('admin/trash/mobileslider/multidelete'), 'admin\TrashController@msliderdel')->name('admin.trash.multideletemslider');
+
+    Route::get(md5('admin/trash/mobilebanner'), 'admin\TrashController@trashmobilebanner')->name('admin.trash.mobilebanner');
+    Route::post(md5('admin/trash/mobile/banner/multidel'), 'admin\TrashController@mobilebandel')->name('admin.trash.mobilebannerdel');
+
+
+
 
 
     // footer option area start
@@ -564,6 +572,30 @@ route::post(md5('admin/sitebanner/insert'),'Admin\SitebannerController@sitebanne
 route::post(md5('admin/sitebanner/update'),'Admin\SitebannerController@sitebannerupdate')->name('admin.sitebanner.update');
 route::post(md5('admin/sitebanner/multisoftdelete'),'Admin\SitebannerController@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
 
+// mobile slider
+route::get(md5('admin/mobile/slider/all'),'Admin\MobileController@index')->name('admin.mobileslider.all');
+route::post(md5('admin/mobile/slider/insert'),'Admin\MobileController@insert')->name('admin.mobileslider.insert');
+route::post('admin/mobile/slider/update','Admin\MobileController@update');
+route::get('admin/mobile/slider/deactive/{id}','Admin\MobileController@deactive');
+route::get('admin/mobile/slider/active/{id}','Admin\MobileController@active');
+route::get('admin/mobile/slider/softDelete/{id}','Admin\MobileController@softdelete');
+route::get('admin/mobile/slider/restore/{id}','Admin\MobileController@restore');
+route::get('/get/admin/mobile/slider/edit/{id}','Admin\MobileController@edit');
+route::post(md5('admin/mobile/slider/update'),'Admin\MobileController@multipleSoftDelete')->name('admin.mobileslider.multipleSoftDelete');
+route::get('admin/mobile/slider/delete/{id}','Admin\MobileController@delete');
+// mobile banner
+route::get(md5('admin/mobile/banner/all'),'Admin\MobileController@banner')->name('admin.mbanner.all');
+route::post(md5('admin/mobile/banner/insert'),'Admin\MobileController@bannerinsert')->name('admin.mobilebanner.insert');
+route::post(md5('admin/mobile/banner/multibanmodel'),'Admin\MobileController@multibanmodel')->name('admin.mobilebanner.multibanmodel');
+route::post('admin/mobile/banner/update','Admin\MobileController@bannerupdate');
+route::get('admin/mobile/banner/active/{id}','Admin\MobileController@banneractive');
+route::get('admin/mobile/banner/softDelete/{id}','Admin\MobileController@bannersoftdelete');
+route::get('/get/admin/mobile/banner/edit/{id}','Admin\MobileController@banneredit');
+route::get('admin/mobile/banner/delete/{id}','Admin\MobileController@mobannerdelete');
+route::get('admin/mobile/banner/restore/{id}','Admin\MobileController@mobanrestore');
+
+
+
     // page trash
     Route::get(md5('admin/trash/page'), 'Admin\TrashController@page')->name('admin.trash.page');
     Route::post(md5('admin/trash/multidelpage'), 'Admin\TrashController@pagemultdel')->name('admin.trash.pagemultidel');
@@ -767,11 +799,12 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
 
     // Route Created By Harrison
     Route::get('flashdeal/products', 'Mobile\FrontendController@flashDealProducts')->name('frontend.flash.deal.products');
+
     // Route Created By Harrison End
 
-
-
-
+  Route::get('category/{slug}/{id}', 'Mobile\FrontendController@m_category');
+  Route::get('subcategory/{slug}/{id}', 'Mobile\FrontendController@m_subcategory');
+  Route::get('resubcategory/{slug}/{id}', 'Mobile\FrontendController@m_resubcategory');
     Route::get('/', 'Mobile\FrontendController@index');
     Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
 
@@ -782,7 +815,8 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
 
     // product area start
 
-    Route::get('/product/details', 'Mobile\ProductController@productDetails');
+    Route::get('product/details/{slug}/{id}', 'Mobile\ProductController@productDetails');
+    Route::get('add/to/cart', 'mobile\addtocartcontroller@addtocart')->name('product.add.cart');
 
 
 }
