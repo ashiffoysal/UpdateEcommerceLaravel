@@ -126,7 +126,7 @@
 															<option value="{{$upazila->id}}">{{$upazila->name}} </option>
 														@endif
 													@endforeach
-
+													</select>
 												</div>
 												@error('user_upazila_id')
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
@@ -691,16 +691,10 @@
                         $('#user_division').append('<option value="' + divisionobj.id + '">'+divisionobj.name+'</option>');
                     });
                 }
-            }
+            });
          });
-     } else {
-        // alert('danger');
-     }
-
-
         });
-
-    });
+     
 </script>
 
 

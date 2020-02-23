@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Mobile;
 
 use App\Http\Controllers\Controller;
 use App\Product;
@@ -8,17 +8,14 @@ use App\FlashDealDetail;
 use Illuminate\Http\Request;
 use Cart;
 
-
 class AddToCartController extends Controller
 {
-
-
     // Product Add To cart
 
     public function addToCart(Request $request)
     {
         
-        
+        // return $request->all();
         
         $product = Product::findOrFail($request->product_id);
         
@@ -68,7 +65,6 @@ class AddToCartController extends Controller
                     $data['attributes'][$choice->title] = $request->$choicename;
             }
 
-            
             $add =Cart::session($userid)->add($data);
             // non variation product add
             $product->number_of_sale++;
@@ -124,142 +120,4 @@ class AddToCartController extends Controller
            
         }
     }
-
-
-
-    // product add to cart show
-
-
-
-    public function addToCartShow(Request $request)
-    {
-
-        $countcartitems = Cart::session($request->user_id)->getContent();
-        return view('frontend.include.ajaxview', compact('countcartitems'));
-    }
-
-
-    // product add to cart Deleted
-
-    public function addToCartDelete(Request $request)
-    {
-
-        $userid = $request->ip();
-
-        $datadelete = Cart::session($userid)->remove($request->user_id);
-        $getcartdatas = Cart::session($userid)->getContent();
-
-        if ($datadelete) {
-            $items = 0;
-            $price = 0;
-
-            foreach (Cart::session($userid)->getContent() as $item) {
-                $items -= $item->quantity;
-                $price -= $item->price * $items;
-            }
-        }
-
-        return response()->json([
-            'quantity' => $items,
-            'price' => $price
-        ]);
-    }
-
-    // Product add to view cart page
-
-
-    public function productViewCart()
-    {
-        return view('frontend.shopping.cart');
-    }
-
-
-    // get cart data
-
-    public function getCartData()
-    {
-        $userid =  \Request::getClientIp(true);
-        
-        $usercartdatas = Cart::session($userid)->getContent();
-       
-
-        return view('frontend.shopping.cartajaxdata', compact('usercartdatas'));
-        
-    }
-
-
-    // update view cart product
-
-    public function viewCartUpdate(Request $request)
-    {
-        $userid =  \Request::getClientIp(true);
-        $updatecart =Cart::session($userid)->update(
-            $request->rowid,
-            array(
-                'quantity' => array(
-                    'relative' => false,
-                    'value' => $request->quantity,
-                ),
-            )
-        );
-
-        
-
-        if ($updatecart) {
-
-           
-
-        $userid =  \Request::getClientIp(true);
-        
-        $usercartdatas = Cart::session($userid)->getContent();
-       
-
-        return view('frontend.shopping.cartajaxdata', compact('usercartdatas'));
-
-
-        } else {
-            return 0;
-        }
-    }
-
-
-    // update view cart deleted
-
-    public function viewCartDelete(Request $request)
-    {
-        $userid =  \Request::getClientIp(true);
-        
-        $deletedproduct =Cart::session($userid)->remove($request->cartid);
-
-        return redirect()->route('product.cart.add');
-    }
-
-
-     // shopping cart delete
-     public function cartDataDelete(Request $request)
-     {
-         $userid =  \Request::getClientIp(true);
-         $datadelete = Cart::session($userid)->remove($request->user_id);
-         $usercartdatas = Cart::session($userid)->getContent();
-         return view('frontend.shopping.cartajaxdata', compact('usercartdatas'));
-     }
-
-
-     // show total price in frontend
-
-        public function showTotalPrice()
-        {
-            $userid =  \Request::getClientIp(true);
-        // $getcartdatas = Cart::session($userid)->getContent();
-            $quantity = Cart::session($userid)->getTotalQuantity();
-            $gettotal = Cart::session($userid)->getTotal();
-            return response()->json([
-                
-                'quantity' => $quantity,
-                'total' => $gettotal,
-            ]);
-        }
-
 }
-
-
