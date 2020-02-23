@@ -1,137 +1,6 @@
 @extends('mobile.master')
 @section('main_content')
-<style>
 
-.module.home1_deals {
-    margin: 0;
-}
-
-.module.home1_deals .so-deal {
-    margin: 10px 0 0;
-}
-
-.module.home1_deals h2.modtitle {
-    float: left;
-}
-
-.module.home1_deals .product-item-container .left-block {
-    position: relative;
-}
-
-.module.home1_deals .product-item-container .left-block:before {
-    display: inline-block;
-    content: '';
-    background: rgba(34, 34, 34, 0.6);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 3px;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1;
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-}
-
-.module.home1_deals .product-item-container:hover .left-block:before {
-    opacity: 1;
-    visibility: visible;
-}
-
-.module.home1_deals .cs-item-timer .Countdown-1 {
-    float: right;
-    padding: 5px 20px;
-    position: relative;
-}
-
-.module.home1_deals .cs-item-timer .Countdown-1:before {
-    content: "\f0e2";
-    font-family: fontawesome;
-    position: absolute;
-    font-size: 14px;
-    top: 4px;
-    bottom: auto;
-    color: #ff5561;
-    left: 5px;
-    right: auto;
-}
-
-.module.home1_deals .cs-item-timer .Countdown-1 .time-item {
-    float: left;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    text-transform: capitalize;
-    color: #ff5e00;
-    margin-left: 5px;
-}
-
-.module.home1_deals .cs-item-timer .Countdown-1 .time-item .num-time {
-    float: left;
-    margin-right: 2px;
-}
-
-.module.home1_deals .cs-item-timer .Countdown-1 .time-item .name-time {
-    float: left;
-}
-
-.module.home1_deals .item-time .item-timer {
-    border: 1px dashed #df0024;
-    font-weight: 600;
-    height: 100%;
-    line-height: 28px;
-    display: inline-block;
-    width: 100%;
-}
-
-.module.home1_deals .item-time .item-timer .time-item {
-    float: left;
-    font-size: 92.3%;
-    color: #383838;
-    text-transform: capitalize;
-    font-weight: 700;
-    position: relative;
-    width: 25%;
-    line-height: 28px;
-    border: none;
-}
-
-.module.home1_deals .item-time .item-timer .time-item .num-time {
-    display: block;
-}
-
-.module.home1_deals .item-time .item-timer .time-item .name-time {
-    display: block;
-}
-
-
-    .head-title {
-    border-top: 2px solid #ff5561;
-    background: #fff;
-    border-radius: 3px;
-    display: inline-block;
-    width: 100%;
-}
-
-.flash_deal_title {
-    height: 17px;
-    position: absolute;
-    top: 5px;
-    left: 9px;
-    right: auto;
-    bottom: auto;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 3px 7px;
-    background: #ff5561;
-    padding-bottom: 26px;
-    border-radius: 5px;
-    color: white;
-}
-</style>
 <div class="container page-category">
     <div class="row">
         <aside class="col-xs-12 content-aside left_column sidebar-offcanvas">
@@ -406,11 +275,11 @@
                                             @endphp
                                             @if($flash_deal_detail->discount_type == 1)
                                             @php
-                                            $discountPrice = $flash_deal_detail->product->product_price - $flash_deal_detail->discount
+                                            $discountPrice = $flash_deal_detail->product->product_price - $flash_deal_detail->discount;
                                             @endphp
                                             @else
                                              @php
-                                            $discountPrice = $flash_deal_detail->product->product_price /100 * $flash_deal_detail->discount
+                                            $discountPrice = $flash_deal_detail->product->product_price /100 * $flash_deal_detail->discount;
                                             @endphp
                                             @endif
                                             ৳ {{ $discountPrice }}
@@ -429,9 +298,7 @@
                                         <button class="compare btn-button" type="button" title="Compare this Product"
                                             onclick="compare.add('175');"><i class="fa fa-retweet"></i></button>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -463,6 +330,10 @@
     </div>
 </div>
 
+
+
+@endsection
+@push('js')
 @if ($flash_deal)
 <script>
     $(function () {
@@ -480,8 +351,8 @@
     });
 </script>
 @endif
+@endpush
 
-@endsection
 
 
 
