@@ -7,6 +7,7 @@
 	============================================ -->
 	<title>SuperMaket - Multipurpose Responsive HTML5 Template</title>
 	<meta charset="utf-8">
+
     <meta name="keywords" content="html5 template, best html5 template, best html template, html5 basic template, multipurpose html5 template, multipurpose html template, creative html templates, creative html5 templates" />
     <meta name="description" content="SuperMaket is a powerful Multi-purpose HTML5 Template with clean and user friendly design. It is definite a great starter for any eCommerce web project." />
     <meta name="author" content="Magentech">
@@ -16,6 +17,7 @@
 	============================================ -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+
 	<!-- Favicon
 	============================================ -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
@@ -24,9 +26,11 @@
     <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
     <link rel="shortcut icon" type="image/png" href="ico/favicon-16x16.png"/>
 
+	
 	<!-- Google web fonts
 	============================================ -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+	
 
     <!-- Libs CSS
 	============================================ -->
@@ -53,6 +57,7 @@
     <div id="wrapper" >
 
 
+
 	@include('mobile.include.footermenu')
 
 	@yield('page_content')
@@ -65,19 +70,23 @@
 		</div>
 	</div>
 
+
 <!-- Include Libs & Plugins
 ============================================ -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="{{asset('public/mobile/js/jquery-2.2.4.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/mobile/js/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/mobile/js/owl-carousel/owl.carousel.js')}}"></script>
-{{-- <script type="text/javascript" src="{{asset('public/mobile/js/slick-slider/slick.js')}}"></script> --}}
+
+<script type="text/javascript" src="{{asset('public/mobile/js/slick-slider/slick.js')}}"></script>
+
 <script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/mobile/js/slick/slick.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/mobile/js/themejs/libs.js')}}"></script>
 
 <!-- Theme files
 ============================================ -->
+
 
 <script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/mobile/js/themejs/addtocart.js')}}"></script>
@@ -113,13 +122,15 @@
 			  centerMode: false,
 			  focusOnSelect: true,
 
+			
 			});
 		}
-
+			
 
 	});
 
 </script>
+
 
 <script>
     $(document).ready(function(){
@@ -154,3 +165,4 @@
 
 </body>
 </html>
+

@@ -762,7 +762,7 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     // ======================================Mobile route start from here=================================//
 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
-    Route::get('/product/details/{id}', 'Mobile\ProductController@productDetails')->name('product.details');
+    
 
     // Route Created By Harrison ===================
 
@@ -792,16 +792,33 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
 
 
     Route::get('/', 'Mobile\FrontendController@index');
-    Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
 
+    // checkout route start here
+    Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
+    Route::get('/user/division/name/{id}', 'Mobile\CheckoutController@showDivisionName');
+    Route::get('/user/district/name/{id}', 'Mobile\CheckoutController@showDistrictName');
+    Route::get('/user/upazila/name/{id}', 'Mobile\CheckoutController@showUpazilasName');
+    
+
+    Route::get(md5('/page/redirect'), 'Mobile\AuthController@pageBackRedirect')->name('page.redirect');
     // authentication area start
 
-    Route::post('/mobile/register', 'Mobile\AuthController@register')->name('mobile.register');
-    Route::post('/mobile/login', 'Mobile\AuthController@userAuth')->name('mobile.login');
 
-    // product area start
+    Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
+    Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
+    Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
 
-    Route::get('/product/details', 'Mobile\ProductController@productDetails');
+
+    // my account area start
+    Route::get('/mobile/myaccount', 'Mobile\MyAccountController@showMyAccount')->name('mobile.myaccount');
+
+   
+
+    // product add to cart
+    
+    Route::get('add/to/cart', 'Mobile\AddToCartController@addToCart')->name('product.add.cart');
+
+
 
 
 }

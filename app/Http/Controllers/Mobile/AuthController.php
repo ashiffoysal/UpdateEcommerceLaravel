@@ -7,12 +7,19 @@ use App\SmsModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+
 class AuthController extends Controller
 {
+
+    public function showLoginForm()
+    {
+        return view('mobile.accounts.login');
+    }
     protected function register(Request $request)
     {
 
@@ -89,6 +96,26 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
+                
+                return redirect('/');
+            }
+        } else {
+            session()->flash('successMsg', 'Sorry !! Email or Password not matched!');
+            return redirect('/');
+        }
+    }
+
+
+    // checkout login
+
+    public function checkoutAuth(Request $request)
+    {
+        
+        $admin = User::where('email', request('email'))->where('status',1)->first();
+        if($admin){
+            $credentials = $request->only('email', 'password');
+            
+            if (Auth::attempt($credentials)) {
                 // Authentication passed...
                 return redirect()->intended(route('checkout.page'));
             }
@@ -96,5 +123,12 @@ class AuthController extends Controller
             session()->flash('successMsg', 'Sorry !! Email or Password not matched!');
             return redirect('/');
         }
+    }
+
+    // page back button
+
+    public function pageBackRedirect()
+    {
+        return back();
     }
 }
