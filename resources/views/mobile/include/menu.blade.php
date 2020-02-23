@@ -24,12 +24,12 @@
                 </a>
             </div>
             <div class="item-link">
-                <a href="about-us.html">
+                <a href="{{ route('mobile.about.us') }}">
                     <span class="menu-title">About Us</span>
                 </a>
             </div>
             <div class="item-link">
-                <a href="contact.html">
+                <a href="{{ route('contract.us.page') }}">
                     <span class="menu-title">Contact Us</span>
                 </a>
             </div>

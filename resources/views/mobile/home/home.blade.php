@@ -1,5 +1,19 @@
 @extends('mobile.master')
 @section('main_content')
+<div class="search_content_section">
+    <div class="search_result">
+        <div  class="heading_section">
+            <h6 style="margin-top:40px; margin-left:10px;">Search Result shown here <i style="color:#ff5561" class="fa fa-long-arrow-down"></i></h6>
+        </div>
+        <div class="products-list row nopadding-xs grid so-filter-gird" id="search_result_product">
+
+            
+        </div>
+    </div>
+</div>
+<div class="main_content">
+
+
 <div class="col-xs-12 no-padding">
     <div class="module sohomepage-slider ">
         <div class="modcontent">
@@ -278,6 +292,6 @@
         </div>
     </div>
 </div>
-
+</div>
 
 @endsection

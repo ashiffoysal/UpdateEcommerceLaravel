@@ -22,7 +22,7 @@
         <div class="navbar-search col-xs-7" style="padding-right:15px">
             <!-- BOX CONTENT SEARCH -->
             <div id="search-bar" class="input-group">
-                <input type="text" name="search" value="" placeholder="Search" class="form-control input-lg">
+                <input type="text" name="product_name" value="" id="product_name" placeholder="Search" class="form-control input-lg">
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-link">
                         <i class="fa fa-search"></i>

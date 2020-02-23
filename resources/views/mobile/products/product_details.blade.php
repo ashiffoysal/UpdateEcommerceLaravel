@@ -43,8 +43,10 @@
 								</a>
 							</div>
 							@endforeach
+
 						</div>
 						<div class="slider-nav ">
+
 							@foreach (json_decode($productdetails->photos) as $key => $photo)
 							<div class="contentslider--item ">
 								<a class="thumbnail" title="{{$productdetails->product_name}}" tabindex="-1">
@@ -52,7 +54,24 @@
 								</a>
 							</div>
 							@endforeach
+
+
 						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 						<div class="box-label">
 							<!--Sale Label-->
 							<span class="label-product label-sale font-ct"> -28% </span>
@@ -83,11 +102,13 @@
 									<h1>{{$productdetails->product_name}}</h1>
 								</div>
 
+
 								<div class="model font-ct"><span>Product Code:</span> <span class="font-ct">{{$productdetails->product_sku}}</span>
 								</div>
 								<hr>
 
 								<h5 style="line-height: 150%;">{{$productdetails->product_name}}</h5>
+
 
 
 
@@ -171,7 +192,8 @@
 								@endforeach
 								@else
 								<div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
-										<span class="price-new"><span itemprop="price" id="price-special">৳ {{$productdetails->product_price}}</span></span>
+
+										<span class="price-new"><span itemprop="price" id="price-special">৳ {{$productdetails->product_price}}</span></span> 
 									</div>
 								@endif
 
@@ -195,8 +217,19 @@
 
 									<div class="model"><span>Product Code:</span> SKU-17894-S3825</div>
 									<div class="stock"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
+
 								</div>
 							</div>
+
+							<div class="product-box-desc hidden">
+								<div class="inner-box-desc">
+
+
+									<div class="model"><span>Product Code:</span> SKU-17894-S3825</div>
+									<div class="stock"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
+								</div>
+							</div>
+
 							<div id="product">
 								<div class="options options-mobi clearfix">
 									<h3 class="hidden">Available Options</h3>
@@ -216,13 +249,30 @@
 												</li>
 												@endforeach
 											</ul>
+
+
+
+
+
+
 											@endif
 										</div>
+
 										@foreach (json_decode($productdetails->choice_options) as $key => $choice)
+
+
 										<div class="col-md-12">
 											<div id="product">
+
+
+
+
+
 												<div class="form-group required " style="display: block;">
 													<div id="input-option224">
+
+
+
 														<ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
 															<li>{{ $choice->title }}:</li>
 															@foreach ($choice->options as $key => $option)
@@ -232,18 +282,34 @@
 															</li>
 															@endforeach
 														</ul>
+
+
+
+
+
 													</div>
 												</div>
+
 											</div>
+
+
+
+
+
 										</div>
 										@endforeach
 										<!-- color area end -->
 									</div>
 									@else
 
+
 									@endif
+
+
 								</div>
+
 								<div class="box-cart cart clearfix">
+
 									<!-- QUALYTY -->
 									<div class="form-group box-info-product">
 										<div class="option quantity">
@@ -262,13 +328,36 @@
 										<div class="cart">
 											<input type="button" data-toggle="tooltip" title="Add to Cart" value="Add to Cart" data-loading-text="Loading..." id="button-cart" onclick="cart.add('36');productaddtocart();" class="btn btn-mega btn-md">
 										</div>
+
+
 									</div>
+
+
 								</div>
+
 							</div>
 							<!-- end box info product -->
 
 						</div>
 					</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				</div>
 				<div class="product-bottom">
 					<div id="collapseTab" class="producttab ">
@@ -342,19 +431,14 @@
 					<div class="module releate-horizontal">
 						<h3 class="modtitle"><span>Related Products</span></h3>
 						<div class="releate-products  contentslider" data-rtl="no" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="10" data-item_xs="2" data-item_sm="2" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
-							@php
-								$cateid=$productdetails->cate_id;
-								$relatedproduct=App\Product::where('cate_id',$cateid)->orderBy('id','DESC')->limit(10)->get();
-							@endphp
-							@foreach($relatedproduct as $product)
 							<div class="item-element clearfix">
 								<div class="image">
 									<a href="#">
-										<img src="{{asset('public/uploads/products/thumbnail/productdetails/'.$product->thumbnail_img)}}" alt="Biltong kielbasa" title="Biltong kielbasa" class="img-responsive">
+										<img src="../image/demo-mobile/product/E1.jpg" alt="Deserunt mollitia" title="Deserunt mollitia" class="img-responsive">
 									</a>
 								</div>
 								<div class="caption text-center">
-									<h4><a class="preview-image font-ct" href="#">{{Str::limit($product->product_name,10)}}</a></h4>
+									<h4><a class="preview-image font-ct" href="#">Deserunt mollitia</a></h4>
 									<div class="ratings hidden">
 										<div class="rating-box">
 											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
@@ -365,14 +449,63 @@
 										</div>
 									</div>
 									<div class="price font-ct">
-										<span class="price-new">৳ {{$product->product_price}}</span>
-										<span class="price-old">$56.00</span>
+										<span class="price-new">$70.00</span>
+										<span class="price-old">$100.00</span>
+
 									</div>
 								</div>
 							</div>
-							@endforeach
+							<div class="item-element clearfix">
+								<div class="image">
+									<a href="#">
+										<img src="../image/demo-mobile/product/E2.jpg" alt="Biltong kielbasa" title="Biltong kielbasa" class="img-responsive">
+									</a>
+								</div>
+								<div class="caption text-center">
+									<h4><a class="preview-image font-ct" href="#">Biltong kielbasa</a></h4>
+									<div class="ratings hidden">
+										<div class="rating-box">
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+										</div>
+									</div>
+									<div class="price font-ct">
+										<span class="price-new">$34.00</span>
+										<span class="price-old">$56.00</span>
+
+									</div>
+								</div>
+							</div>
+							<div class="item-element clearfix">
+								<div class="image">
+									<a href="#">
+										<img src="../image/demo-mobile/product/E3.jpg" alt="Landjaeger shankle" title="Landjaeger shankle" class="img-responsive">
+									</a>
+								</div>
+								<div class="caption text-center">
+									<h4><a class="preview-image font-ct" href="#">Landjaeger shankle</a></h4>
+									<div class="ratings hidden">
+										<div class="rating-box">
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+										</div>
+									</div>
+									<div class="price font-ct">
+										<span class="price-new">$70.00</span>
+									</div>
+								</div>
+							</div>
+
+
 
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -382,7 +515,12 @@
 
 </div>
 <script>
+
+
+
 function productaddtocart(){
+
+
 $.ajax({
 type:'GET',
 url:"{{ route('product.add.cart') }}",

@@ -86,6 +86,9 @@ return array(
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\Mobile\\AuthController' => $baseDir . '/app/Http/Controllers/Mobile/AuthController.php',
     'App\\Http\\Controllers\\Mobile\\CheckoutController' => $baseDir . '/app/Http/Controllers/Mobile/CheckoutController.php',
+
+    'App\\Http\\Controllers\\Mobile\\ContractUsController' => $baseDir . '/app/Http/Controllers/Mobile/ContractUsController.php',
+
     'App\\Http\\Controllers\\Mobile\\FrontendController' => $baseDir . '/app/Http/Controllers/Mobile/FrontendController.php',
     'App\\Http\\Controllers\\Mobile\\ProductController' => $baseDir . '/app/Http/Controllers/Mobile/ProductController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',

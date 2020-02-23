@@ -577,6 +577,9 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\Mobile\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Mobile/AuthController.php',
         'App\\Http\\Controllers\\Mobile\\CheckoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/Mobile/CheckoutController.php',
+
+        'App\\Http\\Controllers\\Mobile\\ContractUsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Mobile/ContractUsController.php',
+
         'App\\Http\\Controllers\\Mobile\\FrontendController' => __DIR__ . '/../..' . '/app/Http/Controllers/Mobile/FrontendController.php',
         'App\\Http\\Controllers\\Mobile\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Mobile/ProductController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

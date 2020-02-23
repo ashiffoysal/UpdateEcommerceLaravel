@@ -1,5 +1,6 @@
 <div class="panel-left__top clearfix text-center">
 				<div class="panel-logo">
+
 					@php
 						$logo=App\Logo::where('id',1)->first();
 					@endphp
@@ -13,10 +14,13 @@
 						  </span>
 					</div>
 				</div>
+
+
 			</div>
 
 			<div class="panel-left__midde">
 				<div class="panel-group" id="panel-category" role="tablist" aria-multiselectable="true">
+
 					@php
 						$category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
 					@endphp
@@ -68,8 +72,6 @@
 					<!--  -->
 
 				</div>
-
-
 			</div>
 
 			<div class="panel-left__bottom clearfix text-center">
