@@ -12,14 +12,22 @@
         <span class="icon icon-download"></span>
         <div id="cart" class="btn-shopping-cart">
             <span class="total-shopping-cart cart-total-full">
-                <span class="items_cart">0 </span> </span>
+                
+                @php
+					$userid =  \Request::getClientIp(true);
+				@endphp
+                <span class="items_cart" id="totalquentity">{{Cart::session($userid)->getTotalQuantity()}} </span> </span>
         </div>
 
         <span class="tab-label">View Cart</span>
     </a>
-    <a class="tab-item" href="login.html" data-transition="slide-in">
+    <a class="tab-item" href="{{route('mobile.myaccount')}}" data-transition="slide-in">
         <span class="icon icon-person"></span>
-        <span class="tab-label">My Account</span>
+        @if(Auth::check())
+            <span class="tab-label">My Account</span>
+        @else
+        <span class="tab-label">Login/Register</span>
+        @endif
     </a>
     <a class="tab-item tab-item--more tooltip-popovers" href="#popover">
         <span class="icon icon-more"></span>

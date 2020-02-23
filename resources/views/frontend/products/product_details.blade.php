@@ -863,13 +863,13 @@
     $(document).ready(function () {
         $('#addtocart').on('click', function () {
 
-
+            
             $.ajax({
                 type: 'GET',
                 url: "{{ route('product.add.cart') }}",
                 data: $('#option-choice-form').serializeArray(),
                 success: function (data) {
-                    console.log(data);
+            
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
                     document.getElementById('product_price').innerHTML = toFixed(data.total);
                 }
