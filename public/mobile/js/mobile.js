@@ -5,17 +5,17 @@
 	+----------------------------------------------------+
 		TABLE OF CONTENTS
 	+----------------------------------------------------+
-	
-	[1]		Back To Top 
-	[2]		Button Collapse 
+
+	[1]		Back To Top
+	[2]		Button Collapse
 	[3]		Contentslider - OwlCarousel2
 	[4]		Quantity plus minus - Product Detail
 	[5]		Resonsive Sidebar aside
 	[6]		Custom - Product Detail
-	
+
 / ---------------------------------------------------- */
 
-/* Back To Top 
+/* Back To Top
  ========================================================*/
 $(function ($) {
     "use strict";
@@ -31,24 +31,24 @@ $(function ($) {
 	$('.back-to-top').click(function () {
 		$('.content').animate({scrollTop:0}, 1200);
 		return false;
-	});	
-	
+	});
+
 });
 
-/* Button Collapse  
+/* Button Collapse
  ========================================================*/
 $(function ($) {
     "use strict";
 	$('body').delegate('.btn-collapse','click',function(){
 		$(this).toggleClass('active');
 	});
-});	
+});
 
 /* Contentslider - OwlCarousel2
  ========================================================*/
 $(function ($) {
     "use strict";
-    
+
 	$('.contentslider').each(function () {
 		var $slider = $(this),
 			$panels = $slider.children('div'),
@@ -59,7 +59,7 @@ $(function ($) {
 			 setTimeout(function() {
                $slider.parent().find('.loading-placeholder').hide();
             }, 1000);
-			
+
 		});
 		$slider.owlCarousel2({
 			responsiveClass: true,
@@ -93,7 +93,7 @@ $(function ($) {
 				}
 			}
 		});
-		
+
 
 	});
 });
@@ -175,7 +175,7 @@ $(document).ready(function(){
         $(".sidebar-overlay").toggleClass("show");
         $(".sidebar-offcanvas").toggleClass("active");
     });
-      
+
     $(".sidebar-overlay").click(function(e){
         e.preventDefault();
         $(".sidebar-overlay").toggleClass("show");
@@ -184,8 +184,8 @@ $(document).ready(function(){
     $('#close-sidebar').click(function() {
         $('.sidebar-overlay').removeClass('show');
         $('.sidebar-offcanvas').removeClass('active');
-        
-    }); 
+
+    });
 });
 
 
@@ -193,45 +193,45 @@ $(document).ready(function(){
 	Range slider && Filter  Reset
 -------------------------------------------------- */
 $(document).ready(function(){
-	if($('#slider').length){
-	window.startRangeValues = [28.00, 562.00];
-	$('#slider').slider({
+	// if($('#slider').length){
+	// window.startRangeValues = [28.00, 562.00];
+	// $('#slider').slider({
 
-		range : true,
-		min : 10.00,
-		max : 580.00,
-		values : window.startRangeValues,
-		step : 0.01,
+	// 	range : true,
+	// 	min : 10.00,
+	// 	max : 580.00,
+	// 	values : window.startRangeValues,
+	// 	step : 0.01,
 
-		slide : function(event, ui){
+	// 	slide : function(event, ui){
 
-			var min = ui.values[0].toFixed(2),
-				max = ui.values[1].toFixed(2),
-				range = $(this).siblings('.range');
+	// 		var min = ui.values[0].toFixed(2),
+	// 			max = ui.values[1].toFixed(2),
+	// 			range = $(this).siblings('.range');
 
 
-			range.children('.min_value').val(min).next().val(max);
+	// 		range.children('.min_value').val(min).next().val(max);
 
-			range.children('.min_val').text('$' + min).next().text('$' + max);
+	// 		range.children('.min_val').text('$' + min).next().text('$' + max);
 
-		},
+	// 	},
 
-		create : function(event, ui){
+	// 	create : function(event, ui){
 
-			var $this = $(this),
-				min = $this.slider("values", 0).toFixed(2),
-				max = $this.slider("values", 1).toFixed(2),
-				range = $this.siblings('.range');
+	// 		var $this = $(this),
+	// 			min = $this.slider("values", 0).toFixed(2),
+	// 			max = $this.slider("values", 1).toFixed(2),
+	// 			range = $this.siblings('.range');
 
-			range.children('.min_value').val(min).next().val(max);
+	// 		range.children('.min_value').val(min).next().val(max);
 
-			range.children('.min_val').text('$' + min).next().text('$' + max);
-			
-		}
+	// 		range.children('.min_val').text('$' + min).next().text('$' + max);
 
-	});
+	// 	}
 
-	}
+	// });
+
+	// }
 
 	if(!window.startRangeValues) return;
 		var startValues = window.startRangeValues,
@@ -257,21 +257,20 @@ $(document).ready(function(){
 
 		});
 
-});	
+});
 
 
 
 
 /* Custom - Product Detail
  ========================================================*/
- 
+
 $('.product-options li.radio').click(function(){
 	$(this).addClass(function() {
 		if($(this).hasClass("active")) return "";
 		return "active";
 	});
-	
+
 	$(this).siblings("li").removeClass("active");
 	$(this).parent().find('.selected-option').html('<span class="label label-success">'+ $(this).find('img').data('original-title') +'</span>');
 });
-	

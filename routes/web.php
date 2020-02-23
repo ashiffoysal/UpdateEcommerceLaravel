@@ -652,8 +652,7 @@ Route::get(md5('admin/product/wishlist'),'Admin\ReportController@wishproduct')->
 Route::get(md5('admin/product/bestsell'),'admin\ReportController@bestsell')->name('admin.bestsell');
 
 
-    Route::group(['prefix' => 'admin/subscriber/mail', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
-
+    Route::group(['prefix' => 'admin/subscriber/mail', 'middleware' => 'auth:admin'], function () {
         Route::get('send/section', 'SubscriberController@mailSendSection')->name('admin.subscriber.send.section');
         Route::get('mail/details/{mailId}', 'SubscriberController@mailDetails')->name('admin.subscriber.mail.details');
         Route::get('/compose', 'SubscriberController@mailComposeSection')->name('admin.subscriber.mail.compose');
@@ -763,13 +762,33 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     // ======================================Mobile route start from here=================================//
 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
+    
 
+    // Route Created By Harrison ===================
 
-    // Route Created By Harrison
+    //Mobile Flash Deal Route
     Route::get('flashdeal/products', 'Mobile\FrontendController@flashDealProducts')->name('frontend.flash.deal.products');
-    // Route Created By Harrison End
+     //End Mobile Flash Deal Route
+
+     //Mobile Contract us Route
+    Route::group(['prefix' => 'contract_us', 'namespace' => 'Mobile'], function () {
+        Route::get('/','ContractUsController@contractUsShow')->name('contract.us.page');
+        Route::post('send','ContractUsController@contractUsSend')->name('mobile.contract.us.send');
+    });
+    //End Mobile Contract us Route
+
+    // Mobile About Us Route
+    Route::get('about', 'Mobile\AboutUsController@index')->name('mobile.about.us');
+    //End Mobile About Us Route
+
+    //Mobile Search Route
+    Route::get('product/search', 'Mobile\SearchController@productSearchByPage')->name('mobile.product.search');
+    // Mobile Live Search By Ajax Web Route
+    Route::get('mobile/search/product/by/product_name/{product_name}', 'Mobile\SearchController@productSearchByAjax');
+    //Mobile Search Route
 
 
+    // Route Created By Harrison End ======================
 
 
     Route::get('/', 'Mobile\FrontendController@index');
@@ -784,16 +803,16 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::get(md5('/page/redirect'), 'Mobile\AuthController@pageBackRedirect')->name('page.redirect');
     // authentication area start
 
+
     Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
     Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
 
+
     // my account area start
     Route::get('/mobile/myaccount', 'Mobile\MyAccountController@showMyAccount')->name('mobile.myaccount');
 
-    // product area start
-
-    Route::get('/product/details/{id}', 'Mobile\ProductController@productDetails')->name('product.details');
+   
 
     // product add to cart
     

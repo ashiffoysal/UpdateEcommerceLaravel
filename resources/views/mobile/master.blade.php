@@ -40,6 +40,11 @@
 
 	<link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
     <link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @stack('css')
+
+
 </head>
 
 <body class="mobile-home ltr mobilelayout-1">
@@ -54,7 +59,7 @@
 				<div class="row">
 					<div id="content">
 
-						@include('mobile.include.menu')
+                        @include('mobile.include.menu')
 
 						@yield('main_content')
 
@@ -66,6 +71,7 @@
 
 			<div class="col-xs-12" style="position: fixed; bottom:5%;left:0;right:0; background:white;padding:5px 0px;">
 				<div class="block-mobile clearfix">
+
 					<div class="info info1">
 						<div class="inner">
 							<i class="fa fa-truck"></i>
@@ -74,7 +80,8 @@
 								<p>From 275 AED</p>
 							</div>
 						</div>
-					</div>
+                    </div>
+
 					<div class="info info2">
 						<div class="inner">
 							<i class="fa fa-money"></i>
@@ -83,7 +90,8 @@
 								<p>From 275 AED</p>
 							</div>
 						</div>
-					</div>
+                    </div>
+
 					<div class="info info3">
 						<div class="inner">
 							<i class="fa fa-gift"></i>
@@ -96,15 +104,14 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<div id="panel-menu" class="side-menu panel panel-left">
 		<div class="content">
 			@include('mobile.include.sidemenu')
 		</div>
-	</div>
-
+    </div>
+    
 	<!-- Include Libs & Plugins
 ============================================ -->
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -112,14 +119,85 @@
 	<script type="text/javascript" src="{{asset('public/mobile/js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('public/mobile/js/owl-carousel/owl.carousel.js')}}"></script>
 	<script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-	<!-- Theme files
-============================================ -->
-	<script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
-	@if(session('alertmessege'))
-		
-	@endif
-	
-</body>
 
+	<script type="text/javascript" src="{{asset('public/mobile/js/count_down/jquery.countdown.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('public/mobile/js/slick/slick.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
+	<script type="text/javascript" src="{{asset('public/mobile/js/themejs/libs.js')}}"></script>
+	<script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
+	<script type="text/javascript" src="{{asset('public/mobile/js/themejs/addtocart.js')}}"></script>
+
+
+	<script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
+
+	<script type="text/javascript" src="{{asset('public/mobile/js/themejs/addtocart.js')}}"></script>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('.product-options li.radio').click(function(){
+			$(this).addClass(function() {
+				if($(this).hasClass("active")) return "";
+				return "active";
+			});
+			$(this).siblings("li").removeClass("active");
+			$(this).parent().find('.selected-option').html('<span class="label label-success">'+ $(this).find('img').data('original-title') +'</span>');
+		})
+
+		if(!$('.slider').hasClass('slick-initialized')) {
+			$('.slider-for').slick({
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				fade: true,
+				slideMargin: 10,
+				arrows: false,
+				infinite: true,
+				asNavFor: '.slider-nav'
+			});
+			$('.slider-nav').slick({
+			  slidesToShow: 4,
+			  slidesToScroll: 1,
+			  asNavFor: '.slider-for',
+			  slideMargin: 10,
+			  dots: false,
+			  arrows: false,
+			  centerMode: false,
+			  focusOnSelect: true,
+			});
+		}
+	});
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.search_content_section').hide();
+        $('#product_name').on('keyup', function(){
+            var product_name = $(this).val();
+            if (product_name === "") {
+                $('.search_content_section').hide();
+                $('.main_content').show();
+            }else{
+                $('.search_content_section').show();
+                $('.main_content').hide();
+            }
+
+            $.ajax({
+                url:"{{ url('mobile/search/product/by/product_name') }}"+"/"+product_name,
+                type:'get',
+                success:function(data){
+                   // console.log(data);
+                    if (!$.isEmptyObject(data)) {
+                        $('#search_result_product').empty();
+                        $('#search_result_product').append(data);
+                    }else{
+                        $('#search_result_product').empty();
+                        $('#search_result_product').append('<h4 style="margin-left:10px;">No Data Found</h4>');
+                    }
+                }
+            });
+        });
+    });
+</script>
+@stack('js')
+
+</body>
 </html>

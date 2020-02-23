@@ -4,14 +4,14 @@
 *******************************************/
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] Minxin Link
     [2] Minxin Button
     [3] Minxin Triangle
     [4] Minxin LABEL PRODUCT
     [5] Minxin Scrollbars
-    [6] Minxin Dev Custom 
-  
+    [6] Minxin Dev Custom
+
 ==============================================*/
 .no-margin {
   margin: 0 !important; }
@@ -613,11 +613,11 @@ ul, ol {
 		    &.owl2-prev{ background: url("../../images/icon/icon_general.png") no-repeat -20px -1111px;
 		    	&:hover{background: url("../../images/icon/icon_general.png") no-repeat -20px -1063px transparent;}
 			}
-		    &.owl2-next{ background: url("../../images/icon/icon_general.png") no-repeat  -20px -1015px; 
+		    &.owl2-next{ background: url("../../images/icon/icon_general.png") no-repeat  -20px -1015px;
 		    	&:hover{ background: url("../../images/icon/icon_general.png") -20px -967px transparent; }
 			}
 		}
-		
+
 	}
 	.h3-nav .owl2-nav{
 		div{
@@ -629,11 +629,11 @@ ul, ol {
 		    &.owl2-prev{ background: url("../../images/icon/icon_general.png") no-repeat -20px -647px;
 		    	&:hover{background: url("../../images/icon/icon_general.png") no-repeat -20px -586px transparent;}
 			}
-		    &.owl2-next{ background: url("../../images/icon/icon_general.png") no-repeat  -20px -403px; 
+		    &.owl2-next{ background: url("../../images/icon/icon_general.png") no-repeat  -20px -403px;
 		    	&:hover{ background: url("../../images/icon/icon_general.png") -20px -342px transparent; }
 			}
 		}
-		
+
 	}
 	.owl2-nav{
 		div{
@@ -644,10 +644,10 @@ ul, ol {
 		    margin-top: -20px;
 		    cursor: pointer;
 		    transition: inherit;
-		    &.owl2-prev{ background: url("../../images/icon/icon_general.png") no-repeat -20px -525px; 
+		    &.owl2-prev{ background: url("../../images/icon/icon_general.png") no-repeat -20px -525px;
 		    	&:hover{ background: url("../../images/icon/icon_general.png") no-repeat -20px -464px;}
 			}
-		    &.owl2-next{ background: url("../../images/icon/icon_general.png") no-repeat -20px -281px; 
+		    &.owl2-next{ background: url("../../images/icon/icon_general.png") no-repeat -20px -281px;
 		    	&:hover{ background: url("../../images/icon/icon_general.png") no-repeat -20px -220px; }
 			}
 		    &:before{ display: none; }
@@ -656,11 +656,11 @@ ul, ol {
 }*/
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
    [1] PAGE ACCOUNT
    [2] PAGE INFORMATION
    [3] PAGE CHECKOUT
-   [4] LANGUAGE CURENTY 
+   [4] LANGUAGE CURENTY
 	[5] CSS FEAFURE MENU DEMO
 ==============================================*/
 #content > h1 {
@@ -1019,11 +1019,11 @@ ul, ol {
 
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] MODULE DEFAULT
     [2] BLOCK SEARCH
     [3] SOCIAL FOOTER
-	
+
 ==============================================*/
 /*============MODULE DEFAULT ==================*/
 .module {
@@ -1356,30 +1356,30 @@ ul, ol {
                     .item-title{padding: 0 0 5px 0;
                         a{text-transform: capitalize; font-size: 14px; font-weight: normal;
                             &:hover{color: $linkColor;}
-                        }  
-                    } 
+                        }
+                    }
                     .rating{ display: none; }
                     .item-content{margin-left: 0;
                         .content_price span{color: #ff5e00;font-size: 16px;font-weight: bold;
-                            &.price-old{font-size: 13px; color: #999; font-weight: 600;} 
+                            &.price-old{font-size: 13px; color: #999; font-weight: 600;}
                         }
                     }
                     .rating{padding: 0;}
                 }
             }
-            
+
         }
     }
     .so-extraslider .extraslider-inner .item-wrap .item-info .item-content .content_price{ margin-bottom: 0; }
-    
+
 }*/
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] SO LATSET BLOG
     [2] SIMPLE BLOG
     [3] ARTICLE INFO
-	
+
 ==============================================*/
 /*============SO LATSET BLOG ==================*/
 /*============SIMPLE BLOG ==================*/
@@ -1615,12 +1615,12 @@ div.article-info .itemFullText {
 
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] HEADING
     [2] LINK & COLUMN
     [3] BLOCK FORM
     [4] BLOCK TABLE
-  
+
 ==============================================*/
 /*================ HEADING ===================*/
 html {
@@ -1889,11 +1889,11 @@ table.table-bordered thead > * {
 
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] CONTACT PAGE
     [2] PAEG ABOUT US
     [3] PAGE BLOG
-    [4] PAGE 404 
+    [4] PAGE 404
 ==============================================*/
 /*============ CONTACT PAGE ==============*/
 #map-canvas {
@@ -1944,7 +1944,7 @@ table.table-bordered thead > * {
     margin-bottom: 20px;
     padding-left: 30px; }
     .contact-form .location-address li:before {
-      background: url("../image/theme/icon/sprites.png") no-repeat center;
+      /* background: url("../image/theme/icon/sprites.png") no-repeat center; */
       content: "";
       background-position: -17px -162px;
       width: 15px;
@@ -1959,7 +1959,7 @@ table.table-bordered thead > * {
     font-size: 14px;
     display: block; }
 .contact-form .form-mail:before {
-  background: url("../image/theme/icon/sprites.png") no-repeat center;
+  /* background: url("../image/theme/icon/sprites.png") no-repeat center; */
   content: "";
   background-position: -15px -118px;
   width: 19px;
@@ -1967,8 +1967,20 @@ table.table-bordered thead > * {
   position: absolute;
   left: 0;
   top: 15px; }
+
+.contact-form .form-phone:before {
+
+  /* background: url("../image/theme/icon/sprites.png") no-repeat center!important; */
+  content: ""!important;
+  background-position: -15px -118px!important;
+  width: 19px!important;
+  height: 14px!important;
+  position: absolute!important;
+  left: 0!important;
+  top: 15px!important;
+  }
 .contact-form .form-name:before {
-  background: url("../image/theme/icon/sprites.png") no-repeat center;
+  /* background: url("../image/theme/icon/sprites.png") no-repeat center; */
   content: "";
   background-position: -16px -20px;
   width: 17px;
@@ -2401,10 +2413,10 @@ table.table-bordered thead > * {
 
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] BOX SALE,NEW
     [2] RATE
-    [3] TODAY'S DEALS 
+    [3] TODAY'S DEALS
     [4] PRODUCT CATEGORY
     [5] TOOLBAR
     [6] PRODUCT LIST SIMPLE
@@ -2424,7 +2436,7 @@ table.table-bordered thead > * {
   line-height: 33px;
   position: absolute; }
   .label-product.label-sale {
-    background: #ff5c00;
+    background: #ff5561;
     top: 10px;
     right: 10px; }
   .label-product.label-new {
@@ -2838,12 +2850,12 @@ span.fa-stack {
 
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] CONTENT PRODUCT OTHER
     [2] PRODUCT INFO
-    [3] PRODUCT TABS 
-    [3] RELATED PRODUCT 
-	
+    [3] PRODUCT TABS
+    [3] RELATED PRODUCT
+
 ==============================================*/
 .product-view.product-info .slider-for {
   border: 1px solid #ededed;
@@ -3484,11 +3496,11 @@ span.fa-stack {
 
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] MODULE DEFAULT
     [2] BLOCK SEARCH
     [3] SOCIAL FOOTER
-	
+
 ==============================================*/
 #wrapper {
   width: 100%;
@@ -3513,7 +3525,7 @@ span.fa-stack {
   box-shadow: none; }
 
 /************************************************************************************************
-    MODULE HOME SLIDER  
+    MODULE HOME SLIDER
 *************************************************************************************************/
 .sohomepage-slider {
   margin: 0 0 10px; }
@@ -3668,7 +3680,7 @@ span.fa-stack {
   overflow: hidden;
   margin-bottom: 0;
   padding: 0px 15px;
-  
+
 }
   .block-mobile .info {
     float: left;
@@ -3731,11 +3743,11 @@ span.fa-stack {
 
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] MODULE DEFAULT
     [2] BLOCK SEARCH
     [3] SOCIAL FOOTER
-	
+
 ==============================================*/
 #wrapper {
   width: 100%;
@@ -3866,9 +3878,9 @@ span.fa-stack {
 
 /*===============================================
 	[SASS DIRECTORY ]
-	
+
     [1] MODULE DEFAULT
-	
+
 ==============================================*/
 .mobile-home.mobilelayout-2 .mobile_scroll .wrapper-scroll .item-scroll {
   width: 235px; }
@@ -3877,3 +3889,135 @@ span.fa-stack {
 .mobile-home.mobilelayout-2 .mobile-bn3-h1, .mobile-home.mobilelayout-2 .mobile-bn1-h1 {
   padding: 0;
   margin: 0 -5px; }
+
+  /* hot deal Count-down css */
+.module.home1_deals {
+    margin: 0;
+}
+
+.module.home1_deals .so-deal {
+    margin: 10px 0 0;
+}
+
+.module.home1_deals h2.modtitle {
+    float: left;
+}
+
+.module.home1_deals .product-item-container .left-block {
+    position: relative;
+}
+
+.module.home1_deals .product-item-container .left-block:before {
+    display: inline-block;
+    content: '';
+    background: rgba(34, 34, 34, 0.6);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.module.home1_deals .product-item-container:hover .left-block:before {
+    opacity: 1;
+    visibility: visible;
+}
+
+.module.home1_deals .cs-item-timer .Countdown-1 {
+    float: right;
+    padding: 5px 20px;
+    position: relative;
+}
+
+.module.home1_deals .cs-item-timer .Countdown-1:before {
+    content: "\f0e2";
+    font-family: fontawesome;
+    position: absolute;
+    font-size: 14px;
+    top: 4px;
+    bottom: auto;
+    color: #ff5561;
+    left: 5px;
+    right: auto;
+}
+
+.module.home1_deals .cs-item-timer .Countdown-1 .time-item {
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: capitalize;
+    color: #ff5561;
+    margin-left: 5px;
+}
+
+.module.home1_deals .cs-item-timer .Countdown-1 .time-item .num-time {
+    float: left;
+    margin-right: 2px;
+}
+
+.module.home1_deals .cs-item-timer .Countdown-1 .time-item .name-time {
+    float: left;
+}
+
+.module.home1_deals .item-time .item-timer {
+    border: 1px dashed #df0024;
+    font-weight: 600;
+    height: 100%;
+    line-height: 28px;
+    display: inline-block;
+    width: 100%;
+}
+
+.module.home1_deals .item-time .item-timer .time-item {
+    float: left;
+    font-size: 92.3%;
+    color: #383838;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: relative;
+    width: 25%;
+    line-height: 28px;
+    border: none;
+}
+
+.module.home1_deals .item-time .item-timer .time-item .num-time {
+    display: block;
+}
+
+.module.home1_deals .item-time .item-timer .time-item .name-time {
+    display: block;
+}
+
+
+    .head-title {
+    border-top: 2px solid #ff5561;
+    background: #fff;
+    border-radius: 3px;
+    display: inline-block;
+    width: 100%;
+}
+
+.flash_deal_title {
+    height: 17px;
+    position: absolute;
+    top: 5px;
+    left: 9px;
+    right: auto;
+    bottom: auto;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 3px 7px;
+    background: #ff5561;
+    padding-bottom: 26px;
+    border-radius: 5px;
+    color: white;
+}
+  /* hot deal Count-down css End*/
