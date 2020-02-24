@@ -22,7 +22,7 @@
 
         <div class="right-block">
             <div class="caption">
-                <h4><a href="{{ route('product.details', $product->id) }}">{{ $product->product_name }}</a></h4>
+                <h4><a href="{{ url('product/'.$product->slug.'/'.$product->id) }}">{{ $product->product_name }}</a></h4>
                 <div class="ratings">
                     <div class="rating-box">
                         <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>

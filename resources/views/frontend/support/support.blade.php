@@ -7,6 +7,25 @@
     @php
     $image=App\SiteBanner::where('section',8)->where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->first();
     @endphp
+
+<div class="search-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading_section">
+                    <h4 style="margin-top:20px;border-bottom: 2px solid gray;">Search result has been shown below <i style="color:#ff5e00; font-size:15px;" class="fa fa-long-arrow-down"></i></h4>
+                </div>
+                <div class="search-content">
+                    <div class="row" id="search_result_product">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main_content">
     @if($image)
     <div class="breadcrumbs"
         style="background: url({{asset('public/uploads/sitebanner/'.$image->image)}}) no-repeat center top;">
@@ -33,21 +52,7 @@
         </div>
     </div>
     @endif
-    <div class="search-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="search-content">
-                        <div class="row" id="search_result_product">
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="main_content">
     <div class="container">
         <div class="row">
             <div id="content" class="col-sm-12">

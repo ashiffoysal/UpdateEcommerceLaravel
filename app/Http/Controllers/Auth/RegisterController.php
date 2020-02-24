@@ -122,7 +122,7 @@ class RegisterController extends Controller
 
         $output = curl_exec($ch);
         //return redirect()->route('sms.verification.form', $user->remember_token);
-        // session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
+        session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
         return redirect()->route('user.auth.registration.success', $user->email);
     }
 

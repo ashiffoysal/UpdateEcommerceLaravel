@@ -176,8 +176,6 @@ $seo=DB::table('seo')->first();
                 });
             });
         });
-
-    });
 </script>
 
 <script>
@@ -192,15 +190,9 @@ $seo=DB::table('seo')->first();
                 type: 'GET',
                 url: "{{ url('/show/total/price') }}",
 
-
                 success: function(data) {
-
-
-
-
                     var totalPrice = data.total;
                     var totalPrice = totalPrice.toFixed(2);
-
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
                     document.getElementById('product_price').innerHTML = totalPrice;
 
@@ -220,7 +212,6 @@ $seo=DB::table('seo')->first();
                 success: function(data) {
                     if (data.checkip) {
                         toastr.error("Already This Product Add Compare");
-
                     } else {
                         toastr.success("product add to compare");
 
@@ -254,11 +245,8 @@ $seo=DB::table('seo')->first();
                 alert('danger');
             }
         });
-
     });
 </script>
-
-
 
 </body>
 

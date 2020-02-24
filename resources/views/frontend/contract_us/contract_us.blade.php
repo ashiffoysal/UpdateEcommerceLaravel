@@ -7,6 +7,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="heading_section">
+                    <h4 style="margin-top:20px;border-bottom: 2px solid gray;">Search result has been shown below <i style="color:#ff5e00; font-size:15px;" class="fa fa-long-arrow-down"></i></h4>
+                </div>
                 <div class="search-content">
                     <div class="row" id="search_result_product">
 

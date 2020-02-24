@@ -10,10 +10,10 @@
   </a>
   <h1 class="title">{{$cate->cate_name}}</h1>
 </header>
-<!-- //End Bar Nav -->
+{{-- <!-- //End Bar Nav --> --}}
 
 <div class="content">
-  <!-- //Begin Main Content -->
+  {{-- <!-- //Begin Main Content --> --}}
   <div class="container page-category">
     <div class="row">
       <aside class="col-xs-12 content-aside left_column sidebar-offcanvas">
@@ -24,14 +24,14 @@
 
               <div class="table_layout filter-shopby">
                 <div class="table_row">
-                  <!-- - - - - - - - - - - - - - Category filter - - - - - - - - - - - - - - - - -->
+                  {{-- <!-- - - - - - - - - - - - - - Category filter - - - - - - - - - - - - - - - - --> --}}
                   <div class="table_cell" style="z-index: 103;">
                     <legend>Search</legend>
                     <input class="form-control no-margin" type="text" value="" size="50" autocomplete="off" placeholder="Search" name="search">
                   </div>
-                  <!--/ .table_cell -->
+                  {{-- <!--/ .table_cell -->
                   <!-- - - - - - - - - - - - - - End of category filter - - - - - - - - - - - - - - - - -->
-                  <!-- - - - - - - - - - - - - - SUB CATEGORY - - - - - - - - - - - - - - - - -->
+                  <!-- - - - - - - - - - - - - - SUB CATEGORY - - - - - - - - - - - - - - - - --> --}}
                   <div class="table_cell">
                     <fieldset>
                       <legend>Sub Category</legend>
@@ -58,9 +58,9 @@
                     </fieldset>
 
                   </div>
-                  <!--/ .table_cell -->
+                  {{-- <!--/ .table_cell -->
                   <!-- - - - - - - - - - - - - - End SUB CATEGORY - - - - - - - - - - - - - - - - -->
-                  <!-- - - - - - - - - - - - - - Manufacturer - - - - - - - - - - - - - - - - -->
+                  <!-- - - - - - - - - - - - - - Manufacturer - - - - - - - - - - - - - - - - --> --}}
                   <div class="table_cell">
                     <fieldset>
                       <legend>Manufacturer</legend>
@@ -83,10 +83,10 @@
                     </fieldset>
 
                   </div>
-                  <!--/ .table_cell -->
+                  {{-- <!--/ .table_cell -->
                   <!-- - - - - - - - - - - - - - End manufacturer - - - - - - - - - - - - - - - - -->
 
-                  <!-- - - - - - - - - - - - - - Price - - - - - - - - - - - - - - - - -->
+                  <!-- - - - - - - - - - - - - - Price - - - - - - - - - - - - - - - - --> --}}
                   <div class="table_cell">
                     <fieldset>
                       <legend>Price</legend>

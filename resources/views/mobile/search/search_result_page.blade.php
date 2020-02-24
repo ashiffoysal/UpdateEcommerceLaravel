@@ -184,7 +184,7 @@
 
                     <!-- Filters -->
                     <div class="product-filter filters-panel clearfix">
-                        <div class="col-xs-4 view-mode ">
+                        <div class="col-xs-4 no-gutters view-mode ">
                             <div class="list-view">
                                 <button class="btn btn-default grid active" data-view="grid" data-toggle="tooltip"
                                     data-original-title="Grid"><i class="fa fa-th"></i></button>
@@ -193,12 +193,13 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-4 ">
-                            <a class="btn btn-primary open-sidebar" href="javascript:void(0)"><i
-                                    class="fa fa-filter"></i> Refine </a>
+                        <div class="col-xs-8 no-gutters">
+                            <div style="margin-top:7px;">
+                                <i class="fa fa-search"></i><span>Search result has been shown below</span>
+                            </div>
                         </div>
 
-                        <div class="short-by-show col-xs-4">
+                        {{-- <div class="short-by-show col-xs-4">
                             <div class="form-group short-by">
                                 <i class="fa fa-sort-amount-asc"></i>
                                 <select id="input-sort" class="form-control" onchange="location = this.value;">
@@ -231,13 +232,13 @@
                                         Model (Z - A)</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <!-- //end Filters -->
-
+                    @if ($products)
                     <!--Changed Listings-->
                     <div class="products-list row nopadding-xs grid so-filter-gird">
-                        @if ($products)
+
                             @foreach ($products as $product)
                             @php
                             $productInFlashDeal = App\FlashDealDetail::where('product_id', $product->id)
@@ -266,7 +267,7 @@
                                     <div class="right-block">
                                         <div class="caption">
                                             <h4><a
-                                                    href="{{ route('product.details', $product->id) }}">{{ $product->product_name }}</a>
+                                                    href="{{ url('product/details/'.$product->slug.'/'.$product->id) }}">{{ $product->product_name }}</a>
                                             </h4>
                                             <div class="ratings">
                                                 <div class="rating-box">
@@ -327,12 +328,15 @@
                                 </div>
                             </div>
                             @endforeach
-                        @else
-                        <div class="product-layout col-xs-12 text-center">
-                            <h5>No result found.</h5>
-                        </div>
-                        @endif
                     </div>
+
+                    @endif
+                    @if ($products->count() == 0)
+                    <div class="col-xs-12 text-center">
+                        <h4>No result found.</h4>
+                    </div>
+                    @endif
+
                     <!--// End Changed listings-->
                     <!--End content-->
                 </div>
