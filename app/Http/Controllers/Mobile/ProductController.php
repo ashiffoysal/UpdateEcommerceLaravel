@@ -15,4 +15,11 @@ class ProductController extends Controller
 
         return view('mobile.products.product_details',compact('productdetails'));
     }
+
+    public function productCheckoutDetails($id)
+    {
+        $productdetails = Product::where('id',$id)->first();
+
+        return view('mobile.products.product_details',compact('productdetails'));
+    }
 }

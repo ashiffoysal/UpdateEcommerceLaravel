@@ -210,6 +210,8 @@ class CheckoutController extends Controller
     public function orderSubmit(Request $request)
     {
 
+        
+
         $validatedData = $request->validate([
             'user_id' => 'required',
             'user_address' => 'required',

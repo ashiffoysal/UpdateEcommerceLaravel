@@ -81,13 +81,17 @@
 				<div class="col-xs-6">
 					<i class="fa fa-check-square-o" aria-hidden="true"></i>
 					<div class="bot-inner">
-						<a href="compare.html">Compare</a>
+						<a href="{{url('mobile/comparelist')}}">Compare</a>
 					</div>
 				</div>
 				<div class="col-xs-6">
 					<i class="fa fa-heart" aria-hidden="true"></i>
 					<div class="bot-inner">
-						<a href="wishlist.html">Wish List</a>
+						@if(Auth::guard('web')->check())
+						<a href="{{url('mobile/allwishlist')}}">Wish List</a>
+						@else
+						<a href="{{url('/mobile/login')}}">Wish List</a>
+						@endif
 					</div>
 				</div>
 

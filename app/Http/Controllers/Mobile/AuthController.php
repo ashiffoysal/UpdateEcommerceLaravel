@@ -78,7 +78,8 @@ class AuthController extends Controller
 
             $output = curl_exec($ch);
 
-            return redirect()->route('sms.verification.form', $user->remember_token);
+            // return redirect()->route('sms.verification.form', $user->remember_token);
+            return redirect('/');
 
         session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
          return redirect()->route('user.auth.registration.success', $user->email);
@@ -125,10 +126,12 @@ class AuthController extends Controller
         }
     }
 
-    // page back button
+    // Logout a user
 
-    public function pageBackRedirect()
+    public function userLogOut()
     {
+        Auth::logout();
         return back();
     }
+    
 }

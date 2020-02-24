@@ -1,4 +1,5 @@
 @extends('mobile.extra_master')
+
 @section('page_content')
 
 	<!-- Begin Bar Nav -->
@@ -21,10 +22,7 @@
 							<h3 class="modtitle"><span>Account</span></h3>
 							<div class="module-content custom-border">
 								<ul class="list-box">
-									<li><a href="#">Login</a> / <a href="#">Register</a>
-									</li>
-									<li><a href="#">Forgotten Password</a>
-									</li>
+									
 									<li><a href="#">My Account</a>
 									</li>
 									<li><a href="#">Address Book</a>
@@ -44,6 +42,8 @@
 									<li><a href="#">Transactions</a>
 									</li>
 									<li><a href="#">Newsletter</a>
+									</li>
+									<li><a href="{{route('mobile.logout')}}">LogOut</a>
 									</li>
 								</ul>
 							</div>

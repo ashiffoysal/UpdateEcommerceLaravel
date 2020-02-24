@@ -9,6 +9,16 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use App\SubCategory;
 use App\ReSubCategory;
+use App\CompareProduct;
+use App\Product;
+use App\wishlist;
+use App\Color;
+use App\ProductReview;
+
+use Carbon\Carbon;
+use Session;
+use Image;
+use Auth;
 
 class FrontendController extends Controller
 {
@@ -42,6 +52,141 @@ class FrontendController extends Controller
       $resubcate=ReSubCategory::where('id',$id)->first();
       return view('mobile.resubcategory.resubcate',compact('resubcate'));
     }
+    // product varient
+    public function varient(Request $request){
+      //echo "ok";
+        $product = Product::find($request->id);
+        $str = '';
+        $quantity = 0;
 
+        if ($request->has('color')) {
+            $data['color'] = $request['color'];
+            $str = Color::where('color_code', $request['color'])->first()->color_name;
+        }
 
+        foreach (json_decode(Product::find($request->id)->choice_options) as $key => $choice) {
+            if ($str != null) {
+                $str .= '-' . str_replace(' ', '', $request[$choice->name]);
+            } else {
+                $str .= str_replace(' ', '', $request[$choice->name]);
+            }
+        }
+
+        if ($str != null) {
+            $price = json_decode($product->variations)->$str->price;
+            $sku = json_decode($product->variations)->$str->sku;
+        } else {
+            $price = $product->product_price;
+            $sku = $product->product_sku;
+        }
+        return array('price' => $price, 'sku' => $sku);
+    }
+// product compareproduct
+    public function product_compare(Request $request,$id){
+      //return $userid;
+        $userid = $request->ip();
+        //return $userid;
+        $checkproduct=CompareProduct::where('product_id',$id)->first();
+        $checkip=CompareProduct::where('ip_address',$userid)->first();
+        if($checkproduct && $checkip){
+            return response()->json(['checkip'=>$checkip]);
+        }
+        else{
+            $compare=CompareProduct::insertGetId([
+                'ip_address'=>$userid,
+                'product_id'=>$id,
+            ]);
+            if($compare){
+                return response()->json(['compare'=>$compare]);
+            }
+        }
+    }
+    // product wishlist
+    public function product_wishlist(Request $request,$id){
+          if(Auth::check()){
+              $user_id = Auth::id();
+              $check=wishlist::where('product_id',$id)->first();
+              if($check){
+                return response()->json(['check'=>$check]);
+              }else{
+                $insert=wishlist::insert([
+                'product_id'=>$id,
+                'user_id'=>$user_id,
+                'created_at'=>Carbon::now()->toDateTime(),
+                ]);
+                if($insert){
+                  return response()->json($insert);
+                }
+            }
+          }else{
+            return redirect()->back();
+          }
+    }
+    // allwishlist
+    public function allwishlist(){
+      $user_id = Auth::id();
+  		$allwishlist=wishlist::where('user_id',$user_id)->get();
+      return view('mobile.shopping.wishlist',compact('allwishlist'));
+    }
+    public function deletewishlist($id){
+      $delete=wishlist::where('id',$id)->delete();
+      if($delete){
+            $notification=array(
+           'messege'=>'Wish List Product Delete',
+           'alert-type'=>'success'
+            );
+        return redirect()->back()->with($notification);
+      }else{
+          $notification=array(
+         'messege'=>'Wish List Product Delete Faild',
+         'alert-type'=>'success'
+          );
+          return redirect()->back()->with($notification);
+      }
+    }
+
+    // compare
+    public function compare(){
+      return view('mobile.shopping.compare');
+    }
+    // compare detele
+    public function comparedelete($id){
+      // return $id;
+      $delete=CompareProduct::where('id',$id)->delete();
+      if($delete){
+        $notification=array(
+            'messege'=>'Delete Success',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }else{
+        $notification=array(
+            'messege'=>'Delete Faild',
+            'alert-type'=>'success'
+             );
+           return Redirect()->back()->with($notification);
+      }
+    }
+    // review
+    public function review(Request $request){
+      $insert = ProductReview::insertGetId([
+          'name' => $request['name'],
+          'description' => $request['description'],
+          'review' => $request['review'],
+          'product_id' => $request['id'],
+      ]);
+      if ($insert) {
+          $notification = array(
+              'messege' => 'Your Review Has been Success',
+              'alert-type' => 'success'
+          );
+          return Redirect()->back()->with($notification);
+      } else {
+          $notification = array(
+              'messege' => 'Your Review Has been Faild,Please try Again!!',
+              'alert-type' => 'error'
+          );
+          return Redirect()->back()->with($notification);
+      }
+    }
 }
