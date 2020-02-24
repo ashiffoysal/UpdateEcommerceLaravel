@@ -6,6 +6,7 @@
 		border: 1px solid red;
 	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 			<!-- Begin Bar Nav -->
 			<header class="bar bar-nav ">
 	<a class="btn btn-link btn-nav pull-left" href="{{ URL::previous() }}">
@@ -25,17 +26,7 @@
 			<div id="content" class="col-xs-12">
 				<div class="product-view product-info">
 					<div class="content-product-left ">
-
-
-
-
-
-
-
-
-
 						<div class="slider-for">
-
 							@foreach (json_decode($productdetails->photos) as $key => $photo)
 							<div class="contentslider--item ">
 								<a class="thumbnail" title="{{$productdetails->product_name}}" tabindex="-1">
@@ -43,10 +34,8 @@
 								</a>
 							</div>
 							@endforeach
-
 						</div>
 						<div class="slider-nav ">
-
 							@foreach (json_decode($productdetails->photos) as $key => $photo)
 							<div class="contentslider--item ">
 								<a class="thumbnail" title="{{$productdetails->product_name}}" tabindex="-1">
@@ -54,24 +43,7 @@
 								</a>
 							</div>
 							@endforeach
-
-
 						</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 						<div class="box-label">
 							<!--Sale Label-->
 							<span class="label-product label-sale font-ct"> -28% </span>
@@ -80,108 +52,84 @@
 							</div>
 						</div>
 					</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					<form id="option-choice-form">
 						<div class="content-product-right">
 							<div class="content-info">
 								<div class="title-product hidden">
 									<h1>{{$productdetails->product_name}}</h1>
 								</div>
-
-
 								<div class="model font-ct"><span>Product Code:</span> <span class="font-ct">{{$productdetails->product_sku}}</span>
 								</div>
 								<hr>
-
 								<h5 style="line-height: 150%;">{{$productdetails->product_name}}</h5>
-
-
-
-
 								<!-- Review ---->
 								@php
-									$rcount=App\ProductReview::where('product_id',$productdetails->id)->count();
+									$rount=App\ProductReview::where('product_id',$productdetails->id)->count();
 								@endphp
-								@if($rcount)
-									@php
-										$sumofreview =App\ProductReview::where('product_id',$productdetails->id)->sum('review');
-									$rating=$sumofreview/$rcount;
-									@endphp
-								<div class="box-review">
+									<a class="reviews_button " href="#" onclick="">{{$rount}} reviews</a>
+									<div class="rating">
+											<div class="rating-box">
+											@if($rount)
+												@php
+												$sumofreview =App\ProductReview::where('product_id',$productdetails->id)->sum('review');
+												$rating=$sumofreview/$rount;
+												@endphp
 
+												@if($rating == 1)
+													<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+													<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+													<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+													<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+													<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												@elseif($rating < 2)
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												@elseif($rating < 3)
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												@elseif($rating < 4)
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												@elseif($rating < 5)
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												@elseif($rating == 5)
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+												@elseif($rating == 0)
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+												@endif
 
-									<div class="ratings">
-										<div class="rating-box">
-										@if($rating == 1)
-											<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										@elseif($rating < 2)
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										@elseif($rating < 3)
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										@elseif($rating < 4)
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										@elseif($rating < 5)
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										@elseif($rating == 5)
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-										@elseif($rating == 0)
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
 										@endif
-										</div>
+
+
+											</div>
 									</div>
 
-									@endif
-
-
-									<a class="reviews_button hidden" href="#" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">0 reviews</a>
+<!-- review end -->
 								</div>
-
-
 								<div class="product-label">
 								@php
-                                    $flashdealdetail = App\FlashDealDetail::where('product_id',$productdetails->id)->where('status',1)->get();
+                  $flashdealdetail = App\FlashDealDetail::where('product_id',$productdetails->id)->where('status',1)->get();
 								@endphp
 								@if(count($flashdealdetail) > 0)
 								@foreach($flashdealdetail as $row)
@@ -192,44 +140,37 @@
 								@endforeach
 								@else
 								<div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
-
-										<span class="price-new"><span itemprop="price" id="price-special">৳ {{$productdetails->product_price}}</span></span> 
-									</div>
-								@endif
-
+										<span class="price-new"><span itemprop="price" id="chosen_price">৳ {{$productdetails->product_price}}</span></span>
 								</div>
+								@endif
+								</div>
+
 								<div class="box-link">
 									<div class="add-to-links wish_comp">
 										<ul class="blank">
-											<li class="wishlist">
-												<a class="icon" title="Add to Wish List" onclick="wishlist.add('36');"><i class="fa fa-heart-o"></i></a>
-											</li>
-											<li class="compare">
-												<a class="icon" title="Compare this Product" onclick="compare.add('36');"><i class="fa fa-retweet"></i></a>
-											</li>
+											@if(Auth::guard('web')->check())
+											<li class="wishlist"><a class="icon mywishlist" id="mywishlist" title="Add to Wish List" data-id="{{$productdetails->id}}"><i class="fa fa-heart-o"></i></a></li>
+											@else
+											<li class="wishlist"><a href="{{url('/mobile/login')}}" class="icon" title="Add to Wish List"><i class="fa fa-heart-o"></i></a></li>
+											@endif
+											<li class="compare"><a  class="icon compareproduct" title="Compare this Product" id="compareproduct" data-id="{{$productdetails->id}}"><i class="fa fa-retweet"></i></a></li>
 										</ul>
 									</div>
 								</div>
-							</div>
 
+							</div>
 							<div class="product-box-desc hidden">
 								<div class="inner-box-desc">
-
-									<div class="model"><span>Product Code:</span> SKU-17894-S3825</div>
-									<div class="stock"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
-
-								</div>
-							</div>
-
-							<div class="product-box-desc hidden">
-								<div class="inner-box-desc">
-
-
 									<div class="model"><span>Product Code:</span> SKU-17894-S3825</div>
 									<div class="stock"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
 								</div>
 							</div>
-
+							<div class="product-box-desc hidden">
+								<div class="inner-box-desc">
+									<div class="model"><span>Product Code:</span> SKU-17894-S3825</div>
+									<div class="stock"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
+								</div>
+							</div>
 							<div id="product">
 								<div class="options options-mobi clearfix">
 									<h3 class="hidden">Available Options</h3>
@@ -245,34 +186,16 @@
 												<li>
 													<input type="radio" id="{{ $productdetails->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key==0) checked @endif>
 													<label style="background: {{ $color }};" for="{{ $productdetails->id }}-color-{{ $key }}" data-toggle="tooltip" data-original-title="{{$color}}"></label>
-
 												</li>
 												@endforeach
 											</ul>
-
-
-
-
-
-
 											@endif
 										</div>
-
 										@foreach (json_decode($productdetails->choice_options) as $key => $choice)
-
-
 										<div class="col-md-12">
 											<div id="product">
-
-
-
-
-
 												<div class="form-group required " style="display: block;">
 													<div id="input-option224">
-
-
-
 														<ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
 															<li>{{ $choice->title }}:</li>
 															@foreach ($choice->options as $key => $option)
@@ -282,41 +205,24 @@
 															</li>
 															@endforeach
 														</ul>
-
-
-
-
-
 													</div>
 												</div>
-
 											</div>
-
-
-
-
-
 										</div>
 										@endforeach
 										<!-- color area end -->
 									</div>
 									@else
-
-
 									@endif
-
-
 								</div>
-
 								<div class="box-cart cart clearfix">
-
 									<!-- QUALYTY -->
 									<div class="form-group box-info-product">
 										<div class="option quantity">
 											<div class="input-group quantity-control" unselectable="on" style="user-select: none;">
 												<label class="hidden">Qty</label>
 												<span class="input-group-addon product_quantity_down fa fa-minus"></span>
-												<input class="form-control font-ct" type="text" name="quantity" value="1">
+												<input class="form-control font-ct" type="text" name="quantity" id="quantity" value="1">
 												<input type="hidden" name="product_id" value="{{$productdetails->id}}">
 												<input type="hidden" name="product_sku" value="{{$productdetails->product_sku}}">
 												<input type="hidden" name="product_price" value="{{$productdetails->product_price}}">
@@ -328,36 +234,12 @@
 										<div class="cart">
 											<input type="button" data-toggle="tooltip" title="Add to Cart" value="Add to Cart" data-loading-text="Loading..." id="button-cart" onclick="cart.add('36');productaddtocart();" class="btn btn-mega btn-md">
 										</div>
-
-
 									</div>
-
-
 								</div>
-
 							</div>
 							<!-- end box info product -->
-
 						</div>
 					</form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				</div>
 				<div class="product-bottom">
 					<div id="collapseTab" class="producttab ">
@@ -365,7 +247,10 @@
 							<ul class="nav nav-tabs col-xs-12">
 								<li class="active"><a data-toggle="tab" href="#tab-1">Description</a></li>
 								<li class=""><a data-toggle="tab" href="#tab-2">Specification</a></li>
-								<li class=""><a data-toggle="tab" href="#tab-review">Reviews (0)</a></li>
+								@php
+									$rcount=App\ProductReview::where('product_id',$productdetails->id)->count();
+								@endphp
+								<li class=""><a data-toggle="tab" href="#tab-review">Reviews ({{$rcount}})</a></li>
 								<li class=""><a data-toggle="tab" href="#tab-4">TAGS</a></li>
 							</ul>
 
@@ -411,16 +296,40 @@
 
 								</div>
 
-								<div id="tab-review" class="tab-pane fade">
-									<form>
-										<div id="review">
-											<p>There are no reviews for this product.</p>
-										</div>
-										<h2 id="review-title">Write a review</h2> Please <a href="#">login</a> or <a href="register.html">register</a> to review
+								<div id="tab-review" class="tab-pane fade container">
+									<form action="{{url('mobile/review/submit')}}" method="post">
+										@csrf
+									  	<div class="form-group row">
+												 <label for="staticEmail" class="col-sm-2 col-form-label text-right">Name:</label>
+												 <div class="col-sm-4">
+													 <input type="text" name="name" class="form-control-plaintext" id="staticEmail" placeholder="Your Name" required>
+													 <input type="hidden" name="id" value="{{$productdetails->id}}">
+												 </div>
+											 </div>
+												<div class="form-group row">
+												 <label for="staticEmail" class="col-sm-2 col-form-label text-right">Your Comment</label>
+												 <div class="col-sm-4">
+													 <textarea type="text" class="form-control-plaintext" name="description"></textarea>
+												 </div>
+											 </div>
+											 <div class="form-group row">
+												<label for="staticEmail" class="col-sm-2 col-form-label text-right">Review</label>
+												<div class="col-sm-4">
+													<input type="radio" name="review" value="1">
+													<input type="radio" name="review" value="2">
+													<input type="radio" name="review" value="3">
+													<input type="radio" name="review" value="4">
+													<input type="radio" name="review" value="5" checked>
+												</div>
+											</div>
+											<div class="form-group row">
+											 <label for="staticEmail" class="col-sm-2"></label>
+											 <div class="col-sm-4" text-center>
+												 	<button type="submit" class="btn btn-primary">Submit</button>
+											 </div>
+										 </div>
 									</form>
-
 								</div>
-
 								<div id="tab-4" class="tab-pane fade">
 									<a class="btn btn-primary btn-sm" href="#">Eius modi tempor</a>
 								</div>
@@ -431,14 +340,19 @@
 					<div class="module releate-horizontal">
 						<h3 class="modtitle"><span>Related Products</span></h3>
 						<div class="releate-products  contentslider" data-rtl="no" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="10" data-item_xs="2" data-item_sm="2" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
+					@php
+						$cateid=$productdetails->cate_id;
+						$reproduct=App\Product::where('is_deleted',0)->where('status',1)->where('cate_id',$cateid)->OrderBy('id','DESC')->limit(6)->get();
+					@endphp
+					@foreach($reproduct as $product)
 							<div class="item-element clearfix">
 								<div class="image">
-									<a href="#">
-										<img src="../image/demo-mobile/product/E1.jpg" alt="Deserunt mollitia" title="Deserunt mollitia" class="img-responsive">
+									<a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}">
+										<img src="{{asset('public/uploads/products/thumbnail/productdetails/'.$product->thumbnail_img)}}"  class="img-responsive">
 									</a>
 								</div>
 								<div class="caption text-center">
-									<h4><a class="preview-image font-ct" href="#">Deserunt mollitia</a></h4>
+									<h4><a class="preview-image font-ct" href="{{url('product/details/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,10)}}</a></h4>
 									<div class="ratings hidden">
 										<div class="rating-box">
 											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
@@ -449,63 +363,12 @@
 										</div>
 									</div>
 									<div class="price font-ct">
-										<span class="price-new">$70.00</span>
-										<span class="price-old">$100.00</span>
-
+										<span class="price-new">৳ {{$product->product_price}}</span>
 									</div>
 								</div>
 							</div>
-							<div class="item-element clearfix">
-								<div class="image">
-									<a href="#">
-										<img src="../image/demo-mobile/product/E2.jpg" alt="Biltong kielbasa" title="Biltong kielbasa" class="img-responsive">
-									</a>
-								</div>
-								<div class="caption text-center">
-									<h4><a class="preview-image font-ct" href="#">Biltong kielbasa</a></h4>
-									<div class="ratings hidden">
-										<div class="rating-box">
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										</div>
-									</div>
-									<div class="price font-ct">
-										<span class="price-new">$34.00</span>
-										<span class="price-old">$56.00</span>
-
-									</div>
-								</div>
-							</div>
-							<div class="item-element clearfix">
-								<div class="image">
-									<a href="#">
-										<img src="../image/demo-mobile/product/E3.jpg" alt="Landjaeger shankle" title="Landjaeger shankle" class="img-responsive">
-									</a>
-								</div>
-								<div class="caption text-center">
-									<h4><a class="preview-image font-ct" href="#">Landjaeger shankle</a></h4>
-									<div class="ratings hidden">
-										<div class="rating-box">
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										</div>
-									</div>
-									<div class="price font-ct">
-										<span class="price-new">$70.00</span>
-									</div>
-								</div>
-							</div>
-
-
-
+						@endforeach
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -514,25 +377,100 @@
 	</div>
 
 </div>
+
 <script>
+	function productaddtocart(){
 
 
+			$.ajax({
+			type:'GET',
+			url:"{{ route('product.add.cart') }}",
+			data: $('#option-choice-form').serializeArray(),
+			success: function (data) {
+				console.log(data);
+			    document.getElementById('totalquentity').innerHTML =data.quantity;
 
-function productaddtocart(){
+			}
+				});
 
+		}
+	</script>
 
-$.ajax({
-type:'GET',
-url:"{{ route('product.add.cart') }}",
-data: $('#option-choice-form').serializeArray(),
-success: function (data) {
-	console.log(data);
-    document.getElementById('totalquentity').innerHTML =data.quantity;
+	<script>
+	    $(document).ready(function () {
+	        $('#option-choice-form input').on('change', function () {
+	            getVariantPrice();
+	        });
+	    });
 
-}
-});
+	    function getVariantPrice() {
+	        //alert("success");
+	        if ($('#option-choice-form input[id=quantity]').val() > 0) {
+	            $.ajax({
+	                type: "GET",
+	                url: '{{ route('products.mobilevariant')}}',
+	                data: $('#option-choice-form').serializeArray(),
+	                success: function (data) {
+	                    //console.log(data);
+	                    $('#chosen_price').html('৳ ' + data.price);
+	                    $('#product_chosen_sku').val(data.sku);
+	                    $('#product_chosen_price').val(data.price);
 
-}
+	                }
+	            });
+	        }
+	    }
+	</script>
+<!-- wishlist product -->
+<script type="text/javascript">
+		$(document).ready(function() {
+				$('.mywishlist').on('click', function() {
+						var id = $(this).data('id');
+						//alert(id);
+						if (id) {
+								$.ajax({
+										url: "{{ url('/product/mobile/add/wishlist/') }}/" + id,
+										type: "GET",
+										dataType: "json",
+										processData: false,
+										success: function(data) {
+												console.log(data);
+												if (data.check) {
+														toastr.error("Already This Product Add wishlist");
+												} else {
+														toastr.success("Product Add To wishlist");
+												}
+										}
+								});
+						} else {
+								alert('danger');
+						}
+				});
 
+		});
 </script>
+
+<!-- compare -->
+	<script>
+			$(document).ready(function() {
+					$('.compareproduct').on('click', function() {
+							var id = $(this).data('id');
+							//alert(id);
+							$.ajax({
+									type: 'GET',
+									url: "{{ url('/product/mobile/compare') }}/" + id,
+									processData: false,
+									success: function(data) {
+											if (data.checkip) {
+													toastr.error("Already This Product Add Compare");
+
+											} else {
+													toastr.success("product add to compare");
+
+											}
+									}
+							});
+					});
+			});
+	</script>
 @endsection

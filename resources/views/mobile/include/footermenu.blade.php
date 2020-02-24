@@ -12,7 +12,7 @@
         <span class="icon icon-download"></span>
         <div id="cart" class="btn-shopping-cart">
             <span class="total-shopping-cart cart-total-full">
-                
+
                 @php
 					$userid =  \Request::getClientIp(true);
 				@endphp
@@ -26,7 +26,7 @@
         @if(Auth::check())
             <span class="tab-label">My Account</span>
         @else
-        <span class="tab-label">Login/Register</span>
+        <span class="tab-label">Login</span>
         @endif
     </a>
     <a class="tab-item tab-item--more tooltip-popovers" href="#popover">
@@ -40,7 +40,7 @@
       $category=App\Category::where('is_deleted',0)->where('cate_status',1)->OrderBy('id','DESC')->get();
       @endphp
       @foreach($category as $cate)
-        <li class="table-view-cell"><a class="tab-item" href=""> {{$cate->cate_name}} </a></li>
+        <li class="table-view-cell"><a class="tab-item" href="{{url('category/'.$cate->cate_slug.'/'.$cate->id)}}"> {{$cate->cate_name}} </a></li>
       @endforeach
     </ul>
 </div>

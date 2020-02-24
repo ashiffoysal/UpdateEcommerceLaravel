@@ -29,11 +29,11 @@
     <link rel="shortcut icon" type="image/png" href="ico/favicon-16x16.png"/>
 
 
-	
+
 	<!-- Google web fonts
 	============================================ -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-	
+
 
     <!-- Libs CSS
 	============================================ -->
@@ -42,11 +42,9 @@
     <link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{asset('public/mobile/js/ratchet/ratchet.css')}}" rel="stylesheet">
-
-	<link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
-    <link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
-
-
+		<link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
+	  <link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
+	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 	<!-- Theme CSS
 	============================================ -->
 	<link href="{{asset('public/mobile/css/mobile.css')}}" rel="stylesheet">
@@ -88,7 +86,26 @@
 
 <!-- Theme files
 ============================================ -->
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+		@if(Session::has('messege'))
+		var type = "{{Session::get('alert-type','info')}}"
+		switch (type) {
+				case 'info':
+						toastr.info("{{ Session::get('messege') }}");
+						break;
+				case 'success':
+						toastr.success("{{ Session::get('messege') }}");
+						break;
+				case 'warning':
+						toastr.warning("{{ Session::get('messege') }}");
+						break;
+				case 'error':
+						toastr.error("{{ Session::get('messege') }}");
+						break;
+		}
+		@endif
+</script>
 
 <script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/mobile/js/themejs/addtocart.js')}}"></script>
@@ -211,4 +228,3 @@
 
 </body>
 </html>
-
