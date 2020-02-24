@@ -832,10 +832,19 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::get('/', 'Mobile\FrontendController@index');
 
     // checkout route start here
-    Route::get(md5('/checkout'), 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
+    Route::get('/checkout/order/id', 'Mobile\CheckoutController@orderId')->name('checkout.page.show');
+    Route::get('/checkout/{orderid}', 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
     Route::get('/user/division/name/{id}', 'Mobile\CheckoutController@showDivisionName');
     Route::get('/user/district/name/{id}', 'Mobile\CheckoutController@showDistrictName');
     Route::get('/user/upazila/name/{id}', 'Mobile\CheckoutController@showUpazilasName');
+
+    Route::get(md5('/checkout/order/data'), 'Mobile\CheckoutController@cartData')->name('get.cart.data');
+    Route::post(md5('/checkout/cart/update'), 'Mobile\CheckoutController@cartUpdate')->name('product.cart.update');
+    Route::post(md5('/checkout/cart/delete'), 'Mobile\CheckoutController@cartDelete')->name('mobile.product.cart.delete');
+    Route::post(md5('/customer/coupon/apply'), 'Mobile\CheckoutController@cartcupon')->name('mobile.cupon.apply');
+    Route::get('get/cupon/value/{oderid}', 'Mobile\CheckoutController@applyCuponValue');
+    Route::post(md5('/checkout/order/place'), 'Mobile\CheckoutController@orderPlace')->name('order.place');
+    
 
 
     Route::get(md5('/page/redirect'), 'Mobile\AuthController@pageBackRedirect')->name('page.redirect');
@@ -845,10 +854,12 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
     Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
+    Route::get(md5('/mobile/logout'), 'Mobile\AuthController@userLogOut')->name('mobile.logout');
 
 
 
     Route::get('product/details/{slug}/{id}', 'Mobile\ProductController@productDetails');
+    Route::get('product/details/{id}', 'Mobile\ProductController@productCheckoutDetails')->name('product.details');
     Route::get('add/to/cart', 'mobile\addtocartcontroller@addtocart')->name('product.add.cart');
 
     // my account area start

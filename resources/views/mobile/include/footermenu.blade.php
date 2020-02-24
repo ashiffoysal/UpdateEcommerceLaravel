@@ -8,7 +8,7 @@
         <span class="icon icon-search"></span>
         <span class="tab-label">Search</span>
     </a>
-    <a class="tab-item item-cart" href="{{route('checkout.page')}}" data-transition="slide-in">
+    <a class="tab-item item-cart" href="{{route('checkout.page.show')}}" data-transition="slide-in">
         <span class="icon icon-download"></span>
         <div id="cart" class="btn-shopping-cart">
             <span class="total-shopping-cart cart-total-full">
