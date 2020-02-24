@@ -47,11 +47,11 @@
     @endif
 </script>
 
-@if (!Request::is('login'))
+
+
 <script>
     $(document).ready(function(){
         $('.search-section').hide();
-
         $('#product_name').on('keyup', function(){
             var product_name = $(this).val();
             var category_id = $('#category_id').val();
@@ -72,15 +72,15 @@
                         $('#search_result_product').append(data);
                     }else{
                         $('#search_result_product').empty();
-                        $('#search_result_product').append('<h1>No Data Found</h1>');
+                        $('#search_result_product').append('<h4 style="margin-left:18px;">No Result Found</h4>');
                     }
                 }
             });
-
         });
     });
 </script>
-@endif
+
+
 <script>
     $(document).ready(function(){
 

@@ -5,7 +5,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="search-content">
+                <div class="heading_section">
+                    <h4 style="margin-top:20px;border-bottom: 2px solid gray;">Search result has been shown below <i style="color:#ff5e00; font-size:15px;" class="fa fa-long-arrow-down"></i></h4>
+                </div>
+                <div style="margin-top:20px;" class="search-content">
                     <div class="row" id="search_result_product">
 
                     </div>
@@ -19,7 +22,7 @@
     <div class="so-page-builder">
         <div class="container page-builder-ltr">
             <div class="row row_a90w  row-style ">
-                <!-- Include all categores for home page one ============================================ -->
+                {{-- Include all categores for home page one ============================================ --}}
                 @include('frontend.include.sidemenu.home1')
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 col_anla  slider-right">
                     <div class="row row_ci4f  ">
@@ -27,14 +30,21 @@
                             <div class="module sohomepage-slider so-homeslider-ltr  ">
                                 <div class="modcontent">
                                     <div id="sohomepage-slider1">
-                                        <div class="so-homeslider yt-content-slider full_slider owl-drag" data-rtl="yes" data-autoplay="yes" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="10" data-items_column00="1" data-items_column0="1" data-items_column1="1" data-items_column2="1" data-items_column3="1" data-items_column4="1" data-arrows="yes" data-pagination="yes" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+                                        <div class="so-homeslider yt-content-slider full_slider owl-drag" data-rtl="yes"
+                                            data-autoplay="yes" data-autoheight="no" data-delay="4" data-speed="0.6"
+                                            data-margin="10" data-items_column00="1" data-items_column0="1"
+                                            data-items_column1="1" data-items_column2="1" data-items_column3="1"
+                                            data-items_column4="1" data-arrows="yes" data-pagination="yes"
+                                            data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
                                             @php
                                             $ban=App\Banner::where('is_deleted',0)->get();
                                             @endphp
                                             @foreach($ban as $banner)
                                             <div class="item">
                                                 <a href=" #   " title="slide 1 - 1" target="_self">
-                                                    <img class="responsive" src="{{asset('public/uploads/banner/'.$banner->ban_image)}}" alt="slide 1 - 1">
+                                                    <img class="responsive"
+                                                        src="{{asset('public/uploads/banner/'.$banner->ban_image)}}"
+                                                        alt="slide 1 - 1">
                                                 </a>
                                                 <div class="sohomeslider-description">
                                                 </div>
@@ -55,7 +65,9 @@
                                 @foreach($bottomimage as $key => $banbottom)
                                 <div class="item-1 col-lg-6 col-md-6 col-sm-6 banners">
                                     <div>
-                                        <a title="Static Image" href="#"><img src="{{asset('public/uploads/banner/'.$banbottom->bottom_image)}}" alt="Bottom Image"></a>
+                                        <a title="Static Image" href="#"><img
+                                                src="{{asset('public/uploads/banner/'.$banbottom->bottom_image)}}"
+                                                alt="Bottom Image"></a>
                                     </div>
                                 </div>
                                 @endforeach
@@ -80,7 +92,9 @@
                                 @foreach($banimg as $key => $mbanimg)
                                 <div class="item-{{$key}} col-lg-6 col-md-6 col-sm-6 banners">
                                     <div>
-                                        <a title="Static Image" href="#"><img src="{{asset('public/uploads/sitebanner/'.$mbanimg->image)}}" alt="Static Image"></a>
+                                        <a title="Static Image" href="#"><img
+                                                src="{{asset('public/uploads/sitebanner/'.$mbanimg->image)}}"
+                                                alt="Static Image"></a>
                                     </div>
                                 </div>
                                 @endforeach
@@ -106,9 +120,15 @@
                                 </div>
                             </div>
                             <div class="modcontent">
-                                <div class="so-deal modcontent products-list grid clearfix clearfix preset00-3 preset01-3 preset02-2 preset03-2 preset04-1  button-type1  style2">
-                                    <div class="category-slider-inner products-list yt-content-slider" data-rtl="yes" data-autoplay="yes" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="4" data-items_column0="4" data-items_column1="4" data-items_column2="2" data-items_column3="2" data-items_column4="1" data-arrows="no" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
-                                        <!-- product start -->
+                                <div
+                                    class="so-deal modcontent products-list grid clearfix clearfix preset00-3 preset01-3 preset02-2 preset03-2 preset04-1  button-type1  style2">
+                                    <div class="category-slider-inner products-list yt-content-slider" data-rtl="yes"
+                                        data-autoplay="yes" data-autoheight="no" data-delay="4" data-speed="0.6"
+                                        data-margin="30" data-items_column00="4" data-items_column0="4"
+                                        data-items_column1="4" data-items_column2="2" data-items_column3="2"
+                                        data-items_column4="1" data-arrows="no" data-pagination="no" data-lazyload="yes"
+                                        data-loop="yes" data-hoverpause="yes">
+                                        {{-- product start --}}
                                         @php
                                         $flash_id=$hotdeals->id;
                                         $flashdetails=App\FlashDealDetail::where('flash_deal_id',$flash_id)->get();
@@ -121,7 +141,9 @@
                                                     <div class="left-block so-quickview">
                                                         <div class="image">
                                                             <a href="product.html" target="_self">
-                                                                <img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" alt="Bougainvilleas on Lombard Street,  San Francisco, Tokyo" class="img-responsive">
+                                                                <img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}"
+                                                                    alt="Bougainvilleas on Lombard Street,  San Francisco, Tokyo"
+                                                                    class="img-responsive">
                                                             </a>
                                                         </div>
                                                         <div class="box-label">
@@ -129,54 +151,80 @@
                                                         </div>
                                                         <div class="button-group">
                                                             <div class="button-inner so-quickview">
-                                                                <a class="lt-image hidden" data-product="35" href="#" target="_self" title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">
+                                                                <a class="lt-image hidden" data-product="35" href="#"
+                                                                    target="_self"
+                                                                    title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">
                                                                 </a>
-                                                                <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$flasdetail->product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe"> <i class="fa fa-search"></i> </a>
+                                                                <a class="btn-button btn-quickview quickview quickview_handler"
+                                                                    href="{{url('details/'.$flasdetail->product->id)}}"
+                                                                    title="Quick View" data-title="Quick View"
+                                                                    data-fancybox-type="iframe"> <i
+                                                                        class="fa fa-search"></i> </a>
                                                                 @if(Auth::guard('web')->check())
-                                                                <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$flasdetail->product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                <button class="mywishlist btn-button" type="button"
+                                                                    data-toggle="tooltip" title=""
+                                                                    data-original-title="add to Wish List"
+                                                                    data-id="{{$flasdetail->product->id}}"> <i
+                                                                        class="fa fa-heart"></i></button>
                                                                 @else
-                                                                <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                <a href="{{route('login')}}"
+                                                                    class="compare btn-button"><i
+                                                                        class="fa fa-heart"></i></a>
                                                                 @endif
-                                                                <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$flasdetail->product->id }}"><i class="fa fa-exchange"></i></button>
-                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('35');" data-original-title="Add to Cart"> <span class="hidden">Add to Cart</span></button>
+                                                                <button class="compare btn-button compareproduct"
+                                                                    type="button" id="compareproduct"
+                                                                    value="{{$flasdetail->product->id }}"><i
+                                                                        class="fa fa-exchange"></i></button>
+                                                                <button class="addToCart btn-button" type="button"
+                                                                    data-toggle="tooltip" title=""
+                                                                    onclick="cart.add('35');"
+                                                                    data-original-title="Add to Cart"> <span
+                                                                        class="hidden">Add to Cart</span></button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="right-block">
                                                         <div class="caption">
-                                                            <h4><a href="{{url('product/'.$flasdetail->product->slug.'/'.$flasdetail->product->id)}}" target="_self" title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">{{Str::limit($flasdetail->product->product_name,35)}}</a>
+                                                            <h4><a href="{{url('product/'.$flasdetail->product->slug.'/'.$flasdetail->product->id)}}"
+                                                                    target="_self"
+                                                                    title="Bougainvilleas on Lombard Street,  San Francisco, Tokyo">{{Str::limit($flasdetail->product->product_name,35)}}</a>
                                                             </h4>
                                                             <div class="total-price clearfix">
 
-                                                              @if($flasdetail->discount_type==1)
+                                                                @if($flasdetail->discount_type==1)
                                                                 <div class="price price-left">
-                                                                    <span class="price-new">৳ {{$flasdetail->product->product_price - $flasdetail->discount}}</span>
-                                                                    <span class="price-old">৳ {{$flasdetail->product->product_price}}</span>
+                                                                    <span class="price-new">৳
+                                                                        {{$flasdetail->product->product_price - $flasdetail->discount}}</span>
+                                                                    <span class="price-old">৳
+                                                                        {{$flasdetail->product->product_price}}</span>
                                                                 </div>
-                                                              @elseif($flasdetail->discount_type==2)
-                                                              <div class="price price-left">
-                                                                @php
-                                                                  $dis=($flasdetail->discount * $flasdetail->product->product_price)/100;
+                                                                @elseif($flasdetail->discount_type==2)
+                                                                <div class="price price-left">
+                                                                    @php
+                                                                    $dis=($flasdetail->discount *
+                                                                    $flasdetail->product->product_price)/100;
 
-                                                                @endphp
-                                                                  <span class="price-new">৳ {{$flasdetail->product->product_price - $dis}}</span>
-                                                                  <span class="price-old">৳ {{$flasdetail->product->product_price}} </span>
-                                                              </div>
-                                                              @endif
+                                                                    @endphp
+                                                                    <span class="price-new">৳
+                                                                        {{$flasdetail->product->product_price - $dis}}</span>
+                                                                    <span class="price-old">৳
+                                                                        {{$flasdetail->product->product_price}} </span>
+                                                                </div>
+                                                                @endif
 
 
                                                                 <div class="price-sale price-right">
-                                                                  @if($flasdetail->discount_type ==1)
+                                                                    @if($flasdetail->discount_type ==1)
                                                                     <span class="discount">
                                                                         -{{$flasdetail->discount}}৳
                                                                         <strong>OFF</strong>
                                                                     </span>
-                                                                  @else
-                                                                  <span class="discount">
-                                                                      -{{$flasdetail->discount}}%
-                                                                      <strong>OFF</strong>
-                                                                  </span>
-                                                                  @endif
+                                                                    @else
+                                                                    <span class="discount">
+                                                                        -{{$flasdetail->discount}}%
+                                                                        <strong>OFF</strong>
+                                                                    </span>
+                                                                    @endif
 
                                                                 </div>
                                                             </div>
@@ -186,7 +234,7 @@
                                             </div>
                                         </div>
                                         @endforeach
-                                        <!-- end product -->
+                                        {{-- end product --}}
 
                                     </div>
                                 </div>
@@ -202,7 +250,9 @@
                                 @foreach($banimg as $key => $mbanimg)
                                 <div class="item-{{$key}} col-lg-6 col-md-6 col-sm-6 banners">
                                     <div>
-                                        <a title="Static Image" href="#"><img src="{{asset('public/uploads/sitebanner/'.$mbanimg->image)}}" alt="Static Image"></a>
+                                        <a title="Static Image" href="#"><img
+                                                src="{{asset('public/uploads/sitebanner/'.$mbanimg->image)}}"
+                                                alt="Static Image"></a>
                                     </div>
                                 </div>
                                 @endforeach
@@ -214,7 +264,7 @@
         </section>
         @else
         @endif
-        <!-- first category -->
+        {{-- first category --}}
         @php
         $cate=App\Category::where('section_id',1)->where('is_deleted',0)->orderBy('id','DESC')->get();
         @endphp
@@ -231,25 +281,30 @@
                             <div class="modcontent">
                                 <div id="so_listing_tabs_1" class="so-listing-tabs first-load">
                                     <div class="ltabs-wrap">
-                                        <div class="ltabs-tabs-container" data-delay="300" data-duration="600" data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="4" data-md="3" data-sm="3" data-xs="4" data-margin="0">
+                                        <div class="ltabs-tabs-container" data-delay="300" data-duration="600"
+                                            data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="4"
+                                            data-md="3" data-sm="3" data-xs="4" data-margin="0">
                                             <!--Begin Tabs-->
                                             <div class="ltabs-tabs-wrap">
                                                 <span class="ltabs-tab-selected"></span>
                                                 <span class="ltabs-tab-arrow">▼</span>
                                                 <div class="item-sub-cat">
                                                     <ul class="ltabs-tabs cf">
-                                                        <li class="ltabs-tab tab-sel" data-category-id="" data-active-content=".items-category-1"> <span class="ltabs-tab-label">Best Seller</span> </li>
+                                                        <li class="ltabs-tab tab-sel" data-category-id=""
+                                                            data-active-content=".items-category-1"> <span
+                                                                class="ltabs-tab-label">Best Seller</span> </li>
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <!-- End Tabs-->
+                                            {{-- End Tabs --}}
                                         </div>
                                         <div class="wap-listing-tabs ltabs-items-container products-list grid">
                                             <!--Begin Items-->
-                                            <div class="ltabs-items ltabs-items-selected items-category-{{$maincate->id}}" data-total="16">
+                                            <div class="ltabs-items ltabs-items-selected items-category-{{$maincate->id}}"
+                                                data-total="16">
 
                                                 <div class="ltabs-items-inner ltabs-slider">
-                                                    <!-- grid -->
+                                                    {{--  grid  --}}
                                                     @php
                                                     $cate_id=$maincate->id;
                                                     $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->where('status',1)->limit(4)->get();
@@ -261,21 +316,28 @@
                                                             <div class="product-item-container">
                                                                 <div class="left-block">
                                                                     <div class="image product-image-container ">
-                                                                        <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
-                                                                            <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
+                                                                        <a class="lt-image"
+                                                                            href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                            target="_self"
+                                                                            title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
+                                                                            <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
                                                                         </a>
                                                                     </div>
-                                                                    <div class="box-label"><span class="label-product label-sale">Sale</span>
+                                                                    <div class="box-label"><span
+                                                                            class="label-product label-sale">Sale</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="right-block">
                                                                     <div class="caption">
                                                                         <h4>
-                                                                            <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                            <a
+                                                                                href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                                         </h4>
 
                                                                         @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                                        $flashdealdetail =
+                                                                        App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -287,16 +349,26 @@
                                                                             @if($row ->discount_type == 1 )
 
 
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
+                                                                            <div class="price price-left"><span
+                                                                                    class="price-new">৳
+                                                                                    {{$product->product_price - $row->discount}}</span><span
+                                                                                    class="price-old">৳
+                                                                                    {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
 
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
+                                                                            <div class="price price-left"><span
+                                                                                    class="price-new">৳
+                                                                                    {{$product->product_price -$productdiscount}}</span><span
+                                                                                    class="price-old">৳
+                                                                                    {{$product->product_price}}</span>
                                                                             </div>
                                                                             @endif
                                                                             @endforeach
                                                                             @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span>
+                                                                            <div class="price price-left"><span
+                                                                                    class="price-new">৳
+                                                                                    {{$product->product_price}}</span>
                                                                             </div>
                                                                             @endif
 
@@ -310,7 +382,7 @@
                                                                                 </span>
                                                                                 @else
                                                                                 <span class="discount">
-                                                                                -{{$row->discount}}%
+                                                                                    -{{$row->discount}}%
 
                                                                                     <strong>OFF</strong>
                                                                                 </span>
@@ -324,31 +396,63 @@
                                                                     </div>
                                                                     <div class="button-group">
                                                                         <div class="button-inner so-quickview">
-                                                                            <a class="lt-image hidden" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
-                                                                            <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                            <a class="lt-image hidden" href="#"
+                                                                                target="_self"
+                                                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
+                                                                            <a class="btn-button btn-quickview quickview quickview_handler"
+                                                                                href="{{url('details/'.$product->id)}}"
+                                                                                title="Quick View"
+                                                                                data-title="Quick View"
+                                                                                data-fancybox-type="iframe">
                                                                                 <i class="fa fa-search"></i>
                                                                             </a>
                                                                             @if(Auth::guard('web')->check())
-                                                                            <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                            <button class="mywishlist btn-button"
+                                                                                type="button" data-toggle="tooltip"
+                                                                                title=""
+                                                                                data-original-title="add to Wish List"
+                                                                                data-id="{{$product->id}}"> <i
+                                                                                    class="fa fa-heart"></i></button>
                                                                             @else
-                                                                            <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                            <a href="{{route('login')}}"
+                                                                                class="compare btn-button"><i
+                                                                                    class="fa fa-heart"></i></a>
                                                                             @endif
 
-                                                                            <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
+                                                                            <button
+                                                                                class="compare btn-button compareproduct"
+                                                                                type="button" id="compareproduct"
+                                                                                value="{{$product->id }}"><i
+                                                                                    class="fa fa-exchange"></i></button>
 
-                                                                            <form class="option-choice-form" onclick="homeadtocart(this);">
+                                                                            <form class="option-choice-form"
+                                                                                onclick="homeadtocart(this);">
 
-                                                                                <input type="hidden" value="1" name="quantity">
-                                                                                <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
+                                                                                <input type="hidden" value="1"
+                                                                                    name="quantity">
+                                                                                <input type="hidden"
+                                                                                    value="{{$product->id}}"
+                                                                                    name="product_id">
+                                                                                <input type="hidden"
+                                                                                    value="{{$product->product_price}}"
+                                                                                    name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add to Cart" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler"
+                                                                                    href="{{url('details/'.$product->id)}}"
+                                                                                    title="Add to Cart"
+                                                                                    data-title="Quick View"
+                                                                                    data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
-                                                                                    <input type="hidden" name="combination">
+                                                                                    <input type="hidden"
+                                                                                        name="combination">
                                                                                 </a>
                                                                                 @else
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
+                                                                                <button class="addToCart btn-button"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title="" onclick="cart.add('114');"
+                                                                                    data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to
+                                                                                        cart</span>
                                                                                 </button>
                                                                                 @endif
                                                                             </form>
@@ -358,7 +462,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- product -->
+                                                            {{-- product --}}
                                                         </div>
 
 
@@ -375,21 +479,28 @@
                                                             <div class="product-item-container">
                                                                 <div class="left-block">
                                                                     <div class="image product-image-container ">
-                                                                        <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
-                                                                            <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
+                                                                        <a class="lt-image"
+                                                                            href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                            target="_self"
+                                                                            title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
+                                                                            <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                alt="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa">
                                                                         </a>
                                                                     </div>
-                                                                    <div class="box-label"><span class="label-product label-sale">Sale</span>
+                                                                    <div class="box-label"><span
+                                                                            class="label-product label-sale">Sale</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="right-block">
                                                                     <div class="caption">
                                                                         <h4>
-                                                                            <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                            <a
+                                                                                href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                                         </h4>
 
                                                                         @php
-                                                                        $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                                        $flashdealdetail =
+                                                                        App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                                         @endphp
 
                                                                         <div class="total-price clearfix">
@@ -401,15 +512,25 @@
                                                                             @if($row ->discount_type == 1 )
 
 
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
+                                                                            <div class="price price-left"><span
+                                                                                    class="price-new">৳
+                                                                                    {{$product->product_price -$productdiscount}}</span><span
+                                                                                    class="price-old">৳
+                                                                                    {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
+                                                                            <div class="price price-left"><span
+                                                                                    class="price-new">৳
+                                                                                    {{$product->product_price - $row->discount}}</span><span
+                                                                                    class="price-old">৳
+                                                                                    {{$product->product_price}}</span>
                                                                             </div>
                                                                             @endif
                                                                             @endforeach
                                                                             @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span>
+                                                                            <div class="price price-left"><span
+                                                                                    class="price-new">৳
+                                                                                    {{$product->product_price}}</span>
                                                                             </div>
                                                                             @endif
 
@@ -436,31 +557,63 @@
                                                                     </div>
                                                                     <div class="button-group">
                                                                         <div class="button-inner so-quickview">
-                                                                            <a class="lt-image hidden" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
-                                                                            <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
+                                                                            <a class="lt-image hidden" href="#"
+                                                                                target="_self"
+                                                                                title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
+                                                                            <a class="btn-button btn-quickview quickview quickview_handler"
+                                                                                href="{{url('details/'.$product->id)}}"
+                                                                                title="Quick View"
+                                                                                data-title="Quick View"
+                                                                                data-fancybox-type="iframe">
                                                                                 <i class="fa fa-search"></i>
                                                                             </a>
                                                                             @if(Auth::guard('web')->check())
-                                                                            <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                            <button class="mywishlist btn-button"
+                                                                                type="button" data-toggle="tooltip"
+                                                                                title=""
+                                                                                data-original-title="add to Wish List"
+                                                                                data-id="{{$product->id}}"> <i
+                                                                                    class="fa fa-heart"></i></button>
                                                                             @else
-                                                                            <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                            <a href="{{route('login')}}"
+                                                                                class="compare btn-button"><i
+                                                                                    class="fa fa-heart"></i></a>
                                                                             @endif
 
-                                                                            <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
+                                                                            <button
+                                                                                class="compare btn-button compareproduct"
+                                                                                type="button" id="compareproduct"
+                                                                                value="{{$product->id }}"><i
+                                                                                    class="fa fa-exchange"></i></button>
 
-                                                                            <form class="option-choice-form" onclick="homeadtocart(this);">
+                                                                            <form class="option-choice-form"
+                                                                                onclick="homeadtocart(this);">
 
-                                                                                <input type="hidden" value="1" name="quantity">
-                                                                                <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
+                                                                                <input type="hidden" value="1"
+                                                                                    name="quantity">
+                                                                                <input type="hidden"
+                                                                                    value="{{$product->id}}"
+                                                                                    name="product_id">
+                                                                                <input type="hidden"
+                                                                                    value="{{$product->product_price}}"
+                                                                                    name="product_price">
                                                                                 @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
+                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler"
+                                                                                    href="{{url('details/'.$product->id)}}"
+                                                                                    title="Add To Cart"
+                                                                                    data-title="Quick View"
+                                                                                    data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
-                                                                                    <input type="hidden" name="combination">
+                                                                                    <input type="hidden"
+                                                                                        name="combination">
                                                                                 </a>
                                                                                 @else
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
+                                                                                <button class="addToCart btn-button"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title="" onclick="cart.add('114');"
+                                                                                    data-original-title="Add to cart">
+                                                                                    <span class="hidden">Add to
+                                                                                        cart</span>
                                                                                 </button>
                                                                                 @endif
                                                                             </form>
@@ -470,13 +623,13 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- product -->
+                                                            {{-- product --}}
                                                         </div>
 
 
                                                     </div>
                                                     @endforeach
-                                                    <!-- grid -->
+                                                    {{-- grid --}}
                                                 </div>
 
                                             </div>
@@ -494,11 +647,10 @@
                     </div>
                     @endforeach
                 </div>
-
             </div>
         </section>
-        <!-- end first cate -->
-        <!-- seceond section -->
+        {{-- end first cate --}}
+        {{-- seceond section --}}
         @php
         $catesecond=App\Category::where('section_id',2)->where('is_deleted',0)->orderBy('id','DESC')->get();
         @endphp
@@ -514,19 +666,24 @@
                             <div class="modcontent">
                                 <div id="so_listing_tabs_2" class="so-listing-tabs first-load">
                                     <div class="ltabs-wrap">
-                                        <div class="ltabs-tabs-container" data-delay="300" data-duration="600" data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="3" data-md="3" data-sm="3" data-xs="2" data-margin="0">
+                                        <div class="ltabs-tabs-container" data-delay="300" data-duration="600"
+                                            data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="3"
+                                            data-md="3" data-sm="3" data-xs="2" data-margin="0">
                                             <div class="ltabs-tabs-wrap">
                                                 <span class="ltabs-tab-selected">Best sellers</span>
                                                 <span class="ltabs-tab-arrow">▼</span>
                                                 <div class="item-sub-cat">
                                                     <ul class="ltabs-tabs cf">
-                                                        <li class="ltabs-tab tab-sel" data-category-id="4" data-active-content=".items-category-4">
+                                                        <li class="ltabs-tab tab-sel" data-category-id="4"
+                                                            data-active-content=".items-category-4">
                                                             <span class="ltabs-tab-label">Best sellers</span>
                                                         </li>
-                                                        <li class="ltabs-tab" data-category-id="5" data-active-content=".items-category-5">
+                                                        <li class="ltabs-tab" data-category-id="5"
+                                                            data-active-content=".items-category-5">
                                                             <span class="ltabs-tab-label">New Arrivals</span>
                                                         </li>
-                                                        <li class="ltabs-tab" data-category-id="6" data-active-content=".items-category-6">
+                                                        <li class="ltabs-tab" data-category-id="6"
+                                                            data-active-content=".items-category-6">
                                                             <span class="ltabs-tab-label">Most Rating</span>
                                                         </li>
                                                     </ul>
@@ -548,29 +705,31 @@
                                                 @if($main_image)
                                                 <div>
                                                     <a href="product.html" title="" target="_self">
-                                                        <img class="categories-loadimage" title="" alt="" src="{{asset('public/uploads/sitebanner/'.$main_image->image)}}">
+                                                        <img class="categories-loadimage" title="" alt=""
+                                                            src="{{asset('public/uploads/sitebanner/'.$main_image->image)}}">
                                                     </a>
                                                 </div>
                                                 @else
                                                 <div>
                                                     <a href="product.html" title="" target="_self">
-                                                        <img class="categories-loadimage" title="" alt="" src="{{asset('public/frontend/')}}/image/catalog/demo/banners/home1/md-banner-1.jpg">
+                                                        <img class="categories-loadimage" title="" alt=""
+                                                            src="{{asset('public/frontend/')}}/image/catalog/demo/banners/home1/md-banner-1.jpg">
                                                     </a>
                                                 </div>
                                                 @endif
                                                 @else
                                                 <div>
                                                     <a href="product.html" title="" target="_self">
-                                                        <img class="categories-loadimage" title="" alt="" src="{{asset('public/frontend/')}}/image/catalog/demo/banners/home1/md-banner-1.jpg">
+                                                        <img class="categories-loadimage" title="" alt=""
+                                                            src="{{asset('public/frontend/')}}/image/catalog/demo/banners/home1/md-banner-1.jpg">
                                                     </a>
                                                 </div>
                                                 @endif
                                             </div>
                                             <div class="ltabs-items-container">
-                                                <div class="ltabs-items ltabs-items-selected items-category-4" data-total="16">
+                                                <div class="ltabs-items ltabs-items-selected items-category-4"
+                                                    data-total="16">
                                                     <div class="ltabs-items-inner ltabs-slider ">
-
-
                                                         <div class="ltabs-item">
                                                             @php
                                                             $cate_id=$catename->id;
@@ -579,120 +738,161 @@
                                                             @foreach($products
                                                             as $product)
 
-                                                                <div class="item-inner  product-layout transition product-grid">
-                                                                    <div class="product-item-container">
-                                                                        <div class="left-block">
-                                                                            <div class="image
+                                                            <div
+                                                                class="item-inner  product-layout transition product-grid">
+                                                                <div class="product-item-container">
+                                                                    <div class="left-block">
+                                                                        <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
+                                                                        "> <a class="lt-image"
+                                                                                href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                                target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
-                                                                            Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
+                                                                            Wireless"> <img
+                                                                                    src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                    alt="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                         Wireless"> </a>
-                                                                            </div>
                                                                         </div>
-                                                                        <div class="right-block">
-                                                                            <div class="caption">
-                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                    </div>
+                                                                    <div class="right-block">
+                                                                        <div class="caption">
+                                                                            <h4> <a
+                                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
-                                                                                </h4>
-                                                                                @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
-                                                                        @endphp
+                                                                            </h4>
+                                                                            @php
+                                                                            $flashdealdetail =
+                                                                            App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                                            @endphp
 
-                                                                        <div class="total-price clearfix">
-                                                                            @if(count($flashdealdetail) > 0)
-                                                                            @foreach($flashdealdetail as $row)
-
-                                                                            <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
-
-                                                                            @if($row ->discount_type == 1 )
-
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @else
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                        </div>
-                                                                            @endif
-                                                                            @endforeach
-                                                                            @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @endif
-
-                                                                            <div class="price-sale price-right">
+                                                                            <div class="total-price clearfix">
+                                                                                @if(count($flashdealdetail) > 0)
                                                                                 @foreach($flashdealdetail as $row)
-                                                                                @if($row ->discount_type == 1 )
-                                                                                <span class="discount">
-                                                                                    - ৳ {{$row->discount}}
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
-                                                                                @else
-                                                                                <span class="discount">
-                                                                                    - {{$row->discount}} %
 
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+                                                                                <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+
+                                                                                @if($row ->discount_type == 1 )
+
+
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price - $row->discount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
+                                                                                @else
+
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price -$productdiscount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @endif
                                                                                 @endforeach
+                                                                                @else
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
+                                                                                @endif
+
+                                                                                <div class="price-sale price-right">
+                                                                                    @foreach($flashdealdetail as $row)
+                                                                                    @if($row ->discount_type == 1 )
+                                                                                    <span class="discount">
+                                                                                        - ৳ {{$row->discount}}
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @else
+                                                                                    <span class="discount">
+                                                                                        - {{$row->discount}} %
+
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @endif
+                                                                                    @endforeach
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                            </div>
-                                                                            <div class="button-group">
-                                                                                <div class="button-inner
+                                                                        <div class="button-group">
+                                                                            <div class="button-inner
                                                                                 so-quickview"> <a class="lt-image
-                                                                                    hidden" href="#" target="_self" title="Invisible
+                                                                                    hidden" href="#" target="_self"
+                                                                                    title="Invisible
                                                                                     Hidden Spy
                                                                                     Earphone Micro
                                                                                 Wireless"></a> <a class="btn-button
                                                                                 btn-quickview
                                                                                 quickview
-                                                                                quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick
+                                                                                quickview_handler"
+                                                                                    href="{{url('details/'.$product->id)}}"
+                                                                                    title="Quick View" data-title="Quick
                                                                                 View" data-fancybox-type="iframe">
-                                                                                        <i class="fa
+                                                                                    <i class="fa
                                                                                 fa-search"></i>
-                                                                                    </a>
-                                                                                    @if(Auth::guard('web')->check())
-                                                                                    <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
-                                                                                    @else
-                                                                                    <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
-                                                                                    @endif
-
-                                                                                    <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-                                                                                    <form class="option-choice-form" onclick="homeadtocart(this);">
-
-                                                                                <input type="hidden" value="1" name="quantity">
-                                                                                <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
-                                                                                @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add to Cart" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                    <i class="fa fa-search"></i>
-                                                                                    <input type="hidden" name="combination">
                                                                                 </a>
+                                                                                @if(Auth::guard('web')->check())
+                                                                                <button class="mywishlist btn-button"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title=""
+                                                                                    data-original-title="add to Wish List"
+                                                                                    data-id="{{$product->id}}"> <i
+                                                                                        class="fa fa-heart"></i></button>
                                                                                 @else
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
-                                                                                </button>
+                                                                                <a href="{{route('login')}}"
+                                                                                    class="compare btn-button"><i
+                                                                                        class="fa fa-heart"></i></a>
                                                                                 @endif
-                                                                            </form>
+
+                                                                                <button
+                                                                                    class="compare btn-button compareproduct"
+                                                                                    type="button" id="compareproduct"
+                                                                                    value="{{$product->id }}"><i
+                                                                                        class="fa fa-exchange"></i></button>
 
 
+                                                                                <form class="option-choice-form"
+                                                                                    onclick="homeadtocart(this);">
 
-                                                                                </div>
-
-
-
+                                                                                    <input type="hidden" value="1"
+                                                                                        name="quantity">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->id}}"
+                                                                                        name="product_id">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->product_price}}"
+                                                                                        name="product_price">
+                                                                                    @if($product->product_type ==1)
+                                                                                    <a class="addToCart btn-button btn-quickview quickview quickview_handler"
+                                                                                        href="{{url('details/'.$product->id)}}"
+                                                                                        title="Add to Cart"
+                                                                                        data-title="Quick View"
+                                                                                        data-fancybox-type="iframe">
+                                                                                        <i class="fa fa-search"></i>
+                                                                                        <input type="hidden"
+                                                                                            name="combination">
+                                                                                    </a>
+                                                                                    @else
+                                                                                    <button class="addToCart btn-button"
+                                                                                        type="button"
+                                                                                        data-toggle="tooltip" title=""
+                                                                                        onclick="cart.add('114');"
+                                                                                        data-original-title="Add to cart">
+                                                                                        <span class="hidden">Add to
+                                                                                            cart</span>
+                                                                                    </button>
+                                                                                    @endif
+                                                                                </form>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
 
 
                                                             @endforeach
@@ -704,129 +904,173 @@
                                                             $cate_id=$catename->id;
                                                             $products=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->skip(2)->where('status',1)->limit(2)->get();
                                                             @endphp
-                                                            @foreach($products
-                                                            as $product)
+                                                            @foreach($products as $product)
 
-                                                                <div class="item-inner
+                                                            <div class="item-inner
                                                             product-layout
                                                             transition
                                                             product-grid">
-                                                                    <div class="product-item-container">
-                                                                        <div class="left-block">
-                                                                            <div class="image
+                                                                <div class="product-item-container">
+                                                                    <div class="left-block">
+                                                                        <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
+                                                                        "> <a class="lt-image"
+                                                                                href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                                target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
-                                                                            Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
+                                                                            Wireless"> <img
+                                                                                    src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                    alt="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                         Wireless"> </a>
-                                                                            </div>
                                                                         </div>
-                                                                        <div class="right-block">
-                                                                            <div class="caption">
-                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                    </div>
+                                                                    <div class="right-block">
+                                                                        <div class="caption">
+                                                                            <h4> <a
+                                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
-                                                                                </h4>
-                                                                                @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
-                                                                        @endphp
+                                                                            </h4>
+                                                                            @php
+                                                                            $flashdealdetail =
+                                                                            App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                                            @endphp
 
-                                                                        <div class="total-price clearfix">
-                                                                            @if(count($flashdealdetail) > 0)
-                                                                            @foreach($flashdealdetail as $row)
-
-                                                                            <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
-
-                                                                            @if($row ->discount_type == 1 )
-
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @else
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                        </div>
-                                                                            @endif
-                                                                            @endforeach
-                                                                            @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @endif
-
-                                                                            <div class="price-sale price-right">
+                                                                            <div class="total-price clearfix">
+                                                                                @if(count($flashdealdetail) > 0)
                                                                                 @foreach($flashdealdetail as $row)
+
+                                                                                <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+
                                                                                 @if($row ->discount_type == 1 )
-                                                                                <span class="discount">
 
-                                                                                    - ৳ {{$row->discount}}
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price - $row->discount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @else
-                                                                                <span class="discount">
-                                                                                    -{{$row->discount}}%
 
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price -$productdiscount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @endif
                                                                                 @endforeach
+                                                                                @else
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
+                                                                                @endif
+
+                                                                                <div class="price-sale price-right">
+                                                                                    @foreach($flashdealdetail as $row)
+                                                                                    @if($row ->discount_type == 1 )
+                                                                                    <span class="discount">
+
+                                                                                        - ৳ {{$row->discount}}
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @else
+                                                                                    <span class="discount">
+                                                                                        -{{$row->discount}}%
+
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @endif
+                                                                                    @endforeach
+                                                                                </div>
                                                                             </div>
+
                                                                         </div>
-
-
-                                                                            </div>
-                                                                            <div class="button-group">
-                                                                                <div class="button-inner
+                                                                        <div class="button-group">
+                                                                            <div class="button-inner
                                                                                 so-quickview"> <a class="lt-image
-                                                                                    hidden" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
+                                                                                    hidden"
+                                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                                    target="_self" title="Invisible
                                                                                     Hidden Spy
                                                                                     Earphone Micro
                                                                                 Wireless"></a> <a class="btn-button
                                                                                 btn-quickview
                                                                                 quickview
-                                                                                quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick
+                                                                                quickview_handler"
+                                                                                    href="{{url('details/'.$product->id)}}"
+                                                                                    title="Quick View" data-title="Quick
                                                                                 View" data-fancybox-type="iframe">
-                                                                                        <i class="fa
+                                                                                    <i class="fa
                                                                                 fa-search"></i>
-                                                                                    </a>
-                                                                                    @if(Auth::guard('web')->check())
-                                                                                    <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
-                                                                                    @else
-                                                                                    <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
-                                                                                    @endif
-
-                                                                                    <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-                                                                                    <form class="option-choice-form" onclick="homeadtocart(this);">
-
-                                                                                <input type="hidden" value="1" name="quantity">
-                                                                                <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
-                                                                                @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add to Cart" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                    <i class="fa fa-search"></i>
-                                                                                    <input type="hidden" name="combination">
                                                                                 </a>
+                                                                                @if(Auth::guard('web')->check())
+                                                                                <button class="mywishlist btn-button"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title=""
+                                                                                    data-original-title="add to Wish List"
+                                                                                    data-id="{{$product->id}}"> <i
+                                                                                        class="fa fa-heart"></i></button>
                                                                                 @else
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
-                                                                                </button>
+                                                                                <a href="{{route('login')}}"
+                                                                                    class="compare btn-button"><i
+                                                                                        class="fa fa-heart"></i></a>
                                                                                 @endif
-                                                                            </form>
+
+                                                                                <button
+                                                                                    class="compare btn-button compareproduct"
+                                                                                    type="button" id="compareproduct"
+                                                                                    value="{{$product->id }}"><i
+                                                                                        class="fa fa-exchange"></i></button>
 
 
+                                                                                <form class="option-choice-form"
+                                                                                    onclick="homeadtocart(this);">
 
-                                                                                </div>
+                                                                                    <input type="hidden" value="1"
+                                                                                        name="quantity">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->id}}"
+                                                                                        name="product_id">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->product_price}}"
+                                                                                        name="product_price">
+                                                                                    @if($product->product_type ==1)
+                                                                                    <a class="addToCart btn-button btn-quickview quickview quickview_handler"
+                                                                                        href="{{url('details/'.$product->id)}}"
+                                                                                        title="Add to Cart"
+                                                                                        data-title="Quick View"
+                                                                                        data-fancybox-type="iframe">
+                                                                                        <i class="fa fa-search"></i>
+                                                                                        <input type="hidden"
+                                                                                            name="combination">
+                                                                                    </a>
+                                                                                    @else
+                                                                                    <button class="addToCart btn-button"
+                                                                                        type="button"
+                                                                                        data-toggle="tooltip" title=""
+                                                                                        onclick="cart.add('114');"
+                                                                                        data-original-title="Add to cart">
+                                                                                        <span class="hidden">Add to
+                                                                                            cart</span>
+                                                                                    </button>
+                                                                                    @endif
+                                                                                </form>
 
 
 
                                                                             </div>
+
+
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
 
 
                                                             @endforeach
@@ -841,124 +1085,170 @@
                                                             @foreach($products
                                                             as $product)
 
-                                                                <div class="item-inner
+                                                            <div class="item-inner
                                                             product-layout
                                                             transition
                                                             product-grid">
-                                                                    <div class="product-item-container">
-                                                                        <div class="left-block">
-                                                                            <div class="image
+                                                                <div class="product-item-container">
+                                                                    <div class="left-block">
+                                                                        <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
+                                                                        "> <a class="lt-image"
+                                                                                href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                                target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
-                                                                            Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
+                                                                            Wireless"> <img
+                                                                                    src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                    alt="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                         Wireless"> </a>
-                                                                            </div>
                                                                         </div>
-                                                                        <div class="right-block">
-                                                                            <div class="caption">
-                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                    </div>
+                                                                    <div class="right-block">
+                                                                        <div class="caption">
+                                                                            <h4> <a
+                                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
-                                                                                </h4>
-                                                                                @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
-                                                                        @endphp
+                                                                            </h4>
+                                                                            @php
+                                                                            $flashdealdetail =
+                                                                            App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                                            @endphp
 
-                                                                        <div class="total-price clearfix">
-                                                                            @if(count($flashdealdetail) > 0)
-                                                                            @foreach($flashdealdetail as $row)
-
-                                                                            <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
-
-                                                                            @if($row ->discount_type == 1 )
-
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @else
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                        </div>
-                                                                            @endif
-                                                                            @endforeach
-                                                                            @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @endif
-
-                                                                            <div class="price-sale price-right">
+                                                                            <div class="total-price clearfix">
+                                                                                @if(count($flashdealdetail) > 0)
                                                                                 @foreach($flashdealdetail as $row)
+
+                                                                                <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+
                                                                                 @if($row ->discount_type == 1 )
-                                                                                <span class="discount">
 
-                                                                                    - ৳ {{$row->discount}}
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price - $row->discount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @else
-                                                                                <span class="discount">
-                                                                                    -{{$row->discount}}%
 
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price -$productdiscount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @endif
                                                                                 @endforeach
+                                                                                @else
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
+                                                                                @endif
+
+                                                                                <div class="price-sale price-right">
+                                                                                    @foreach($flashdealdetail as $row)
+                                                                                    @if($row ->discount_type == 1 )
+                                                                                    <span class="discount">
+
+                                                                                        - ৳ {{$row->discount}}
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @else
+                                                                                    <span class="discount">
+                                                                                        -{{$row->discount}}%
+
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @endif
+                                                                                    @endforeach
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                            </div>
-                                                                            <div class="button-group">
-                                                                                <div class="button-inner
+                                                                        <div class="button-group">
+                                                                            <div class="button-inner
                                                                                 so-quickview"> <a class="lt-image
-                                                                                    hidden" href="#" target="_self" title="Invisible
+                                                                                    hidden" href="#" target="_self"
+                                                                                    title="Invisible
                                                                                     Hidden Spy
                                                                                     Earphone Micro
                                                                                 Wireless"></a> <a class="btn-button
                                                                                 btn-quickview
                                                                                 quickview
-                                                                                quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick
+                                                                                quickview_handler"
+                                                                                    href="{{url('details/'.$product->id)}}"
+                                                                                    title="Quick View" data-title="Quick
                                                                                 View" data-fancybox-type="iframe">
-                                                                                        <i class="fa
+                                                                                    <i class="fa
                                                                                 fa-search"></i>
-                                                                                    </a>
-                                                                                    @if(Auth::guard('web')->check())
-                                                                                    <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
-                                                                                    @else
-                                                                                    <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
-                                                                                    @endif
-
-                                                                                    <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-                                                                                    <form class="option-choice-form" onclick="homeadtocart(this);">
-
-                                                                                <input type="hidden" value="1" name="quantity">
-                                                                                <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
-                                                                                @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                    <i class="fa fa-search"></i>
-                                                                                    <input type="hidden" name="combination">
                                                                                 </a>
+                                                                                @if(Auth::guard('web')->check())
+                                                                                <button class="mywishlist btn-button"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title=""
+                                                                                    data-original-title="add to Wish List"
+                                                                                    data-id="{{$product->id}}"> <i
+                                                                                        class="fa fa-heart"></i></button>
                                                                                 @else
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
-                                                                                </button>
+                                                                                <a href="{{route('login')}}"
+                                                                                    class="compare btn-button"><i
+                                                                                        class="fa fa-heart"></i></a>
                                                                                 @endif
-                                                                            </form>
+
+                                                                                <button
+                                                                                    class="compare btn-button compareproduct"
+                                                                                    type="button" id="compareproduct"
+                                                                                    value="{{$product->id }}"><i
+                                                                                        class="fa fa-exchange"></i></button>
 
 
+                                                                                <form class="option-choice-form"
+                                                                                    onclick="homeadtocart(this);">
 
-                                                                                </div>
+                                                                                    <input type="hidden" value="1"
+                                                                                        name="quantity">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->id}}"
+                                                                                        name="product_id">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->product_price}}"
+                                                                                        name="product_price">
+                                                                                    @if($product->product_type ==1)
+                                                                                    <a class="addToCart btn-button btn-quickview quickview quickview_handler"
+                                                                                        href="{{url('details/'.$product->id)}}"
+                                                                                        title="Add To Cart"
+                                                                                        data-title="Quick View"
+                                                                                        data-fancybox-type="iframe">
+                                                                                        <i class="fa fa-search"></i>
+                                                                                        <input type="hidden"
+                                                                                            name="combination">
+                                                                                    </a>
+                                                                                    @else
+                                                                                    <button class="addToCart btn-button"
+                                                                                        type="button"
+                                                                                        data-toggle="tooltip" title=""
+                                                                                        onclick="cart.add('114');"
+                                                                                        data-original-title="Add to cart">
+                                                                                        <span class="hidden">Add to
+                                                                                            cart</span>
+                                                                                    </button>
+                                                                                    @endif
+                                                                                </form>
 
 
 
                                                                             </div>
+
+
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
 
 
                                                             @endforeach
@@ -1001,19 +1291,24 @@
                             <div class="modcontent">
                                 <div id="so_listing_tabs_3" class="so-listing-tabs first-load">
                                     <div class="ltabs-wrap">
-                                        <div class="ltabs-tabs-container" data-delay="300" data-duration="600" data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="3" data-md="3" data-sm="3" data-xs="2" data-margin="0">
+                                        <div class="ltabs-tabs-container" data-delay="300" data-duration="600"
+                                            data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="3"
+                                            data-md="3" data-sm="3" data-xs="2" data-margin="0">
                                             <div class="ltabs-tabs-wrap">
                                                 <span class="ltabs-tab-selected">Best sellers</span>
                                                 <span class="ltabs-tab-arrow">▼</span>
                                                 <div class="item-sub-cat">
                                                     <ul class="ltabs-tabs cf">
-                                                        <li class="ltabs-tab tab-sel" data-category-id="4" data-active-content=".items-category-4">
+                                                        <li class="ltabs-tab tab-sel" data-category-id="4"
+                                                            data-active-content=".items-category-4">
                                                             <span class="ltabs-tab-label">Best sellers</span>
                                                         </li>
-                                                        <li class="ltabs-tab" data-category-id="7" data-active-content=".items-category-7">
+                                                        <li class="ltabs-tab" data-category-id="7"
+                                                            data-active-content=".items-category-7">
                                                             <span class="ltabs-tab-label">New Arrivals</span>
                                                         </li>
-                                                        <li class="ltabs-tab" data-category-id="8" data-active-content=".items-category-8">
+                                                        <li class="ltabs-tab" data-category-id="8"
+                                                            data-active-content=".items-category-8">
                                                             <span class="ltabs-tab-label">Most Rating</span>
                                                         </li>
                                                     </ul>
@@ -1035,13 +1330,15 @@
                                                 @if($maiimage)
                                                 <div>
                                                     <a href="product.html" title="" target="_self">
-                                                        <img class="categories-loadimage" src="{{asset('public/uploads/sitebanner/'.$maiimage->image)}}">
+                                                        <img class="categories-loadimage"
+                                                            src="{{asset('public/uploads/sitebanner/'.$maiimage->image)}}">
                                                     </a>
                                                 </div>
                                                 @else
                                                 <div>
                                                     <a href="product.html" title="" target="_self">
-                                                        <img class="categories-loadimage" title="" alt="" src="{{asset('public/frontend/')}}/image/catalog/demo/banners/home1/md-banner-1.jpg">
+                                                        <img class="categories-loadimage" title="" alt=""
+                                                            src="{{asset('public/frontend/')}}/image/catalog/demo/banners/home1/md-banner-1.jpg">
                                                     </a>
                                                 </div>
                                                 @endif
@@ -1050,14 +1347,16 @@
                                                 @else
                                                 <div>
                                                     <a href="product.html" title="" target="_self">
-                                                        <img class="categories-loadimage" title="" alt="" src="{{asset('public/frontend/')}}/image/catalog/demo/banners/home1/md-banner-1.jpg">
+                                                        <img class="categories-loadimage" title="" alt=""
+                                                            src="{{asset('public/frontend/')}}/image/catalog/demo/banners/home1/md-banner-1.jpg">
                                                     </a>
                                                 </div>
                                                 @endif
 
                                             </div>
                                             <div class="ltabs-items-container">
-                                                <div class="ltabs-items ltabs-items-selected items-category-{{$catesection->id}}" data-total="16">
+                                                <div class="ltabs-items ltabs-items-selected items-category-{{$catesection->id}}"
+                                                    data-total="16">
                                                     <div class="ltabs-items-inner ltabs-slider">
                                                         <div class="ltabs-item col-md-4 asif">
                                                             @php
@@ -1070,120 +1369,166 @@
                                                             product-layout
                                                             transition
                                                             product-grid">
-                                                                    <div class="product-item-container">
-                                                                        <div class="left-block">
-                                                                            <div class="image
+                                                                <div class="product-item-container">
+                                                                    <div class="left-block">
+                                                                        <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
+                                                                        "> <a class="lt-image"
+                                                                                href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                                target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
-                                                                            Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
+                                                                            Wireless"> <img
+                                                                                    src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                    alt="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                         Wireless"> </a>
-                                                                            </div>
                                                                         </div>
-                                                                        <div class="right-block">
-                                                                            <div class="caption">
-                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                    </div>
+                                                                    <div class="right-block">
+                                                                        <div class="caption">
+                                                                            <h4> <a
+                                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
-                                                                                </h4>
-                                                                                @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
-                                                                        @endphp
+                                                                            </h4>
+                                                                            @php
+                                                                            $flashdealdetail =
+                                                                            App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                                            @endphp
 
-                                                                        <div class="total-price clearfix">
-                                                                            @if(count($flashdealdetail) > 0)
-                                                                            @foreach($flashdealdetail as $row)
-
-                                                                            <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
-
-                                                                            @if($row ->discount_type == 1 )
-
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @else
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                        </div>
-                                                                            @endif
-                                                                            @endforeach
-                                                                            @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @endif
-
-                                                                            <div class="price-sale price-right">
+                                                                            <div class="total-price clearfix">
+                                                                                @if(count($flashdealdetail) > 0)
                                                                                 @foreach($flashdealdetail as $row)
+
+                                                                                <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+
                                                                                 @if($row ->discount_type == 1 )
-                                                                                <span class="discount">
 
-                                                                                    - ৳ {{$row->discount}}
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price - $row->discount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @else
-                                                                                <span class="discount">
-                                                                                    -{{$row->discount}}%
 
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price -$productdiscount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @endif
                                                                                 @endforeach
+                                                                                @else
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
+                                                                                @endif
+
+                                                                                <div class="price-sale price-right">
+                                                                                    @foreach($flashdealdetail as $row)
+                                                                                    @if($row ->discount_type == 1 )
+                                                                                    <span class="discount">
+
+                                                                                        - ৳ {{$row->discount}}
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @else
+                                                                                    <span class="discount">
+                                                                                        -{{$row->discount}}%
+
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @endif
+                                                                                    @endforeach
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                            </div>
-                                                                            <div class="button-group">
-                                                                                <div class="button-inner
+                                                                        <div class="button-group">
+                                                                            <div class="button-inner
                                                                                 so-quickview"> <a class="lt-image
-                                                                                    hidden" href="#" target="_self" title="Invisible
+                                                                                    hidden" href="#" target="_self"
+                                                                                    title="Invisible
                                                                                     Hidden Spy
                                                                                     Earphone Micro
                                                                                 Wireless"></a> <a class="btn-button
                                                                                 btn-quickview
                                                                                 quickview
-                                                                                quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick
+                                                                                quickview_handler"
+                                                                                    href="{{url('details/'.$product->id)}}"
+                                                                                    title="Quick View" data-title="Quick
                                                                                 View" data-fancybox-type="iframe">
-                                                                                        <i class="fa
+                                                                                    <i class="fa
                                                                                 fa-search"></i>
-                                                                                    </a>
-                                                                                    @if(Auth::guard('web')->check())
-                                                                                    <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
-                                                                                    @else
-                                                                                    <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
-                                                                                    @endif
-
-                                                                                    <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-                                                                                    <form class="option-choice-form" onclick="homeadtocart(this);">
-
-                                                                                <input type="hidden" value="1" name="quantity">
-                                                                                <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
-                                                                                @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                    <i class="fa fa-search"></i>
-                                                                                    <input type="hidden" name="combination">
                                                                                 </a>
+                                                                                @if(Auth::guard('web')->check())
+                                                                                <button class="mywishlist btn-button"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title=""
+                                                                                    data-original-title="add to Wish List"
+                                                                                    data-id="{{$product->id}}"> <i
+                                                                                        class="fa fa-heart"></i></button>
                                                                                 @else
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
-                                                                                </button>
+                                                                                <a href="{{route('login')}}"
+                                                                                    class="compare btn-button"><i
+                                                                                        class="fa fa-heart"></i></a>
                                                                                 @endif
-                                                                            </form>
+
+                                                                                <button
+                                                                                    class="compare btn-button compareproduct"
+                                                                                    type="button" id="compareproduct"
+                                                                                    value="{{$product->id }}"><i
+                                                                                        class="fa fa-exchange"></i></button>
 
 
+                                                                                <form class="option-choice-form"
+                                                                                    onclick="homeadtocart(this);">
 
-                                                                                </div>
+                                                                                    <input type="hidden" value="1"
+                                                                                        name="quantity">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->id}}"
+                                                                                        name="product_id">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->product_price}}"
+                                                                                        name="product_price">
+                                                                                    @if($product->product_type ==1)
+                                                                                    <a class="addToCart btn-button btn-quickview quickview quickview_handler"
+                                                                                        href="{{url('details/'.$product->id)}}"
+                                                                                        title="Add To Cart"
+                                                                                        data-title="Quick View"
+                                                                                        data-fancybox-type="iframe">
+                                                                                        <i class="fa fa-search"></i>
+                                                                                        <input type="hidden"
+                                                                                            name="combination">
+                                                                                    </a>
+                                                                                    @else
+                                                                                    <button class="addToCart btn-button"
+                                                                                        type="button"
+                                                                                        data-toggle="tooltip" title=""
+                                                                                        onclick="cart.add('114');"
+                                                                                        data-original-title="Add to cart">
+                                                                                        <span class="hidden">Add to
+                                                                                            cart</span>
+                                                                                    </button>
+                                                                                    @endif
+                                                                                </form>
 
 
 
                                                                             </div>
+
+
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
 
                                                             @endforeach
                                                             <!-- product end -->
@@ -1193,125 +1538,171 @@
                                                             $catego=$catesection->id;
                                                             $pro=App\Product::where('is_deleted',0)->where('cate_id',$catego)->orderBy('id','DESC')->skip(2)->where('status',1)->limit(2)->get();
                                                             @endphp
-                                                             @foreach($pro as $product)
-                                                             <div class="item-inner
+                                                            @foreach($pro as $product)
+                                                            <div class="item-inner
                                                             product-layout
                                                             transition
                                                             product-grid">
-                                                                    <div class="product-item-container">
-                                                                        <div class="left-block">
-                                                                            <div class="image
+                                                                <div class="product-item-container">
+                                                                    <div class="left-block">
+                                                                        <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
+                                                                        "> <a class="lt-image"
+                                                                                href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                                target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
-                                                                            Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
+                                                                            Wireless"> <img
+                                                                                    src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                    alt="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                         Wireless"> </a>
-                                                                            </div>
                                                                         </div>
-                                                                        <div class="right-block">
-                                                                            <div class="caption">
-                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                    </div>
+                                                                    <div class="right-block">
+                                                                        <div class="caption">
+                                                                            <h4> <a
+                                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
-                                                                                </h4>
-                                                                                @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
-                                                                        @endphp
+                                                                            </h4>
+                                                                            @php
+                                                                            $flashdealdetail =
+                                                                            App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                                            @endphp
 
-                                                                        <div class="total-price clearfix">
-                                                                            @if(count($flashdealdetail) > 0)
-                                                                            @foreach($flashdealdetail as $row)
-
-                                                                            <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
-
-                                                                            @if($row ->discount_type == 1 )
-
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @else
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                        </div>
-                                                                            @endif
-                                                                            @endforeach
-                                                                            @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @endif
-
-                                                                            <div class="price-sale price-right">
+                                                                            <div class="total-price clearfix">
+                                                                                @if(count($flashdealdetail) > 0)
                                                                                 @foreach($flashdealdetail as $row)
+
+                                                                                <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+
                                                                                 @if($row ->discount_type == 1 )
-                                                                                <span class="discount">
 
-                                                                                    - ৳ {{$row->discount}}
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price - $row->discount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @else
-                                                                                <span class="discount">
-                                                                                    -{{$row->discount}}%
 
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price -$productdiscount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @endif
                                                                                 @endforeach
+                                                                                @else
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
+                                                                                @endif
+
+                                                                                <div class="price-sale price-right">
+                                                                                    @foreach($flashdealdetail as $row)
+                                                                                    @if($row ->discount_type == 1 )
+                                                                                    <span class="discount">
+
+                                                                                        - ৳ {{$row->discount}}
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @else
+                                                                                    <span class="discount">
+                                                                                        -{{$row->discount}}%
+
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @endif
+                                                                                    @endforeach
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                            </div>
-                                                                            <div class="button-group">
-                                                                                <div class="button-inner
+                                                                        <div class="button-group">
+                                                                            <div class="button-inner
                                                                                 so-quickview"> <a class="lt-image
-                                                                                    hidden" href="#" target="_self" title="Invisible
+                                                                                    hidden" href="#" target="_self"
+                                                                                    title="Invisible
                                                                                     Hidden Spy
                                                                                     Earphone Micro
                                                                                 Wireless"></a> <a class="btn-button
                                                                                 btn-quickview
                                                                                 quickview
-                                                                                quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick
+                                                                                quickview_handler"
+                                                                                    href="{{url('details/'.$product->id)}}"
+                                                                                    title="Quick View" data-title="Quick
                                                                                 View" data-fancybox-type="iframe">
-                                                                                        <i class="fa
+                                                                                    <i class="fa
                                                                                 fa-search"></i>
-                                                                                    </a>
-                                                                                    @if(Auth::guard('web')->check())
-                                                                                    <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
-                                                                                    @else
-                                                                                    <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
-                                                                                    @endif
-
-                                                                                    <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-                                                                                    <form class="option-choice-form" onclick="homeadtocart(this);">
-
-                                                                                <input type="hidden" value="1" name="quantity">
-                                                                                <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
-                                                                                @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                    <i class="fa fa-search"></i>
-                                                                                    <input type="hidden" name="combination">
                                                                                 </a>
+                                                                                @if(Auth::guard('web')->check())
+                                                                                <button class="mywishlist btn-button"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title=""
+                                                                                    data-original-title="add to Wish List"
+                                                                                    data-id="{{$product->id}}"> <i
+                                                                                        class="fa fa-heart"></i></button>
                                                                                 @else
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
-                                                                                </button>
+                                                                                <a href="{{route('login')}}"
+                                                                                    class="compare btn-button"><i
+                                                                                        class="fa fa-heart"></i></a>
                                                                                 @endif
-                                                                            </form>
+
+                                                                                <button
+                                                                                    class="compare btn-button compareproduct"
+                                                                                    type="button" id="compareproduct"
+                                                                                    value="{{$product->id }}"><i
+                                                                                        class="fa fa-exchange"></i></button>
 
 
+                                                                                <form class="option-choice-form"
+                                                                                    onclick="homeadtocart(this);">
 
-                                                                                </div>
+                                                                                    <input type="hidden" value="1"
+                                                                                        name="quantity">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->id}}"
+                                                                                        name="product_id">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->product_price}}"
+                                                                                        name="product_price">
+                                                                                    @if($product->product_type ==1)
+                                                                                    <a class="addToCart btn-button btn-quickview quickview quickview_handler"
+                                                                                        href="{{url('details/'.$product->id)}}"
+                                                                                        title="Add To Cart"
+                                                                                        data-title="Quick View"
+                                                                                        data-fancybox-type="iframe">
+                                                                                        <i class="fa fa-search"></i>
+                                                                                        <input type="hidden"
+                                                                                            name="combination">
+                                                                                    </a>
+                                                                                    @else
+                                                                                    <button class="addToCart btn-button"
+                                                                                        type="button"
+                                                                                        data-toggle="tooltip" title=""
+                                                                                        onclick="cart.add('114');"
+                                                                                        data-original-title="Add to cart">
+                                                                                        <span class="hidden">Add to
+                                                                                            cart</span>
+                                                                                    </button>
+                                                                                    @endif
+                                                                                </form>
 
 
 
                                                                             </div>
+
+
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
                                                             @endforeach
                                                             <!-- product end -->
                                                         </div>
@@ -1324,108 +1715,158 @@
                                                             product-layout
                                                             transition
                                                             product-grid">
-                                                                    <div class="product-item-container">
-                                                                        <div class="left-block">
-                                                                            <div class="image
+                                                                <div class="product-item-container">
+                                                                    <div class="left-block">
+                                                                        <div class="image
                                                                         product-image-container
-                                                                        "> <a class="lt-image" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Invisible
+                                                                        "> <a class="lt-image"
+                                                                                href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                                target="_self" title="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
-                                                                            Wireless"> <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="Invisible
+                                                                            Wireless"> <img
+                                                                                    src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                    alt="Invisible
                                                                             Hidden Spy
                                                                             Earphone Micro
                                                                         Wireless"> </a>
-                                                                            </div>
                                                                         </div>
-                                                                        <div class="right-block">
-                                                                            <div class="caption">
-                                                                                <h4> <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                    </div>
+                                                                    <div class="right-block">
+                                                                        <div class="caption">
+                                                                            <h4> <a
+                                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
 
-                                                                                </h4>
-                                                                                @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
-                                                                        @endphp
+                                                                            </h4>
+                                                                            @php
+                                                                            $flashdealdetail =
+                                                                            App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                                            @endphp
 
-                                                                        <div class="total-price clearfix">
-                                                                            @if(count($flashdealdetail) > 0)
-                                                                            @foreach($flashdealdetail as $row)
-
-                                                                            <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
-
-                                                                            @if($row ->discount_type == 1 )
-
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @else
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                        </div>
-                                                                            @endif
-                                                                            @endforeach
-                                                                            @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @endif
-
-                                                                            <div class="price-sale price-right">
+                                                                            <div class="total-price clearfix">
+                                                                                @if(count($flashdealdetail) > 0)
                                                                                 @foreach($flashdealdetail as $row)
+
+                                                                                <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+
                                                                                 @if($row ->discount_type == 1 )
-                                                                                <span class="discount">
 
-                                                                                    - ৳ {{$row->discount}}
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price - $row->discount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @else
-                                                                                <span class="discount">
-                                                                                    -{{$row->discount}}%
 
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price -$productdiscount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @endif
                                                                                 @endforeach
+                                                                                @else
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
+                                                                                @endif
+
+                                                                                <div class="price-sale price-right">
+                                                                                    @foreach($flashdealdetail as $row)
+                                                                                    @if($row ->discount_type == 1 )
+                                                                                    <span class="discount">
+
+                                                                                        - ৳ {{$row->discount}}
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @else
+                                                                                    <span class="discount">
+                                                                                        -{{$row->discount}}%
+
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @endif
+                                                                                    @endforeach
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
                                                                             <div class="button-group">
                                                                                 <div class="button-inner
                                                                                 so-quickview"> <a class="lt-image
-                                                                                    hidden" href="#" target="_self" title="Invisible
+                                                                                    hidden" href="#" target="_self"
+                                                                                        title="Invisible
                                                                                     Hidden Spy
                                                                                     Earphone Micro
                                                                                 Wireless"></a> <a class="btn-button
                                                                                 btn-quickview
                                                                                 quickview
-                                                                                quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick
+                                                                                quickview_handler"
+                                                                                        href="{{url('details/'.$product->id)}}"
+                                                                                        title="Quick View" data-title="Quick
                                                                                 View" data-fancybox-type="iframe">
                                                                                         <i class="fa
                                                                                 fa-search"></i>
                                                                                     </a>
                                                                                     @if(Auth::guard('web')->check())
-                                                                                    <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
+                                                                                    <button
+                                                                                        class="mywishlist btn-button"
+                                                                                        type="button"
+                                                                                        data-toggle="tooltip" title=""
+                                                                                        data-original-title="add to Wish List"
+                                                                                        data-id="{{$product->id}}"> <i
+                                                                                            class="fa fa-heart"></i></button>
                                                                                     @else
-                                                                                    <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
+                                                                                    <a href="{{route('login')}}"
+                                                                                        class="compare btn-button"><i
+                                                                                            class="fa fa-heart"></i></a>
                                                                                     @endif
 
-                                                                                    <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
+                                                                                    <button
+                                                                                        class="compare btn-button compareproduct"
+                                                                                        type="button"
+                                                                                        id="compareproduct"
+                                                                                        value="{{$product->id }}"><i
+                                                                                            class="fa fa-exchange"></i></button>
 
 
-                                                                                    <form class="option-choice-form" onclick="homeadtocart(this);">
+                                                                                    <form class="option-choice-form"
+                                                                                        onclick="homeadtocart(this);">
 
-                                                                                <input type="hidden" value="1" name="quantity">
-                                                                                <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
-                                                                                @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                    <i class="fa fa-search"></i>
-                                                                                    <input type="hidden" name="combination">
-                                                                                </a>
-                                                                                @else
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
-                                                                                </button>
-                                                                                @endif
-                                                                            </form>
+                                                                                        <input type="hidden" value="1"
+                                                                                            name="quantity">
+                                                                                        <input type="hidden"
+                                                                                            value="{{$product->id}}"
+                                                                                            name="product_id">
+                                                                                        <input type="hidden"
+                                                                                            value="{{$product->product_price}}"
+                                                                                            name="product_price">
+                                                                                        @if($product->product_type ==1)
+                                                                                        <a class="addToCart btn-button btn-quickview quickview quickview_handler"
+                                                                                            href="{{url('details/'.$product->id)}}"
+                                                                                            title="Add To Cart"
+                                                                                            data-title="Quick View"
+                                                                                            data-fancybox-type="iframe">
+                                                                                            <i class="fa fa-search"></i>
+                                                                                            <input type="hidden"
+                                                                                                name="combination">
+                                                                                        </a>
+                                                                                        @else
+                                                                                        <button
+                                                                                            class="addToCart btn-button"
+                                                                                            type="button"
+                                                                                            data-toggle="tooltip"
+                                                                                            title=""
+                                                                                            onclick="cart.add('114');"
+                                                                                            data-original-title="Add to cart">
+                                                                                            <span class="hidden">Add to
+                                                                                                cart</span>
+                                                                                        </button>
+                                                                                        @endif
+                                                                                    </form>
 
 
 
@@ -1438,17 +1879,18 @@
                                                                     </div>
                                                                 </div>
 
-                                                            <!-- product end -->
+                                                                <!-- product end -->
+                                                            </div>
+                                                            @endforeach
                                                         </div>
-                                                          @endforeach
                                                     </div>
-                                                </div>
-                                                <div class="ltabs-items  items-category-7 grid" data-total="16">
-                                                    <div class="ltabs-loading">
+                                                    <div class="ltabs-items  items-category-7 grid" data-total="16">
+                                                        <div class="ltabs-loading">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="ltabs-items  items-category-8 grid" data-total="16">
-                                                    <div class="ltabs-loading">
+                                                    <div class="ltabs-items  items-category-8 grid" data-total="16">
+                                                        <div class="ltabs-loading">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1457,10 +1899,9 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
-            </div>
         </section>
         <!-- Digital & Electronics -->
         <!-- section four -->
@@ -1481,16 +1922,24 @@
                             <div class="modcontent">
                                 <div id="so_listing_tabs_4" class="so-listing-tabs first-load">
                                     <div class="ltabs-wrap">
-                                        <div class="ltabs-tabs-container" data-delay="300" data-duration="600" data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="4" data-md="3" data-sm="3" data-xs="2" data-margin="0">
+                                        <div class="ltabs-tabs-container" data-delay="300" data-duration="600"
+                                            data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="4"
+                                            data-md="3" data-sm="3" data-xs="2" data-margin="0">
                                             <!--Begin Tabs-->
                                             <div class="ltabs-tabs-wrap">
                                                 <span class="ltabs-tab-selected"></span>
                                                 <span class="ltabs-tab-arrow">▼</span>
                                                 <div class="item-sub-cat">
                                                     <ul class="ltabs-tabs cf">
-                                                        <li class="ltabs-tab tab-sel" data-category-id="1" data-active-content=".items-category-1"> <span class="ltabs-tab-label">Best Seller</span> </li>
-                                                        <li class="ltabs-tab " data-category-id="9" data-active-content=".items-category-9"> <span class="ltabs-tab-label">New Arrivals</span> </li>
-                                                        <li class="ltabs-tab " data-category-id="10" data-active-content=".items-category-10"> <span class="ltabs-tab-label">Most Rating</span> </li>
+                                                        <li class="ltabs-tab tab-sel" data-category-id="1"
+                                                            data-active-content=".items-category-1"> <span
+                                                                class="ltabs-tab-label">Best Seller</span> </li>
+                                                        <li class="ltabs-tab " data-category-id="9"
+                                                            data-active-content=".items-category-9"> <span
+                                                                class="ltabs-tab-label">New Arrivals</span> </li>
+                                                        <li class="ltabs-tab " data-category-id="10"
+                                                            data-active-content=".items-category-10"> <span
+                                                                class="ltabs-tab-label">Most Rating</span> </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -1499,7 +1948,8 @@
                                         <div class="wap-listing-tabs products-list grid">
                                             <div class="ltabs-items-container ">
                                                 <!--Begin Items-->
-                                                <div class="ltabs-items ltabs-items-selected items-category-1" data-total="16">
+                                                <div class="ltabs-items ltabs-items-selected items-category-1"
+                                                    data-total="16">
                                                     <div class="ltabs-items-inner ltabs-slider">
                                                         <!-- grid -->
                                                         @php
@@ -1510,113 +1960,164 @@
                                                         <!-- Qayum Hasan -->
                                                         <div class="ltabs-item">
                                                             <!-- product -->
-                                                            <div class="item-inner product-layout transition product-grid">
+                                                            <div
+                                                                class="item-inner product-layout transition product-grid">
                                                                 <div class="product-item-container">
                                                                     <div class="left-block">
                                                                         <div class="image product-image-container ">
-                                                                            <a class="lt-image" data-product="114" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
-                                                                                <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
+                                                                            <a class="lt-image" data-product="114"
+                                                                                href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                                target="_self"
+                                                                                title=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
+                                                                                <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"
+                                                                                    alt=" Magnetic Air Vent Phone Holder for iPhone 7 / 7 Plus">
                                                                             </a>
                                                                         </div>
-                                                                        <div class="box-label"><span class="label-product label-sale">Sale</span>
+                                                                        <div class="box-label"><span
+                                                                                class="label-product label-sale">Sale</span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="right-block">
                                                                         <div class="caption">
-                                                                            <h4><a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                            <h4><a
+                                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                                             </h4>
 
 
 
                                                                             @php
-                                                                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
-                                                                        @endphp
+                                                                            $flashdealdetail =
+                                                                            App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                                            @endphp
 
-                                                                        <div class="total-price clearfix">
-                                                                            @if(count($flashdealdetail) > 0)
-                                                                            @foreach($flashdealdetail as $row)
-
-                                                                            <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
-
-                                                                            @if($row ->discount_type == 1 )
-
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price - $row->discount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @else
-
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price -$productdiscount}}</span><span class="price-old">৳ {{$product->product_price}}</span>
-                                                                        </div>
-                                                                            @endif
-                                                                            @endforeach
-                                                                            @else
-                                                                            <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span>
-                                                                            </div>
-                                                                            @endif
-
-                                                                            <div class="price-sale price-right">
+                                                                            <div class="total-price clearfix">
+                                                                                @if(count($flashdealdetail) > 0)
                                                                                 @foreach($flashdealdetail as $row)
+
+                                                                                <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+
                                                                                 @if($row ->discount_type == 1 )
-                                                                                <span class="discount">
 
-                                                                                    - ৳ {{$row->discount}}
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price - $row->discount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @else
-                                                                                <span class="discount">
-                                                                                    - {{$row->discount}} %
 
-                                                                                    <strong>OFF</strong>
-                                                                                </span>
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price -$productdiscount}}</span><span
+                                                                                        class="price-old">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
                                                                                 @endif
                                                                                 @endforeach
+                                                                                @else
+                                                                                <div class="price price-left"><span
+                                                                                        class="price-new">৳
+                                                                                        {{$product->product_price}}</span>
+                                                                                </div>
+                                                                                @endif
+
+                                                                                <div class="price-sale price-right">
+                                                                                    @foreach($flashdealdetail as $row)
+                                                                                    @if($row ->discount_type == 1 )
+                                                                                    <span class="discount">
+
+                                                                                        - ৳ {{$row->discount}}
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @else
+                                                                                    <span class="discount">
+                                                                                        - {{$row->discount}} %
+
+                                                                                        <strong>OFF</strong>
+                                                                                    </span>
+                                                                                    @endif
+                                                                                    @endforeach
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
 
 
                                                                         </div>
                                                                         <div class="button-group">
-                                                                        <div class="button-inner so-quickview">
-                                                                            <a class="lt-image hidden" href="#" target="_self" title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
-                                                                            <a class="btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Quick View" data-title="Quick View" data-fancybox-type="iframe">
-                                                                                <i class="fa fa-search"></i>
-                                                                            </a>
-                                                                            @if(Auth::guard('web')->check())
-                                                                            <button class="mywishlist btn-button" type="button" data-toggle="tooltip" title="" data-original-title="add to Wish List" data-id="{{$product->id}}"> <i class="fa fa-heart"></i></button>
-                                                                            @else
-                                                                            <a href="{{route('login')}}" class="compare btn-button"><i class="fa fa-heart"></i></a>
-                                                                            @endif
-
-                                                                            <button class="compare btn-button compareproduct" type="button" id="compareproduct" value="{{$product->id }}"><i class="fa fa-exchange"></i></button>
-
-
-
-
-
-
-
-
-
-                                                                            <form class="option-choice-form" onclick="homeadtocart(this);">
-
-                                                                                <input type="hidden" value="1" name="quantity">
-                                                                                <input type="hidden" value="{{$product->id}}" name="product_id">
-                                                                                <input type="hidden" value="{{$product->product_price}}" name="product_price">
-                                                                                @if($product->product_type ==1)
-                                                                                <a class="addToCart btn-button btn-quickview quickview quickview_handler" href="{{url('details/'.$product->id)}}" title="Add To Cart" data-title="Quick View" data-fancybox-type="iframe">
+                                                                            <div class="button-inner so-quickview">
+                                                                                <a class="lt-image hidden" href="#"
+                                                                                    target="_self"
+                                                                                    title="Anantara Dhigu Resort &amp;amp; Spa, Maldives Hair Spa"></a>
+                                                                                <a class="btn-button btn-quickview quickview quickview_handler"
+                                                                                    href="{{url('details/'.$product->id)}}"
+                                                                                    title="Quick View"
+                                                                                    data-title="Quick View"
+                                                                                    data-fancybox-type="iframe">
                                                                                     <i class="fa fa-search"></i>
-                                                                                    <input type="hidden" name="combination">
                                                                                 </a>
+                                                                                @if(Auth::guard('web')->check())
+                                                                                <button class="mywishlist btn-button"
+                                                                                    type="button" data-toggle="tooltip"
+                                                                                    title=""
+                                                                                    data-original-title="add to Wish List"
+                                                                                    data-id="{{$product->id}}"> <i
+                                                                                        class="fa fa-heart"></i></button>
                                                                                 @else
-                                                                                <button class="addToCart btn-button" type="button" data-toggle="tooltip" title="" onclick="cart.add('114');" data-original-title="Add to cart">
-                                                                                    <span class="hidden">Add to cart</span>
-                                                                                </button>
+                                                                                <a href="{{route('login')}}"
+                                                                                    class="compare btn-button"><i
+                                                                                        class="fa fa-heart"></i></a>
                                                                                 @endif
-                                                                            </form>
+
+                                                                                <button
+                                                                                    class="compare btn-button compareproduct"
+                                                                                    type="button" id="compareproduct"
+                                                                                    value="{{$product->id }}"><i
+                                                                                        class="fa fa-exchange"></i></button>
 
 
+
+
+
+
+
+
+
+                                                                                <form class="option-choice-form"
+                                                                                    onclick="homeadtocart(this);">
+
+                                                                                    <input type="hidden" value="1"
+                                                                                        name="quantity">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->id}}"
+                                                                                        name="product_id">
+                                                                                    <input type="hidden"
+                                                                                        value="{{$product->product_price}}"
+                                                                                        name="product_price">
+                                                                                    @if($product->product_type ==1)
+                                                                                    <a class="addToCart btn-button btn-quickview quickview quickview_handler"
+                                                                                        href="{{url('details/'.$product->id)}}"
+                                                                                        title="Add To Cart"
+                                                                                        data-title="Quick View"
+                                                                                        data-fancybox-type="iframe">
+                                                                                        <i class="fa fa-search"></i>
+                                                                                        <input type="hidden"
+                                                                                            name="combination">
+                                                                                    </a>
+                                                                                    @else
+                                                                                    <button class="addToCart btn-button"
+                                                                                        type="button"
+                                                                                        data-toggle="tooltip" title=""
+                                                                                        onclick="cart.add('114');"
+                                                                                        data-original-title="Add to cart">
+                                                                                        <span class="hidden">Add to
+                                                                                            cart</span>
+                                                                                    </button>
+                                                                                    @endif
+                                                                                </form>
+
+
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1638,7 +2139,9 @@
                                                     @foreach($bottomimage as $bimage)
                                                     <div class="col-lg-6 col-md-6 col-sm-6 banners">
                                                         <div>
-                                                            <a title="Static Image" href="{{$bimage->link}}"><img src="{{asset('public/uploads/sitebanner/'.$bimage->image)}}" alt="{{$bimage->image}}"></a>
+                                                            <a title="Static Image" href="{{$bimage->link}}"><img
+                                                                    src="{{asset('public/uploads/sitebanner/'.$bimage->image)}}"
+                                                                    alt="{{$bimage->image}}"></a>
                                                         </div>
                                                     </div>
                                                     @endforeach
@@ -1669,9 +2172,15 @@
                             <h2 class="modtitle">{{$cate->cate_name}}</h2>
                         </div>
                         <div class="modcontent">
-                            <div id="so_extra_slider_sport" class="so-extraslider buttom-type1 preset00-1 preset01-1 preset02-1 preset03-1 preset04-1 button-type1">
+                            <div id="so_extra_slider_sport"
+                                class="so-extraslider buttom-type1 preset00-1 preset01-1 preset02-1 preset03-1 preset04-1 button-type1">
                                 <div class="extraslider-inner owl2-carousel owl2-theme owl2-loaded extra-animate">
-                                    <div class="category-slider-inner products-list yt-content-slider-2" data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="1" data-items_column0="1" data-items_column1="1" data-items_column2="1" data-items_column3="1" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+                                    <div class="category-slider-inner products-list yt-content-slider-2" data-rtl="yes"
+                                        data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6"
+                                        data-margin="30" data-items_column00="1" data-items_column0="1"
+                                        data-items_column1="1" data-items_column2="1" data-items_column3="1"
+                                        data-items_column4="1" data-arrows="yes" data-pagination="no"
+                                        data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
                                         <div class="item products-list grid">
                                             <div class="item-wrap product-layout style1 ">
                                                 @php
@@ -1683,8 +2192,13 @@
                                                     <div class="left-block">
                                                         <div class="item-image">
                                                             <div class="item-img-info product-image-container ">
-                                                                <a class="lt-image" data-product="55" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Men Collection Outfit Grid, Outfit and  Colored Sport ">
-                                                                    <img src="{{asset('public/uploads/products/thumbnail/smallthum/'.$product->thumbnail_img)}}" alt="Men Collection Outfit Grid, Outfit and  Colored Sport " height="120px" width="120px">
+                                                                <a class="lt-image" data-product="55"
+                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                    target="_self"
+                                                                    title="Men Collection Outfit Grid, Outfit and  Colored Sport ">
+                                                                    <img src="{{asset('public/uploads/products/thumbnail/smallthum/'.$product->thumbnail_img)}}"
+                                                                        alt="Men Collection Outfit Grid, Outfit and  Colored Sport "
+                                                                        height="120px" width="120px">
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -1695,7 +2209,8 @@
                                                     <div class="right-block">
                                                         <div class="caption">
                                                             <h4 class="item-title">
-                                                                <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                <a
+                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
                                                             </h4>
                                                             <!-- Begin item-content -->
 
@@ -1703,51 +2218,56 @@
 
 
                                                             @php
-                                                                    $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                                                            $flashdealdetail =
+                                                            App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                                                             @endphp
 
                                                             <div class="item-content">
                                                                 <div class="total-price">
                                                                     <div class="price price-left">
-                                                                    @if(count($flashdealdetail) > 0)
+                                                                        @if(count($flashdealdetail) > 0)
                                                                         @foreach($flashdealdetail as $row)
                                                                         <?php    $productdiscount =($product->product_price * $row->discount)/100; ?>
                                                                         @if($row ->discount_type == 1 )
                                                                         <span class="price product-price">
-                                                                        ৳ {{$product->product_price - $row->discount}}
+                                                                            ৳
+                                                                            {{$product->product_price - $row->discount}}
                                                                         </span>
-                                                                        <span class="price-old">{{$product->product_price}}</span>
+                                                                        <span
+                                                                            class="price-old">{{$product->product_price}}</span>
                                                                         @else
                                                                         <span class="price product-price">
-                                                                        ৳ {{$product->product_price -$productdiscount}}
+                                                                            ৳
+                                                                            {{$product->product_price -$productdiscount}}
                                                                         </span>
-                                                                        <span class="price-old">{{$product->product_price}}</span>
+                                                                        <span
+                                                                            class="price-old">{{$product->product_price}}</span>
                                                                         @endif
                                                                         @endforeach
-                                                                    @else
-                                                                    <span class="price product-price">
-                                                                        ৳ {{$product->product_price}}
-                                                                    </span>
-                                                                    @endif
+                                                                        @else
+                                                                        <span class="price product-price">
+                                                                            ৳ {{$product->product_price}}
+                                                                        </span>
+                                                                        @endif
                                                                     </div>
                                                                     <div class="price-sale price-right">
 
-                                                                @foreach($flashdealdetail as $row)
-                                                                @if($row ->discount_type == 1 )
-                                                                <span class="discount">
+                                                                        @foreach($flashdealdetail as $row)
+                                                                        @if($row ->discount_type == 1 )
+                                                                        <span class="discount">
 
-                                                                    - ৳ {{$row->discount}}
-                                                                    <strong>OFF</strong>
-                                                                </span>
-                                                                @else
-                                                                <span class="discount">
-                                                                    -{{$row->discount}}%
+                                                                            - ৳ {{$row->discount}}
+                                                                            <strong>OFF</strong>
+                                                                        </span>
+                                                                        @else
+                                                                        <span class="discount">
+                                                                            -{{$row->discount}}%
 
-                                                                    <strong>OFF</strong>
-                                                                </span>
-                                                                @endif
-                                                                @endforeach
-                                                                </div>
+                                                                            <strong>OFF</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                        @endforeach
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
@@ -1781,8 +2301,12 @@
                                                     <div class="left-block">
                                                         <div class="item-image">
                                                             <div class="item-img-info product-image-container ">
-                                                                <a class="lt-image" data-product="55" href="{{url('product/'.$product->slug.'/'.$product->id)}}" target="_self" title="Drumstick uttempor the actual teachings of the great">
-                                                                    <img src="{{asset('public/uploads/products/thumbnail/smallthum/'.$product->thumbnail_img)}}" alt="Drumstick uttempor the actual teachings of the great">
+                                                                <a class="lt-image" data-product="55"
+                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}"
+                                                                    target="_self"
+                                                                    title="Drumstick uttempor the actual teachings of the great">
+                                                                    <img src="{{asset('public/uploads/products/thumbnail/smallthum/'.$product->thumbnail_img)}}"
+                                                                        alt="Drumstick uttempor the actual teachings of the great">
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -1793,7 +2317,8 @@
                                                         <div class="caption">
                                                             <h4 class="item-title">
 
-                                                                <a href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                                                                <a
+                                                                    href="{{url('product/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
 
                                                             </h4>
 
@@ -1829,323 +2354,366 @@
 
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_5dfs  block block_10">
-												<div class="clearfix home1-sevices">
-													 <ul class="category-slider-inner products-list yt-content-slider" data-rtl="yes" data-autoplay="yes" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="0" data-items_column00="4" data-items_column0="4" data-items_column1="3" data-items_column2="2"  data-items_column3="2" data-items_column4="1" data-arrows="no" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
-															<li class="item payment col-md-3">
-																 <div class="icon">
-																 </div>
-																 <div class="text">
-																		<h5><a href="#">Payment on Delivery</a></h5>
-																		<p>Cash on delivery option</p>
-																 </div>
-															</li>
-															<li class="item free col-md-3">
-																 <div class="icon">
-																 </div>
-																 <div class="text">
-																		<h5><a href="#">Free shipping</a></h5>
-																		<p>Free shipping on oder over $100</p>
-																 </div>
-															</li>
-															<li class="item secure col-md-3">
-																 <div class="icon">
-																 </div>
-																 <div class="text">
-																		<h5><a href="#">Secure Payment</a></h5>
-																		<p>We value your security</p>
-																 </div>
-															</li>
-															<li class="item support col-md-3">
-																 <div class="icon">
-																 </div>
-																 <div class="text">
-																		<h5><a href="#">Online support</a></h5>
-																		<p>We have support 24/7</p>
-																 </div>
-															</li>
-													 </ul>
-												</div>
-                                         </div>
+                <div class="clearfix home1-sevices">
+                    <ul class="category-slider-inner products-list yt-content-slider" data-rtl="yes" data-autoplay="yes"
+                        data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="0" data-items_column00="4"
+                        data-items_column0="4" data-items_column1="3" data-items_column2="2" data-items_column3="2"
+                        data-items_column4="1" data-arrows="no" data-pagination="no" data-lazyload="yes" data-loop="yes"
+                        data-hoverpause="yes">
+                        <li class="item payment col-md-3">
+                            <div class="icon">
+                            </div>
+                            <div class="text">
+                                <h5><a href="#">Payment on Delivery</a></h5>
+                                <p>Cash on delivery option</p>
+                            </div>
+                        </li>
+                        <li class="item free col-md-3">
+                            <div class="icon">
+                            </div>
+                            <div class="text">
+                                <h5><a href="#">Free shipping</a></h5>
+                                <p>Free shipping on oder over $100</p>
+                            </div>
+                        </li>
+                        <li class="item secure col-md-3">
+                            <div class="icon">
+                            </div>
+                            <div class="text">
+                                <h5><a href="#">Secure Payment</a></h5>
+                                <p>We value your security</p>
+                            </div>
+                        </li>
+                        <li class="item support col-md-3">
+                            <div class="icon">
+                            </div>
+                            <div class="text">
+                                <h5><a href="#">Online support</a></h5>
+                                <p>We have support 24/7</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
 
 
-                                         <!-- blog area start -->
+            <!-- blog area start -->
 
-                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_cfay  block block_11">
-												<div class="module so-latest-blog custom-ourblog clearfix default-nav preset01-2 preset02-2 preset03-2 preset04-2 preset05-1">
-													 <h2 class="modtitle"><span>Latest Blog</span></h2>
-													 <div class="modcontent">
-															<div id="so_latest_blog_1" class="so-blog-external button-type2 button-type2">
-																 <div class="category-slider-inner products-list yt-content-slider blog-external clearfix " data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="2" data-items_column0="2" data-items_column1="2" data-items_column2="2"  data-items_column3="2" data-items_column4="1" data-arrows="no" data-pagination="yes" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
-																		<div class="media">
-																			 <div class="item head-button">
-																					<div class="content-img col-sm-6 col-xs-12">
-																						 <a href="product.html" target="_self">
-																						 <img src="image/catalog/demo/blog/8-260x190.jpg" alt="Aestibulum ipsum a ornare car">
-																						 </a>
-																					</div>
-																					<div class="content-detail col-sm-6 col-xs-12">
-																						 <div class="media-content so-block">
-																								<div class="entry-date font-ct date-bottom">
-																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
-																								</div>
-																								<h4 class="media-heading head-item">
-																									 <a href="product.html" title="Aestibulum ipsum a ornare car" target="_self">Aestibulum ipsum a ornare car</a>
-																								</h4>
-																								<div class="description">
-																									 Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec ornare lacus turpis ac purus. Mauris cursus in mi v..
-																								</div>
-																								<div class="readmore">
-																									 <a href="product.html" target="_self">Read more</a>
-																								</div>
-																						 </div>
-																					</div>
-																			 </div>
-																		</div>
-																		<div class="media">
-																			 <div class="item head-button">
-																					<div class="content-img col-sm-6 col-xs-12">
-																						 <a href="product.html" target="_self">
-																						 <img src="image/catalog/demo/blog/9-260x190.jpg" alt="Aestibulum ipsum a ornare lectus">
-																						 </a>
-																					</div>
-																					<div class="content-detail col-sm-6 col-xs-12">
-																						 <div class="media-content so-block">
-																								<div class="entry-date font-ct date-bottom">
-																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
-																								</div>
-																								<h4 class="media-heading head-item">
-																									 <a href="product.html" title="Aestibulum ipsum a ornare lectus" target="_self">Aestibulum ipsum a ornare lectus</a>
-																								</h4>
-																								<div class="description">
-																									 Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec ornare lacus turpis ac purus. Mauris cursus in mi v..
-																								</div>
-																								<div class="readmore">
-																									 <a href="product.html" target="_self">Read more</a>
-																								</div>
-																						 </div>
-																					</div>
-																			 </div>
-																		</div>
-									<div class="media">
-																			 <div class="item head-button">
-																					<div class="content-img col-sm-6 col-xs-12">
-																						 <a href="product.html" target="_self">
-																						 <img src="image/catalog/demo/blog/5-260x190.jpg" alt="Baby Came Back! Missed Out? Grab Your">
-																						 </a>
-																					</div>
-																					<div class="content-detail col-sm-6 col-xs-12">
-																						 <div class="media-content so-block">
-																								<div class="entry-date font-ct date-bottom">
-																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
-																								</div>
-																								<h4 class="media-heading head-item">
-																									 <a href="product.html" title="Baby Came Back! Missed Out? Grab Your" target="_self">Baby Came Back! Missed Out? Grab Your</a>
-																								</h4>
-																								<div class="description">
-																									 Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec ornare lacus turpis ac purus. Mauris cursus in mi v..
-																								</div>
-																								<div class="readmore">
-																									 <a href="product.html" target="_self">Read more</a>
-																								</div>
-																						 </div>
-																					</div>
-																			 </div>
-																		</div>
-									<div class="media">
-																			 <div class="item head-button">
-																					<div class="content-img col-sm-6 col-xs-12">
-																						 <a href="product.html" target="_self">
-																						 <img src="image/catalog/demo/blog/2-260x190.jpg" alt="Biten demonstraverunt lector ">
-																						 </a>
-																					</div>
-																					<div class="content-detail col-sm-6 col-xs-12">
-																						 <div class="media-content so-block">
-																								<div class="entry-date font-ct date-bottom">
-																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
-																								</div>
-																								<h4 class="media-heading head-item">
-																									 <a href="product.html" title="Biten demonstraverunt lector " target="_self">Biten demonstraverunt lector </a>
-																								</h4>
-																								<div class="description">
-																									 Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec ornare lacus turpis ac purus. Mauris cursus in mi v..
-																								</div>
-																								<div class="readmore">
-																									 <a href="product.html" target="_self">Read more</a>
-																								</div>
-																						 </div>
-																					</div>
-																			 </div>
-																		</div>
-									<div class="media">
-																			 <div class="item head-button">
-																					<div class="content-img col-sm-6 col-xs-12">
-																						 <a href="product.html" target="_self">
-																						 <img src="image/catalog/demo/blog/7-260x190.jpg" alt="Commodo laoreet semper">
-																						 </a>
-																					</div>
-																					<div class="content-detail col-sm-6 col-xs-12">
-																						 <div class="media-content so-block">
-																								<div class="entry-date font-ct date-bottom">
-																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
-																								</div>
-																								<h4 class="media-heading head-item">
-																									 <a href="product.html" title="Commodo laoreet semper" target="_self">Commodo laoreet semper</a>
-																								</h4>
-																								<div class="description">
-													Commodo laoreet semper tincidunt lorem Vestibulum nunc at In Curabitur magna. Euismod euismod Suspendisse tortor ante ad..
-																								</div>
-																								<div class="readmore">
-																									 <a href="product.html" target="_self">Read more</a>
-																								</div>
-																						 </div>
-																					</div>
-																			 </div>
-																		</div>
-									<div class="media">
-																			 <div class="item head-button">
-																					<div class="content-img col-sm-6 col-xs-12">
-																						 <a href="product.html" target="_self">
-																						 <img src="image/catalog/demo/blog/3-260x190.jpg" alt="Neque porro quisquam est">
-																						 </a>
-																					</div>
-																					<div class="content-detail col-sm-6 col-xs-12">
-																						 <div class="media-content so-block">
-																								<div class="entry-date font-ct date-bottom">
-																									 <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct 2017</span>
-																								</div>
-																								<h4 class="media-heading head-item">
-																									 <a href="product.html" title="Neque porro quisquam est" target="_self">Neque porro quisquam est</a>
-																								</h4>
-																								<div class="description">
-																									 Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius ..
-																								</div>
-																								<div class="readmore">
-																									 <a href="product.html" target="_self">Read more</a>
-																								</div>
-																						 </div>
-																					</div>
-																			 </div>
-																		</div>
-																 </div>
-															</div>
-													 </div>
-												</div>
-                                         </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_cfay  block block_11">
+                <div
+                    class="module so-latest-blog custom-ourblog clearfix default-nav preset01-2 preset02-2 preset03-2 preset04-2 preset05-1">
+                    <h2 class="modtitle"><span>Latest Blog</span></h2>
+                    <div class="modcontent">
+                        <div id="so_latest_blog_1" class="so-blog-external button-type2 button-type2">
+                            <div class="category-slider-inner products-list yt-content-slider blog-external clearfix "
+                                data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6"
+                                data-margin="30" data-items_column00="2" data-items_column0="2" data-items_column1="2"
+                                data-items_column2="2" data-items_column3="2" data-items_column4="1" data-arrows="no"
+                                data-pagination="yes" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+                                <div class="media">
+                                    <div class="item head-button">
+                                        <div class="content-img col-sm-6 col-xs-12">
+                                            <a href="product.html" target="_self">
+                                                <img src="image/catalog/demo/blog/8-260x190.jpg"
+                                                    alt="Aestibulum ipsum a ornare car">
+                                            </a>
+                                        </div>
+                                        <div class="content-detail col-sm-6 col-xs-12">
+                                            <div class="media-content so-block">
+                                                <div class="entry-date font-ct date-bottom">
+                                                    <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct
+                                                        2017</span>
+                                                </div>
+                                                <h4 class="media-heading head-item">
+                                                    <a href="product.html" title="Aestibulum ipsum a ornare car"
+                                                        target="_self">Aestibulum ipsum a ornare car</a>
+                                                </h4>
+                                                <div class="description">
+                                                    Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec
+                                                    ornare lacus turpis ac purus. Mauris cursus in mi v..
+                                                </div>
+                                                <div class="readmore">
+                                                    <a href="product.html" target="_self">Read more</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="item head-button">
+                                        <div class="content-img col-sm-6 col-xs-12">
+                                            <a href="product.html" target="_self">
+                                                <img src="image/catalog/demo/blog/9-260x190.jpg"
+                                                    alt="Aestibulum ipsum a ornare lectus">
+                                            </a>
+                                        </div>
+                                        <div class="content-detail col-sm-6 col-xs-12">
+                                            <div class="media-content so-block">
+                                                <div class="entry-date font-ct date-bottom">
+                                                    <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct
+                                                        2017</span>
+                                                </div>
+                                                <h4 class="media-heading head-item">
+                                                    <a href="product.html" title="Aestibulum ipsum a ornare lectus"
+                                                        target="_self">Aestibulum ipsum a ornare lectus</a>
+                                                </h4>
+                                                <div class="description">
+                                                    Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec
+                                                    ornare lacus turpis ac purus. Mauris cursus in mi v..
+                                                </div>
+                                                <div class="readmore">
+                                                    <a href="product.html" target="_self">Read more</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="item head-button">
+                                        <div class="content-img col-sm-6 col-xs-12">
+                                            <a href="product.html" target="_self">
+                                                <img src="image/catalog/demo/blog/5-260x190.jpg"
+                                                    alt="Baby Came Back! Missed Out? Grab Your">
+                                            </a>
+                                        </div>
+                                        <div class="content-detail col-sm-6 col-xs-12">
+                                            <div class="media-content so-block">
+                                                <div class="entry-date font-ct date-bottom">
+                                                    <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct
+                                                        2017</span>
+                                                </div>
+                                                <h4 class="media-heading head-item">
+                                                    <a href="product.html" title="Baby Came Back! Missed Out? Grab Your"
+                                                        target="_self">Baby Came Back! Missed Out? Grab Your</a>
+                                                </h4>
+                                                <div class="description">
+                                                    Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec
+                                                    ornare lacus turpis ac purus. Mauris cursus in mi v..
+                                                </div>
+                                                <div class="readmore">
+                                                    <a href="product.html" target="_self">Read more</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="item head-button">
+                                        <div class="content-img col-sm-6 col-xs-12">
+                                            <a href="product.html" target="_self">
+                                                <img src="image/catalog/demo/blog/2-260x190.jpg"
+                                                    alt="Biten demonstraverunt lector ">
+                                            </a>
+                                        </div>
+                                        <div class="content-detail col-sm-6 col-xs-12">
+                                            <div class="media-content so-block">
+                                                <div class="entry-date font-ct date-bottom">
+                                                    <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct
+                                                        2017</span>
+                                                </div>
+                                                <h4 class="media-heading head-item">
+                                                    <a href="product.html" title="Biten demonstraverunt lector "
+                                                        target="_self">Biten demonstraverunt lector </a>
+                                                </h4>
+                                                <div class="description">
+                                                    Morbi tempus, non ullamcorper euismod, erat odio suscipit purus, nec
+                                                    ornare lacus turpis ac purus. Mauris cursus in mi v..
+                                                </div>
+                                                <div class="readmore">
+                                                    <a href="product.html" target="_self">Read more</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="item head-button">
+                                        <div class="content-img col-sm-6 col-xs-12">
+                                            <a href="product.html" target="_self">
+                                                <img src="image/catalog/demo/blog/7-260x190.jpg"
+                                                    alt="Commodo laoreet semper">
+                                            </a>
+                                        </div>
+                                        <div class="content-detail col-sm-6 col-xs-12">
+                                            <div class="media-content so-block">
+                                                <div class="entry-date font-ct date-bottom">
+                                                    <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct
+                                                        2017</span>
+                                                </div>
+                                                <h4 class="media-heading head-item">
+                                                    <a href="product.html" title="Commodo laoreet semper"
+                                                        target="_self">Commodo laoreet semper</a>
+                                                </h4>
+                                                <div class="description">
+                                                    Commodo laoreet semper tincidunt lorem Vestibulum nunc at In
+                                                    Curabitur magna. Euismod euismod Suspendisse tortor ante ad..
+                                                </div>
+                                                <div class="readmore">
+                                                    <a href="product.html" target="_self">Read more</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="item head-button">
+                                        <div class="content-img col-sm-6 col-xs-12">
+                                            <a href="product.html" target="_self">
+                                                <img src="image/catalog/demo/blog/3-260x190.jpg"
+                                                    alt="Neque porro quisquam est">
+                                            </a>
+                                        </div>
+                                        <div class="content-detail col-sm-6 col-xs-12">
+                                            <div class="media-content so-block">
+                                                <div class="entry-date font-ct date-bottom">
+                                                    <span class="media-date-added"><i class="fa fa-clock-o"></i> 17 Oct
+                                                        2017</span>
+                                                </div>
+                                                <h4 class="media-heading head-item">
+                                                    <a href="product.html" title="Neque porro quisquam est"
+                                                        target="_self">Neque porro quisquam est</a>
+                                                </h4>
+                                                <div class="description">
+                                                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
+                                                    consectetur, adipisci velit, sed quia non numquam eius ..
+                                                </div>
+                                                <div class="readmore">
+                                                    <a href="product.html" target="_self">Read more</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-
-                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_swee  block block_12">
-												<div id="content_slider_mfn4" class="yt-content-slider owl2-theme yt-content-slider-style-default arrow-default top-brand owl2-carousel owl2-responsive-1200 owl2-loaded yt-testimonials-slider" data-transitionin="fadeIn" data-transitionout="fadeOut" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="10" data-items_column00="6" data-items_column0="6" data-items_column1="5" data-items_column2="4" data-items_column3="3" data-items_column4="2" data-arrows="yes" data-pagination="no" data-lazyload="no" data-loop="yes" data-hoverpause="yes">
-													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-1.jpg" alt="title_dsdfg">
-													 </div>
-													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-2.jpg" alt="title_dsdfg">
-													 </div>
-													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-3.jpg" alt="title_dsdfg">
-													 </div>
-													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-4.jpg" alt="title_dsdfg">
-													 </div>
-													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-5.jpg" alt="title_dsdfg">
-													 </div>
-													 <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img src="image/catalog/demo/brand/brand-6.jpg" alt="title_dsdfg">
-													 </div>
-												</div>
-										 </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col_swee  block block_12">
+                <div id="content_slider_mfn4"
+                    class="yt-content-slider owl2-theme yt-content-slider-style-default arrow-default top-brand owl2-carousel owl2-responsive-1200 owl2-loaded yt-testimonials-slider"
+                    data-transitionin="fadeIn" data-transitionout="fadeOut" data-autoplay="no" data-autoheight="no"
+                    data-delay="4" data-speed="0.6" data-margin="10" data-items_column00="6" data-items_column0="6"
+                    data-items_column1="5" data-items_column2="4" data-items_column3="3" data-items_column4="2"
+                    data-arrows="yes" data-pagination="no" data-lazyload="no" data-loop="yes" data-hoverpause="yes">
+                    <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img
+                            src="image/catalog/demo/brand/brand-1.jpg" alt="title_dsdfg">
+                    </div>
+                    <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img
+                            src="image/catalog/demo/brand/brand-2.jpg" alt="title_dsdfg">
+                    </div>
+                    <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img
+                            src="image/catalog/demo/brand/brand-3.jpg" alt="title_dsdfg">
+                    </div>
+                    <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img
+                            src="image/catalog/demo/brand/brand-4.jpg" alt="title_dsdfg">
+                    </div>
+                    <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img
+                            src="image/catalog/demo/brand/brand-5.jpg" alt="title_dsdfg">
+                    </div>
+                    <div class="yt-content-slide yt-clearfix yt-content-wrap"> <img
+                            src="image/catalog/demo/brand/brand-6.jpg" alt="title_dsdfg">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
 
-    <script>
-        $(document).ready(function() {
-            $('.compareproduct').on('click', function() {
-                var com_id = $(this).val();
-                //alert(com_id);
+<script>
+    $(document).ready(function () {
+        $('.compareproduct').on('click', function () {
+            var com_id = $(this).val();
+            //alert(com_id);
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/product/compare') }}/" + com_id,
+                processData: false,
+                success: function (data) {
+                    if (data.checkip) {
+                        toastr.error("Already This Product Add Compare");
+
+                    } else {
+                        toastr.success("product add to compare");
+
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.mywishlist').on('click', function () {
+            var id = $(this).data('id');
+            //alert(id);
+            if (id) {
                 $.ajax({
-                    type: 'GET',
-                    url: "{{ url('/product/compare') }}/" + com_id,
+                    url: "{{ url('/product/add/wishlist/') }}/" + id,
+                    type: "GET",
+                    dataType: "json",
                     processData: false,
-                    success: function(data) {
-                        if (data.checkip) {
-                            toastr.error("Already This Product Add Compare");
-
+                    success: function (data) {
+                        console.log(data);
+                        if (data.check) {
+                            toastr.error("Already This Product Add wishlist");
                         } else {
-                            toastr.success("product add to compare");
-
+                            toastr.success("Product Add To wishlist");
                         }
                     }
                 });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.mywishlist').on('click', function() {
-                var id = $(this).data('id');
-                //alert(id);
-                if (id) {
-                    $.ajax({
-                        url: "{{ url('/product/add/wishlist/') }}/" + id,
-                        type: "GET",
-                        dataType: "json",
-                        processData: false,
-                        success: function(data) {
-                            console.log(data);
-                            if (data.check) {
-                                toastr.error("Already This Product Add wishlist");
-                            } else {
-                                toastr.success("Product Add To wishlist");
-                            }
-                        }
-                    });
-                } else {
-                    alert('danger');
-                }
-            });
-
-        });
-    </script> -->
-
-    <script>
-        function homeadtocart(el) {
-            var product_id = el.product_id.value;
-            var product_price = el.product_price.value;
-            var quantity = el.quantity.value;
-            if (!el.combination) {
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('product.add.cart') }}",
-                    data: {
-                        product_id: product_id,
-                        product_price: product_price,
-                        quantity: quantity,
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        document.getElementById('cartdatacount').innerHTML = data.quantity;
-                        document.getElementById('product_price').innerHTML = data.total;
-
-                    }
-                })
+            } else {
+                alert('danger');
             }
-
-
-        }
-    </script>
-@if($hotdeals)
-    <script>
-
-        $(function() {
-
-            $('.Countdown-1').countdown('{{ $hotdeals->end_date }}', function(event) {
-                $(this).html(event.strftime('' + '<div class="time-item time-day"><div class="num-time">%D</div><div class="name-time"> D </div></div>' +
-                    '<div class="time-item time-hour"><div class="num-time">%H</div><div class="name-time">H</div></div>' +
-                    '<div class="time-item time-min"><div class="num-time">%M</div><div class="name-time">M</div></div>' +
-                    '<div class="time-item time-sec"><div class="num-time">%S</div><div class="name-time">S</div></div>'));
-            });
         });
-    </script>
+
+    });
+</script>
+
+<script>
+    function homeadtocart(el) {
+        var product_id = el.product_id.value;
+        var product_price = el.product_price.value;
+        var quantity = el.quantity.value;
+        if (!el.combination) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('product.add.cart') }}",
+                data: {
+                    product_id: product_id,
+                    product_price: product_price,
+                    quantity: quantity,
+                },
+                success: function (data) {
+                    console.log(data);
+                    document.getElementById('cartdatacount').innerHTML = data.quantity;
+                    document.getElementById('product_price').innerHTML = data.total;
+
+                }
+            })
+        }
+
+    }
+</script>
+@if($hotdeals)
+<script>
+
+    $(function () {
+
+        $('.Countdown-1').countdown('{{ $hotdeals->end_date }}', function (event) {
+            $(this).html(event.strftime('' + '<div class="time-item time-day"><div class="num-time">%D</div><div class="name-time"> D </div></div>' +
+                '<div class="time-item time-hour"><div class="num-time">%H</div><div class="name-time">H</div></div>' +
+                '<div class="time-item time-min"><div class="num-time">%M</div><div class="name-time">M</div></div>' +
+                '<div class="time-item time-sec"><div class="num-time">%S</div><div class="name-time">S</div></div>'));
+        });
+    });
+</script>
 @else
 @endif
 
 
-    @endsection
+@endsection

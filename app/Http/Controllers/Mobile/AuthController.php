@@ -45,7 +45,7 @@ class AuthController extends Controller
         // Mail::to($user->email)->send(new UserVerificationMail($user->first_name, $user->remember_token));
         // sms varification code send
 
-        $smsusername =$user->first_name.' '.$user->last_name;
+        $smsusername =$user->username;
 
         $siteUrl =URL::to("/");
         $sms_text = $smsusername .", Your Verification Code is:". $verify_code .' '.$siteUrl;
@@ -80,8 +80,8 @@ class AuthController extends Controller
 
             return redirect()->route('sms.verification.form', $user->remember_token);
 
-        // session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
-        // return redirect()->route('user.auth.registration.success', $user->email);
+        session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
+         return redirect()->route('user.auth.registration.success', $user->email);
 
     }
 
@@ -96,7 +96,7 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
-                
+
                 return redirect('/');
             }
         } else {
@@ -110,11 +110,11 @@ class AuthController extends Controller
 
     public function checkoutAuth(Request $request)
     {
-        
+
         $admin = User::where('email', request('email'))->where('status',1)->first();
         if($admin){
             $credentials = $request->only('email', 'password');
-            
+
             if (Auth::attempt($credentials)) {
                 // Authentication passed...
                 return redirect()->intended(route('checkout.page'));

@@ -16,7 +16,7 @@
             <div class="right-block">
                 <div class="caption">
                     <h4>
-                    <a href="{{url('/product/details/page/'.$product->id)}}">{{Str::limit($product->product_name,40)}}</a>
+                    <a href="{{ url('product/'.$product->slug.'/'.$product->id) }}">{{Str::limit($product->product_name,40)}}</a>
                     </h4>
                     <div class="total-price clearfix">
                         <div class="price price-left"><span class="price-new">৳ {{$product->product_price}}</span><span class="price-old">$98.00</span></div>
@@ -50,3 +50,5 @@
 @else
     <h1>No Data Matched..</h1>
 @endif
+
+

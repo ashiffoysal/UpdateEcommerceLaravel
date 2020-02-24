@@ -479,7 +479,6 @@
                     toastr.success(data.cuponalert);
                 };
 
-
             });
 
     }
@@ -694,7 +693,7 @@
             });
          });
         });
-     
+
 </script>
 
 

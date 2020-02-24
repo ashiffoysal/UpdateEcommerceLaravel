@@ -352,7 +352,7 @@ if ($agent->isDesktop()) {
     // resubcate
     Route::get('resubacete/{cate_slug}/{subacet_slug}/{resub_slug}', 'Frontend\FrontendController@resubcateproduct');
 
-    Route::get('product/{slug}/{id}', 'Frontend\FrontendController@productDetails')->name('product.details');
+    Route::get('product/{slug}/{id}', 'Frontend\FrontendController@productDetails');
 
     Route::get('flash_deal_products', 'Frontend\FrontendController@flashDealProducts')->name('hot.deal.products');
 
@@ -414,12 +414,7 @@ if ($agent->isDesktop()) {
 
     Route::get('admin/product/varient', 'Frontend\FrontendController@provarient')->name('products.variant_price');
 
-
-
     //Route::get('category/details/{slug}', 'Frontend\FrontendController@categorydetails');
-
-
-
 
     Route::group(['prefix' => 'subscriber', 'namespace' => 'Frontend'], function () {
 
@@ -524,18 +519,18 @@ if ($agent->isDesktop()) {
 
 
 
-// user controller
-route::get(md5('admin/user/add'),'Admin\UserController@add')->name('admin.user.add');
-route::get(md5('admin/user/all'),'Admin\UserController@index')->name('admin.user.all');
-route::get('admin/user/edit/{id}','Admin\UserController@edit');
-route::post(md5('admin/user/insert'),'Admin\UserController@insert')->name('admin.userlist.insert');
-route::post(md5('admin/user/update'),'Admin\UserController@update')->name('admin.userlist.update');
-route::get('admin/user/delete/{id}','Admin\UserController@delete');
-// custommer
+    // user controller
+    route::get(md5('admin/user/add'), 'Admin\UserController@add')->name('admin.user.add');
+    route::get(md5('admin/user/all'), 'Admin\UserController@index')->name('admin.user.all');
+    route::get('admin/user/edit/{id}', 'Admin\UserController@edit');
+    route::post(md5('admin/user/insert'), 'Admin\UserController@insert')->name('admin.userlist.insert');
+    route::post(md5('admin/user/update'), 'Admin\UserController@update')->name('admin.userlist.update');
+    route::get('admin/user/delete/{id}', 'Admin\UserController@delete');
+    // custommer
 
-route::get(md5('admin/custommer/all'),'Admin\UserController@customer')->name('admin.custommer.all');
-route::get('admin/custommer/view/{id}','Admin\UserController@customerview');
-route::get('admin/customer/delete/{id}','Admin\UserController@customerdelete');
+    route::get(md5('admin/custommer/all'), 'Admin\UserController@customer')->name('admin.custommer.all');
+    route::get('admin/custommer/view/{id}', 'Admin\UserController@customerview');
+    route::get('admin/customer/delete/{id}', 'Admin\UserController@customerdelete');
 
     // site banner
     route::get(md5('admin/sitebanner/all'), 'admin\SiteBannerController@sitebanner')->name('admin.sitebanner.all');
@@ -550,9 +545,6 @@ route::get('admin/customer/delete/{id}','Admin\UserController@customerdelete');
     route::post(md5('admin/sitebanner/multisoftdelete'), 'admin\SiteBannerController@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
 
 
-
-
-
     // cupon
     Route::get(md5('admin/trash/cupon'), 'Admin\TrashController@cupon')->name('admin.trash.cupon');
     Route::post('admin/trash/cupon/multipledelete', 'Admin\TrashController@cuponmultidelete')->name('admin.trash.cupondelete');
@@ -560,39 +552,39 @@ route::get('admin/customer/delete/{id}','Admin\UserController@customerdelete');
     Route::post('admin/trash/multihearddelfaq', 'Admin\TrashController@multihearddelfaq')->name('');
 
 
-// site banner
-route::get(md5('admin/sitebanner/all'),'Admin\SiteBannerController@sitebanner')->name('admin.sitebanner.all');
-Route::get('admin/sitebanner/deactive/{id}','Admin\SiteBannerController@sitebannerdeactive');
-Route::get('admin/sitebanner/active/{id}','Admin\SiteBannerController@sitebanneractive');
-Route::get('admin/sitebanner/softdelete/{id}','Admin\SiteBannerController@sitebabnsoftdelete');
-Route::get('/get/admin/sitebanner/edit/{id}','Admin\SiteBannerController@sitebabnsoftedit');
-Route::get('admin/sitebanner/restore/{id}','Admin\SiteBannerController@sitebanrestore');
-Route::get('admin/sitebanner/hearddelete/{id}','Admin\SiteBannerController@sitebahearddel');
-route::post(md5('admin/sitebanner/insert'),'Admin\SitebannerController@sitebannerinsert')->name('admin.sitebanner.insert');
-route::post(md5('admin/sitebanner/update'),'Admin\SitebannerController@sitebannerupdate')->name('admin.sitebanner.update');
-route::post(md5('admin/sitebanner/multisoftdelete'),'Admin\SitebannerController@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
+    // site banner
+    route::get(md5('admin/sitebanner/all'), 'Admin\SiteBannerController@sitebanner')->name('admin.sitebanner.all');
+    Route::get('admin/sitebanner/deactive/{id}', 'Admin\SiteBannerController@sitebannerdeactive');
+    Route::get('admin/sitebanner/active/{id}', 'Admin\SiteBannerController@sitebanneractive');
+    Route::get('admin/sitebanner/softdelete/{id}', 'Admin\SiteBannerController@sitebabnsoftdelete');
+    Route::get('/get/admin/sitebanner/edit/{id}', 'Admin\SiteBannerController@sitebabnsoftedit');
+    Route::get('admin/sitebanner/restore/{id}', 'Admin\SiteBannerController@sitebanrestore');
+    Route::get('admin/sitebanner/hearddelete/{id}', 'Admin\SiteBannerController@sitebahearddel');
+    route::post(md5('admin/sitebanner/insert'), 'Admin\SitebannerController@sitebannerinsert')->name('admin.sitebanner.insert');
+    route::post(md5('admin/sitebanner/update'), 'Admin\SitebannerController@sitebannerupdate')->name('admin.sitebanner.update');
+    route::post(md5('admin/sitebanner/multisoftdelete'), 'Admin\SitebannerController@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
 
-// mobile slider
-route::get(md5('admin/mobile/slider/all'),'Admin\MobileController@index')->name('admin.mobileslider.all');
-route::post(md5('admin/mobile/slider/insert'),'Admin\MobileController@insert')->name('admin.mobileslider.insert');
-route::post('admin/mobile/slider/update','Admin\MobileController@update');
-route::get('admin/mobile/slider/deactive/{id}','Admin\MobileController@deactive');
-route::get('admin/mobile/slider/active/{id}','Admin\MobileController@active');
-route::get('admin/mobile/slider/softDelete/{id}','Admin\MobileController@softdelete');
-route::get('admin/mobile/slider/restore/{id}','Admin\MobileController@restore');
-route::get('/get/admin/mobile/slider/edit/{id}','Admin\MobileController@edit');
-route::post(md5('admin/mobile/slider/update'),'Admin\MobileController@multipleSoftDelete')->name('admin.mobileslider.multipleSoftDelete');
-route::get('admin/mobile/slider/delete/{id}','Admin\MobileController@delete');
-// mobile banner
-route::get(md5('admin/mobile/banner/all'),'Admin\MobileController@banner')->name('admin.mbanner.all');
-route::post(md5('admin/mobile/banner/insert'),'Admin\MobileController@bannerinsert')->name('admin.mobilebanner.insert');
-route::post(md5('admin/mobile/banner/multibanmodel'),'Admin\MobileController@multibanmodel')->name('admin.mobilebanner.multibanmodel');
-route::post('admin/mobile/banner/update','Admin\MobileController@bannerupdate');
-route::get('admin/mobile/banner/active/{id}','Admin\MobileController@banneractive');
-route::get('admin/mobile/banner/softDelete/{id}','Admin\MobileController@bannersoftdelete');
-route::get('/get/admin/mobile/banner/edit/{id}','Admin\MobileController@banneredit');
-route::get('admin/mobile/banner/delete/{id}','Admin\MobileController@mobannerdelete');
-route::get('admin/mobile/banner/restore/{id}','Admin\MobileController@mobanrestore');
+    // mobile slider
+    route::get(md5('admin/mobile/slider/all'), 'Admin\MobileController@index')->name('admin.mobileslider.all');
+    route::post(md5('admin/mobile/slider/insert'), 'Admin\MobileController@insert')->name('admin.mobileslider.insert');
+    route::post('admin/mobile/slider/update', 'Admin\MobileController@update');
+    route::get('admin/mobile/slider/deactive/{id}', 'Admin\MobileController@deactive');
+    route::get('admin/mobile/slider/active/{id}', 'Admin\MobileController@active');
+    route::get('admin/mobile/slider/softDelete/{id}', 'Admin\MobileController@softdelete');
+    route::get('admin/mobile/slider/restore/{id}', 'Admin\MobileController@restore');
+    route::get('/get/admin/mobile/slider/edit/{id}', 'Admin\MobileController@edit');
+    route::post(md5('admin/mobile/slider/update'), 'Admin\MobileController@multipleSoftDelete')->name('admin.mobileslider.multipleSoftDelete');
+    route::get('admin/mobile/slider/delete/{id}', 'Admin\MobileController@delete');
+    // mobile banner
+    route::get(md5('admin/mobile/banner/all'), 'Admin\MobileController@banner')->name('admin.mbanner.all');
+    route::post(md5('admin/mobile/banner/insert'), 'Admin\MobileController@bannerinsert')->name('admin.mobilebanner.insert');
+    route::post(md5('admin/mobile/banner/multibanmodel'), 'Admin\MobileController@multibanmodel')->name('admin.mobilebanner.multibanmodel');
+    route::post('admin/mobile/banner/update', 'Admin\MobileController@bannerupdate');
+    route::get('admin/mobile/banner/active/{id}', 'Admin\MobileController@banneractive');
+    route::get('admin/mobile/banner/softDelete/{id}', 'Admin\MobileController@bannersoftdelete');
+    route::get('/get/admin/mobile/banner/edit/{id}', 'Admin\MobileController@banneredit');
+    route::get('admin/mobile/banner/delete/{id}', 'Admin\MobileController@mobannerdelete');
+    route::get('admin/mobile/banner/restore/{id}', 'Admin\MobileController@mobanrestore');
 
 
 
@@ -603,17 +595,15 @@ route::get('admin/mobile/banner/restore/{id}','Admin\MobileController@mobanresto
     Route::post(md5('admin/trash/sitebanner/multipledelete'), 'admin\TrashController@sitebanmultidel')->name('admin.trash.sitebannerdel');
 
 
-
-
     // order Controller
 
 
 
-// page trash
-Route::get(md5('admin/trash/page'), 'Admin\TrashController@page')->name('admin.trash.page');
-Route::post(md5('admin/trash/multidelpage'), 'Admin\TrashController@pagemultdel')->name('admin.trash.pagemultidel');
-Route::get(md5('admin/trash/sitebanner'), 'Admin\TrashController@sitebanner')->name('admin.trash.sitebanner');
-Route::post(md5('admin/trash/sitebanner/multipledelete'), 'Admin\TrashController@sitebanmultidel')->name('admin.trash.sitebannerdel');
+    // page trash
+    Route::get(md5('admin/trash/page'), 'Admin\TrashController@page')->name('admin.trash.page');
+    Route::post(md5('admin/trash/multidelpage'), 'Admin\TrashController@pagemultdel')->name('admin.trash.pagemultidel');
+    Route::get(md5('admin/trash/sitebanner'), 'Admin\TrashController@sitebanner')->name('admin.trash.sitebanner');
+    Route::post(md5('admin/trash/sitebanner/multipledelete'), 'Admin\TrashController@sitebanmultidel')->name('admin.trash.sitebannerdel');
 
 
     Route::get(md5('admin/product/order'), 'admin\OrderController@index')->name('admin.productorder');
@@ -630,12 +620,12 @@ Route::post(md5('admin/trash/sitebanner/multipledelete'), 'Admin\TrashController
     Route::get('admin/blog/page', 'Admin\BlogController@blogpage')->name('admin.blog.page');
 
 
-Route::get(md5('admin/product/order'), 'Admin\OrderController@index')->name('admin.productorder');
-Route::get(md5('admin/product/process'), 'Admin\OrderController@processproduct')->name('admin.productprocess');
+    Route::get(md5('admin/product/order'), 'Admin\OrderController@index')->name('admin.productorder');
+    Route::get(md5('admin/product/process'), 'Admin\OrderController@processproduct')->name('admin.productprocess');
 
-Route::get(md5('admin/product/ondelevery'), 'Admin\OrderController@ondelevery')->name('admin.ondevelery');
-Route::get(md5('admin/product/complateorder'), 'Admin\OrderController@complateorder')->name('admin.complateorder');
-Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
+    Route::get(md5('admin/product/ondelevery'), 'Admin\OrderController@ondelevery')->name('admin.ondevelery');
+    Route::get(md5('admin/product/complateorder'), 'Admin\OrderController@complateorder')->name('admin.complateorder');
+    Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
 
 
     //
@@ -677,11 +667,12 @@ Route::post('admin/delevary/status', 'Admin\OrderController@deleverystatus');
         Route::get('get/selected/previous/and/new/products/by/ajax', 'FlashDealController@getProductsPreviousAndNewByAjax');
         // Ajax call route end
 
+    });
 
-Route::get(md5('admin/product/stockreport'),'Admin\ReportController@productstockreport')->name('admin.product.stock');
-Route::get('/get/admin/report/category/filter','Admin\ReportController@categoryreport');
-Route::get(md5('admin/product/wishlist'),'Admin\ReportController@wishproduct')->name('admin.product.wishlistpro');
-Route::get(md5('admin/product/bestsell'),'admin\ReportController@bestsell')->name('admin.bestsell');
+    Route::get(md5('admin/product/stockreport'), 'Admin\ReportController@productstockreport')->name('admin.product.stock');
+    Route::get('/get/admin/report/category/filter', 'Admin\ReportController@categoryreport');
+    Route::get(md5('admin/product/wishlist'), 'Admin\ReportController@wishproduct')->name('admin.product.wishlistpro');
+    Route::get(md5('admin/product/bestsell'), 'admin\ReportController@bestsell')->name('admin.bestsell');
 
 
     Route::group(['prefix' => 'admin/subscriber/mail', 'middleware' => 'auth:admin'], function () {
@@ -725,30 +716,30 @@ Route::get(md5('admin/product/bestsell'),'admin\ReportController@bestsell')->nam
         // Ajax Route Ended
 
 
-});
-//Harrison start ended
+    });
+    //Harrison start ended
 
 
-Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
-    Route::get('selected/show', 'CourierController@index')->name('courier.index');
-    Route::get('sync', 'CourierController@couriersyncview')->name('courier.sync.view');
-    Route::post('sync/insert', 'CourierController@couriersyncinsert')->name('courier.sync.insert');
-    Route::get('sync/edit/{subDistrictId}', 'CourierController@couriersyncedit')->name('courier.sync.edit');
-    Route::post('sync/sync/update/{subDistrictId}', 'CourierController@couriersyncupdate')->name('courier.sync.update');
-    Route::get('sync/sync/delete/{subDistrictId}', 'CourierController@couriersyncdelete')->name('courier.sync.delete');
-    Route::post('store', 'CourierController@courierstore')->name('courier.store');
-    Route::get('allcurier', 'CourierController@allcurier')->name('courier.all');
+    Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
+        Route::get('selected/show', 'CourierController@index')->name('courier.index');
+        Route::get('sync', 'CourierController@couriersyncview')->name('courier.sync.view');
+        Route::post('sync/insert', 'CourierController@couriersyncinsert')->name('courier.sync.insert');
+        Route::get('sync/edit/{subDistrictId}', 'CourierController@couriersyncedit')->name('courier.sync.edit');
+        Route::post('sync/sync/update/{subDistrictId}', 'CourierController@couriersyncupdate')->name('courier.sync.update');
+        Route::get('sync/sync/delete/{subDistrictId}', 'CourierController@couriersyncdelete')->name('courier.sync.delete');
+        Route::post('store', 'CourierController@courierstore')->name('courier.store');
+        Route::get('allcurier', 'CourierController@allcurier')->name('courier.all');
 
-    Route::get('/edit/{id}', 'CourierController@curieredit');
-    Route::post('/update', 'CourierController@curierupdate');
-    Route::get('/curierdelete/{id}', 'CourierController@curierdelete');
+        Route::get('/edit/{id}', 'CourierController@curieredit');
+        Route::post('/update', 'CourierController@curierupdate');
+        Route::get('/curierdelete/{id}', 'CourierController@curierdelete');
 
-    // Ajax Route
-    Route::get('get/district/by/division/id/{divisionId}', 'CourierController@getDistrictByAjax');
-    Route::get('get/sub_district/by/district/id/{districtId}', 'CourierController@getSubDistrictByAjax');
-    Route::get('get/couriers/by/courier_id', 'CourierController@getCouriersByAjax');
-    Route::get('get/courier/for/update', 'CourierController@getCouriersForUpdateByAjax');
-    // Ajax Route Ended
+        // Ajax Route
+        Route::get('get/district/by/division/id/{divisionId}', 'CourierController@getDistrictByAjax');
+        Route::get('get/sub_district/by/district/id/{districtId}', 'CourierController@getSubDistrictByAjax');
+        Route::get('get/couriers/by/courier_id', 'CourierController@getCouriersByAjax');
+        Route::get('get/courier/for/update', 'CourierController@getCouriersForUpdateByAjax');
+        // Ajax Route Ended
 
     });
 
@@ -760,7 +751,6 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::get('search/product/by/sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductBySubCatByAjax');
     Route::get('search/product/by/re_sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByResubCatByAjax');
 
-
     // Search Route Created By Harrison Ended
 
 
@@ -770,15 +760,13 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
         Route::get('stripe/{payment_secure_id}', 'PaymentController@index')->name('stripe.index');
         Route::post('stripe/submit/{payment_secure_id}', 'PaymentController@stripeSubmit')->name('payment.stripe.submit');
         Route::get('stripe/success/payment', 'PaymentController@successStripePaymentView')->name('payment.stripe.success.view');
-
         Route::get('paypal/success/payment', 'PaymentController@paypalsuccess')->name('payment.paypal.success');
 
+        Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
+        Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
+        Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
 
-    Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
-    Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
-    Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
 
-});
 
         Route::get('order_payment/{paymentSecureId}', 'PaymentController@paymentPage')->name('order.payment');
         Route::post('make_payment/', 'PaymentController@makePayment')->name('payment.make.payment');
@@ -794,19 +782,19 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     // ======================================Mobile route start from here=================================//
 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
-    
+
 
     // Route Created By Harrison ===================
 
     //Mobile Flash Deal Route
     Route::get('flashdeal/products', 'Mobile\FrontendController@flashDealProducts')->name('frontend.flash.deal.products');
 
-     //End Mobile Flash Deal Route
+    //End Mobile Flash Deal Route
 
-     //Mobile Contract us Route
+    //Mobile Contract us Route
     Route::group(['prefix' => 'contract_us', 'namespace' => 'Mobile'], function () {
-        Route::get('/','ContractUsController@contractUsShow')->name('contract.us.page');
-        Route::post('send','ContractUsController@contractUsSend')->name('mobile.contract.us.send');
+        Route::get('/', 'ContractUsController@contractUsShow')->name('contract.us.page');
+        Route::post('send', 'ContractUsController@contractUsSend')->name('mobile.contract.us.send');
     });
     //End Mobile Contract us Route
 
@@ -820,15 +808,25 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::get('mobile/search/product/by/product_name/{product_name}', 'Mobile\SearchController@productSearchByAjax');
     //Mobile Search Route
 
+    //Forget Password Route
+    Route::get('mobile/forgot/password', 'Mobile\ForgotPasswordController@forgotPasswordForm')->name('mobile.forgot.password.form');
+    Route::post('mobileforgot/password/email', 'Mobile\ForgotPasswordController@mobileForgetPasswordEmail')->name('mobile.forget.password.email');
+    Route::get('mobile/forgot/password/verifiation_code/form/{remember_token}', 'Mobile\ForgotPasswordController@mobileForgotPasswordVerifyCodeFrom')->name('mobile.forgot.password.verify.form');
+    Route::post('mobile/forgot/password/check/verification_code', 'Mobile\ForgotPasswordController@mobileForgetCheckVerificationCode')->name('mobile.forget.password.check.verification');
+    Route::get('mobile/forgot/reset/password/form/{remember_token}', 'Mobile\ForgotPasswordController@mobileForgetResetPassFrom')->name('mobile.forgot.reset.password.form');
+    Route::post('mobile/forgot/reset/password', 'Mobile\ForgotPasswordController@mobileForgotResetPassword')->name('mobile.forget.reset.password');
+    Route::get('mobile/forgot/password/verify/code/resend/{remember_token}', 'Mobile\ForgotPasswordController@MobileForgotPassResendVerifyCodeMail')->name('forgot.password.verify.code.resend');
+    //Forget Password Route End
+
 
     // Route Created By Harrison End ======================
 
 
     // Route Created By Harrison End
 
-  Route::get('category/{slug}/{id}', 'Mobile\FrontendController@m_category');
-  Route::get('subcategory/{slug}/{id}', 'Mobile\FrontendController@m_subcategory');
-  Route::get('resubcategory/{slug}/{id}', 'Mobile\FrontendController@m_resubcategory');
+    Route::get('category/{slug}/{id}', 'Mobile\FrontendController@m_category');
+    Route::get('subcategory/{slug}/{id}', 'Mobile\FrontendController@m_subcategory');
+    Route::get('resubcategory/{slug}/{id}', 'Mobile\FrontendController@m_resubcategory');
     Route::get('/', 'Mobile\FrontendController@index');
 
     // checkout route start here
@@ -836,7 +834,7 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::get('/user/division/name/{id}', 'Mobile\CheckoutController@showDivisionName');
     Route::get('/user/district/name/{id}', 'Mobile\CheckoutController@showDistrictName');
     Route::get('/user/upazila/name/{id}', 'Mobile\CheckoutController@showUpazilasName');
-    
+
 
     Route::get(md5('/page/redirect'), 'Mobile\AuthController@pageBackRedirect')->name('page.redirect');
     // authentication area start
@@ -853,10 +851,4 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
 
     // my account area start
     Route::get('/mobile/myaccount', 'Mobile\MyAccountController@showMyAccount')->name('mobile.myaccount');
-
-   
-
-
-
-
 }

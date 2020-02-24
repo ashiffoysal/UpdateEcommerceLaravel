@@ -1,39 +1,6 @@
 @extends('mobile.extra_master')
 @section('page_content')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	<!-- Begin Bar Nav -->
 	<header class="bar bar-nav ">
 	<a class="btn btn-link btn-nav pull-left" href="{{ URL::previous() }}">
