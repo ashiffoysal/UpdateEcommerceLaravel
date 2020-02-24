@@ -794,7 +794,7 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     // ======================================Mobile route start from here=================================//
 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
-    
+
 
     // Route Created By Harrison ===================
 
@@ -837,6 +837,7 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::get('/user/division/name/{id}', 'Mobile\CheckoutController@showDivisionName');
     Route::get('/user/district/name/{id}', 'Mobile\CheckoutController@showDistrictName');
     Route::get('/user/upazila/name/{id}', 'Mobile\CheckoutController@showUpazilasName');
+
     Route::get(md5('/checkout/order/data'), 'Mobile\CheckoutController@cartData')->name('get.cart.data');
     Route::post(md5('/checkout/cart/update'), 'Mobile\CheckoutController@cartUpdate')->name('product.cart.update');
     Route::post(md5('/checkout/cart/delete'), 'Mobile\CheckoutController@cartDelete')->name('mobile.product.cart.delete');
@@ -844,6 +845,7 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     Route::get('get/cupon/value/{oderid}', 'Mobile\CheckoutController@applyCuponValue');
     Route::post(md5('/checkout/order/place'), 'Mobile\CheckoutController@orderPlace')->name('order.place');
     
+
 
     Route::get(md5('/page/redirect'), 'Mobile\AuthController@pageBackRedirect')->name('page.redirect');
     // authentication area start
@@ -863,7 +865,19 @@ Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' 
     // my account area start
     Route::get('/mobile/myaccount', 'Mobile\MyAccountController@showMyAccount')->name('mobile.myaccount');
 
-   
+    Route::get('mobile/product/varient', 'Mobile\FrontendController@varient')->name('products.mobilevariant');
+    Route::get('/product/mobile/compare/{id}', 'Mobile\FrontendController@product_compare');
+    Route::get('/product/mobile/add/wishlist/{id}', 'Mobile\FrontendController@product_wishlist');
+    Route::get('mobile/allwishlist', 'Mobile\FrontendController@allwishlist');
+    Route::get('mobile/wishlist/delete/{id}', 'Mobile\FrontendController@deletewishlist');
+
+    //compare
+    Route::get('mobile/comparelist', 'Mobile\FrontendController@compare');
+    Route::get('mobile/compare/delete/{id}', 'Mobile\FrontendController@comparedelete');
+    // review
+    Route::post('mobile/review/submit', 'Mobile\FrontendController@review');
+
+
 
 
 

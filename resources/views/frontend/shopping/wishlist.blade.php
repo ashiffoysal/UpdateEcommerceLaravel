@@ -25,12 +25,11 @@
                     </thead>
                     <tbody>
                         @foreach($allwishlist as $wish)
-
                         <tr>
                             <td class="text-center">
-                                <a href=""><img src="{{asset('public/uploads/products/thumbnail/'.$wish->product->thumbnail_img)}}" alt="Burger King Japan debuts Monster  Baby Force Bralette"title="Burger King Japan debuts Monster  Baby Force Bralette" height="75px" width= "75px"></a>
+                                <a href="{{url('product/'.$wish->product->slug.'/'.$wish->product->id)}}"><img src="{{asset('public/uploads/products/thumbnail/'.$wish->product->thumbnail_img)}}" alt="Burger King Japan debuts Monster  Baby Force Bralette"title="Burger King Japan debuts Monster  Baby Force Bralette" height="75px" width= "75px"></a>
                             </td>
-                        <td class="text-left"><a href="product.html">{{ Str::limit($wish->product->product_name,40) }}</a></td>
+                        <td class="text-left"><a href="{{url('product/'.$wish->product->slug.'/'.$wish->product->id)}}">{{ Str::limit($wish->product->product_name,40) }}</a></td>
                         <td class="text-left">{{$wish->product->product_sku}}</td>
                             @if($wish->product->product_qty > 0)
                             <td class="text-right">In Stock</td>

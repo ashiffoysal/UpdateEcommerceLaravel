@@ -40,7 +40,6 @@
   $productdetails->cate_id;
   $nbanimage=App\CategoryBanner::where('section',4)->where('category_id',$productdetails->cate_id)->orderBy('id','DESC')->first();
 @endphp
-
 <div id="main_content">
   @if($nbanimage)
     @php
@@ -150,7 +149,6 @@
                                 <div class="box-review">
                                   @php
                                     $rcount=App\ProductReview::where('product_id',$productdetails->id)->count();
-
                                   @endphp
                                     <div class="rating">
                                         <div class="rating-box">
@@ -863,13 +861,13 @@
     $(document).ready(function () {
         $('#addtocart').on('click', function () {
 
-            
+
             $.ajax({
                 type: 'GET',
                 url: "{{ route('product.add.cart') }}",
                 data: $('#option-choice-form').serializeArray(),
                 success: function (data) {
-            
+
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
                     document.getElementById('product_price').innerHTML = toFixed(data.total);
                 }

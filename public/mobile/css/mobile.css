@@ -2895,7 +2895,7 @@ span.fa-stack {
     text-indent: -9999px;
     background: url("../image/theme/icon/icon-instock.png") no-repeat center center; }
 .product-view.product-info .box-link {
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0; }
   .product-view.product-info .box-link li {
