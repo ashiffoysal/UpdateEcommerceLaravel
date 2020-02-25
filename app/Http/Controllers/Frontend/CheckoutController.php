@@ -317,9 +317,9 @@ class CheckoutController extends Controller
 
         $userdetails = UserAddress::where('user_id', Auth::user()->id)->get();
         $userdatacount = count($userdetails);
-        $userdatacount = $userdatacount - 1;
+        
         if ($userdatacount > 1) {
-            $userdatas = UserAddress::where('user_id', Auth::user()->id)->skip(1)->take($userdatacount)->delete();
+            $userdatas = UserAddress::where('user_id', Auth::user()->id)->first()->delete();
         }
 
         DatabaseStorageModel::where('id', $useriditem)->first()->delete();

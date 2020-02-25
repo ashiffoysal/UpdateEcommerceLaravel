@@ -59,9 +59,10 @@ class CheckoutController extends Controller
                 return view('mobile.shopping.checkout',compact('order_id','useraddress'));
             } else {
 
-                return redirect()->route('mobile.login.form');
+                return redirect()->route('mobile.checkout.login');
             }
         }else{
+            
             return redirect('/')->with('alertmessege','Please add some product');
         }
 
@@ -312,6 +313,7 @@ class CheckoutController extends Controller
 
     public function orderPlace(Request $request)
     {
+        
         // return $request->all();
 
         
@@ -421,9 +423,9 @@ class CheckoutController extends Controller
 
         $userdetails = UserAddress::where('user_id', Auth::user()->id)->get();
         $userdatacount = count($userdetails);
-        $userdatacount = $userdatacount - 1;
+        
         if ($userdatacount > 1) {
-            $userdatas = UserAddress::where('user_id', Auth::user()->id)->skip(1)->take($userdatacount)->delete();
+            $userdatas = UserAddress::where('user_id', Auth::user()->id)->first()->delete();
         }
 
         DatabaseStorageModel::where('id', $useriditem)->first()->delete();
@@ -441,12 +443,12 @@ class CheckoutController extends Controller
                 'messege' => 'Successfully you order is confirmed',
                 'alert-type' => 'success'
             );
-            return redirect()->route('customer.order')->with($notification);
+            // return redirect()->route('customer.order')->with($notification);
         } else {
-            return redirect()->route('order.payment', $getOrder->payment_secure_id);
+            // return redirect()->route('order.payment', $getOrder->payment_secure_id);
         }
 
-        // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
+        return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
     }
 
 }

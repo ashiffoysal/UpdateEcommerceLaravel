@@ -36,10 +36,16 @@
 											<div class="form-group form-user">
 												<label class="control-label font-ct" for="input-email">E-Mail Address</label>
 												<input type="text" name="email" value="" placeholder="E-Mail Address" id="input-email" class="form-control">
+												@error('email')
+													<span class="text-danger">{{$message}}</span>
+												@enderror
 											</div>
 											<div class="form-group form-pw">
 												<label class="control-label font-ct" for="input-password">Password</label>
 												<input type="password" name="password" value="" placeholder="Password" id="input-password" class="form-control">
+												@error('password')
+													<span class="text-danger">{{$message}}</span><br>
+												@enderror
 												<a href="{{ route('mobile.forgot.password.form') }}">Forgotten Password</a>
 											</div>
 

@@ -87,7 +87,7 @@
                     toastr.success("Product Quantity Changed successfully");
                 }
             });
-			toastr.success("Product Quantity Changed successfully");
+			
 		},1000);
     }
 
