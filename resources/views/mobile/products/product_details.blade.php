@@ -238,7 +238,7 @@
 										</div>
 										<!-- CART -->
 										<div class="cart">
-											<input type="button" data-toggle="tooltip" title="Add to Cart" value="Add to Cart" data-loading-text="Loading..." id="button-cart" onclick="cart.add('36');productaddtocart();" class="btn btn-mega btn-md">
+											<input type="button" data-toggle="tooltip" title="Add to Cart" value="Add to Cart" data-loading-text="Loading..." id="button-cart" onclick="productaddtocart();" class="btn btn-mega btn-md">
 										</div>
 									</div>
 								</div>
@@ -393,7 +393,7 @@
 			url:"{{ route('product.add.cart') }}",
 			data: $('#option-choice-form').serializeArray(),
 			success: function (data) {
-				console.log(data);
+				toastr.success("Product add to Cart successfully");
 			    document.getElementById('totalquentity').innerHTML =data.quantity;
 
 			}

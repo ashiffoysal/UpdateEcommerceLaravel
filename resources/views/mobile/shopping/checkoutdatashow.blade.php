@@ -21,7 +21,7 @@
 														</td>
 														<td class="text-left">
 															<div class="input-group btn-block">
-																<form id="getcatdata" onkeyup="myUpdateOrder(this)">
+																<form id="getcatdata" onchange="myUpdateOrder(this)">
 																<input type="hidden" name="rowid" id="cartrowid" value="{{$usercartdata->id}}"  class="form-control">
 																<input type="text" name="quantity" id="cartqty" value="{{$usercartdata->quantity}}" size="1" class="form-control">
 																<span class="input-group-btn">
@@ -88,7 +88,9 @@
                 }
             });
 
-		},1000);
+			
+		},10);
+
     }
 
 
