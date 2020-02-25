@@ -788,27 +788,29 @@ if ($agent->isDesktop()) {
 
     //Mobile Flash Deal Route
     Route::get('flashdeal/products', 'Mobile\FrontendController@flashDealProducts')->name('frontend.flash.deal.products');
-
     //End Mobile Flash Deal Route
 
-    //Mobile Contract us Route
+    //Mobile Contract us Route==
     Route::group(['prefix' => 'contract_us', 'namespace' => 'Mobile'], function () {
         Route::get('/', 'ContractUsController@contractUsShow')->name('contract.us.page');
         Route::post('send', 'ContractUsController@contractUsSend')->name('mobile.contract.us.send');
     });
-    //End Mobile Contract us Route
+    //End Mobile Contract us Route==
 
-    // Mobile About Us Route
+    // Mobile About Us Route==
     Route::get('about', 'Mobile\AboutUsController@index')->name('mobile.about.us');
-    //End Mobile About Us Route
+    //End Mobile About Us Route==
 
-    //Mobile Search Route
+    //Mobile Search Route==
     Route::get('product/search', 'Mobile\SearchController@productSearchByPage')->name('mobile.product.search');
+    Route::get('product/search/category/wise', 'Mobile\SearchController@searchByMainCategory')->name('filter.search.from.main_category');
+    Route::get('product/search/subcategory/wise', 'Mobile\SearchController@searchBySubCategory')->name('filter.search.from.sub_category');
+    Route::get('product/search/re_subcategory/wise', 'Mobile\SearchController@searchByReSubCategory')->name('filter.search.from.re_sub_category');
     // Mobile Live Search By Ajax Web Route
     Route::get('mobile/search/product/by/product_name/{product_name}', 'Mobile\SearchController@productSearchByAjax');
-    //Mobile Search Route
+    //Mobile Search Route==
 
-    //Forget Password Route
+    //Forget Password Route==
     Route::get('mobile/forgot/password', 'Mobile\ForgotPasswordController@forgotPasswordForm')->name('mobile.forgot.password.form');
     Route::post('mobileforgot/password/email', 'Mobile\ForgotPasswordController@mobileForgetPasswordEmail')->name('mobile.forget.password.email');
     Route::get('mobile/forgot/password/verifiation_code/form/{remember_token}', 'Mobile\ForgotPasswordController@mobileForgotPasswordVerifyCodeFrom')->name('mobile.forgot.password.verify.form');
@@ -816,13 +818,20 @@ if ($agent->isDesktop()) {
     Route::get('mobile/forgot/reset/password/form/{remember_token}', 'Mobile\ForgotPasswordController@mobileForgetResetPassFrom')->name('mobile.forgot.reset.password.form');
     Route::post('mobile/forgot/reset/password', 'Mobile\ForgotPasswordController@mobileForgotResetPassword')->name('mobile.forget.reset.password');
     Route::get('mobile/forgot/password/verify/code/resend/{remember_token}', 'Mobile\ForgotPasswordController@MobileForgotPassResendVerifyCodeMail')->name('forgot.password.verify.code.resend');
-    //Forget Password Route End
+    //Forget Password Route End==
 
+    // My Account Settings Route==
+    Route::get('mobile/myaccount/settings', 'Mobile\MyAccountController@myAccount')->name('my.account.setting');
+    Route::post('mobile/myaccount/settings/update', 'Mobile\MyAccountController@myAccountSettingsUpdate')->name('my.account.settings.update');
+    // My Account Settings Ajax Route=
+    Route::get('mobile/get/district/by/division/id/{divisionId}', 'Mobile\MyAccountController@getDistrictByDivisionIdViaAjax');
+    Route::get('mobile/get/upazila/by/district/id/{districtId}', 'Mobile\MyAccountController@getUpazilaByDistrictIdViaAjax');
+    // My Account Settings Ajax Route End=
+    // My Account Settings Route End==
 
     // Route Created By Harrison End ======================
 
 
-    // Route Created By Harrison End
 
     Route::get('category/{slug}/{id}', 'Mobile\FrontendController@m_category');
     Route::get('subcategory/{slug}/{id}', 'Mobile\FrontendController@m_subcategory');

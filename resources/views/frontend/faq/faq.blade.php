@@ -3,14 +3,14 @@
 @php
 $image=App\SiteBanner::where('section',9)->where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->first();
 @endphp
-<div class="search-section">
+<div style="display:none;" class="search-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="heading_section">
-                    <h4 style="margin-top:20px;border-bottom: 2px solid gray;">Search result has been shown below <i style="color:#ff5e00; font-size:15px;" class="fa fa-long-arrow-down"></i></h4>
+                    <h4 style="margin-top:20px;border-bottom: 2px solid #ff5e00;">Search result has been shown below <i style="color:#ff5e00; font-size:15px;" class="fa fa-long-arrow-down"></i></h4>
                 </div>
-                <div class="search-content">
+                <div style="margin-top:20px;" class="search-content">
                     <div class="row" id="search_result_product">
 
                     </div>

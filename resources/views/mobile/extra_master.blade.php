@@ -43,7 +43,8 @@
     <link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{asset('public/mobile/js/ratchet/ratchet.css')}}" rel="stylesheet">
 		<link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
-	  <link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
+      <link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 	  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 	<!-- Theme CSS
 	============================================ -->
@@ -87,6 +88,7 @@
 <!-- Theme files
 ============================================ -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script>
 		@if(Session::has('messege'))
 		var type = "{{Session::get('alert-type','info')}}"
@@ -225,6 +227,6 @@
         });
     });
 </script>
-
+@stack('js')
 </body>
 </html>
