@@ -7,7 +7,7 @@
         </div>
         <div class="products-list row nopadding-xs grid so-filter-gird" id="search_result_product">
 
-            
+
         </div>
     </div>
 </div>
@@ -95,7 +95,11 @@
                                 <div class="left-block">
                                     <div class="product-image-container">
                                         <div class="box-label">
-                                            <span class="label-product label-sale">-15%</span>
+                                            @if($flasdetail->discount_type==1)
+                                            <span class="label-product label-sale">-{{$flasdetail->discount}}৳</span>
+                                            @elseif($flasdetail->discount_type==2)
+                                            <span class="label-product label-sale">-{{$flasdetail->discount}}%</span>
+                                            @endif
                                         </div>
                                         <a href="{{url('product/details/'.$flasdetail->product->slug.'/'.$flasdetail->product->id)}}" target="_self">
 
@@ -108,7 +112,17 @@
                                     <div class="caption">
                                         <h4 class="font-ct"><a href="{{url('product/details/'.$flasdetail->product->slug.'/'.$flasdetail->product->id)}}" target="_self" title="Hamburger shoulder">{{Str::limit($flasdetail->product->product_name,5)}}</a></h4>
                                         <p class="price">
-                                            <span class="price-new">$60.00</span> <span class="price-old">{{$flasdetail->product->product_price}}</span>
+                                          @if($flasdetail->discount_type==1)
+                                            <span class="price-new">৳ {{$flasdetail->product->product_price - $flasdetail->discount}}</span> <span class="price-old">{{$flasdetail->product->product_price}}</span>
+                                          @elseif($flasdetail->discount_type==2)
+                                            @php
+                                            $dis=($flasdetail->discount * $flasdetail->product->product_price)/100;
+                                            @endphp
+
+                                            <span class="price-new">৳
+                                                {{$flasdetail->product->product_price - $dis}}</span> <span class="price-old">{{$flasdetail->product->product_price}}</span>
+                                          @endif
+
                                         </p>
 
                                     </div>
@@ -154,15 +168,26 @@
                     $newarrival=App\Product::where('is_deleted',0)->where('status',1)->OrderBy('id','DESC')->limit(3)->get();
                   @endphp
                   @foreach($newarrival as $product)
+                      @php
+                        $flashdealdetail=App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->limit(1)->get();
+                      @endphp
                     <div class="item">
                         <div class="product-layout">
                             <div class="product-item-container ">
+
                                 <div class="left-block">
                                     <div class="product-image-container">
                                         <div class="box-label">
-                                            <span class="label-product label-sale">-15%</span>
+                                          @if(count($flashdealdetail) > 0)
+                                           @foreach($flashdealdetail as $row)
+                                             @if($row->discount_type==1)
+                                             <span class="label-product label-sale">-{{$row->discount}}৳</span>
+                                             @elseif($row->discount_type==2)
+                                             <span class="label-product label-sale">-{{$row->discount}}%</span>
+                                             @endif
+                                           @endforeach
+                                         @endif
                                         </div>
-
                                         <a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}" target="_self">
                                             <img src="{{asset('public/uploads/products/thumbnail/mobile/'.$product->thumbnail_img)}}" alt="Hamburger shoulder" class="img-responsive">
                                         </a>
@@ -172,11 +197,24 @@
                                     <div class="caption">
                                         <h4 class="font-ct"><a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}" target="_self" title="Hamburger shoulder">{{Str::limit($product->product_name,10)}}</a></h4>
                                         <p class="price">
-                                            <span class="price-new">৳ {{$product->product_price}}</span> <span class="price-old">$65.00</span>
+                                          @if(count($flashdealdetail) > 0)
+                                             @foreach($flashdealdetail as $row)
+                                                 @if($row->discount_type==1)
+                                                 <span class="price-new">৳ {{$product->product_price -$row->discount}}</span> <span class="price-old">৳ {{$product->product_price}}</span>
+                                                 @elseif($row->discount_type==2)
+                                                   @php
+                                                     $productdiscount = ($product->product_price * $row->discount) / 100;
+                                                   @endphp
+                                                   <span class="price-new">৳ {{$product->product_price -$productdiscount}}</span> <span class="price-old">৳ {{$product->product_price}}</span>
+                                                 @endif
+                                             @endforeach
+                                           @else
+                                             <span class="price-new">৳ {{$product->product_price}}</span>
+                                           @endif
                                         </p>
-
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -223,9 +261,18 @@
                                 <div class="left-block">
                                     <div class="product-image-container">
                                         <div class="box-label">
-                                            <span class="label-product label-sale">
-                                                -36%
-                                            </span>
+                                          @php
+                                            $flashdealdetail=App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->limit(1)->get();
+                                          @endphp
+                                          @if(count($flashdealdetail) > 0)
+                                           @foreach($flashdealdetail as $row)
+                                             @if($row->discount_type==1)
+                                             <span class="label-product label-sale">-{{$row->discount}}৳</span>
+                                             @elseif($row->discount_type==2)
+                                             <span class="label-product label-sale">-{{$row->discount}}%</span>
+                                             @endif
+                                           @endforeach
+                                         @endif
                                         </div>
 
                                         <a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}" target="_self">
@@ -237,7 +284,20 @@
                                     <div class="caption">
                                         <h4 class="font-ct"><a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}" target="_self" title="Fuzan sumamipon">{{Str::limit($product->product_name,10)}}</a></h4>
                                         <p class="price">
-                                            <span class="price-new">৳ {{$product->product_price}}</span> <span class="price-old">{{$product->product_id}}</span>
+                                          @if(count($flashdealdetail) > 0)
+                                             @foreach($flashdealdetail as $row)
+                                                 @if($row->discount_type==1)
+                                                 <span class="price-new">৳ {{$product->product_price -$row->discount}}</span> <span class="price-old">৳ {{$product->product_price}}</span>
+                                                 @elseif($row->discount_type==2)
+                                                   @php
+                                                     $productdiscount = ($product->product_price * $row->discount) / 100;
+                                                   @endphp
+                                                   <span class="price-new">৳ {{$product->product_price -$productdiscount}}</span> <span class="price-old">৳ {{$product->product_price}}</span>
+                                                 @endif
+                                             @endforeach
+                                           @else
+                                             <span class="price-new">৳ {{$product->product_price}}</span>
+                                           @endif
                                         </p>
 
                                     </div>

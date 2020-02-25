@@ -843,7 +843,7 @@ if ($agent->isDesktop()) {
     Route::post(md5('/customer/coupon/apply'), 'Mobile\CheckoutController@cartcupon')->name('mobile.cupon.apply');
     Route::get('get/cupon/value/{oderid}', 'Mobile\CheckoutController@applyCuponValue');
     Route::post(md5('/checkout/order/place'), 'Mobile\CheckoutController@orderPlace')->name('order.place');
-    
+
 
 
 
@@ -877,6 +877,10 @@ if ($agent->isDesktop()) {
     Route::get('mobile/compare/delete/{id}', 'Mobile\FrontendController@comparedelete');
     // review
     Route::post('mobile/review/submit', 'Mobile\FrontendController@review');
+    Route::get('product/orderhistory', 'Mobile\FrontendController@orderhistory');
+    Route::get('history/details/{id}', 'Mobile\FrontendController@orderdetails');
+    Route::get('order/traking', 'Mobile\FrontendController@ordertraking');
+    Route::get('mobile/order/traking/submit', 'Mobile\FrontendController@searchtraking');
 
 
 

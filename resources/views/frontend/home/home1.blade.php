@@ -506,18 +506,16 @@
                                                                             <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
 
                                                                             @if($row ->discount_type == 1 )
-
-
                                                                             <div class="price price-left"><span
                                                                                     class="price-new">৳
-                                                                                    {{$product->product_price -$productdiscount}}</span><span
+                                                                                    {{$product->product_price - $row->discount}}</span><span
                                                                                     class="price-old">৳
                                                                                     {{$product->product_price}}</span>
                                                                             </div>
                                                                             @else
                                                                             <div class="price price-left"><span
                                                                                     class="price-new">৳
-                                                                                    {{$product->product_price - $row->discount}}</span><span
+                                                                                    {{$product->product_price -$productdiscount}}</span><span
                                                                                     class="price-old">৳
                                                                                     {{$product->product_price}}</span>
                                                                             </div>
