@@ -11,7 +11,7 @@
 												</thead>
 												<tbody>
                                                     @foreach($usercartdatas as $usercartdata)
-                                                    
+
 													<tr>
 														<td class="text-center">
 															<a href="{{(route('product.details',$usercartdata->attributes->product_id))}}"><img width="100px" src="{{asset('public/uploads/products/thumbnail/')}}/{{$usercartdata->attributes->thumbnail_img}}" alt="{{$usercartdata->attributes->thumbnail_img}}" title="{{$usercartdata->attributes->thumbnail_img}}" class="img-thumbnail">
@@ -59,7 +59,7 @@
 
 														</td>
 													</tr>
-													
+
 													<tr>
 														<td class="text-right" colspan="4"><strong>Total:</strong>
 														</td>
@@ -68,16 +68,16 @@
 												</tfoot>
 											</table>
 										</div>
-										
+
 
 										<script>
     var myVar;
     function myUpdateOrder(el) {
-		
-		
+
+
 		var cartrowid =el.rowid.value;
 		var cartqty =el.quantity.value;
-		
+
         myVar = setTimeout(function(){
             $.post('{{ route('product.cart.update') }}', {_token: '{{ csrf_token() }}', quantity:cartqty, rowid:cartrowid },
             function(data) {
@@ -87,32 +87,28 @@
                     toastr.success("Product Quantity Changed successfully");
                 }
             });
-			
+
 		},1000);
     }
 
-    
+
 </script>
 
 <script>
     function orderdelete(el) {
-		
+
 		var cartrowid =el.id;
-		
-       
+
+
         $.post('{{ route('mobile.product.cart.delete') }}', {_token: '{{ csrf_token() }}',user_id: cartrowid},
             function(data) {
-				
-                $('#cartdata').html(data);
-               
-               
-            });
-            toastr.success("Product Deleted successfully"); 
-	}
-	
-	
-</script>
 
-										
-										
-                                        
+                $('#cartdata').html(data);
+
+
+            });
+            toastr.success("Product Deleted successfully");
+	}
+
+
+</script>

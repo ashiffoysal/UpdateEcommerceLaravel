@@ -132,12 +132,18 @@
                   $flashdealdetail = App\FlashDealDetail::where('product_id',$productdetails->id)->where('status',1)->get();
 								@endphp
 								@if(count($flashdealdetail) > 0)
-								@foreach($flashdealdetail as $row)
-									<div class="product_page_price price" itemprop="offerDetails" itemscope="">
-										<span class="price-new"><span itemprop="price" id="price-special">$85000.00</span></span> \
-										<span class="price-old font-ct" id="price-old">$118.00</span>
-									</div>
-								@endforeach
+									@foreach($flashdealdetail as $row)
+										<div class="product_page_price price" itemprop="offerDetails" itemscope="">
+												 @if($row->discount_type==1)
+												 <span class="price-new">৳ {{$productdetails->product_price -$row->discount}}</span> <span class="price-old">৳ {{$productdetails->product_price}}</span>
+												 @elseif($row->discount_type==2)
+													 @php
+														 $productdiscount = ($productdetails->product_price * $row->discount) / 100;
+													 @endphp
+													 <span class="price-new">৳ {{$productdetails->product_price -$productdiscount}}</span> <span class="price-old">৳ {{$productdetails->product_price}}</span>
+												 @endif
+										</div>
+									@endforeach
 								@else
 								<div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
 										<span class="price-new"><span itemprop="price" id="chosen_price">৳ {{$productdetails->product_price}}</span></span>
