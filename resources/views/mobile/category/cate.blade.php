@@ -76,10 +76,7 @@
                     </fieldset>
 
                   </div>
-                  {{-- <!--/ .table_cell -->
-                  <!-- - - - - - - - - - - - - - End manufacturer - - - - - - - - - - - - - - - - -->
 
-                  <!-- - - - - - - - - - - - - - Price - - - - - - - - - - - - - - - - --> --}}
                   <div class="table_cell">
                     <fieldset>
                       <legend>Price Range</legend>
@@ -207,6 +204,9 @@
               $products=App\Product::where('is_deleted',0)->where('status',1)->where('cate_id',$category_id)->orderBy('id','DESC')->simplePaginate(6);
             @endphp
             @foreach($products as $product)
+              @php
+                $flashdealdetail=App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->limit(1)->get();
+              @endphp
             <div class="product-layout col-xs-6">
               <div class="product-item-container">
                 <div class="left-block">
@@ -219,27 +219,99 @@
                 </div>
                 <div class="box-label">
                   <!--Sale Label-->
-                  <span class="label-product label-sale">
-                    -28%
-                  </span>
+                  @if(count($flashdealdetail) > 0)
+                   @foreach($flashdealdetail as $row)
+                     @if($row->discount_type==1)
+                     <span class="label-product label-sale">-{{$row->discount}}৳</span>
+                     @elseif($row->discount_type==2)
+                     <span class="label-product label-sale">-{{$row->discount}}%</span>
+                     @endif
+                   @endforeach
+                 @endif
                 </div>
                 <div class="right-block">
                   <div class="caption">
                     <h4><a href="{{url('product/details/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,10)}}</a></h4>
                     <div class="ratings">
                       <div class="rating-box">
-                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                        @php
+                          $rount=App\ProductReview::where('product_id',$product->id)->count();
+                        @endphp
+                        @if($rount)
+                          @php
+                          $sumofreview =App\ProductReview::where('product_id',$product->id)->sum('review');
+                          $rating=$sumofreview/$rount;
+                          @endphp
+                          @if($rating == 1)
+                            <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          @elseif($rating < 2)
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          @elseif($rating < 3)
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          @elseif($rating < 4)
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          @elseif($rating < 5)
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          @elseif($rating == 5)
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
+                          @elseif($rating == 0)
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                          @endif
+                      @else
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                      @endif
                       </div>
                     </div>
                     <div class="description ">
                       <p>{!! Str::limit($product->product_description,50) !!}</p>
                     </div>
                     <div class="price">
-                      <span class="price-new">৳{{$product->product_price}}</span> <span class="price-old">$118.00</span>
+                      @if(count($flashdealdetail) > 0)
+                         @foreach($flashdealdetail as $row)
+                             @if($row->discount_type==1)
+                             <span class="price-new">৳ {{$product->product_price -$row->discount}}</span> <span class="price-old">৳ {{$product->product_price}}</span>
+                             @elseif($row->discount_type==2)
+                               @php
+                                 $productdiscount = ($product->product_price * $row->discount) / 100;
+                               @endphp
+                               <span class="price-new">৳ {{$product->product_price -$productdiscount}}</span> <span class="price-old">৳ {{$product->product_price}}</span>
+                             @endif
+                         @endforeach
+                       @else
+                         <span class="price-new">৳ {{$product->product_price}}</span>
+                       @endif
                     </div>
                     <div class="button-group">
                       <button class="addToCart font-sn" type="button" title="Add to Cart" onclick="cart.add('175', '1');"> <i class="fa fa-shopping-cart"></i><span><span>Add to Cart</span></span></button>

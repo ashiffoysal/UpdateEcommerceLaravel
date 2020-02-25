@@ -132,12 +132,18 @@
                   $flashdealdetail = App\FlashDealDetail::where('product_id',$productdetails->id)->where('status',1)->get();
 								@endphp
 								@if(count($flashdealdetail) > 0)
-								@foreach($flashdealdetail as $row)
-									<div class="product_page_price price" itemprop="offerDetails" itemscope="">
-										<span class="price-new"><span itemprop="price" id="price-special">$85000.00</span></span> \
-										<span class="price-old font-ct" id="price-old">$118.00</span>
-									</div>
-								@endforeach
+									@foreach($flashdealdetail as $row)
+										<div class="product_page_price price" itemprop="offerDetails" itemscope="">
+												 @if($row->discount_type==1)
+												 <span class="price-new">৳ {{$productdetails->product_price -$row->discount}}</span> <span class="price-old">৳ {{$productdetails->product_price}}</span>
+												 @elseif($row->discount_type==2)
+													 @php
+														 $productdiscount = ($productdetails->product_price * $row->discount) / 100;
+													 @endphp
+													 <span class="price-new">৳ {{$productdetails->product_price -$productdiscount}}</span> <span class="price-old">৳ {{$productdetails->product_price}}</span>
+												 @endif
+										</div>
+									@endforeach
 								@else
 								<div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
 										<span class="price-new"><span itemprop="price" id="chosen_price">৳ {{$productdetails->product_price}}</span></span>
@@ -224,15 +230,15 @@
 												<span class="input-group-addon product_quantity_down fa fa-minus"></span>
 												<input class="form-control font-ct" type="text" name="quantity" id="quantity" value="1">
 												<input type="hidden" name="product_id" value="{{$productdetails->id}}">
-												<input type="hidden" name="product_sku" value="{{$productdetails->product_sku}}">
-												<input type="hidden" name="product_price" value="{{$productdetails->product_price}}">
+												<input type="hidden" id="product_chosen_sku" name="product_sku" value="{{$productdetails->product_sku}}">
+												<input type="hidden" id="product_chosen_price" name="product_price" value="{{$productdetails->product_price}}">
 
 												<span class="input-group-addon product_quantity_up fa fa-plus"></span>
 											</div>
 										</div>
 										<!-- CART -->
 										<div class="cart">
-											<input type="button" data-toggle="tooltip" title="Add to Cart" value="Add to Cart" data-loading-text="Loading..." id="button-cart" onclick="cart.add('36');productaddtocart();" class="btn btn-mega btn-md">
+											<input type="button" data-toggle="tooltip" title="Add to Cart" value="Add to Cart" data-loading-text="Loading..." id="button-cart" onclick="productaddtocart();" class="btn btn-mega btn-md">
 										</div>
 									</div>
 								</div>
@@ -387,7 +393,7 @@
 			url:"{{ route('product.add.cart') }}",
 			data: $('#option-choice-form').serializeArray(),
 			success: function (data) {
-				console.log(data);
+				toastr.success("Product add to Cart successfully");
 			    document.getElementById('totalquentity').innerHTML =data.quantity;
 
 			}

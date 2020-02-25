@@ -58,7 +58,7 @@
 									<div class="form-group required">
 										<label for="input-payment-address-1" class="control-label">Address</label>
 										<input type="hidden" name="user_id" value="{{Auth::user()->id}}" placeholder="Address" id="input-payment-address-1" class="form-control">
-										<input type="text" name="user_address" value="@if(isset($useraddress->user_address)){{$useraddress->user_address}}@endif" placeholder="Address*" id="input-payment-address-1" class="form-control">
+										<input type="text" name="user_address" value="@if(isset($useraddress->user_address)){{$useraddress->user_address}}@else {{ old('user_address') }} @endif" placeholder="Address*" id="input-payment-address-1" class="form-control">
 										@error('user_address')
 										<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
@@ -68,7 +68,7 @@
 
 									<div class="form-group required">
 										<label for="input-payment-city" class="control-label">Post Office</label>
-										<input type="text" name="user_post_office" value="@if(isset($useraddress->user_post_office)){{$useraddress->user_post_office}}@endif" placeholder="Post office *" id="input-payment-city" class="form-control">
+										<input type="text" name="user_post_office" value="@if(isset($useraddress->user_post_office)){{$useraddress->user_post_office}}@else {{ old('user_post_office') }}@endif" placeholder="Post office *" id="input-payment-city" class="form-control">
 										@error('user_post_office')
 										<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
@@ -77,7 +77,7 @@
 
 									<div class="form-group required">
 										<label for="input-payment-postcode" class="control-label">Post Code</label>
-										<input type="text" name="user_postcode" value="@if(isset($useraddress->user_postcode)){{$useraddress->user_postcode}}@endif" placeholder="Post Code *" id="input-payment-postcode" class="form-control">
+										<input type="text" name="user_postcode" value="@if(isset($useraddress->user_postcode)){{$useraddress->user_postcode}}@else {{ old('user_postcode') }}@endif" placeholder="Post Code *" id="input-payment-postcode" class="form-control">
 										@error('user_postcode')
 											<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
@@ -180,6 +180,11 @@
 
 
 
+
+
+
+
+
 								<fieldset id="shipping-address" style="display: none">
 
 									<div class="panel-heading">
@@ -195,7 +200,7 @@
 									<div class="form-group required">
 										<label for="input-payment-city" class="control-label">Name :</label>
 										<input type="hidden" name="shipping_user_id" value="{{Auth::user()->id}}" placeholder="Post office *" id="input-payment-city" class="form-control">
-										<input type="text" name="shipping_name" value="@if(isset($useraddress->user_post_office)){{$useraddress->user_post_office}}@endif" placeholder="Post office *" id="input-payment-city" class="form-control">
+										<input type="text" name="shipping_name" value="{{ old('shipping_name') }}" placeholder="Post office *" id="input-payment-city" class="form-control">
 										@error('shipping_name')
 										<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
@@ -203,7 +208,7 @@
 
 									<div class="form-group required">
 										<label for="input-payment-city" class="control-label">Phone :</label>
-										<input type="text" name="shipping_phone" value="@if(isset($useraddress->user_post_office)){{$useraddress->user_post_office}}@endif" placeholder="Post office *" id="input-payment-city" class="form-control">
+										<input type="text" name="shipping_phone" value="{{ old('shipping_phone') }}" placeholder="Post office *" id="input-payment-city" class="form-control">
 										@error('shipping_phone')
 										<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
@@ -214,7 +219,7 @@
 
 									<div class="form-group required">
 										<label for="input-payment-city" class="control-label">Post Office</label>
-										<input type="text" name="shipping_post_office" value="@if(isset($useraddress->user_post_office)){{$useraddress->user_post_office}}@endif" placeholder="Post office *" id="input-payment-city" class="form-control">
+										<input type="text" name="shipping_post_office" value="{{ old('shipping_post_office') }}" placeholder="Post office *" id="input-payment-city" class="form-control">
 										@error('shipping_post_office')
 										<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
@@ -223,7 +228,7 @@
 
 									<div class="form-group required">
 										<label for="input-payment-postcode" class="control-label">Post Code</label>
-										<input type="text" name="shipping_postcode" value="@if(isset($useraddress->user_postcode)){{$useraddress->user_postcode}}@endif" placeholder="Post Code *" id="input-payment-postcode" class="form-control">
+										<input type="text" name="shipping_postcode" value="{{ old('shipping_postcode') }}" placeholder="Post Code *" id="input-payment-postcode" class="form-control">
 										@error('shipping_postcode')
 											<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
@@ -233,7 +238,7 @@
 
 									<div class="form-group required">
 										<label for="input-payment-zone" class="control-label"> Country </label>
-										<select name="shipping_country_id" id="user_country" class="form-control">
+										<select name="shipping_country_id" id="shipping_country" class="form-control">
 											<option value="" disabled selected> --- Please Select Your Country --- </option>
 											@foreach(DB::table('countries')->get() as $country)
 											<option value="{{$country->id}}" @if(isset($useraddress->user_country_id) == $country->id) selected @endif>{{$country->name}}</option>
@@ -248,12 +253,11 @@
 
 									<div class="form-group required">
 										<label for="input-payment-zone" class="control-label"> Division </label>
-										<select name="shipping_division_id" id="user_division" class="form-control">
+										<select name="shipping_division_id" id="shipping_division" class="form-control">
 											<option disabled selected> --- Please Select Your Division --- </option>
 											@foreach(DB::table('divisions')->get() as $division)
 											@if(isset($useraddress->user_division_id))
-											<option value="{{$division->id}}" @if($useraddress->user_division_id == $division->id) selected @endif>{{$division->name}} </option>
-											@else
+											
 											<option value="{{$division->id}}">{{$division->name}} </option>
 											@endif
 											@endforeach
@@ -265,9 +269,12 @@
 									</div>
 
 
+
+
+
 									<div class="form-group required">
 										<label for="input-payment-zone" class="control-label"> District </label>
-										<select name="shipping_district_id" id="user_district" class="form-control">
+										<select name="shipping_district_id" id="shipping_district" class="form-control">
 											<option disabled selected> --- Please Select Your District --- </option>
 											@php
 											$dis=DB::table('districts')->get();
@@ -275,8 +282,7 @@
 											@endphp
 											@foreach($dis as $district)
 											@if(isset($useraddress->user_district_id))
-											<option value="{{$district->id}}" @if($useraddress->user_district_id == $district->id) selected @endif>{{$district->name}} </option>
-											@else
+											
 											<option value="{{$district->id}}">{{$district->name}} </option>
 											@endif
 
@@ -290,14 +296,13 @@
 
 									<div class="form-group required">
 										<label for="input-payment-zone" class="control-label"> Upazila/Thana </label>
-										<select name="shipping_upazila_id" id="user_upazila" class="form-control">
+										<select name="shipping_upazila_id" id="sipping_upazila" class="form-control">
 											@php
 											$upa=DB::table('upazilas')->get();
 											@endphp
 											@foreach($upa as $upazila)
 											@if($useraddress)
-											<option value="{{$upazila->id}}" @if($useraddress->user_upazila_id == $upazila->id) selected @endif>{{$upazila->name}} </option>
-											@else
+											
 											<option value="{{$upazila->id}}">{{$upazila->name}} </option>
 											@endif
 											@endforeach
@@ -305,33 +310,66 @@
 										@error('shipping_upazila_id')
 										<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
-										<input type="text" value="{{$order_id}}" name="order_id">
+										<input type="hidden" value="{{$order_id}}" name="order_id">
 									</div>
 
 
-											<div class="clearfix"></div>
-										</fieldset>
+										<div class="clearfix"></div>
+							</fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						
+
+
+
+
+
+
 									</div>
 							</div>
 						</div>
-						<div class="col-right ">
+						<div class="col-right">
 							<div class="row">
 								<div class="col-sm-12">
-									<div class="panel panel-default no-padding">
+									<div class="panel panel-default">
 										<div class="checkout-shipping-methods">
 											<div class="panel-heading">
 												<h4 class="panel-title"><i class="fa fa-truck"></i> Delivery Method</h4>
 											</div>
 											<div class="panel-body ">
 												<p>Please select the preferred shipping method to use on this order.</p>
-												<div class="radio">
-													<label>
-														<input type="radio" checked="checked" name="Free Shipping"> Free Shipping - $0.00</label>
+												
+												<div class="form-group required">
+													
+													<select name="shipping_id" id="sipping_upazila" class="form-control">
+														@php
+														$upa=DB::table('upazilas')->get();
+														@endphp
+														@foreach($upa as $upazila)
+														@if($useraddress)
+														
+														<option value="{{$upazila->id}}">{{$upazila->name}} </option>
+														@endif
+														@endforeach
+													</select>
+													
 												</div>
-												<div class="radio">
-													<label>
-														<input type="radio" name="Flat Shipping Rate"> Flat Shipping Rate - $7.50</label>
-												</div>
+												
 
 											</div>
 										</div>
@@ -341,15 +379,21 @@
 											</div>
 											<div class="panel-body">
 												<p>Please select the preferred payment method to use on this order.</p>
-												<div class="radio">
+												
 													<label>
-														<input type="radio" checked="checked" name="Cash On Delivery">Cash On Delivery</label>
-												</div>
+														<input type="radio" value="1" checked="checked" name="payment_type">Cash On Delivery
+													</label><br>
+												
 
-												<div class="radio">
+												
 													<label>
-														<input type="radio" name="Paypal">Paypal</label>
-												</div>
+														<input type="radio" value="2" name="payment_type">Paypal
+													</label>
+
+
+
+														
+												
 											</div>
 										</div>
 									</div>
@@ -410,10 +454,11 @@
 											<h4 class="panel-title"><i class="fa fa-pencil"></i> Add Comments About Your Order</h4>
 										</div>
 										<div class="panel-body">
-											<textarea rows="4" class="form-control" id="confirm_comment" name="comments"></textarea>
+											<textarea rows="4" class="form-control" id="confirm_comment" name="comment"></textarea>
 											<br>
 											<label class="control-label" for="confirm_agree">
-												<input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
+												<input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="privacy">
+												<input type="hidden" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="agree">
 												<span>I have read and agree to the <a class="agree" href="#"><b>Terms &amp; Conditions</b></a></span> </label>
 											<div class="buttons">
 												<div class="pull-right">
@@ -426,6 +471,11 @@
 							</div>
 						</div>
 
+						<!-- extra hidden field -->
+
+						<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal()}}" name="total_price">
+						<input type="hidden" value="{{ Cart::session(\Request::getClientIp(true))->getTotalQuantity() }}" name="total_quantity">
+
 
 					</form>
 
@@ -435,6 +485,9 @@
 		</div>
 		@endsection
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+		<!-- showing shipping address field -->
 
 		<script>
 			$(document).ready(function() {
@@ -450,6 +503,8 @@
 				});
 			});
 		</script>
+
+		<!-- get user division name in User Address field -->
 
 <script>
         $(document).ready(function () {
@@ -477,7 +532,9 @@
                 });
             });
         });
-    </script>
+	</script>
+	
+	<!-- get user district name in User Address field -->
 
     <script>
         $(document).ready(function () {
@@ -507,6 +564,9 @@
             });
         });
     </script>
+
+
+<!-- get user upazila name in User Address field -->
 
     <script>
         $(document).ready(function () {
@@ -541,6 +601,7 @@
   
 </script>
 
+<!-- Get All cart data in field -->
 
 <script>
     $( document ).ready(function() {
@@ -566,24 +627,8 @@
 
 </script>
 
-<script>
-    var myVar;
-    function myUpdateOrder(el) {
 
-        myVar = setTimeout(function(){
-            $.post('{{ route('product.cart.update') }}', {_token: '{{ csrf_token() }}', quantity: el.value, rowid:el.id },
-            function(data) {
-				$('#orderdata').html(data);
-                if (data) {
-                    toastr.success("Product Quantity Changed successfully");
-                }
-            });
-			toastr.success("Product Quantity Changed successfully");
-        }, 1000);
-    }
-
-    myUpdateOrder();
-</script>
+<!-- Apply cupon code in field -->
 
 <script>
     function cuponApply() {
@@ -609,6 +654,7 @@
     }
 </script>
 
+<!-- Get cupon value in field -->
 <script>
 	function getCuponValue(ordervalue){
 		$.ajaxSetup({
@@ -631,3 +677,115 @@
 	}
 	getCuponValue();
 </script>
+
+
+<!-- get division name in shipping field -->
+
+<script>
+        $(document).ready(function () {
+            $('#shipping_country').click(function () {
+
+				var country_id = $(this).val();
+				
+				
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ url('/user/division/name') }}/" + country_id,
+                    dataType: "json",
+
+                    success: function (data) {
+
+                        
+                        $('#shipping_division').empty();
+                        $('#shipping_division').append(' <option value="0">--Please Select Your Division--</option>');
+                        $.each(data, function (index, upazilabj) {
+                            $('#shipping_division').append('<option value="' + upazilabj.id + '">' + upazilabj.name + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+
+  
+</script>
+
+<!-- get distract name in shipping field -->
+
+<script>
+        $(document).ready(function () {
+            $('#shipping_division').click(function () {
+
+				var dist_id = $(this).val();
+				console.log(dist_id);
+				
+				
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ url('/user/district/name') }}/" + dist_id,
+                    dataType: "json",
+
+                    success: function (data) {
+						console.log(data);
+                        
+                        $('#shipping_district').empty();
+                        $('#shipping_district').append(' <option value="0">--Please Select Your Division--</option>');
+                        $.each(data, function (index, upazilabj) {
+                            $('#shipping_district').append('<option value="' + upazilabj.id + '">' + upazilabj.name + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+
+  
+</script>
+
+<!-- get upozila name in shipping field -->
+
+<script>
+        $(document).ready(function () {
+            $('#shipping_district').click(function () {
+
+				var upazilla_id = $(this).val();
+				console.log(upazilla_id);
+				
+				
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ url('/user/upazila/name') }}/" + upazilla_id,
+                    dataType: "json",
+
+                    success: function (data) {
+						console.log(data);
+                        
+                        $('#sipping_upazila').empty();
+                        $('#sipping_upazila').append(' <option value="0">--Please Select Your Division--</option>');
+                        $.each(data, function (index, upazilabj) {
+                            $('#sipping_upazila').append('<option value="' + upazilabj.id + '">' + upazilabj.name + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+
+  
+</script>
+

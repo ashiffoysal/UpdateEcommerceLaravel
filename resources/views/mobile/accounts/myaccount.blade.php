@@ -10,7 +10,7 @@
 	<a class="btn btn-link btn-nav pull-right toggle-panel" href="#panel-menu">
 		<span class="icon icon-bars"></span>
 	</a>
-	<h1 class="title">Product Details</h1>
+	<h1 class="title">Account Details</h1>
 </header>
 <!-- //End Bar Nav -->
 
@@ -22,64 +22,21 @@
 							<h3 class="modtitle"><span>Account</span></h3>
 							<div class="module-content custom-border">
 								<ul class="list-box">
-                                <li><a href="{{route('my.account.setting')}}">My Account</a>
-									</li>
-									<li><a href="#">Address Book</a>
-									</li>
-									<li><a href="#">Wish List</a>
-									</li>
-									<li><a href="#">Order History</a>
-									</li>
-									<li><a href="#">Downloads</a>
-									</li>
-									<li><a href="#">Recurring payments</a>
-									</li>
-									<li><a href="#">Reward Points</a>
-									</li>
-									<li><a href="#">Returns</a>
-									</li>
-									<li><a href="#">Transactions</a>
-									</li>
-									<li><a href="#">Newsletter</a>
-									</li>
+
+
+									<li><a href="#">My Account</a></li>
+									<li><a href="{{url('mobile/allwishlist')}}">Wish List</a></li>
+									<li><a href="{{url('mobile/comparelist')}}">Compare List</a></li>
+									<li><a href="{{url('product/orderhistory')}}">Order History</a></li>
+									<li><a href="{{url('order/traking')}}">Order Traking</a></li>
+
 									<li><a href="{{route('mobile.logout')}}">LogOut</a>
 									</li>
 								</ul>
 							</div>
 						</div>
-                    </aside>
-
+      </aside>
 	</div>
-
 </div>
 
-
-        @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@endsection

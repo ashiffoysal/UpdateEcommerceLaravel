@@ -20,15 +20,21 @@
 										<h2 class="hidden">Returning Customer</h2>
 										<p class="hidden"><strong>I am a returning customer</strong>
 										</p>
-										<form action="{{route('mobile.login')}}" method="post" enctype="multipart/form-data">
+										<form action="{{route('checkout.mobile.login')}}" method="post" enctype="multipart/form-data">
 										@csrf
 											<div class="form-group form-user">
 												<label class="control-label font-ct" for="input-email">E-Mail Address</label>
 												<input type="text" name="email" value="" placeholder="E-Mail Address" id="input-email" class="form-control">
+												@error('email')
+													<span class="text-danger">{{$message}}</span><br>
+												@enderror
 											</div>
 											<div class="form-group form-pw">
 												<label class="control-label font-ct" for="input-password">Password</label>
 												<input type="password" name="password" value="" placeholder="Password" id="input-password" class="form-control">
+												@error('password')
+													<span class="text-danger">{{$message}}</span><br>
+												@enderror
 												<a href="#">Forgotten Password</a>
 											</div>
 
@@ -74,21 +80,21 @@
 								<div class="form-group required">
 									<label class="col-sm-2 control-label" for="input-firstname">Name</label>
 									<div class="col-sm-10">
-										<input type="text" name="username" value="" placeholder="Enter Your Name" id="input-firstname" class="form-control">
+										<input type="text" name="username" value="{{old('username')}}" placeholder="Enter Your Name" id="input-firstname" class="form-control">
 										<span class="error_text">{{ $errors->first('username') }}</span>
 									</div>
 								</div>
 								<div class="form-group required">
 									<label class="col-sm-2 control-label" for="input-email">E-Mail</label>
 									<div class="col-sm-10">
-										<input type="email" name="email" value="" placeholder="E-Mail" id="input-email" class="form-control">
+										<input type="email" name="email" value="{{old('email')}}" placeholder="E-Mail" id="input-email" class="form-control">
 										<span class="error_text">{{ $errors->first('email') }}</span>
 									</div>
 								</div>
 								<div class="form-group required">
 									<label class="col-sm-2 control-label" for="input-telephone">Telephone</label>
 									<div class="col-sm-10">
-										<input type="tel" name="phone" value="" placeholder="Telephone" id="input-telephone" class="form-control">
+										<input type="tel" name="phone" value="{{old('phone')}}" placeholder="Telephone" id="input-telephone" class="form-control">
 										<span class="error_text">{{ $errors->first('phone') }}</span>
 									</div>
 								</div>

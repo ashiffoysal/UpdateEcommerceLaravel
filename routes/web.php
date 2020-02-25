@@ -857,13 +857,20 @@ if ($agent->isDesktop()) {
 
 
     Route::get(md5('/page/redirect'), 'Mobile\AuthController@pageBackRedirect')->name('page.redirect');
+
     // authentication area start
+
 
 
     Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
+    Route::get(md5('/mobile/checkout/login'), 'Mobile\AuthController@checkoutLoingPageShow')->name('mobile.checkout.login');
     Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
+    Route::post(md5('/mobile/checkout/login'), 'Mobile\AuthController@checkoutAuth')->name('checkout.mobile.login');
+    Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::get(md5('/mobile/logout'), 'Mobile\AuthController@userLogOut')->name('mobile.logout');
+    Route::get(md5('/mobile/sms/verify'), 'Mobile\AuthController@smsVerifyPageShow')->name('mobile.sms.verify');
+
 
 
 
@@ -886,6 +893,13 @@ if ($agent->isDesktop()) {
     Route::get('mobile/compare/delete/{id}', 'Mobile\FrontendController@comparedelete');
     // review
     Route::post('mobile/review/submit', 'Mobile\FrontendController@review');
+    Route::get('product/orderhistory', 'Mobile\FrontendController@orderhistory');
+    Route::get('history/details/{id}', 'Mobile\FrontendController@orderdetails');
+    Route::get('order/traking', 'Mobile\FrontendController@ordertraking');
+    Route::get('mobile/order/traking/submit', 'Mobile\FrontendController@searchtraking');
+
+    // payment
+    Route::get('mobile/payment', 'Mobile\FrontendController@paymentblade')->name('order.payment');
 
 
 
