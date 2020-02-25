@@ -848,13 +848,20 @@ if ($agent->isDesktop()) {
 
 
     Route::get(md5('/page/redirect'), 'Mobile\AuthController@pageBackRedirect')->name('page.redirect');
+
     // authentication area start
 
-
+    
+    
     Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
+    Route::get(md5('/mobile/checkout/login'), 'Mobile\AuthController@checkoutLoingPageShow')->name('mobile.checkout.login');
     Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
+    Route::post(md5('/mobile/checkout/login'), 'Mobile\AuthController@checkoutAuth')->name('checkout.mobile.login');
+    Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::get(md5('/mobile/logout'), 'Mobile\AuthController@userLogOut')->name('mobile.logout');
+    Route::get(md5('/mobile/sms/verify'), 'Mobile\AuthController@smsVerifyPageShow')->name('mobile.sms.verify');
+
 
 
 

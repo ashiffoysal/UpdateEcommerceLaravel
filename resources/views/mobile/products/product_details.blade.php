@@ -224,8 +224,8 @@
 												<span class="input-group-addon product_quantity_down fa fa-minus"></span>
 												<input class="form-control font-ct" type="text" name="quantity" id="quantity" value="1">
 												<input type="hidden" name="product_id" value="{{$productdetails->id}}">
-												<input type="hidden" name="product_sku" value="{{$productdetails->product_sku}}">
-												<input type="hidden" name="product_price" value="{{$productdetails->product_price}}">
+												<input type="hidden" id="product_chosen_sku" name="product_sku" value="{{$productdetails->product_sku}}">
+												<input type="hidden" id="product_chosen_price" name="product_price" value="{{$productdetails->product_price}}">
 
 												<span class="input-group-addon product_quantity_up fa fa-plus"></span>
 											</div>
