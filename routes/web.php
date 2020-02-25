@@ -851,8 +851,8 @@ if ($agent->isDesktop()) {
 
     // authentication area start
 
-    
-    
+
+
     Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
     Route::get(md5('/mobile/checkout/login'), 'Mobile\AuthController@checkoutLoingPageShow')->name('mobile.checkout.login');
@@ -888,6 +888,9 @@ if ($agent->isDesktop()) {
     Route::get('history/details/{id}', 'Mobile\FrontendController@orderdetails');
     Route::get('order/traking', 'Mobile\FrontendController@ordertraking');
     Route::get('mobile/order/traking/submit', 'Mobile\FrontendController@searchtraking');
+
+    // payment
+    Route::get('mobile/payment', 'Mobile\FrontendController@paymentblade')->name('order.payment');
 
 
 

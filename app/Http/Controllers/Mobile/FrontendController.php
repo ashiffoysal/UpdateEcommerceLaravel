@@ -216,6 +216,11 @@ class FrontendController extends Controller
       return view('mobile.shopping.trackresult',compact('result'));
     }
 
+    // payment blade
+    public function paymentblade(){
+      return view('mobile.shopping.payment');
+    }
+
 
 
 

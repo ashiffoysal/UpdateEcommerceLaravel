@@ -210,7 +210,7 @@ class CheckoutController extends Controller
     public function orderSubmit(Request $request)
     {
 
-        
+      return $request;
 
         $validatedData = $request->validate([
             'user_id' => 'required',
@@ -317,7 +317,7 @@ class CheckoutController extends Controller
 
         $userdetails = UserAddress::where('user_id', Auth::user()->id)->get();
         $userdatacount = count($userdetails);
-        
+
         if ($userdatacount > 1) {
             $userdatas = UserAddress::where('user_id', Auth::user()->id)->first()->delete();
         }
@@ -337,9 +337,9 @@ class CheckoutController extends Controller
                 'messege' => 'Successfully you order is confirmed',
                 'alert-type' => 'success'
             );
-            return redirect()->route('customer.order')->with($notification);
+            // return redirect()->route('customer.order')->with($notification);
         } else {
-            return redirect()->route('order.payment', $getOrder->payment_secure_id);
+            // return redirect()->route('order.payment', $getOrder->payment_secure_id);
         }
 
         // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
@@ -483,7 +483,7 @@ class CheckoutController extends Controller
         }
         $data['total'] = $total;
 
-         
+
         return $data;
     }
 
