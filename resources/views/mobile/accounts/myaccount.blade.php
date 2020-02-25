@@ -22,8 +22,7 @@
 							<h3 class="modtitle"><span>Account</span></h3>
 							<div class="module-content custom-border">
 								<ul class="list-box">
-									
-									<li><a href="#">My Account</a>
+                                <li><a href="{{route('my.account.setting')}}">My Account</a>
 									</li>
 									<li><a href="#">Address Book</a>
 									</li>
