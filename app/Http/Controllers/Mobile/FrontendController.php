@@ -14,6 +14,7 @@ use App\Product;
 use App\wishlist;
 use App\Color;
 use App\ProductReview;
+use App\OrderPlace;
 
 use Carbon\Carbon;
 use Session;
@@ -189,4 +190,35 @@ class FrontendController extends Controller
           return Redirect()->back()->with($notification);
       }
     }
+
+    // order history
+    public function orderhistory(){
+
+      $user_id = Auth::id();
+      $history = OrderPlace::where('user_id', $user_id)->orderBy('id', 'DESC')->simplepaginate(5);
+      return view('mobile.shopping.orderhistory',compact('history'));
+    }
+// order details
+    public function orderdetails($id){
+      $orderplaceid = OrderPlace::where('id', $id)->first();
+      return view('mobile.shopping.orderdetails',compact('orderplaceid'));
+
+    }
+    // order traking
+    public function ordertraking(){
+      return view('mobile.shopping.traking');
+    }
+
+    // search traking
+    public function searchtraking(Request $request){
+      $id=$request->orderid;
+      $result= OrderPlace::where('order_id', $id)->first();
+      return view('mobile.shopping.trackresult',compact('result'));
+    }
+
+
+
+
+
+
 }
