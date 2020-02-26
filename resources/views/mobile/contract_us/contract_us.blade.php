@@ -49,9 +49,9 @@
                 <form id="contract_form" action="{{ route('mobile.contract.us.send') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <fieldset>
                             <legend>
-                                <h2>Contact Form</h2>
+                                <h2 style="padding-left: 10px;">Contact Form</h2>
                             </legend>
-                            <p>
+                            <p style="padding-left: 10px;">
                                If you have any query. Please, contract with us.
                             </p>
                             {{-- <ul class="location-address">

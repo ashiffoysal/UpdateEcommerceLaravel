@@ -852,6 +852,7 @@ if ($agent->isDesktop()) {
     Route::post(md5('/customer/coupon/apply'), 'Mobile\CheckoutController@cartcupon')->name('mobile.cupon.apply');
     Route::get('get/cupon/value/{oderid}', 'Mobile\CheckoutController@applyCuponValue');
     Route::post(md5('/checkout/order/place'), 'Mobile\CheckoutController@orderPlace')->name('order.place');
+    Route::get('get/checkout/cupon/value', 'Mobile\CheckoutController@cuponValue');
 
 
 
@@ -869,7 +870,9 @@ if ($agent->isDesktop()) {
     Route::post(md5('/mobile/checkout/login'), 'Mobile\AuthController@checkoutAuth')->name('checkout.mobile.login');
     Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::get(md5('/mobile/logout'), 'Mobile\AuthController@userLogOut')->name('mobile.logout');
-    Route::get(md5('/mobile/sms/verify'), 'Mobile\AuthController@smsVerifyPageShow')->name('mobile.sms.verify');
+    Route::get('/mobile/sms/verify/{token}', 'Mobile\AuthController@smsVerifyPageShow')->name('mobile.sms.verify');
+    Route::post('/sms/verification/submit', 'Mobile\AuthController@smsVerification')->name('sms.verification.submit');
+    
 
 
 

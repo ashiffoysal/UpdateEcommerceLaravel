@@ -103,10 +103,34 @@ class CheckoutController extends Controller
 
     public function cartData()
     {
-        $userid =  \Request::getClientIp(true);
+
+        $limit =Carbon::now()->subMinutes(1);
+       
+       $userid =  \Request::getClientIp(true);
 
         $usercartdatas = Cart::session($userid)->getContent();
-        return view('mobile.shopping.checkoutdatashow', compact('usercartdatas'));
+        
+       $userusedcupon =UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->first();
+       if($userusedcupon){
+        $cupon = Cupon::findOrFail($userusedcupon->cupon_id);
+
+        if ($cupon->cupon_type == 1) {
+
+
+            $cupondatavalue = '৳ ' . $cupon->discount;
+        } else {
+
+            $cupondatavalue = $cupon->discount . '%';
+        }
+
+        
+        return view('mobile.shopping.checkoutdatashow', compact('usercartdatas','cupondatavalue')); 
+       }else{
+
+        return view('mobile.shopping.checkoutdatashow', compact('usercartdatas')); 
+    }
+
+
     }
 
 
@@ -115,8 +139,7 @@ class CheckoutController extends Controller
     public function cartUpdate(Request $request)
     {
 
-        
-        
+
         $userid =  \Request::getClientIp(true);
         $updatecart = Cart::session($userid)->update(
             $request->rowid,
@@ -129,14 +152,36 @@ class CheckoutController extends Controller
         );
 
 
-        if ($updatecart) {
-            $userid =  \Request::getClientIp(true);
-            $usercartdatas = Cart::session($userid)->getContent();
+        $limit =Carbon::now()->subMinutes(1);
+       
+        $userid =  \Request::getClientIp(true);
+ 
+         $usercartdatas = Cart::session($userid)->getContent();
+         
+        $userusedcupon =UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->first();
+       if($updatecart){
+
+
+        if($userusedcupon){
+            $cupon = Cupon::findOrFail($userusedcupon->cupon_id);
+    
+            if ($cupon->cupon_type == 1) {
+    
+    
+                $cupondatavalue = '৳ ' . $cupon->discount;
+            } else {
+    
+                $cupondatavalue = $cupon->discount . '%';
+            }
+    
             
-            return view('mobile.shopping.checkoutdatashow', compact('usercartdatas'));
-        } else {
-            return 0;
-        }
+            return view('mobile.shopping.checkoutdatashow', compact('usercartdatas','cupondatavalue')); 
+           }else{
+                return view('mobile.shopping.checkoutdatashow', compact('usercartdatas'));
+           }
+       }else{
+           return "Update Faild!";
+       }
     }
 
 
@@ -449,6 +494,40 @@ class CheckoutController extends Controller
         }
 
         // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;
+    }
+
+    // Get Cupon value into checkout page
+
+    public function cuponValue ()
+    {
+       $limit =Carbon::now()->subMinutes(6);
+       
+       $userid =  \Request::getClientIp(true);
+
+        $usercartdatas = Cart::session($userid)->getContent();
+
+       $userusedcupon =UserUsedCupon::where('user_ip',Auth::user()->id)->where('created_at','>',$limit)->first();
+       if($userusedcupon){
+        $cupon = Cupon::findOrFail($userusedcupon->cupon_id);
+
+        if ($cupon->cupon_type == 1) {
+
+
+            $cupondatavalue = '৳ ' . $cupon->discount;
+        } else {
+
+            $cupondatavalue = $cupon->discount . '%';
+        }
+
+        
+        return view('mobile.shopping.checkoutdatashow', compact('usercartdatas','cupondatavalue')); 
+       }else{
+
+           return view('mobile.shopping.checkoutdatashow', compact('usercartdatas')); 
+       }
+         
+       
+
     }
 
 }

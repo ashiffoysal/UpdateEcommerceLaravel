@@ -208,7 +208,7 @@
 
 
 
-							<br>
+
 
 							<div id="product">
 								<div class="options options-mobi clearfix">
@@ -218,11 +218,10 @@
 										<!-- color area start -->
 										<div class="form-group required " style="display: block; margin-left:17px">
 											<input type="hidden" name="id" value="{{$productdetails->id}}">
-											
-											<!-- <label class="control-label">Colors</label> -->
+											<label class="control-label">Colors</label>
 											@if (count(json_decode($productdetails->colors)) > 0)
 											<ul class="list-inline checkbox-color mb-1">
-												<li>Colors</li>
+												
 												@foreach (json_decode($productdetails->colors) as $key => $color)
 												<li>
 													<input type="radio" id="{{ $productdetails->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key==0) checked @endif>
