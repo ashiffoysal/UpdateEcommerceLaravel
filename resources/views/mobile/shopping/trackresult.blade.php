@@ -33,7 +33,7 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="text-center">{{$result->orderid}}</td>
+															<td class="text-center">{{$result->order_id}}</td>
 															<td class="text-left">{{$result->total_quantity}}</td>
 															<td class="text-left">{{$result->total_price}}</td>
 															<td class="text-right">
