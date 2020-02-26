@@ -21,7 +21,7 @@
                             @endif
                         </div>
                     <h3>{{ __('SMS Verification') }}</h3>
-                    <p><strong>{{$checkRememberToken->first_name}} {{$checkRememberToken->last_name}}</strong> Thank You for your registration:</p>
+                    <p><strong>{{$checkRememberToken->username}}</strong> Thank You for your registration:</p>
                     <form action="{{ route('sms.verification.submit') }}" method="post">
                         @csrf
                             <div class="form-group">

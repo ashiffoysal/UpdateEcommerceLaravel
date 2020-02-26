@@ -314,7 +314,23 @@
                          @endif
                     </div>
                     <div class="button-group">
-                      <button class="addToCart font-sn" type="button" title="Add to Cart" onclick="cart.add('175', '1');"> <i class="fa fa-shopping-cart"></i><span><span>Add to Cart</span></span></button>
+                    @if($product->product_type ==1)
+                          
+                          <button class="addToCart font-sn" type="button" title="Add to details"> <i class="fa fa-shopping-cart"></i><span><span><a href="{{route('product.details',$product->id)}}">Add to Cart</a> </span></span></button>
+                        @else
+                        <form  onclick="resubcategoryaddtocart(this)">
+                        <input class="form-control font-ct" type="hidden" name="quantity" id="quantity" value="1">
+												<input type="hidden" name="product_id" value="{{$product->id}}">
+												<input type="hidden" id="product_chosen_sku" name="product_sku" value="{{$product->product_sku}}">
+                        <input type="hidden" id="product_chosen_price" name="product_price" value="{{$product->product_price}}">
+                        
+
+                        <button class="addToCart font-sn" type="button" title="Add to Cart"> <i class="fa fa-shopping-cart"></i><span><span>Add to Cart</span></span></button>
+                        </form>
+                      @endif
+                      
+                        <!-- <button class="addToCart font-sn" type="button" title="Add to Cart" onclick="cart.add('175', '1');"> <i class="fa fa-shopping-cart"></i><span><span>Add to Cart</span></span></button> -->
+
                       @if(Auth::guard('web')->check())
                       <a class="wishlist btn btn-button mywishlist" id="mywishlist" title="Add to Wish List" data-id="{{$product->id}}"><i class="fa fa-heart-o"></i></a>
                       @else
@@ -403,7 +419,33 @@
 							});
 					});
 			});
-	</script>
+  </script>
+  
+  <script>
+    function resubcategoryaddtocart(el) {
+   
+        var product_id = el.product_id.value;
+        var product_price = el.product_price.value;
+        var quantity = el.quantity.value;
+        if (!el.combination) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('product.add.cart') }}",
+                data: {
+                    product_id: product_id,
+                    product_price: product_price,
+                    quantity: quantity,
+                },
+                success: function (data) {
+                  toastr.success("Product add to Cart successfully");
+			             document.getElementById('totalquentity').innerHTML =data.quantity;
+
+                }
+            })
+        }
+
+    }
+</script>
 @endsection
 @push('js')
 

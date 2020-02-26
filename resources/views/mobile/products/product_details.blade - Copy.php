@@ -47,7 +47,6 @@
 						<div class="box-label">
 							<!--Sale Label-->
 							@php
-
                         $flashdealdetail=App\FlashDealDetail::where('product_id',$productdetails->id)->where('status',1)->limit(1)->get();
 					  @endphp
 					  @if(count($flashdealdetail) > 0)
@@ -59,7 +58,6 @@
 							@endif
 							@endforeach
 							@endif
-
 							<div class="product-stock">
 								@if($productdetails->product_qty > 0)
 									<div class="stock" style="background: url({{asset('public/mobile')}}/image/theme/icon/icon-instock.png) no-repeat center center"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
@@ -210,7 +208,7 @@
 
 
 
-							<br>
+
 
 							<div id="product">
 								<div class="options options-mobi clearfix">
@@ -220,11 +218,10 @@
 										<!-- color area start -->
 										<div class="form-group required " style="display: block; margin-left:17px">
 											<input type="hidden" name="id" value="{{$productdetails->id}}">
-											
-											<!-- <label class="control-label">Colors</label> -->
+											<label class="control-label">Colors</label>
 											@if (count(json_decode($productdetails->colors)) > 0)
 											<ul class="list-inline checkbox-color mb-1">
-												<li>Colors</li>
+												
 												@foreach (json_decode($productdetails->colors) as $key => $color)
 												<li>
 													<input type="radio" id="{{ $productdetails->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key==0) checked @endif>
@@ -447,69 +444,13 @@
 								</div>
 								<div class="caption text-center">
 									<h4><a class="preview-image font-ct" href="{{url('product/details/'.$product->slug.'/'.$product->id)}}">{{Str::limit($product->product_name,10)}}</a></h4>
-									<div class="ratings ">
+									<div class="ratings hidden">
 										<div class="rating-box">
-											@php
-												$rount=App\ProductReview::where('product_id',$product->id)->count();
-											@endphp
-
-											@if($rount)
-												@php
-												$sumofreview =App\ProductReview::where('product_id',$product->id)->sum('review');
-												$rating=$sumofreview/$rount;
-												@endphp
-
-												@if($rating == 1)
-													<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-													<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-													<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-													<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-													<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												@elseif($rating < 2)
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												@elseif($rating < 3)
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												@elseif($rating < 4)
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												@elseif($rating < 5)
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												@elseif($rating == 5)
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i></span>
-												@elseif($rating == 0)
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-												@endif
-										@else
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-										<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-
-										@endif
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+											<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
 										</div>
 									</div>
 									<div class="price font-ct">

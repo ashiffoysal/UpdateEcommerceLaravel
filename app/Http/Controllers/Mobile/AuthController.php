@@ -30,7 +30,7 @@ class AuthController extends Controller
     protected function register(Request $request)
     {
 
-        return redirect()->route('mobile.sms.verify');
+        
 
         $request->validate([
             'username' => 'required|string|max:255',
@@ -88,17 +88,44 @@ class AuthController extends Controller
             $output = curl_exec($ch);
 
             // return redirect()->route('sms.verification.form', $user->remember_token);
-            return redirect('/');
+            return redirect()->route('mobile.sms.verify',$user->remember_token);
 
-        session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
-         return redirect()->route('user.auth.registration.success', $user->email);
+        // session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
+        //  return redirect()->route('user.auth.registration.success', $user->email);
 
     }
 
     // show sms veryfication page
-    public function smsVerifyPageShow()
+    public function smsVerifyPageShow($token)
     {
-        return view('mobile.accounts.sms_verify');
+        
+        $checkRememberToken = User::where('remember_token', $token)->firstOrFail();
+        $remember_token = $checkRememberToken->remember_token;
+        abort_if(!$checkRememberToken, 403);
+        return view('mobile.accounts.sms_verify',compact('checkRememberToken'));
+    }
+
+  
+
+    public function smsVerification(Request $request)
+    {
+
+        
+        $userverify = $request->verify_code;
+        $user = User::where('verification_code', $userverify)->where('remember_token', $request->verify_token)->firstOrFail();
+        if (User::where('verification_code', $userverify)->where('remember_token', $request->verify_token)->exists()) {
+            $user->update([
+                'status' => 1,
+                'remember_token' => NULL,
+                'email_verified_at' => Carbon::now(),
+            ]);
+            $notification = array(
+                'messege' => 'Successfully your Account is verified.',
+                'alert-type' => 'success'
+            );
+            
+            return redirect()->route('mobile.login.form')->with($notification);
+        }
     }
 
 
