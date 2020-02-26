@@ -46,7 +46,18 @@
 						</div>
 						<div class="box-label">
 							<!--Sale Label-->
-							<span class="label-product label-sale font-ct"> -28% </span>
+							@php
+								$flashdealdetail=App\FlashDealDetail::where('product_id',$productdetails->id)->where('status',1)->limit(1)->get();
+							@endphp
+							@if(count($flashdealdetail) > 0)
+							 @foreach($flashdealdetail as $row)
+								 @if($row->discount_type==1)
+								 <span class="label-product label-sale">-{{$row->discount}}৳</span>
+								 @elseif($row->discount_type==2)
+								 <span class="label-product label-sale">-{{$row->discount}}%</span>
+								 @endif
+							 @endforeach
+						 @endif
 							<div class="product-stock">
 								<div class="stock"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
 							</div>
