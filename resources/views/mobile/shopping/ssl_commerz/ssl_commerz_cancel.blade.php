@@ -31,8 +31,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <td class="text-center"><span class="btn-success payment_success_messate">Your Payment Has Been
-                                            Success.Please check your email.Thank Tou!!<span></td>
+                                    <td class="text-center"><span class="btn-primary payment_success_messate">Your Payment Has Been Canceled.<span></td>
                                 </tr>
                             </thead>
                         </table>

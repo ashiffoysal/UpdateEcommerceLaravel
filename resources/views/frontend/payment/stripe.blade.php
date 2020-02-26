@@ -227,7 +227,6 @@
         hiddenInput.setAttribute('name', 'stripeToken');
         hiddenInput.setAttribute('value', token.id);
         form.appendChild(hiddenInput);
-
         // Submit the form
         form.submit();
     }
