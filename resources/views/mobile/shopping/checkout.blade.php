@@ -177,6 +177,7 @@
 									</div>
 									<div class="panel-body">
 										<fieldset id="address" class="required">
+
 									<div class="form-group required">
 										<label for="input-payment-city" class="control-label">Name :</label>
 										<input type="hidden" name="shipping_user_id" value="{{Auth::user()->id}}" placeholder="Post office *" id="input-payment-city" class="form-control">
@@ -285,10 +286,6 @@
 							</fieldset>
 
 
-
-
-
-
 									</div>
 							</div>
 						</div>
@@ -316,7 +313,10 @@
 														@endif
 														@endforeach
 													</select>
+
+
 												</div>
+
 											</div>
 										</div>
 										<div class="checkout-payment-methods">
@@ -331,9 +331,8 @@
 													</label><br>
 
 													<label>
-														<input type="radio" value="2" name="payment_type">Online payment
+														<input type="radio" value="2" name="payment_type">Online Payment
 													</label>
-
 											</div>
 										</div>
 									</div>
@@ -373,7 +372,6 @@
 											<h4 class="panel-title"><i class="fa fa-shopping-cart"></i> Shopping cart</h4>
 										</div>
 										<div class="panel-body" id="cartdata">
-
 
 										</div>
 									</div>
@@ -716,6 +714,4 @@
             });
         });
 
-
 </script>
-

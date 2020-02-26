@@ -174,6 +174,12 @@ if ($agent->isDesktop()) {
     Route::get('admin/measurement/recover/{id}', 'Admin\MeasurementController@recover');
     Route::get('admin/measurement/delete/{id}', 'Admin\MeasurementController@delete');
     Route::post('admin/measurement/multisoftdelete', 'Admin\MeasurementController@multisoftdelete');
+    // delevery amount
+    Route::get(md5('admin/deleveryamount'), 'Admin\MeasurementController@deleverypayment')->name('admin.deleveryamount.all');
+    Route::post(md5('admin/deleveryamount/submit'), 'Admin\MeasurementController@deleverysubmit')->name('admin.deleveryamount.submit');
+
+
+
     // cupon controller
     Route::get(md5('admin/cupon/all'), 'Admin\CuponController@index')->name('admin.cupon.all');
     Route::get(md5('admin/cupon/add'), 'Admin\CuponController@add')->name('admin.cupon.add');
@@ -899,7 +905,12 @@ if ($agent->isDesktop()) {
     Route::get('mobile/order/traking/submit', 'Mobile\FrontendController@searchtraking');
 
     // payment
-    Route::get('mobile/payment', 'Mobile\FrontendController@paymentblade')->name('order.payment');
+    Route::get('mobile/payment/{paymentSecureId}', 'Mobile\MobilePaymentController@paymentPage')->name('ordermobile.payment');
+    Route::post('make/payment/submit', 'Mobile\MobilePaymentController@makePayment')->name('payment.submit');
+    // paypal
+    Route::get('make/payment/paypal', 'Mobile\MobilePaymentController@paywithpaypal')->name('payment.paypal');
+    Route::get('/payment/success', 'Mobile\MobilePaymentController@paymentsuccess');
+    Route::get('paypal/success/payment', 'Mobile\MobilePaymentController@paypalsuccess')->name('payment.paypal.success');
 
 
 
