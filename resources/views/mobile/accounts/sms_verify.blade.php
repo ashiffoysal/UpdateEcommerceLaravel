@@ -23,15 +23,19 @@
 
 							<div class="tab-content">
 								<div id="home" class="tab-pane form-login fade active in">
-
+								@if (Session::has('errorMsg'))
+                                <span class="alert alert-danger d-block">{{ session('errorMsg') }}</span>
+                            @endif
 
 									<div class="well col-sm-12">
-
-										<form action="{{route('mobile.login')}}" method="post" enctype="multipart/form-data">
+			
+										<form action="{{route('sms.verification.submit')}}" method="post" enctype="multipart/form-data">
 										@csrf
 											<div class="form-group form-user">
-												<label class="control-label p-2" for="input-email">Places Enter Your Verification code Here: </label>
-												<input type="text" name="email" value="" placeholder="Enter Your Verification code......." id="input-email" class="form-control">
+												<label class="control-label p-2" for="input-email"><strong>{{$checkRememberToken->username}}</strong> Places Enter Your Verification code Here: </label>
+												<!-- <input type="text" name="email" value="" placeholder="Enter Your Verification code......." id="input-email" class="form-control"> -->
+												<input type="hidden" class="form-control" name="verify_token" value="{{$checkRememberToken->remember_token}}">
+                                    			<input type="text" class="form-control" name="verify_code" placeholder="Enter Your Verification Code..">
 											</div>
 											
 											<input type="submit" value="Submit" class="btn btn-primary pull-left">
