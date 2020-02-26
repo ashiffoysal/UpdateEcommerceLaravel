@@ -337,7 +337,9 @@ class CheckoutController extends Controller
                 'messege' => 'Successfully you order is confirmed',
                 'alert-type' => 'success'
             );
-             return redirect()->route('customer.order')->with($notification);
+
+            return redirect()->route('customer.order')->with($notification);
+
         } else {
             return redirect()->route('order.payment', $getOrder->payment_secure_id);
         }

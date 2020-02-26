@@ -1,6 +1,7 @@
 @extends('mobile.extra_master')
 @section('page_content')
 <!-- Begin Bar Nav -->
+
 		<header class="bar bar-nav ">
 			<a class="btn btn-link btn-nav pull-left" href="#" onclick="history.go(-1); return false;">
 				<span class="icon icon-left-nav"></span>
@@ -78,6 +79,7 @@
 			</div>
 			<!-- //End Footer Content -->
 		</div>
+
 
 
 @endsection

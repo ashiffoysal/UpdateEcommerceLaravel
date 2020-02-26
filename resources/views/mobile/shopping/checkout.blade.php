@@ -169,22 +169,6 @@
 									</span>
 								</fieldset>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 								<fieldset id="shipping-address" style="display: none">
 
 									<div class="panel-heading">
@@ -193,9 +177,6 @@
 									</div>
 									<div class="panel-body">
 										<fieldset id="address" class="required">
-
-
-
 
 									<div class="form-group required">
 										<label for="input-payment-city" class="control-label">Name :</label>
@@ -214,9 +195,6 @@
 										@enderror
 									</div>
 
-
-
-
 									<div class="form-group required">
 										<label for="input-payment-city" class="control-label">Post Office</label>
 										<input type="text" name="shipping_post_office" value="{{ old('shipping_post_office') }}" placeholder="Post office *" id="input-payment-city" class="form-control">
@@ -225,7 +203,6 @@
 										@enderror
 									</div>
 
-
 									<div class="form-group required">
 										<label for="input-payment-postcode" class="control-label">Post Code</label>
 										<input type="text" name="shipping_postcode" value="{{ old('shipping_postcode') }}" placeholder="Post Code *" id="input-payment-postcode" class="form-control">
@@ -233,8 +210,6 @@
 											<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
 									</div>
-
-
 
 									<div class="form-group required">
 										<label for="input-payment-zone" class="control-label"> Country </label>
@@ -248,8 +223,6 @@
 										<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
 									</div>
-
-
 
 									<div class="form-group required">
 										<label for="input-payment-zone" class="control-label"> Division </label>
@@ -267,10 +240,6 @@
 										<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
 									</div>
-
-
-
-
 
 									<div class="form-group required">
 										<label for="input-payment-zone" class="control-label"> District </label>
@@ -311,33 +280,10 @@
 										<div class="text-danger alert alert-danger">{{ $message }}</div>
 										@enderror
 										<input type="hidden" value="{{$order_id}}" name="order_id">
-									</div>
-
+                                    </div>
 
 										<div class="clearfix"></div>
 							</fieldset>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 									</div>
@@ -368,8 +314,8 @@
 														@endforeach
 													</select>
 
-												</div>
 
+												</div>
 
 											</div>
 										</div>
@@ -383,22 +329,14 @@
 													<label>
 														<input type="radio" value="1" checked="checked" name="payment_type">Cash On Delivery
 													</label><br>
+
 													<label>
 														<input type="radio" value="2" name="payment_type">Online Payment
 													</label>
-
-
-
-
-
 											</div>
 										</div>
 									</div>
-
-
-
 								</div>
-
 
 
 								<div class="col-sm-12">
@@ -408,9 +346,6 @@
 										</div>
 										<div class="panel-body ">
 											<div class="form-group">
-
-
-
 												<div class="input-group">
 													<input type="hidden" name="order_id" value="{{$order_id}}" placeholder="Enter coupon code" id="input_order" class="form-control">
 													<input type="text" class="form-control" id="input-coupon" placeholder="Enter your coupon here" value="" name="coupon">
@@ -418,8 +353,6 @@
 														<input type="button" class="btn btn-primary" onclick="cuponApply()" data-loading-text="Loading..." id="button-coupon" value="Apply Coupon">
 													</span>
 												</div>
-
-
 											</div>
 
 											<div class="form-group">
@@ -439,8 +372,6 @@
 											<h4 class="panel-title"><i class="fa fa-shopping-cart"></i> Shopping cart</h4>
 										</div>
 										<div class="panel-body" id="cartdata">
-
-
 
 										</div>
 									</div>
@@ -782,6 +713,5 @@
                 });
             });
         });
-
 
 </script>

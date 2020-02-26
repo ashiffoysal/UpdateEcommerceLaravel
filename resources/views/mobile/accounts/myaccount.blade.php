@@ -22,14 +22,11 @@
 							<h3 class="modtitle"><span>Account</span></h3>
 							<div class="module-content custom-border">
 								<ul class="list-box">
-
-
-									<li><a href="#">My Account</a></li>
+									<li><a href="{{ route('my.account.setting') }}">My Profile</a></li>
 									<li><a href="{{url('mobile/allwishlist')}}">Wish List</a></li>
 									<li><a href="{{url('mobile/comparelist')}}">Compare List</a></li>
 									<li><a href="{{url('product/orderhistory')}}">Order History</a></li>
 									<li><a href="{{url('order/traking')}}">Order Traking</a></li>
-
 									<li><a href="{{route('mobile.logout')}}">LogOut</a>
 									</li>
 								</ul>
