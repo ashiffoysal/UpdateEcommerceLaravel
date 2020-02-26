@@ -5,7 +5,7 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <header class="bar bar-nav ">
-  <a class="btn btn-link btn-nav pull-left" href="#" >
+  <a class="btn btn-link btn-nav pull-left" href="{{ url('/') }}" >
     <span class="icon icon-left-nav"></span>
   </a>
   <a class="btn btn-link btn-nav pull-right toggle-panel" href="#panel-menu">
@@ -19,7 +19,7 @@
   <!-- //Begin Main Content -->
   <div class="container page-category">
     <div class="row">
-        
+
         <aside class="col-xs-12 content-aside left_column sidebar-offcanvas">
             <span id="close-sidebar" class="btn btn-default"><i class="fa fa-times"></i></span>
             <div class="module ">
@@ -44,7 +44,7 @@
                           <ul class="checkboxes_list">
                               @foreach ($all_subcategories as $subcategory)
                               <li>
-                                <input type="radio" value="{{ $subcategory->id }}" name="sub_category_id" id="{{ $subcategory->id }}">
+                                <input type="radio" class="subcategory_id" value="{{ $subcategory->id }}" name="sub_category_id" id="{{ $subcategory->id }}">
                                 <label for="{{ $subcategory->id }}"> {{ $subcategory->subcate_name }} </label>
                               </li>
                               @endforeach
@@ -62,7 +62,7 @@
                           <ul class="checkboxes_list">
                             @foreach ($all_brands as $brand)
                             <li>
-                                <input type="radio"  name="brand_id" value="{{ $brand->id }}" id="{{ $brand->brand_name }}">
+                                <input type="radio" class="brand_id"  name="brand_id" value="{{ $brand->id }}" id="{{ $brand->brand_name }}">
                                 <label for="{{ $brand->brand_name }}">{{ $brand->brand_name }}</label>
                             </li>
                             @endforeach
@@ -115,7 +115,7 @@
                                 <ul class="simple_vertical_list">
                                   @foreach ($colours as $color)
                                     <li>
-                                        <input type="radio"  value="{{ $color->color_code }}" name="color" id="{{ $color->color_code }}">
+                                        <input type="radio" class="color_code"  value="{{ $color->color_code }}" name="color" id="{{ $color->color_code }}">
                                         <label for="{{ $color->color_code }}" style="color:{{ $color->color_code }}">{{ $color->color_name }}</label>
                                     </li>
                                   @endforeach
@@ -448,3 +448,18 @@
 </script>
 
 @endsection
+@push('js')
+
+<script>
+    $(document).ready(function() {
+        $('.filter_reset').on('click', function(){
+            $('.subcategory_id').prop('checked', false);
+            $('.brand_id').prop('checked', false);
+            $('.color_code').prop('checked', false);
+            $('.min_value').val(100);
+            $('.max_value').val(10000);
+        });
+    });
+</script>
+
+@endpush

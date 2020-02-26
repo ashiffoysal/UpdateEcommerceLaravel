@@ -1,6 +1,7 @@
 @extends('mobile.extra_master')
 @section('page_content')
 <!-- Begin Bar Nav -->
+
 		<header class="bar bar-nav ">
 			<a class="btn btn-link btn-nav pull-left" href="#" onclick="history.go(-1); return false;">
 				<span class="icon icon-left-nav"></span>
@@ -19,42 +20,39 @@
 											<div class="panel-heading">
 												<div class="row">
 														<div class="col-md-6">
-																<h4 class="panel-title"><i class="fas fa-luggage-cart"></i>Payment Method</h4>
+																<p>#orderID: {{$orderPlace->order_id}}</p>
+																<p>Total:৳ {{$orderPlace->total_price}}</p>
 														</div>
 														<div class="col-md-6 text-right">
-																<h4 class="panel-title"><i class="fas fa-luggage-cart"></i>Total:100000</h4>
+
 														</div>
-
 												</div>
-
 											</div>
 											<div class="panel-body">
-												<form action="{{url('mobile/order/traking/submit')}}" method="GET">
+												<p>(Please checked any method)</p>
+											</br>
+												<form action="{{route('payment.submit')}}" method="post">
 													@csrf
-														  <div class="form-group row">
+														<input type="hidden" name="order_id" value="{{$orderPlace->order_id}}">
+														<input type="hidden" name="payment_secure_id" value="{{$orderPlace->payment_secure_id}}">
 
-														    <div class="col-sm-2">
-														      <input type="radio" name="orderid" class="form-control-plaintext" placeholder=" Please Enter Your orderId">
-														    </div>
-																<label for="staticEmail" class="col-sm-6 col-form-label">Cash On Delevery</label>
-														  </div>
 															<div class="form-group row">
 														    <div class="col-sm-2">
-														      <input type="radio" name="orderid" class="form-control-plaintext" placeholder=" Please Enter Your orderId">
+														      <input type="radio" class="form-control-plaintext" id="pay_method" name="payment_method_id" value="2">
+														    </div>
+																<label for="staticEmail" class="col-sm-2 col-form-label" >Stripe</label>
+														  </div>
+
+															<div class="form-group row">
+														    <div class="col-sm-2">
+														      <input type="radio" class="form-control-plaintext" id="pay_method" name="payment_method_id" value="3">
 														    </div>
 																  <label for="staticEmail" class="col-sm-2 col-form-label">Paypal</label>
 														  </div>
-															<div class="form-group row">
 
-														    <div class="col-sm-2">
-														      <input type="radio" name="orderid" class="form-control-plaintext" placeholder=" Please Enter Your orderId">
-														    </div>
-																<label for="staticEmail" class="col-sm-2 col-form-label">Stripe</label>
-														  </div>
 															<div class="form-group row">
-
 														    <div class="col-sm-2">
-														      <input type="radio" name="orderid" class="form-control-plaintext" placeholder=" Please Enter Your orderId">
+														      <input type="radio" class="form-control-plaintext" id="pay_method" name="payment_method_id" value="4">
 														    </div>
 																<label for="staticEmail" class="col-sm-5 col-form-label">SSL Commercez</label>
 														  </div>
@@ -62,8 +60,8 @@
 														  <div class="form-group row">
 														    <label for="inputPassword" class="col-sm-2 col-form-label"></label>
 														    <div class="col-sm-10 text-center">
-														      <a href="" class="btn btn-info">back</a>
-														      <button type="submit" class="btn btn-primary">Payment</button>
+
+														      <button type="submit" class="btn btn-primary">Confirm Payment</button>
 														    </div>
 														  </div>
 												</form>
@@ -81,6 +79,7 @@
 			</div>
 			<!-- //End Footer Content -->
 		</div>
+
 
 
 @endsection

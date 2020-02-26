@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Mesurement;
+use App\DeleveryAmount;
 use Carbon\Carbon;
 use Session;
 use Image;
@@ -32,13 +33,13 @@ class MeasurementController extends Controller
 	            'messege'=>'Insert Success',
 	            'alert-type'=>'success'
 	             );
-	            return Redirect()->back()->with($notification); 
+	            return Redirect()->back()->with($notification);
 	        }else{
 	        	$notification=array(
                 'messege'=>'Insert Faild',
                 'alert-type'=>'error'
                  );
-                return Redirect()->back()->with($notification); 
+                return Redirect()->back()->with($notification);
 	        }
     }
 
@@ -51,13 +52,13 @@ class MeasurementController extends Controller
 	            'messege'=>'Active Success',
 	            'alert-type'=>'success'
 	             );
-	            return Redirect()->back()->with($notification); 
+	            return Redirect()->back()->with($notification);
 	        }else{
 	        	$notification=array(
                 'messege'=>'Active Faild',
                 'alert-type'=>'error'
                  );
-                return Redirect()->back()->with($notification); 
+                return Redirect()->back()->with($notification);
 	        }
     }
     public function deactive($id){
@@ -69,13 +70,13 @@ class MeasurementController extends Controller
 	            'messege'=>'Deactive Success',
 	            'alert-type'=>'success'
 	             );
-	            return Redirect()->back()->with($notification); 
+	            return Redirect()->back()->with($notification);
 	        }else{
 	        	$notification=array(
                 'messege'=>'Deactive Faild',
                 'alert-type'=>'error'
                  );
-                return Redirect()->back()->with($notification); 
+                return Redirect()->back()->with($notification);
 	        }
     }
     public function edit($m_id){
@@ -115,13 +116,13 @@ class MeasurementController extends Controller
 	            'messege'=>'Delete Success',
 	            'alert-type'=>'success'
 	             );
-	            return Redirect()->back()->with($notification); 
+	            return Redirect()->back()->with($notification);
 	        }else{
 	        	$notification=array(
                 'messege'=>'Delete Faild',
                 'alert-type'=>'error'
                  );
-                return Redirect()->back()->with($notification); 
+                return Redirect()->back()->with($notification);
 	        }
     }
     // multisoft delete
@@ -163,13 +164,13 @@ class MeasurementController extends Controller
 	            'messege'=>'Recover Success',
 	            'alert-type'=>'success'
 	             );
-	            return Redirect()->back()->with($notification); 
+	            return Redirect()->back()->with($notification);
 	        }else{
 	        	$notification=array(
                 'messege'=>'Recover Faild',
                 'alert-type'=>'error'
                  );
-                return Redirect()->back()->with($notification); 
+                return Redirect()->back()->with($notification);
 	        }
     }
     public function delete($id){
@@ -179,15 +180,42 @@ class MeasurementController extends Controller
 	            'messege'=>'Delete Success',
 	            'alert-type'=>'success'
 	             );
-	            return Redirect()->back()->with($notification); 
+	            return Redirect()->back()->with($notification);
 	        }else{
 	        	$notification=array(
                 'messege'=>'Delete Faild',
                 'alert-type'=>'error'
                  );
-                return Redirect()->back()->with($notification); 
+                return Redirect()->back()->with($notification);
 	        }
     }
 
+    // delevery paymet
+    public function deleverypayment(){
+      $amount=DeleveryAmount::first();
+      return view('admin.ecommerce.deleveryamount.all',compact('amount'));
+    }
+    // update amount
+    public function deleverysubmit(Request $request){
+       $id=$request->id;
+       $update=DeleveryAmount::where('id',$id)->update([
+         'insidedhaka'=>$request['insidedhaka'],
+         'outsidedhaka'=>$request['outsidedhaka'],
+         'updated_at'=>Carbon::now()->toDateTimeString(),
+       ]);
+       if($update){
+     		$notification=array(
+ 	            'messege'=>'Update Success',
+ 	            'alert-type'=>'success'
+ 	             );
+ 	            return Redirect()->back()->with($notification);
+ 	        }else{
+ 	        	$notification=array(
+                 'messege'=>'Update Faild',
+                 'alert-type'=>'error'
+                  );
+                 return Redirect()->back()->with($notification);
+ 	        }
+    }
 
 }

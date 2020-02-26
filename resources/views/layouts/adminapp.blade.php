@@ -407,6 +407,7 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.brand.all')}}">All Brand</a></li>
                             <li><a href="{{route('admin.color.all')}}">All Color</a></li>
                             <li><a href="{{route('admin.measurement.all')}}">All Measurement</a></li>
+                            <li><a href="{{route('admin.deleveryamount.all')}}">Delevery Amount</a></li>
                         </ul>
                     </li>
                     @else

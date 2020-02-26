@@ -54,7 +54,7 @@ class CheckoutController extends Controller
         $cartdata = Cart::session($userid)->getContent();
         if(count($cartdata) >0){
             if (Auth::check()) {
-                
+
                 $useraddress = UserAddress::where('user_id', Auth::user()->id)->first();
                 return view('mobile.shopping.checkout',compact('order_id','useraddress'));
             } else {
@@ -62,13 +62,13 @@ class CheckoutController extends Controller
                 return redirect()->route('mobile.checkout.login');
             }
         }else{
-            
+
             return redirect('/')->with('alertmessege','Please add some product');
         }
 
-       
 
-        
+
+
     }
 
 
@@ -96,7 +96,7 @@ class CheckoutController extends Controller
 
         $divisions = DB::table('upazilas')->where('district_id', $id)->get();
         return response()->json($divisions);
-        
+
     }
 
     // get cartdata in checkout page
@@ -140,6 +140,7 @@ class CheckoutController extends Controller
     {
 
 
+
         $userid =  \Request::getClientIp(true);
         $updatecart = Cart::session($userid)->update(
             $request->rowid,
@@ -150,6 +151,7 @@ class CheckoutController extends Controller
                 ),
             )
         );
+
 
 
         $limit =Carbon::now()->subMinutes(1);
@@ -182,6 +184,7 @@ class CheckoutController extends Controller
        }else{
            return "Update Faild!";
        }
+
     }
 
 
@@ -189,11 +192,11 @@ class CheckoutController extends Controller
 
     public function cartDelete(Request $request)
     {
-        
+
         $userid =  \Request::getClientIp(true);
         $datadelete = Cart::session($userid)->remove($request->user_id);
         $usercartdatas = Cart::session($userid)->getContent();
-        return view('mobile.shopping.checkoutdatashow', compact('usercartdatas'));   
+        return view('mobile.shopping.checkoutdatashow', compact('usercartdatas'));
     }
 
 
@@ -349,8 +352,8 @@ class CheckoutController extends Controller
         $userid =  \Request::getClientIp(true);
 
         $usercartdatas = Cart::session($userid)->getContent();
-        return view('mobile.shopping.checkoutdatashow', compact('usercartdatas','cupondatavalue'));   
-        
+        return view('mobile.shopping.checkoutdatashow', compact('usercartdatas','cupondatavalue'));
+
     }
 
 
@@ -358,10 +361,10 @@ class CheckoutController extends Controller
 
     public function orderPlace(Request $request)
     {
-        
+
         // return $request->all();
 
-        
+
 
         $validatedData = $request->validate([
             'user_id' => 'required',
@@ -468,7 +471,7 @@ class CheckoutController extends Controller
 
         $userdetails = UserAddress::where('user_id', Auth::user()->id)->get();
         $userdatacount = count($userdetails);
-        
+
         if ($userdatacount > 1) {
             $userdatas = UserAddress::where('user_id', Auth::user()->id)->first()->delete();
         }
@@ -490,7 +493,7 @@ class CheckoutController extends Controller
             );
              return redirect()->route('customer.order')->with($notification);
         } else {
-             return redirect()->route('order.payment', $getOrder->payment_secure_id);
+             return redirect()->route('ordermobile.payment', $getOrder->payment_secure_id);
         }
 
         // return OrderStorage::where('purchase_key', $purchase_key)->first()->cart_data;

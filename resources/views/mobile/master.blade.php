@@ -119,7 +119,7 @@
 			@include('mobile.include.sidemenu')
 		</div>
     </div>
-    
+
 	<!-- Include Libs & Plugins
 ============================================ -->
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -221,7 +221,6 @@
 		@endif
 </script>
 @stack('js')
-
 
 </body>
 </html>

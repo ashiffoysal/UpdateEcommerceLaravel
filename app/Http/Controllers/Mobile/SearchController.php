@@ -31,16 +31,81 @@ class SearchController extends Controller
     public function searchByMainCategory(Request $request)
     {
 
+        if ($request->category_id && $request->brand_id && $request->color_code) {
+            $color_code = $request->color_code;
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('cate_id', $request->category_id)
+                        ->where('brand', $request->brand_id)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif ($request->category_id) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('cate_id', $request->category_id)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif ($request->brand_id) {
 
-        $color_code = $request->color_code;
-        $products = Product::where('product_price', '>=', $request->min_price)
-                    ->where('product_price', '<=', $request->max_price)
-                    ->where('status', 1)
-                    ->where('is_deleted', 0)
-                    ->orWhere('cate_id', $request->category_id)
-                    ->orWhere('brand', $request->brand_id)
-                    ->get();
-                    //->orWhere('colors', 'LIKE', "%$color_code%")
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('brand', $request->brand_id)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif($request->color_code) {
+            $color_code = $request->color_code;
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+        }elseif ($request->category_id && $request->brand_id) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('cate_id', $request->category_id)
+                        ->where('brand', $request->brand_id)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif($request->category_id && $request->color_code){
+            $color_code = $request->color_code;
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('cate_id', $request->category_id)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif ($request->brand_id && $request->color_code) {
+            $color_code = $request->color_code;
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('cate_id', $request->brand_id)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }else {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }
+
+
 
         return view('mobile.search.search_result_page', compact('products'));
 
@@ -48,31 +113,156 @@ class SearchController extends Controller
 
     public function searchBySubCategory(Request $request)
     {
-
         $color_code = $request->color_code;
-        $products = Product::orWhere('subcate_id', $request->sub_category_id)
-                    ->orWhere('brand', $request->brand_id)
-                    ->orWhere('colors', 'LIKE', "%$color_code%")
-                    ->where('product_price', '>', 'min_price')
-                    ->where('product_price', '=<', 'max_price')
-                    ->where('status', 1)
-                    ->where('is_deleted', 0)
-                    ->get();
-        return view('mobile.search.search_result_page', compact('products'));
+        if ($request->sub_category_id && $request->brand_id && $request->color_code) {
+
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('subcate_id', $request->sub_category_id)
+                        ->where('brand', $request->brand_id)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif ($request->sub_category_id) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('subcate_id', $request->sub_category_id)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif ($request->brand_id) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('brand', $request->brand_id)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif($request->color_code) {
+
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+        }elseif ($request->sub_category_id && $request->brand_id) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('subcate_id', $request->sub_category_id)
+                        ->where('brand', $request->brand_id)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif($request->sub_category_id && $request->color_code){
+
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('subcate_id', $request->sub_category_id)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif ($request->brand_id && $request->color_code) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('brand', $request->brand_id)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }else {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }
     }
 
     public function searchByReSubCategory(Request $request)
     {
 
+
+
         $color_code = $request->color_code;
-        $products = Product::orWhere('resubcate_id', $request->re_sub_category_id)
-                    ->orWhere('brand', $request->brand_id)
-                    //->orWhere('colors', 'LIKE', "%$color_code%")
-                    ->where('product_price', '>', 'min_price')
-                    ->where('product_price', '=<', 'max_price')
-                    ->where('status', 1)
-                    ->where('is_deleted', 0)
-                    ->get();
-        return view('mobile.search.search_result_page', compact('products'));
+        if ($request->re_sub_category_id && $request->brand_id && $request->color_code) {
+
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('resubcate_id', $request->re_sub_category_id)
+                        ->where('brand', $request->brand_id)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif ($request->re_sub_category_id) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('resubcate_id', $request->re_sub_category_id)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif ($request->brand_id) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('brand', $request->brand_id)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif($request->color_code) {
+
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+        }elseif ($request->re_sub_category_id && $request->brand_id) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('resubcate_id', $request->re_sub_category_id)
+                        ->where('brand', $request->brand_id)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif($request->re_sub_category_id && $request->color_code){
+
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('resubcate_id', $request->re_sub_category_id)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }elseif ($request->brand_id && $request->color_code) {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('brand', $request->brand_id)
+                        ->whereColumn('colors', 'LIKE', "%$color_code%")
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }else {
+            $products = Product::where('product_price', '>=', $request->min_price)
+                        ->where('product_price', '<=', $request->max_price)
+                        ->where('status', 1)
+                        ->where('is_deleted', 0)
+                        ->get();
+            return view('mobile.search.search_result_page', compact('products'));
+        }
     }
 }

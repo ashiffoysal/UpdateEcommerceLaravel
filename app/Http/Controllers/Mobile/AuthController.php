@@ -18,7 +18,12 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
-        return view('mobile.accounts.login');
+        if (Auth::guard('web')->check()) {
+            return redirect()->back();
+        }else{
+            return view('mobile.accounts.login');
+        }
+
     }
 
 
@@ -153,7 +158,7 @@ class AuthController extends Controller
                    return Redirect()->back()->with($notification);
             }
         } else {
-            
+
             $notification=array(
                 'messege'=>'Sorry !! Email or Password not matched!',
                 'alert-type'=>'error'
@@ -192,14 +197,14 @@ class AuthController extends Controller
                      );
                    return Redirect()->back()->with($notification);
             }
-            
+
         } else {
             $notification=array(
                 'messege'=>'Sorry !! Email or Password not matched!',
                 'alert-type'=>'error'
                  );
                return Redirect()->back()->with($notification);
-        
+
         }
     }
 

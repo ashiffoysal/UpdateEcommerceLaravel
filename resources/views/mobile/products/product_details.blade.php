@@ -47,6 +47,7 @@
 						<div class="box-label">
 							<!--Sale Label-->
 							@php
+
                         $flashdealdetail=App\FlashDealDetail::where('product_id',$productdetails->id)->where('status',1)->limit(1)->get();
 					  @endphp
 					  @if(count($flashdealdetail) > 0)
@@ -58,6 +59,7 @@
 							@endif
 							@endforeach
 							@endif
+
 							<div class="product-stock">
 								@if($productdetails->product_qty > 0)
 									<div class="stock" style="background: url({{asset('public/mobile')}}/image/theme/icon/icon-instock.png) no-repeat center center"><span> Stock </span> <i class="fa fa-check-square-o"></i> 566</div>
