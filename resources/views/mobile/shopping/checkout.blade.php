@@ -194,8 +194,8 @@
 									<div class="panel-body">
 										<fieldset id="address" class="required">
 
-										
-									
+
+
 
 									<div class="form-group required">
 										<label for="input-payment-city" class="control-label">Name :</label>
@@ -214,7 +214,7 @@
 										@enderror
 									</div>
 
-								
+
 
 
 									<div class="form-group required">
@@ -257,7 +257,7 @@
 											<option disabled selected> --- Please Select Your Division --- </option>
 											@foreach(DB::table('divisions')->get() as $division)
 											@if(isset($useraddress->user_division_id))
-											
+
 											<option value="{{$division->id}}">{{$division->name}} </option>
 											@endif
 											@endforeach
@@ -282,7 +282,7 @@
 											@endphp
 											@foreach($dis as $district)
 											@if(isset($useraddress->user_district_id))
-											
+
 											<option value="{{$district->id}}">{{$district->name}} </option>
 											@endif
 
@@ -302,7 +302,7 @@
 											@endphp
 											@foreach($upa as $upazila)
 											@if($useraddress)
-											
+
 											<option value="{{$upazila->id}}">{{$upazila->name}} </option>
 											@endif
 											@endforeach
@@ -333,7 +333,7 @@
 
 
 
-						
+
 
 
 
@@ -353,23 +353,23 @@
 											</div>
 											<div class="panel-body ">
 												<p>Please select the preferred shipping method to use on this order.</p>
-												
+
 												<div class="form-group required">
-													
+
 													<select name="shipping_id" id="sipping_upazila" class="form-control">
 														@php
 														$upa=DB::table('upazilas')->get();
 														@endphp
 														@foreach($upa as $upazila)
 														@if($useraddress)
-														
+
 														<option value="{{$upazila->id}}">{{$upazila->name}} </option>
 														@endif
 														@endforeach
 													</select>
-													
+
 												</div>
-												
+
 
 											</div>
 										</div>
@@ -379,21 +379,18 @@
 											</div>
 											<div class="panel-body">
 												<p>Please select the preferred payment method to use on this order.</p>
-												
+
 													<label>
 														<input type="radio" value="1" checked="checked" name="payment_type">Cash On Delivery
 													</label><br>
-												
-
-												
 													<label>
-														<input type="radio" value="2" name="payment_type">Paypal
+														<input type="radio" value="2" name="payment_type">Online Payment
 													</label>
 
 
 
-														
-												
+
+
 											</div>
 										</div>
 									</div>
@@ -442,7 +439,7 @@
 											<h4 class="panel-title"><i class="fa fa-shopping-cart"></i> Shopping cart</h4>
 										</div>
 										<div class="panel-body" id="cartdata">
-											
+
 
 
 										</div>
@@ -510,7 +507,7 @@
         $(document).ready(function () {
             $('#user_country').click(function (params) {
                 var country_id = $(this).val();
-                
+
 
                 $.ajaxSetup({
                     headers: {
@@ -522,7 +519,7 @@
                     url: "{{ url('/user/division/name') }}/" + country_id,
                     dataType: "json",
                     success: function (data) {
-						
+
                         $('#user_division').empty();
                         $('#user_division').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data, function (index, divisionobj) {
@@ -533,7 +530,7 @@
             });
         });
 	</script>
-	
+
 	<!-- get user district name in User Address field -->
 
     <script>
@@ -541,7 +538,7 @@
             $('#user_division').click(function (params) {
 
 				var division_id = $(this).val();
-				
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -573,7 +570,7 @@
             $('#user_district').click(function () {
 
 				var upazila_id = $(this).val();
-				
+
 
                 $.ajaxSetup({
                     headers: {
@@ -598,7 +595,7 @@
             });
         });
 
-  
+
 </script>
 
 <!-- Get All cart data in field -->
@@ -606,7 +603,7 @@
 <script>
     $( document ).ready(function() {
 
-		
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -617,7 +614,7 @@
             url: "{{ route('get.cart.data') }}",
 
             success: function(data) {
-				
+
                 $('#cartdata').html(data);
 
             }
@@ -635,8 +632,8 @@
 
     var cuponvalue =document.getElementById('input-coupon').value;
     var ordervalue =document.getElementById('input_order').value;
-	
-	
+
+
 
     $.post('{{ route('mobile.cupon.apply') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
             function(data) {
@@ -686,8 +683,8 @@
             $('#shipping_country').click(function () {
 
 				var country_id = $(this).val();
-				
-				
+
+
 
                 $.ajaxSetup({
                     headers: {
@@ -701,7 +698,7 @@
 
                     success: function (data) {
 
-                        
+
                         $('#shipping_division').empty();
                         $('#shipping_division').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data, function (index, upazilabj) {
@@ -712,7 +709,7 @@
             });
         });
 
-  
+
 </script>
 
 <!-- get distract name in shipping field -->
@@ -723,8 +720,8 @@
 
 				var dist_id = $(this).val();
 				console.log(dist_id);
-				
-				
+
+
 
                 $.ajaxSetup({
                     headers: {
@@ -738,7 +735,7 @@
 
                     success: function (data) {
 						console.log(data);
-                        
+
                         $('#shipping_district').empty();
                         $('#shipping_district').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data, function (index, upazilabj) {
@@ -749,7 +746,7 @@
             });
         });
 
-  
+
 </script>
 
 <!-- get upozila name in shipping field -->
@@ -760,8 +757,8 @@
 
 				var upazilla_id = $(this).val();
 				console.log(upazilla_id);
-				
-				
+
+
 
                 $.ajaxSetup({
                     headers: {
@@ -775,7 +772,7 @@
 
                     success: function (data) {
 						console.log(data);
-                        
+
                         $('#sipping_upazila').empty();
                         $('#sipping_upazila').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data, function (index, upazilabj) {
@@ -786,6 +783,5 @@
             });
         });
 
-  
-</script>
 
+</script>
