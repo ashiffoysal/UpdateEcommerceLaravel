@@ -32,6 +32,83 @@ use PayPal;
 
 class MobilePaymentController extends Controller
 {
+
+    public function mobileStripePaymentPage($payment_secure_id)
+    {
+        $orderInfo = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $payment_secure_id)->firstOrFail();
+        if ($orderInfo) {
+            return view('mobile.shopping.stripe_payment.stripe_payment_page', compact('orderInfo'));
+        }
+    }
+
+    public function mobileStripePaymentSubmit(Request $request, $payment_secure_id)
+    {
+        date_default_timezone_set('Asia/Dhaka');
+        $getPlaceOrder = OrderPlace::where('payment_secure_id', $payment_secure_id)->first();
+        abort_if(!$getPlaceOrder, 403);
+        $this->validate($request, [
+            'holder_name' => 'required',
+        ]);
+
+        try {
+
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+            $charge =  Charge::create([
+                "amount" => $request->total_price * 100,
+                "currency" => "usd",
+                "source" => $request->stripeToken,
+                'description' => 'Order',
+                'receipt_email' => Auth::user()->email,
+                'metadata' => [
+                    'quantity' => $request->total_quantity,
+                    'total_payable' => $request->total_price,
+                    'invoice_no' => $request->invoice_no,
+                ],
+            ]);
+
+            if ($charge->status === "succeeded") {
+                $sources = $charge->source;
+                PaymentDetail::insert([
+                    'provider_name' => 'Stripe',
+                    'card_id' => $sources->id,
+                    'order_place_id' => $getPlaceOrder->id,
+                    'date' => date('d/m/Y'),
+                    'time' => date('h:i:s'),
+                    'address_zip' => $sources->address_zip,
+                    'card_brand' => $sources->brand,
+                    'country' => $sources->country,
+                    'funding' => $sources->funding,
+                    'last_four_digits' => $sources->last4,
+                    'card_holder_name' => $sources->name,
+                    'expire_month' => $sources->exp_month,
+                    'expire_year' => $sources->exp_year,
+                    'currency_type' => $charge->currency,
+                    'pay_amount' => $charge->amount,
+                ]);
+
+                OrderPlace::where('id', $request->order_id)->update([
+                    'status' => 1,
+                    'is_paid' => 1,
+                    'payment_method_id' => 2,
+                ]);
+                $placeOrder = OrderPlace::where('payment_secure_id', $payment_secure_id)->first();
+                if (Auth::user()->email) {
+                    Mail::to(Auth::user()->email)->queue(new PaymentSuccessMail($placeOrder));
+                }
+
+                OrderPlace::where('id', $request->order_id)->update([
+                    'payment_secure_id' => null
+                ]);
+            }
+
+            session()->flash('success', 'Thank you, Successfully payment accepted');
+            return redirect()->route('payment.stripe.success.view');
+        } catch (CardException $e) {
+            return Redirect::refresh()->withErrors(['error', $e->getMessage()]);
+        }
+
+    }
+
   public function paymentPage($paymentSecureId)
   {
 
@@ -74,9 +151,8 @@ class MobilePaymentController extends Controller
       $shippingAddress = ShippingAddress::where('shipping_user_id', Auth::user()->id)->where('order_id', $request->order_id)->first();
 
       if($request->payment_method_id == 2) {
-          return redirect()->route('stripe.index', $getOrderInfo->payment_method_id);
+          return redirect()->route('mobile.stripe.payment', $getOrderInfo->payment_secure_id);
       }elseif($request->payment_method_id == 3){
-           //return "pay";
           return redirect()->route('payment.paypal');
       }elseif($request->payment_method_id == 4) {
           /* PHP */
@@ -192,6 +268,76 @@ class MobilePaymentController extends Controller
       }
   }
 
+  public function sslSuccess(Request $request)
+    {
+        // echo "payment success";
+        // echo "Transaction is Successful";
+        // echo $tran_id = $request->input('tran_id');
+        // echo $amount = $request->input('amount');
+        // echo $currency = $request->input('currency');
+        //dd($request->all());
+
+        date_default_timezone_set('Asia/Dhaka');
+        $information = $request->all();
+        if ($request->status === "VALID") {
+
+            $updateOrderPlace = OrderPlace::where('order_id', $request->tran_id)->update([
+                'is_paid' => 1,
+                'status' => 1
+            ]);
+            $getOrderPlace = OrderPlace::where('order_id', $request->tran_id)->first();
+            PaymentDetail::insert([
+                'provider_name' => "SSL-COMMERZ",
+                'order_place_id' => $getOrderPlace->id,
+                'transition_id' => $request->tran_id,
+                'pay_amount' => $request->amount,
+                'card_type' => $request->card_type,
+                'card_brand' => $request->card_brand,
+                'card_issuer_country' => $request->card_issuer_country,
+                'card_issuer_country_code' => $request->card_issuer_country_code,
+                'val_id' => $request->val_id,
+                'last_four_digits' => $request->card_no,
+                'currency_type' => $request->currency_type,
+                'store_amount' => $request->store_amount,
+                'card_issuer' => $request->card_issuer,
+                'bank_trans_id' => $request->bank_tran_id,
+                'date' => date('d/m/Y'),
+                'time' => date('h:i:s'),
+            ]);
+
+            // $getOrderPlace->update([
+            //     'status' => 1,
+            //     'is_paid' => 1,
+            //     'payment_method_id' => 4,
+            //     'payment_secure_id' => NULL,
+            // ]);
+
+            $getOrderPlace->is_paid = 1;
+            $getOrderPlace->payment_method_id = 4;
+            $getOrderPlace->payment_secure_id = NULL;
+            $getOrderPlace->save();
+
+            if (Auth::user()->email) {
+                Mail::to(Auth::user()->email)->queue(new PaymentSuccessMail($getOrderPlace));
+            }
+
+            return redirect()->route('payment.paypal.success');
+        }
+    }
+
+    public function sslFail(Request $request)
+    {
+        // dd($request->all());
+        if ($request->status === "FAILED") {
+            return view('mobile.shopping.ssl_commerz.ssl_commerz_falil_page');
+        }
+    }
+
+    public function sslCancel()
+    {
+        return view('mobile.shopping.ssl_commerz.ssl_commerz_cancel');
+    }
+
 // paypal
       // paypal add
       public function paywithpaypal()
@@ -260,7 +406,6 @@ class MobilePaymentController extends Controller
           }
           $data['total'] = $total;
 
-
           return $data;
       }
 
@@ -268,11 +413,6 @@ class MobilePaymentController extends Controller
       public function paypalsuccess(){
         return view('mobile.shopping.paypalsuccess');
       }
-
-
-
-
-
 
 
 }

@@ -777,7 +777,6 @@ if ($agent->isDesktop()) {
         Route::get('order_payment/{paymentSecureId}', 'PaymentController@paymentPage')->name('order.payment');
         Route::post('make_payment/', 'PaymentController@makePayment')->name('payment.make.payment');
 
-
         //SSL COMMERCEZ
         Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
         Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
@@ -834,6 +833,17 @@ if ($agent->isDesktop()) {
     Route::get('mobile/get/upazila/by/district/id/{districtId}', 'Mobile\MyAccountController@getUpazilaByDistrictIdViaAjax');
     // My Account Settings Ajax Route End=
     // My Account Settings Route End==
+
+    // Stripe Payment Route=
+    Route::get('order/payment/stripe/{payment_secure_id}', 'Mobile\MobilePaymentController@mobileStripePaymentPage')->name('mobile.stripe.payment');
+    Route::post('order/payment/stripe/submit/{payment_secure_id}', 'Mobile\MobilePaymentController@mobileStripePaymentSubmit')->name('mobile.payment.stripe.submit');
+    // Stripe Payment Route End=
+
+    //SSl Commerz payment Route=
+    Route::post('payment/ssl_commercez/success', 'Mobile\MobilePaymentController@sslSuccess');
+    Route::post('payment/ssl_commercez/fail', 'Mobile\MobilePaymentController@sslFail');
+    Route::post('payment/ssl_commercez/cancel', 'Mobile\MobilePaymentController@sslCancel');
+    //SSl Commerz payment Route End=
 
     // Route Created By Harrison End ======================
 
