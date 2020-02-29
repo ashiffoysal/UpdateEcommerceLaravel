@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Exception;
-use Throwable;
+
 use Stripe\Charge;
 use Stripe\Stripe;
 use App\OrderPlace;

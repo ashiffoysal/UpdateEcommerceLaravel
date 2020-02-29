@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Category;
 use App\Contract;
+use App\wishlist;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 

@@ -43,17 +43,25 @@
 						</form>
 						<br>
 						<div class="panel_body panel_invoice print_element">
+							@php
+								$logo=App\Logo::first();
+							@endphp
 							<div class="logo">
-								<img src="{{asset('public/adminpanel')}}/assets/images/logo.png" class="img-fluid" alt="">
+								<img src="{{asset('/'.$logo->front_logo)}}" class="img-fluid" alt="">
 							</div>
 							<div class="row mt-2">
 								<div class="col-sm-9">
+								@php
+									$companyaddress=App\FooterOption::first();
+								@endphp
 									<address class="fs-13"> <br>
-										<abbr title="Phone">P:</abbr> (123) 456-7890
+										<abbr title="Phone">P: </abbr>{{$companyaddress->phone}}
 									</address>
 									<address class="fs-13">
-
-										<a href="mailto:#">first.last@example.com</a>
+										<a href="mailto:#">{{$companyaddress->email}}</a>
+									</address>
+									<address class="fs-13">
+										<a href="mailto:#">{{$companyaddress->address}}</a>
 									</address>
 								</div>
 								<div class="col-sm-3 item_right">
@@ -173,7 +181,6 @@
 										$cartid=$invoice->order_id;
 										$allproduct=App\ProductStorage::where('order_id',$cartid)->first();
 									@endphp
-
 										@foreach (json_decode($allproduct->product_details) as $key => $data)
 									  <tr>
 											<td class="text-center">{{++$key}}</td>
@@ -189,41 +196,33 @@
 								 <tfoot>
 									  <tr>
 											<th colspan="4" class="bdr">
-
-											  <p class="font-normal p-size"><span style="color:#F80303;">Note:</span> Please send all of these items using wooden box package.</p></th>
-
+											 <p class="font-normal p-size"><span style="color:#F80303;">Note:</span> Please send all of these items using wooden box package.</p></th>
 											<th class="text-right pd-10">Sub Total</th>
 											<th class="text-right pd-10">৳ {{$invoice->total_price}}</th>
 									  </tr>
-
 									  <tr>
 											<th class="text-right  pd-10 no-bd" colspan="5">Discount</th>
-											<th class="text-right  pd-10" style="color: tomato;">($100.00)</th>
+											<th class="text-right  pd-10" style="color: tomato;">(0.00)</th>
 									  </tr>
-
-
 									  <tr>
 											<th class="text-right  pd-10 no-bd" colspan="5">Shipping Cost</th>
-											<th class="text-right  pd-10 no-bd">$50.00</th>
+											<th class="text-right  pd-10 no-bd">৳50.00</th>
 									  </tr>
-
 									  <tr>
 											<th colspan="3">Thank you for your business. Please remit the total amount due within 30 days.</th>
 											<th class="text-right  pd-10" colspan="2">Total</th>
-											<th class="text-right  pd-10 "><span class="vd_green font-sm font-normal" style="color: green;">$2399.99</span></th>
+											<th class="text-right  pd-10 "><span class="vd_green font-sm font-normal" style="color: green;">৳ 2399</span></th>
 									  </tr>
 								</tfoot>
 							  </table>
 
 						</div>
 						<div class="row mt-3">
-							<div class="col-sm-12 text-right">
-
-									  <button class="btn vd_btn vd_bg-grey" type="button"><i class="fa fa-print append-icon"></i> Print</button>
-
-									  <button class="btn vd_btn vd_bg-green " type="button"><i class="fa fa-download append-icon"></i> Save as PDF</button>
+							<div class="col-sm-12 text-center">
+									<button type="button" class="btn btn-info print"><i class="fa fa-print"></i> Print</button>
 							</div>
 						</div>
+
 				</section>
 			</div>
 			<!--/middle content wrapper-->

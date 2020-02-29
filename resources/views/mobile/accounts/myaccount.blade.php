@@ -26,9 +26,9 @@
 									<li><a href="{{url('mobile/allwishlist')}}">Wish List</a></li>
 									<li><a href="{{url('mobile/comparelist')}}">Compare List</a></li>
 									<li><a href="{{url('product/orderhistory')}}">Order History</a></li>
-									<li><a href="{{url('order/traking')}}">Order Traking</a></li>
-									<li><a href="{{route('mobile.logout')}}">LogOut</a>
-									</li>
+                                    <li><a href="{{url('order/traking')}}">Order Traking</a></li>
+                                    <li><a href="{{route('reset.password.form')}}">Reset Password</a>
+									<li><a href="{{route('mobile.logout')}}">LogOut</a></li>
 								</ul>
 							</div>
 						</div>

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\SiteBanner;
 use App\CategoryBanner;
 use Carbon\Carbon;
-use Session;
 use Image;
 
 class SiteBannerController extends Controller

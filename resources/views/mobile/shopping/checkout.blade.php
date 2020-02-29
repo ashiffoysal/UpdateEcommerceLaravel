@@ -313,23 +313,15 @@
 
 												<div class="form-group required">
 
-													<select name="shipping_id" id="sipping_upazila" class="form-control">
-														@php
-														$upa=DB::table('upazilas')->get();
-														@endphp
-														@foreach($upa as $upazila)
-														@if($useraddress)
 
-														<option value="{{$upazila->id}}">{{$upazila->name}} </option>
-														@endif
-														@endforeach
+													<select name="shipping_id" id="shipping_courier" class="form-control">
+
+
 													</select>
-
-													@error('shipping_id')
-															<div class="text-danger alert alert-danger">{{ $message }}</div>
-													@enderror
-
-
+                                                    @error('shipping_id')
+                                                    <div class="text-danger alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                    <small style="display:none;" class="text-warning attention_msg"></small>
 												</div>
 
 											</div>
@@ -340,10 +332,16 @@
 											</div>
 											<div class="panel-body">
 												<p>Please select the preferred payment method to use on this order.</p>
-
+													@php
+														$cashactive=App\Activation::first();
+													@endphp
+													@if($cashactive->cashondelevery==1)
 													<label>
-														<input type="radio" value="1" checked="checked" name="payment_type">Cash On Delivery
-													</label><br>
+														<input type="radio" value="1" name="payment_type">Cash On Delivery
+													</label>
+													@endif
+
+													<br>
 
 													<label>
 														<input type="radio" value="2" name="payment_type">Online Payment
@@ -420,6 +418,7 @@
 						<!-- extra hidden field -->
 
 
+
 														@php
 														$user_division = App\UserAddress::where('user_id',Auth::user()->id)->first();
 															if(isset($user_division)){
@@ -455,6 +454,7 @@
 												
 
 													<input type="hidden" value="{{ Cart::session(\Request::getClientIp(true))->getTotalQuantity() }}" name="total_quantity">
+
 
 
 					</form>
@@ -668,6 +668,7 @@ $(document).ready(function () {
 
 
 
+
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -692,16 +693,19 @@ $(document).ready(function () {
 });
 
 
+
 </script>
 
 <!-- get distract name in shipping field -->
 
 <script>
+
 $(document).ready(function () {
 	$('#shipping_division').click(function () {
 
 		var dist_id = $(this).val();
 		
+
 
 
 
@@ -727,6 +731,7 @@ $(document).ready(function () {
 		});
 	});
 });
+
 
 
 </script>
@@ -806,3 +811,4 @@ $(document).ready(function () {
 </script>
 		@endsection
 	
+

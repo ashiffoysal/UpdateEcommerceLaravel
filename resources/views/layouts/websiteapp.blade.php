@@ -8,8 +8,10 @@ $seo=DB::table('seo')->first();
 <html lang="en">
 
 <head>
+
         <title>@yield('title', $seo->meta_title)</title>
     
+
     <meta charset="utf-8">
     <meta name="keywords" content="{{$seo->meta_key}}" />
     <meta name="description" content="{{$seo->meta_description}}" />
@@ -58,9 +60,6 @@ $seo=DB::table('seo')->first();
         @yield('main_content')
 
 
-
-
-
     </div>
 
     <!-- Include footer option for home page one ============================================ -->
@@ -99,12 +98,12 @@ $seo=DB::table('seo')->first();
             $('#user_country').click(function (params) {
                 var country_id = $(this).val();
                 console.log(country_id);
-
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
+
                 $.ajax({
                     type: 'GET',
                     url: "{{ url('/user/division/name') }}/" + country_id,

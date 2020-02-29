@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Product;
-use App\wishlist;
-use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+
 
 class ReportController extends Controller
 {
@@ -24,7 +24,7 @@ class ReportController extends Controller
     	$cate_id=$request->cate_id;
     	$report=Product::where('cate_id',$cate_id)->get();
     	return view('admin.ecommerce.report.stockproductresult',compact('report'));
-    	
+
     }
 
     public function wishproduct(){
@@ -33,12 +33,11 @@ class ReportController extends Controller
                     ->groupBy('product_id')
                     ->get();
                     // ->join('products', 'wishlists.product_id', '=', 'products.id')
-                    
 
         return view('admin.ecommerce.report.wishproduct',compact('wishlist'));
     }
 
-    // best sell report 
+    // best sell report
     public function bestsell(){
         $bestsell=Product::OrderBy('number_of_sale','DESC')->get();
         return view('admin.ecommerce.report.bestsell',compact('bestsell'));

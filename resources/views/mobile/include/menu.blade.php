@@ -13,6 +13,11 @@
                 </a>
             </div>
             <div class="item-link">
+                <a href="{{ url('/newarrival') }}">
+                        <span class="menu-title">New Arrival</span>
+                </a>
+            </div>
+            <div class="item-link">
                 <a href="{{route('mobile.about.us')}}">
                     <span class="menu-title">About Us</span>
                 </a>

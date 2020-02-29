@@ -26,14 +26,14 @@
 									<input type="hidden" name="product_type" value="1">
 								    <label for="" class="col-sm-3 col-form-label text-right">Product Name:</label>
 								    <div class="col-sm-6">
-                                    <input type="text" value="{{ old('product_name') }}" name="product_name" class="form-control" onchange="update_sku()">
+                                    <input type="text" value="{{ old('product_name') }}" name="product_name" class="form-control" onchange="update_sku()" required>
                                       <span class="text-danger">{{ $errors->first('product_name') }}</span>
 								    </div>
 								  </div>
 								  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Sku:</label>
 								    <div class="col-sm-6">
-                                      <input type="text" value="{{ old('product_sku') }}" class="form-control" name="product_sku">
+                                      <input type="text" value="{{ old('product_sku') }}" class="form-control" name="product_sku" required>
                                       <span class="text-danger">{{ $errors->first('product_sku') }}</span>
 								    </div>
 								  </div>
@@ -50,8 +50,8 @@
 								    	@php
 											$category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
 								    	@endphp
-								      <select class="form-control" name="cate_id" id="cate_id">
-								      	<option value="0">Select</option>
+								      <select class="form-control" name="cate_id" id="cate_id" required>
+								      	<option value="">Select</option>
 								      	@foreach($category as $cate)
 								      	<option {{ $cate->id == old('cate_id') ? "SELECTED" : "" }} value="{{$cate->id}}">{{$cate->cate_name}}</option>
 								      	@endforeach
@@ -78,7 +78,7 @@
 								   <div class="form-group row">
 								    <label for="inputPassword"  class="col-sm-3 col-form-label text-right">Current Unit Price:</label>
 								    <div class="col-sm-6">
-                                      <input min="0"  value="{{ old('unit_price') }}" step="0.01" name="unit_price" class="form-control">
+                                      <input min="0"  value="{{ old('unit_price') }}" step="0.01" name="unit_price" class="form-control" required>
                                       <span class="text-danger">{{ $errors->first('unit_price') }}</span>
 								    </div>
 								  </div>

@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Mesurement;
 use App\DeleveryAmount;
 use Carbon\Carbon;
-use Session;
-use Image;
 
 class MeasurementController extends Controller
 {

@@ -28,7 +28,7 @@
                         <div class="col-xs-12 about-info">
                             <h3 class="about-title"><span>About Us</span></h3>
                             <div class="about-text">
-                                <p> {{ $aboutUs->about_text }} </p>
+                                <p> {!! $aboutUs->about_text !!} </p>
                             </div>
                         </div>
                     </div>
