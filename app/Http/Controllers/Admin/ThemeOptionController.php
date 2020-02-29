@@ -32,7 +32,7 @@ class ThemeOptionController extends Controller
         $product = ThemeSelector::findOrFail($request->id);
         $product->status = $request->status;
         $product->save();
-        
+
         return 1;
     }
 

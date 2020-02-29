@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Color;
 use Carbon\Carbon;
-use Session;
-use Image;
 
 class ColorController extends Controller
 {

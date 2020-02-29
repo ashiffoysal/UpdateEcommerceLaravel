@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Brand;
 use Carbon\Carbon;
-use Session;
-use Image;
-use DB;
+use Illuminate\Http\Request;
+use Intervention\Image\Image;
+use App\Http\Controllers\Controller;
+//use Image;
+
 class BrandController extends Controller
 {
     public function __construct()

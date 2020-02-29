@@ -133,75 +133,8 @@
 ============================================ -->
 	<script type="text/javascript" src="{{asset('public/mobile/js/mobile.js')}}"></script>
 
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$('.product-options li.radio').click(function(){
-			$(this).addClass(function() {
-				if($(this).hasClass("active")) return "";
-				return "active";
-			});
-			$(this).siblings("li").removeClass("active");
-			$(this).parent().find('.selected-option').html('<span class="label label-success">'+ $(this).find('img').data('original-title') +'</span>');
-		})
-
-		if(!$('.slider').hasClass('slick-initialized')) {
-			$('.slider-for').slick({
-				slidesToShow: 1,
-				slidesToScroll: 1,
-				fade: true,
-				slideMargin: 10,
-				arrows: false,
-				infinite: true,
-				asNavFor: '.slider-nav'
-			});
-			$('.slider-nav').slick({
-			  slidesToShow: 4,
-			  slidesToScroll: 1,
-			  asNavFor: '.slider-for',
-			  slideMargin: 10,
-			  dots: false,
-			  arrows: false,
-			  centerMode: false,
-			  focusOnSelect: true,
-			});
-		}
-	});
-</script>
-
-<script>
-    $(document).ready(function(){
-        $('.search_content_section').hide();
-        $('#product_name').on('keyup', function(){
-            var product_name = $(this).val();
-            if (product_name === "") {
-                $('.search_content_section').hide();
-                $('.main_content').show();
-            }else{
-                $('.search_content_section').show();
-                $('.main_content').hide();
-            }
-
-            $.ajax({
-                url:"{{ url('mobile/search/product/by/product_name') }}"+"/"+product_name,
-                type:'get',
-                success:function(data){
-                   // console.log(data);
-                    if (!$.isEmptyObject(data)) {
-                        $('#search_result_product').empty();
-                        $('#search_result_product').append(data);
-                    }else{
-                        $('#search_result_product').empty();
-                        $('#search_result_product').append('<h4 style="margin-left:10px;">No Data Found</h4>');
-                    }
-                }
-            });
-        });
-    });
-</script>
-
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
 		@if(Session::has('messege'))
 		var type = "{{Session::get('alert-type','info')}}"
 		switch (type) {
@@ -219,7 +152,76 @@
 						break;
 		}
 		@endif
-</script>
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('.search_content_section').hide();
+            $('#product_name').on('keyup', function(){
+                var product_name = $(this).val();
+                if (product_name === "") {
+                    $('.search_content_section').hide();
+                    $('.main_content').show();
+                }else{
+                    $('.search_content_section').show();
+                    $('.main_content').hide();
+                }
+
+                $.ajax({
+                    url:"{{ url('mobile/search/product/by/product_name') }}"+"/"+product_name,
+                    type:'get',
+                    success:function(data){
+                       // console.log(data);
+                        if (!$.isEmptyObject(data)) {
+                            $('#search_result_product').empty();
+                            $('#search_result_product').append(data);
+                        }else{
+                            $('#search_result_product').empty();
+                            $('#search_result_product').append('<h4 style="margin-left:10px;">No Data Found</h4>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    @if (!Request::is('flashdeal/products'))
+	<script type="text/javascript">
+        $(document).ready(function() {
+            $('.product-options li.radio').click(function(){
+                $(this).addClass(function() {
+                    if($(this).hasClass("active")) return "";
+                    return "active";
+                });
+                $(this).siblings("li").removeClass("active");
+                $(this).parent().find('.selected-option').html('<span class="label label-success">'+ $(this).find('img').data('original-title') +'</span>');
+            })
+
+            if(!$('.slider').hasClass('slick-initialized')) {
+                $('.slider-for').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    fade: true,
+                    slideMargin: 10,
+                    arrows: false,
+                    infinite: true,
+                    asNavFor: '.slider-nav'
+                });
+                $('.slider-nav').slick({
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+                  asNavFor: '.slider-for',
+                  slideMargin: 10,
+                  dots: false,
+                  arrows: false,
+                  centerMode: false,
+                  focusOnSelect: true,
+                });
+            }
+        });
+    </script>
+    @endif
+
 @stack('js')
 
 </body>

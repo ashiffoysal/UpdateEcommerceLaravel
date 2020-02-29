@@ -497,7 +497,9 @@ class CheckoutController extends Controller
 
     public function cuponValue ()
     {
+
        $limit = Carbon::now()->subMinutes(6);
+
        $userid =  \Request::getClientIp(true);
        $usercartdatas = Cart::session($userid)->getContent();
 
@@ -509,6 +511,7 @@ class CheckoutController extends Controller
         } else {
             $cupondatavalue = $cupon->discount .'%';
         }
+
         return view('mobile.shopping.checkoutdatashow', compact('usercartdatas','cupondatavalue'));
        }else{
 
@@ -517,6 +520,19 @@ class CheckoutController extends Controller
 
 
 
+
+    }
+
+    public function getCourierByUpazila($upazilaId)
+    {
+        $getCourierIdByUpId =  UpozilaCouriers::where('upazila_id', $upazilaId)->get();
+        return view('frontend.shopping.ajax_view.couriers', compact('getCourierIdByUpId'));
+    }
+
+    public function checkCourierCashOnDeliviry($upazila_id, $courier_id)
+    {
+        $courier = UpozilaCouriers::where('upazila_id', $upazila_id)->where('courier_id', $courier_id)->first();
+        return response()->json(['data' => $courier->is_cash_on_delivery]);
     }
 
 }

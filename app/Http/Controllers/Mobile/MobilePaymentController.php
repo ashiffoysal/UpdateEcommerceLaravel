@@ -10,10 +10,6 @@ use App\OrderStorage;
 use App\ShippingAddress;
 use App\UserAddress;
 use App\ProductStorage;
-use Session;
-use Carbon\Carbon;
-use Exception;
-use Throwable;
 use Stripe\Charge;
 use Stripe\Stripe;
 use App\PaymentDetail;
@@ -102,7 +98,8 @@ class MobilePaymentController extends Controller
             }
 
             session()->flash('success', 'Thank you, Successfully payment accepted');
-            return redirect()->route('payment.stripe.success.view');
+            return view('mobile.shopping.paypalsuccess');
+
         } catch (CardException $e) {
             return Redirect::refresh()->withErrors(['error', $e->getMessage()]);
         }

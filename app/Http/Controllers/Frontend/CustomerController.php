@@ -92,4 +92,16 @@ class CustomerController extends Controller
        return redirect()->back()->with($notification);
     }
 
+    public function customerGetDistrictByDivision($divisionId)
+    {
+        $districts = DB::table('districts')->where('division_id', $divisionId)->select('name', 'id')->get();
+        return response()->json($districts);
+    }
+
+    public function customerGetSubDistrictByDistrict($districtId)
+    {
+        $subDistricts = DB::table('upazilas')->where('district_id', $districtId)->select('name', 'id')->get();
+        return response()->json($subDistricts);
+    }
+
 }
