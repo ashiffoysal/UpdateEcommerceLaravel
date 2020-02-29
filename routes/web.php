@@ -893,6 +893,7 @@ if ($agent->isDesktop()) {
     Route::post('/sms/verification/submit', 'Mobile\AuthController@smsVerification')->name('sms.verification.submit');
 
 
+
     Route::get('product/details/{slug}/{id}', 'Mobile\ProductController@productDetails');
     Route::get('product/details/{id}', 'Mobile\ProductController@productCheckoutDetails')->name('product.details');
     Route::get('add/to/cart', 'mobile\addtocartcontroller@addtocart')->name('product.add.cart');
@@ -912,10 +913,12 @@ if ($agent->isDesktop()) {
     Route::get('mobile/compare/delete/{id}', 'Mobile\FrontendController@comparedelete');
     // review
     Route::post('mobile/review/submit', 'Mobile\FrontendController@review');
-    Route::get('product/orderhistory', 'Mobile\FrontendController@orderhistory');
+    Route::get('product/orderhistory', 'Mobile\FrontendController@orderhistory')->name('mobile.orderhistory');
     Route::get('history/details/{id}', 'Mobile\FrontendController@orderdetails');
     Route::get('order/traking', 'Mobile\FrontendController@ordertraking');
     Route::get('mobile/order/traking/submit', 'Mobile\FrontendController@searchtraking');
+    //new arrival
+    Route::get('/newarrival', 'Mobile\FrontendController@newarrival');
 
     // payment
     Route::get('mobile/payment/{paymentSecureId}', 'Mobile\MobilePaymentController@paymentPage')->name('ordermobile.payment');

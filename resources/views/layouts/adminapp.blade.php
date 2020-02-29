@@ -494,6 +494,21 @@ $logo=DB::table('logos')->first();
     <script src="{{ asset('public/adminpanel/assets/plugins/pie_chart/chart.loader.js') }}"></script>
     <!-- <script src="{{ asset('public/adminpanel/assets/plugins/pie_chart/pie.active.js') }}"></script> -->
 
+    <script src="{{asset('public/adminpanel')}}/assets/plugins/js/jquery.PrintArea.js"></script>
+
+        <script>
+           $(function () {
+               $("#print").on('click', function () {
+                   var mode = 'iframe'; //popup
+                   var close = mode == "popup";
+                   var options = {
+                       mode: mode,
+                       popClose: close
+                   };
+                   $("div.printableArea").printArea(options);
+               });
+           });
+       </script>
 		<!-- basic-donut-chart -->
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
     @php
@@ -835,7 +850,9 @@ $logo=DB::table('logos')->first();
 
 
 
-
+<!--  -->
+<script src="{{asset('public/adminpanel')}}/assets/plugins/print/divjs.js"></script>
+<script src="{{asset('public/adminpanel')}}/assets/plugins/print/print.active.js"></script>
 
 
 </body>

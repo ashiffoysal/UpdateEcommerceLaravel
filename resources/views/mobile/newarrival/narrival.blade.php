@@ -2,163 +2,165 @@
 @section('page_content')
 <style>
     button.btn.btn-default.btn-link {background: #ff5561;color: white;}
+    .range_table_cell{
+        margin: 0px!important;
+        padding: 0px!important;
+    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <header class="bar bar-nav ">
-  <a class="btn btn-link btn-nav pull-left" href="{{ url('/') }}" >
+<a class="btn btn-link btn-nav pull-left" href="{{ url('/') }}" >
     <span class="icon icon-left-nav"></span>
   </a>
   <a class="btn btn-link btn-nav pull-right toggle-panel" href="#panel-menu">
     <span class="icon icon-bars"></span>
   </a>
-  <h1 class="title">{{$subcate->subcate_name}}</h1>
+  <h1 class="title">New Arrival</h1>
 </header>
-<!-- //End Bar Nav -->
+{{-- <!-- //End Bar Nav --> --}}
 
 <div class="content">
-  <!-- //Begin Main Content -->
+  {{-- <!-- //Begin Main Content --> --}}
   <div class="container page-category">
     <div class="row">
-
-        <aside class="col-xs-12 content-aside left_column sidebar-offcanvas">
-            <span id="close-sidebar" class="btn btn-default"><i class="fa fa-times"></i></span>
-            <div class="module ">
-              <div class="modcontent ">
-              <form action="{{ route('filter.search.from.sub_category') }}" method="GET" class="type_2">
-                 @csrf
-                  <div class="table_layout filter-shopby">
-                    <div class="table_row">
-                      {{-- <!-- - - - - - - - - - - - - - Category filter - - - - - - - - - - - - - - - - --> --}}
-                      <div id="search" class="input-group">
-                        <input type="text" name="search_field" value="{{ isset($search_field) ? $search_field : "" }}" id="search_field" placeholder="Search" class="form-control input-lg">
-                            <span class="input-group-btn">
-                                <button type="submit" formaction="{{ route('mobile.product.search') }}" class="btn btn-default btn-link"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                      {{-- <!--/ .table_cell -->
-                      <!-- - - - - - - - - - - - - - End of category filter - - - - - - - - - - - - - - - - -->
-                      <!-- - - - - - - - - - - - - - SUB CATEGORY - - - - - - - - - - - - - - - - --> --}}
-                      <div class="table_cell">
-                        <fieldset>
-                          <legend>Category</legend>
-                          <ul class="checkboxes_list">
-                              @foreach ($all_subcategories as $subcategory)
-                              <li>
-                                <input type="radio" class="subcategory_id" value="{{ $subcategory->id }}" name="sub_category_id" id="{{ $subcategory->id }}">
-                                <label for="{{ $subcategory->id }}"> {{ $subcategory->subcate_name }} </label>
-                              </li>
-                              @endforeach
-                          </ul>
-
-                        </fieldset>
-
-                      </div>
-                      {{-- <!--/ .table_cell -->
-                      <!-- - - - - - - - - - - - - - End SUB CATEGORY - - - - - - - - - - - - - - - - -->
-                      <!-- - - - - - - - - - - - - - Manufacturer - - - - - - - - - - - - - - - - --> --}}
-                      <div class="table_cell">
-                        <fieldset>
-                          <legend>Brand</legend>
-                          <ul class="checkboxes_list">
-                            @foreach ($all_brands as $brand)
-                            <li>
-                                <input type="radio" class="brand_id"  name="brand_id" value="{{ $brand->id }}" id="{{ $brand->brand_name }}">
-                                <label for="{{ $brand->brand_name }}">{{ $brand->brand_name }}</label>
-                            </li>
-                            @endforeach
-                          </ul>
-                        </fieldset>
-
-                      </div>
-                      {{-- <!--/ .table_cell -->
-                      <!-- - - - - - - - - - - - - - End manufacturer - - - - - - - - - - - - - - - - -->
-
-                      <!-- - - - - - - - - - - - - - Price - - - - - - - - - - - - - - - - --> --}}
-                      <div class="table_cell">
-                        <fieldset>
-                          <legend>Price Range</legend>
-                          <div class="range">
-
-                            {{-- <span class="min_val">$10.00</span> -
-                            <span class="max_val">$383.00</span> --}}
-                            <div class="row">
-                                <div class="col-xs-5">
-                                  Min:  <input type="number" name="min_price" width="50" class="min_value" value="100">
-                                </div>
-                                <div class="col-xs-2 text-center">-</div>
-                                <div class="col-xs-5">
-                                    Max:
-                                    <input type="number" name="max_price" width="50" class="max_value" value="10000">
-                                </div>
-                            </div>
-
-                          </div>
-                          {{-- <div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                            <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></span>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" style="left: 65.4397%;"></span>
-                            <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 65.4397%;"></div>
-                          </div> --}}
-                        </fieldset>
-                      </div>
-                      <!--/ .table_cell -->
-
-                      <!-- - - - - - - - - - - - - - End price - - - - - - - - - - - - - - - - -->
-
-                      <!-- - - - - - - - - - - - - - Price - - - - - - - - - - - - - - - - -->
-
-                      <div class="table_cell">
-                        <fieldset>
-                          <legend>Color</legend>
-                          <div class="row">
-                              <div class="col-sm-6">
-                                <ul class="simple_vertical_list">
-                                  @foreach ($colours as $color)
-                                    <li>
-                                        <input type="radio" class="color_code"  value="{{ $color->color_code }}" name="color" id="{{ $color->color_code }}">
-                                        <label for="{{ $color->color_code }}" style="color:{{ $color->color_code }}">{{ $color->color_name }}</label>
-                                    </li>
-                                  @endforeach
-                                </ul>
-                              </div>
-                          </div>
-
-                        </fieldset>
-
-                      </div>
-                      <!--/ .table_cell -->
-
-                      <!-- - - - - - - - - - - - - - End price - - - - - - - - - - - - - - - - -->
+        {{-- Category Sidebar --}}
+      <aside class="col-xs-12 content-aside left_column sidebar-offcanvas">
+        <span id="close-sidebar" class="btn btn-default"><i class="fa fa-times"></i></span>
+        <div class="module ">
+          <div class="modcontent ">
+          <form action="{{ route('filter.search.from.main_category') }}" method="GET" class="type_2">
+             @csrf
+              <div class="table_layout filter-shopby">
+                <div class="table_row">
+                  {{-- <!-- - - - - - - - - - - - - - Category filter - - - - - - - - - - - - - - - - --> --}}
+                  <div id="search" class="input-group">
+                    <input type="text" name="search_field" value="{{ isset($search_field) ? $search_field : "" }}" id="search_field" placeholder="Search" class="form-control input-lg">
+                        <span class="input-group-btn">
+                            <button type="submit" formaction="{{ route('mobile.product.search') }}" class="btn btn-default btn-link"><i class="fa fa-search"></i></button>
+                        </span>
                     </div>
-                    <!--/ .table_row -->
-                    <footer class="bottom_box">
-                      <div class="buttons_row">
-                        <button type="submit" class="button_grey button_submit">Search</button>
-                        <button type="reset" class="button_grey filter_reset">Reset</button>
-                      </div>
-                            <!--Back To Top-->
-                          <div class="back-to-top"><i class="fa fa-angle-up"></i></div>
-                      </footer>
+                  {{-- <!--/ .table_cell -->
+                  <!-- - - - - - - - - - - - - - End of category filter - - - - - - - - - - - - - - - - -->
+                  <!-- - - - - - - - - - - - - - SUB CATEGORY - - - - - - - - - - - - - - - - --> --}}
+                  <div class="table_cell">
+                    <fieldset>
+                      <legend>Category</legend>
+                      <ul class="checkboxes_list">
+                          @foreach ($all_categories as $category)
+                          <li>
+                            <input type="radio" class="category_id" value="{{ $category->id }}" name="category_id" id="{{ $category->id }}">
+                            <label for="{{ $category->id }}"> {{ $category->cate_name }} </label>
+                          </li>
+                          @endforeach
+                      </ul>
+
+                    </fieldset>
+
                   </div>
-                  <!--/ .table_layout -->
-                </form>
+                  {{-- <!--/ .table_cell -->
+                  <!-- - - - - - - - - - - - - - End SUB CATEGORY - - - - - - - - - - - - - - - - -->
+                  <!-- - - - - - - - - - - - - - Manufacturer - - - - - - - - - - - - - - - - --> --}}
+                  <div class="table_cell">
+                    <fieldset>
+                      <legend>Brand</legend>
+                      <ul class="checkboxes_list">
+                          @php
+                              $index = 1;
+                          @endphp
+                          @foreach ($all_brands as $brand)
+                          <li>
+                            <input type="radio" class="brand_id"  name="brand_id" value="{{ $brand->id }}" id="{{ $brand->id }}">
+                            <label for="{{ $brand->id }}">{{ $brand->brand_name }}</label>
+                          </li>
+                          @php
+                              $index++;
+                          @endphp
+                          @endforeach
+                      </ul>
+                    </fieldset>
+
+                  </div>
+
+                  <div class="table_cell range_table_cell">
+                    <fieldset>
+                      <legend>Price Range</legend>
+                      <div class="range">
+
+                        {{-- <span class="min_val">$10.00</span> -
+                        <span class="max_val">$383.00</span> --}}
+                        <div class="row">
+                            <div class="col-xs-5">
+                              Min:  <input type="number" name="min_price" width="50" class="min_value" value="100">
+                            </div>
+                            <div class="col-xs-2 text-center">-</div>
+                            <div class="col-xs-5">
+                                Max:
+                                <input type="number" name="max_price" width="50" class="max_value" value="10000">
+                            </div>
+                        </div>
+
+                      </div>
+                      {{-- <div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></span>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" style="left: 65.4397%;"></span>
+                        <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 65.4397%;"></div>
+                      </div> --}}
+                    </fieldset>
+                  </div>
+                  <!--/ .table_cell -->
+
+                  <!-- - - - - - - - - - - - - - End price - - - - - - - - - - - - - - - - -->
+
+                  <!-- - - - - - - - - - - - - - Price - - - - - - - - - - - - - - - - -->
+
+                  <div class="table_cell">
+                    <fieldset>
+                      <legend>Color</legend>
+                      <div class="row">
+                          <div class="col-sm-6">
+                            <ul class="simple_vertical_list">
+                              @foreach ($colours as $color)
+                                <li>
+                                    <input type="radio" class="coler_code"  value="{{ $color->color_code }}" name="color" id="{{ $color->color_code }}">
+                                    <label for="{{ $color->color_code }}" style="color:{{ $color->color_code }}">{{ $color->color_name }}</label>
+                                </li>
+                              @endforeach
+                            </ul>
+                          </div>
+                      </div>
+
+                    </fieldset>
+
+                  </div>
+                  <!--/ .table_cell -->
+
+                  <!-- - - - - - - - - - - - - - End price - - - - - - - - - - - - - - - - -->
+                </div>
+                <!--/ .table_row -->
+                <footer class="bottom_box">
+                  <div class="buttons_row">
+                    <button type="submit" class="button_grey button_submit">Search</button>
+                    <button type="reset" class="button_grey filter_reset">Reset</button>
+                  </div>
+                        <!--Back To Top-->
+                      <div class="back-to-top"><i class="fa fa-angle-up"></i></div>
+                  </footer>
               </div>
-            </div>
-          </aside>
-
-
+              <!--/ .table_layout -->
+            </form>
+          </div>
+        </div>
+      </aside>
+    {{-- Category Sidebar Ber--}}
       <div id="content" class="col-xs-12">
         <div class="sidebar-overlay"></div>
 
         <div class="products-category">
 
-
           <div id="collapseCategory" class="product-catalog__mode collapse" aria-expanded="false" style="height: 0px;">
 
-
           </div>
-
-
           <!--// Begin Select Category Simple -->
           <!-- Filters -->
           <div class="product-filter filters-panel clearfix">
@@ -168,14 +170,12 @@
                 <button class="btn btn-default grid active" data-view="grid" data-toggle="tooltip"  data-original-title="Grid"><i class="fa fa-th"></i></button>
                 <button class="btn btn-default list" data-view="list" data-toggle="tooltip" data-original-title="List"><i class="fa fa-th-list"></i></button>
               </div>
-
             </div>
 
 
             <div class="col-xs-4 ">
               <a class="btn btn-primary open-sidebar" href="javascript:void(0)"><i class="fa fa-filter"></i> Refine </a>
             </div>
-
             <div class="short-by-show col-xs-4">
               <div class="form-group short-by">
                 <i class="fa fa-sort-amount-asc"></i>
@@ -188,14 +188,10 @@
           <!-- //end Filters -->
           <!--Changed Listings-->
           <div class="products-list row nopadding-xs grid so-filter-gird">
-            @php
-              $subcategory_id=$subcate->id;
-              $products=App\Product::where('is_deleted',0)->where('status',1)->where('subcate_id',$subcategory_id)->orderBy('id','DESC')->simplePaginate(6);
-            @endphp
             @foreach($products as $product)
-            @php
-              $flashdealdetail=App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->limit(1)->get();
-            @endphp
+              @php
+                $flashdealdetail=App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->limit(1)->get();
+              @endphp
             <div class="product-layout col-xs-6">
               <div class="product-item-container">
                 <div class="left-block">
@@ -303,11 +299,11 @@
                        @endif
                     </div>
                     <div class="button-group">
-                    @if($product->product_type ==1)
+                      @if($product->product_type ==1)
 
                           <button class="addToCart font-sn" type="button" title="Add to details"> <i class="fa fa-shopping-cart"></i><span><span><a href="{{route('product.details',$product->id)}}">Add to Cart</a> </span></span></button>
                         @else
-                        <form  onclick="subcategoryaddtocart(this)">
+                        <form  onclick="categoryaddtocart(this)">
                         <input class="form-control font-ct" type="hidden" name="quantity" id="quantity" value="1">
 												<input type="hidden" name="product_id" value="{{$product->id}}">
 												<input type="hidden" id="product_chosen_sku" name="product_sku" value="{{$product->product_sku}}">
@@ -317,17 +313,16 @@
                         <button class="addToCart font-sn" type="button" title="Add to Cart"> <i class="fa fa-shopping-cart"></i><span><span>Add to Cart</span></span></button>
                         </form>
                       @endif
-                      <!-- <button class="addToCart font-sn" type="button" title="Add to Cart" onclick="cart.add('175', '1');"> <i class="fa fa-shopping-cart"></i><span><span>Add to Cart</span></span></button> -->
+
+
                       @if(Auth::guard('web')->check())
                       <a class="wishlist btn btn-button mywishlist" id="mywishlist" title="Add to Wish List" data-id="{{$product->id}}"><i class="fa fa-heart-o"></i></a>
                       @else
                       <a class="wishlist btn btn-button" href="{{url('/mobile/login')}}"  title="Add to Wish List"><i class="fa fa-heart-o"></i></a>
-                      @endif
+                    	@endif
                       <a class="compare btn btn-button compareproduct" id="compareproduct" data-id="{{$product->id}}" ><i class="fa fa-retweet"></i></a>
                     </div>
-
                   </div>
-
                 </div>
               </div>
             </div>
@@ -335,7 +330,6 @@
             <div class="clearfix visible-xs-block"></div>
           </div>
           <!--// End Changed listings-->
-
           <!-- Filters -->
           <div class="product-filter text-center clearfix filters-panel">
             <div class="short-by-show text-center">
@@ -355,6 +349,7 @@
 </div>
 
 </div>
+
 <!-- wishlist product -->
 <script type="text/javascript">
 		$(document).ready(function() {
@@ -407,8 +402,13 @@
 					});
 			});
   </script>
-  <script>
-    function subcategoryaddtocart(el) {
+
+
+
+
+
+<script>
+    function categoryaddtocart(el) {
 
         var product_id = el.product_id.value;
         var product_price = el.product_price.value;
@@ -429,14 +429,18 @@
                 }
             })
         }
+
     }
 </script>
+
 @endsection
+
 @push('js')
+
 <script>
     $(document).ready(function() {
         $('.filter_reset').on('click', function(){
-            $('.subcategory_id').prop('checked', false);
+            $('.category_id').prop('checked', false);
             $('.brand_id').prop('checked', false);
             $('.color_code').prop('checked', false);
             $('.min_value').val(100);
@@ -444,4 +448,5 @@
         });
     });
 </script>
+
 @endpush

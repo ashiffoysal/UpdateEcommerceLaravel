@@ -220,7 +220,7 @@
 										<!-- color area start -->
 										<div class="form-group required " style="display: block; margin-left:17px">
 											<input type="hidden" name="id" value="{{$productdetails->id}}">
-											
+
 											<!-- <label class="control-label">Colors</label> -->
 											@if (count(json_decode($productdetails->colors)) > 0)
 											<ul class="list-inline checkbox-color mb-1">
@@ -294,16 +294,16 @@
 
 
 
-							
 
-							
+
+
 						</div>
 					</form>
 				</div>
 
 
 
-				
+
 				<div class="product-bottom" style="padding-left: 15px;">
 					<div id="collapseTab" class="producttab ">
 						<div class="tabsslider clearfix ">
@@ -314,7 +314,7 @@
 									$rcount=App\ProductReview::where('product_id',$productdetails->id)->count();
 								@endphp
 								<li class=""><a data-toggle="tab" href="#tab-review">Reviews ({{$rcount}})</a></li>
-								<li class=""><a data-toggle="tab" href="#tab-4">TAGS</a></li>
+								<li class=""><a data-toggle="tab" href="#tab-4">Video</a></li>
 							</ul>
 
 
@@ -345,13 +345,13 @@
 
 											@if($productdetails->product_type==1)
 												@if (count(json_decode($productdetails->colors)) > 0)
-												
+
 												<tr>
 													<td>Color</td>
-													
+
 													<td>
 													@foreach (json_decode($productdetails->colors) as $key => $color)
-														{{$color}} - 
+														{{$color}} -
 													@endforeach
 												</td>
 												</tr>
@@ -360,17 +360,17 @@
 												@foreach (json_decode($productdetails->choice_options) as $key => $choice)
 												<tr>
 													<td>{{ $choice->title }}:</td>
-													
+
 													<td>
 													@foreach ($choice->options as $key => $option)
-														{{ $option }} , 
+														{{ $option }} ,
 														@endforeach
 													</td>
-													
+
 												</tr>
 												@endforeach
-											
-												
+
+
 											@endif
 
 
@@ -425,7 +425,9 @@
 									</form>
 								</div>
 								<div id="tab-4" class="tab-pane fade">
-									<a class="btn btn-primary btn-sm" href="#">Eius modi tempor</a>
+
+									{!! $productdetails->video !!}
+
 								</div>
 
 							</div>

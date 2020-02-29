@@ -366,6 +366,10 @@ class MobilePaymentController extends Controller
           $update = OrderPlace::where('id', $usercartdatas->id)->update([
               'is_paid' => '1',
           ]);
+
+          if (Auth::user()->email) {
+              Mail::to(Auth::user()->email)->queue(new PaymentSuccessMail($usercartdatas));
+          }
           return redirect()->route('payment.paypal.success');
       }
 

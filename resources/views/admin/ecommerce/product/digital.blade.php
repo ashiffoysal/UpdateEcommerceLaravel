@@ -28,13 +28,13 @@
 									<input type="hidden" name="product_type" value="2">
 								    <label for="" class="col-sm-3 col-form-label text-right">Product Name:</label>
 								    <div class="col-sm-6">
-								      <input type="text" name="product_name" class="form-control" onchange="update_sku()">
+								      <input type="text" name="product_name" class="form-control" onchange="update_sku()" required>
 								    </div>
 								  </div>
 								  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Sku:</label>
 								    <div class="col-sm-6">
-								      <input type="text" class="form-control" name="product_sku">
+								      <input type="text" class="form-control" name="product_sku" required>
 								    </div>
 								  </div>
 								  <div class="form-group row">
@@ -50,7 +50,7 @@
 											$category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
 								    	@endphp
 								      <select class="form-control" name="cate_id" id="cate_id" required>
-								      	<option value="0">Select</option>
+								      	<option>Select</option>
 								      	@foreach($category as $cate)
 								      	<option  value="{{$cate->id}}">{{$cate->cate_name}}</option>
 								      	@endforeach
