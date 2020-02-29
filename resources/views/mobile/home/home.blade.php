@@ -321,7 +321,7 @@
     <div class="mobile-bn1-h1 clearfix">
         <div class="banners">
           @php
-            $bottom_img=App\MobileBanner::where('section',2)->OrderBy('id','DESC')->limit(2)->inRandomOrder()->get();
+            $bottom_img = App\MobileBanner::where('section',2)->OrderBy('id','DESC')->limit(2)->inRandomOrder()->get();
           @endphp
           @foreach($bottom_img as $bottom)
             <div class="banner21">

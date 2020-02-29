@@ -14,7 +14,6 @@ use App\ReSubCategory;
 use App\Color;
 use App\ProductReview;
 use App\FlashDealDetail;
-use App\OrderStorage;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -210,7 +209,22 @@ class FrontendController extends Controller
 
     public function flashDealProducts()
     {
+        date_default_timezone_set('Asia/Dhaka');
+
         $flash_deal = FlashDeal::where('status', 1)->where('is_deleted', 0)->select('id', 'end_date')->first();
+        if ($flash_deal) {
+
+            if ($flash_deal->end_date == date('Y-m-d')) {
+                foreach ($flash_deal->flash_deal_details as  $value) {
+                    $value->update([
+                        'status' => 0,
+                    ]);
+                }
+                $flash_deal->update([
+                    'status' => 0
+                ]);
+            }
+        }
         $flash_deal_details = 0;
         if ($flash_deal) {
             $flash_deal_details = FlashDealDetail::with('product')->where('flash_deal_id', $flash_deal->id)->paginate(16);

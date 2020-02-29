@@ -315,7 +315,7 @@
                     </div>
                     <div class="button-group">
                     @if($product->product_type ==1)
-                          
+
                           <button class="addToCart font-sn" type="button" title="Add to details"> <i class="fa fa-shopping-cart"></i><span><span><a href="{{route('product.details',$product->id)}}">Add to Cart</a> </span></span></button>
                         @else
                         <form  onclick="resubcategoryaddtocart(this)">
@@ -323,12 +323,12 @@
 												<input type="hidden" name="product_id" value="{{$product->id}}">
 												<input type="hidden" id="product_chosen_sku" name="product_sku" value="{{$product->product_sku}}">
                         <input type="hidden" id="product_chosen_price" name="product_price" value="{{$product->product_price}}">
-                        
+
 
                         <button class="addToCart font-sn" type="button" title="Add to Cart"> <i class="fa fa-shopping-cart"></i><span><span>Add to Cart</span></span></button>
                         </form>
                       @endif
-                      
+
                         <!-- <button class="addToCart font-sn" type="button" title="Add to Cart" onclick="cart.add('175', '1');"> <i class="fa fa-shopping-cart"></i><span><span>Add to Cart</span></span></button> -->
 
                       @if(Auth::guard('web')->check())
@@ -420,10 +420,10 @@
 					});
 			});
   </script>
-  
+
   <script>
     function resubcategoryaddtocart(el) {
-   
+
         var product_id = el.product_id.value;
         var product_price = el.product_price.value;
         var quantity = el.quantity.value;
@@ -460,5 +460,7 @@
         });
     });
 </script>
+
+
 
 @endpush

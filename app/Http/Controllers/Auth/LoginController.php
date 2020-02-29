@@ -139,6 +139,7 @@ class LoginController extends Controller
             return redirect()->intended(route('customer.account'));
         }
     }
+    
     public function redirectToProviderFacebook()
     {
         return Socialite::driver('facebook')->redirect();

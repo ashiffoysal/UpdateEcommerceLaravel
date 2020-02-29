@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DB;
-use Session;
+
 use App\Cupon;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

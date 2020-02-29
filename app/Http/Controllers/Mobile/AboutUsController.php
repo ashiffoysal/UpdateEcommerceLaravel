@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Mobile;
 
 use App\AboutUs;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class AboutUsController extends Controller
 {

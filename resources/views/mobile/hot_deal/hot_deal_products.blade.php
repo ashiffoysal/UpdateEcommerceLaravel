@@ -1,6 +1,17 @@
 @extends('mobile.master')
 @section('main_content')
+<div class="search_content_section">
+    <div class="search_result">
+        <div  class="heading_section">
+            <h6 style="margin-top:40px; margin-left:10px;">Search Result shown here <i style="color:#ff5561" class="fa fa-long-arrow-down"></i></h6>
+        </div>
+        <div class="products-list row nopadding-xs grid so-filter-gird" id="search_result_product">
 
+
+        </div>
+    </div>
+</div>
+<div class="main_content">
 <div class="container page-category">
     <div class="row">
         <aside class="col-xs-12 content-aside left_column sidebar-offcanvas">
@@ -329,11 +340,13 @@
         </div>
     </div>
 </div>
+</div>
 
 
 
 @endsection
 @push('js')
+<script type="text/javascript" src="{{asset('public/mobile/js/count_down/jquery.countdown.min.js')}}"></script>
 @if ($flash_deal)
 <script>
     $(function () {

@@ -10,7 +10,7 @@
                     <div class="panel-search">
                         @csrf
                         <div id="search" class="input-group">
-                        <input type="text" name="search_field" value="{{ isset($search_field) ? $search_field : "" }}" id="search_field" placeholder="Search" class="form-control input-lg">
+                        <input required type="text" name="search_field" value="{{ isset($search_field) ? $search_field : "" }}" id="search_field" placeholder="Search" class="form-control input-lg">
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-default btn-link"><i class="fa fa-search"></i></button>
                             </span>

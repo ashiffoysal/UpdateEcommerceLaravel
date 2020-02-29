@@ -99,9 +99,9 @@
 
 
 	<div class="header-form hidden-compact">
-							<!-- <div class="button-header current">
+							<div class="button-header current">
 								<i class="fa fa-bars"></i>
-							</div> -->
+							</div>
 							<div class="dropdown-form toogle_content">
 								<div class="pull-left">
 									<form action="#" method="post" enctype="multipart/form-data" id="form-language">
@@ -149,14 +149,17 @@
 								</div>
 								<span class="text">More</span>
 								<ul class="dropdown-menu">
-									<li class="wishlist"><a href="wishlist.html" id="wishlist-total" class="top-link-wishlist" title="Wish List (2) "><span>Wish List (0) </span></a></li>
-									<li class="checkout"><a href="cart.html" class="top-link-checkout" title="Checkout"><span>Checkout</span></a></li>
+                                    @php
+
+                                    @endphp
+									<li class="wishlist"><a href="{{ route('product.wishlist') }}" id="wishlist-total" class="top-link-wishlist" title="Wish List (2) "><span>Wish List </span></a></li>
+									<li class="checkout"><a href="{{ route('checkout.page.show') }}" class="top-link-checkout" title="Checkout"><span>Checkout</span></a></li>
 								</ul>
 							</div>
 							<div class="button-user">
 								<div class="user-info asd">
                                     @auth
-                                <a href="{{route('customer.account')}}">Login</a>
+                                     <a href="{{route('customer.account')}}">Login</a>
                                     @endauth
                                     @guest
                                     <a data-toggle="modal" data-target="#so_sociallogin" href="#">Login</a>
@@ -184,7 +187,7 @@
 </script>
 
 <script>
-	function test(){
-		console.log('ok');
-	}
+	$('.button-header').on('click',function(){
+        $('.dropdown-form').toggle();
+    });
 </script>

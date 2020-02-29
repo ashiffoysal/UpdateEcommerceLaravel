@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\FooterOption;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Image;
+use Intervention\Image\Image;
+use App\Http\Controllers\Controller;
+//use Image;
 
 class FooterController extends Controller
 {

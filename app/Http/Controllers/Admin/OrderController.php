@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\OrderPlace;
 use Carbon\Carbon;
-use Session;
 
 class OrderController extends Controller
 {

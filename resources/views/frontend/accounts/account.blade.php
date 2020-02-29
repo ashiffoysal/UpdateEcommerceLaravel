@@ -5,7 +5,7 @@
     <ul class="breadcrumb">
         <li><a href="#"><i class="fa fa-home"></i></a></li>
         <li><a href="#">Account</a></li>
-        <li><a href="#">My Account</a></li>
+        <li><a href="#">Profile Settings</a></li>
     </ul>
 
     <div class="row">
@@ -48,7 +48,6 @@
                     </div>
                     <div class="col-sm-6">
                         <fieldset>
-
                             <legend>Change Password</legend>
                             @if (Session::has('errorMsg'))
                             <span class="alert alert-danger d-block">{{ session('errorMsg') }}</span>
@@ -119,7 +118,7 @@
                             </div>
                             <div class="form-group required">
                                 <label for="input-zone" class="control-label">State / Division</label>
-                                <select class="form-control selectpicker" data-live-search="true" name="division_id">
+                                <select class="form-control selectpicker divisions_name" data-live-search="true" name="division_id">
                                     <option value=""> ---Select division --- </option>
                                     @foreach ($divisions as $division)
                                     <option value="{{ $division->id }}"
@@ -132,7 +131,7 @@
                             </div>
                             <div class="form-group required">
                                 <label for="input-zone" class="control-label">District</label>
-                                <select class="form-control selectpicker" data-live-search="true" name="district_id">
+                                <select class="form-control selectpicker districts_name" data-live-search="true" name="district_id">
                                     <option value=""> --- Select District--- </option>
                                     @foreach ($districts as $district)
                                     <option {{ $district->id == old('district_id') ? "SELECTED" : "" }}
@@ -148,7 +147,7 @@
                             </div>
                             <div class="form-group required">
                                 <label for="input-zone" class="control-label">Upazila</label>
-                                <select class="form-control selectpicker" data-live-search="true" name="upazila_id">
+                                <select class="form-control selectpicker sub_districts_name" data-live-search="true" name="upazila_id">
                                     <option value=""> --- Select Upazila--- </option>
                                     @foreach ($upazilas as $upazila)
                                     <option {{ $upazila->id == old('upazila_id') ? "SELECTED" : "" }}
@@ -181,6 +180,51 @@
 </div>
 <!-- //Main Container -->
 
+<script>
+    $(document).ready(function () {
+        $('.divisions_name').on('change', function() {
+            var division_id = $(this).val();
+            $.ajax({
+                url:"{{ url('dashboard/customer/get/district/by/division/id/') }}"+"/"+division_id,
+                type:'get',
+                dataType:'json',
+                success:function(data){
+                    $('.districts_name').empty();
+                    $('.districts_name').append('<option value="">------Select District Name------</option>');
+                    $.each(data,function(index, district){
+                        $('.districts_name').append('<option value="' + district.id + '">'+ district.name +'</option>');
+                    });
+                }
+            });
+
+        })
+    });
+</script>
+
+{{-- Get Sub-District By Country Script Block --}}
+
+<script>
+    $(document).ready(function () {
+        $('.districts_name').on('change', function() {
+            var district_id = $(this).val();
+            $.ajax({
+                url:"{{ url('dashboard/customer/sub_district/by/district/id/') }}"+"/"+district_id,
+                type:'get',
+                dataType:'json',
+                success:function(data){
+                    console.log(data);
+
+                    $('.sub_districts_name').empty();
+                    $('.sub_districts_name').append('<option value="">------Select Sub-District Name------</option>');
+                    $.each(data,function(index, sub_district){
+                        $('.sub_districts_name').append('<option value="' + sub_district.id + '">'+ sub_district.name +'</option>');
+                    });
+                }
+            });
+
+        })
+    });
+</script>
 
 <script>
     $(document).ready(function () {

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use App\Product;
 use App\Category;
 use App\SubCategory;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SearchController extends Controller

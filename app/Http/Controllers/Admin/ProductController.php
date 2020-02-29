@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use DB;
 use Image;
-
-use Session;
-use Response;
-use App\Color;
 use App\Product;
 use Carbon\Carbon;
-use App\ProductImage;
 use App\ReSubCategory;
 use App\ProductLicense;
 use Illuminate\Support\Arr;

@@ -42,6 +42,7 @@
     <link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{asset('public/mobile/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
     <link href="{{asset('public/mobile/js/ratchet/ratchet.css')}}" rel="stylesheet">
+
 		<link href="{{asset('public/mobile/js/slick/slick.css')}}" rel="stylesheet">
       <link href="{{asset('public/mobile/css/themecss/lib.css')}}" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
@@ -79,8 +80,11 @@
 <script type="text/javascript" src="{{asset('public/mobile/js/owl-carousel/owl.carousel.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('public/mobile/js/slick-slider/slick.js')}}"></script>
-<script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
+
 <script type="text/javascript" src="{{asset('public/mobile/js/slick/slick.min.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('public/mobile/js/ratchet/ratchet.js')}}"></script>
+
 <script type="text/javascript" src="{{asset('public/mobile')}}/js/jquery-ui/jquery-ui.min.js"></script>
 
 <script type="text/javascript" src="{{asset('public/mobile/js/themejs/libs.js')}}"></script>
@@ -88,6 +92,7 @@
 <!-- Theme files
 ============================================ -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script>
 		@if(Session::has('messege'))
@@ -145,8 +150,6 @@
 
 			});
 		}
-
-
 	});
 
 </script>
@@ -192,7 +195,8 @@
 	}
 
 
-//--></script>
+//-->
+</script>
 
 
 
@@ -226,6 +230,8 @@
             });
         });
     });
+    console.log('GET');
+
 </script>
 @stack('js')
 </body>

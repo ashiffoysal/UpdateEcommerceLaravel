@@ -302,19 +302,13 @@
 
 												<div class="form-group required">
 
-													<select name="shipping_id" id="sipping_upazila" class="form-control">
-														@php
-														$upa=DB::table('upazilas')->get();
-														@endphp
-														@foreach($upa as $upazila)
-														@if($useraddress)
+													<select name="shipping_id" id="shipping_courier" class="form-control">
 
-														<option value="{{$upazila->id}}">{{$upazila->name}} </option>
-														@endif
-														@endforeach
 													</select>
-
-
+                                                    @error('shipping_id')
+                                                    <div class="text-danger alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                    <small style="display:none;" class="text-warning attention_msg"></small>
 												</div>
 
 											</div>
@@ -628,8 +622,6 @@
                     dataType: "json",
 
                     success: function (data) {
-
-
                         $('#shipping_division').empty();
                         $('#shipping_division').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data, function (index, upazilabj) {
@@ -651,8 +643,6 @@
 
 				var dist_id = $(this).val();
 				console.log(dist_id);
-
-
 
                 $.ajaxSetup({
                     headers: {
@@ -676,8 +666,6 @@
                 });
             });
         });
-
-
 </script>
 
 <!-- get upozila name in shipping field -->
@@ -703,7 +691,6 @@
 
                     success: function (data) {
 						console.log(data);
-
                         $('#sipping_upazila').empty();
                         $('#sipping_upazila').append(' <option value="0">--Please Select Your Division--</option>');
                         $.each(data, function (index, upazilabj) {
@@ -713,5 +700,69 @@
                 });
             });
         });
+
+</script>
+
+<script>
+    $(document).ready(function() {
+        //var user_shipping_address = $('#user_upazila').val();
+        $('#user_upazila').on('change', function () {
+            var user_up_id = $(this).val();
+            if (user_up_id) {
+                $.ajax({
+                    url:"{{ url('get/courier/by/upazila/id/') }}"+"/"+user_up_id,
+                    type: 'get',
+                    success:function(data){
+                        $('#shipping_courier').empty();
+                        $('#shipping_courier').append(data);
+                    }
+                });
+            }
+        })
+
+        $('#shipping_upazila').on('change', function () {
+            var ship_up_id = $(this).val();
+            if (ship_up_id) {
+                $.ajax({
+                    url:"{{ url('get/courier/by/upazila/id/') }}"+"/"+ship_up_id,
+                    type: 'get',
+                    success:function(data){
+                        $('#shipping_courier').empty();
+                        $('#shipping_courier').append(data);
+                    }
+                });
+            }
+        })
+    });
+</script>
+
+<script>
+
+    $(document).ready(function(){
+        $('.attention_msg').hide();
+        $('#shipping_courier').on('change', function(){
+            var courier_id = $(this).val();
+            var user_upazila = $('#user_upazila').val();
+            var shipping_upazila = $('#shipping_upazila').val();
+            if (!shipping_upazila) {
+                $.ajax({
+                    url:"{{ url('check/courier/cash_on_deliviry') }}" + "/" + user_upazila + "/" + courier_id,
+                    type: 'get',
+                    dataType: 'json',
+                    success:function(data){
+                        //console.log(data);
+                        if (data.data == 0) {
+                            $('.attention_msg').show();
+                            $('.attention_msg').html('Attention: This Delivery Method Does Not Support Cash on Delivery');
+                        }else{
+                            $('.attention_msg').hide();
+                            $('.attention_msg').html('');
+                        }
+                    }
+                });
+            }
+
+        })
+    });
 
 </script>

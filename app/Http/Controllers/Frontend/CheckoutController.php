@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use Cart;
-use PayPal;
-// use Auth;
 use App\User;
 use App\Cupon;
-use App\Product;
 use Carbon\Carbon;
 use App\OrderPlace;
 use App\UserAddress;
@@ -16,18 +13,17 @@ use App\UserUsedCupon;
 use App\ProductStorage;
 use App\ShippingAddress;
 use App\UpozilaCouriers;
-use Illuminate\Support\Str;
+
 use Illuminate\Http\Request;
 use App\DatabaseStorageModel;
 use App\Mail\OrderSuccessfullMail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
-use Srmklive\PayPal\Services\AdaptivePayments;
-use Illuminate\Foundation\Console\Presets\React;
+// use Srmklive\PayPal\Services\AdaptivePayments;
+// use Illuminate\Foundation\Console\Presets\React;
 
 class CheckoutController extends Controller
 {
@@ -41,6 +37,7 @@ class CheckoutController extends Controller
             if (Auth::check()) {
                 $order_id = rand(100, 100000);
                 $useraddress = UserAddress::where('user_id', Auth::user()->id)->first();
+
                 return view('frontend.shopping.checkout', compact('order_id', 'useraddress'));
             } else {
 

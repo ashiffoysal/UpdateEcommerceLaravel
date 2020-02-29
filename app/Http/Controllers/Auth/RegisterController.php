@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use App\Mail\UserVerificationMail;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use App\SmsModel;
+use App\VerificationOption;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\URL;
 
@@ -82,48 +81,53 @@ class RegisterController extends Controller
             'ip_address' => $request->ip()
         ]);
 
-        Mail::to($user->email)->send(new UserVerificationMail($user->username, $user->remember_token));
+        $verificationWith =  VerificationOption::first();
+        if ($verificationWith->verify_with == 0) {
 
-        // sms varification code send
+            Mail::to($user->email)->queue(new UserVerificationMail($user->username, $user->remember_token));
+            session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
+            return redirect()->route('user.auth.registration.success', $user->email);
 
-        $smsusername = $user->username;
+        } elseif ($verificationWith->verify_with == 1) {
 
-        $siteUrl = URL::to("/");
-        $sms_text = $smsusername . ", Your Verification Code is:" . $verify_code . ' ' . $siteUrl;
-        $user_phone = $user->phone;
+            // sms varification code send
 
-        $smsinfo = SmsModel::first();
-        $smsurl = $smsinfo->sms_url;
-        $smsname = $smsinfo->sms_username;
-        $smspassword = $smsinfo->sms_password;
-        $smstype = $smsinfo->sms_type;
-        $smsmasking = $smsinfo->sms_masking;
-        $postData = array(
-            'username' => urlencode($smsname),
-            'password' => urlencode($smspassword),
-            'sms_content' => $sms_text,
-            'number' => urlencode($user_phone),
-            'sms_type' => urlencode($smstype),
-            'masking' => urlencode($smsmasking),
+            $smsusername = $user->username;
 
-        );
+            $siteUrl = URL::to("/");
+            $sms_text = $smsusername . ", Your Verification Code is:" . $verify_code . ' ' . $siteUrl;
+            $user_phone = $user->phone;
 
-        $ch = curl_init();
-        curl_setopt_array($ch, array(
+            $smsinfo = SmsModel::first();
+            $smsurl = $smsinfo->sms_url;
+            $smsname = $smsinfo->sms_username;
+            $smspassword = $smsinfo->sms_password;
+            $smstype = $smsinfo->sms_type;
+            $smsmasking = $smsinfo->sms_masking;
+            $postData = array(
+                'username' => urlencode($smsname),
+                'password' => urlencode($smspassword),
+                'sms_content' => $sms_text,
+                'number' => urlencode($user_phone),
+                'sms_type' => urlencode($smstype),
+                'masking' => urlencode($smsmasking),
+            );
 
-            // CURLOPT_URL => $smsurl,
-            // CURLOPT_URL => 'http://gosms.xyz/api/v1/sendSms',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $postData,
-            CURLOPT_FOLLOWLOCATION => true
+            $ch = curl_init();
+            curl_setopt_array($ch, array(
 
-        ));
+                CURLOPT_URL => $smsurl,
+                CURLOPT_URL => 'http://gosms.xyz/api/v1/sendSms',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $postData,
+                CURLOPT_FOLLOWLOCATION => true
 
-        $output = curl_exec($ch);
-        //return redirect()->route('sms.verification.form', $user->remember_token);
-        session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
-        return redirect()->route('user.auth.registration.success', $user->email);
+            ));
+
+            $output = curl_exec($ch);
+            return redirect()->route('sms.verification.form', $user->remember_token);
+        }
     }
 
     public function smsVerificationform($token)
@@ -149,9 +153,6 @@ class RegisterController extends Controller
             return redirect()->route('login');
         }
     }
-
-
-
 
     public function emailVerification($token)
     {

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
 use Carbon\Carbon;
-use Session;
 use Image;
 
 class CategoryController extends Controller

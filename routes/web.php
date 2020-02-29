@@ -38,7 +38,7 @@ if ($agent->isDesktop()) {
     Route::post('admin/password/update', 'AdminController@AdminPasswordUpdate')->name('admin.password.update');
     Route::get('admin/profile/lock', 'AdminController@AdminLockScreen')->name('admin.lock.screen');
     Route::post('/admin/unlock/screen', 'AdminController@UnlockScreen')->name('admin.unlock.screen');
-    Route::get('admin/log/out', 'AdminController@AdminLogOut')->name('admin.logout');
+    Route::get('admin/logout', 'AdminController@AdminLogOut')->name('admin.logout');
 
     //seo setting
     Route::get('admin/seo/setting', 'Admin\SeoController@Seo')->name('admin.seo.setting');
@@ -92,6 +92,8 @@ if ($agent->isDesktop()) {
     // sms
     Route::get('admin/sms/update/active/{id}', 'Admin\GatewayController@smsactive');
     Route::get('admin/sms/update/deactive/{id}', 'Admin\GatewayController@smsdeactive');
+
+    Route::get('Admin/user/verification/option/choose/{verifyId}', 'Admin\GatewayController@changeVerificationOption')->name('verification.option');
 
 
     // category
@@ -362,7 +364,6 @@ if ($agent->isDesktop()) {
 
     Route::get('flash_deal_products', 'Frontend\FrontendController@flashDealProducts')->name('hot.deal.products');
 
-
     // product add to cart in front end
 
     Route::get(md5('/product/cart/page'), 'Frontend\FrontendController@cart')->name('product.cart.add');
@@ -398,6 +399,10 @@ if ($agent->isDesktop()) {
     Route::group(['prefix' => 'dashboard', 'namespace' => 'Frontend',], function () {
         Route::get('customer/account', 'CustomerController@customerAccount')->name('customer.account');
         Route::post('customer/account/update', 'CustomerController@customerAccountUpdate')->name('customer.account.update');
+        // Ajax Routes
+        Route::get('customer/get/district/by/division/id/{divisionId}', 'CustomerController@customerGetDistrictByDivision');
+        Route::get('customer/sub_district/by/district/id/{districtId}', 'CustomerController@customerGetSubDistrictByDistrict');
+        // Ajax Routes End
     });
 
     Route::get('/customer/order', 'Frontend\FrontendController@customerOrder')->name('customer.order');
@@ -423,12 +428,10 @@ if ($agent->isDesktop()) {
     //Route::get('category/details/{slug}', 'Frontend\FrontendController@categorydetails');
 
     Route::group(['prefix' => 'subscriber', 'namespace' => 'Frontend'], function () {
-
         Route::get('add', 'SubscribeController@insert')->name('frontend.subscriber.insert');
     });
 
     Route::group(['prefix' => 'contract_us', 'namespace' => 'Frontend'], function () {
-
         Route::get('/', 'ContractUsController@index')->name('frontend.contract.us.index');
         Route::post('send/message', 'ContractUsController@sendMessage')->name('frontend.contract.us.send.message');
     });
@@ -592,8 +595,6 @@ if ($agent->isDesktop()) {
     route::get('admin/mobile/banner/delete/{id}', 'Admin\MobileController@mobannerdelete');
     route::get('admin/mobile/banner/restore/{id}', 'Admin\MobileController@mobanrestore');
 
-
-
     // page trash
     Route::get(md5('admin/trash/page'), 'Admin\TrashController@page')->name('admin.trash.page');
     Route::post(md5('admin/trash/multidelpage'), 'Admin\TrashController@pagemultdel')->name('admin.trash.pagemultidel');
@@ -720,8 +721,6 @@ if ($agent->isDesktop()) {
         Route::get('get/couriers/by/courier_id', 'CourierController@getCouriersByAjax');
         Route::get('get/courier/for/update', 'CourierController@getCouriersForUpdateByAjax');
         // Ajax Route Ended
-
-
     });
     //Harrison start ended
 
@@ -771,8 +770,6 @@ if ($agent->isDesktop()) {
         Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
         Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
         Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
-
-
 
         Route::get('order_payment/{paymentSecureId}', 'PaymentController@paymentPage')->name('order.payment');
         Route::post('make_payment/', 'PaymentController@makePayment')->name('payment.make.payment');
@@ -825,6 +822,11 @@ if ($agent->isDesktop()) {
     Route::get('mobile/forgot/password/verify/code/resend/{remember_token}', 'Mobile\ForgotPasswordController@MobileForgotPassResendVerifyCodeMail')->name('forgot.password.verify.code.resend');
     //Forget Password Route End==
 
+    //Reset Password Routes==
+    Route::get('reset/password', 'Mobile\ResetPasswordController@resetPasswordFrom')->name('reset.password.form');
+    Route::post('reset/password', 'Mobile\ResetPasswordController@resetPassword')->name('reset.password');
+    //Reset Password Route End==
+
     // My Account Settings Route==
     Route::get('mobile/myaccount/settings', 'Mobile\MyAccountController@myAccount')->name('my.account.setting');
     Route::post('mobile/myaccount/settings/update', 'Mobile\MyAccountController@myAccountSettingsUpdate')->name('my.account.settings.update');
@@ -870,14 +872,15 @@ if ($agent->isDesktop()) {
     Route::post(md5('/checkout/order/place'), 'Mobile\CheckoutController@orderPlace')->name('order.place');
     Route::get('get/checkout/cupon/value', 'Mobile\CheckoutController@cuponValue');
 
-
+    // Ajax Rotues For Checkout Courier Routes=
+    Route::get('get/courier/by/upazila/id/{upazilaId}', 'Mobile\CheckoutController@getCourierByUpazila');
+    Route::get('check/courier/cash_on_deliviry/{upazila_id}/{courier_id}', 'Mobile\CheckoutController@checkCourierCashOnDeliviry');
+    // Ajax Rotues For Checkout Courier Routes End=
 
 
     Route::get(md5('/page/redirect'), 'Mobile\AuthController@pageBackRedirect')->name('page.redirect');
 
     // authentication area start
-
-
 
     Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
@@ -888,9 +891,6 @@ if ($agent->isDesktop()) {
     Route::get(md5('/mobile/logout'), 'Mobile\AuthController@userLogOut')->name('mobile.logout');
     Route::get('/mobile/sms/verify/{token}', 'Mobile\AuthController@smsVerifyPageShow')->name('mobile.sms.verify');
     Route::post('/sms/verification/submit', 'Mobile\AuthController@smsVerification')->name('sms.verification.submit');
-    
-
-
 
 
     Route::get('product/details/{slug}/{id}', 'Mobile\ProductController@productDetails');
@@ -926,9 +926,11 @@ if ($agent->isDesktop()) {
     Route::get('paypal/success/payment', 'Mobile\MobilePaymentController@paypalsuccess')->name('payment.paypal.success');
 
 
-
-
-
-
+    Route::group(['prefix' => 'user/login/', 'namespace' => 'Mobile'], function () {
+        Route::get('login/google', 'AuthController@redirectToProviderGoogle')->name('google.login');
+        Route::get('google/callback', 'AuthController@handleProviderGoogleCallback');
+        Route::get('login/facebook', 'AuthController@redirectToProviderFacebook')->name('facebook.login');
+        Route::get('facebook/callback', 'AuthController@handleProviderFacebookCallback');
+    });
 
 }

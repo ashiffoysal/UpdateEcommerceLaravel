@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Page;
-use Session;
 use Carbon\Carbon;
-use Image;
 
 class PageController extends Controller
 {
@@ -145,14 +143,14 @@ class PageController extends Controller
                             'messege'=>'Multiple Delete Success',
                             'alert-type'=>'success'
                              );
-                            return Redirect()->back()->with($notification); 
+                            return Redirect()->back()->with($notification);
                         }
                         else{
                             $notification=array(
                                 'messege'=>'Multiple Delete Faild',
                                 'alert-type'=>'errors'
                                  );
-                               return Redirect()->back()->with($notification); 
+                               return Redirect()->back()->with($notification);
                         }
                     }else{
                         $notification=array(
