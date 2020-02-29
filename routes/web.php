@@ -888,7 +888,7 @@ if ($agent->isDesktop()) {
     Route::get(md5('/mobile/logout'), 'Mobile\AuthController@userLogOut')->name('mobile.logout');
     Route::get('/mobile/sms/verify/{token}', 'Mobile\AuthController@smsVerifyPageShow')->name('mobile.sms.verify');
     Route::post('/sms/verification/submit', 'Mobile\AuthController@smsVerification')->name('sms.verification.submit');
-    
+
 
 
 
@@ -912,10 +912,12 @@ if ($agent->isDesktop()) {
     Route::get('mobile/compare/delete/{id}', 'Mobile\FrontendController@comparedelete');
     // review
     Route::post('mobile/review/submit', 'Mobile\FrontendController@review');
-    Route::get('product/orderhistory', 'Mobile\FrontendController@orderhistory');
+    Route::get('product/orderhistory', 'Mobile\FrontendController@orderhistory')->name('mobile.orderhistory');
     Route::get('history/details/{id}', 'Mobile\FrontendController@orderdetails');
     Route::get('order/traking', 'Mobile\FrontendController@ordertraking');
     Route::get('mobile/order/traking/submit', 'Mobile\FrontendController@searchtraking');
+    //new arrival
+    Route::get('/newarrival', 'Mobile\FrontendController@newarrival');
 
     // payment
     Route::get('mobile/payment/{paymentSecureId}', 'Mobile\MobilePaymentController@paymentPage')->name('ordermobile.payment');

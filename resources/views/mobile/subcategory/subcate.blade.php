@@ -177,28 +177,15 @@
             </div>
 
             <div class="short-by-show col-xs-4">
-
               <div class="form-group short-by">
                 <i class="fa fa-sort-amount-asc"></i>
                 <select id="input-sort" class="form-control" onchange="location = this.value;">
-                  <option value="http://opencart.opencartworks.com/themes/so_revo/index.html?route=product/category&amp;path=20&amp;sort=p.sort_order&amp;order=ASC" selected="selected">Default</option>
-                  <option value="http://opencart.opencartworks.com/themes/so_revo/index.html?route=product/category&amp;path=20&amp;sort=pd.name&amp;order=ASC">Name (A - Z)</option>
-                  <option value="http://opencart.opencartworks.com/themes/so_revo/index.html?route=product/category&amp;path=20&amp;sort=pd.name&amp;order=DESC">Name (Z - A)</option>
-                  <option value="http://opencart.opencartworks.com/themes/so_revo/index.html?route=product/category&amp;path=20&amp;sort=p.price&amp;order=ASC">Price (Low &gt; High)</option>
-                  <option value="http://opencart.opencartworks.com/themes/so_revo/index.html?route=product/category&amp;path=20&amp;sort=p.price&amp;order=DESC">Price (High &gt; Low)</option>
-                  <option value="http://opencart.opencartworks.com/themes/so_revo/index.html?route=product/category&amp;path=20&amp;sort=rating&amp;order=DESC">Rating (Highest)</option>
-                  <option value="http://opencart.opencartworks.com/themes/so_revo/index.html?route=product/category&amp;path=20&amp;sort=rating&amp;order=ASC">Rating (Lowest)</option>
-                  <option value="http://opencart.opencartworks.com/themes/so_revo/index.html?route=product/category&amp;path=20&amp;sort=p.model&amp;order=ASC">Model (A - Z)</option>
-                  <option value="http://opencart.opencartworks.com/themes/so_revo/index.html?route=product/category&amp;path=20&amp;sort=p.model&amp;order=DESC">Model (Z - A)</option>
+                  <option value="" selected="selected">Default</option>
                 </select>
               </div>
-
             </div>
-
-
           </div>
           <!-- //end Filters -->
-
           <!--Changed Listings-->
           <div class="products-list row nopadding-xs grid so-filter-gird">
             @php
@@ -317,7 +304,7 @@
                     </div>
                     <div class="button-group">
                     @if($product->product_type ==1)
-                          
+
                           <button class="addToCart font-sn" type="button" title="Add to details"> <i class="fa fa-shopping-cart"></i><span><span><a href="{{route('product.details',$product->id)}}">Add to Cart</a> </span></span></button>
                         @else
                         <form  onclick="subcategoryaddtocart(this)">
@@ -325,7 +312,7 @@
 												<input type="hidden" name="product_id" value="{{$product->id}}">
 												<input type="hidden" id="product_chosen_sku" name="product_sku" value="{{$product->product_sku}}">
                         <input type="hidden" id="product_chosen_price" name="product_price" value="{{$product->product_price}}">
-                        
+
 
                         <button class="addToCart font-sn" type="button" title="Add to Cart"> <i class="fa fa-shopping-cart"></i><span><span>Add to Cart</span></span></button>
                         </form>
@@ -420,10 +407,9 @@
 					});
 			});
   </script>
-  
   <script>
     function subcategoryaddtocart(el) {
-   
+
         var product_id = el.product_id.value;
         var product_price = el.product_price.value;
         var quantity = el.quantity.value;
@@ -443,13 +429,10 @@
                 }
             })
         }
-
     }
 </script>
-
 @endsection
 @push('js')
-
 <script>
     $(document).ready(function() {
         $('.filter_reset').on('click', function(){
@@ -461,5 +444,4 @@
         });
     });
 </script>
-
 @endpush
