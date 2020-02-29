@@ -23,16 +23,7 @@
                 </a>
             </div>
 
-            <div class="item-link">
-                <a href="blogs.html">
-                    <span class="menu-title">Support</span>
-                </a>
-            </div>
-            <div class="item-link">
-                <a href="{{ route('mobile.about.us') }}">
-                    <span class="menu-title">Warrenty</span>
-                </a>
-            </div>
+
             <div class="item-link">
                 <a href="{{ route('contract.us.page') }}">
                     <span class="menu-title">Contact Us</span>

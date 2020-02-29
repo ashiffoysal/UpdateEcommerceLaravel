@@ -98,9 +98,9 @@
 									</div>
 								</div>
 								<div class="form-group required">
-									<label class="col-sm-2 control-label" for="input-telephone">Telephone</label>
+									<label class="col-sm-2 control-label" for="mobilephone">Mobile</label>
 									<div class="col-sm-10">
-										<input type="tel" name="phone" value="" placeholder="Telephone" id="input-telephone" class="form-control">
+										<input type="tel" name="phone" value="" placeholder="Mobile Number" id="mobilephone" class="form-control">
 										<span class="error_text">{{ $errors->first('phone') }}</span>
 									</div>
 								</div>

@@ -8,7 +8,8 @@ $seo=DB::table('seo')->first();
 <html lang="en">
 
 <head>
-    <title>{{ $seo->meta_title }}</title>
+        <title>@yield('title', $seo->meta_title)</title>
+    
     <meta charset="utf-8">
     <meta name="keywords" content="{{$seo->meta_key}}" />
     <meta name="description" content="{{$seo->meta_description}}" />

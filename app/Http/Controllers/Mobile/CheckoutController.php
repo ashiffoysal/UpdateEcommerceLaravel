@@ -25,6 +25,7 @@ use App\UpozilaCouriers;
 use Illuminate\Support\Str;
 
 use App\DatabaseStorageModel;
+use App\DeleveryAmount;
 use App\Mail\OrderSuccessfullMail;
 
 use Illuminate\Support\Facades\Hash;
@@ -63,7 +64,7 @@ class CheckoutController extends Controller
             }
         }else{
 
-            return redirect('/')->with('alertmessege','Please add some product');
+            return redirect('/')->with('messege','Please add some product');
         }
 
 
@@ -122,6 +123,10 @@ class CheckoutController extends Controller
 
             $cupondatavalue = $cupon->discount . '%';
         }
+
+        
+
+
 
         
         return view('mobile.shopping.checkoutdatashow', compact('usercartdatas','cupondatavalue')); 
@@ -361,11 +366,6 @@ class CheckoutController extends Controller
 
     public function orderPlace(Request $request)
     {
-
-        // return $request->all();
-
-
-
         $validatedData = $request->validate([
             'user_id' => 'required',
             'user_address' => 'required',
@@ -443,6 +443,7 @@ class CheckoutController extends Controller
         ProductStorage::insert([
             'product_details' => json_encode($products),
             'order_id' => $orderid,
+            'shipping_amount'=>$request->shipping_amount,
             'user_id' => Auth::user()->id,
             'created_at' => Carbon::now(),
         ]);
@@ -530,6 +531,27 @@ class CheckoutController extends Controller
        }
          
        
+
+    }
+
+    // get shipping charge value
+
+    public function shippingChargeValue($id)
+    {
+        
+        $deleveryamount =DeleveryAmount::first();
+        $userid =  \Request::getClientIp(true);
+
+        $usercartdatas = Cart::session($userid)->getContent();
+
+        if($id == 6){
+            $deleverycharge =$deleveryamount ->insidedhaka;
+        }else{
+            $deleverycharge =$deleveryamount ->outsidedhaka;
+        }
+        
+    
+        return view('mobile.shopping.checkoutdatashow', compact('deleverycharge','usercartdatas'));
 
     }
 

@@ -242,6 +242,21 @@ class FrontendController extends Controller
     }
 
 
+    // warrenty area start
+
+    public function showWarrenty()
+    {
+        return view('mobile.warrenty.warrenty');
+    }
+
+
+    // show support page
+    public function showSupportPage()
+    {
+        return view('mobile.support.support');
+    }
+
+
 
 
 
