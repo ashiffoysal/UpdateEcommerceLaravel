@@ -325,10 +325,16 @@
 											</div>
 											<div class="panel-body">
 												<p>Please select the preferred payment method to use on this order.</p>
-
+													@php
+														$cashactive=App\Activation::first();
+													@endphp
+													@if($cashactive->cashondelevery==1)
 													<label>
-														<input type="radio" value="1" checked="checked" name="payment_type">Cash On Delivery
-													</label><br>
+														<input type="radio" value="1" name="payment_type">Cash On Delivery
+													</label>
+													@endif
+
+													<br>
 
 													<label>
 														<input type="radio" value="2" name="payment_type">Online Payment
@@ -401,7 +407,7 @@
 
 						<!-- extra hidden field -->
 
-						<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal()}}" name="total_price">
+						<input type="hidden" value="{{ Cart::session(\Request::getClientIp(true))->getTotal() }}" name="total_price">
 						<input type="hidden" value="{{ Cart::session(\Request::getClientIp(true))->getTotalQuantity() }}" name="total_quantity">
 
 

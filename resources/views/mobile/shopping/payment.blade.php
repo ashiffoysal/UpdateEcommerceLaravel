@@ -35,27 +35,33 @@
 													@csrf
 														<input type="hidden" name="order_id" value="{{$orderPlace->order_id}}">
 														<input type="hidden" name="payment_secure_id" value="{{$orderPlace->payment_secure_id}}">
-
+															@php
+																$activationall=App\Activation::first();
+															@endphp
+															@if($activationall->stripe==1)
 															<div class="form-group row">
 														    <div class="col-sm-2">
 														      <input type="radio" class="form-control-plaintext" id="pay_method" name="payment_method_id" value="2">
 														    </div>
 																<label for="staticEmail" class="col-sm-2 col-form-label" >Stripe</label>
 														  </div>
-
+															@endif
+														 @if($activationall->paypal==1)
 															<div class="form-group row">
 														    <div class="col-sm-2">
 														      <input type="radio" class="form-control-plaintext" id="pay_method" name="payment_method_id" value="3">
 														    </div>
 																  <label for="staticEmail" class="col-sm-2 col-form-label">Paypal</label>
 														  </div>
-
+															@endif
+															@if($activationall->ssl_commercez==1)
 															<div class="form-group row">
 														    <div class="col-sm-2">
 														      <input type="radio" class="form-control-plaintext" id="pay_method" name="payment_method_id" value="4">
 														    </div>
 																<label for="staticEmail" class="col-sm-5 col-form-label">SSL Commercez</label>
 														  </div>
+															@endif
 
 														  <div class="form-group row">
 														    <label for="inputPassword" class="col-sm-2 col-form-label"></label>

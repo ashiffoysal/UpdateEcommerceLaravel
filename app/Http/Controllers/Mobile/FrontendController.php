@@ -241,6 +241,14 @@ class FrontendController extends Controller
       return view('mobile.shopping.payment');
     }
 
+    // new arrival
+    public function newarrival(){
+      $products=Product::where('is_deleted',0)->where('status',1)->Simplepaginate(8);
+      $all_categories=Category::where('is_deleted',0)->where('cate_status',1)->get();
+      $all_brands=Brand::where('is_deleted',0)->where('brand_status',1)->get();
+      $colours=Color::where('is_deleted',0)->where('color_status',1)->get();
+      return view('mobile.newarrival.narrival',compact('products','all_categories','all_brands','colours'));
+    }
 
 
 
