@@ -1,4 +1,7 @@
 @extends('mobile.extra_master')
+@section('title')
+    About Us
+@endsection
 @section('page_content')
 
 <!-- Begin Bar Nav -->

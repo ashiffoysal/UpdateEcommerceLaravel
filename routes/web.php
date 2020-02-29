@@ -928,6 +928,18 @@ if ($agent->isDesktop()) {
     Route::get('/payment/success', 'Mobile\MobilePaymentController@paymentsuccess');
     Route::get('paypal/success/payment', 'Mobile\MobilePaymentController@paypalsuccess')->name('payment.paypal.success');
 
+    // warrenty area start
+    Route::get(md5('/warrenty'), 'Mobile\FrontendController@showWarrenty')->name('warrenty.page');
+    
+    
+    // support area start
+    Route::get(md5('/support'), 'Mobile\FrontendController@showSupportPage')->name('support.page');
+
+    // send shipping value
+ 
+
+    Route::get('/user/shipping/value/{id}', 'Mobile\CheckoutController@shippingChargeValue');
+
 
     Route::group(['prefix' => 'user/login/', 'namespace' => 'Mobile'], function () {
         Route::get('login/google', 'AuthController@redirectToProviderGoogle')->name('google.login');

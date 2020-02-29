@@ -1,4 +1,7 @@
 @extends('layouts.websiteapp')
+@section('title')
+    About Page
+@endsection
 @section('main_content')
 @php
   $image=App\SiteBanner::where('section',6)->where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->first();

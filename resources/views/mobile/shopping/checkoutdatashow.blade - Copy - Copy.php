@@ -61,55 +61,9 @@
 													</tr>
 
 													<tr>
-														<td class="text-right" colspan="4"><strong>Shipping Charge:</strong>
-														</td>
-														@php
-															$user_division = App\UserAddress::where('user_id',Auth::user()->id)->first();
-															if(isset($user_division)){
-																$user_division = $user_division->user_division_id;
-																$deleveryamount = App\DeleveryAmount::first();
-															
-															if($user_division == 6){
-																$deleverycharge =$deleveryamount->insidedhaka;
-															}else{
-																$deleverycharge =$deleveryamount->outsidedhaka;
-															}
-															}
-															
-														@endphp
-
-														{{$deleverycharge}}
-
-														<td class="text-right">
-															@if($user_division == 6)
-																@if(isset($deleveryamount))
-																<input type="hidden" value="{{$deleveryamount->insidedhaka}}" name="shipping_amount">
-																{{$deleveryamount->insidedhaka}}
-																@endif
-															@else
-															@if(isset($deleveryamount))
-															<input type="hidden" value="{{$deleveryamount->outsidedhaka}}" name="shipping_amount">
-																{{$deleveryamount->outsidedhaka}}
-																@endif
-															@endif
-															
-														</td>
-													</tr>
-
-													<tr>
 														<td class="text-right" colspan="4"><strong>Total:</strong>
 														</td>
-														@if(isset($deleverycharge))
-														<td class="text-right" id="totalpriceafterdelevery">৳ {{Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge}}
-															<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge}}" name="total_price">
-
-															</td>
-														@else
-															<td class="text-right" id="totalpriceafterdelevery">৳ {{Cart::session(\Request::getClientIp(true))->getTotal()}}
-
-																<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal()}}" name="total_price">
-															</td>
-														@endif
+														<td class="text-right">৳ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</td>
 													</tr>
 												</tfoot>
 											</table>

@@ -250,6 +250,21 @@ class FrontendController extends Controller
       return view('mobile.newarrival.narrival',compact('products','all_categories','all_brands','colours'));
     }
 
+    // warrenty area start
+
+    public function showWarrenty()
+    {
+        return view('mobile.warrenty.warrenty');
+    }
+
+
+    // show support page
+    public function showSupportPage()
+    {
+        return view('mobile.support.support');
+    }
+
+
 
 
 

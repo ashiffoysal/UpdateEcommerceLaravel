@@ -313,15 +313,23 @@
 
 												<div class="form-group required">
 
+													<select name="shipping_id" id="sipping_upazila" class="form-control">
+														@php
+														$upa=DB::table('upazilas')->get();
+														@endphp
+														@foreach($upa as $upazila)
+														@if($useraddress)
 
-													<select name="shipping_id" id="shipping_courier" class="form-control">
-
-
+														<option value="{{$upazila->id}}">{{$upazila->name}} </option>
+														@endif
+														@endforeach
 													</select>
-                                                    @error('shipping_id')
-                                                    <div class="text-danger alert alert-danger">{{ $message }}</div>
-                                                    @enderror
-                                                    <small style="display:none;" class="text-warning attention_msg"></small>
+
+													@error('shipping_id')
+															<div class="text-danger alert alert-danger">{{ $message }}</div>
+													@enderror
+
+
 												</div>
 
 											</div>
@@ -332,16 +340,10 @@
 											</div>
 											<div class="panel-body">
 												<p>Please select the preferred payment method to use on this order.</p>
-													@php
-														$cashactive=App\Activation::first();
-													@endphp
-													@if($cashactive->cashondelevery==1)
-													<label>
-														<input type="radio" value="1" name="payment_type">Cash On Delivery
-													</label>
-													@endif
 
-													<br>
+													<label>
+														<input type="radio" value="1" checked="checked" name="payment_type">Cash On Delivery
+													</label><br>
 
 													<label>
 														<input type="radio" value="2" name="payment_type">Online Payment
@@ -417,44 +419,8 @@
 
 						<!-- extra hidden field -->
 
-
-
-														@php
-														$user_division = App\UserAddress::where('user_id',Auth::user()->id)->first();
-															if(isset($user_division)){
-																$user_division = $user_division->user_division_id;
-																$deleveryamount = App\DeleveryAmount::first();
-															
-															if($user_division == 6){
-																$deleverycharge =$deleveryamount->insidedhaka;
-															}else{
-																$deleverycharge =$deleveryamount->outsidedhaka;
-															}
-															}
-															
-														@endphp
-
-													
-															@if($user_division == 6)
-															@isset($deleveryamount)
-																<input type="hidden" value="{{$deleveryamount->insidedhaka}}" name="shipping_amount">
-															@endisset
-																
-															@else
-															@isset($deleveryamount)
-															<input type="hidden" value="{{$deleveryamount->outsidedhaka}}" name="shipping_amount">
-															@endisset
-															@endif
-												
-														@if(isset($deleverycharge))
-															<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge}}" name="total_price">
-														@else
-																<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal()}}" name="total_price">
-														@endif
-												
-
-													<input type="hidden" value="{{ Cart::session(\Request::getClientIp(true))->getTotalQuantity() }}" name="total_quantity">
-
+						<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal()}}" name="total_price">
+						<input type="hidden" value="{{ Cart::session(\Request::getClientIp(true))->getTotalQuantity() }}" name="total_quantity">
 
 
 					</form>
@@ -533,7 +499,7 @@ $(document).ready(function () {
 			dataType: "json",
 
 			success: function (data) {
-				
+				console.log(data);
 				$('#user_district').empty();
 				$('#user_district').append(' <option value="0">--Please Select Your Division--</option>');
 				$.each(data, function (index, districtbj) {
@@ -597,7 +563,7 @@ $.ajax({
 	url: "{{ route('get.cart.data') }}",
 
 	success: function(data) {
-		
+
 		$('#cartdata').html(data);
 
 	}
@@ -606,6 +572,7 @@ $.ajax({
 });
 
 </script>
+
 
 <!-- Apply cupon code in field -->
 
@@ -668,7 +635,6 @@ $(document).ready(function () {
 
 
 
-
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -693,19 +659,16 @@ $(document).ready(function () {
 });
 
 
-
 </script>
 
 <!-- get distract name in shipping field -->
 
 <script>
-
 $(document).ready(function () {
 	$('#shipping_division').click(function () {
 
 		var dist_id = $(this).val();
-		
-
+		console.log(dist_id);
 
 
 
@@ -720,7 +683,7 @@ $(document).ready(function () {
 			dataType: "json",
 
 			success: function (data) {
-				
+				console.log(data);
 
 				$('#shipping_district').empty();
 				$('#shipping_district').append(' <option value="0">--Please Select Your Division--</option>');
@@ -733,7 +696,6 @@ $(document).ready(function () {
 });
 
 
-
 </script>
 
 <!-- get upozila name in shipping field -->
@@ -743,7 +705,7 @@ $(document).ready(function () {
 	$('#shipping_district').click(function () {
 
 		var upazilla_id = $(this).val();
-		
+		console.log(upazilla_id);
 
 
 
@@ -758,7 +720,7 @@ $(document).ready(function () {
 			dataType: "json",
 
 			success: function (data) {
-				
+				console.log(data);
 
 				$('#sipping_upazila').empty();
 				$('#sipping_upazila').append(' <option value="0">--Please Select Your Division--</option>');
@@ -771,44 +733,5 @@ $(document).ready(function () {
 });
 
 </script>
-
-
-
-<script>
-$(document).ready(function () {
-	$('#user_division, #shipping_division').change(function () {
-		var division_val =$(this).val();
-		
-		
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		$.ajax({
-			type: 'GET',
-			url: "{{ url('/user/shipping/value') }}/" + division_val,
-			
-
-			success: function (data) {
-				console.log(data);
-				$('#cartdata').html(data);
-
-				
-			}
-		});
-		
-		
-	});
-
-
-	
-
-	
-});
-
-
-</script>
 		@endsection
 	
-

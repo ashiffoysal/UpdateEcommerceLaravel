@@ -12,6 +12,7 @@
 </header>
 <!-- //End Bar Nav -->
 <div class="content">
+
     <div class="container page-sitemap">
         <div class="row">
             <div id="content" class="col-xs-12">
@@ -142,6 +143,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 @endsection

@@ -5,7 +5,7 @@
 
     <!-- Basic page needs
 	============================================ -->
-	<title>SuperMaket - Multipurpose Responsive HTML5 Template</title>
+	<title>@yield('title', 'CUSTOM TITLE')</title>
 	<meta charset="utf-8">
 
 
