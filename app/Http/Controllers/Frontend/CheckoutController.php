@@ -16,6 +16,7 @@ use App\UpozilaCouriers;
 
 use Illuminate\Http\Request;
 use App\DatabaseStorageModel;
+use App\DeleveryAmount;
 use App\Mail\OrderSuccessfullMail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -207,7 +208,7 @@ class CheckoutController extends Controller
     public function orderSubmit(Request $request)
     {
 
-      //return $request;
+      
 
         $validatedData = $request->validate([
             'user_id' => 'required',
@@ -286,6 +287,7 @@ class CheckoutController extends Controller
         ProductStorage::insert([
             'product_details' => json_encode($products),
             'order_id' => $orderid,
+            'shipping_amount'=>$request->shipping_amount,
             'user_id' => Auth::user()->id,
             'created_at' => Carbon::now(),
         ]);
@@ -300,7 +302,6 @@ class CheckoutController extends Controller
             // 'payment_method_id' => $request->payment_method_id,
 
             'payment_type' => $request->payment_type,
-
             'comment' => $request->comment,
             'order_id' => $request->order_id,
             'user_id' => Auth::user()->id,
@@ -308,7 +309,6 @@ class CheckoutController extends Controller
             'total_price' => $request->total_price,
             'total_quantity' => $request->total_quantity,
             'payment_secure_id' => md5($request->order_id),
-
             'created_at' => Carbon::now(),
         ]);
 
@@ -513,4 +513,52 @@ class CheckoutController extends Controller
         $courier = UpozilaCouriers::where('upazila_id', $upazila_id)->where('courier_id', $courier_id)->first();
         return response()->json(['data' => $courier->is_cash_on_delivery]);
     }
+
+
+     // get shipping charge value
+
+     public function shippingChargeValue($id)
+     {
+         
+         
+         $deleveryamount =DeleveryAmount::first();
+         $userid =  \Request::getClientIp(true);
+ 
+         $usercartdatas = Cart::session($userid)->getContent();
+ 
+         if($id == 6){
+             $deleverycharge =$deleveryamount ->insidedhaka;
+         }else{
+             $deleverycharge =$deleveryamount ->outsidedhaka;
+         }
+         
+     
+         return view('frontend.shopping.extra_orderajaxdata', compact('deleverycharge','usercartdatas'));
+ 
+     }
+ 
+ 
+     // send shipping value to the input field
+ 
+     public function shippingChargeValueSend($id)
+ 
+     {
+         $deleveryamount =DeleveryAmount::first();
+         $userid =  \Request::getClientIp(true);
+ 
+         $usercartdatas = Cart::session($userid)->getContent();
+ 
+         if($id == 6){
+             $deleverycharge =$deleveryamount ->insidedhaka;
+         }else{
+             $deleverycharge =$deleveryamount ->outsidedhaka;
+         }
+         $totalpricewithcharge =Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge;
+         
+     
+         return response()->json([
+             'deleverycharge'=>$deleverycharge,
+             'totalpricewithcharge'=>$totalpricewithcharge,
+         ]);
+     }
 }

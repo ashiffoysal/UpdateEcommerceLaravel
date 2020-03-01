@@ -132,7 +132,7 @@
 														<div class="text-danger alert alert-danger">{{ $message }}</div>
 												@enderror
 											</div>
-										</form>
+										
 									</div>
 								</div>
 								<input type="hidden" name="default_zone_id" id="default_zone_id" value="3655">
@@ -141,7 +141,7 @@
 								@php
 									$userid =  \Request::getClientIp(true);
 								@endphp
-								<input type="hidden" value="{{ Cart::session($userid)->getTotalQuantity() }}" name="total_quantity">
+								
 
 
 							<div class="checkbox">
@@ -150,7 +150,7 @@
 								</label>
 							</div>
 
-                            <input type="hidden" value="{{Cart::session($userid)->getTotal()}}" name="total_price">
+                            
 
 							<fieldset id="shipping-address" style="display: none">
 								<h2 class="secondary-title"><i class="fa fa-map-marker"></i>Shipping Address</h2>
@@ -234,7 +234,7 @@
 												</div>
 
 											</div>
-										</form>
+										
 									</div>
 								</div>
 								<input type="hidden" name="default_zone_id" id="default_zone_id" value="3655">
@@ -337,7 +337,7 @@
 							</div>
 
 							<div class="checkout-content checkout-cart">
-								<h2 class="secondary-title"><i class="fa fa-shopping-cart"></i>Shopping Cart (0.00kg) </h2>
+								<h2 class="secondary-title"><i class="fa fa-shopping-cart"></i>Shopping Cart </h2>
 								<div class="box-inner" id="orderdata">
 									<div id="payment-confirm-button" class="payment-">
 										<h2 class="secondary-title"><i class="fa fa-credit-card"></i>Payment Details</h2>
@@ -407,7 +407,7 @@
 						</section>
 					</div>
 				</div>
-			</form>
+			
 
 		</div>
     </div>
@@ -434,6 +434,54 @@
 
 
 </div>
+
+
+						<!-- extra hidden field -->
+
+
+
+						@php
+														$user_division = App\UserAddress::where('user_id',Auth::user()->id)->first();
+															if(isset($user_division)){
+																$user_division = $user_division->user_division_id;
+																$deleveryamount = App\DeleveryAmount::first();
+															
+															if($user_division == 6){
+																$deleverycharge =$deleveryamount->insidedhaka;
+															}else{
+																$deleverycharge =$deleveryamount->outsidedhaka;
+															}
+															}
+															
+														@endphp
+
+													
+															@if($user_division == 6)
+															@isset($deleveryamount)
+																<input type="hidden" id="deleverychargeone" value="{{$deleveryamount->insidedhaka}}" name="shipping_amount">
+																
+															@endisset
+																
+															@else
+															@isset($deleveryamount)
+																<input type="hidden" id="deleverychargetwo" value="{{$deleveryamount->outsidedhaka}}" name="shipping_amount">
+															@endisset
+															@endif
+												
+
+												
+														@if(isset($deleverycharge))
+															<input type="hidden" id="totalpricewithcharge" value="{{Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge}}" name="total_price">
+														@else
+																<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal()}}" name="total_price">
+														@endif
+												
+
+													<input type="hidden" value="{{ Cart::session(\Request::getClientIp(true))->getTotalQuantity() }}" name="total_quantity">
+												
+														</form>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -729,6 +777,74 @@
             }
         })
     });
+</script>
+
+
+
+
+<script>
+$(document).ready(function () {
+	$('#user_division, #shipping_division').change(function () {
+		var division_val =$(this).val();
+		
+		
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		$.ajax({
+			type: 'GET',
+			url: "{{ url('/user/shipping/value') }}/" + division_val,
+			
+
+			success: function (data) {
+				console.log(data);
+				$('#orderdata').html(data);
+
+				
+			}
+		});
+
+
+
+
+		// Send Shipping value to the input field
+
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		$.ajax({
+			type: 'GET',
+			url: "{{ url('/user/shipping/value/to/insert') }}/" + division_val,
+			
+
+			success: function (data) {
+				
+				console.log(data);
+				document.getElementById('totalpricewithcharge').value = data.totalpricewithcharge;
+				document.getElementById('deleverychargeone').value = data.deleverycharge;
+				document.getElementById('deleverychargetwo').value = data.deleverycharge;
+				
+			}
+		});
+
+		
+
+
+		
+	});
+
+
+	
+
+	
+});
+
+
 </script>
 
 

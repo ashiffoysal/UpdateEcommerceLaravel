@@ -369,6 +369,9 @@ class CheckoutController extends Controller
 
     public function orderPlace(Request $request)
     {
+
+        
+
         $validatedData = $request->validate([
             'user_id' => 'required',
             'user_address' => 'required',
@@ -544,6 +547,7 @@ class CheckoutController extends Controller
     public function shippingChargeValue($id)
     {
         
+        
         $deleveryamount =DeleveryAmount::first();
         $userid =  \Request::getClientIp(true);
 
@@ -556,8 +560,33 @@ class CheckoutController extends Controller
         }
         
     
-        return view('mobile.shopping.checkoutdatashow', compact('deleverycharge','usercartdatas'));
+        return view('mobile.shopping.extra_checkout', compact('deleverycharge','usercartdatas'));
 
+    }
+
+
+    // send shipping value to the input field
+
+    public function shippingChargeValueSend($id)
+
+    {
+        $deleveryamount =DeleveryAmount::first();
+        $userid =  \Request::getClientIp(true);
+
+        $usercartdatas = Cart::session($userid)->getContent();
+
+        if($id == 6){
+            $deleverycharge =$deleveryamount ->insidedhaka;
+        }else{
+            $deleverycharge =$deleveryamount ->outsidedhaka;
+        }
+        $totalpricewithcharge =Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge;
+        
+    
+        return response()->json([
+            'deleverycharge'=>$deleverycharge,
+            'totalpricewithcharge'=>$totalpricewithcharge,
+        ]);
     }
 
 }

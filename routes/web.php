@@ -781,6 +781,9 @@ if ($agent->isDesktop()) {
     });
 
 
+    Route::get('/user/shipping/value/{id}', 'Frontend\CheckoutController@shippingChargeValue');
+    Route::get('/user/shipping/value/to/insert/{id}', 'Frontend\CheckoutController@shippingChargeValueSend');
+
     // ======================================Mobile route start from here=================================//
 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
@@ -889,6 +892,7 @@ if ($agent->isDesktop()) {
     Route::post(md5('/mobile/checkout/login'), 'Mobile\AuthController@checkoutAuth')->name('checkout.mobile.login');
     Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
     Route::get(md5('/mobile/logout'), 'Mobile\AuthController@userLogOut')->name('mobile.logout');
+    
     Route::get('/mobile/sms/verify/{token}', 'Mobile\AuthController@smsVerifyPageShow')->name('mobile.sms.verify');
     Route::post('/sms/verification/submit', 'Mobile\AuthController@smsVerification')->name('sms.verification.submit');
 
@@ -939,6 +943,8 @@ if ($agent->isDesktop()) {
  
 
     Route::get('/user/shipping/value/{id}', 'Mobile\CheckoutController@shippingChargeValue');
+    Route::get('/user/shipping/value/to/insert/{id}', 'Mobile\CheckoutController@shippingChargeValueSend');
+
 
 
     Route::group(['prefix' => 'user/login/', 'namespace' => 'Mobile'], function () {
