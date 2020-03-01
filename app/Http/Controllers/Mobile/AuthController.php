@@ -52,13 +52,13 @@ class AuthController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        $verificationWith =  VerificationOption::first();
-        if ($verificationWith->verify_with == 0) {
+        // $verificationWith =  VerificationOption::first();
+        // if ($verificationWith->verify_with == 0) {
 
-            Mail::to($user->email)->send(new UserVerificationMail($user->username, $user->remember_token));
-            session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
-            return redirect()->route('user.auth.registration.success', $user->email);
-        } elseif ($verificationWith->verify_with == 0) {
+        //     Mail::to($user->email)->send(new UserVerificationMail($user->username, $user->remember_token));
+        //     session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
+        //     return redirect()->route('user.auth.registration.success', $user->email);
+        // } elseif ($verificationWith->verify_with == 0) {
             // sms varification code send
 
             $smsusername = $user->username;
@@ -84,7 +84,7 @@ class AuthController extends Controller
             curl_setopt_array($ch, array(
 
                 CURLOPT_URL => $smsurl,
-                CURLOPT_URL => 'http://gosms.xyz/api/v1/sendSms',
+                // CURLOPT_URL => 'http://gosms.xyz/api/v1/sendSms',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_POST => true,
                 CURLOPT_POSTFIELDS => $postData,
@@ -93,8 +93,8 @@ class AuthController extends Controller
             ));
 
             $output = curl_exec($ch);
-            return redirect()->route('sms.verification.form', $user->remember_token);
-        }
+            return redirect()->route('mobile.sms.verify', $user->remember_token);
+        // }
     }
 
     // show sms veryfication page
