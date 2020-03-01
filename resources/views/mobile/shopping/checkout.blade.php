@@ -437,17 +437,20 @@
 													
 															@if($user_division == 6)
 															@isset($deleveryamount)
-																<input type="hidden" value="{{$deleveryamount->insidedhaka}}" name="shipping_amount">
+																<input type="hidden" id="deleverychargeone" value="{{$deleveryamount->insidedhaka}}" name="shipping_amount">
+																
 															@endisset
 																
 															@else
 															@isset($deleveryamount)
-															<input type="hidden" value="{{$deleveryamount->outsidedhaka}}" name="shipping_amount">
+																<input type="hidden" id="deleverychargetwo" value="{{$deleveryamount->outsidedhaka}}" name="shipping_amount">
 															@endisset
 															@endif
 												
+
+												
 														@if(isset($deleverycharge))
-															<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge}}" name="total_price">
+															<input type="hidden" id="totalpricewithcharge" value="{{Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge}}" name="total_price">
 														@else
 																<input type="hidden" value="{{Cart::session(\Request::getClientIp(true))->getTotal()}}" name="total_price">
 														@endif
@@ -791,13 +794,42 @@ $(document).ready(function () {
 			
 
 			success: function (data) {
-				console.log(data);
+				
 				$('#cartdata').html(data);
 
 				
 			}
 		});
+
+
+
+
+		// Send Shipping value to the input field
+
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		$.ajax({
+			type: 'GET',
+			url: "{{ url('/user/shipping/value/to/insert') }}/" + division_val,
+			
+
+			success: function (data) {
+				
+				console.log(data);
+
+				document.getElementById('deleverychargeone').value = data.deleverycharge;
+				document.getElementById('deleverychargetwo').value = data.deleverycharge;
+				document.getElementById('totalpricewithcharge').value = data.totalpricewithcharge;
+			}
+		});
+
 		
+
+
 		
 	});
 

@@ -781,6 +781,9 @@ if ($agent->isDesktop()) {
     });
 
 
+    Route::get('/user/shipping/value/{id}', 'Frontend\CheckoutController@shippingChargeValue');
+    Route::get('/user/shipping/value/to/insert/{id}', 'Frontend\CheckoutController@shippingChargeValueSend');
+
     // ======================================Mobile route start from here=================================//
 
 } elseif ($agent->isMobile() || $agent->isTablet()) {
@@ -939,6 +942,8 @@ if ($agent->isDesktop()) {
  
 
     Route::get('/user/shipping/value/{id}', 'Mobile\CheckoutController@shippingChargeValue');
+    Route::get('/user/shipping/value/to/insert/{id}', 'Mobile\CheckoutController@shippingChargeValueSend');
+
 
 
     Route::group(['prefix' => 'user/login/', 'namespace' => 'Mobile'], function () {
