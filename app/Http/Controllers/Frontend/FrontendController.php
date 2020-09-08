@@ -332,5 +332,19 @@ class FrontendController extends Controller
         }
     }
 
+
+    /**
+     * Showing Account information page.
+     *
+     * @var string
+     */
+
+     public function showAccountInfoPage()
+     {
+         return view('frontend.accounts.notification');
+     }
+
+   
+
     
 }

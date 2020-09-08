@@ -411,14 +411,14 @@
     // wish list end
 
 
-    Route::group(['prefix' => 'dashboard', 'namespace' => 'Frontend',], function () {
-        Route::get('customer/myaccount/settings', 'CustomerController@customerAccount')->name('customer.account');
-        Route::post('customer/account/update', 'CustomerController@customerAccountUpdate')->name('customer.account.update');
-        // Ajax Routes
-        Route::get('customer/get/district/by/division/id/{divisionId}', 'CustomerController@customerGetDistrictByDivision');
-        Route::get('customer/sub_district/by/district/id/{districtId}', 'CustomerController@customerGetSubDistrictByDistrict');
-        // Ajax Routes End
-    });
+    // Route::group(['prefix' => 'dashboard', 'namespace' => 'Frontend',], function () {
+    //     Route::get('customer/myaccount/settings', 'CustomerController@customerAccount')->name('customer.account');
+    //     Route::post('customer/account/update', 'CustomerController@customerAccountUpdate')->name('customer.account.update');
+    //     // Ajax Routes
+    //     Route::get('customer/get/district/by/division/id/{divisionId}', 'CustomerController@customerGetDistrictByDivision');
+    //     Route::get('customer/sub_district/by/district/id/{districtId}', 'CustomerController@customerGetSubDistrictByDistrict');
+    //     // Ajax Routes End
+    // });
 
     Route::get('/customer/order', 'Frontend\FrontendController@customerOrder')->name('customer.order');
     Route::get('/customer/order/info/{id}', 'Frontend\FrontendController@customerOrderInfo')->name('customer.order.info');
@@ -700,6 +700,18 @@
 
 
 
+    // customar login information start here
+    
+    Route::namespace('Frontend')->group(function () {
+        Route::get('/account','FrontendController@showAccountInfoPage')->name('customar.account.page');
+        Route::get('/customar/login/page','AdminController@showLoginForm')->name('customar.login.form');
+        Route::post('/customar/login','AdminController@login')->name('customar.login');
+        Route::post('/customar/register','AdminController@register')->name('customar.register');
+    });
+    
+
+
+
 
 
 
@@ -707,7 +719,7 @@
     // New Route start from here
 
     Route::get('/test',function(){
-        return view('frontend.accounts.notification');
+        return view('frontend.products.product_list');
     });
 
     
