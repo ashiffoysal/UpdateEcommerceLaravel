@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Banner;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
 use App\Http\Controllers\Controller;
-
+use Image;
 
 class BannerController extends Controller
 {

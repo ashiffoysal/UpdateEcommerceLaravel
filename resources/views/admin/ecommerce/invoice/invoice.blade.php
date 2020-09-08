@@ -1,12 +1,15 @@
 @extends('layouts.adminapp')
 @section('admin_content')
+<style>
+	   address{ margin-bottom: 0rem;}
+</style>
 <div class="content_wrapper">
 			<!--middle content wrapper-->
 			<div class="middle_content_wrapper">
 				<section class="invoice_area">
 					<div class="panel mb-0">
 						<div class="panel_header">
-							<div class="panel_title text-center">
+							<div class="panel_title text-left">
 								<span><i class="fa fa-user"></i> Invoice</span>
 							</div>
 						</div>
@@ -42,30 +45,30 @@
 							</div>
 						</form>
 						<br>
-						<div class="panel_body panel_invoice print_element">
+						<div class="panel_body panel_invoice printableArea p-5">
 							@php
 								$logo=App\Logo::first();
 							@endphp
 							<div class="logo">
 								<img src="{{asset('/'.$logo->front_logo)}}" class="img-fluid" alt="">
 							</div>
-							<div class="row mt-2">
+							<div class="row">
 								<div class="col-sm-9">
 								@php
 									$companyaddress=App\FooterOption::first();
 								@endphp
-									<address class="fs-13"> <br>
+									<address class=""><br>
 										<abbr title="Phone">P: </abbr>{{$companyaddress->phone}}
 									</address>
-									<address class="fs-13">
+									<address class="">
 										<a href="mailto:#">{{$companyaddress->email}}</a>
 									</address>
-									<address class="fs-13">
+									<address class="">
 										<a href="mailto:#">{{$companyaddress->address}}</a>
 									</address>
 								</div>
 								<div class="col-sm-3 item_right">
-									<h3 class="mt-0 invoice text-right">Invoice</h3>
+									<h3 class="mt-0 invoice text-center">Invoice</h3>
 									<table class="table_invoice table table-bordered">
 										<thead>
 											<tr>
@@ -171,6 +174,8 @@
 									<th class="text-center">#</th>
 									<th>PRODUCT NAME</th>
 									<th>PRODUCT SKU</th>
+									<th class="text-center" style="width:120px;">PRICE</th>
+									<th class="text-right" style="width:120px;">Product Discount</th>
 									<th class="text-center" style="width:20px;">QTY</th>
 									<th class="text-right" style="width:120px;">UNIT PRICE</th>
 									<th class="text-right" style="width:120px;">TOTAL</th>
@@ -181,41 +186,83 @@
 										$cartid=$invoice->order_id;
 										$allproduct=App\ProductStorage::where('order_id',$cartid)->first();
 									@endphp
-										@foreach (json_decode($allproduct->product_details) as $key => $data)
-									  <tr>
-											<td class="text-center">{{++$key}}</td>
-											<td>{{$data->name}}</td>
-											<td>{{$data->sku}}</td>
-											<td class="text-center">{{$data->quantity}}</td>
-											<td class="text-right">৳ {{$data->price}}</td>
-											<td class="text-right">৳ {{$data->price * $data->quantity}}</td>
-									  </tr>
+									@foreach (json_decode($allproduct->product_details) as $key => $data)
+										  <tr>
+												<td class="text-center">{{++$key}}</td>
+												<td>{{$data->name}}</td>
+												<td>{{$data->sku}}</td>
+												<td class="text-center">
+												@if($data->flashdealtype==1)
+													<p>৳ {{ $data->flashdeals + $data->price }}</p>
+												@elseif($data->flashdealtype==2)
+													@php
+														$percent=($data->price * 100);
+														$fls=100 - $data->flashdeals;
+														$mainprice=$percent/$fls;
+													@endphp
+													<p>৳ {{ $mainprice }}</p>
+												@else
+
+												@endif
+
+												</td>
+												<td class="text-center">
+												@if($data->flashdealtype==1)
+													<p>৳ {{ $data->flashdeals }}</p>
+												@elseif($data->flashdealtype==2)
+													<p>{{ $data->flashdeals }} %</p>
+												@else
+
+												@endif
+												</td>
+												<td>{{$data->quantity}}</td>
+												<td class="text-right">৳ {{$data->price}}</td>
+												<td class="text-right">৳ {{$data->price * $data->quantity}}</td>
+										  </tr>
 										@endforeach
 
 								</tbody>
 								 <tfoot>
 									  <tr>
-											<th colspan="4" class="bdr">
+											<th colspan="6" class="bdr">
 											 <p class="font-normal p-size"><span style="color:#F80303;">Note:</span> Please send all of these items using wooden box package.</p></th>
 											<th class="text-right pd-10">Sub Total</th>
-											<th class="text-right pd-10">৳ {{$invoice->total_price}}</th>
+											@php
+												$orid=$allproduct->order_id;
+												$total=App\OrderPlace::where('order_id',$orid)->first();
+											@endphp
+											<th class="text-right pd-10">৳ {{ $total->total_price - $allproduct->shipping_amount}} </th>
 									  </tr>
 									  <tr>
-											<th class="text-right  pd-10 no-bd" colspan="5">Discount</th>
-											<th class="text-right  pd-10" style="color: tomato;">(0.00)</th>
+											<th class="text-right  pd-10 no-bd" colspan="7">Discount</th>
+											@if($total->cupon_type==1)
+											<th class="text-right  pd-10" style="color: tomato;">৳ {{ $total->cupon_value }}</th>
+											@elseif($total->cupon_type==2)
+											<th class="text-right  pd-10" style="color: tomato;">% {{ $total->cupon_value }}</th>
+											@else
+											<th class="text-right  pd-10" style="color: tomato;">৳ (0.00)</th>
+
+											@endif
 									  </tr>
 									  <tr>
-											<th class="text-right  pd-10 no-bd" colspan="5">Shipping Cost</th>
-											<th class="text-right  pd-10 no-bd">৳50.00</th>
+											<th class="text-right  pd-10 no-bd" colspan="7">Shipping Cost</th>
+											<th class="text-right  pd-10 no-bd">{{ $allproduct->shipping_amount }}</th>
 									  </tr>
 									  <tr>
-											<th colspan="3">Thank you for your business. Please remit the total amount due within 30 days.</th>
+											<th colspan="5">Thank you for your business. Please remit the total amount due within 30 days.</th>
 											<th class="text-right  pd-10" colspan="2">Total</th>
-											<th class="text-right  pd-10 "><span class="vd_green font-sm font-normal" style="color: green;">৳ 2399</span></th>
+											<th class="text-right  pd-10 "><span class="vd_green font-sm font-normal" style="color: green;">৳ {{ $total->total_price }}</span></th>
 									  </tr>
 								</tfoot>
 							  </table>
-
+								<div class="row">
+									<div class="col-md-6">
+										<h6>Mobile: 01730595105 Web: www.durbarit.com</h6>
+									</div>
+									<div class="col-md-6 text-right">
+										<h6>Developed By: DurbarIt</h6>
+									</div>
+								</div>
 						</div>
 						<div class="row mt-3">
 							<div class="col-sm-12 text-center">

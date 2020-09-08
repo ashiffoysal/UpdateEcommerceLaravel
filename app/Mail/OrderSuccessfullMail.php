@@ -17,9 +17,13 @@ class OrderSuccessfullMail extends Mailable
      * @return void
      */
     public $order;
-    public function __construct($order)
+    public $frontLogo;
+    public $siteSettings;
+    public function __construct($order, $frontLogo, $siteSettings)
     {
         $this->order = $order;
+        $this->frontLogo = $frontLogo;
+        $this->siteSettings = $siteSettings;
     }
 
     /**
@@ -30,6 +34,9 @@ class OrderSuccessfullMail extends Mailable
     public function build()
     {
         $order = $this->order;
-        return $this->view('frontend.mail_template.success_order_mail');
+        $frontLogo = $this->frontLogo;
+        $siteSettings = $this->siteSettings;
+        
+        return $this->view('mail_template.success_order_mail', compact('order', 'frontLogo', 'siteSettings'));
     }
 }

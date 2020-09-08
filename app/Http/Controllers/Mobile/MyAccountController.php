@@ -14,9 +14,9 @@ class MyAccountController extends Controller
     public function showMyAccount()
     {
         if(Auth::check()){
-            return view('mobile.accounts.myaccount');
+             return view('mobile.accounts.myaccount');
         }else{
-            return redirect()->route('mobile.login.form');
+            return redirect()->route('login');
         }
     }
 

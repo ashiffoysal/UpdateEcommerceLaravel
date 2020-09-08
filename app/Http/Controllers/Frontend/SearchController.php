@@ -13,18 +13,18 @@ class SearchController extends Controller
     {
         $products = "";
         if ($categoryId === "all") {
-            $getProductByName = Product::where('product_name', 'LIKE', "%$productName%")->get();
+            $getProductByName = Product::where('product_name', 'LIKE', "%$productName%")->select(['id', 'product_price', 'slug', 'product_name', 'thumbnail_img'])->get();
             $products = $getProductByName;
         }
-        $getMainCate = Category::where('id', $categoryId)->first();
+        $getMainCate = Category::where('id', $categoryId)->select(['id'])->first();
         if ($getMainCate) {
-            $getProductByCategoryId = Product::where('cate_id', $getMainCate->id)->where('product_name', 'LIKE', "%$productName%")->get();
+            $getProductByCategoryId = Product::where('cate_id', $getMainCate->id)->where('product_name', 'LIKE', "%$productName%")->select(['id', 'product_price', 'slug', 'product_name', 'thumbnail_img'])->get();
             $products = $getProductByCategoryId;
             return view('frontend.search.search_ajax_view', compact('products'));
         }
-        $getSubCate = SubCategory::where('id', $categoryId)->first();
+        $getSubCate = SubCategory::where('id', $categoryId)->select(['id'])->first();
         if ($getSubCate) {
-            $getProductBySubCategoryId = Product::where('subcate_id', $getSubCate->id)->where('product_name', 'LIKE', "%$productName%")->get();
+            $getProductBySubCategoryId = Product::where('subcate_id', $getSubCate->id)->where('product_name', 'LIKE', "%$productName%")->select(['id', 'product_price', 'slug', 'product_name', 'thumbnail_img'])->get();
             $products = $getProductBySubCategoryId;
             return view('frontend.search.search_ajax_view', compact('products'));
         }

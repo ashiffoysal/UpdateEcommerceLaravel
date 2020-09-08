@@ -89,6 +89,14 @@ button,
 .btn-blue:hover{
   background-color: #079AFF!important;
 }
+/*box*/
+
+.physical-button {
+    background-color: red;
+}
+a.digital-button {
+    background-color: yellow !important;
+}
 /***  Check Box
 ------------------------------------------------*/
 .chech_container {
@@ -898,8 +906,8 @@ footer .developby a:hover{
   position: absolute;
   bottom:6px;
   left:10px;
-  color:#26ABE2;
-  opacity: .5;
+  color:#fff;
+  opacity: 1;
 }
 .icon_soon_right{
   position: absolute;
@@ -989,6 +997,7 @@ footer .developby a:hover{
 .center_content{
   background-color: rgba(0,0,0,.5);
   flex-basis: 360px;
+  border-radius: 20px;
   /*box-shadow: 2px 2px 5px 1px #000;*/
 }
 .center_content form{
@@ -998,7 +1007,7 @@ footer .developby a:hover{
   margin:5px;
 }
 .login_page form input{
-  border-bottom: 2px solid #666!important;
+  border-bottom: 1px solid #fff!important;
   color:#fff!important;
   border-radius: 0px;
 }

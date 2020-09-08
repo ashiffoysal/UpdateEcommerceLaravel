@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeSubscribeMessage;
+use DB;
+use App\Logo;
 
 
 class SubscribeController extends Controller
@@ -21,7 +23,9 @@ class SubscribeController extends Controller
             'email' => $request->subscriber_email
         ]);
 
-        Mail::to($request->subscriber_email)->queue(new WelcomeSubscribeMessage());
+        $siteSettings = DB::table('sitesetting')->select('company_name')->first();
+        $frontLogo = Logo::select(['front_logo'])->first();
+        Mail::to($request->subscriber_email)->send(new WelcomeSubscribeMessage($siteSettings, $frontLogo));
 
         return response()->json(['successMsg' => 'Successfully You have subscribed our web sit, please check you email']);
 

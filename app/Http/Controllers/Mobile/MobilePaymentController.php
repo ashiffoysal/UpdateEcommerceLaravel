@@ -12,6 +12,7 @@ use App\UserAddress;
 use App\ProductStorage;
 use Stripe\Charge;
 use Stripe\Stripe;
+use App\Logo;
 use App\PaymentDetail;
 use App\Mail\PaymentSuccessMail;
 use Illuminate\Support\Facades\DB;
@@ -23,8 +24,6 @@ use Srmklive\PayPal\Services\AdaptivePayments;
 use Illuminate\Foundation\Console\Presets\React;
 use Cart;
 use PayPal;
-
-
 
 class MobilePaymentController extends Controller
 {
@@ -89,7 +88,17 @@ class MobilePaymentController extends Controller
                 ]);
                 $placeOrder = OrderPlace::where('payment_secure_id', $payment_secure_id)->first();
                 if (Auth::user()->email) {
-                    Mail::to(Auth::user()->email)->queue(new PaymentSuccessMail($placeOrder));
+                    $siteSettings = DB::table('sitesetting')
+                    ->select('company_name', 'address', 'facebook', 'twitter', 'instagram')->first();
+
+                $frontLogo = Logo::select(['front_logo'])->first();
+                   $userAddress = UserAddress::where('user_id', $placeOrder->user_id)->select('user_address')->first();
+                $shippingAddress = ShippingAddress::where('shipping_user_id', $placeOrder->user_id)
+                                        ->where('order_id', $placeOrder->order_id)
+                                        ->select('shipping_address')
+                                        ->first();
+                    Mail::to(Auth::user()->email)
+                    ->send(new PaymentSuccessMail($placeOrder, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
                 }
 
                 OrderPlace::where('id', $request->order_id)->update([
@@ -108,7 +117,6 @@ class MobilePaymentController extends Controller
 
   public function paymentPage($paymentSecureId)
   {
-
       $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $paymentSecureId)->first();
       abort_if(!$orderPlace, 403);
       $orderProducts = ProductStorage::where('order_id', $orderPlace->order_id)->first();
@@ -128,7 +136,6 @@ class MobilePaymentController extends Controller
 
   public function makePayment(Request $request)
   {
-
     //return $request->payment_secure_id;
 
       if (!$request->payment_method_id) {
@@ -142,8 +149,6 @@ class MobilePaymentController extends Controller
           ->where('order_id', $request->order_id)
           ->where('payment_secure_id', $request->payment_secure_id)
           ->firstOrFail();
-
-
       $userAddress = UserAddress::where('user_id', Auth::user()->id)->first();
       $shippingAddress = ShippingAddress::where('shipping_user_id', Auth::user()->id)->where('order_id', $request->order_id)->first();
 
@@ -315,7 +320,17 @@ class MobilePaymentController extends Controller
             $getOrderPlace->save();
 
             if (Auth::user()->email) {
-                Mail::to(Auth::user()->email)->queue(new PaymentSuccessMail($getOrderPlace));
+               $siteSettings = DB::table('sitesetting')
+                    ->select('company_name', 'address', 'facebook', 'twitter', 'instagram')->first();
+
+                $frontLogo = Logo::select(['front_logo'])->first();
+                   $userAddress = UserAddress::where('user_id', $getOrderPlace->user_id)->select('user_address')->first();
+                $shippingAddress = ShippingAddress::where('shipping_user_id', $getOrderPlace->user_id)
+                                        ->where('order_id', $getOrderPlace->order_id)
+                                        ->select('shipping_address')
+                                        ->first();
+                Mail::to(Auth::user()->email)
+                ->send(new PaymentSuccessMail($getOrderPlace, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
             }
 
             return redirect()->route('payment.paypal.success');
@@ -335,7 +350,7 @@ class MobilePaymentController extends Controller
         return view('mobile.shopping.ssl_commerz.ssl_commerz_cancel');
     }
 
-// paypal
+      // paypal
       // paypal add
       public function paywithpaypal()
       {
@@ -352,7 +367,6 @@ class MobilePaymentController extends Controller
 
       public function paymentsuccess(Request $request)
       {
-
           $provider = new ExpressCheckout;
           $token = $request->token;
           $PayerID = $request->PayerID;

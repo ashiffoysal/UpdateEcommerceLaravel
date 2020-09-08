@@ -55,7 +55,7 @@
 											$category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
 								    	@endphp
 								      <select class="form-control" name="cate_id" id="cate_id">
-								      	<option >Select</option>
+								      	<option value="">Select</option>
 								      	@foreach($category as $cate)
 								      	<option  value="{{$cate->id}}" @if($data->cate_id==$cate->id) selected @else @endif>{{$cate->cate_name}}</option>
 								      	@endforeach
@@ -69,6 +69,7 @@
 											$subcategory=App\SubCategory::where('is_deleted',0)->get();
 								   		 @endphp
 								      <select class="form-control" name="subcate_id" id="subcate_id">
+								      	<option value="">Select</option>
 								      	@foreach($subcategory as $subcate)
 								      	<option value="{{$subcate->id}}"@if($data->subcate_id==$subcate->id) selected @endif>{{$subcate->subcate_name}}</option>
 								      	@endforeach
@@ -82,6 +83,7 @@
 								    	$resubcate=App\ReSubCategory::where('is_deleted',0)->get();
 								      @endphp
 								      <select class="form-control" name="resubcate_id" id="resubcate_id">
+								      	<option value="">Select</option>
 								      	@foreach($resubcate as $resub)
 								      	<option value="{{$resub->id}}" @if($data->resubcate_id==$resub->id) selected @endif>{{$resub->resubcate_name}}</option>
 								      	@endforeach

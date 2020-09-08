@@ -8,6 +8,8 @@ use App\Mail\UserVerificationMail;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\SmsModel;
+use App\Logo;
+use DB;
 use App\VerificationOption;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -78,14 +80,21 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'remember_token' => md5($request->email),
             'verification_code' => $verify_code,
+            'company_name' => NULL,
             'ip_address' => $request->ip()
         ]);
 
         $verificationWith =  VerificationOption::first();
         if ($verificationWith->verify_with == 0) {
+            $frontLogo = Logo::select(['front_logo'])->first();
+            $siteSettings = DB::table('sitesetting')
+                            ->select(['company_name', 'address', 'facebook', 'instagram', 'twitter'])
+                            ->first();
+            Mail::to($user->email)
+            ->send(new UserVerificationMail($user->username, $user->remember_token, $frontLogo, $siteSettings));
 
-            Mail::to($user->email)->queue(new UserVerificationMail($user->username, $user->remember_token));
             session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
+
             return redirect()->route('user.auth.registration.success', $user->email);
 
         } elseif ($verificationWith->verify_with == 1) {

@@ -52,7 +52,7 @@
 																					</label> -->
 																					{{++$key}}
 		                                      </td>
-		                                      <td>{{$data->first_name}} {{$data->last_name}}</td>
+		                                      <td>{{$data->username}}</td>
 		                                      <td>{{$data->phone}}</td>
 		                                      <td>{{$data->email}}</td>
 		                                       <td>

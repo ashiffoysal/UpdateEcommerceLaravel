@@ -367,11 +367,16 @@ $logo=DB::table('logos')->first();
                     @if(Auth::user()->blog==1)
                     <!-- blog menu start from here -->
                     <li class="single-nav-wrapper">
-                        <a class="has-arrow menu-item" href="" aria-expanded="false">
-                            <span class="left-icon"><i class="far fa-copy"></i></span>
-                            <span class="menu-text">Blogs</span>
-                        </a>
-                    </li>
+                            <a class="has-arrow menu-item" href="#" aria-expanded="false">
+                                <span class="left-icon"><i class="fa fa-copy"></i></span>
+                                <span class="menu-text">Blog</span>
+                            </a>
+                            <ul class="dashboard-menu">
+                            <li><a href="{{ route('admin.blog.all') }}">All Blog</a></li>
+                            <li><a href="{{ route('admin.blog.add') }}">Add Blog</a></li>
+                            <li><a href="{{ route('admin.blog.blogcomment') }}">All Blog Comment</a></li>
+                            </ul>
+                        </li>
                     @else
                     @endif
                     @if(Auth::user()->settings==1)
@@ -430,23 +435,24 @@ $logo=DB::table('logos')->first();
                         </a>
                         <ul class="dashboard-menu">
                             <li><a href="{{route('admin.trash.product')}}">Product</a></li>
-                            <li><a href="{{route('admin.trash.category')}}">Category</a></li>
-                            <li><a href="{{route('admin.trash.subcategory')}}">SubCategory</a></li>
-                            <li><a href="{{route('admin.trash.resubcategory')}}">ReSubCategory</a></li>
-                            <li><a href="{{route('admin.trash.color')}}">Color</a></li>
-                            <li><a href="{{route('admin.trash.brand')}}">Brand</a></li>
-                            <li><a href="{{route('admin.trash.measurement')}}">Measurement</a></li>
-                            <li><a href="{{route('admin.flash.deal.trash.view')}}">Flash Deal</a></li>
-                            <li><a href="{{route('admin.trash.cupon')}}">Cupon</a></li>
-                            <li><a href="{{route('admin.trash.faq')}}">Faq</a></li>
-                            <li><a href="{{route('admin.trash.page')}}">Page</a></li>
-                            <li><a href="{{route('admin.trash.banner')}}">Slider</a></li>
-                            <li><a href="{{route('admin.trash.sitebanner')}}">SiteBanner</a></li>
-                            <li><a href="{{route('admin.trash.allorder')}}">All Deleted Order</a></li>
-                            <li><a href="{{route('admin.trash.warrantytrash')}}">All Delete Warranty</a></li>
-                            <li><a href="{{route('admin.trash.support')}}">All Delete Support</a></li>
-                            <li><a href="{{route('admin.trash.MobileSlider')}}">All Delete Mobile Slider</a></li>
-                            <li><a href="{{route('admin.trash.mobilebanner')}}">All Delete Mobile Banner</a></li>
+                            <!--<li><a href="{{route('admin.trash.category')}}">Category</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.subcategory')}}">SubCategory</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.resubcategory')}}">ReSubCategory</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.color')}}">Color</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.brand')}}">Brand</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.measurement')}}">Measurement</a></li>-->
+                            <!--<li><a href="{{route('admin.flash.deal.trash.view')}}">Flash Deal</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.cupon')}}">Cupon</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.faq')}}">Faq</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.page')}}">Page</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.banner')}}">Slider</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.sitebanner')}}">SiteBanner</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.allorder')}}">All Deleted Order</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.warrantytrash')}}">All Delete Warranty</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.support')}}">All Delete Support</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.MobileSlider')}}">All Delete Mobile Slider</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.mobilebanner')}}">All Delete Mobile Banner</a></li>-->
+                            <!--<li><a href="{{route('admin.trash.blog')}}">All Delete Blog</a></li>-->
                         </ul>
                     </li>
                     @else
@@ -487,28 +493,28 @@ $logo=DB::table('logos')->first();
     <!-- counter -->
     <script src="{{ asset('public/adminpanel/assets/plugins/counter/js/counter.js') }}"></script>
     <!-- chart -->
-    <!--  <script src="{{ asset('public/adminpanel/assets/plugins/chartjs-bar-chart/Chart.min.js') }}"></script>
+   {{-- <script src="{{ asset('public/adminpanel/assets/plugins/chartjs-bar-chart/Chart.min.js') }}"></script>
 
-        <script src="{{ asset('public/adminpanel/assets/plugins/chartjs-bar-chart/chart.js') }}"></script> -->
+        <script src="{{ asset('public/adminpanel/assets/plugins/chartjs-bar-chart/chart.js') }}"></script>  --}}
     <!-- pie chart -->
     <script src="{{ asset('public/adminpanel/assets/plugins/pie_chart/chart.loader.js') }}"></script>
-    <!-- <script src="{{ asset('public/adminpanel/assets/plugins/pie_chart/pie.active.js') }}"></script> -->
+    {{-- <script src="{{ asset('public/adminpanel/assets/plugins/pie_chart/pie.active.js') }}"></script>  --}}
 
     <script src="{{asset('public/adminpanel')}}/assets/plugins/js/jquery.PrintArea.js"></script>
 
         <script>
            $(function () {
                $("#print").on('click', function () {
-                   var mode = 'iframe'; //popup
+                   var mode = 'popup'; //popup
                    var close = mode == "popup";
                    var options = {
                        mode: mode,
-                       popClose: close
+                       // popClose: close
                    };
                    $("div.printableArea").printArea(options);
                });
            });
-       </script>
+         </script>
 		<!-- basic-donut-chart -->
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
     @php

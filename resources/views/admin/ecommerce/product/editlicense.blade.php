@@ -65,6 +65,7 @@
 											$subcategory=App\SubCategory::where('is_deleted',0)->get();
 								    	@endphp
 								      <select class="form-control" name="subcate_id" id="subcate_id">
+								      	<option value="">Select</option>
 								      	@foreach($subcategory as $subcate)
 								      	<option value="{{$subcate->id}}"@if($data->subcate_id==$subcate->id) selected @endif>{{$subcate->subcate_name}}</option>
 								      	@endforeach
@@ -77,8 +78,9 @@
 								    <div class="col-sm-6">
 								      @php
 								    		$resubcate=App\ReSubCategory::where('is_deleted',0)->get();
-								    	@endphp
+								      @endphp
 								      <select class="form-control" name="resubcate_id" id="resubcate_id">
+								      	<option value="">Select</option>
 								      	@foreach($resubcate as $resub)
 								      	<option value="{{$resub->id}}" @if($data->resubcate_id==$resub->id) selected @endif>{{$resub->resubcate_name}}</option>
 								      	@endforeach
@@ -165,52 +167,7 @@
 									    </div>
 								    </div>
 
-								 {{-- <div class="row">
-		                          	<div class="col-md-3"></div>
-		                          	<div class="col-md-8">
-		                             	<label class="chech_container mb-4">
-											<input type="checkbox"  id="allow_flash_deal"  name="allow_flash_deal" value="1" @if($data->allow_flash_deal==1) checked @else @endif>
-											<span class="checkmark"></span>
-											Flash Deal
-										</label>
-		                          	</div>
-		                        </div> --}}
-
-		                         {{-- <div id="flash_deal_section" @if($data->allow_flash_deal==1) @else style="display: none;" @endif>
-		                              <div  class="row">
-		                                <div class="col-md-3"></div>
-		                                <div class="col-md-6 row">
-		                                   <div class="col-md-3">
-		                                      	<label>Start Date:</label>
-		                                        <input type="date" name="flash_deal_start_date" class="form-control" value="{{$data->flash_deal_start_date}}">
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                      	<label>End Date:</label>
-		                                        <input type="date" name="flash_deal_end_date" class="form-control" value="{{$data->flash_deal_end_date}}">
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                      	<label>% / Amount</label>
-		                                        <select class="form-control" name="flash_deal_type">
-		                                        	@if($data->flash_deal_type==1)
-		                                        	<option value="1" selected>Amount</option>
-		                                        	<option value="2">%</option>
-		                                        	@elseif($data->flash_deal_type==2)
-													<option value="1">Amount</option>
-		                                        	<option value="2" selected>%</option>
-		                                        	@else
-		                                        	<option>--Select--</option>
-		                                        	<option value="1">Amount</option>
-		                                        	<option value="2">%</option>
-		                                        	@endif
-		                                        </select>
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                      	<label>Price</label>
-		                                        <input type="number" name="flash_deal_price" class="form-control" value="{{$data->flash_deal_price}}">
-		                                    </div>
-		                                </div>
-		                             </div>
-                          		</div> --}}
+								 
                           		<div style="margin-top: 15px">
 	                          		<div class="row">
 	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
@@ -249,7 +206,7 @@
 									<div class="form-group row">
 										<label for="inputPassword" class="col-sm-3 col-form-label text-right">Video Link</label>
 										<div class="col-sm-6">
-											<textarea class="form-control" name="video">{{$data->video}</textarea>
+											<textarea class="form-control" name="video">{{$data->video}}</textarea>
 										</div>
 									</div>
 								 <!-- image -->
@@ -372,7 +329,7 @@
                  success:function(data) {
 
                         $('#subcate_id').empty();
-                        $('#subcate_id').append(' <option value="0">--Select--</option>');
+                        $('#subcate_id').append(' <option value="">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
                        });
@@ -399,7 +356,7 @@
                  success:function(data) {
 
                         $('#resubcate_id').empty();
-                        $('#resubcate_id').append(' <option value="0">--Select--</option>');
+                        $('#resubcate_id').append(' <option value="">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#resubcate_id').append('<option value="' + districtObj.id + '">'+districtObj.resubcate_name+'</option>');
                        });

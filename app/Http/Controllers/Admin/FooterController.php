@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\FooterOption;
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
+use Intervention\Image\Facades\Image;
 use App\Http\Controllers\Controller;
-//use Image;
 
 class FooterController extends Controller
 {
@@ -38,7 +37,8 @@ class FooterController extends Controller
             'footer_text' => 'required',
         ]);
 
-        $footer_update = FooterOption::findOrFail(11)->update([
+        $footer_update = FooterOption::where('id',11)->firstOrFail();
+        $footer_update->update([
             'address' => $request->address,
             'phone' => $request->phone,
             'email' => $request->email,
@@ -49,9 +49,12 @@ class FooterController extends Controller
 
         if (request()->hasFile('payment_image')) {
             $footer_img = request()->file('payment_image');
-            $imagename = 11 . '.' . $footer_img->getClientOriginalExtension();
-            Image::make($footer_img)->resize(333, 32)->save(base_path('public/uploads/footerpayment/' . $imagename), 100);
-            FooterOption::findOrFail(11)->update([
+            $imagename = uniqid() . '.' . $footer_img->getClientOriginalExtension();
+            Image::make($footer_img)->resize(333, 32)->save('public/uploads/footerpayment/' .$imagename, 100);
+            if(public_path('/uploads/footerpayment/').$footer_update->payment_image){
+                unlink('public/uploads/footerpayment/'.$footer_update->payment_image);
+            }
+            $footer_update->update([
                 'payment_image' => $imagename,
             ]);
         }

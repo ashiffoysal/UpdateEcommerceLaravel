@@ -63,7 +63,7 @@
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product SubCategory</label>
 								    <div class="col-sm-6">
 								      <select class="form-control" name="subcate_id" id="subcate_id">
-								      	<option value="0">Select Sub-category</option>
+								      	<option value="">Select Sub-category</option>
 								      </select>
 								    </div>
 								  </div>
@@ -71,7 +71,7 @@
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product ReSubCategory</label>
 								    <div class="col-sm-6">
 								      <select class="form-control" name="resubcate_id" id="resubcate_id">
-								      	<option value="0">Select Re-Sub-Category</option>
+								      	<option value="">Select Re-Sub-Category</option>
 								      </select>
 								    </div>
 								  </div>
@@ -327,7 +327,7 @@ $('input[name="unit_price"]').on('keyup', function() {
                  success:function(data) {
 
                         $('#subcate_id').empty();
-                        $('#subcate_id').append(' <option value="0">--Select--</option>');
+                        $('#subcate_id').append(' <option value="">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
                        });
@@ -354,7 +354,7 @@ $('input[name="unit_price"]').on('keyup', function() {
                  success:function(data) {
 
                         $('#resubcate_id').empty();
-                        $('#resubcate_id').append(' <option value="0">--Select--</option>');
+                        $('#resubcate_id').append(' <option value="">--Select--</option>');
                         $.each(data,function(index,districtObj){
                          $('#resubcate_id').append('<option value="' + districtObj.id + '">'+districtObj.resubcate_name+'</option>');
                        });

@@ -55,6 +55,10 @@ class AddToCartController extends Controller
             $data['attributes']['product_id'] = $product->id;
             $data['attributes']['variation'] = 'variation';
             $data['attributes']['sku'] = $request->product_sku;
+            $data['attributes']['flashdeals'] = 0;
+            $data['attributes']['flashdealtype'] = 0;
+
+            
 
             $productdetails = Product::findOrFail($request->product_id);
 
@@ -65,6 +69,25 @@ class AddToCartController extends Controller
             }
 
             $add = Cart::session($userid)->add($data);
+
+            if($flashDealdiscounts){
+                
+                Cart::session($userid)->update(
+                    $id,[
+
+                        'attributes' => [
+                            'flashdeals' => $flashDealdiscounts->discount,
+                            'flashdealtype' => $flashDealdiscounts->discount_type,
+                            'thumbnail_img' => $product->thumbnail_img,
+                            'colors' => $request->color,
+                            'product_id' => $product->id,
+                            'variation' => 'variation',
+                            'sku' => $request->product_sku,
+                        ],
+                    ]
+                );
+            }
+
             // non variation product add
             $product->number_of_sale++;
             $product->save();
@@ -94,8 +117,27 @@ class AddToCartController extends Controller
                     'thumbnail_img' => $product->thumbnail_img,
                     'product_id' => $product->id,
                     'sku' => $product->product_sku,
+                    'flashdeals' => 0,
+                    'flashdealtype' => 0,
                 ],
             ]);
+
+
+            if($flashDealdiscounts){
+                
+                Cart::session($userid)->update(
+                    $product->id,[
+
+                        'attributes' => [
+                            'flashdeals' => $flashDealdiscounts->discount,
+                            'flashdealtype' => $flashDealdiscounts->discount_type,
+                            'thumbnail_img' => $product->thumbnail_img,
+                            'product_id' => $product->id,
+                            'sku' => $product->product_sku,
+                        ],
+                    ]
+                );
+            }
         }
 
         $product->number_of_sale++;

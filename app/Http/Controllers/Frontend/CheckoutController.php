@@ -13,7 +13,7 @@ use App\UserUsedCupon;
 use App\ProductStorage;
 use App\ShippingAddress;
 use App\UpozilaCouriers;
-
+use App\Logo;
 use Illuminate\Http\Request;
 use App\DatabaseStorageModel;
 use App\DeleveryAmount;
@@ -23,8 +23,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
-// use Srmklive\PayPal\Services\AdaptivePayments;
-// use Illuminate\Foundation\Console\Presets\React;
+
 
 class CheckoutController extends Controller
 {
@@ -38,7 +37,6 @@ class CheckoutController extends Controller
             if (Auth::check()) {
                 $order_id = rand(100, 100000);
                 $useraddress = UserAddress::where('user_id', Auth::user()->id)->first();
-
                 return view('frontend.shopping.checkout', compact('order_id', 'useraddress'));
             } else {
 
@@ -204,10 +202,15 @@ class CheckoutController extends Controller
     }
 
     // order submit area start
+  // order submit area start
 
     public function orderSubmit(Request $request)
     {
 
+
+      
+
+        // user data validation
       
 
         $validatedData = $request->validate([
@@ -219,11 +222,13 @@ class CheckoutController extends Controller
             'user_division_id' => 'required',
             'user_district_id' => 'required',
             'user_upazila_id' => 'required',
-            'shipping_id' => 'required',
             'privacy' => 'accepted',
             'agree' => 'accepted',
             'payment_type' => 'required',
         ]);
+
+
+        // user data insert
 
         $usseraddress_id = UserAddress::insertGetId([
             'user_id' => $request->user_id,
@@ -237,6 +242,10 @@ class CheckoutController extends Controller
             'is_shipping_address' => $request->is_shipping_address,
             'created_at' => Carbon::now(),
         ]);
+
+
+        // if user insert shipping data
+
 
         if (UserAddress::findOrFail($usseraddress_id)->is_shipping_address == NULL) {
 
@@ -269,33 +278,65 @@ class CheckoutController extends Controller
             ]);
         }
 
-        $orderid = $request->order_id;
-
-        $usercartdatas = Cart::session(\Request::getClientIp(true))->getContent();
+       
 
 
-        $products = array();
-
-        foreach ($usercartdatas as $usercartdata) {
-            $item['name'] = $usercartdata->name;
-            $item['price'] = $usercartdata->price;
-            $item['quantity'] = $usercartdata->quantity;
-            $item['sku'] = $usercartdata->attributes->sku;
-            array_push($products, $item);
-        }
-
-        ProductStorage::insert([
-            'product_details' => json_encode($products),
-            'order_id' => $orderid,
-            'shipping_amount'=>$request->shipping_amount,
-            'user_id' => Auth::user()->id,
-            'created_at' => Carbon::now(),
-        ]);
 
         $userid =  \Request::getClientIp(true);
         $useriditem =  \Request::getClientIp(true) . '_cart_items';
         $useridcondition =  \Request::getClientIp(true) . '_cart_conditions';
         $purchase_key = DatabaseStorageModel::findOrFail($useriditem)->purchase_key;
+
+
+
+
+        // get the cupon value which is insert within 2 minutes ago
+
+
+        
+        $cuponid = UserUsedCupon::where('user_ip',Auth::user()->id)->where('status',0)->orderBy('id', 'DESC')->first();
+
+        if (isset($cuponid)) {
+            $cupondata = Cupon::findOrFail($cuponid->cupon_id);
+            $cupondiscount =$cupondata->discount;
+           
+            $cupondiscounttype = $cupondata->discount_type;
+        }else{
+            $cupondiscount = 0;
+            $cupondiscounttype = 0;
+        }
+
+
+        // get the delevery amount
+
+            if (UserAddress::findOrFail($usseraddress_id)->is_shipping_address == NULL) {
+
+            $deleveryamount = DeleveryAmount::first();
+
+
+            if ($request->shipping_division_id == 6) {
+                $deleverycharge =$deleveryamount->insidedhaka;
+                $totalprice =Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge;
+            }else{
+                $deleverycharge =$deleveryamount->outsidedhaka;
+                $totalprice =Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge;
+            }
+        }else{
+            $user_division = UserAddress::findOrFail($usseraddress_id);
+            $deleveryamount = DeleveryAmount::first();
+            if ($user_division->user_division_id == 6) {
+                $deleverycharge =$deleveryamount->insidedhaka;
+                $totalprice =Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge;
+            }else{
+                $deleverycharge =$deleveryamount->outsidedhaka;
+                $totalprice =Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge;
+            }
+
+        }
+
+
+        // Insert data in order place table
+
 
         $orderPlaceId = OrderPlace::insertGetId([
             'shipping_id' => $request->shipping_id,
@@ -306,11 +347,45 @@ class CheckoutController extends Controller
             'order_id' => $request->order_id,
             'user_id' => Auth::user()->id,
             'cart_id' => $purchase_key,
-            'total_price' => $request->total_price,
+            'total_price' => $totalprice,
             'total_quantity' => $request->total_quantity,
             'payment_secure_id' => md5($request->order_id),
+            'cupon_value' => $cupondiscount,
+            'cupon_type' =>$cupondiscounttype,
             'created_at' => Carbon::now(),
         ]);
+
+
+
+        // insert data in product storese 
+
+        $orderid = $request->order_id;
+
+        $usercartdatas = Cart::session(\Request::getClientIp(true))->getContent();
+
+
+        $products = array();
+
+        foreach ($usercartdatas as $usercartdata) {
+            $item['id'] = $usercartdata->attributes->product_id;
+            $item['name'] = $usercartdata->name;
+            $item['price'] = $usercartdata->price;
+            $item['quantity'] = $usercartdata->quantity;
+            $item['sku'] = $usercartdata->attributes->sku;
+            $item['flashdeals'] = $usercartdata->attributes->flashdeals;
+            $item['flashdealtype'] = $usercartdata->attributes->flashdealtype;
+            array_push($products, $item);
+        }
+
+        ProductStorage::insert([
+            'product_details' => json_encode($products),
+            'order_id' => $orderid,
+            'shipping_amount'=>$deleverycharge,
+            'user_id' => Auth::user()->id,
+            'created_at' => Carbon::now(),
+        ]);
+
+        // delete exsit userdata
 
         $userdetails = UserAddress::where('user_id', Auth::user()->id)->get();
         $userdatacount = count($userdetails);
@@ -319,14 +394,26 @@ class CheckoutController extends Controller
             $userdatas = UserAddress::where('user_id', Auth::user()->id)->first()->delete();
         }
 
+        // delete cart data
+
         DatabaseStorageModel::where('id', $useriditem)->first()->delete();
         if (DatabaseStorageModel::where('id', $useridcondition)->first()) {
             DatabaseStorageModel::where('id', $useridcondition)->first()->delete();
         }
 
-        $getOrder = OrderPlace::where('id', $orderPlaceId)->first();
+        // change status in user used cupon
+
+        if(isset($cuponid)){
+            UserUsedCupon::where('user_ip',Auth::user()->id)->where('status',0)->update([
+                'status'=>1,
+            ]);
+        }
+        
+        $getOrder = OrderPlace::where('id', $orderPlaceId)->select(['id','order_id', 'payment_secure_id' , 'total_price', 'created_at'])->first();
+        $siteSettings = DB::table('sitesetting')->select('company_name', 'address', 'facebook', 'twitter', 'instagram')->first();
+        $frontLogo = Logo::select(['front_logo'])->first();
         if (Auth::user()->email) {
-            Mail::to(Auth::user()->email)->send(new OrderSuccessfullMail($getOrder));
+            Mail::to(Auth::user()->email)->send(new OrderSuccessfullMail($getOrder, $frontLogo, $siteSettings));
         }
 
         if ($request->payment_type == 1) {
@@ -388,7 +475,6 @@ class CheckoutController extends Controller
             )
         );
 
-
         if ($updatecart) {
             $userid =  \Request::getClientIp(true);
             $usercartdatas = Cart::session($userid)->getContent();
@@ -417,7 +503,6 @@ class CheckoutController extends Controller
     // paypal add
     public function paywithpaypal()
     {
-
         $provider = new ExpressCheckout;
         $invoiceId = uniqid();
         $data = $this->cartData($invoiceId);
@@ -430,7 +515,6 @@ class CheckoutController extends Controller
 
     public function paymentsuccess(Request $request)
     {
-
         $provider = new ExpressCheckout;
         $token = $request->token;
         $PayerID = $request->PayerID;
@@ -449,7 +533,6 @@ class CheckoutController extends Controller
 
     protected function cartData($invoiceId)
     {
-
         $data = [];
         $data['items'] = [];
         // $userid =  \Request::getClientIp(true);
@@ -481,8 +564,6 @@ class CheckoutController extends Controller
             $total += $item['price'] * $item['qty'];
         }
         $data['total'] = $total;
-
-
         return $data;
     }
 
@@ -493,11 +574,10 @@ class CheckoutController extends Controller
 
         $cupon = Cupon::findOrFail($userusedcupon->cupon_id);
 
-        if ($cupon->cupon_type == 1) {
-
-
+        if ($cupon->discount_type == 1) {
             $cupondatavalue = '৳ ' . $cupon->discount;
-        } else {
+            
+        } elseif($cupon->discount_type == 2) {
 
             $cupondatavalue = $cupon->discount . '%';
         }
@@ -505,7 +585,7 @@ class CheckoutController extends Controller
         $userid =  \Request::getClientIp(true);
 
         $usercartdatas = Cart::session($userid)->getContent();
-        return view('frontend.shopping.orderajaxdata', compact('usercartdatas', 'cupondatavalue'));
+        return view('frontend.shopping.orderajaxdata', compact('usercartdatas', 'cupondatavalue','cupon'));
     }
 
     public function checkCourierCashOnDeliviry($upazila_id, $courier_id)
@@ -514,13 +594,10 @@ class CheckoutController extends Controller
         return response()->json(['data' => $courier->is_cash_on_delivery]);
     }
 
-
      // get shipping charge value
 
      public function shippingChargeValue($id)
      {
-         
-         
          $deleveryamount =DeleveryAmount::first();
          $userid =  \Request::getClientIp(true);
  
@@ -537,7 +614,6 @@ class CheckoutController extends Controller
  
      }
  
- 
      // send shipping value to the input field
  
      public function shippingChargeValueSend($id)
@@ -545,7 +621,6 @@ class CheckoutController extends Controller
      {
          $deleveryamount =DeleveryAmount::first();
          $userid =  \Request::getClientIp(true);
- 
          $usercartdatas = Cart::session($userid)->getContent();
  
          if($id == 6){
@@ -555,7 +630,6 @@ class CheckoutController extends Controller
          }
          $totalpricewithcharge =Cart::session(\Request::getClientIp(true))->getTotal() + $deleverycharge;
          
-     
          return response()->json([
              'deleverycharge'=>$deleverycharge,
              'totalpricewithcharge'=>$totalpricewithcharge,

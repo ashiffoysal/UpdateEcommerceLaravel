@@ -19,8 +19,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'http://localhost/git/durbarit_eco/payment/ssl_commercez/success',
-        'http://localhost/git/durbarit_eco/payment/ssl_commercez/fail',
-        'http://localhost/git/durbarit_eco/payment/ssl_commercez/cancel',
+        'http://localhost/foysal/echofinal2/payment/ssl_commercez/success',
+        'http://localhost/foysal/echofinal2/payment/ssl_commercez/fail',
+        'http://localhost/foysal/echofinal2/payment/ssl_commercez/cancel',
     ];
 }

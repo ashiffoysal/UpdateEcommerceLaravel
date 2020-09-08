@@ -11,6 +11,8 @@ return array(
     'App\\AddToCart' => $baseDir . '/app/AddToCart.php',
     'App\\Admin' => $baseDir . '/app/Admin.php',
     'App\\Banner' => $baseDir . '/app/Banner.php',
+    'App\\Blog' => $baseDir . '/app/Blog.php',
+    'App\\BlogComment' => $baseDir . '/app/BlogComment.php',
     'App\\Brand' => $baseDir . '/app/Brand.php',
     'App\\Category' => $baseDir . '/app/Category.php',
     'App\\CategoryBanner' => $baseDir . '/app/CategoryBanner.php',

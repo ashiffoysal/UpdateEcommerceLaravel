@@ -11,6 +11,8 @@ use App\Mesurement;
 use App\Color;
 use App\Product;
 use App\Support;
+use App\Blog;
+use App\BlogComment;
 use App\Brand;
 use App\Cupon;
 use App\Faq;
@@ -34,6 +36,76 @@ class TrashController extends Controller
     public function index()
     {
     }
+
+    // blog
+    public function blog(){
+        $all=Blog::where('is_deleted',1)->get();
+        return view('admin.ecommerce.trash.blog',compact('all'));
+    }
+    // del
+    public function blogdel(Request $request){
+       switch ($request->input('submit')) {
+            case 'delete':
+                $deleteid = $request['delid'];
+                if ($deleteid) {
+                    $deletpost = Blog::whereIn('id', $deleteid)->delete();
+                     $commentdelete=BlogComment::whereIn('blog_id',$deleteid)->get();
+                        foreach ($commentdelete as $key => $value) {
+                            $comm=$value->delete();
+                           
+                        }
+                    if ($deletpost) {
+                        $notification = array(
+                            'messege' => 'Multiple Delete Successfully',
+                            'alert-type' => 'success'
+                        );
+                        return Redirect()->back()->with($notification);
+                    } else {
+                        $notification = array(
+                            'messege' => 'Multiple Delete Faild',
+                            'alert-type' => 'errors'
+                        );
+                        return Redirect()->back()->with($notification);
+                    }
+                } else {
+                    $notification = array(
+                        'messege' => 'Nothing To Delete',
+                        'alert-type' => 'info'
+                    );
+                    return Redirect()->back()->with($notification);
+                }
+                break;
+            case 'restore':
+                $deleteid = $request['delid'];
+                if ($deleteid) {
+                    $delet = Blog::whereIn('id', $deleteid)->update([
+                        'is_deleted' => '0',
+                        'updated_at' => Carbon::now()->toDateTimeString(),
+                    ]);
+                    if ($delet) {
+                        $notification = array(
+                            'messege' => 'Multiple Recover Successfully',
+                            'alert-type' => 'success'
+                        );
+                        return Redirect()->back()->with($notification);
+                    } else {
+                        $notification = array(
+                            'messege' => 'Multiple Recover Faild',
+                            'alert-type' => 'errors'
+                        );
+                        return Redirect()->back()->with($notification);
+                    }
+                } else {
+                    $notification = array(
+                        'messege' => 'Nothing To Recover',
+                        'alert-type' => 'info'
+                    );
+                    return Redirect()->back()->with($notification);
+                }
+                break;
+        }
+    }
+
     // category
     public function category()
     {

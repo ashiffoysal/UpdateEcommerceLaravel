@@ -40,6 +40,7 @@
 			                                 </th>
 	                                      <th>Color Code</th>
 	                                      <th>Color</th>
+	                                      <th>Hover</th>
 	                                      <th>Status</th>
 	                                      <th>manage</th>
 		                                  </tr>
@@ -48,27 +49,30 @@
 		                       			@foreach($allcolor as $data)
 		                                  <tr>
 	                                  		  <td>
-																					<label class="chech_container mb-4">
-																						<input type="checkbox" name="delid[]" class="checkbox" value="{{$data->id}}">
-																						<span class="checkmark"></span>
-																					</label>
+												<label class="chech_container mb-4">
+													<input type="checkbox" name="delid[]" class="checkbox" value="{{$data->id}}">
+													<span class="checkmark"></span>
+												</label>
 		                                      </td>
 
 		                                      <td>{{$data->color_code}}</td>
 		                                      <td>
 		                                      	<div style="background:{{$data->color_code}};height: 20px;width: 30px"></div>
 		                                      </td>
-		                                      @if($data->status==1)
-									                          <td class="center"><span class="btn btn-success">Active</span></td>
-									                    	  @else
-									                          	<td class="center"><span class="btn btn-danger">Deactive</span></td>
-										              		  	@endif
 		                                       <td>
-												                    @if($data->status==1)
-												                    	<a  href="{{url('admin/color/deactive/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
-																						@else
-																							<a  href="{{url('admin/themecolor/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
-																						@endif
+		                                      	<div style="background:{{$data->hover_code}};height: 20px;width: 30px"></div>
+		                                      </td>
+		                                      @if($data->status==1)
+							                          <td class="center"><span class="btn btn-success">Active</span></td>
+							                    	  @else
+							                          	<td class="center"><span class="btn btn-danger">Deactive</span></td>
+								              		  	@endif
+		                                       <td>
+							                    @if($data->status==1)
+							                    	<a  href="{{url('admin/color/deactive/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
+												@else
+													<a  href="{{url('admin/themecolor/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
+												@endif
 		                                           	| <a class="editcat btn btn-sm btn-blue text-white" data-id="{{$data->id}}" title="edit"  data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt"></i></a> |
 		                                            <a id="delete" href="{{url('admin/themecolor/softDelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 		                                       </td>
@@ -103,6 +107,12 @@
                 <label for="example-text-input" class="col-sm-3 col-form-label text-right">Color Code</label>
                 <div class="col-sm-8">
                    <input class="form-control" type="color" name="color_code">
+                </div>
+               </div>
+               <div class="form-group row">
+                <label for="example-text-input" class="col-sm-3 col-form-label text-right">Hover Color code</label>
+                <div class="col-sm-8">
+                   <input class="form-control" type="color" name="hover_code">
                 </div>
                </div>
 		    <div class="form-group text-right">
@@ -145,7 +155,14 @@
                  <input class="form-control" type="color" name="color_code" id="color_code">
 								 <input type="hidden" name="id" id="id">
               </div>
-           </div>
+              </div>
+              <div class="form-group row">
+                <label for="example-text-input" class="col-sm-3 col-form-label text-right">Hover Color code</label>
+                <div class="col-sm-8">
+                   <input class="form-control" type="color" name="hover_code" id="hover_code">
+                </div>
+               </div>
+           
 
 			    <div class="form-group text-right">
 			      <button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
@@ -195,6 +212,7 @@
 
                             $("#id").val(data.id);
                             $("#color_code").val(data.color_code);
+                            $("#hover_code").val(data.hover_code);
                         }
                  });
              } else {

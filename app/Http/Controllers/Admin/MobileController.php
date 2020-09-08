@@ -6,9 +6,9 @@ use Carbon\Carbon;
 use App\MobileBanner;
 use App\MobileSlider;
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
+// use Intervention\Image\Image;
 use App\Http\Controllers\Controller;
-//use Image;
+use Image;
 
 class MobileController extends Controller
 {

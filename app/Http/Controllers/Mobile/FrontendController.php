@@ -13,19 +13,37 @@ use App\ReSubCategory;
 use App\CompareProduct;
 use App\Product;
 use App\wishlist;
+use App\BlogComment;
 use App\Color;
 use App\ProductReview;
 use App\OrderPlace;
-
+use App\Blog;
 use Carbon\Carbon;
-use Session;
-use Image;
 use Auth;
 
 class FrontendController extends Controller
 {
     public function index()
     {
+        date_default_timezone_set('Asia/Dhaka');
+        $hotdeal = FlashDeal::with(['flash_deal_details'])
+        ->where('status', 1)
+        ->where('is_deleted', 0)
+        ->select('id', 'start_date', 'end_date')
+        ->orderBy('id', 'DESC')
+        ->first();
+        if ($hotdeal) {
+            if ($hotdeal->end_date == date('Y-m-d')) {
+                foreach ($hotdeal->flash_deal_details as $value) {
+                    $value->update([
+                        'status' => 0,
+                    ]);
+                }
+                $hotdeal->update([
+                    'status' => 0
+                ]);
+            }
+        }
         return view('mobile.home.home');
     }
 
@@ -265,8 +283,37 @@ class FrontendController extends Controller
     }
 
 
-
-
-
-
+     public function blog()
+    {
+        $allblog=Blog::where('is_deleted',0)->where('status',1)->Simplepaginate(8);
+        return view('mobile.blog.blog',compact('allblog'));
+    }
+    // details
+    public function blogdetails($id){
+        $data=Blog::where('id',$id)->first();
+        return view('mobile.blog.blogdetails',compact('data'));
+    }
+    public function blogcom(Request $request){
+        $id=$request->id;
+        $comment=BlogComment::insertGetId([
+            'blog_id'=>$request['id'],
+            'name'=>$request['name'],
+            'email'=>$request['email'],
+            'comment'=>$request['comment'],
+            'created_at'=>Carbon::now()->toDateTimeString(),
+        ]);
+        if($comment){
+            $notification = array(
+                'messege' => 'comment Success',
+                'alert-type' =>'success'
+            );
+            return Redirect()->back()->with($notification);
+        }else{
+            $notification = array(
+                'messege' => 'comment faild',
+                'alert-type' =>'error'
+            );
+            return Redirect()->back()->with($notification);
+        }
+    }
 }

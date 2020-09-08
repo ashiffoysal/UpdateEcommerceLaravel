@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendForgetPasswordVerifyCodeMail;
+use App\Logo;
+use DB;
 
 class ForgotPasswordController extends Controller
 {
@@ -38,7 +40,12 @@ class ForgotPasswordController extends Controller
             $getUserInfo = User::where('email', $request->email)
                             ->select(['remember_token', 'verification_code', 'email', 'username'])
                             ->first();
-            Mail::to($request->email)->queue(new SendForgetPasswordVerifyCodeMail($getUserInfo));
+               $frontLogo = Logo::select(['front_logo'])->first();
+            $siteSettings = DB::table('sitesetting')
+                            ->select(['company_name', 'address', 'facebook', 'instagram', 'twitter'])
+                            ->first();                
+            Mail::to($request->email)
+            ->send(new SendForgetPasswordVerifyCodeMail($getUserInfo, $frontLogo, $siteSettings));
             return redirect()->route('mobile.forgot.password.verify.form', $getUserInfo->remember_token);
         } else {
             session()->flash('errorMsg', 'Email ID does not exists.');
@@ -93,12 +100,12 @@ class ForgotPasswordController extends Controller
         $resetPassword->password = Hash::make($request->password);
         $resetPassword->save();
         session()->flash('successMsg', 'Successfully Your Password Has Been Changed.');
-        return redirect()->route('mobile.login.form');
+        return redirect()->route('login');
     }
 
     public function MobileForgotPassResendVerifyCodeMail($remember_token)
     {
-        $number_length = 5;
+        $number_length = 6;
         $i = 0; //counter
         $random_number = ''; //our default pin is blank.
         while ($i < $number_length) {
@@ -112,7 +119,11 @@ class ForgotPasswordController extends Controller
         $user->save();
         $user->verification_code = $random_number;
         $user->save();
-        Mail::to($user->email)->queue(new SendForgetPasswordVerifyCodeMail($user));
+            $frontLogo = Logo::select(['front_logo'])->first();
+            $siteSettings = DB::table('sitesetting')
+                            ->select(['company_name', 'address', 'facebook', 'instagram', 'twitter'])
+                            ->first();
+        Mail::to($user->email)->queue(new SendForgetPasswordVerifyCodeMail($user, $frontLogo, $siteSettings));
         session()->flash('successMsg', 'Mail sended again.');
         return redirect()->route('mobile.forgot.password.verify.form', $user->remember_token);
 

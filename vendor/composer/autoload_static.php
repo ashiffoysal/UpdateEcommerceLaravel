@@ -502,6 +502,8 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\AddToCart' => __DIR__ . '/../..' . '/app/AddToCart.php',
         'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\Banner' => __DIR__ . '/../..' . '/app/Banner.php',
+        'App\\Blog' => __DIR__ . '/../..' . '/app/Blog.php',
+        'App\\BlogComment' => __DIR__ . '/../..' . '/app/BlogComment.php',
         'App\\Brand' => __DIR__ . '/../..' . '/app/Brand.php',
         'App\\Category' => __DIR__ . '/../..' . '/app/Category.php',
         'App\\CategoryBanner' => __DIR__ . '/../..' . '/app/CategoryBanner.php',

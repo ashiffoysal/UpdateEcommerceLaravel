@@ -25,6 +25,7 @@ class ThemeColorController extends Controller
     {
         $insert = ThemeColor::insertGetId([
             'color_code' => $request['color_code'],
+            'hover_code' => $request['hover_code'],
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
         if ($insert) {
@@ -53,6 +54,7 @@ class ThemeColorController extends Controller
         $id = $request->id;
         $update = ThemeColor::where('id', $id)->update([
             'color_code' => $request['color_code'],
+            'hover_code' => $request['hover_code'],
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         if ($update) {

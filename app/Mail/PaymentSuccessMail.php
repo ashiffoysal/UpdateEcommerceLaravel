@@ -17,9 +17,17 @@ class PaymentSuccessMail extends Mailable
      * @return void
      */
     public $orderPlace;
-    public function __construct($orderPlace)
+    public $frontLogo;
+    public $siteSettings;
+    public $userAddress;
+    public $shippingAddress;
+    public function __construct($orderPlace, $frontLogo, $siteSettings, $userAddress, $shippingAddress)
     {
         $this->orderPlace = $orderPlace;
+        $this->frontLogo = $frontLogo;
+        $this->siteSettings = $siteSettings;
+        $this->userAddress = $userAddress;
+        $this->shippingAddress = $shippingAddress;
     }
 
     /**
@@ -31,7 +39,11 @@ class PaymentSuccessMail extends Mailable
     {
 
        $orderPlace = $this->orderPlace;
+       $frontLogo = $this->frontLogo;
+       $siteSettings = $this->siteSettings;
+       $userAddress = $this->userAddress;
+       $shippingAddress = $this->shippingAddress;
 
-        return $this->view('frontend.mail_template.success_payment_mail', compact('orderPlace'));
+        return $this->view('mail_template.success_payment_mail', compact('orderPlace', 'frontLogo', 'siteSettings', 'userAddress', 'shippingAddress'));
     }
 }

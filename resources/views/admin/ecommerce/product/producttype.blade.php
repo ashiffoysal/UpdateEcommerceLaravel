@@ -19,16 +19,24 @@
 						<div class="panel_body">
 							<div class="row text-center">
 								<div class="col-md-3">
-									<a class="btn btn-danger" href="{{route('admin.product.add')}}">Physical Product</a>
+									<div class="physical-button" style="background-color: #d35400;padding:20px 30px;border-radius:5px;">		
+									<a href="{{route('admin.product.add')}}" style="color: #fff;font-size: 18px;font-weight: 600;">Physical Product</a>
+								</div>
 								</div>
 								<div class="col-md-3">
-									<a class="btn btn-danger" href="{{route('admin.product.digital')}}">Digital Product </a>
+									<div class="digital-button" style="background-color: #27ae60;padding:20px 30px;border-radius:5px;">	
+									<a  href="{{route('admin.product.digital')}}" style="color: #fff;font-size: 18px;font-weight: 600;">Digital Product </a>
+								</div>
 								</div>
 								<div class="col-md-3">
-									<a class="btn btn-danger" href="{{route('admin.product.license')}}">License Product </a>
+									<div class="licence-button" style="background-color: #c0392b;padding:20px 30px;border-radius:5px;">	
+									<a  href="{{route('admin.product.license')}}" style="color: #fff;font-size: 18px;font-weight: 600;">License Product </a>
+								</div>
 								</div>
 								<div class="col-md-3">
-									<a class="btn btn-danger" href="{{route('admin.product.affiliate')}}">Appiliate Product </a>
+									<div class="appliate-button" style="background-color:#2c3e50;padding:20px 30px;border-radius:5px;">	
+									<a  href="{{route('admin.product.affiliate')}}" style="color: #fff;font-size: 18px;font-weight: 600;">Affiliate Product </a>
+								</div>
 								</div>
 							</div>
 						</div>

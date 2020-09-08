@@ -16,9 +16,12 @@ class WelcomeSubscribeMessage extends Mailable
      *
      * @return void
      */
-    public function __construct()
+     public $siteSettings;
+     public $frontLogo;
+    public function __construct($siteSettings, $frontLogo)
     {
-        //
+        $this->siteSettings = $siteSettings;
+        $this->frontLogo = $frontLogo;
     }
 
     /**
@@ -28,6 +31,8 @@ class WelcomeSubscribeMessage extends Mailable
      */
     public function build()
     {
-        return $this->view('admin.ecommerce.send_mail.mail_template.subscriber_welcome_mail');
+        $siteSettings = $this->siteSettings; 
+        $frontLogo = $this->frontLogo;
+        return $this->view('mail_template.subscriber_welcome_mail', compact('siteSettings', 'frontLogo'));
     }
 }

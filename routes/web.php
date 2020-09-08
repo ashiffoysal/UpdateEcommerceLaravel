@@ -1,11 +1,10 @@
 <?php
 
-$agent = new \Jenssegers\Agent\Agent;
-if ($agent->isDesktop()) {
+
 
     Auth::routes();
 
-    Route::group(['prefix' => 'forget/password', 'namespace' => 'Auth'], function () {
+    Route::group(['prefix' => 'forgot/password', 'namespace' => 'Auth'], function () {
         Route::get('verification/code/{remember_token}', 'ForgotPasswordController@forgetPassVerificationCodeFrom')->name('forget.password.verify.code.form');
         Route::post('verification/code/', 'ForgotPasswordController@checkForgetPassVerificationCode')->name('user.check.verification.code');
         Route::get('reset/{remember_token}', 'ForgotPasswordController@forgetResetPasswordForm')->name('forget.reset.password');
@@ -276,10 +275,6 @@ if ($agent->isDesktop()) {
     Route::post('admin/banner/update', 'Admin\BannerController@update')->name('admin.banner.update');
 
 
-
-
-
-
     // trash controller
     Route::get(md5('admin/trash/category'), 'Admin\TrashController@category')->name('admin.trash.category');
     Route::post('admin/trash/category/multipledelete', 'Admin\TrashController@hearddeletecategory');
@@ -315,9 +310,6 @@ if ($agent->isDesktop()) {
     Route::post(md5('admin/trash/mobile/banner/multidel'), 'admin\TrashController@mobilebandel')->name('admin.trash.mobilebannerdel');
 
 
-
-
-
     // footer option area start
     Route::get(md5('admin/footer/option'), 'Admin\FooterController@footerShow')->name('admin.footer.option');
     Route::post('admin/footer/option/update', 'Admin\FooterController@footerupdate')->name('admin.footer.option.update');
@@ -343,7 +335,27 @@ if ($agent->isDesktop()) {
     Route::get('admin/support/delete/{id}', 'Admin\SupportController@delete');
     Route::post(md5('admin/support/multipleSoftDelete'), 'Admin\SupportController@multipleSoftDelete')->name('admin.support.multiplesoftdelete');
     Route::get('get/admin/support/edit/{id}', 'Admin\SupportController@edit');
+    // blog controller
+    Route::get(md5('admin/blog/add'), 'Admin\BlogController@add')->name('admin.blog.add');
+    Route::post(md5('admin/blog/insert'), 'Admin\BlogController@insert')->name('admin.blog.insert');
+    Route::get(md5('admin/blog/all'), 'Admin\BlogController@index')->name('admin.blog.all');
+    Route::get('admin/blog/deactive/{id}', 'Admin\BlogController@deactive');
+    Route::get('admin/blog/active/{id}', 'Admin\BlogController@active');
+    Route::get('admin/blog/softdel/{id}', 'Admin\BlogController@softdelete');
+    Route::get('admin/blog/recycle/{id}', 'Admin\BlogController@recycle');
+    Route::get('admin/blog/delete/{id}', 'Admin\BlogController@delete');
+    Route::post('admin/blog/multiplesoftdelete', 'Admin\BlogController@multiplesoftdelete');
+    Route::get('admin/blog/edit/{id}', 'Admin\BlogController@edit');
+    Route::post('admin/blog/update', 'Admin\BlogController@update')->name('admin.blog.update');
 
+    Route::get(md5('admin/blog/blogcomment'), 'Admin\BlogController@blogcommen')->name('admin.blog.blogcomment');
+
+    Route::get('admin/blogcomment/delete/{id}', 'Admin\BlogController@blogcommentdelete');
+    Route::post('admin/blogcomment/multidel', 'Admin\BlogController@blogcommentmultidelete');
+    Route::get('/get/admin/blogcomment/reply/{id}', 'Admin\BlogController@blogreply');
+    Route::post('admin/reply/submit', 'Admin\BlogController@replySubmit')->name('admin.reply.comment');
+    Route::get('admin/comment/deactive/{id}', 'Admin\BlogController@comdeactive');
+    Route::get('admin/comment/active/{id}', 'Admin\BlogController@comactive');
 
 
 
@@ -362,13 +374,16 @@ if ($agent->isDesktop()) {
 
     Route::get('product/{slug}/{id}', 'Frontend\FrontendController@productDetails');
 
-    Route::get('flash_deal_products', 'Frontend\FrontendController@flashDealProducts')->name('hot.deal.products');
+    Route::get('flashdeal/products', 'Frontend\FrontendController@flashDealProducts')->name('hot.deal.products');
 
     // product add to cart in front end
 
     Route::get(md5('/product/cart/page'), 'Frontend\FrontendController@cart')->name('product.cart.add');
 
     Route::get(md5('/product/checkout/page'), 'Frontend\FrontendController@checkout')->name('product.checkout');
+    Route::get('/product/blog', 'Frontend\FrontendController@allblog');
+    Route::get('/product/blog/details/{id}', 'Frontend\FrontendController@blogdetails');
+    Route::post('/blog/comment', 'Frontend\FrontendController@blogcomment');
 
 
     Route::get('details/{id}', 'Frontend\FrontendController@productmodal');
@@ -397,7 +412,7 @@ if ($agent->isDesktop()) {
 
 
     Route::group(['prefix' => 'dashboard', 'namespace' => 'Frontend',], function () {
-        Route::get('customer/account', 'CustomerController@customerAccount')->name('customer.account');
+        Route::get('customer/myaccount/settings', 'CustomerController@customerAccount')->name('customer.account');
         Route::post('customer/account/update', 'CustomerController@customerAccountUpdate')->name('customer.account.update');
         // Ajax Routes
         Route::get('customer/get/district/by/division/id/{divisionId}', 'CustomerController@customerGetDistrictByDivision');
@@ -432,7 +447,7 @@ if ($agent->isDesktop()) {
     });
 
     Route::group(['prefix' => 'contract_us', 'namespace' => 'Frontend'], function () {
-        Route::get('/', 'ContractUsController@index')->name('frontend.contract.us.index');
+        Route::get('/', 'ContractUsController@index')->name('contract.us');
         Route::post('send/message', 'ContractUsController@sendMessage')->name('frontend.contract.us.send.message');
     });
 
@@ -459,7 +474,7 @@ if ($agent->isDesktop()) {
     Route::get('get/cart/data', 'Frontend\AddToCartController@getCartData')->name('get.cart.data');
 
 
-    Route::post('add/to/cart/show', 'Frontend\AddToCartController@addToCartShow')->name('add.cart.show');
+    Route::post('add/to/cart/show', 'Frontend\Controller@addToCartShow')->name('add.cart.show');
     Route::post('add/to/cart/delete', 'Frontend\AddToCartController@addToCartDelete')->name('add.cart.delete');
 
 
@@ -525,9 +540,6 @@ if ($agent->isDesktop()) {
     route::get('admin/customer/delete/{id}', 'admin\UserController@customerdelete');
 
 
-
-
-
     // user controller
     route::get(md5('admin/user/add'), 'Admin\UserController@add')->name('admin.user.add');
     route::get(md5('admin/user/all'), 'Admin\UserController@index')->name('admin.user.all');
@@ -569,9 +581,9 @@ if ($agent->isDesktop()) {
     Route::get('/get/admin/sitebanner/edit/{id}', 'Admin\SiteBannerController@sitebabnsoftedit');
     Route::get('admin/sitebanner/restore/{id}', 'Admin\SiteBannerController@sitebanrestore');
     Route::get('admin/sitebanner/hearddelete/{id}', 'Admin\SiteBannerController@sitebahearddel');
-    route::post(md5('admin/sitebanner/insert'), 'Admin\SitebannerController@sitebannerinsert')->name('admin.sitebanner.insert');
-    route::post(md5('admin/sitebanner/update'), 'Admin\SitebannerController@sitebannerupdate')->name('admin.sitebanner.update');
-    route::post(md5('admin/sitebanner/multisoftdelete'), 'Admin\SitebannerController@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
+    route::post(md5('admin/sitebanner/insert'), 'Admin\SiteBannerController@sitebannerinsert')->name('admin.sitebanner.insert');
+    route::post(md5('admin/sitebanner/update'), 'Admin\SiteBannerController@sitebannerupdate')->name('admin.sitebanner.update');
+    route::post(md5('admin/sitebanner/multisoftdelete'), 'Admin\SiteBannerController@sitebanmultisoft')->name('admin.sitebanner.multisoftdelete');
 
     // mobile slider
     route::get(md5('admin/mobile/slider/all'), 'Admin\MobileController@index')->name('admin.mobileslider.all');
@@ -600,7 +612,9 @@ if ($agent->isDesktop()) {
     Route::post(md5('admin/trash/multidelpage'), 'Admin\TrashController@pagemultdel')->name('admin.trash.pagemultidel');
     Route::get(md5('admin/trash/sitebanner'), 'admin\TrashController@sitebanner')->name('admin.trash.sitebanner');
     Route::post(md5('admin/trash/sitebanner/multipledelete'), 'admin\TrashController@sitebanmultidel')->name('admin.trash.sitebannerdel');
-
+    // blog
+    Route::get(md5('admin/trash/blog'), 'Admin\TrashController@blog')->name('admin.trash.blog');
+    Route::post(md5('admin/trash/multidelblog'), 'Admin\TrashController@blogdel')->name('admin.trash.blogdel');
 
     // order Controller
 
@@ -646,10 +660,10 @@ if ($agent->isDesktop()) {
 
     // Report controller
 
-    Route::get(md5('admin/product/stockreport'), 'admin\reportcontroller@productstockreport')->name('admin.product.stock');
+    Route::get(md5('admin/product/stockreport'), 'Admin\ReportController@productstockreport')->name('admin.product.stock');
     Route::get('/get/admin/report/category/filter', 'Admin\ReportController@categoryreport');
-    Route::get(md5('admin/product/wishlist'), 'admin\ReportController@wishproduct')->name('admin.product.wishlistpro');
-    Route::get(md5('admin/product/bestsell'), 'admin\ReportController@bestsell')->name('admin.bestsell');
+    Route::get(md5('admin/product/wishlist'), 'Admin\ReportController@wishproduct')->name('admin.product.wishlistpro');
+    Route::get(md5('admin/product/bestsell'), 'Admin\ReportController@bestsell')->name('admin.bestsell');
 
 
     //Harrison start
@@ -679,10 +693,10 @@ if ($agent->isDesktop()) {
     Route::get(md5('admin/product/stockreport'), 'Admin\ReportController@productstockreport')->name('admin.product.stock');
     Route::get('/get/admin/report/category/filter', 'Admin\ReportController@categoryreport');
     Route::get(md5('admin/product/wishlist'), 'Admin\ReportController@wishproduct')->name('admin.product.wishlistpro');
-    Route::get(md5('admin/product/bestsell'), 'admin\ReportController@bestsell')->name('admin.bestsell');
+    Route::get(md5('admin/product/bestsell'), 'Admin\ReportController@bestsell')->name('admin.bestsell');
 
 
-    Route::group(['prefix' => 'admin/subscriber/mail', 'middleware' => 'auth:admin'], function () {
+    Route::group(['prefix' => 'admin/subscriber/mail', 'namespace'=>'Admin','middleware' => 'auth:admin'], function () {
         Route::get('send/section', 'SubscriberController@mailSendSection')->name('admin.subscriber.send.section');
         Route::get('mail/details/{mailId}', 'SubscriberController@mailDetails')->name('admin.subscriber.mail.details');
         Route::get('/compose', 'SubscriberController@mailComposeSection')->name('admin.subscriber.mail.compose');
@@ -786,172 +800,3 @@ if ($agent->isDesktop()) {
 
     // ======================================Mobile route start from here=================================//
 
-} elseif ($agent->isMobile() || $agent->isTablet()) {
-
-
-    // Route Created By Harrison ===================
-
-    //Mobile Flash Deal Route
-    Route::get('flashdeal/products', 'Mobile\FrontendController@flashDealProducts')->name('frontend.flash.deal.products');
-    //End Mobile Flash Deal Route
-
-    //Mobile Contract us Route==
-    Route::group(['prefix' => 'contract_us', 'namespace' => 'Mobile'], function () {
-        Route::get('/', 'ContractUsController@contractUsShow')->name('contract.us.page');
-        Route::post('send', 'ContractUsController@contractUsSend')->name('mobile.contract.us.send');
-    });
-    //End Mobile Contract us Route==
-
-    // Mobile About Us Route==
-    Route::get('about', 'Mobile\AboutUsController@index')->name('mobile.about.us');
-    //End Mobile About Us Route==
-
-    //Mobile Search Route==
-    Route::get('product/search', 'Mobile\SearchController@productSearchByPage')->name('mobile.product.search');
-    Route::get('product/search/category/wise', 'Mobile\SearchController@searchByMainCategory')->name('filter.search.from.main_category');
-    Route::get('product/search/subcategory/wise', 'Mobile\SearchController@searchBySubCategory')->name('filter.search.from.sub_category');
-    Route::get('product/search/re_subcategory/wise', 'Mobile\SearchController@searchByReSubCategory')->name('filter.search.from.re_sub_category');
-    // Mobile Live Search By Ajax Web Route
-    Route::get('mobile/search/product/by/product_name/{product_name}', 'Mobile\SearchController@productSearchByAjax');
-    //Mobile Search Route==
-
-    //Forget Password Route==
-    Route::get('mobile/forgot/password', 'Mobile\ForgotPasswordController@forgotPasswordForm')->name('mobile.forgot.password.form');
-    Route::post('mobileforgot/password/email', 'Mobile\ForgotPasswordController@mobileForgetPasswordEmail')->name('mobile.forget.password.email');
-    Route::get('mobile/forgot/password/verifiation_code/form/{remember_token}', 'Mobile\ForgotPasswordController@mobileForgotPasswordVerifyCodeFrom')->name('mobile.forgot.password.verify.form');
-    Route::post('mobile/forgot/password/check/verification_code', 'Mobile\ForgotPasswordController@mobileForgetCheckVerificationCode')->name('mobile.forget.password.check.verification');
-    Route::get('mobile/forgot/reset/password/form/{remember_token}', 'Mobile\ForgotPasswordController@mobileForgetResetPassFrom')->name('mobile.forgot.reset.password.form');
-    Route::post('mobile/forgot/reset/password', 'Mobile\ForgotPasswordController@mobileForgotResetPassword')->name('mobile.forget.reset.password');
-    Route::get('mobile/forgot/password/verify/code/resend/{remember_token}', 'Mobile\ForgotPasswordController@MobileForgotPassResendVerifyCodeMail')->name('forgot.password.verify.code.resend');
-    //Forget Password Route End==
-
-    //Reset Password Routes==
-    Route::get('reset/password', 'Mobile\ResetPasswordController@resetPasswordFrom')->name('reset.password.form');
-    Route::post('reset/password', 'Mobile\ResetPasswordController@resetPassword')->name('reset.password');
-    //Reset Password Route End==
-
-    // My Account Settings Route==
-    Route::get('mobile/myaccount/settings', 'Mobile\MyAccountController@myAccount')->name('my.account.setting');
-    Route::post('mobile/myaccount/settings/update', 'Mobile\MyAccountController@myAccountSettingsUpdate')->name('my.account.settings.update');
-    // My Account Settings Ajax Route=
-    Route::get('mobile/get/district/by/division/id/{divisionId}', 'Mobile\MyAccountController@getDistrictByDivisionIdViaAjax');
-    Route::get('mobile/get/upazila/by/district/id/{districtId}', 'Mobile\MyAccountController@getUpazilaByDistrictIdViaAjax');
-    // My Account Settings Ajax Route End=
-    // My Account Settings Route End==
-
-    // Stripe Payment Route=
-    Route::get('order/payment/stripe/{payment_secure_id}', 'Mobile\MobilePaymentController@mobileStripePaymentPage')->name('mobile.stripe.payment');
-    Route::post('order/payment/stripe/submit/{payment_secure_id}', 'Mobile\MobilePaymentController@mobileStripePaymentSubmit')->name('mobile.payment.stripe.submit');
-    // Stripe Payment Route End=
-
-    //SSl Commerz payment Route=
-    Route::post('payment/ssl_commercez/success', 'Mobile\MobilePaymentController@sslSuccess');
-    Route::post('payment/ssl_commercez/fail', 'Mobile\MobilePaymentController@sslFail');
-    Route::post('payment/ssl_commercez/cancel', 'Mobile\MobilePaymentController@sslCancel');
-    //SSl Commerz payment Route End=
-
-    // Route Created By Harrison End ======================
-
-
-
-    Route::get('category/{slug}/{id}', 'Mobile\FrontendController@m_category');
-    Route::get('subcategory/{slug}/{id}', 'Mobile\FrontendController@m_subcategory');
-    Route::get('resubcategory/{slug}/{id}', 'Mobile\FrontendController@m_resubcategory');
-    Route::get('/', 'Mobile\FrontendController@index');
-
-    // checkout route start here
-    Route::get('/checkout/order/id', 'Mobile\CheckoutController@orderId')->name('checkout.page.show');
-    Route::get('/checkout/{orderid}', 'Mobile\CheckoutController@showCheckOutPage')->name('checkout.page');
-    Route::get('/user/division/name/{id}', 'Mobile\CheckoutController@showDivisionName');
-    Route::get('/user/district/name/{id}', 'Mobile\CheckoutController@showDistrictName');
-    Route::get('/user/upazila/name/{id}', 'Mobile\CheckoutController@showUpazilasName');
-
-
-    Route::get(md5('/checkout/order/data'), 'Mobile\CheckoutController@cartData')->name('get.cart.data');
-    Route::post(md5('/checkout/cart/update'), 'Mobile\CheckoutController@cartUpdate')->name('product.cart.update');
-    Route::post(md5('/checkout/cart/delete'), 'Mobile\CheckoutController@cartDelete')->name('mobile.product.cart.delete');
-    Route::post(md5('/customer/coupon/apply'), 'Mobile\CheckoutController@cartcupon')->name('mobile.cupon.apply');
-    Route::get('get/cupon/value/{oderid}', 'Mobile\CheckoutController@applyCuponValue');
-    Route::post(md5('/checkout/order/place'), 'Mobile\CheckoutController@orderPlace')->name('order.place');
-    Route::get('get/checkout/cupon/value', 'Mobile\CheckoutController@cuponValue');
-
-    // Ajax Rotues For Checkout Courier Routes=
-    Route::get('get/courier/by/upazila/id/{upazilaId}', 'Mobile\CheckoutController@getCourierByUpazila');
-    Route::get('check/courier/cash_on_deliviry/{upazila_id}/{courier_id}', 'Mobile\CheckoutController@checkCourierCashOnDeliviry');
-    // Ajax Rotues For Checkout Courier Routes End=
-
-
-    Route::get(md5('/page/redirect'), 'Mobile\AuthController@pageBackRedirect')->name('page.redirect');
-
-    // authentication area start
-
-    Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
-    Route::post(md5('/mobile/register'), 'Mobile\AuthController@register')->name('mobile.register');
-    Route::get(md5('/mobile/checkout/login'), 'Mobile\AuthController@checkoutLoingPageShow')->name('mobile.checkout.login');
-    Route::post(md5('/mobile/login'), 'Mobile\AuthController@userAuth')->name('mobile.login');
-    Route::post(md5('/mobile/checkout/login'), 'Mobile\AuthController@checkoutAuth')->name('checkout.mobile.login');
-    Route::get('/mobile/login', 'Mobile\AuthController@showLoginForm')->name('mobile.login.form');
-    Route::get(md5('/mobile/logout'), 'Mobile\AuthController@userLogOut')->name('mobile.logout');
-    
-    Route::get('/mobile/sms/verify/{token}', 'Mobile\AuthController@smsVerifyPageShow')->name('mobile.sms.verify');
-    Route::post('/sms/verification/submit', 'Mobile\AuthController@smsVerification')->name('sms.verification.submit');
-
-
-
-    Route::get('product/details/{slug}/{id}', 'Mobile\ProductController@productDetails');
-    Route::get('product/details/{id}', 'Mobile\ProductController@productCheckoutDetails')->name('product.details');
-    Route::get('add/to/cart', 'mobile\addtocartcontroller@addtocart')->name('product.add.cart');
-
-    // my account area start
-    Route::get('/mobile/myaccount', 'Mobile\MyAccountController@showMyAccount')->name('mobile.myaccount');
-
-
-    Route::get('mobile/product/varient', 'Mobile\FrontendController@varient')->name('products.mobilevariant');
-    Route::get('/product/mobile/compare/{id}', 'Mobile\FrontendController@product_compare');
-    Route::get('/product/mobile/add/wishlist/{id}', 'Mobile\FrontendController@product_wishlist');
-    Route::get('mobile/allwishlist', 'Mobile\FrontendController@allwishlist');
-    Route::get('mobile/wishlist/delete/{id}', 'Mobile\FrontendController@deletewishlist');
-
-    //compare
-    Route::get('mobile/comparelist', 'Mobile\FrontendController@compare');
-    Route::get('mobile/compare/delete/{id}', 'Mobile\FrontendController@comparedelete');
-    // review
-    Route::post('mobile/review/submit', 'Mobile\FrontendController@review');
-    Route::get('product/orderhistory', 'Mobile\FrontendController@orderhistory')->name('mobile.orderhistory');
-    Route::get('history/details/{id}', 'Mobile\FrontendController@orderdetails');
-    Route::get('order/traking', 'Mobile\FrontendController@ordertraking');
-    Route::get('mobile/order/traking/submit', 'Mobile\FrontendController@searchtraking');
-    //new arrival
-    Route::get('/newarrival', 'Mobile\FrontendController@newarrival');
-
-    // payment
-    Route::get('mobile/payment/{paymentSecureId}', 'Mobile\MobilePaymentController@paymentPage')->name('ordermobile.payment');
-    Route::post('make/payment/submit', 'Mobile\MobilePaymentController@makePayment')->name('payment.submit');
-    // paypal
-    Route::get('make/payment/paypal', 'Mobile\MobilePaymentController@paywithpaypal')->name('payment.paypal');
-    Route::get('/payment/success', 'Mobile\MobilePaymentController@paymentsuccess');
-    Route::get('paypal/success/payment', 'Mobile\MobilePaymentController@paypalsuccess')->name('payment.paypal.success');
-
-    // warrenty area start
-    Route::get(md5('/warrenty'), 'Mobile\FrontendController@showWarrenty')->name('warrenty.page');
-    
-    
-    // support area start
-    Route::get(md5('/support'), 'Mobile\FrontendController@showSupportPage')->name('support.page');
-
-    // send shipping value
- 
-
-    Route::get('/user/shipping/value/{id}', 'Mobile\CheckoutController@shippingChargeValue');
-    Route::get('/user/shipping/value/to/insert/{id}', 'Mobile\CheckoutController@shippingChargeValueSend');
-
-
-
-    Route::group(['prefix' => 'user/login/', 'namespace' => 'Mobile'], function () {
-        Route::get('login/google', 'AuthController@redirectToProviderGoogle')->name('google.login');
-        Route::get('google/callback', 'AuthController@handleProviderGoogleCallback');
-        Route::get('login/facebook', 'AuthController@redirectToProviderFacebook')->name('facebook.login');
-        Route::get('facebook/callback', 'AuthController@handleProviderFacebookCallback');
-    });
-
-}

@@ -7,7 +7,8 @@ use App\SmsModel;
 use Carbon\Carbon;
 use App\VerificationOption;
 use Illuminate\Http\Request;
-
+use DB;
+use App\Logo;
 use App\Mail\UserVerificationMail;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
@@ -52,13 +53,19 @@ class AuthController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        // $verificationWith =  VerificationOption::first();
-        // if ($verificationWith->verify_with == 0) {
+        $verificationWith = VerificationOption::first();
 
-        //     Mail::to($user->email)->send(new UserVerificationMail($user->username, $user->remember_token));
-        //     session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
-        //     return redirect()->route('user.auth.registration.success', $user->email);
-        // } elseif ($verificationWith->verify_with == 0) {
+        if ($verificationWith->verify_with == 0) {
+            
+            $frontLogo = Logo::select(['front_logo'])->first();
+
+            $siteSettings = DB::table('sitesetting')->select('company_name', 'address', 'facebook', 'twitter', 'instagram')->first();
+            Mail::to($user->email)->send(new UserVerificationMail($user->username, $user->remember_token, $frontLogo, $siteSettings));
+            session()->flash('successMsg', 'Registration Successful, Please Check your Mail And Verify Your Account.');
+
+            return redirect()->route('user.auth.registration.success', $user->email);
+            
+        } elseif ($verificationWith->verify_with == 0) {
             // sms varification code send
 
             $smsusername = $user->username;
@@ -94,13 +101,34 @@ class AuthController extends Controller
 
             $output = curl_exec($ch);
             return redirect()->route('mobile.sms.verify', $user->remember_token);
-        // }
+        }
     }
+
+    // Email Verification Link
+    public function emailVerification($token)
+    {
+        $user = User::where('remember_token', $token)->firstOrFail();
+        if ($user) {
+            $user->update([
+                'status' => 1,
+                'remember_token' => NULL,
+                'email_verified_at' => Carbon::now(),
+            ]);
+            session()->flash('successMsg', 'Successfully your email is verified.');
+            return redirect()->route('login');
+        }
+    }
+
+    public function userRegistrationSuccess($email)
+    {
+        $user = User::where('email', $email)->firstOrFail();
+        return view('mobile.accounts.register_success_page', compact('user'));
+    }
+   
 
     // show sms veryfication page
     public function smsVerifyPageShow($token)
     {
-
         $checkRememberToken = User::where('remember_token', $token)->firstOrFail();
         $remember_token = $checkRememberToken->remember_token;
         abort_if(!$checkRememberToken, 403);
@@ -109,8 +137,6 @@ class AuthController extends Controller
 
     public function smsVerification(Request $request)
     {
-
-
         $userverify = $request->verify_code;
         $user = User::where('verification_code', $userverify)->where('remember_token', $request->verify_token)->firstOrFail();
         if (User::where('verification_code', $userverify)->where('remember_token', $request->verify_token)->exists()) {
@@ -123,7 +149,7 @@ class AuthController extends Controller
                 'messege' => 'Successfully your Account is verified.',
                 'alert-type' => 'success'
             );
-
+    
             return redirect()->route('mobile.login.form')->with($notification);
         }
     }
@@ -133,22 +159,23 @@ class AuthController extends Controller
 
     public function userAuth(Request $request)
     {
-
         $request->validate([
-            'email' => 'required',
-            'password' => 'required',
+            'login_email' => 'required',
+            'login_password' => 'required',
         ]);
 
-        $admin = User::where('email', request('email'))->where('status', 1)->first();
+        $admin = User::where('email', request('login_email'))->where('status', 1)->first();
         if ($admin) {
-            $credentials = $request->only('email', 'password');
-
-            if (Auth::attempt($credentials)) {
+            
+            if (Auth::guard('web')->attempt(['email' => $request->login_email, 'password' => $request->login_password])) {
+                
                 $notification = array(
                     'messege' => 'You are Successfully Login!',
                     'alert-type' => 'success'
                 );
-                return redirect('/')->with($notification);
+                
+                return redirect()->intended(url('/'))->with($notification);
+                
             } else {
                 $notification = array(
                     'messege' => 'Sorry !! Email or Password not matched!',
@@ -157,7 +184,6 @@ class AuthController extends Controller
                 return Redirect()->back()->with($notification);
             }
         } else {
-
             $notification = array(
                 'messege' => 'Sorry !! Email or Password not matched!',
                 'alert-type' => 'error'
@@ -176,7 +202,6 @@ class AuthController extends Controller
 
     public function checkoutAuth(Request $request)
     {
-
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -212,7 +237,6 @@ class AuthController extends Controller
         Auth::logout();
         return back();
     }
-
 
     public function redirectToProviderGoogle()
     {
@@ -264,7 +288,6 @@ class AuthController extends Controller
             Auth::login($checkUser);
             return redirect()->intended(route('mobile.myaccount'));
         } else {
-
             $addUser = User::insert([
                 'username' => $user->name,
                 'password' => Hash::make(12345),

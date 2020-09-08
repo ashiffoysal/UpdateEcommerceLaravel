@@ -50,10 +50,10 @@
 		                              	@foreach($siteban as $key => $data)
 		                                  <tr>
 	                                  		  <td>
-																					<label class="chech_container mb-4">
-																						<input type="checkbox" name="delid[]" class="checkbox" value="{{$data->id}}">
-																						<span class="checkmark"></span>
-																					</label>
+													<label class="chech_container mb-4">
+														<input type="checkbox" name="delid[]" class="checkbox" value="{{$data->id}}">
+														<span class="checkmark"></span>
+													</label>
 		                                      </td>
 		                                      <td>
 		                                      	@if($data->section==1)
@@ -67,7 +67,7 @@
 																						@elseif($data->section==5)
 		                                        Details Banner(270*427)
 																						@elseif($data->section==6)
-																						 AboutUs HeaderTop(1920*180)
+																						  HeaderTop(1920*180)
 																						@elseif($data->section==7)
  																						 Warranty HeaderTop(1920*180)
 																						@elseif($data->section==8)
@@ -143,10 +143,10 @@
 							<option value="4">Category HeaderTop(1920*180)</option>
 							<option value="11">Category Menu(362*495)</option>
 							<option value="5">Details Banner(270*427)</option>
-							<option value="6">About Us HeaderTop(1920*180)</option>
-							<option value="7">Warranty HeaderTop(1920*180)</option>
-							<option value="8">Support HeaderTop(1920*180)</option>
-							<option value="9">Faq HeaderTop(1920*180)</option>
+							<option value="6">HeaderTop(1920*180)</option>
+							<!--<option value="7">Warranty HeaderTop(1920*180)</option>-->
+							<!--<option value="8">Support HeaderTop(1920*180)</option>-->
+							<!--<option value="9">Faq HeaderTop(1920*180)</option>-->
 							<option value="10">FlashDeal HeaderTop(1920*180)</option>
 
 			      </select>

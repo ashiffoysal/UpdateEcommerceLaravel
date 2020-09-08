@@ -9,6 +9,7 @@ use App\OrderPlace;
 use App\UserAddress;
 use App\PaymentDetail;
 use App\ProductStorage;
+use App\Logo;
 use Illuminate\Http\Request;
 use App\Mail\PaymentSuccessMail;
 use Illuminate\Support\Facades\DB;
@@ -246,9 +247,24 @@ class PaymentController extends Controller
                     'is_paid' => 1,
                     'payment_method_id' => 2,
                 ]);
+
                 $placeOrder = OrderPlace::where('payment_secure_id', $payment_secure_id)->first();
+
                 if (Auth::user()->email) {
-                    Mail::to(Auth::user()->email)->queue(new PaymentSuccessMail($placeOrder));
+
+                    $siteSettings = DB::table('sitesetting')
+                    ->select('company_name', 'address', 'facebook', 'twitter', 'instagram')->first();
+
+                    $frontLogo = Logo::select(['front_logo'])->first();
+
+                    $userAddress = UserAddress::where('user_id', $placeOrder->user_id)->select('user_address')->first();
+                    $shippingAddress = ShippingAddress::where('shipping_user_id', $placeOrder->user_id)
+                                        ->where('order_id', $placeOrder->order_id)
+                                        ->select('shipping_address')
+                                        ->first();
+                    Mail::to(Auth::user()->email)
+                    ->send(new PaymentSuccessMail($placeOrder, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
+
                 }
 
                 OrderPlace::where('id', $request->order_id)->update([
@@ -328,7 +344,17 @@ class PaymentController extends Controller
             $getOrderPlace->save();
 
             if (Auth::user()->email) {
-                Mail::to(Auth::user()->email)->queue(new PaymentSuccessMail($getOrderPlace));
+                $siteSettings = DB::table('sitesetting')
+                    ->select('company_name', 'address', 'facebook', 'twitter', 'instagram')->first();
+
+                $frontLogo = Logo::select(['front_logo'])->first();
+
+                $userAddress = UserAddress::where('user_id', $getOrderPlace->user_id)->select('user_address')->first();
+                $shippingAddress = ShippingAddress::where('shipping_user_id', $getOrderPlace->user_id)
+                                        ->where('order_id', $getOrderPlace->order_id)
+                                        ->select('shipping_address')
+                                        ->first();
+                Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getOrderPlace, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
             }
 
             return view('frontend.payment.ssl_commerce.success', compact('information'));

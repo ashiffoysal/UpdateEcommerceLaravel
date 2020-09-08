@@ -33,7 +33,7 @@
 
 
 												<div class="card-body">
-													<h5 class="card-title">{{$profile->first_name}} {{$profile->last_name}}</h5>
+													<h5 class="card-title">{{$profile->username}}</h5>
 													<p class="card-text">{{$profile->phone}}</p>
 													<p class="card-text">{{$profile->email}}</p>
 													@if($userAddress)

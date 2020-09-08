@@ -18,10 +18,14 @@ class UserVerificationMail extends Mailable
      */
     public $username;
     public $token;
-    public function __construct($username,$token)
+    public $frontLogo;
+    public $siteSettings;
+    public function __construct($username,$token, $frontLogo, $siteSettings)
     {
         $this->username = $username;
         $this->token = $token;
+        $this->frontLogo = $frontLogo;
+        $this->siteSettings = $siteSettings;
     }
 
     /**
@@ -33,6 +37,8 @@ class UserVerificationMail extends Mailable
     {
         $username = $this->username;
         $token = $this->token;
-        return $this->view('frontend.accounts.verification_mail_template.user_verification_mail', compact('username', 'token'));
+        $frontLogo = $this->frontLogo;
+        $siteSettings = $this->siteSettings;
+        return $this->view('mail_template.user_verification_mail', compact('username', 'token', 'frontLogo', 'siteSettings'));
     }
 }

@@ -6,8 +6,7 @@
     {{-- <td colspan="2"><img src="{{ asset('public/uploads/products/thumbnail/cartthum/'.$product->thumbnail_img) }}" height="45px"><span class="ml-2"></span>{{ $product->product_name }}</td> --}}
     <td>{{ $product->product_sku }}</td>
     <td>{{ $product->product_name }}</td>
-    <td><img src="{{asset('/'.$product->thumbnail_img)}}" height="45px"></td>
-
+    <td><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" height="45px"></td>
     <td>{{ $product->product_price }}</td>
     <td>
         @php

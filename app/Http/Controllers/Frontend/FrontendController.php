@@ -14,6 +14,8 @@ use App\ReSubCategory;
 use App\Color;
 use App\ProductReview;
 use App\FlashDealDetail;
+use App\Blog;
+use App\BlogComment;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -23,13 +25,35 @@ class FrontendController extends Controller
     // Frontend showing page
     public function index()
     {
-        foreach (ThemeSelector::where('status', 1)->get() as $themeselector) {
-            $to = Carbon::now()->format('Y-m-d');
-            $from = date('Y-m-d', strtotime('+30 days', strtotime($to)));
-            $hotdeals = FlashDeal::where('status', 1)->where('is_deleted', 0)->orderBy('id', 'DESC')->first();
-            //return  $hotdeals;
-            return view($themeselector->theme_name, compact('hotdeals'));
-        }
+        return view('frontend.home.home1');
+        
+        // foreach (ThemeSelector::where('status', 1)->get() as $themeselector) {
+        //     date_default_timezone_set('Asia/Dhaka');
+        //     $to = Carbon::now()->format('Y-m-d');
+        //     $from = date('Y-m-d', strtotime('+30 days', strtotime($to)));
+        //     $hotdeal = FlashDeal::with(['flash_deal_details', 'flash_deal_details.product'])
+        //     ->where('status', 1)
+        //     ->where('is_deleted', 0)
+        //     ->select('id', 'start_date', 'end_date')
+        //     ->orderBy('id', 'DESC')
+        //     ->first();
+             
+        // if ($hotdeal) {
+        //     if ($hotdeal->end_date == date('Y-m-d')) {
+        //         foreach ($hotdeal->flash_deal_details as $value) {
+        //             $value->update([
+        //                 'status' => 0,
+        //             ]);
+        //         }
+        //         $hotdeal->update([
+        //             'status' => 0
+        //         ]);
+        //     }
+        // }
+        
+    
+        // return view($themeselector->theme_name, compact('hotdeal'));
+        // }
     }
 
     // About us page show
@@ -57,7 +81,6 @@ class FrontendController extends Controller
     public function cateproduct($slug)
     {
         $category = Category::where('cate_slug', $slug)->first();
-
         return view('frontend.products.products', compact('category'));
     }
 
@@ -79,7 +102,9 @@ class FrontendController extends Controller
 
     public function productDetails($slug, $id)
     {
-        $productdetails = Product::where('id', $id)->first();
+        $productdetails = Product::where('id', $id)
+        ->select(['id', 'product_name', 'thumbnail_img', 'photos', 'slug', 'cate_id', 'product_qty', 'product_price', 'product_type', 'product_sku', 'brand', 'choice_options', 'colors', 'product_description', 'video'])
+        ->first();
         $checkFlashDeal = 0;
         $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();
         if ($flashDeal) {
@@ -209,22 +234,7 @@ class FrontendController extends Controller
 
     public function flashDealProducts()
     {
-        date_default_timezone_set('Asia/Dhaka');
-
-        $flash_deal = FlashDeal::where('status', 1)->where('is_deleted', 0)->select('id', 'end_date')->first();
-        if ($flash_deal) {
-
-            if ($flash_deal->end_date == date('Y-m-d')) {
-                foreach ($flash_deal->flash_deal_details as  $value) {
-                    $value->update([
-                        'status' => 0,
-                    ]);
-                }
-                $flash_deal->update([
-                    'status' => 0
-                ]);
-            }
-        }
+       $flash_deal = FlashDeal::where('status', 1)->where('is_deleted', 0)->select('id', 'end_date')->first();
         $flash_deal_details = 0;
         if ($flash_deal) {
             $flash_deal_details = FlashDealDetail::with('product')->where('flash_deal_id', $flash_deal->id)->paginate(16);
@@ -264,6 +274,42 @@ class FrontendController extends Controller
             $notification = array(
                 'messege' => 'Your Review Has been Faild,Please try Again!!',
                 'alert-type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
+        }
+    }
+    // blog
+    public function allblog(){
+        $blogs=Blog::where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->get();
+        return view('frontend.blog.blogpage',compact('blogs'));
+    }
+
+    // 
+    public function blogdetails($id){
+        $blogs=Blog::where('id',$id)->first();
+        return view('frontend.blog.blogdetails',compact('blogs'));
+    }
+
+    // 
+    public function blogcomment(Request $request){
+        $id=$request->id;
+        $comment=BlogComment::insertGetId([
+            'blog_id'=>$request['id'],
+            'name'=>$request['name'],
+            'email'=>$request['email'],
+            'comment'=>$request['comment'],
+            'created_at'=>Carbon::now()->toDateTimeString(),
+        ]);
+        if($comment){
+            $notification = array(
+                'messege' => 'comment Success',
+                'alert-type' =>'success'
+            );
+            return Redirect()->back()->with($notification);
+        }else{
+            $notification = array(
+                'messege' => 'comment faild',
+                'alert-type' =>'error'
             );
             return Redirect()->back()->with($notification);
         }

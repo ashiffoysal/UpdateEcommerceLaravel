@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\SmsModel;
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 

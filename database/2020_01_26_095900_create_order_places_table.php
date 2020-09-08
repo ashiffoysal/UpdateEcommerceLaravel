@@ -23,6 +23,8 @@ class CreateOrderPlacesTable extends Migration
             $table->string('cart_id');
             $table->string('total_price');
             $table->string('total_quantity');
+            $table->integer('cupon_value');
+            $table->integer('cupon_discount');
             $table->string('is_paid')->default(0);
             $table->string('status')->nullable();
             $table->timestamps();

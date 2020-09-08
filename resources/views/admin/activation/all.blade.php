@@ -415,7 +415,7 @@
                                                 @php
                                                     $opt = App\VerificationOption::first();
                                                 @endphp
-                                                <td>{{$opt->verify_with == 0 ? "Email" : "Phone"  }}</td>
+                                                <td>{!! $opt->verify_with == 0 ? "<b>Email</b>" : "<b>Phone</b>"  !!}</td>
                                                 <td>@if($update->sms==1)
                                                     <span class="btn btn-success">Active</span>
                                                     @else
@@ -424,12 +424,10 @@
                                                 <td>
                                                     @if($opt->verify_with == 0)
                                                     <a href="{{route('verification.option', $opt->id)}}"
-                                                        class="btn btn-success btn-sm text-white"><i
-                                                            class="fa fa-thumbs-up"></i></a>
+                                                        class="btn btn-success btn-sm">Active <i class="fas fa-mobile-alt"></i></a>
                                                     @else
                                                     <a href="{{route('verification.option', $opt->id)}}"
-                                                        class="btn btn-danger btn-sm text-white"><i
-                                                            class="far fa-thumbs-down"></i></a>
+                                                        class="btn btn-success btn-sm">Active <i class="fas fa-at"></i></a>
                                                     @endif
                                                 </td>
                                             </tr>
