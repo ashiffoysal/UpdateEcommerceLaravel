@@ -45,23 +45,30 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('frontend.accounts.login');
+        return view('frontend.accounts.account');
     }
 
     public function login(Request $request)
     {
+ 
+        return $request;
 
         $this->validate($request, [
             'login_email' => 'required',
             'login_password' => 'required'
-        ]);
+        ],
+        [
+            'login_email.required'=>'The Email field is required',
+            'login_password.required'=>'The Password field is required',
+        ]
+    );
 
         $user = User::where('email', $request->login_email)->first();
         if ($user) {
             if ($user->status == 1) {
                 $checkInformation = Auth::guard('web')->attempt(['email' => $request->login_email, 'password' => $request->login_password]);
                 if ($checkInformation) {
-                    return redirect()->intended(route('customer.account'));
+                    return redirect()->intended(route('customar.account.page'));
                 } else {
                     session()->flash('errorMsg', 'Email ID or Password not matched!');
                     return redirect()->back();
@@ -76,37 +83,7 @@ class LoginController extends Controller
         }
     }
 
-    public function modalLogin(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required'
-        ]);
 
-        $user = User::where('email', $request->email)->first();
-        if ($user) {
-            if ($user->status == 1) {
-                $checkInformation = Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
-                if ($checkInformation) {
-                    // return redirect()->intended(route('customer.account'));
-                    Auth::login($user);
-                    return response()->json(['login' => route('customer.account')]);
-                } else {
-                    // session()->flash('errorMsg', 'Email ID or Password not matched!');
-                    // return redirect()->back();
-                    return response()->json(['error' => 'Email ID or Password not matched!']);
-                }
-            } else {
-                // session()->flash('errorMsg', 'You Email ID Is Not Verified!');
-                //return redirect()->back();
-                return response()->json(['error' => 'You Email ID Is Not Verified!']);
-            }
-        } else {
-            // session()->flash('errorMsg', 'Email ID or Password not matched!');
-            // return redirect()->back();
-            return response()->json(['error' => 'Email ID or Password not matched!']);
-        }
-    }
 
     public function redirectToProviderGoogle()
     {
