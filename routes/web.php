@@ -461,13 +461,14 @@
     // Theme Selector area start
 
     Route::get(md5('admin/theme/selector/show'), 'Admin\ThemeOptionController@themeSelectorPageShow')->name('theme.selector.show');
-    Route::post('admin/theme/selector/change', 'Admin\ThemeOptionController@themeSelectorPageChange')->name('admin.theme.option.change');
+
+
+    Route::get('admin/theme/selector/active/{id}', 'Admin\ThemeOptionController@active');
+    Route::get('admin/theme/selector/deactive/{id}', 'Admin\ThemeOptionController@deactive');
+
 
 
     Route::get('admin/product/modal/show', 'Admin\ThemeOptionController@productModal');
-
-
-
     // add to cart area start
 
     Route::get('add/to/cart', 'Frontend\AddToCartController@addToCart')->name('product.add.cart');

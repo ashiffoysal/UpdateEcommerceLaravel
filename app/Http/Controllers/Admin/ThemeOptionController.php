@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\ThemeSelector;
+use Carbon\Carbon;
+use Session;
+use Image;
+use DB;
+
 
 class ThemeOptionController extends Controller
 {
@@ -20,21 +25,42 @@ class ThemeOptionController extends Controller
         $themselect = ThemeSelector::get();
         return view('admin.setting.themeselctor', compact('themselect'));
     }
-
-    public function themeSelectorPageChange(Request $request)
-    {
-        $statusid = ThemeSelector::where('status', 1)->first();
-        if ($statusid) {
-            $statusid->status = 0;
-            $statusid->save();
+    public function active($id){
+       $theme = ThemeSelector::get();
+        foreach ($theme as $data) {
+            $nnid = $data->id;
+            $update = ThemeSelector::where('id', $nnid)->update([
+                'status' => '0',
+                'updated_at' => Carbon::now()->toDateTimeString(),
+            ]);
         }
-
-        $product = ThemeSelector::findOrFail($request->id);
-        $product->status = $request->status;
-        $product->save();
-
-        return 1;
+        $newupdate = ThemeSelector::where('id', $id)->update([
+            'status' => '1',
+            'updated_at' => Carbon::now()->toDateTimeString(),
+        ]);
+        if ($newupdate) {
+            $notification = array(
+                'messege' => 'Active Success',
+                'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+                'messege' => 'Active Faild',
+                'alert-type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
+        }
     }
+
+    public function deactive($id){
+        return $id;
+    }
+  
+
+
+
+
 
 
     public function productModal()
