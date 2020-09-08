@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
         $data = new Category;
         $data->cate_name=$request->cate_name;
-        $data->section_id=$request->section_id;
+      
         $data->cate_tag=$request->tag;
 
         if($cate_slug){
@@ -103,7 +103,7 @@ class CategoryController extends Controller
 
         $data = Category::findOrFail($cate_id);
         $data->cate_name=$request->cate_name;
-        $data->section_id=$request->section_id;
+        
         $data->cate_tag=$request->tag;
 
         if($cate_slug){

@@ -34,43 +34,46 @@ class FrontendController extends Controller
         }
         elseif($themecheck->id==3){
 
-            return "home3 theme";
+            return view('frontend.home.home3');
         }
         elseif($themecheck->id==4){
 
-            return "home3 theme";
+            return view('frontend.home.home4');
+        }
+        elseif($themecheck->id==5){
+
+            return view('frontend.home.home5');
+        }
+        elseif($themecheck->id==6){
+
+            return view('frontend.home.home6');
+        }
+        elseif($themecheck->id==7){
+
+            return view('frontend.home.home7');
+        }
+        elseif($themecheck->id==8){
+
+            return view('frontend.home.home8');
+        }
+         elseif($themecheck->id==9){
+
+            return view('frontend.home.home9');
+        }
+
+        elseif($themecheck->id==10){
+
+            return view('frontend.home.home10');
+        }
+        elseif($themecheck->id==11){
+
+            return view('frontend.home.home11');
         }
         else{
-            return "kisui nae";
+            return "upcomming Theme";
         }
         
-        // foreach (ThemeSelector::where('status', 1)->get() as $themeselector) {
-        //     date_default_timezone_set('Asia/Dhaka');
-        //     $to = Carbon::now()->format('Y-m-d');
-        //     $from = date('Y-m-d', strtotime('+30 days', strtotime($to)));
-        //     $hotdeal = FlashDeal::with(['flash_deal_details', 'flash_deal_details.product'])
-        //     ->where('status', 1)
-        //     ->where('is_deleted', 0)
-        //     ->select('id', 'start_date', 'end_date')
-        //     ->orderBy('id', 'DESC')
-        //     ->first();
-             
-        // if ($hotdeal) {
-        //     if ($hotdeal->end_date == date('Y-m-d')) {
-        //         foreach ($hotdeal->flash_deal_details as $value) {
-        //             $value->update([
-        //                 'status' => 0,
-        //             ]);
-        //         }
-        //         $hotdeal->update([
-        //             'status' => 0
-        //         ]);
-        //     }
-        // }
-        
-    
-        // return view($themeselector->theme_name, compact('hotdeal'));
-        // }
+       
     }
 
     // About us page show

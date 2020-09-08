@@ -355,7 +355,8 @@ section{
   padding:4px;
 }
 .header_area .header_menu>li>a:hover{
-  background-color:#26ABE2;
+    background-color: #d01616;
+    border: #d01616;
 }
 .header_area .header_menu>.show>a{
   background-color:#26ABE2;

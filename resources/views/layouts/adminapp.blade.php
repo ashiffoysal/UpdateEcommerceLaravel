@@ -82,6 +82,9 @@ $logo=DB::table('logos')->first();
                         </form>
                     </div>
                 </li>
+                <li>
+                    <a href="{{url('/')}}" target="_blank" class="btn btn-danger">Live Project</a>
+                </li>
                 @php
                   $totalmessage=App\Contract::where('is_seen',0)->count();
                 @endphp
@@ -417,7 +420,7 @@ $logo=DB::table('logos')->first();
                     </li>
                     @else
                     @endif
-                    <li class="single-nav-wrapper">
+                 <!--    <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
                             <span class="left-icon"><i class="fas fa-external-link-alt"></i></span>
                             <span class="menu-text">Mobile Apps</span>
@@ -426,7 +429,7 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.mobileslider.all')}}">All Slider</a></li>
                             <li><a href="{{route('admin.mbanner.all')}}">All Banner</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     @if(Auth::user()->trash==1)
                     <li class="single-nav-wrapper">
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
@@ -661,6 +664,7 @@ $logo=DB::table('logos')->first();
     <script src="{{asset('public/adminpanel')}}/assets/plugins/icheck/icheck.min.js"></script>
     <script src="{{asset('public/adminpanel')}}/assets/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>
     <script src="{{asset('public/adminpanel')}}/assets/plugins/icheck/icheck-active.js"></script>
+
     {{-- TestJs --}}
 
     <!-- nice scroll bar -->

@@ -51,43 +51,6 @@
 									      <p>(20px*20px)</p>
 									    </div>
 									  </div>
-									  <div class="form-group row">
-									    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Choich Section</label>
-									    <div class="col-sm-8 row">
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="1">
-									     	<img src="{{asset('public/adminpanel')}}/Capture.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <br>
-									     <br>
-									     <br>
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="2" id="check_img" class="check_img">
-									     	<img src="{{asset('public/adminpanel')}}/Capture2.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <br>
-									     <br>
-									     <br>
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="3"  id="check_img" class="check_img">
-									     	<img src="{{asset('public/adminpanel')}}/Capture3.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <br>
-									     <br>
-									     <br>
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="4">
-									     	<img src="{{asset('public/adminpanel')}}/Capture4.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="5" checked>
-									     	<img src="{{asset('public/adminpanel')}}/Capture5.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <br>
-									     <br>
-									     <br>
-									    </div>
-									  </div>
 
 									  <div class="form-group row">
 									    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Meta Tag:</label>
