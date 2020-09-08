@@ -25,7 +25,24 @@ class FrontendController extends Controller
     // Frontend showing page
     public function index()
     {
-        return view('frontend.home.home1');
+        $themecheck = ThemeSelector::where('status', 1)->first();
+        if($themecheck->id==1){
+            return view('frontend.home.home1');
+        }
+        elseif($themecheck->id==2){
+            return view('frontend.home.home2');
+        }
+        elseif($themecheck->id==3){
+
+            return "home3 theme";
+        }
+        elseif($themecheck->id==4){
+
+            return "home3 theme";
+        }
+        else{
+            return "kisui nae";
+        }
         
         // foreach (ThemeSelector::where('status', 1)->get() as $themeselector) {
         //     date_default_timezone_set('Asia/Dhaka');

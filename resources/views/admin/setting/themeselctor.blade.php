@@ -1,67 +1,77 @@
 @extends('layouts.adminapp')
 @section('admin_content')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+<!-- content wrpper -->
 <div class="content_wrapper">
+    <!--middle content wrapper-->
+    <!-- page content -->
     <div class="middle_content_wrapper">
-        <section class="page_area">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel">
-                        <div class="panel_header">
-                            <div class="panel_title"><span class="text-center">Change Your Home Page</span></div>
-                        </div>
-                        <div class="panel_body">
-
-                            <div class="form-group row">
-                                @foreach($themselect as $data)
-                                <div class="col-sm-3 text-center">
-                                    <img src="{{asset('public/frontend/image/catalog/demo/menu/feature/')}}/{{$data->theme_image}}" style="height: 160px; width: 100%;"><br><br>
-                                    <span class="theme_option_text" col-form-label">{{$data->theme_display_name}}</span><br><br>
-                                    <label class="switch">
-                                        <input type="checkbox" class="themeselector" onclick="myfunction()" onchange="update_todays_deal(this)" value="{{ $data->id }}" <?php if ($data->status == 1) echo "checked"; ?>>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                                @endforeach
+        <section class="page_content">
+            <!-- panel -->
+            <div class="panel mb-0">
+                <div class="panel_header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel_title">
+                                <span class="panel_icon"><i class="fas fa-border-all"></i></span><span>Theme Setup</span>
                             </div>
                         </div>
+                        <div class="col-md-6 text-right">
+                           
+                        </div>
                     </div>
+
                 </div>
+               
+                   
+                        <div class="table-responsive">
+                            <table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>image</th>
+                                        <th>status</th>
+                                        <th>manage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     @foreach($themselect as $key => $data)
+                                    <tr>
+
+                                        <td>{{++$key}}</td>
+                                        <td>{{$data->theme_name}}</td>
+                                         <td>
+                                            <img src="" height="45px;">
+                                        </td>
+                                        <td>
+                                            @if($data->status==1)
+                                            <button class="btn-sm btn-success">Active</button>
+                                            @else
+                                            <button class="btn-sm btn-default">Deactive</button>
+                                            @endif
+                                        </td>
+                                        <td>
+                                             @if($data->status==1)
+                                            <a href="" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
+                                            @else
+
+                                            <a href="{{url('admin/theme/selector/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
+                                            @endif
+
+                                      <!--       <a href="" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="edit"><i class="fas fa-pencil-alt"></i></a> -->
+                                         
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
             </div>
         </section>
     </div>
 </div>
+<!-- modal start-->
 @endsection
-
-<script>
-    function update_todays_deal(el) {
-        //alert('success');
-        if (el.checked) {
-            var status = 1;
-        } else {
-            var status = 0;
-        }
-
-
-        $.post('{{ route('admin.theme.option.change') }}', {_token: '{{ csrf_token() }}',id: el.value,status: status},
-
-
-            function(data) {
-                console.log(data);
-                if (data == 1) {
-                    toastr.success("Theme Changed successfully");
-                } 
-            });
-    }
-</script>
-
-<script>
-    function myfunction(){
-        $('input:checkbox').click(function() {
-            $('input:checkbox').not(this).prop('checked', false);
-        });
-    }
-</script>
