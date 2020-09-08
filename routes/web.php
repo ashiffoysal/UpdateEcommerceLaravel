@@ -697,107 +697,23 @@
     Route::get(md5('admin/product/bestsell'), 'Admin\ReportController@bestsell')->name('admin.bestsell');
 
 
-    Route::group(['prefix' => 'admin/subscriber/mail', 'namespace'=>'Admin','middleware' => 'auth:admin'], function () {
-        Route::get('send/section', 'SubscriberController@mailSendSection')->name('admin.subscriber.send.section');
-        Route::get('mail/details/{mailId}', 'SubscriberController@mailDetails')->name('admin.subscriber.mail.details');
-        Route::get('/compose', 'SubscriberController@mailComposeSection')->name('admin.subscriber.mail.compose');
-        Route::post('send', 'SubscriberController@mailSend')->name('admin.subscriber.send.mail');
-        Route::post('multiple/delete', 'SubscriberController@multipleDelete')->name('contract.multiple.delete');
-        Route::get('reply/{mailId}', 'SubscriberController@replyMail')->name('admin.contract.reply.mail');
-        Route::post('reply/or/draft/{mailId}', 'SubscriberController@mailReplyOrDraft')->name('admin.mail.reply.or.draft');
-        Route::get('all/draft', 'SubscriberController@allDraftMails')->name('admin.mail.all.draft');
-        Route::post('delete/draft', 'SubscriberController@deleteDraft')->name('admin.delete.draft.mail');
-        Route::get('trash', 'SubscriberController@trashMails')->name('admin.trash.mail');
-        Route::post('force/delete/or/restore', 'SubscriberController@forceDeleteOrRestore')->name('admin.mail.delete.or.restore');
-        Route::get('send/draft/mail/{draftId}', 'SubscriberController@sendDraftMailSection')->name('admin.send.draft.mail');
-        Route::post('reply/or/draft/from/draft/mail{draftId}', 'SubscriberController@replyOrDraft')->name('admin.mail.reply.or.draft.from.draft');
-    });
-    //Harrison start ended
 
 
-    Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
-
-        Route::get('selected/show', 'CourierController@index')->name('courier.index');
-        Route::get('sync', 'CourierController@couriersyncview')->name('courier.sync.view');
-        Route::post('sync/insert', 'CourierController@couriersyncinsert')->name('courier.sync.insert');
-        Route::get('sync/edit/{subDistrictId}', 'CourierController@couriersyncedit')->name('courier.sync.edit');
-        Route::post('sync/sync/update/{subDistrictId}', 'CourierController@couriersyncupdate')->name('courier.sync.update');
-        Route::get('sync/sync/delete/{subDistrictId}', 'CourierController@couriersyncdelete')->name('courier.sync.delete');
-        Route::post('store', 'CourierController@courierstore')->name('courier.store');
-        Route::get('allcurier', 'CourierController@allcurier')->name('courier.all');
-
-        Route::get('/edit/{id}', 'CourierController@curieredit');
-        Route::post('/update', 'CourierController@curierupdate');
-        Route::get('/curierdelete/{id}', 'CourierController@curierdelete');
-
-        // Ajax Route
-        Route::get('get/district/by/division/id/{divisionId}', 'CourierController@getDistrictByAjax');
-        Route::get('get/sub_district/by/district/id/{districtId}', 'CourierController@getSubDistrictByAjax');
-        Route::get('get/couriers/by/courier_id', 'CourierController@getCouriersByAjax');
-        Route::get('get/courier/for/update', 'CourierController@getCouriersForUpdateByAjax');
-        // Ajax Route Ended
-    });
-    //Harrison start ended
 
 
-    Route::group(['prefix' => 'admin/courier', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
-        Route::get('selected/show', 'CourierController@index')->name('courier.index');
-        Route::get('sync', 'CourierController@couriersyncview')->name('courier.sync.view');
-        Route::post('sync/insert', 'CourierController@couriersyncinsert')->name('courier.sync.insert');
-        Route::get('sync/edit/{subDistrictId}', 'CourierController@couriersyncedit')->name('courier.sync.edit');
-        Route::post('sync/sync/update/{subDistrictId}', 'CourierController@couriersyncupdate')->name('courier.sync.update');
-        Route::get('sync/sync/delete/{subDistrictId}', 'CourierController@couriersyncdelete')->name('courier.sync.delete');
-        Route::post('store', 'CourierController@courierstore')->name('courier.store');
-        Route::get('allcurier', 'CourierController@allcurier')->name('courier.all');
 
-        Route::get('/edit/{id}', 'CourierController@curieredit');
-        Route::post('/update', 'CourierController@curierupdate');
-        Route::get('/curierdelete/{id}', 'CourierController@curierdelete');
 
-        // Ajax Route
-        Route::get('get/district/by/division/id/{divisionId}', 'CourierController@getDistrictByAjax');
-        Route::get('get/sub_district/by/district/id/{districtId}', 'CourierController@getSubDistrictByAjax');
-        Route::get('get/couriers/by/courier_id', 'CourierController@getCouriersByAjax');
-        Route::get('get/courier/for/update', 'CourierController@getCouriersForUpdateByAjax');
-        // Ajax Route Ended
 
+    // New Route start from here
+
+    Route::get('/test',function(){
+        return view('frontend.accounts.notification');
     });
 
-
-    // Search Route Created By Harrison
-
-    Route::get('search/product/by/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByAjax');
-    Route::get('search/product/by/main/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByMainCatByAjax');
-    Route::get('search/product/by/sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductBySubCatByAjax');
-    Route::get('search/product/by/re_sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByResubCatByAjax');
-
-    // Search Route Created By Harrison Ended
+    
 
 
-    // Payment Route Created By Harrison
-
-    Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
-        Route::get('stripe/{payment_secure_id}', 'PaymentController@index')->name('stripe.index');
-        Route::post('stripe/submit/{payment_secure_id}', 'PaymentController@stripeSubmit')->name('payment.stripe.submit');
-        Route::get('stripe/success/payment', 'PaymentController@successStripePaymentView')->name('payment.stripe.success.view');
-        Route::get('paypal/success/payment', 'PaymentController@paypalsuccess')->name('payment.paypal.success');
-
-        Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
-        Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
-        Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
-
-        Route::get('order_payment/{paymentSecureId}', 'PaymentController@paymentPage')->name('order.payment');
-        Route::post('make_payment/', 'PaymentController@makePayment')->name('payment.make.payment');
-
-        //SSL COMMERCEZ
-        Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
-        Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
-        Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
-    });
 
 
-    Route::get('/user/shipping/value/{id}', 'Frontend\CheckoutController@shippingChargeValue');
-    Route::get('/user/shipping/value/to/insert/{id}', 'Frontend\CheckoutController@shippingChargeValueSend');
-
-    // ======================================Mobile route start from here=================================//
+  
 
