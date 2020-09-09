@@ -10,3 +10,4 @@
     <link rel="stylesheet" href="{{asset('public/frontend')}}/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css">
     <link rel="stylesheet" href="{{asset('public/frontend')}}/plugins/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="{{asset('public/frontend')}}/css/style.css">
+    <link rel="stylesheet" href="{{asset('public/frontend')}}/css/izitost.css">

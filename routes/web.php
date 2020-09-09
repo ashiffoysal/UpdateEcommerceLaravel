@@ -804,11 +804,26 @@
     // customar login information start here
     
     Route::namespace('Frontend')->group(function () {
-        Route::get('/account','FrontendController@showAccountInfoPage')->name('customar.account.page');
-        Route::get('/customar/login/page','AdminController@showLoginForm')->name('customar.login.form');
-        Route::post('/customar/login','AdminController@login')->name('customar.login');
-        Route::post('/customar/register','AdminController@register')->name('customar.register');
+
+        Route::prefix('customar')->group(function(){
+            Route::get('/login','AdminController@showLoginForm')->name('customar.login.form');
+            Route::post('/login','AdminController@login')->name('customar.login');
+            Route::post('/register','AdminController@register')->name('customar.register');
+            Route::post('/logout','AdminController@logout')->name('customar.logout');
+
+            Route::middleware('auth:web')->group(function(){
+                Route::get('/account','FrontendController@showAccountInfoPage')->name('customar.account.page');
+            });
+        });
+
+
+        Route::prefix('subscriber')->group(function(){
+
+            Route::post('/create', 'SubscribeController@insert')->name('frontend.subscriber.insert');
+        });
+
     });
+
     
 
 

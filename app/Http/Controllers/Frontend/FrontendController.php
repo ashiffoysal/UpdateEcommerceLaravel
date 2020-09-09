@@ -343,7 +343,8 @@ class FrontendController extends Controller
 
      public function showAccountInfoPage()
      {
-         return view('frontend.accounts.notification');
+        
+         return view('frontend.accounts.account');
      }
 
    

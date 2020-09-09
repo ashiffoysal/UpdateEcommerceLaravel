@@ -18,7 +18,7 @@ class AdminController extends Controller
      
     public function showLoginForm()
     {
-        return view('frontend.accounts.account');
+        return view('frontend.accounts.login');
     }
 
 
@@ -39,12 +39,14 @@ class AdminController extends Controller
         ]
     );
 
-        $user = User::where('email', $request->login_email)->first();
+        $user = User::where('email', $request->login_email)->orWhere('phone',$request->login_email)->first();
         $fieldType = filter_var($request->login_email, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
         
         if ($user) {
+            
+            
             if ($user->status == 1) {
-                $checkInformation =Auth::guard('admin')->attempt(array($fieldType => $request['login_email'], 'password' => $request['login_password']));
+                $checkInformation =Auth::guard('web')->attempt(array($fieldType => $request['login_email'], 'password' => $request['login_password']));
                 if ($checkInformation) {
                     return redirect()->intended(route('customar.account.page'));
                 } else {
@@ -90,5 +92,14 @@ class AdminController extends Controller
        $user->save();
        return back();  
 
+    }
+
+
+    // customar logout
+
+    public function logout (Request $request)
+    {
+        Auth::logout();
+        return redirect()->route('customar.login.form');
     }
 }
