@@ -27,7 +27,39 @@ class FrontendController extends Controller
     {
         $themecheck = ThemeSelector::where('status', 1)->first();
         if($themecheck->id==1){
-            return view('frontend.home.home1');
+
+            $firstcate=Category::where('cate_status',1)->where('is_deleted',0)->first();
+            $secondcate=Category::where('cate_status',1)->where('is_deleted',0)->skip(1)->first();
+            $thirdcate=Category::where('cate_status',1)->where('is_deleted',0)->skip(2)->first();
+            $newproduct=Product::where('is_deleted',0)->orderBy('id','DESC')->limit(6)->get();
+            //$hot_deal=FlashDeal::where('status',1)->where('is_deleted',0)->first();
+            // hot deal start
+               date_default_timezone_set('Asia/Dhaka');
+                $to = Carbon::now()->format('Y-m-d');
+                $from = date('Y-m-d', strtotime('+30 days', strtotime($to)));
+                $hotdeal = FlashDeal::with(['flash_deal_details', 'flash_deal_details.product'])
+                ->where('status', 1)
+                ->where('is_deleted', 0)
+                ->select('id', 'start_date', 'end_date')
+                ->orderBy('id', 'DESC')
+                ->first();
+                 
+            if ($hotdeal) {
+                if ($hotdeal->end_date == date('Y-m-d')) {
+                    foreach ($hotdeal->flash_deal_details as $value) {
+                        $value->update([
+                            'status' => 0,
+                        ]);
+                    }
+                    $hotdeal->update([
+                        'status' => 0
+                    ]);
+                }
+            }
+
+
+            // hotdeal end
+            return view('frontend.home.home1',compact('firstcate','secondcate','thirdcate','newproduct','hotdeal'));
         }
         elseif($themecheck->id==2){
             return view('frontend.home.home2');

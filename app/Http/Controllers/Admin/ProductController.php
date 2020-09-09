@@ -191,7 +191,7 @@ class ProductController extends Controller
         if ($request->hasFile('thumbnail_img')) {
             $image = $request->file('thumbnail_img');
             $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(270, 270)->save('public/uploads/products/thumbnail/' . $ImageName);
+            Image::make($image)->resize(300, 300)->save('public/uploads/products/thumbnail/' . $ImageName);
             Image::make($image)->resize(160, 160)->save('public/uploads/products/thumbnail/mobile/' . $ImageName);
             Image::make($image)->resize(120, 120)->save('public/uploads/products/thumbnail/smallthum/' . $ImageName);
             Image::make($image)->resize(600, 600)->save('public/uploads/products/thumbnail/productdetails/' . $ImageName);
@@ -829,7 +829,7 @@ class ProductController extends Controller
             unlink('public/uploads/products/thumbnail/productdetails/'.$oldimage);
             $image = $request->file('thumbnail_img');
             $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(270, 270)->save('public/uploads/products/thumbnail/' . $ImageName);
+            Image::make($image)->resize(300, 300)->save('public/uploads/products/thumbnail/' . $ImageName);
             Image::make($image)->resize(120, 120)->save('public/uploads/products/thumbnail/smallthum/' . $ImageName);
             Image::make($image)->resize(600, 600)->save('public/uploads/products/thumbnail/productdetails/' . $ImageName);
             Image::make($image)->resize(160, 160)->save('public/uploads/products/thumbnail/mobile/' . $ImageName);
@@ -839,7 +839,7 @@ class ProductController extends Controller
           }else{
             $image = $request->file('thumbnail_img');
             $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(270, 270)->save('public/uploads/products/thumbnail/' . $ImageName);
+            Image::make($image)->resize(300, 300)->save('public/uploads/products/thumbnail/' . $ImageName);
             Image::make($image)->resize(120, 120)->save('public/uploads/products/thumbnail/smallthum/' . $ImageName);
             Image::make($image)->resize(600, 600)->save('public/uploads/products/thumbnail/productdetails/' . $ImageName);
             Image::make($image)->resize(160, 160)->save('public/uploads/products/thumbnail/mobile/' . $ImageName);

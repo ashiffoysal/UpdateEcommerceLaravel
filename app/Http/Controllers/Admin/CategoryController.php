@@ -40,8 +40,9 @@ class CategoryController extends Controller
 
         $data = new Category;
         $data->cate_name=$request->cate_name;
-        $data->section_id=$request->section_id;
+        
         $data->cate_tag=$request->tag;
+        $data->cate_icon=$request->icon;
 
         if($cate_slug){
             $data->cate_slug=$inputslug;
@@ -51,17 +52,11 @@ class CategoryController extends Controller
         if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='pic_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(270,270)->save('public/uploads/category/'.$ImageName);
+                Image::make($image)->resize(170,170)->save('public/uploads/category/'.$ImageName);
                 Image::make($image)->resize(210,270)->save('public/uploads/category/mobile/'.$ImageName);
                 $data->cate_image =$ImageName;
         }
-        if($request->hasFile('icon')){
-                $image=$request->file('icon');
-                $ImageName='icon'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(20,20)->save('public/uploads/category/'.$ImageName);
-                $data->cate_icon =$ImageName;
-        }
-
+  
         if($data->save()){
             $notification=array(
             'messege'=>'Site Banner Insert Successfully',
@@ -103,8 +98,9 @@ class CategoryController extends Controller
 
         $data = Category::findOrFail($cate_id);
         $data->cate_name=$request->cate_name;
-        $data->section_id=$request->section_id;
+       
         $data->cate_tag=$request->tag;
+        $data->cate_icon=$request->icon;
 
         if($cate_slug){
             $data->cate_slug=$inputslug;
@@ -115,17 +111,11 @@ class CategoryController extends Controller
         if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='pic_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(270,270)->save('public/uploads/category/'.$ImageName);
+                Image::make($image)->resize(170,170)->save('public/uploads/category/'.$ImageName);
                 Image::make($image)->resize(210,270)->save('public/uploads/category/mobile/'.$ImageName);
                 $data->cate_image =$ImageName;
         }
-        if($request->hasFile('icon')){
-                $image=$request->file('icon');
-                $ImageName='icon'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(20,20)->save('public/uploads/category/'.$ImageName);
-                $data->cate_icon =$ImageName;
-        }
-
+ 
         if($data->save()){
             $notification=array(
             'messege'=>'Site Banner Update Successfully',
