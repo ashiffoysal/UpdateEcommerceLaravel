@@ -235,7 +235,7 @@
                                         $check = App\SubCategory::where('cate_id',$category->id)->first();
                                     @endphp
                                     @if($check)
-                                            <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#"><i class="fa"></i>{{$category->cate_name}}</a>
+                                            <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="{{url('product/page/'.$category->cate_slug)}}"><i class="fa"></i>{{$category->cate_name}}</a>
                                                 @php
                                                      $allsub=App\SubCategory::where('cate_id',$category->id)->where('is_deleted',0)->where('subcate_status',1)->get();
                                                  @endphp
@@ -258,7 +258,7 @@
                                             </li>
 
                                     @else
-                                          <li class="current-menu-item "><a href="#"> {!! $category->cate_icon !!}{{$category->cate_name}}</a>
+                                          <li class="current-menu-item "><a href="{{url('product/page/'.$category->cate_slug)}}"> {!! $category->cate_icon !!}{{$category->cate_name}}</a>
                                         </li>
                                     @endif
                               

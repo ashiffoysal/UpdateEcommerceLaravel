@@ -367,6 +367,7 @@
     Route::get('/about-us', 'Frontend\FrontendController@aboutus')->name('about.us');
     // category
     Route::get('product/page/{slug}', 'Frontend\FrontendController@cateproduct');
+    
     // subcategory
     Route::get('subacete/{cate_slug}/{subacet_slug}', 'Frontend\FrontendController@subcateproduct');
     // resubcate

@@ -4,7 +4,7 @@
         <div class="ps-container">
             <ul class="breadcrumb">
                 <li><a href="index.html">Home</a></li>
-                <li>{{$category->cate_name}}</li>
+                <li>{{$subcate->subcate_name}}</li>
             </ul>
         </div>
     </div>
@@ -13,123 +13,6 @@
             <div class="ps-shop-banner">
                 <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on"><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/1.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/2.jpg" alt=""></a></div>
             </div>
-          <!--   <div class="ps-shop-brand"><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/1.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/2.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/3.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/4.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/5.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/6.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/7.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/8.jpg" alt=""></a></div> -->
-            <!-- <div class="ps-shop-categories">
-                <div class="row align-content-lg-stretch">
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="{{asset('/public/frontend')}}/img/categories/shop/1.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>Clothing &amp; Apparel</h4>
-                                <ul>
-                                    <li><a href="shop-default.html">Accessories</a></li>
-                                    <li><a href="shop-default.html">Bags</a></li>
-                                    <li><a href="shop-default.html">Kid's Fashion</a></li>
-                                    <li><a href="shop-default.html">Mens</a></li>
-                                    <li><a href="shop-default.html">Shoes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="{{asset('/public/frontend')}}/img/categories/shop/2.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>Garden &amp; Kitchen</h4>
-                                <ul>
-                                    <li><a href="shop-default.html">Cookware</a></li>
-                                    <li><a href="shop-default.html">Decoration</a></li>
-                                    <li><a href="shop-default.html">Furniture</a></li>
-                                    <li><a href="shop-default.html">Garden Tools</a></li>
-                                    <li><a href="shop-default.html">Home Improvement</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="{{asset('/public/frontend')}}/img/categories/shop/3.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>Consumer Electrics</h4>
-                                <ul>
-                                    <li><a href="shop-default.html">Air Conditioners</a></li>
-                                    <li><a href="shop-default.html">Audios &amp; Theaters</a></li>
-                                    <li><a href="shop-default.html">Car Electronics</a></li>
-                                    <li><a href="shop-default.html">Office Electronics</a></li>
-                                    <li><a href="shop-default.html">Refrigerations</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="{{asset('/public/frontend')}}/img/categories/shop/4.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>Health &amp; Beauty</h4>
-                                <ul>
-                                    <li><a href="shop-default.html">Equipments</a></li>
-                                    <li><a href="shop-default.html">Hair Care</a></li>
-                                    <li><a href="shop-default.html">Perfumer</a></li>
-                                    <li><a href="shop-default.html">Skin Care</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="{{asset('/public/frontend')}}/img/categories/shop/5.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>Computers &amp; Technologies</h4>
-                                <ul>
-                                    <li><a href="shop-default.html">Desktop PC</a></li>
-                                    <li><a href="shop-default.html">Laptop</a></li>
-                                    <li><a href="shop-default.html">Smartphones</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="{{asset('/public/frontend')}}/img/categories/shop/6.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>Jewelry &amp; Watches</h4>
-                                <ul>
-                                    <li><a href="shop-default.html">Gemstones Jewelry</a></li>
-                                    <li><a href="shop-default.html">Men's Watches</a></li>
-                                    <li><a href="shop-default.html">Women's Watches</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="{{asset('/public/frontend')}}/img/categories/shop/7.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>Phone &amp; Accessories</h4>
-                                <ul>
-                                    <li><a href="shop-default.html">Iphone 8</a></li>
-                                    <li><a href="shop-default.html">Iphone X</a></li>
-                                    <li><a href="shop-default.html">Samsung Note 8</a></li>
-                                    <li><a href="shop-default.html">Samsung S8</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 ">
-                        <div class="ps-block--category-2" data-mh="categories">
-                            <div class="ps-block__thumbnail"><img src="{{asset('/public/frontend')}}/img/categories/shop/8.jpg" alt=""></div>
-                            <div class="ps-block__content">
-                                <h4>Sport &amp; Outdoor</h4>
-                                <ul>
-                                    <li><a href="shop-default.html">Freezer Burn</a></li>
-                                    <li><a href="shop-default.html">Frigde Cooler</a></li>
-                                    <li><a href="shop-default.html">Wine Cabinets</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <div class="ps-layout--shop">
                 <div class="ps-layout__left">
                     <aside class="widget widget_shop">
@@ -152,7 +35,7 @@
                                                 $resubcatecheck =App\ReSubCategory::where('is_deleted',0)->where('subcate_id',$sub->id)->first();
                                            @endphp
                                            @if($resubcatecheck)
-                                            <li class="current-menu-item menu-item-has-children"><a href="{{url('subacete/'.$cate->cate_slug.'/'.$sub->subcate_slug)}}">{{$sub->subcate_name}}</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                                            <li class="current-menu-item menu-item-has-children"><a href="shop-default.html">{{$sub->subcate_name}}</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
                                                 <ul class="sub-menu">
                                                     @php
                                                         $resub=App\ReSubCategory::where('is_deleted',0)->where('subcate_id',$sub->id)->get();
@@ -970,26 +853,4 @@
             </div>
         </div>
     </div>
-    <!-- <div class="ps-newsletter">
-        <div class="container">
-            <form class="ps-form--newsletter" action="do_action" method="post">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                        <div class="ps-form__left">
-                            <h3>Newsletter</h3>
-                            <p>Subcribe to get information about products and coupons</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                        <div class="ps-form__right">
-                            <div class="form-group--nest">
-                                <input class="form-control" type="email" placeholder="Email address">
-                                <button class="ps-btn">Subscribe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> -->
-    @endsection
+@endsection
