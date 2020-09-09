@@ -171,30 +171,9 @@ class FrontendController extends Controller
         return view('frontend.products.resubcategory', compact('resubcate'));
     }
 
-    // Product Details page show
 
-    public function productDetails($slug, $id)
-    {
-        $productdetails = Product::where('id', $id)
-        ->select(['id', 'product_name', 'thumbnail_img', 'photos', 'slug', 'cate_id', 'product_qty', 'product_price', 'product_type', 'product_sku', 'brand', 'choice_options', 'colors', 'product_description', 'video'])
-        ->first();
-        $checkFlashDeal = 0;
-        $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();
-        if ($flashDeal) {
-            $flashDealEndDate = $flashDeal->end_date;
-            $flashDealDetails = FlashDealDetail::where('product_id', $id)->where('flash_deal_id', $flashDeal->id)->where('status', 1)->first();
-            if ($flashDealDetails) {
-                $checkFlashDeal = 1;
-            }
-            return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal', 'flashDealEndDate'));
-        } else {
-            return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal'));
-        }
-    }
 
-    // Product compare page show
 
-    // Product wishlist page show
 
     public function productWishlist()
     {
@@ -400,6 +379,38 @@ class FrontendController extends Controller
         
          return view('frontend.accounts.account');
      }
+
+     /**
+     * Showing product details page.
+     *
+     * @var string
+     */
+     
+    public function productDetails($slug, $id)
+    {
+        date_default_timezone_set("Asia/Dhaka");
+        $currentdate = date('Y-m-d');
+
+        $productdetails = Product::where('id', $id)
+        ->select(['id', 'product_name', 'thumbnail_img', 'photos', 'slug', 'cate_id', 'product_qty', 'product_price', 'product_type', 'product_sku', 'brand', 'choice_options', 'colors', 'product_description', 'video','photos'])
+        ->first();
+
+        $checkFlashDeal = 0;
+        $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();
+        $flashDealEndDate = $flashDeal->end_date;
+        $countdowndate =date_format($flashDealEndDate,"F d, Y H:i:s");
+        if ($flashDeal && $flashDealEndDate >= $currentdate ) {
+            $flashDealDetails = FlashDealDetail::where('product_id', $id)->where('flash_deal_id', $flashDeal->id)->where('status', 1)->first();
+        
+            if ($flashDealDetails) {
+                $checkFlashDeal = 1;
+            }
+            return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal', 'flashDealEndDate','flashDealDetails','countdowndate'));
+        } else {
+
+            return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal'));
+        }
+    }
 
    
 
