@@ -57,7 +57,7 @@
 		                                      </td>
 		                                      <td>{{$data->cate_name}}</td>
 		                                      <td>
-		                                      	<img src="{{asset('public/uploads/category/'.$data->cate_icon)}}" height="45px;">
+		                                      	{!! $data->cate_icon !!}
 		                                      </td>
 		                                      <td>
 		                                      	<img src="{{asset('public/uploads/category/'.$data->cate_image)}}" height="45px;">

@@ -82,6 +82,7 @@ $logo=DB::table('logos')->first();
                         </form>
                     </div>
                 </li>
+                <li><a href="{{url('/')}}" target="_blank">Live Project</a></li>
                 @php
                   $totalmessage=App\Contract::where('is_seen',0)->count();
                 @endphp

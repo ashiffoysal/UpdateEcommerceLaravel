@@ -42,7 +42,7 @@
 									  		 <p>(270px*270px)</p>
 									    </div>
 									  </div>
-                    <div class="form-group row">
+                   					 <div class="form-group row">
 									    <label for="inputEmail3" class="col-sm-3 col-form-label text-right"></label>
 									    <div class="col-sm-6">
 									      <img src="{{asset('public/uploads/category/'.$data->cate_image)}}" height="150px" width="200px">
@@ -52,56 +52,9 @@
 									    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Icon:</label>
 
 									    <div class="col-sm-6">
-									      <input type="file" name="icon">
-									      <p>(20px*20px)</p>
+									       <input type="text" name="icon" class="form-control" value="{{$data->cate_icon}}">
 									    </div>
 									  </div>
-
-                    <div class="form-group row">
-									    <label for="inputEmail3" class="col-sm-3 col-form-label text-right"></label>
-									    <div class="col-sm-6">
-									      <img src="{{asset('public/uploads/category/'.$data->cate_icon)}}" height="70px" width="70px">
-									    </div>
-									  </div>
-
-									  <div class="form-group row">
-									    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Choich Section</label>
-									    <div class="col-sm-8 row">
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="1" @if($data->section_id==1) checked @else @endif>
-									     	<img src="{{asset('public/adminpanel')}}/Capture.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <br>
-									     <br>
-									     <br>
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="2" id="check_img" class="check_img" @if($data->section_id==2) checked @else @endif>
-									     	<img src="{{asset('public/adminpanel')}}/Capture2.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <br>
-									     <br>
-									     <br>
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="3"  id="check_img" class="check_img" @if($data->section_id==3) checked @else @endif>
-									     	<img src="{{asset('public/adminpanel')}}/Capture3.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <br>
-									     <br>
-									     <br>
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="4" @if($data->section_id==4) checked @else @endif>
-									     	<img src="{{asset('public/adminpanel')}}/Capture4.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <div class="col-md-8">
-									     	<input type="radio" name="section_id" value="5" @if($data->section_id==5) checked @else @endif>
-									     	<img src="{{asset('public/adminpanel')}}/Capture5.PNG" alt="asif" height="70px" width="150px">
-									     </div>
-									     <br>
-									     <br>
-									     <br>
-									    </div>
-									  </div>
-
 									  <div class="form-group row">
 									    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Meta Tag:</label>
 									    <div class="col-sm-6">
@@ -109,8 +62,7 @@
 									    </div>
 									  </div>
 								    <div class="form-group text-center">
-
-								    	<button type="submit" class="btn btn-blue">Add Category</button>
+								    	<button type="submit" class="btn btn-blue">Update Category</button>
 								    </div>
 
 							</form>
