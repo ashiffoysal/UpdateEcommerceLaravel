@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\ThemeSelector;
 use Illuminate\Http\Request;
 use App\Product;
+use App\Brand;
 use App\OrderPlace;
 use App\Category;
 use App\SubCategory;
@@ -132,14 +133,35 @@ class FrontendController extends Controller
     public function cateproduct($slug)
     {
         $category = Category::where('cate_slug', $slug)->first();
-        return view('frontend.products.products', compact('category'));
+
+        $allcategory = Category::where('cate_status',1)->where('is_deleted',0)->get();
+
+        $cateid=$category->id;
+        $productcount=Product::where('is_deleted',0)->where('cate_id',$cateid)->orderBy('id','DESC')->count();
+
+        $allproduct=Product::where('is_deleted',0)->where('cate_id',$cateid)->orderBy('id','DESC')->simplePaginate(12);
+
+        $productbestsell=Product::where('is_deleted',0)->where('cate_id',$cateid)->orderBy('number_of_sale','DESC')->limit(15)->get();
+        $allbrand=Brand::where('is_deleted',0)->where('brand_status',1)->get();
+
+        //dd($productbestsell);
+        return view('frontend.products.product_list', compact('category','allcategory','productcount','allproduct','productbestsell','allbrand'));
     }
 
     // subcategory show
     public function subcateproduct($cate_slug, $subcate_slug)
     {
         $subcate = SubCategory::where('subcate_slug', $subcate_slug)->first();
-        return view('frontend.products.subcate', compact('subcate'));
+        //return $subcate->id;
+        $allcategory = Category::where('cate_status',1)->where('is_deleted',0)->get();
+        $cateid=$subcate->id;
+
+        $productcount=Product::where('is_deleted',0)->where('subcate_id',$cateid)->orderBy('id','DESC')->count();
+        $allproduct=Product::where('is_deleted',0)->where('subcate_id',$cateid)->orderBy('id','DESC')->simplePaginate(12);
+        $productbestsell=Product::where('is_deleted',0)->where('subcate_id',$cateid)->orderBy('number_of_sale','DESC')->limit(15)->get();
+        $allbrand=Brand::where('is_deleted',0)->where('brand_status',1)->get();
+
+        return view('frontend.products.subcate',compact('subcate','allcategory','productcount','allproduct','productbestsell','allbrand'));
     }
     // resubcate product
     public function resubcateproduct($cate_slug, $subcate_slug, $resub_slug)

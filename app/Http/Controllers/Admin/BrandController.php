@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Brand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
 use App\Http\Controllers\Controller;
-//use Image;
+use Image;
 
 class BrandController extends Controller
 {
@@ -31,8 +30,9 @@ class BrandController extends Controller
     	if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='brand'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(350,182)->save('public/uploads/brand/'.$ImageName);
-                Image::make($image)->resize(130,90)->save('public/uploads/brand/mobile/'.$ImageName);
+
+            Image::make($image)->resize(350,182)->save('public/uploads/brand/' . $ImageName);
+                
                 Brand::where('id',$insert)->update([
                     'brand_logo'=>$ImageName,
                 ]);
