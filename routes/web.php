@@ -372,8 +372,6 @@
     // resubcate
     Route::get('resubacete/{cate_slug}/{subacet_slug}/{resub_slug}', 'Frontend\FrontendController@resubcateproduct');
 
-    Route::get('product/{slug}/{id}', 'Frontend\FrontendController@productDetails');
-
     Route::get('flashdeal/products', 'Frontend\FrontendController@flashDealProducts')->name('hot.deal.products');
 
     // product add to cart in front end
@@ -820,6 +818,11 @@
         Route::prefix('subscriber')->group(function(){
 
             Route::post('/create', 'SubscribeController@insert')->name('frontend.subscriber.insert');
+        });
+
+        Route::prefix('product')->group(function(){
+            Route::get('/{slug}/{id}', 'FrontendController@productDetails');
+            
         });
 
     });

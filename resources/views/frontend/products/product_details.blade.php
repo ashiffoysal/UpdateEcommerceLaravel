@@ -17,33 +17,36 @@
                 <div class="ps-page__left">
                     <div class="ps-product--detail ps-product--fullwidth">
                         <div class="ps-product__header">
+
+
+
+                            <!-- product image area start from here -->
                             <div class="ps-product__thumbnail" data-vertical="false">
                                 <figure>
                                     <div class="ps-wrapper">
                                         <div class="ps-product__gallery" data-arrow="true">
-                                            <div class="item"><a href="img/products/detail/fullwidth/1.jpg"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/1.jpg" alt=""></a></div>
-                                            <div class="item"><a href="img/products/detail/fullwidth/2.jpg"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/2.jpg" alt=""></a></div>
-                                            <div class="item"><a href="img/products/detail/fullwidth/3.jpg"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/3.jpg" alt=""></a></div>
-                                            <div class="item"><a href="img/products/detail/fullwidth/3.jpg"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/3.jpg" alt=""></a></div>
-                                            <div class="item"><a href="img/products/detail/fullwidth/3.jpg"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/3.jpg" alt=""></a></div>
+                                            @foreach(json_decode($productdetails->photos) as $photo)
+                                            
+                                            <div class="item"><a href="{{url('storage/app/public/' .$photo)}}"><img src="{{url('storage/app/public/' .$photo)}}" alt=""></a></div>
+                                                
+                                            @endforeach
                                         </div>
                                     </div>
                                 </figure>
                                 <div class="ps-product__variants" data-item="4" data-md="4" data-sm="4" data-arrow="false">
-                                    <div class="item"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/1.jpg" alt=""></div>
-                                    <div class="item"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/2.jpg" alt=""></div>
-                                    <div class="item"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/3.jpg" alt=""></div>
-                                    <div class="item"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/4.jpg" alt=""></div>
-                                    <div class="item"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/4.jpg" alt=""></div>
-                                    <div class="item"><img src="{{asset('/public/frontend')}}/img/products/detail/fullwidth/4.jpg" alt=""></div>
+                                        @foreach(json_decode($productdetails->photos) as $photo)
+                                            <div class="item"><img src="{{url('storage/app/public/' .$photo)}}" alt=""></div>        
+                                        @endforeach
                                 </div>
 
                                 
                             </div>
+                            <!-- product image area end from here -->
 
-                            
+
+                            <!-- review area start from here -->
                             <div class="ps-product__info">
-                                <h1>Marshall Kilburn Portable Wireless Speaker</h1>
+                                <h1>{{$productdetails->product_name}}</h1>
                                 <div class="ps-product__meta">
                                     <p>Brand:<a href="shop-default.html">Sony</a></p>
                                     <div class="ps-product__rating">
@@ -56,7 +59,32 @@
                                         </select><span>(1 review)</span>
                                     </div>
                                 </div>
-                                <h4 class="ps-product__price">$36.78 – $56.99</h4>
+                                <!-- review area end from here -->
+                                
+
+                                <!-- product price area start from here -->
+                                @if ($checkFlashDeal == 1)
+
+                                    @if($flashDealDetails->discount_type == 2)
+
+                                        <!-- if flash deal is discount -->
+                                        <h4 class="ps-product__price sale"> ‎৳ {{$productdetails->price}}
+                                            <del> ৳ {{$productdetails->product_price}}</del><small> ({{$flashDealDetails->discount}}%)</small>
+                                        </h4>
+                                    @else
+
+                                        <!-- if flash deal is amount -->
+                                        <h4 class="ps-product__price sale"> ‎৳ {{$productdetails->price}}
+                                            <del> ৳ {{$productdetails->product_price}}</del><small> (-{{$flashDealDetails->discount}})</small>
+                                        </h4>
+                                    @endif
+
+                                @else
+                                    <h4 class="ps-product__price">৳ {{$productdetails->product_price}}</h4>
+                                @endif
+                                <!-- product price area start from here -->
+
+                                <!-- product small discription -->
                                 <div class="ps-product__desc">
                                     <p>Sold By:<a href="shop-default.html"><strong> Go Pro</strong></a></p>
                                     <ul class="ps-list--dot">
@@ -67,12 +95,16 @@
                                         <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
                                     </ul>
                                 </div>
+                                <!-- product small discription end from here -->
 
 
+                                <!-- product flash deal area start from here -->
+                                @if ($checkFlashDeal == 1)
                                 <div class="ps-product__countdown">
                                     <figure>
                                         <figcaption> Don't Miss Out! This promotion will expires in</figcaption>
-                                        <ul class="ps-countdown" data-time="July 21, 2020 15:37:25">
+                                        <ul class="ps-countdown" data-time="{{$countdowndate}}">
+                                        
                                             <li><span class="days"></span>
                                                 <p>Days</p>
                                             </li>
@@ -95,15 +127,10 @@
                                         </div>
                                     </figure>
                                 </div>
-                            
+                                @endif
+                                <!-- product flash deal area end from here -->
 
-
-
-    
-
-
-
-
+                                <!-- product variation area start from here -->
                                 <div class="ps-product__variations">
                                     <figure>
                                         <figcaption>Color</figcaption>
@@ -111,6 +138,9 @@
                                         <div class="ps-variant ps-variant--color color--2"><span class="ps-variant__tooltip"> Gray</span></div>
                                     </figure>
                                 </div>
+                                <!-- product variation area end from here -->
+
+                                <!-- prodcut quentity area start from here -->
                                 <div class="ps-product__shopping extend">
                                     <div class="ps-product__btn-group">
                                         <figure>
@@ -124,14 +154,25 @@
                                         <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
                                     </div><a class="ps-btn" href="#">Buy Now</a>
                                 </div>
+                                <!-- product quentity area end from here -->
+
+
+                                <!-- sku,category,tag area start from here -->
                                 <div class="ps-product__specification"><a class="report" href="#">Report Abuse</a>
-                                    <p><strong>SKU:</strong> SF1133569600-1</p>
+                                    <p><strong>SKU:</strong> {{$productdetails->product_sku}}</p>
                                     <p class="categories"><strong> Categories:</strong><a href="#">Consumer Electronics</a>,<a href="#"> Refrigerator</a>,<a href="#">Babies & Moms</a></p>
                                     <p class="tags"><strong> Tags</strong><a href="#">sofa</a>,<a href="#">technologies</a>,<a href="#">wireless</a></p>
                                 </div>
+                                <!-- sku,category,tag area end from here -->
+
+                                <!-- social area start from here -->
                                 <div class="ps-product__sharing"><a class="facebook" href="#"><i class="fa fa-facebook"></i></a><a class="twitter" href="#"><i class="fa fa-twitter"></i></a><a class="google" href="#"><i class="fa fa-google-plus"></i></a><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></div>
+                                <!-- social area end from here -->
+
                             </div>
                         </div>
+
+
                         <div class="ps-product__content ps-tab-root">
                             <ul class="ps-tab-list">
                                 <li class="active"><a href="#tab-1">Description</a></li>
