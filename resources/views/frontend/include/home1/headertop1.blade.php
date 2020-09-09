@@ -15,20 +15,6 @@
                                             <ul class="mega-menu__list">
                                                 <li class="current-menu-item "><a href="#">Home Audio &amp; Theathers</a>
                                                 </li>
-                                                <li class="current-menu-item "><a href="#">TV &amp; Videos</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Camera, Photos &amp; Videos</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Cellphones &amp; Accessories</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Headphones</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Videosgames</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Wireless Speakers</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Office Electronic</a>
-                                                </li>
                                             </ul>
                                         </div>
                                         <div class="mega-menu__column">
@@ -44,14 +30,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-shirt"></i> Clothing &amp; Apparel</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-lampshade"></i> Home, Garden &amp; Kitchen</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-heart-pulse"></i> Health &amp; Beauty</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-diamond2"></i> Yewelry &amp; Watches</a>
-                                </li>
+                               
                                 <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#"><i class="icon-desktop"></i> Computer &amp; Technology</a>
                                     <div class="mega-menu">
                                         <div class="mega-menu__column">
@@ -60,42 +39,16 @@
                                                 <li class="current-menu-item "><a href="#">Computer &amp; Tablets</a>
                                                 </li>
                                                 <li class="current-menu-item "><a href="#">Laptop</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Monitors</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Networking</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Drive &amp; Storages</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Computer Components</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Security &amp; Protection</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Gaming Laptop</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Accessories</a>
+                          
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-baby-bottle"></i> Babies &amp; Moms</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-baseball"></i> Sport &amp; Outdoor</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-smartphone"></i> Phones &amp; Accessories</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-book2"></i> Books &amp; Office</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-car-siren"></i> Cars &amp; Motocycles</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-wrench"></i> Home Improments</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-tag"></i> Vouchers &amp; Services</a>
-                                </li>
+                               
                             </ul>
                         </div>
-                    </div><a class="ps-logo" href="index.html"><img src="{{asset('public/frontend')}}/img/logo_light.png" alt=""></a>
+                    </div><a class="ps-logo" href="{{url('/')}}"><img src="{{asset('public/frontend')}}/img/logo_light.png" alt=""></a>
                 </div>
                 <div class="header__center">
                     <form class="ps-form--quick-search" action="index.html" method="get">
@@ -103,74 +56,8 @@
                             <select class="form-control">
                                 <option value="0" selected="selected">All</option>
                                 <option class="level-0" value="babies-moms">Babies & Moms</option>
-                                <option class="level-0" value="books-office">Books & Office</option>
-                                <option class="level-0" value="cars-motocycles">Cars & Motocycles</option>
-                                <option class="level-0" value="clothing-apparel">Clothing & Apparel</option>
-                                <option class="level-1" value="accessories-clothing-apparel">   Accessories</option>
-                                <option class="level-1" value="bags">   Bags</option>
-                                <option class="level-1" value="kids-fashion">   Kid’s Fashion</option>
-                                <option class="level-1" value="mens">   Mens</option>
-                                <option class="level-1" value="shoes">   Shoes</option>
-                                <option class="level-1" value="sunglasses">   Sunglasses</option>
-                                <option class="level-1" value="womens">   Womens</option>
-                                <option class="level-0" value="computers-technologies">Computers & Technologies</option>
-                                <option class="level-1" value="desktop-pc">   Desktop PC</option>
-                                <option class="level-1" value="laptop">   Laptop</option>
-                                <option class="level-1" value="smartphones">   Smartphones</option>
-                                <option class="level-0" value="consumer-electrics">Consumer Electrics</option>
-                                <option class="level-1" value="air-conditioners">   Air Conditioners</option>
-                                <option class="level-2" value="accessories">      Accessories</option>
-                                <option class="level-2" value="type-hanging-cell">      Type Hanging Cell</option>
-                                <option class="level-2" value="type-hanging-wall">      Type Hanging Wall</option>
-                                <option class="level-1" value="audios-theaters">   Audios & Theaters</option>
-                                <option class="level-2" value="headphone">      Headphone</option>
-                                <option class="level-2" value="home-theater-system">      Home Theater System</option>
-                                <option class="level-2" value="speakers">      Speakers</option>
-                                <option class="level-1" value="car-electronics">   Car Electronics</option>
-                                <option class="level-2" value="audio-video">      Audio & Video</option>
-                                <option class="level-2" value="car-security">      Car Security</option>
-                                <option class="level-2" value="radar-detector">      Radar Detector</option>
-                                <option class="level-2" value="vehicle-gps">      Vehicle GPS</option>
-                                <option class="level-1" value="office-electronics">   Office Electronics</option>
-                                <option class="level-2" value="printers">      Printers</option>
-                                <option class="level-2" value="projectors">      Projectors</option>
-                                <option class="level-2" value="scanners">      Scanners</option>
-                                <option class="level-2" value="store-business">      Store & Business</option>
-                                <option class="level-1" value="refrigerators">   Refrigerators</option>
-                                <option class="level-1" value="tv-televisions">   TV Televisions</option>
-                                <option class="level-2" value="4k-ultra-hd-tvs">      4K Ultra HD TVs</option>
-                                <option class="level-2" value="led-tvs">      LED TVs</option>
-                                <option class="level-2" value="oled-tvs">      OLED TVs</option>
-                                <option class="level-1" value="washing-machines">   Washing Machines</option>
-                                <option class="level-2" value="type-drying-clothes">      Type Drying Clothes</option>
-                                <option class="level-2" value="type-horizontal">      Type Horizontal</option>
-                                <option class="level-2" value="type-vertical">      Type Vertical</option>
-                                <option class="level-0" value="garden-kitchen">Garden & Kitchen</option>
-                                <option class="level-1" value="cookware">   Cookware</option>
-                                <option class="level-1" value="decoration">   Decoration</option>
-                                <option class="level-1" value="furniture">   Furniture</option>
-                                <option class="level-1" value="garden-tools">   Garden Tools</option>
-                                <option class="level-1" value="home-improvement">   Home Improvement</option>
-                                <option class="level-1" value="powers-and-hand-tools">   Powers And Hand Tools</option>
-                                <option class="level-1" value="utensil-gadget">   Utensil & Gadget</option>
-                                <option class="level-0" value="health-beauty">Health & Beauty</option>
-                                <option class="level-1" value="equipments">   Equipments</option>
-                                <option class="level-1" value="hair-care">   Hair Care</option>
-                                <option class="level-1" value="perfumer">   Perfumer</option>
-                                <option class="level-1" value="skin-care">   Skin Care</option>
-                                <option class="level-0" value="jewelry-watches">Jewelry & Watches</option>
-                                <option class="level-1" value="gemstone-jewelry">   Gemstone Jewelry</option>
-                                <option class="level-1" value="mens-watches">   Men’s Watches</option>
-                                <option class="level-1" value="womens-watches">   Women’s Watches</option>
-                                <option class="level-0" value="phones-accessories">Phones & Accessories</option>
-                                <option class="level-1" value="iphone-8">   Iphone 8</option>
-                                <option class="level-1" value="iphone-x">   Iphone X</option>
-                                <option class="level-1" value="sam-sung-note-8">   Sam Sung Note 8</option>
-                                <option class="level-1" value="sam-sung-s8">   Sam Sung S8</option>
-                                <option class="level-0" value="sport-outdoor">Sport & Outdoor</option>
-                                <option class="level-1" value="freezer-burn">   Freezer Burn</option>
-                                <option class="level-1" value="fridge-cooler">   Fridge Cooler</option>
-                                <option class="level-1" value="wine-cabinets">   Wine Cabinets</option>
+                        
+                                
                             </select>
                         </div>
                         <input class="form-control" type="text" placeholder="I'm shopping for..." id="input-search">
@@ -342,125 +229,68 @@
                         <div class="menu__toggle"><i class="icon-menu"></i><span> Shop by Department</span></div>
                         <div class="menu__content">
                             <ul class="menu--dropdown">
-                                <li class="current-menu-item "><a href="#"><i class="icon-star"></i> Hot Promotions</a>
-                                </li>
-                                <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#"><i class="icon-laundry"></i> Consumer Electronic</a>
-                                    <div class="mega-menu">
-                                        <div class="mega-menu__column">
-                                            <h4>Electronic<span class="sub-toggle"></span></h4>
-                                            <ul class="mega-menu__list">
-                                                <li class="current-menu-item "><a href="#">Home Audio &amp; Theathers</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">TV &amp; Videos</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Camera, Photos &amp; Videos</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Cellphones &amp; Accessories</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Headphones</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Videosgames</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Wireless Speakers</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Office Electronic</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="mega-menu__column">
-                                            <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>
-                                            <ul class="mega-menu__list">
-                                                <li class="current-menu-item "><a href="#">Digital Cables</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Audio &amp; Video Cables</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Batteries</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-shirt"></i> Clothing &amp; Apparel</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-lampshade"></i> Home, Garden &amp; Kitchen</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-heart-pulse"></i> Health &amp; Beauty</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-diamond2"></i> Yewelry &amp; Watches</a>
-                                </li>
-                                <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#"><i class="icon-desktop"></i> Computer &amp; Technology</a>
+                                @foreach($allcategory as $category)
+
+                                    @php
+                                        $check = App\SubCategory::where('cate_id',$category->id)->first();
+                                    @endphp
+                                    @if($check)
+                                            <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#"><i class="fa"></i>{{$category->cate_name}}</a>
+                                                @php
+                                                     $allsub=App\SubCategory::where('cate_id',$category->id)->where('is_deleted',0)->where('subcate_status',1)->get();
+                                                 @endphp
+                                                <div class="mega-menu">
+                                                @foreach($allsub as $subcate)  
+                                                    <div class="mega-menu__column">
+                                                        <h4>{{$subcate->subcate_name}}<span class="sub-toggle"></span></h4>
+                                                            @php
+                                                        $resubcate =App\ReSubCategory::where('is_deleted',0)->where('subcate_id',$subcate->id)->get();
+                                                            @endphp
+                                                        <ul class="mega-menu__list">
+                                                            @foreach($resubcate as $rcate)
+                                                            <li class="current-menu-item "><a href="#">{{$rcate->resubcate_name}}</a>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endforeach
+                                                </div>
+                                            </li>
+
+                                    @else
+                                          <li class="current-menu-item "><a href="#"> {!! $category->cate_icon !!}{{$category->cate_name}}</a>
+                                        </li>
+                                    @endif
+                              
+                                @endforeach
+                               
+                             <!--    <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#"><i class="icon-desktop"></i> Computer &amp; Technology</a>
                                     <div class="mega-menu">
                                         <div class="mega-menu__column">
                                             <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>
                                             <ul class="mega-menu__list">
                                                 <li class="current-menu-item "><a href="#">Computer &amp; Tablets</a>
                                                 </li>
-                                                <li class="current-menu-item "><a href="#">Laptop</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Monitors</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Networking</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Drive &amp; Storages</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Computer Components</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Security &amp; Protection</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Gaming Laptop</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Accessories</a>
-                                                </li>
+                                       
                                             </ul>
                                         </div>
                                     </div>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-baby-bottle"></i> Babies &amp; Moms</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-baseball"></i> Sport &amp; Outdoor</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-smartphone"></i> Phones &amp; Accessories</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-book2"></i> Books &amp; Office</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-car-siren"></i> Cars &amp; Motocycles</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-wrench"></i> Home Improments</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#"><i class="icon-tag"></i> Vouchers &amp; Services</a>
-                                </li>
+                                </li> -->
+
                             </ul>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="navigation__right">
                     <ul class="menu">
-                        <li class="menu-item-has-children"><a href="index.html">Home</a><span class="sub-toggle"></span>
+                        <li class="menu-item-has-children"><a href="{{url('/')}}">Home</a><span class="sub-toggle"></span>
                             <ul class="sub-menu">
                                 <li class="current-menu-item "><a href="index.html">Marketplace Full Width</a>
                                 </li>
                                 <li class="current-menu-item "><a href="homepage-2.html">Home Auto Parts</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-10.html">Home Technology</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-9.html">Home Organic</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-3.html">Home Marketplace V1</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-4.html">Home Marketplace V2</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-5.html">Home Marketplace V3</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-6.html">Home Marketplace V4</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-7.html">Home Electronic</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-8.html">Home Furniture</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-kids.html">Home Kids</a>
-                                </li>
-                                <li class="current-menu-item "><a href="homepage-photo-and-video.html">Home photo and picture</a>
-                                </li>
+               
                             </ul>
                         </li>
                         <li class="menu-item-has-children has-mega-menu"><a href="shop-default.html">Shop</a><span class="sub-toggle"></span>
@@ -470,16 +300,6 @@
                                     <ul class="mega-menu__list">
                                         <li class="current-menu-item "><a href="shop-default.html">Shop Default</a>
                                         </li>
-                                        <li class="current-menu-item "><a href="shop-default.html">Shop Fullwidth</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="shop-categories.html">Shop Categories</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="shop-sidebar.html">Shop Sidebar</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="shop-sidebar-without-banner.html">Shop Without Banner</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="shop-carousel.html">Shop Carousel</a>
-                                        </li>
                                     </ul>
                                 </div>
                                 <div class="mega-menu__column">
@@ -487,16 +307,7 @@
                                     <ul class="mega-menu__list">
                                         <li class="current-menu-item "><a href="product-default.html">Default</a>
                                         </li>
-                                        <li class="current-menu-item "><a href="product-extend.html">Extended</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-full-content.html">Full Content</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-box.html">Boxed</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-sidebar.html">Sidebar</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-default.html">Fullwidth</a>
-                                        </li>
+                          
                                     </ul>
                                 </div>
                                 <div class="mega-menu__column">
@@ -505,24 +316,6 @@
                                         <li class="current-menu-item "><a href="product-default.html">Simple</a>
                                         </li>
                                         <li class="current-menu-item "><a href="product-default.html">Color Swatches</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-image-swatches.html">Images Swatches</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-countdown.html">Countdown</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-multi-vendor.html">Multi-Vendor</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-instagram.html">Instagram</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-affiliate.html">Affiliate</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-on-sale.html">On sale</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-video.html">Video Featured</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-groupped.html">Grouped</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="product-out-stock.html">Out Of Stock</a>
                                         </li>
                                     </ul>
                                 </div>

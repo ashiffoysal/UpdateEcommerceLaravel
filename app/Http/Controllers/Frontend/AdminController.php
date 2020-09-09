@@ -44,7 +44,7 @@ class AdminController extends Controller
         
         if ($user) {
             if ($user->status == 1) {
-                $checkInformation =Auth::guard('admin')->attempt(array($fieldType => $request['login_email'], 'password' => $request['login_password']));
+                $checkInformation =Auth::guard('web')->attempt(array($fieldType => $request['login_email'], 'password' => $request['login_password']));
                 if ($checkInformation) {
                     return redirect()->intended(route('customar.account.page'));
                 } else {

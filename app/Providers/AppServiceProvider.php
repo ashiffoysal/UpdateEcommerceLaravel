@@ -52,6 +52,11 @@ class AppServiceProvider extends ServiceProvider
 
          $themecheck = ThemeSelector::where('status', 1)->first();
          view()->share('themecheck', $themecheck);
+
+         $allcategory=Category::where('is_deleted',0)->where('cate_status',1)->get();
+         view()->share('allcategory', $allcategory);
+          $allcategoryhome=Category::where('is_deleted',0)->where('cate_status',1)->limit(8)->get();
+         view()->share('allcategoryhome', $allcategoryhome);
         
     }
 }
