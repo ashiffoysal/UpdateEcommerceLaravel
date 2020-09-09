@@ -17,3 +17,4 @@
     <script src="{{asset('public/frontend')}}/plugins/gmap3.min.js"></script>
     <!-- custom scripts-->
     <script src="{{asset('public/frontend')}}/js/main.js"></script>
+    <script src="{{asset('public/frontend')}}/js/izitost.js"></script>

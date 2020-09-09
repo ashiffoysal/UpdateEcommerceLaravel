@@ -64,7 +64,9 @@
             </div>
         </div>
     </footer>
+
    <!--  <div class="ps-popup" id="subscribe" data-time="500">
+
         <div class="ps-popup__content bg--cover" data-background="{{asset('public/frontend')}}/img/bg/subscribe.jpg"><a class="ps-popup__close" href="#"><i class="icon-cross"></i></a>
             <form class="ps-form--subscribe-popup" action="index.html" method="get">
                 <div class="ps-form__content">
