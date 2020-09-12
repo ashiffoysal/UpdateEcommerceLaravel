@@ -166,9 +166,15 @@ class FrontendController extends Controller
     // resubcate product
     public function resubcateproduct($cate_slug, $subcate_slug, $resub_slug)
     {
+        $resubcate=ReSubCategory::where('resubcate_slug',$resub_slug)->first();
+        $allcategory = Category::where('cate_status',1)->where('is_deleted',0)->get();
+        $cateid=$resubcate->id;
+        $productcount=Product::where('is_deleted',0)->where('resubcate_id',$cateid)->orderBy('id','DESC')->count();
+        $allproduct=Product::where('is_deleted',0)->where('resubcate_id',$cateid)->orderBy('id','DESC')->simplePaginate(12);
+        $productbestsell=Product::where('is_deleted',0)->where('resubcate_id',$cateid)->orderBy('number_of_sale','DESC')->limit(15)->get();
+        $allbrand=Brand::where('is_deleted',0)->where('brand_status',1)->get();
 
-        $resubcate = ReSubCategory::where('resubcate_slug', $resub_slug)->first();
-        return view('frontend.products.resubcategory', compact('resubcate'));
+        return view('frontend.products.resubcate', compact('resubcate','allcategory','productcount','allproduct','productbestsell','allbrand'));
     }
 
 
@@ -231,6 +237,7 @@ class FrontendController extends Controller
     // modal
     public function productmodal($id)
     {
+        return "ok";
         $productdetails = Product::where('id', $id)->first();
         return view('frontend.products.productmodal', compact('productdetails'));
     }
@@ -238,7 +245,7 @@ class FrontendController extends Controller
     // price show variant wise
     public function provarient(Request $request)
     {
-        //echo "ok";
+        
 
         $product = Product::find($request->id);
 
@@ -267,12 +274,6 @@ class FrontendController extends Controller
         }
         return array('price' => $price, 'sku' => $sku);
     }
-
-    // category details
-    // public function categorydetails($slug){
-    //     $catedetails=Category::where('cate_slug',$slug)->first();
-    //     return view('frontend.products.products',compact('varname'))
-    // }
 
 
     public function searchcate()
@@ -388,15 +389,24 @@ class FrontendController extends Controller
      
     public function productDetails($slug, $id)
     {
+        //return 'ok';
+
         date_default_timezone_set("Asia/Dhaka");
         $currentdate = date('Y-m-d');
 
         $productdetails = Product::where('id', $id)
-        ->select(['id', 'product_name', 'thumbnail_img', 'photos', 'slug', 'cate_id', 'product_qty', 'product_price', 'product_type', 'product_sku', 'brand', 'choice_options', 'colors', 'product_description', 'video','photos'])
+        ->select(['id', 'product_name', 'thumbnail_img', 'photos', 'slug', 'cate_id', 'product_qty', 'product_price', 'product_type', 'product_sku','select_upload_type','upload_file','upload_link','license_type','license_key','license_quantity','license_duration','brand', 'choice_options', 'colors', 'product_description', 'video','photos'])
         ->first();
 
         $checkFlashDeal = 0;
         $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();
+
+        $productbestsell=Product::where('is_deleted',0)->orderBy('number_of_sale','DESC')->limit(7)->get();
+
+        
+        $relatedproduct=Product::where('is_deleted',0)->where('cate_id',$productdetails->cate_id)->limit(9)->get();
+
+
         $flashDealEndDate = $flashDeal->end_date;
         $countdowndate =date_format($flashDealEndDate,"F d, Y H:i:s");
         if ($flashDeal && $flashDealEndDate >= $currentdate ) {
@@ -405,10 +415,10 @@ class FrontendController extends Controller
             if ($flashDealDetails) {
                 $checkFlashDeal = 1;
             }
-            return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal', 'flashDealEndDate','flashDealDetails','countdowndate'));
+            return view('frontend.products.product_details', compact('relatedproduct','productbestsell','productdetails', 'checkFlashDeal', 'flashDealEndDate','flashDealDetails','countdowndate'));
         } else {
 
-            return view('frontend.products.product_details', compact('productdetails', 'checkFlashDeal'));
+            return view('frontend.products.product_details', compact('relatedproduct','productbestsell','productdetails', 'checkFlashDeal'));
         }
     }
 

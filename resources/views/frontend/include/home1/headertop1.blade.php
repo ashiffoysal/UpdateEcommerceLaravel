@@ -6,49 +6,45 @@
                         <div class="menu__toggle"><i class="icon-menu"></i><span> Shop by Department</span></div>
                         <div class="menu__content">
                             <ul class="menu--dropdown">
-                                <li class="current-menu-item "><a href="#"><i class="icon-star"></i> Hot Promotions</a>
-                                </li>
-                                <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#"><i class="icon-laundry"></i> Consumer Electronic</a>
-                                    <div class="mega-menu">
-                                        <div class="mega-menu__column">
-                                            <h4>Electronic<span class="sub-toggle"></span></h4>
-                                            <ul class="mega-menu__list">
-                                                <li class="current-menu-item "><a href="#">Home Audio &amp; Theathers</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="mega-menu__column">
-                                            <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>
-                                            <ul class="mega-menu__list">
-                                                <li class="current-menu-item "><a href="#">Digital Cables</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Audio &amp; Video Cables</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Batteries</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                               
-                                <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#"><i class="icon-desktop"></i> Computer &amp; Technology</a>
-                                    <div class="mega-menu">
-                                        <div class="mega-menu__column">
-                                            <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>
-                                            <ul class="mega-menu__list">
-                                                <li class="current-menu-item "><a href="#">Computer &amp; Tablets</a>
-                                                </li>
-                                                <li class="current-menu-item "><a href="#">Laptop</a>
-                          
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
+                                     @foreach($allcategory as $category)
+
+                                    @php
+                                        $check = App\SubCategory::where('cate_id',$category->id)->first();
+                                    @endphp
+                                    @if($check)
+                                            <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="{{url('product/page/'.$category->cate_slug)}}"><i class="fa"></i>{{$category->cate_name}}</a>
+                                                @php
+                                                     $allsub=App\SubCategory::where('cate_id',$category->id)->where('is_deleted',0)->where('subcate_status',1)->get();
+                                                 @endphp
+                                                <div class="mega-menu">
+                                                @foreach($allsub as $subcate)  
+                                                    <div class="mega-menu__column">
+                                                        <h4>{{$subcate->subcate_name}}<span class="sub-toggle"></span></h4>
+                                                            @php
+                                                        $resubcate =App\ReSubCategory::where('is_deleted',0)->where('subcate_id',$subcate->id)->get();
+                                                            @endphp
+                                                        <ul class="mega-menu__list">
+                                                            @foreach($resubcate as $rcate)
+                                                            <li class="current-menu-item "><a href="#">{{$rcate->resubcate_name}}</a>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endforeach
+                                                </div>
+                                            </li>
+
+                                    @else
+                                          <li class="current-menu-item "><a href="{{url('product/page/'.$category->cate_slug)}}"> {!! $category->cate_icon !!}{{$category->cate_name}}</a>
+                                        </li>
+                                    @endif
+                              
+                                @endforeach
+                           
                                
                             </ul>
                         </div>
-                    </div><a class="ps-logo" href="{{url('/')}}"><img src="{{asset('public/frontend')}}/img/logo_light.png" alt=""></a>
+                    </div><a class="ps-logo" href="{{url('/')}}"><img src="{{asset('/'.$logos->front_logo)}}" alt=""></a>
                 </div>
                 <div class="header__center">
                     <form class="ps-form--quick-search" action="index.html" method="get">
@@ -263,20 +259,6 @@
                                     @endif
                               
                                 @endforeach
-                               
-                             <!--    <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#"><i class="icon-desktop"></i> Computer &amp; Technology</a>
-                                    <div class="mega-menu">
-                                        <div class="mega-menu__column">
-                                            <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>
-                                            <ul class="mega-menu__list">
-                                                <li class="current-menu-item "><a href="#">Computer &amp; Tablets</a>
-                                                </li>
-                                       
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li> -->
-
                             </ul>
                         </div>
                     </div>

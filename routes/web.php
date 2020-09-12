@@ -371,7 +371,7 @@
     // subcategory
     Route::get('subacete/{cate_slug}/{subacet_slug}', 'Frontend\FrontendController@subcateproduct');
     // resubcate
-    Route::get('resubacete/{cate_slug}/{subacet_slug}/{resub_slug}', 'Frontend\FrontendController@resubcateproduct');
+    Route::get('resubacetegory/{cate_slug}/{subacet_slug}/{resub_slug}', 'Frontend\FrontendController@resubcateproduct');
 
     Route::get('flashdeal/products', 'Frontend\FrontendController@flashDealProducts')->name('hot.deal.products');
 
