@@ -39,7 +39,7 @@
                                     
 
                                     <div class="form-group form-forgot">
-                                        <input class="form-control" name="login_password" type="password" placeholder="Password"><a href="">Forgot?</a>
+                                        <input class="form-control" name="login_password" type="password" placeholder="Password"><a href="{{route('customar.email.forget.password')}}">Forgot?</a>
                                         @error('login_password')
                                             <strong class="text-danger">{{ $message }}</strong>
                                         @enderror
