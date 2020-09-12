@@ -13,7 +13,9 @@
 									<div class="panel_title"><span class="panel_icon"><i class="fas fa-plus-square"></i></span><span>Update Affiliate Product</span></div>
 								</div>
 								<div class="col-md-6 text-right">
-									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.product.all')}}" style="color: #fff;">All Affiliate Product</a></button>
+									<button type="submit" class="btn btn-primary"><i class="fas fa-undo-alt"></i> <a href="{{route('admin.product.producttype')}}" style="color: #fff;"> Back</a></button>
+
+									<button type="button"  style="margin: 5px;" class="btn btn-success" ><i class="fas fa-award"></i> <a href="{{route('admin.product.all')}}" style="color: #fff;">All Product</a></button>
 								</div>
 							</div>
 
@@ -22,7 +24,7 @@
 							<form action="{{route('admin.product.update',$data->id)}}" method="POST" id="choice_form" enctype="multipart/form-data">
 								@csrf
 								<div class="form-group row">
-									<input type="hidden" name="product_type" value="4">
+									<input type="hidden" name="product_type" value="1">
 								    <label for="" class="col-sm-3 col-form-label text-right">Product Name:</label>
 								    <div class="col-sm-6">
 								      <input type="text" name="product_name" class="form-control" onchange="update_sku()" value="{{$data->product_name}}">
@@ -39,17 +41,11 @@
 								  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Quantity:</label>
 								    <div class="col-sm-6">
-								      <input type="number" class="form-control" name="product_qty" value="{{$data->product_qty}}">
+								      <input type="number" class="form-control" name="product_qty" value="{{$data->	product_qty}}">
 								    </div>
 								  </div>
 								  <div class="form-group row">
-								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product 	Affiliate Link:</label>
-								    <div class="col-sm-6">
-								      <input type="text" class="form-control" name="affiliate_link" value="{{$data->affiliate_link}}">
-								    </div>
-								  </div>
-								  <div class="form-group row">
-								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Category</label>
+								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Category:</label>
 								    <div class="col-sm-6">
 								    	@php
 											$category=App\Category::where('is_deleted',0)->where('cate_status',1)->get();
@@ -57,17 +53,17 @@
 								      <select class="form-control" name="cate_id" id="cate_id">
 								      	<option value="">Select</option>
 								      	@foreach($category as $cate)
-								      	<option  value="{{$cate->id}}" @if($data->cate_id==$cate->id) selected @else @endif>{{$cate->cate_name}}</option>
+								      	<option  value="{{$cate->id}}" @if($data->cate_id==$cate->id) selected @endif>{{$cate->cate_name}}</option>
 								      	@endforeach
 								      </select>
 								    </div>
 								  </div>
 								   <div class="form-group row">
-								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product SubCategory</label>
+								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product SubCategory:</label>
 								    <div class="col-sm-6">
 								    	@php
 											$subcategory=App\SubCategory::where('is_deleted',0)->get();
-								   		 @endphp
+								    	@endphp
 								      <select class="form-control" name="subcate_id" id="subcate_id">
 								      	<option value="">Select</option>
 								      	@foreach($subcategory as $subcate)
@@ -77,11 +73,11 @@
 								    </div>
 								  </div>
 								   <div class="form-group row">
-								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product ReSubCategory</label>
+								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product ReSubCategory:</label>
 								    <div class="col-sm-6">
-								      @php
-								    	$resubcate=App\ReSubCategory::where('is_deleted',0)->get();
-								      @endphp
+								    	@php
+								    		$resubcate=App\ReSubCategory::where('is_deleted',0)->get();
+								    	@endphp
 								      <select class="form-control" name="resubcate_id" id="resubcate_id">
 								      	<option value="">Select</option>
 								      	@foreach($resubcate as $resub)
@@ -93,33 +89,121 @@
 								   <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Current Price:</label>
 								    <div class="col-sm-6">
-								      <input min="0" value="{{$data->product_price}}" step="0.01" name="unit_price" class="form-control">
+								      <input name="unit_price" class="form-control" value="{{$data->product_price}}">
 								    </div>
 								  </div>
-								 <div class="form-group row">
-								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Select Upload Type:</label>
+								  <!-- combination -->
+								   <div class="form-group row">
+								    <label class="col-sm-3 col-form-label text-right">Color:</label>
+										<div class="col-sm-6">
+											<div class="select2-purple">
+												<select class="select2" name="colors[]" id="colors" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;" onchange="myFunction()">
+													@php
+														$allcolor=App\Color::where('is_deleted',0)->where('color_status',1)->get();
+													@endphp
+													@foreach($allcolor as $color)
+													<option value="{{$color->color_code}}"<?php if(in_array($color->color_code, json_decode($data->colors))) echo 'selected'?> >{{$color->color_name}}</option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<label class="chech_container mb-4">
+												<input value="1"  type="checkbox" name="colors_active" <?php if(count(json_decode($data->colors)) > 0) echo "checked";?>>
+												<span class="checkmark"></span>
+											</label>
+										</div>
+								  </div>
+
+								  <div class="customer_choice_options" id="customer_choice_options">
+										@foreach (json_decode($data->choice_options) as $key => $choice_option)
+											<div class="form-group row">
+												<div class="col-lg-3"></div>
+												<div class="col-lg-2">
+													<input type="hidden" name="choice_no[]" value="{{ explode('_', $choice_option->name)[1] }}">
+													<input type="text" class="form-control" name="choice[]" value="{{ $choice_option->title }}">
+												</div>
+												<div class="col-lg-4">
+													<input type="text" class="form-control" name="choice_options_{{ explode('_', $choice_option->name)[1] }}[]" placeholder="Enter choice values" value="{{ implode(',', $choice_option->options) }}" data-role="tagsinput" onchange="update_sku()">
+												</div>
+												<div class="col-lg-2">
+													<button onclick="delete_row(this)" class="btn btn-danger btn-icon"><i class="fa fa-times"></i></button>
+												</div>
+											</div>
+										@endforeach
+							      </div>
+							      <!-- custom choice option -->
+							      <div class="form-group row">
+								    <label for="inputPassword" class="col-sm-3 col-form-label text-right"></label>
+								    <div class="col-sm-5 text-center">
+								    	 <button type="button" class="btn btn-info" onclick="add_more_customer_choice_option()">Add Customer Choice</button>
+								    </div>
+								  </div>
+								  <div class="row">
+								  	<div class="col-md-3"></div>
+								  	<div class="col-md-8">
+								  	   <div class="sku_combination" id="sku_combination">
+
+							          </div>
+								  	</div>
+								  	<div class="col-md-1"></div>
+
+								  </div>
+								  <div class="row">
+		                          	<div class="col-md-3"></div>
+		                          	<div class="col-md-8">
+		                             	<label class="chech_container mb-4">
+											<input type="checkbox" name="allow_product_condition" id="allow_product_condition" value="1" @if($data->allow_product_condition==1) checked @else @endif>
+											<span class="checkmark"></span>
+											Allow Product Condition
+										</label>
+		                          	</div>
+		                        </div>
+		                        <div class="form-group row"id="product_condition" @if($data->allow_product_condition==1)  @else style="display:none" @endif >
+								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Condition:</label>
 								    <div class="col-sm-6">
-								     <select class="form-control" name="upload_type" id="upload_type">
-								     	<option>Select</option>
-								     	<option value="1" @if($data->select_upload_type==1) selected @else @endif>File</option>
-								     	<option value="2" @if($data->select_upload_type==2) selected @else @endif>Link</option>
+								     <select class="form-control" name="product_condition">
+								     	<option value="1">New</option>
+								     	<option value="2">Used</option>
+								     </select>
+								    </div>
+								 </div>
+								 <div class="form-group row">
+								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Brand:</label>
+								    <div class="col-sm-6">
+								    	@php
+											$allbrand=App\Brand::where('is_deleted',0)->where('brand_status',1)->get();
+								    	@endphp
+								     <select class="form-control" name="brand">
+								     	<option value="">Select</option>
+								     	@foreach($allbrand as $brand)
+								     	<option value="{{$brand->id}}"@if($data->brand==$brand->id) selected @else @endif>{{$brand->brand_name}}</option>
+								     	@endforeach
 								     </select>
 								    </div>
 								 </div>
 
-								 <div class="form-group row" id="selectfile" @if($data->select_upload_type==1) @else style="display: none" @endif>
-								    <label for="inputPassword" class="col-md-3 col-form-label text-right">Select file</label>
-								    <div class="col-md-3">
-								     <input type="file" name="pdf">
-								    </div>
-								    <div class="col-md-3">
-								    	<input type="text" name="oldfile" value="{{$data->upload_file}}" class="form-control" disabled>
-								    </div>
-								 </div>
-								 <div class="form-group row" id="selectlink" @if($data->select_upload_type==2) @else style="display: none" @endif>
-								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Link</label>
+								  <div class="row">
+		                          	<div class="col-md-3"></div>
+		                          	<div class="col-md-8">
+		                             	<label class="chech_container mb-4">
+											<input type="checkbox"  id="allow_product_measurement" name="allow_product_measurement" value="1" @if($data->allow_product_measurement==1) checked @else @endif>
+											<span class="checkmark"></span>
+											Allow Product Measurement
+										</label>
+		                          	</div>
+		                        </div>
+		                        <div class="form-group row" id="product_measurement" @if($data->allow_product_measurement==1)  @else style="display:none" @endif>
+								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Measurement:</label>
 								    <div class="col-sm-6">
-								     <input type="text" name="upload_link" class="form-control" value="{{$data->upload_link}}">
+									     <select class="form-control" name="product_measurement">
+									     	@php
+												$allmesurement=App\Mesurement::where('is_deleted',0)->where('m_status',1)->get();
+									     	@endphp
+									     	@foreach($allmesurement as $mesurement)
+									     	<option value="{{$mesurement->id}}">{{$mesurement->m_name}}</option>
+									     	@endforeach
+									     </select>
 								    </div>
 								 </div>
 								 {{-- <div class="row">
@@ -133,7 +217,7 @@
 		                          	</div>
 		                        </div> --}}
 
-		                         {{-- <div id="flash_deal_section"@if($data->allow_flash_deal==1) checked  @else style="display: none;" @endif>
+		                         {{-- <div id="flash_deal_section" @if($data->allow_flash_deal==1)  @else style="display:none" @endif>
 		                              <div  class="row">
 		                                <div class="col-md-3"></div>
 		                                <div class="col-md-6 row">
@@ -152,7 +236,7 @@
 		                                        	<option value="1" selected>Amount</option>
 		                                        	<option value="2">%</option>
 		                                        	@elseif($data->flash_deal_type==2)
-																							<option value="1">Amount</option>
+													<option value="1">Amount</option>
 		                                        	<option value="2" selected>%</option>
 		                                        	@else
 		                                        	<option>--Select--</option>
@@ -171,10 +255,10 @@
                           		<div style="margin-top: 15px">
 	                          		<div class="row">
 	                          			<label for="" class="col-sm-3 col-form-label text-right">Product Description:</label>
-															    <div class="col-sm-6">
-															      <textarea name="product_description" id="editor1" rows="10" cols="80">{{$data->product_description}}</textarea>
-															    </div>
-															</div>
+									    <div class="col-sm-6">
+									      <textarea name="product_description" id="editor1" rows="10" cols="80"> {{$data->product_description}}</textarea>
+									    </div>
+									</div>
                           	   </div>
                           	   <div style="margin: 15px 0px">
 	                          		<div class="row">
@@ -187,20 +271,14 @@
 		                         <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Product Estimated Shipping Time</label>
 								    <div class="col-sm-6">
-								      <input type="text" class="form-control" name="shipping_time" value="{{$data->shipping_time}}">
+								      <input type="text" class="form-control" name="shipping_time" value="{{$data->	shipping_time}}">
 								    </div>
 								  </div>
 
 								  <div class="form-group row">
 								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Meta Tag</label>
 								    <div class="col-sm-6">
-								      <input type="text" class="form-control" data-role="tagsinput" name="m_tag" value="{{$data->meta_tag}}">
-								    </div>
-								  </div>
-								  <div class="form-group row">
-								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Meta Description</label>
-								    <div class="col-sm-6">
-								      <input type="text" class="form-control" name="meta_description" value="{{$data->meta_description}}">
+								      <input type="text" class="form-control" data-role="tagsinput" name="m_tag" id="tag" value="{{$data->meta_tag}}">
 								    </div>
 								  </div>
 									<div class="form-group row">
@@ -209,9 +287,17 @@
 											<textarea class="form-control" name="video">{{$data->video}}</textarea>
 										</div>
 									</div>
-
 								  <div class="form-group row">
-									<label for="" class="col-sm-3 col-form-label text-right">Main Image</label>
+								    <label for="inputPassword" class="col-sm-3 col-form-label text-right">Meta Description</label>
+								    <div class="col-sm-6">
+								      <input type="text" class="form-control" name="meta_description" value="{{$data->meta_description}}">
+											<input type="hidden" name="old_img" value="{{ $data->thumbnail_img }}">
+								    </div>
+								  </div>
+
+
+								<div class="form-group row">
+									<label for="" class="col-sm-3 col-form-label text-right">Gallary Image</label>
 									 <div class="col-sm-6">
 										<div id="photos" class="row">
 											@if(is_array(json_decode($data->photos)))
@@ -245,24 +331,88 @@
 										<br>
 									</div>
 									<div class="col-md-5">
-
 										<div id="thumbnail_img" class="">
 
 									   </div>
 									</div>
 
 								</div>
+
 								<div class="form-group row">
+
 									<div class="col-md-12 text-center">
 										<button type="submit" class="btn btn-primary">Update Product</button>
 									</div>
 								</div>
 							</form>
+
 						</div>
 					</div>
 				</section>
-			</div>
-		</div>
+			</div><!--/middle content wrapper-->
+			</div><!--/ content wrapper -->
+   <!-- script code start -->
+ <script>
+
+var i = $('input[name="choice_no[]"').last().val();
+	if(isNaN(i)){
+		i =0;
+	}
+
+ 		function add_more_customer_choice_option(){
+		$('#customer_choice_options').append('<div class="form-group row"><div class="col-lg-3"></div><div class="col-lg-2"><input type="hidden" name="choice_no[]" value="'+i+'"><input type="text" class="form-control" name="choice[]" value="" placeholder="Choice Title"></div><div class="col-lg-4"><input type="text" class="form-control choice_tag" name="choice_options_'+i+'[]" id="choice_tag" placeholder="Enter choice values" data-role="tagsinput" onchange="update_sku()"></div><div class="col-lg-2"><button onclick="delete_row(this)" class="btn btn-danger btn-icon"><i class="fa fa-times"></i></button></div></div>');
+		i++;
+		 $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
+	}
+
+	 $('input[name="colors_active"]').on('change', function() {
+		    if(!$('input[name="colors_active"]').is(':checked')){
+				$('#colors').prop('disabled', true);
+			}
+			else{
+				$('#colors').prop('disabled', false);
+			}
+			update_sku();
+		});
+
+	 function delete_row(em){
+		$(em).closest('.form-group').remove();
+		update_sku();
+	}
+// $('#colors').on('change', function() {
+//     // update_sku();
+//     alert('')
+// });
+$('input[name="unit_price"]').on('keyup', function() {
+	    update_sku();
+	});
+
+ function update_sku(){
+		$.ajax({
+		   type:"GET",
+		   url:'{{ route('products.sku_combination_edit') }}',
+		   data:$('#choice_form').serialize(),
+		   success: function(data){
+		   	 // console.log(data);
+			   $('#sku_combination').html(data);
+		   }
+	   });
+	}
+
+
+
+ </script>
+
+<script>
+	function myFunction() {
+      update_sku()
+	}
+	$('.remove-files').on('click', function(){
+            $(this).parents(".col-md-4").remove();
+        });
+
+</script>
+
 <script type="text/javascript">
 
   $(document).ready(function() {
@@ -288,9 +438,6 @@
          }
 
      });
-     $('.remove-files').on('click', function(){
-            $(this).parents(".col-md-4").remove();
-        });
  });
 </script>
 <script type="text/javascript">
@@ -320,6 +467,12 @@
      });
  });
 </script>
+
+
+
+
+
+
  <script>
  $(document).ready(function() {
 	$("#allow_product_condition").click(function() {
@@ -347,26 +500,7 @@
 			}
 	});
 });
-</script>
-<script>
-	 $(document).ready(function() {
-	 	$('select[name="upload_type"]').on('change', function(){
-	 		var uptype = $(this).val();
-			if(uptype==1){
-				$("#selectfile").show();
-				$("#selectlink").hide();
-			}
-			else if(uptype==2)
-			{
-				$("#selectfile").hide();
-				$("#selectlink").show();
-			}else{
-				$("#selectfile").hide();
-				$("#selectlink").hide();
-			}
-	});
 
-});
 
 </script>
 @endsection

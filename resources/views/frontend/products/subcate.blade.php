@@ -35,13 +35,13 @@
                                                 $resubcatecheck =App\ReSubCategory::where('is_deleted',0)->where('subcate_id',$sub->id)->first();
                                            @endphp
                                            @if($resubcatecheck)
-                                            <li class="current-menu-item menu-item-has-children"><a href="shop-default.html">{{$sub->subcate_name}}</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
+                                            <li class="current-menu-item menu-item-has-children"><a href="{{url('subacete/'.$cate->cate_slug.'/'.$sub->subcate_slug)}}">{{$sub->subcate_name}}</a><span class="sub-toggle"><i class="fa fa-angle-down"></i></span>
                                                 <ul class="sub-menu">
                                                     @php
                                                         $resub=App\ReSubCategory::where('is_deleted',0)->where('subcate_id',$sub->id)->get();
                                                     @endphp
                                                     @foreach($resub as $resubnew)
-                                                    <li class="current-menu-item "><a href="">{{$resubnew->resubcate_name}}</a>
+                                                    <li class="current-menu-item "><a href="{{url('resubacetegory/'.$cate->cate_slug.'/'.$sub-> subcate_slug.'/'.$resubnew->resubcate_slug)}}">{{$resubnew->resubcate_name}}</a>
                                                     </li>
                                                     @endforeach
                                                    
@@ -49,7 +49,7 @@
                                             </li>
                                             @else
 
-                                            <li class="current-menu-item "><a href="shop-default.html">{{$sub->subcate_name}}</a>
+                                            <li class="current-menu-item "><a href="{{url('subacete/'.$cate->cate_slug.'/'.$sub->subcate_slug)}}">{{$sub->subcate_name}}</a>
                                             @endif
                                             </li>
                                         @endforeach

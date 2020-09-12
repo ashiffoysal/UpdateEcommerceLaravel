@@ -188,7 +188,7 @@
                                     </div>
                                     <p class="ps-product__price sale">৳ {{$product->product_price}} <del>৳ 670.00 </del></p>
                                 </div>
-                                <div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">{{$product->product_name}}</a>
+                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                     <p class="ps-product__price sale">৳ {{$product->product_price}} <del>৳ 670.00 </del></p>
                                 </div>
                             </div>
