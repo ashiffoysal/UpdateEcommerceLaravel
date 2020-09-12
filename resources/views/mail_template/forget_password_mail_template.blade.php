@@ -36,7 +36,7 @@
                                                         <tr>
                                                             <td class="column_cell" style="padding:20px;">
                                                                 <a href="#">
-                                                                    <img src="{{ asset($frontLogo->front_logo) }}" width="136px"
+                                                                    <img src="fdsfgdgdsaf" width="136px"
                                                                         height="32px" alt="Email Template"
                                                                         style="max-width: 140px;">
                                                                 </a>
@@ -89,13 +89,13 @@
                                                                     Forgot Password Request</h1>
                                                                 <p class="ban_p"
                                                                     style="color: rgb(255, 255, 255);font-size: 16px;position: relative;z-index: 111;text-transform: capitalize;font-weight: 500;">
-                                                                    Dear {{ $userInfo->username }}}, you have requested to change you forgot password, you verification is below.
+                                                                    Dear ,{{$mail}} you have requested to change you forgot password, you verification is below.
                                                                 </p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="column_cell account">
-                                                                <a href="#" style="background-color: #27ae60;font-weight: 600;color: #fff;text-decoration:none;text-transform: capitalize;font-size: 14px;padding: 12px 20px;display: inline-block;">{{ $userInfo->verification_code }}</a>
+                                                                <a href="{{route('customar.password.reset.page',$token)}}" style="background-color: #27ae60;font-weight: 600;color: #fff;text-decoration:none;text-transform: capitalize;font-size: 14px;padding: 12px 20px;display: inline-block;">Click Here</a>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -150,7 +150,7 @@
                                                             <tr>
                                                                 <td class="content_cell text-center">
                                                                     <a href="#">
-                                                                        <img src="{{ asset($frontLogo->front_logo) }}" width="136px"
+                                                                        <img src="ggdfdsafda" width="136px"
                                                                             height="32px" alt="Email Template"
                                                                             style="max-width: 140px;">
                                                                     </a>
@@ -163,9 +163,9 @@
                                                                 <td class="content_cell text-center"
                                                                     style="font-size:16px;color: #8a8d8e;">
                                                                     <p>
-                                                                        {{ $siteSettings->company_name }}
+                                                                        dfgfdgfd
                                                                         <br>
-                                                                        <br>{{ $siteSettings->address }}
+                                                                        <br>dfgfdg
                                                                     </p>
                                                                 </td>
                                                             </tr>

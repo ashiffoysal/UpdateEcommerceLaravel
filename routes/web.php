@@ -809,6 +809,14 @@
             Route::post('/login','AdminController@login')->name('customar.login');
             Route::post('/register','AdminController@register')->name('customar.register');
             Route::post('/logout','AdminController@logout')->name('customar.logout');
+            Route::get('/verification/{token}','AdminController@verificationPage')->name('customar.verification.page');
+            Route::post('/verification','AdminController@accountVerification')->name('customar.verification');
+            Route::get('/verify/email/{token}','AdminController@emailAccountVerification')->name('customar.email.verification');
+            Route::get('/forgot/password','AdminController@emailForgotPasswordPage')->name('customar.email.forget.password');
+            Route::post('/forgot/password','AdminController@forgotPassword')->name('customar.email.forgot.passwrod');
+            Route::get('/forgot/password/reset/{token}','AdminController@passwordResetPageShow')->name('customar.password.reset.page');
+            Route::post('/forgot/password/reset','AdminController@passwordReset')->name('customar.reset.password');
+            Route::post('/forgot/password/verify','AdminController@forgotPhoneVerify')->name('customar.forgot.mobile.verify');
 
             Route::middleware('auth:web')->group(function(){
                 Route::get('/account','FrontendController@showAccountInfoPage')->name('customar.account.page');

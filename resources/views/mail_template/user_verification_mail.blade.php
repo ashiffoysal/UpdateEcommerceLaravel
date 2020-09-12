@@ -31,7 +31,7 @@
                                                         <tr style="background-color: #fff;">
                                                             <td class="column_cell" style="padding:20px;text-align: center;">
                                                                 <a href="#">
-                                                                    <img src="{{asset($frontLogo->front_logo)}}" width="136px"
+                                                                    <img src="fgdsgfd" width="136px"
                                                                         height="32px" alt="Email Template"
                                                                         style="max-width: 140px;">
                                                                 </a>
@@ -139,7 +139,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="column_cell">
-                                                                <p>Deal, {{ $username }} <br />
+                                                                <p>Deal, {{$name}} <br />
                                                                     Thank you, for registration in our web site </p>
                                                             </td>
                                                         </tr>
@@ -175,7 +175,7 @@
                                                         </tr>
                                                         <tr style="text-align: center;">
                                                             <td class="column_cell account" style="background-color: #27ae60;font-weight: 600;color: #fff;text-transform: capitalize;font-size: 14px;padding: 12px 20px;display: inline-block;">
-                                                                <a href="{{ route('user.auth.verification', $token) }}" style="color: #fff;text-decoration:none;">confirm account</a>
+                                                                <a href="{{route('customar.email.verification',$token)}}" style="color: #fff;text-decoration:none;">confirm account</a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -241,7 +241,7 @@
                                                                 <td class="content_cell text-left"
                                                                     style="font-size:14px;color: #8a8d8e;">
                                                                     <p>
-                                                                        ©{{ date('Y') }}  <br>
+                                                                        1523658  <br>
 
                                                                         <span class="tm"></span>
                                                                     </p>
@@ -263,13 +263,13 @@
                                                     style="font-size:22px;color: #8a8d8e;">
 
                                                     <p class="sm_link">
-                                                        <a href="{{ $siteSettings->facebook ? $siteSettings->facebook : '' }}" style="text-decoration: none;color: #8a8d8e;font-size: 24px;"><i
+                                                        <a href="hgfdhgfh" style="text-decoration: none;color: #8a8d8e;font-size: 24px;"><i
                                                                 class="fa fa-facebook-official"
                                                                 aria-hidden="true"></i></a>&nbsp;&nbsp;
-                                                        <a href="{{ $siteSettings->twitter ? $siteSettings->twitter : '' }}" style="text-decoration: none;color: #8a8d8e;font-size: 24px;"><i
+                                                        <a href="dfsgfdsgfd" style="text-decoration: none;color: #8a8d8e;font-size: 24px;"><i
                                                                 class="fa fa-twitter-square"
                                                                 aria-hidden="true"></i></a>&nbsp;&nbsp;
-                                                        <a href="{{ $siteSettings->instagram ? $siteSettings->instagram : '' }}" style="text-decoration: none;color: #8a8d8e;font-size: 24px;"><i
+                                                        <a href="gdfssg" style="text-decoration: none;color: #8a8d8e;font-size: 24px;"><i
                                                                 class="fa fa-instagram"
                                                                 aria-hidden="true"></i></a>&nbsp;&nbsp;
 
