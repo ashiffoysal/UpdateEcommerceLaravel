@@ -146,6 +146,9 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- electonic area start from here -->
         @if($firstcate)
         <div class="ps-product-list ps-clothings">
             <div class="ps-container">
@@ -168,12 +171,19 @@
                         <div class="ps-product">
                             <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
                                 <div class="ps-product__badge">-16%</div>
+
+
+                                <!-- purchace function area start -->
                                 <ul class="ps-product__actions">
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-eye"></i></a></li>
+                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-bag2"></i></a></li>
                                     <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
                                     <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                 </ul>
+                                <!-- purchace funtion area end -->
+
+
+                                
                             </div>
                             <div class="ps-product__container"><a class="ps-product__vendor" href="#">Go Pro</a>
                                 <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{$product->  product_name}}</a>
@@ -199,6 +209,9 @@
             </div>
         </div>
         @endif
+        <!-- electonic area end -->
+
+
         @if($secondcate)
         <div class="ps-product-list ps-clothings">
             <div class="ps-container">

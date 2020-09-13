@@ -16,8 +16,7 @@ class AddToCartController extends Controller
 
     public function addToCart(Request $request)
     {
-
-
+       
 
         $product = Product::findOrFail($request->product_id);
 
@@ -26,6 +25,7 @@ class AddToCartController extends Controller
         // variation product add
 
         if ($product->product_type == 1) {
+            
 
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->product_id)->first();
             if ($flashDealdiscounts) {
@@ -43,6 +43,103 @@ class AddToCartController extends Controller
             }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // testing area
+
+            // store form value
+            $attibute = [];
+            // store attibute name
+            $sizename = [];
+            
+
+            $productdetails = Product::findOrFail($request->product_id);
+
+            foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+               
+                
+               $size = $choice->title; //this reaturn size,model
+               $choicename = $choice->name; //this reaturn form name  
+            //    $attibute = $request->$choicename;
+               array_push($attibute,$choicename);   
+               array_push($sizename,$size);   
+            }
+
+
+            $items = \Cart::session($userid)->getContent();
+            
+            
+            
+            $rowcount =count($sizename);
+            $formvaluecount = count($attibute);
+            
+            
+            // get the value of attibuate name from database of this product
+
+            foreach($items as $value){
+                 
+                $i=0;
+                while ($i < $rowcount) {
+
+                   $attibutevalue =$sizename[$i]; //find size,model
+
+                   $value->attributes->$attibutevalue; //find value l,nokia 
+
+                  
+                }
+            }
+
+
+
+
+
+            
+            // $i =0;
+            // while($i < $rowcount ){
+            //     $attibutevalue =$sizename[$i];
+            //     // here we got attibute size name
+            //     // $request->$value;
+                
+            //     foreach($items as $value){
+            //         // this reaturn value(l,s)
+                    
+            //        $value->attributes->$attibutevalue;
+            //     }
+
+                
+            // }
+
+
+
+
+           
+
+
+
+          
+
+            
+
+
+
+
+            // test area end
+
+
+
+            
+
             $id = rand(5, 15);
 
             $data = array();
@@ -55,6 +152,7 @@ class AddToCartController extends Controller
             $data['attributes']['product_id'] = $product->id;
             $data['attributes']['variation'] = 'variation';
             $data['attributes']['sku'] = $request->product_sku;
+            $data['attributes']['slug'] = $product->slug;
             $data['attributes']['flashdeals'] = 0;
             $data['attributes']['flashdealtype'] = 0;
 
@@ -63,12 +161,16 @@ class AddToCartController extends Controller
             $productdetails = Product::findOrFail($request->product_id);
 
             foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-                $choicename = $choice->name;
-
+               
+               $choicename = $choice->name;
                 $data['attributes'][$choice->title] = $request->$choicename;
             }
+            
 
             $add = Cart::session($userid)->add($data);
+
+            
+
 
             if($flashDealdiscounts){
                 
@@ -83,6 +185,7 @@ class AddToCartController extends Controller
                             'product_id' => $product->id,
                             'variation' => 'variation',
                             'sku' => $request->product_sku,
+                            'slug'=>$product->slug,
                         ],
                     ]
                 );
@@ -91,6 +194,7 @@ class AddToCartController extends Controller
             // non variation product add
             $product->number_of_sale++;
             $product->save();
+            // non variation product add
         } else {
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->product_id)->first();
             if ($flashDealdiscounts) {
@@ -119,6 +223,7 @@ class AddToCartController extends Controller
                     'sku' => $product->product_sku,
                     'flashdeals' => 0,
                     'flashdealtype' => 0,
+                    'slug'=>$product->slug,
                 ],
             ]);
 
@@ -134,6 +239,7 @@ class AddToCartController extends Controller
                             'thumbnail_img' => $product->thumbnail_img,
                             'product_id' => $product->id,
                             'sku' => $product->product_sku,
+                            'slug'=>$product->slug,
                         ],
                     ]
                 );
@@ -169,7 +275,8 @@ class AddToCartController extends Controller
     {
 
         $countcartitems = Cart::session($request->user_id)->getContent();
-        return view('frontend.include.ajaxview', compact('countcartitems'));
+        
+        return view('frontend.include.ajaxview.header_cart', compact('countcartitems'));
     }
 
 
