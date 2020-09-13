@@ -85,7 +85,17 @@
 
                     </form>
                 </div>
+
+
+
+
+
+
+                @php
+					$userid = Request::ip();
+				@endphp
                 <div class="header__right">
+
                     @php
                         $user_id = Auth::id();
                         $allwish=App\wishlist::where('user_id',$user_id)->count();
@@ -98,8 +108,9 @@
                                 <i id="countwish">{{ $allwish }}</i>
                             </span>
                         </a>
-                        <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>
-                            <div class="ps-cart__content">
+                        <div class="ps-cart--mini"> <a class="header__extra" onmouseover="myAddToCartData()" data-id="{{$userid}}" id="cartdataid" href="#"><i class="icon-bag2"></i><span><i id="cartdatacount" >0</i></span>
+                        </a>
+                          <div class="ps-cart__content" id="addtocartshow">
                                 <div class="ps-cart__items">
                                     <div class="ps-product--cart-mobile">
                                         <div class="ps-product__thumbnail"><a href="#"><img src="{{asset('public/frontend')}}/img/products/clothing/7.jpg" alt=""></a></div>
@@ -118,7 +129,10 @@
                                     <h3>Sub Total:<strong>$59.99</strong></h3>
                                     <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
                                 </div>
+
                             </div>
+
+
                         </div>
                         <div class="ps-block--user-header">
                             <div class="ps-block__left"><i class="icon-user"></i></div>
@@ -351,6 +365,21 @@
 
     </header>
 
+
+
+    <script>
+    function myAddToCartData() {
+        var userip =$("#cartdataid").data("id");
+        $.post('{{ route('add.cart.show') }}', {_token: '{{ csrf_token() }}',user_id: userip},
+            function(data) {
+			   $('#addtocartshow').html(data);
+			console.log(data);
+            });
+	}
+
+	myAddToCartData();
+</script>
+
 <script>
     $(document).ready(function(){
         //$('.search-section').hide();
@@ -377,3 +406,4 @@
         });
     });
 </script>
+

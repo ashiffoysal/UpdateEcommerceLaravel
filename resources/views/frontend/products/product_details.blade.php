@@ -290,7 +290,11 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                             </div>
                             @endif
 
-                            <!-- producttype -->
+
+
+
+
+                            <!-- product type one area start -->
                             @if($productdetails->product_type==1)
                             <!-- custom choics physical product -->
                             <div class="col-md-12">
@@ -340,6 +344,10 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                        </strong>
                                    </strong>
                             </div>
+                            <!-- product type one area end -->
+
+
+                            <!-- product type two area start -->
                             @elseif($productdetails->product_type==2)
                             <div class="ps-product__desc">
 
@@ -356,6 +364,9 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                         <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
                                     </ul> -->
                             </div>
+                            <!-- product type two area end -->
+
+                            <!-- product type three area start -->
                             @elseif($productdetails->product_type==3)
                                 <div class="ps-product__desc">
                                 <p>License Type:<a>{{ $productdetails->license_type }}</a></p>
@@ -368,15 +379,22 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                         <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
                                     </ul>
                             </div>
+                            <!-- product type three area end -->
+
+                            <!-- product type four area start -->
                             @elseif($productdetails->product_type==4)
                               <div class="col-md-12">
                                 <div id="product">
                                     <div class="form-group required " style="display: block;">
                                         @if (count(json_decode($productdetails->colors)) > 0)
                                         <ul class="list-inline checkbox-color mb-1">
-                                            <input type="hidden" name="id" value="188">
+
+
+
+                                            <input type="hidden" name="product_id" value="{{$productdetails->id}}">
                                             <li> <span style="font-weight: 600;position: relative;bottom: 12px;text-transform: capitalize;">Color:</span>
                                             </li>
+                                            
                                             @foreach (json_decode($productdetails->colors) as $key => $color)
                                             <li>
                                                 <input type="radio" id="{{ $productdetails->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key==0) checked @endif>
@@ -417,9 +435,10 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                    </strong>
                             </div>
                             @endif
-
+                            <!-- product four area end -->
                             <!-- custom choics physical product end-->
 
+                            <!-- add to cart area start -->
                             <div class="ps-product__shopping">
                                 <figure>
                                     <figcaption>Quantity</figcaption>
@@ -429,14 +448,19 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                         <button class="down"><i class="fa fa-minus"></i>
                                         </button>
                                         <input name="quantity" id="quantity" class="form-control" type="number" value="1">
-                                        <input name="id" type="hidden" value="{{$productdetails->id}}">
+                                        <input name="product_id" type="hidden" value="{{$productdetails->id}}">
                                         <input type="hidden" id="product_chosen_price" value="{{$productdetails->product_price}}" name="product_price">
                                         <input type="hidden" id="product_chosen_sku" value="{{$productdetails->product_sku}}" name="product_sku">
                                     </div>
-                                </figure><a class="ps-btn ps-btn--black" href="#">Add to cart</a><a class="ps-btn" href="#">Buy Now</a>
+
+                                    
+                                </figure><a class="ps-btn ps-btn--black" href="#" id="addtocart">Add to cart</a><a class="ps-btn" href="#">Buy Now</a>
                                 <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a>
                                 </div>
                             </div>
+                            <!-- add to cart area end -->
+
+                            <!-- sku area start -->
                             <div class="ps-product__specification">
                                 <p><strong>SKU:</strong>{{$productdetails->product_sku}}</p>
                                 <p class="categories"><strong> Categories:</strong><a href="#">{{$productdetails->category->cate_name}}</a>,<a href="#">@if($productdetails->subcate_id){{$productdetails->subcate->subcate_name}}@endif</a>
@@ -449,6 +473,22 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                         </div>
                     </div>
                 </form>
+
+
+                <!-- form area end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div class="ps-product__content ps-tab-root">
                         <div class="ps-block--bought-toggether">
                             <h4>Frequently Bought Together</h4>
@@ -843,6 +883,29 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
             });
         }
     }
+</script>
+
+<!-- product add to cart -->
+
+
+<script>
+    $(document).ready(function () {
+        $('#addtocart').on('click', function () {
+            
+
+          console.log($('#option-choice-form').serializeArray());
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('product.add.cart') }}",
+                data: $('#option-choice-form').serializeArray(),
+                success: function (data) {                  
+                    document.getElementById('cartdatacount').innerHTML = data.quantity;
+                    document.getElementById('product_price').innerHTML = toFixed(data.total);
+                }
+            });
+        });
+    });
 </script>
 
 @endsection

@@ -185,6 +185,33 @@
         }
         @endif
     </script>
+
+
+
+
+<script>
+    window.onload = function(){
+
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/show/total/price') }}",
+
+                success: function(data) {
+                    var totalPrice = data.total;
+                    var totalPrice = totalPrice.toFixed(2);
+                    document.getElementById('cartdatacount').innerHTML = data.quantity;
+                    document.getElementById('product_price').innerHTML = totalPrice;
+
+                }
+            });
+    }
+</script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('.mywishlist').on('click', function () {
@@ -309,6 +336,7 @@
 
 
     <!-- compare -->
+
 </body>
 
 
