@@ -16,55 +16,8 @@
                     <h1>Wishlist</h1>
                 </div>
                 <div class="ps-section__content">
-                    <div class="table-responsive">
-                        <table class="table ps-table--whishlist">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Product name</th>
-                                    <th>Unit Price</th>
-                                    <th>Stock Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><a href="#"><i class="icon-cross"></i></a></td>
-                                    <td>
-                                        <div class="ps-product--cart">
-                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('/public/frontend')}}/img/products/electronic/1.jpg" alt=""></a></div>
-                                            <div class="ps-product__content"><a href="product-default.html">Marshall Kilburn Wireless Bluetooth Speaker, Black (A4819189)</a></div>
-                                        </div>
-                                    </td>
-                                    <td class="price">$205.00</td>
-                                    <td><span class="ps-tag ps-tag--in-stock">In-stock</span></td>
-                                    <td><a class="ps-btn" href="#">Add to cart</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#"><i class="icon-cross"></i></a></td>
-                                    <td>
-                                        <div class="ps-product--cart">
-                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('/public/frontend')}}/img/products/clothing/2.jpg" alt=""></a></div>
-                                            <div class="ps-product__content"><a href="product-default.html">Unero Military Classical Backpack</a></div>
-                                        </div>
-                                    </td>
-                                    <td class="price">$108.00</td>
-                                    <td><span class="ps-tag ps-tag--in-stock">In-stock</span></td>
-                                    <td><a class="ps-btn" href="#">Add to cart</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#"><i class="icon-cross"></i></a></td>
-                                    <td>
-                                        <div class="ps-product--cart">
-                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('/public/frontend')}}/img/products/electronic/15.jpg" alt=""></a></div>
-                                            <div class="ps-product__content"><a href="product-default.html">XtremepowerUS Stainless Steel Tumble Cloths Dryer</a></div>
-                                        </div>
-                                    </td>
-                                    <td class="price">$508.00</td>
-                                    <td><span class="ps-tag ps-tag--out-stock">Out-stock</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="table-responsive" id="wishlisttable">
+                        
                     </div>
                 </div>
             </div>
@@ -93,4 +46,63 @@
             </form>
         </div>
     </div>
-    @endsection
+
+<script>
+$( document ).ready(function() {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('get.wish.data') }}",
+            
+            success: function(data) {
+                
+              
+                $('#wishlisttable').html(data);
+                
+            }
+        });
+
+});
+    
+</script>
+<!--   <script type="text/javascript">
+        $(document).ready(function () {
+            $('.deletewish').on('click', function () {
+                var id = $(this).data('id');
+                //alert(id);
+                if (id) {
+
+                    $.ajax({
+                        url: "{{ url('/product/add/wishlist/') }}/" + id,
+                        type: "GET",
+                        dataType: "json",
+                        processData: false,
+                        success: function (data) {
+                            if (data.check) {
+                                  iziToast.error({
+                                        message: 'This Product All ready Add wishlist',
+                                        'position':'topRight'
+                                    });
+
+                            } else {
+                                    iziToast.success({
+                                        message: 'Product Add to wishlist ',
+                                        'position':'topRight'
+                                    });
+                            }
+                        }
+                    });
+                } else {
+                    //alert('danger');
+                }
+            });
+          
+        });
+    </script> -->
+
+@endsection

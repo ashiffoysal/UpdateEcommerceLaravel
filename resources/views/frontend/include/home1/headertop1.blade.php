@@ -1,3 +1,4 @@
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <header class="header header--1" data-sticky="true">
         <div class="header__top">
             <div class="ps-container">
@@ -47,142 +48,41 @@
                     </div><a class="ps-logo" href="{{url('/')}}"><img src="{{asset('/'.$logos->front_logo)}}" alt=""></a>
                 </div>
                 <div class="header__center">
-                    <form class="ps-form--quick-search" action="index.html" method="get">
+                    <form class="ps-form--quick-search" action="" method="get">
                         <div class="form-group--icon"><i class="icon-chevron-down"></i>
-                            <select class="form-control">
+                            <select class="form-control" id="category_id" name="category_id">
                                 <option value="0" selected="selected">All</option>
-                                <option class="level-0" value="babies-moms">Babies & Moms</option>
-                        
-                                
+                                @foreach($allcategory as $cates)
+                                    @php
+                                        $chek=App\SubCategory::where('cate_id',$cates->id)->first();
+                                    @endphp
+                                    @if($chek)
+                                    <option class="level-0" value="{{$cates->id}}}">{{$cates->cate_name}}</option>
+                                        @php
+                                            $sub=App\SubCategory::where('is_deleted',0)->where('cate_id',$cates->id)->get();
+                                        @endphp
+                                        @foreach($sub as $subcate)
+                                        <option class="level-2" value="{{$subcate->id}}">{{$subcate->subcate_name}}</option>
+                                        @endforeach
+                                    @else
+                                    <option class="level-0" value="{{$cates->id}}}">{{$cates->cate_name}}</option>
+                                    @endif
+
+                                @endforeach
+                                <!-- <option class="level-1" value="air-conditioners">   Air Conditioners</option>
+                                <option class="level-2" value="accessories">      Accessories</option> -->
                             </select>
                         </div>
-                        <input class="form-control" type="text" placeholder="I'm shopping for..." id="input-search">
+                        <input class="form-control" type="text" placeholder="I'm shopping for..."id="input-search" name="input-search">
                         <button>Search</button>
-                        <div class="ps-panel--search-result">
-                            <div class="ps-panel__content">
-                                <div class="ps-product ps-product--wide ps-product--search-result">
-                                    <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/frontend')}}/img/products/arrivals/1.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Apple iPhone Retina 6s Plus 32GB</a>
-                                        <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span></span>
-                                        </div>
-                                        <p class="ps-product__price">$990.50</p>
-                                    </div>
-                                </div>
-                                <div class="ps-product ps-product--wide ps-product--search-result">
-                                    <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/frontend')}}/img/products/arrivals/1.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Apple iPhone Retina 6s Plus 64GB</a>
-                                        <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span></span>
-                                        </div>
-                                        <p class="ps-product__price">$1120.50</p>
-                                    </div>
-                                </div>
-                                <div class="ps-product ps-product--wide ps-product--search-result">
-                                    <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/frontend')}}/img/products/arrivals/1.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Apple iPhone Retina 6s Plus 128GB</a>
-                                        <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span></span>
-                                        </div>
-                                        <p class="ps-product__price">$1220.50</p>
-                                    </div>
-                                </div>
-                                <div class="ps-product ps-product--wide ps-product--search-result">
-                                    <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/frontend')}}/img/products/arrivals/2.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Marshall Kilburn Portable Wireless Speaker</a>
-                                        <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span>01</span>
-                                        </div>
-                                        <p class="ps-product__price">$36.78 – $56.99</p>
-                                    </div>
-                                </div>
-                                <div class="ps-product ps-product--wide ps-product--search-result">
-                                    <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/frontend')}}/img/products/arrivals/3.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Herschel Leather Duffle Bag In Brown Color</a>
-                                        <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span>02</span>
-                                        </div>
-                                        <p class="ps-product__price">$125.30</p>
-                                    </div>
-                                </div>
-                                <div class="ps-product ps-product--wide ps-product--search-result">
-                                    <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/frontend')}}/img/products/arrivals/4.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Xbox One Wireless Controller Black Color</a>
-                                        <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span>02</span>
-                                        </div>
-                                        <p class="ps-product__price">$55.30</p>
-                                    </div>
-                                </div>
-                                <div class="ps-product ps-product--wide ps-product--search-result">
-                                    <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/frontend')}}/img/products/arrivals/5.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Grand Slam Indoor Of Show Jumping Novel</a>
-                                        <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span>02</span>
-                                        </div>
-                                        <p class="ps-product__price sale">$41.27 <del>$52.99 </del></p>
-                                    </div>
-                                </div>
-                                <div class="ps-product ps-product--wide ps-product--search-result">
-                                    <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/frontend')}}/img/products/arrivals/6.jpg" alt=""></a></div>
-                                    <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">Sound Intone I65 Earphone White Version</a>
-                                        <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span>01</span>
-                                        </div>
-                                        <p class="ps-product__price sale">$41.27 <del>$62.39 </del></p>
-                                    </div>
-                                </div>
+                           <div class="ps-panel--search-result">
+                            <div class="ps-panel__content" id="search-result">
+                                
+                       
                             </div>
                             <div class="ps-panel__footer text-center"><a href="shop-default.html">See all results</a></div>
-                        </div>
+                         </div>
+
                     </form>
                 </div>
 
@@ -195,18 +95,41 @@
 					$userid = Request::ip();
 				@endphp
                 <div class="header__right">
-                    <div class="header__actions"><a class="header__extra" href="#"><i class="icon-chart-bars"></i><span><i>0</i></span></a><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
-                        <div class="ps-cart--mini">
-                            
-                            <a class="header__extra" onmouseover="myAddToCartData()" data-id="{{$userid}}" id="cartdataid" href="#"><i class="icon-bag2"></i><span><i id="cartdatacount" >0</i></span>
+
+                    @php
+                        $user_id = Auth::id();
+                        $allwish=App\wishlist::where('user_id',$user_id)->count();
+                          
+                    @endphp
+                    <div class="header__actions"><a class="header__extra" href="{{url('/product/compare/page')}}"><i class="icon-chart-bars"></i><span><i id="countcompare">0</i></span></a>
+                        <a class="header__extra" href="{{url('product/wishlist')}}">
+                            <i class="icon-heart"></i>
+                            <span>
+                                <i id="countwish">{{ $allwish }}</i>
+                            </span>
                         </a>
+                        <div class="ps-cart--mini"> <a class="header__extra" onmouseover="myAddToCartData()" data-id="{{$userid}}" id="cartdataid" href="#"><i class="icon-bag2"></i><span><i id="cartdatacount" >0</i></span>
+                        </a>
+                          <div class="ps-cart__content" id="addtocartshow">
+                                <div class="ps-cart__items">
+                                    <div class="ps-product--cart-mobile">
+                                        <div class="ps-product__thumbnail"><a href="#"><img src="{{asset('public/frontend')}}/img/products/clothing/7.jpg" alt=""></a></div>
+                                        <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
+                                            <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                                        </div>
+                                    </div>
+                                    <div class="ps-product--cart-mobile">
+                                        <div class="ps-product__thumbnail"><a href="#"><img src="{{asset('public/frontend')}}/img/products/clothing/5.jpg" alt=""></a></div>
+                                        <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">Sleeve Linen Blend Caro Pane Shirt</a>
+                                            <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ps-cart__footer">
+                                    <h3>Sub Total:<strong>$59.99</strong></h3>
+                                    <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                                </div>
 
-
-                            <div class="ps-cart__content" id="addtocartshow">
-                               
-
-
-                                    
                             </div>
 
 
@@ -443,6 +366,7 @@
     </header>
 
 
+
     <script>
     function myAddToCartData() {
         var userip =$("#cartdataid").data("id");
@@ -455,3 +379,31 @@
 
 	myAddToCartData();
 </script>
+
+<script>
+    $(document).ready(function(){
+        //$('.search-section').hide();
+        $('#input-search').on('keyup', function(){
+            var product_name = $(this).val();
+            var category_id = $('#category_id').val();
+           //alert(category_id);
+            // if (product_name === "") {
+            //     $('.search-section').hide();
+            //     $('#main_content').show();
+            // }else{
+            //     $('.search-section').show();
+            //     $('#main_content').hide();
+            // }
+
+            $.ajax({
+                url:"search/product/by/category"+"/"+category_id+"/"+product_name,
+                type:'get',
+                success:function(data){
+                   $('#search-result').empty();
+                    $('#search-result').html(data);
+                }
+            });
+        });
+    });
+</script>
+
