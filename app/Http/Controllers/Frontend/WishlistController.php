@@ -18,12 +18,12 @@ class WishlistController extends Controller
     }
     public function index()
     {
-        $user_id = Auth::id();
-        $allwishlist = wishlist::where('user_id', $user_id)->get();
-        return view('frontend.shopping.wishlist', compact('allwishlist'));
+ 
+        return view('frontend.shipping.whishlist');
     }
     public function insert(Request $request, $id)
     {
+       // return "ok";
         if (Auth::check()) {
             $user_id = Auth::id();
             $check = wishlist::where('product_id', $id)->first();
@@ -44,21 +44,41 @@ class WishlistController extends Controller
         }
     }
     // delete
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $delete = wishlist::where('id', $id)->delete();
-        if ($delete) {
-            $notification = array(
-                'messege' => 'Wish List Product Delete',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
-        } else {
-            $notification = array(
-                'messege' => 'Wish List Product Delete Faild',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
-        }
+       //return "ok";
+        $user_id = Auth::id();
+        //return $id;
+        $delete = wishlist::where('id', $request->id)->delete();
+        $allwishlist = wishlist::where('user_id', $user_id)->get();
+        return view('frontend.products.wishajax',compact('allwishlist'));
+        
+       
     }
+    // 
+    public function wishcount(Request $request, $id){
+         if (Auth::check()) {
+            $user_id = Auth::id();
+            $data = wishlist::where('user_id', $user_id)->count();
+            //echo $data;
+            return response()->json(['data' => $data]);
+
+          }
+          else {
+            return redirect()->back();
+            }
+
+
+
+    }
+
+    public function getajaxdata(){
+         $user_id = Auth::id();
+         $allwishlist = wishlist::where('user_id', $user_id)->get();
+         return view('frontend.products.wishajax',compact('allwishlist'));
+    }
+
+
+
+
 }

@@ -12,6 +12,7 @@
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Durbar IT Ecommerce</title>
+
     @if($themecheck->id==1)
          @include('frontend.include.home1.header1css')
     @elseif($themecheck->id==2)
@@ -35,6 +36,7 @@
       @elseif($themecheck->id==11)
     @include('frontend.include.home11.css')
     @endif
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -183,6 +185,130 @@
         }
         @endif
     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.mywishlist').on('click', function () {
+                var id = $(this).data('id');
+                //alert(id);
+                if (id) {
+
+                    $.ajax({
+                        url: "{{ url('/product/add/wishlist/') }}/" + id,
+                        type: "GET",
+                        dataType: "json",
+                        processData: false,
+                        success: function (data) {
+                            //console.log(data);
+                             // $('#countwish').html();
+                            if (data.check) {
+                                  iziToast.error({
+                                        message: 'This Product All ready Add wishlist',
+                                        'position':'topRight'
+                                    });
+
+                            } else {
+                                    iziToast.success({
+                                        message: 'Product Add to wishlist ',
+                                        'position':'topRight'
+                                    });
+                            }
+                        }
+                    });
+                } else {
+                    alert('danger');
+                }
+            });
+            // 
+            $('.mywishlist').on('click', function () {
+                var id = $(this).data('id');
+                //alert(id);
+                if (id) {
+
+                    $.ajax({
+                        url: "{{ url('/product/add/wishlist/count') }}/" + id,
+                        type: "GET",
+                        dataType: "json",
+                        processData: false,
+                        success: function (data) {
+                            //console.log(data);
+                            document.getElementById('countwish').innerHTML = data.data;
+
+                              //$('#countwish').html(data);
+                        }
+                    });
+                } else {
+                    alert('danger');
+                }
+            });
+
+
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.compare').on('click', function () {
+                var com_id = $(this).data('id');
+               //alert(com_id);
+                if (com_id) {
+                    $.ajax({
+                        url: "{{ url('/product/add/compare/') }}/" + com_id,
+                        type: "GET",
+                        dataType: "json",
+                        processData: false,
+                        success: function (data) {
+                           
+                            if (data.check) {
+                                  iziToast.error({
+                                        message: 'This Product All ready Add compare',
+                                        'position':'topRight'
+                                    });
+                                  document.getElementById('countcompare').innerHTML = data.comcount;
+
+                            } else {
+                                    iziToast.success({
+                                        message: 'Product Add to compare ',
+                                        'position':'topRight'
+                                    });
+                                    document.getElementById('countcompare').innerHTML = data.comcount;
+                            }
+
+                        }
+                    });
+                } else {
+                    alert('danger');
+                }
+            });
+            // 
+            // $('.mywishlist').on('click', function () {
+            //     var id = $(this).data('id');
+            //     //alert(id);
+            //     if (id) {
+
+            //         $.ajax({
+            //             url: "{{ url('/product/add/wishlist/count') }}/" + id,
+            //             type: "GET",
+            //             dataType: "json",
+            //             processData: false,
+            //             success: function (data) {
+                            
+            //                 document.getElementById('countwish').innerHTML = data.data;
+
+                             
+            //             }
+            //         });
+            //     } else {
+            //         alert('danger');
+            //     }
+            // });
+
+
+
+        });
+    </script>
+
+
+    <!-- compare -->
 </body>
 
 
