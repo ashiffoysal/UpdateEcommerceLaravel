@@ -11,6 +11,8 @@ class SearchController extends Controller
 {
     public function searchProductByAjax($categoryId, $productName)
     {
+        //echo $productName;
+
         $products = "";
         if ($categoryId === "all") {
             $getProductByName = Product::where('product_name', 'LIKE', "%$productName%")->select(['id', 'product_price', 'slug', 'product_name', 'thumbnail_img'])->get();
@@ -20,16 +22,16 @@ class SearchController extends Controller
         if ($getMainCate) {
             $getProductByCategoryId = Product::where('cate_id', $getMainCate->id)->where('product_name', 'LIKE', "%$productName%")->select(['id', 'product_price', 'slug', 'product_name', 'thumbnail_img'])->get();
             $products = $getProductByCategoryId;
-            return view('frontend.search.search_ajax_view', compact('products'));
+            return view('frontend.search.mainsearch', compact('products'));
         }
         $getSubCate = SubCategory::where('id', $categoryId)->select(['id'])->first();
         if ($getSubCate) {
             $getProductBySubCategoryId = Product::where('subcate_id', $getSubCate->id)->where('product_name', 'LIKE', "%$productName%")->select(['id', 'product_price', 'slug', 'product_name', 'thumbnail_img'])->get();
             $products = $getProductBySubCategoryId;
-            return view('frontend.search.search_ajax_view', compact('products'));
+            return view('frontend.search.mainsearch', compact('products'));
         }
 
-        return view('frontend.search.search_ajax_view', compact('products'));
+        return view('frontend.search.mainsearch', compact('products'));
 
     }
 

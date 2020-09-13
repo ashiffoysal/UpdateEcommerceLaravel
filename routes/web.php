@@ -394,8 +394,12 @@
 
     Route::get('/product/wishlist', 'Frontend\WishlistController@index')->name('product.wishlist');
     Route::get('/product/add/wishlist/{id}', 'Frontend\WishlistController@insert');
-    Route::get('/wishlist/delete/{id}', 'Frontend\WishlistController@delete');
+    Route::get('/product/add/wishlist/count/{id}', 'Frontend\WishlistController@wishcount');
+
     Route::get('/allproduct/wishlist', 'Frontend\WishlistController@getproduct');
+
+    Route::get('/allproduct/wishlist/ajax', 'Frontend\WishlistController@getajaxdata')->name('get.wish.data');
+    Route::post('/wishlist/delete/', 'Frontend\WishlistController@delete')->name('wish.list.del');
 
 
 
@@ -405,8 +409,9 @@
 
 
     Route::get('/product/compare/page', 'Frontend\CompareProductController@productCompare')->name('product.compare');
-    Route::get('/product/compare/{com_id}', 'Frontend\CompareProductController@necompare');
-    Route::get('/compare/delete/{id}', 'Frontend\CompareProductController@delete');
+    Route::get('/product/compare/get', 'Frontend\CompareProductController@getCompare')->name('get.compare.data');
+    Route::get('/product/add/compare/{com_id}', 'Frontend\CompareProductController@necompare');
+    Route::post('/compare/delete/', 'Frontend\CompareProductController@delete')->name('compare.list.del');
     // wish list end
 
 

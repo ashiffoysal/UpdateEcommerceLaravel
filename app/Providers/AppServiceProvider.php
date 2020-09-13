@@ -6,6 +6,7 @@ use App\Category;
 use App\Contract;
 use App\ThemeSelector;
 use App\Logo;
+use App\wishlist;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;

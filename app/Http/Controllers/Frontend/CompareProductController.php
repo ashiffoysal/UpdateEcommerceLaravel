@@ -10,20 +10,30 @@ class CompareProductController extends Controller
 {
 
     public function productCompare()
-    {
-        return view('frontend.shopping.product_compare');
+    {      
+        // $userip = Request::ip();
+        // return $userip;
+        // $allproduct = CompareProduct::where('ip_address', $userip)->orderBy('id','DESC')->get();
+        //dd($allproduct);
+        return view('frontend.shipping.compare');
     }
 
 
     public function necompare(Request $request, $com_id)
     {
-        //return $userid;
+        //return $com_id;
+
         $userid = $request->ip();
         //return $userid;
         $checkproduct = CompareProduct::where('product_id', $com_id)->first();
         $checkip = CompareProduct::where('ip_address', $userid)->first();
+        $comcount = CompareProduct::where('ip_address', $userid)->count();
+
+        //echo $comcount;
+
         if ($checkproduct && $checkip) {
             return response()->json(['checkip' => $checkip]);
+            return response()->json(['comcount' => $comcount]);
         } else {
             $compare = CompareProduct::insertGetId([
                 'ip_address' => $userid,
@@ -31,25 +41,20 @@ class CompareProductController extends Controller
             ]);
             if ($compare) {
                 return response()->json(['compare' => $compare]);
+                return response()->json(['comcount' => $comcount]);
             }
         }
     }
-    public function delete($id)
+    public function delete(Request $request)
     {
         //return $id;
-        $delete = CompareProduct::where('id', $id)->delete();
-        if ($delete) {
-            $notification = array(
-                'messege' => 'Delete Success',
-                'alert-type' => 'success'
-            );
-            return Redirect()->back()->with($notification);
-        } else {
-            $notification = array(
-                'messege' => 'Delete Faild',
-                'alert-type' => 'success'
-            );
-            return Redirect()->back()->with($notification);
-        }
+        $delete = CompareProduct::where('id', $request->id)->delete();
+        return view('frontend.shipping.compareajax');
+      
+    }
+
+    public function getCompare(){
+
+        return view('frontend.shipping.compareajax');
     }
 }
