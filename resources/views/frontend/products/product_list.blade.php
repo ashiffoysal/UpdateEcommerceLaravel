@@ -1,5 +1,6 @@
 @extends('layouts.websiteapp')
 @section('content')
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="ps-breadcrumb">
         <div class="ps-container">
             <ul class="breadcrumb">
@@ -181,29 +182,39 @@
                         </ul>
                     </aside>
                     <aside class="widget widget_shop">
-                        <h4 class="widget-title">BY BRANDS</h4>
+                        <h4 class="widget-title">BY PRODUCT</h4>
                         <form class="ps-form--widget-search" action="do_action" method="get">
-                            <input class="form-control" type="text" placeholder="">
+                            <input class="form-control" type="text" placeholder="" name="product_name" id="product_name">
                             <button><i class="icon-magnifier"></i></button>
                         </form>
                         <figure class="ps-custom-scrollbar" data-height="250">
-                            @foreach($allbrand as $brand)
+                            @foreach($allbrand as $key => $brand)
                                 @php
                                     $bproduct=App\Product::where('is_deleted',0)->where('brand',$brand->id)->count();
                                 @endphp
                             <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="brand-1" name="brand">
-                                <label for="brand-1">{{$brand->brand_name}} ({{ $bproduct}})</label>
+                                <input class="form-control common_selector" type="checkbox" id="{{$brand->id}}" name="brand" value="{{$brand->id}}">
+                                <label for="{{$brand->id}}">{{$brand->brand_name}} ({{ $bproduct}})</label>
                             </div>
                             @endforeach
                        
                         </figure>
                         <figure>
                             <h4 class="widget-title">By Price</h4>
-                            <div id="nonlinear"></div>
-                            <p class="ps-slider__meta">Price:<span class="ps-slider__value">$<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">$<span class="ps-slider__max"></span></span></p>
+                            <div>
+                               <div class="list-group">
+                             <h3>Price</h3>
+                             <input type="hidden" id="hidden_minimum_price" value="0" />
+                                            <input type="hidden" id="hidden_maximum_price" value="65000" />
+                                            <p id="price_show">1000 - 65000</p>
+                                            <div id="price_range"></div>
+                                        </div>    
+                             
+                            </div>
+                         <!--    <div id="nonlinear"></div>
+                            <p class="ps-slider__meta">Price:<span class="ps-slider__value">৳<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">৳<span class="ps-slider__max"></span></span></p> -->
                         </figure>
-                        <figure>
+                       <!--  <figure>
                             <h4 class="widget-title">By Price</h4>
                             <div class="ps-checkbox">
                                 <input class="form-control" type="checkbox" id="review-1" name="review">
@@ -225,7 +236,7 @@
                                 <input class="form-control" type="checkbox" id="review-5" name="review">
                                 <label for="review-5"><span><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(1)</small></label>
                             </div>
-                        </figure>
+                        </figure> -->
                         <figure>
                             <h4 class="widget-title">By Color</h4>
                             <div class="ps-checkbox ps-checkbox--color color-1 ps-checkbox--inline">
@@ -236,7 +247,7 @@
                                 <input class="form-control" type="checkbox" id="color-2" name="size">
                                 <label for="color-2"></label>
                             </div>
-                            <div class="ps-checkbox ps-checkbox--color color-3 ps-checkbox--inline">
+                            <!-- <div class="ps-checkbox ps-checkbox--color color-3 ps-checkbox--inline">
                                 <input class="form-control" type="checkbox" id="color-3" name="size">
                                 <label for="color-3"></label>
                             </div>
@@ -259,14 +270,21 @@
                             <div class="ps-checkbox ps-checkbox--color color-8 ps-checkbox--inline">
                                 <input class="form-control" type="checkbox" id="color-8" name="size">
                                 <label for="color-8"></label>
-                            </div>
+                            </div> -->
                         </figure>
                         <figure class="sizes">
                             <h4 class="widget-title">BY SIZE</h4><a href="#">L</a><a href="#">M</a><a href="#">S</a><a href="#">XL</a>
                         </figure>
                     </aside>
                 </div>
-                <div class="ps-layout__right">
+                <!-- search section -->
+               
+
+                <!-- main sec -->
+                <div class="ps-layout__right all_category_wise_product">
+                    <div class="filter_data">
+                    
+                    </div>
                     <div class="ps-block--shop-features">
                         <div class="ps-block__header">
                             <h3>Best Sale Items</h3>
@@ -970,7 +988,7 @@
             </div>
         </div>
     </div>
-    <!-- <div class="ps-newsletter">
+    <div class="ps-newsletter">
         <div class="container">
             <form class="ps-form--newsletter" action="do_action" method="post">
                 <div class="row">
@@ -991,5 +1009,60 @@
                 </div>
             </form>
         </div>
-    </div> -->
+    </div>
+
+<script>
+$(document).ready(function(){
+
+    filter_data();
+
+    function filter_data()
+    {
+        $('.filter_data').html('<div id="loading" style="" ></div>');
+        var action = 'fetch_data';
+        var minimum_price = $('#hidden_minimum_price').val();
+        var maximum_price = $('#hidden_maximum_price').val();
+        var brand = get_filter('brand');
+        var ram = get_filter('ram');
+        var storage = get_filter('storage');
+        $.ajax({
+            url:"fetch_data.php",
+            method:"POST",
+            data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage},
+            success:function(data){
+                $('.filter_data').html(data);
+            }
+        });
+    }
+
+    function get_filter(class_name)
+    {
+        var filter = [];
+        $('.'+class_name+':checked').each(function(){
+            filter.push($(this).val());
+        });
+        return filter;
+    }
+
+    $('.common_selector').click(function(){
+        filter_data();
+    });
+
+    $('#price_range').slider({
+        range:true,
+        min:1000,
+        max:65000,
+        values:[1000, 65000],
+        step:500,
+        stop:function(event, ui)
+        {
+            $('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
+            $('#hidden_minimum_price').val(ui.values[0]);
+            $('#hidden_maximum_price').val(ui.values[1]);
+            filter_data();
+        }
+    });
+
+});
+</script>
     @endsection

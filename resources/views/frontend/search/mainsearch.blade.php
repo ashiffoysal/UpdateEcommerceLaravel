@@ -3,7 +3,7 @@
 <div class="ps-panel__content">
     <div class="ps-product ps-product--wide ps-product--search-result">
         <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$pro->slug}}/{{$pro->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$pro->thumbnail_img)}}" alt=""></a></div>
-        <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{$pro->product_name}}</a>
+        <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$pro->slug}}/{{$pro->id}}">{{$pro->product_name}}</a>
             <div class="ps-product__rating">
                 <!-- <select class="ps-rating" data-read-only="true">
                     <option value="1">1</option>

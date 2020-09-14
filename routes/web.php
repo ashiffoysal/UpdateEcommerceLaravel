@@ -769,6 +769,9 @@
 
     // Search Route Created By Harrison
 
+    Route::post('/search/ajax/cate', 'Frontend\SearchController@cateajax');
+
+
     Route::get('search/product/by/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByAjax');
     Route::get('search/product/by/main/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByMainCatByAjax');
     Route::get('search/product/by/sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductBySubCatByAjax');

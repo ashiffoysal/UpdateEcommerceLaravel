@@ -30,15 +30,10 @@ class BannerController extends Controller
         if ($request->hasFile('pic')) {
             $image = $request->file('pic');
             $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(830, 355)->save('public/uploads/banner/' . $ImageName);
+            Image::make($image)->resize(1230, 425)->save('public/uploads/banner/' . $ImageName);
             $data->ban_image = $ImageName;
         }
-        if ($request->hasFile('bottom_image')) {
-            $image = $request->file('bottom_image');
-            $ImageName = 'bottom_image' . '_' . time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(435, 174)->save('public/uploads/banner/' . $ImageName);
-            $data->bottom_image = $ImageName;
-        }
+        
         if ($data->save()) {
             $notification = array(
                 'messege' => 'Banner Insert Successfully',
@@ -172,14 +167,7 @@ class BannerController extends Controller
                 ]);
             }
         }
-        if ($request->hasFile('bottom_image')) {
-            $image = $request->file('bottom_image');
-            $ImageName = 'bottom_image' . '_' . time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(435, 174)->save('public/uploads/banner/' . $ImageName);
-            Banner::where('id', $id)->update([
-                'bottom_image' => $ImageName,
-            ]);
-        }
+      
 
         if ($update) {
             $notification = array(

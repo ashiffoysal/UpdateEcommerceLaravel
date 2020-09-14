@@ -12,12 +12,12 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="panel_title">
-								<span class="panel_icon"><i class="fas fa-border-all"></i></span><span>All Banner</span>
+								<span class="panel_icon"><i class="fas fa-border-all"></i></span><span>All Slider</span>
 							</div>
 						</div>
 						<div class="col-md-6 text-right">
 							<div class="panel_title">
-								<a href="#" class="btn btn-success" data-toggle="modal" data-target="#myModal1"><i class="fas fa-plus"></i></span> <span>Add Banner</span></a>
+								<a href="#" class="btn btn-success" data-toggle="modal" data-target="#myModal1"><i class="fas fa-plus"></i></span> <span>Add Slider</span></a>
 							</div>
 						</div>
 					</div>
@@ -41,7 +41,7 @@
 										<th>#</th>
 										<th>Slider Link</th>
 										<th>Slider Image</th>
-										<th>Banner Bottom Image</th>
+										
 										<th>Status</th>
 										<th>manage</th>
 									</tr>
@@ -62,9 +62,7 @@
 										<td>
 											<img src="{{asset('public/uploads/banner/'.$data->ban_image)}}" height="45px;">
 										</td>
-										<td>
-											<img src="{{asset('public/uploads/banner/'.$data->bottom_image)}}" height="45px;">
-										</td>
+										
 										<td>
 											@if($data->ban_status==1)
 											<span class="btn btn-success">Active</span>
@@ -102,7 +100,7 @@
 
 			<!-- Modal Header -->
 			<div class="modal-header">
-				<h4 class="modal-title">Add Banner</h4>
+				<h4 class="modal-title">Add Slider</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 
@@ -122,17 +120,10 @@
 
 						<div class="col-sm-8">
 							<input type="file" name="pic" required>
-							<p>(830px*355px)</p>
+							<p>(1230px*425px)</p>
 						</div>
 					</div>
-					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Slider Bottom Image</label>
-
-						<div class="col-sm-8">
-							<input type="file" name="bottom_image" required>
-							<p>(435px*175px)</p>
-						</div>
-					</div>
+			
 
 					<div class="form-group text-right">
 						<input type="reset" value="Reset" class="btn btn-warning">
@@ -158,7 +149,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Update Banner</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Update Slider</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -167,7 +158,7 @@
 				<form class="form-horizontal" action="{{route('admin.banner.update')}}" method="POST" enctype="multipart/form-data">
 					@csrf
 					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Ban Link</label>
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Slider Link</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" name="ban_link" id="ban_link">
 							<input type="hidden" name="id" id="id">
@@ -178,7 +169,7 @@
 
 						<div class="col-sm-4">
 							<input type="file" name="pic">
-							<p>(830px*355px)</p>
+							<p>(1230px*425px)</p>
 						</div>
 						<div class="col-sm-3" id="store-img">
 
@@ -190,25 +181,6 @@
 
 						</div>
 					</div>
-					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Slider Bottom Image</label>
-
-						<div class="col-sm-8">
-							<input type="file" name="bottom_image">
-							<p>(435px*175px)</p>
-						</div>
-						<div class="col-sm-3" id="store-bottom-img">
-
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-3 col-form-label text-right"></label>
-						<div class="col-sm-8" id="bottomimg">
-
-						</div>
-					</div>
-
-
 					<div class="form-group text-right">
 						<!-- <input type="" value="Reset" class="btn btn-warning"> -->
 						<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
@@ -257,10 +229,8 @@
 						$("#ban_link").val(data.ban_link);
 						$("#id").val(data.id);
 						$("#img").html("<img src={{asset('')}}public/uploads/banner/" + data.ban_image + " height='70px'/>");
-						$("#bottomimg").html("<img src={{asset('')}}public/uploads/banner/" + data.bottom_image + " height='70px'/>");
-
 						$("#store-img").append("<input type='hidden' name='old_image' value='" + data.ban_image + "' />");
-						$("#store-bottom-img").append("<input type='hidden' name='bottomimage' value='" + data.bottom_image + "' />");
+						
 
 					}
 				});
