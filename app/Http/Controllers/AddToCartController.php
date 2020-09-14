@@ -71,7 +71,7 @@ class AddToCartController extends Controller
             $sizename = [];
 
             //  same add to cart
-            $sameitem = [];
+            $sameitem = 0;
 
 
             $productdetails = Product::findOrFail($request->product_id);
@@ -100,35 +100,38 @@ class AddToCartController extends Controller
             if(count($items) > 0){
                 
                 foreach ($items as $item) {
-
-
-
                     
-                    if($rowcount == 1){
-                        $attibutevalue = $sizename[0]; //find size,model
-    
-                        //find value l,nokia 
-    
-                        $choice = $choseformnameattibute[0];
-    
-                         $request->$choice;
 
-                         
-                         if($item->attributes->$attibutevalue == $request->$choice){
-
+                    $i = 0;
+                    while ($i < $rowcount) {
+    
+                        $attibutevalue = $sizename[$i]; //find size,model
+    
+                        $item->attributes->$attibutevalue; //find value l,nokia 
+    
+                        $choice = $choseformnameattibute[$i];
+    
+                        $request->$choice;
+    
+                        if ($item->attributes->$attibutevalue == $request->$choice) {
                             
-                                $id = $item->id;
-                                $update =Cart::session($userid)->update(
+                            
+    
+                            $id = $item->id;
+                            $update =Cart::session($userid)->update(
                                 $id,
                                 [
             
                                     'quantity' => 2,
                                 ]
                             );
-                         }else{
+    
+    
+    
+                        } else {
+    
 
-                            
-                            
+    
                             $id = rand(5, 15);
     
                             $data = array();
@@ -157,144 +160,25 @@ class AddToCartController extends Controller
                 
                 
                             $add = Cart::session($userid)->add($data);
-                         }
-                    }elseif($rowcount == 2){
 
 
-                        $attibutevalueone = $sizename[0]; //find size,model
-     
-                         $choiceone = $choseformnameattibute[0];
 
-                         
-                       $attibutevaluetwo = $sizename[1]; //find size,model
-     
-                        $choicetwo = $choseformnameattibute[1];
-     
-                          
- 
-                          if($item->attributes->$attibutevalueone == $request->$choiceone && $item->attributes->$attibutevaluetwo == $request->$choicetwo){
- 
-                                     $id = $item->id;
-                                 $update =Cart::session($userid)->update(
-                                 $id,
-                                 [
-             
-                                     'quantity' => 2,
-                                 ]
-                             );
-                          }else{
-                              
-                            
 
-                            $id = rand(5, 15);
-    
-                            $data = array();
-                            $data['id'] = $id;
-                            $data['name'] = $product->product_name;
-                            $data['price'] = $product_price;
-                            $data['quantity'] = +$request->quantity;
-                            $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
-                            $data['attributes']['colors'] = $request->color;
-                            $data['attributes']['product_id'] = $product->id;
-                            $data['attributes']['variation'] = 'variation';
-                            $data['attributes']['sku'] = $request->product_sku;
-                            $data['attributes']['slug'] = $product->slug;
-                            $data['attributes']['flashdeals'] = 0;
-                            $data['attributes']['flashdealtype'] = 0;
-                
-                
-                
-                            $productdetails = Product::findOrFail($request->product_id);
-                
-                            foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-                
-                                $choicename = $choice->name;
-                                $data['attributes'][$choice->title] = $request->$choicename;
+                            $quantity = Cart::session($userid)->getTotalQuantity();
+                            $gettotal = Cart::session($userid)->getTotal();
+
+
+                            if($add){
+                                return response()->json([
+                    
+                                    'quantity' => $quantity,
+                                    'total' => $gettotal,
+                                ]);
                             }
-                
-                
-                            $add = Cart::session($userid)->add($data);
-                          }
-                    }
-                    
-
-                    // $i = 0;
-                    // while ($i < $rowcount) {
-    
-                    //     $attibutevalue = $sizename[$i]; //find size,model
-    
-                    //     $item->attributes->$attibutevalue; //find value l,nokia 
-    
-                    //     $choice = $choseformnameattibute[$i];
-    
-                    //     $request->$choice;
-    
-                        // if ($item->attributes->$attibutevalue == $request->$choice) {
-                            
-                            
-    
-                        //     $id = $item->id;
-                        //     $update =Cart::session($userid)->update(
-                        //         $id,
-                        //         [
-            
-                        //             'quantity' => 2,
-                        //         ]
-                        //     );
-    
-    
-    
-                        // } else {
-    
-
-    
-                        //     $id = rand(5, 15);
-    
-                        //     $data = array();
-                        //     $data['id'] = $id;
-                        //     $data['name'] = $product->product_name;
-                        //     $data['price'] = $product_price;
-                        //     $data['quantity'] = +$request->quantity;
-                        //     $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
-                        //     $data['attributes']['colors'] = $request->color;
-                        //     $data['attributes']['product_id'] = $product->id;
-                        //     $data['attributes']['variation'] = 'variation';
-                        //     $data['attributes']['sku'] = $request->product_sku;
-                        //     $data['attributes']['slug'] = $product->slug;
-                        //     $data['attributes']['flashdeals'] = 0;
-                        //     $data['attributes']['flashdealtype'] = 0;
-                
-                
-                
-                        //     $productdetails = Product::findOrFail($request->product_id);
-                
-                        //     foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-                
-                        //         $choicename = $choice->name;
-                        //         $data['attributes'][$choice->title] = $request->$choicename;
-                        //     }
-                
-                
-                        //     $add = Cart::session($userid)->add($data);
-
-
-
-
-                        //     $quantity = Cart::session($userid)->getTotalQuantity();
-                        //     $gettotal = Cart::session($userid)->getTotal();
-
-
-                        //     if($add){
-                        //         return response()->json([
-                    
-                        //             'quantity' => $quantity,
-                        //             'total' => $gettotal,
-                        //         ]);
-                        //     }
-                        // }
+                        }
     
                         
-                    // }
+                    }
                 }
             }else{
 
@@ -434,72 +318,17 @@ class AddToCartController extends Controller
 
 
 
-       
+        if($add){
             return response()->json([
 
                 'quantity' => $quantity,
                 'total' => $gettotal,
             ]);
-        
+        }
             
 
     }
 
-
-
-
-    public function addcartdata($request, $product)
-    {
-        
-                            $id = rand(5, 15);
-    
-                            $data = array();
-                            $data['id'] = $id;
-                            $data['name'] = $product->product_name;
-                            $data['price'] = 150;
-                            $data['quantity'] = +$request->quantity;
-                            $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
-                            $data['attributes']['colors'] = $request->color;
-                            $data['attributes']['product_id'] = $product->id;
-                            $data['attributes']['variation'] = 'variation';
-                            $data['attributes']['sku'] = $request->product_sku;
-                            $data['attributes']['slug'] = $product->slug;
-                            $data['attributes']['flashdeals'] = 0;
-                            $data['attributes']['flashdealtype'] = 0;
-                
-                
-                
-                            $productdetails = Product::findOrFail($request->product_id);
-                
-                            foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-                
-                                $choicename = $choice->name;
-                                $data['attributes'][$choice->title] = $request->$choicename;
-                            }
-                
-                            $userid = "123456789";
-                
-                            $add = Cart::session($userid)->add($data);
-
-
-
-
-                            $quantity = Cart::session($userid)->getTotalQuantity();
-                            $gettotal = Cart::session($userid)->getTotal();
-
-
-                            return 'ok';
-                            if($add){
-                                return response()->json([
-                    
-                                    'quantity' => $quantity,
-                                    'total' => $gettotal,
-                                ]);
-                            }
-                        }
-    
-                        
-                    
 
     // check if this product already exited in cart
 
@@ -608,7 +437,7 @@ class AddToCartController extends Controller
 
     public function productViewCart()
     {
-        return view('frontend.shipping.shopping_cart');
+        return view('frontend.shopping.cart');
     }
 
 
@@ -621,7 +450,7 @@ class AddToCartController extends Controller
         $usercartdatas = Cart::session($userid)->getContent();
 
 
-        return view('frontend.include.ajaxview.cartajaxdata', compact('usercartdatas'));
+        return view('frontend.shopping.cartajaxdata', compact('usercartdatas'));
     }
 
 
@@ -651,17 +480,10 @@ class AddToCartController extends Controller
             $usercartdatas = Cart::session($userid)->getContent();
 
 
-            return view('frontend.include.ajaxview.cartajaxdata', compact('usercartdatas'));
+            return view('frontend.shopping.cartajaxdata', compact('usercartdatas'));
         } else {
             return 0;
         }
-    }
-
-    // checkout page show
-
-    public function checkoutPage()
-    {
-        return view('frontend.shipping.checkout');
     }
 
 
@@ -683,8 +505,7 @@ class AddToCartController extends Controller
         $userid =  \Request::getClientIp(true);
         $datadelete = Cart::session($userid)->remove($request->user_id);
         $usercartdatas = Cart::session($userid)->getContent();
-        
-        return view('frontend.include.ajaxview.cartajaxdata', compact('usercartdatas'));
+        return view('frontend.shopping.cartajaxdata', compact('usercartdatas'));
     }
 
 
