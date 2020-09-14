@@ -422,6 +422,14 @@ class FrontendController extends Controller
         }
     }
 
+
+
+    
+    public function checkoutPage()
+    {
+        return view('frontend.shipping.checkout');
+    }
+
    
 
     

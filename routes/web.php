@@ -377,9 +377,9 @@
 
     // product add to cart in front end
 
-    Route::get(md5('/product/cart/page'), 'Frontend\FrontendController@cart')->name('product.cart.add');
+    
 
-    Route::get(md5('/product/checkout/page'), 'Frontend\FrontendController@checkout')->name('product.checkout');
+    
     Route::get('/product/blog', 'Frontend\FrontendController@allblog');
     Route::get('/product/blog/details/{id}', 'Frontend\FrontendController@blogdetails');
     Route::post('/blog/comment', 'Frontend\FrontendController@blogcomment');
@@ -476,7 +476,8 @@
     // add to cart area start
 
     Route::get('add/to/cart', 'Frontend\AddToCartController@addToCart')->name('product.add.cart');
-    Route::get('get/cart/data', 'Frontend\AddToCartController@getCartData')->name('get.cart.data');
+
+    
 
 
     Route::post('add/to/cart/show', 'Frontend\Controller@addToCartShow')->name('add.cart.show');
@@ -485,7 +486,7 @@
 
     // Product view cart
     Route::get(md5('/product/cart/page'), 'Frontend\AddToCartController@productViewCart')->name('product.cart.add');
-    Route::post('/product/cart/update', 'Frontend\AddToCartController@viewCartUpdate')->name('product.cart.update');
+    
     Route::post('/product/cart/delete', 'Frontend\AddToCartController@viewCartDelete')->name('product.cart.delete');
     Route::get('/show/total/price', 'Frontend\AddToCartController@showTotalPrice')->name('product.cart.delete');
 
@@ -507,7 +508,7 @@
 
 
     Route::post('add/to/cart/show', 'Frontend\AddToCartController@addToCartShow')->name('add.cart.show');
-    Route::post('cart/data/delete', 'Frontend\AddToCartController@cartDataDelete')->name('cart.data.delete');
+    
     Route::post('add/to/cart/delete', 'Frontend\AddToCartController@addToCartDelete')->name('add.cart.delete');
 
     Route::get('addtocart/test/', 'Frontend\AddToCartController@adtest')->name('addtest.cart');
@@ -825,7 +826,15 @@
 
             Route::middleware('auth:web')->group(function(){
                 Route::get('/account','FrontendController@showAccountInfoPage')->name('customar.account.page');
-            });
+            }); 
+        });
+
+        Route::prefix('product')->group(function(){
+            Route::get('/product/cart/page', 'AddToCartController@productViewCart')->name('product.cart.data');
+            Route::get('/get/cart/data', 'AddToCartController@getCartData')->name('get.cart.data');
+            Route::post('cart/data/delete', 'AddToCartController@cartDataDelete')->name('cart.data.delete');
+            Route::post('/cart/update', 'AddToCartController@viewCartUpdate')->name('product.cart.update');
+            Route::get('/checkout/page', 'FrontendController@checkoutPage')->name('product.checkout');
         });
 
 
@@ -852,7 +861,7 @@
     // New Route start from here
 
     Route::get('/test',function(){
-        return view('frontend.products.product_list');
+        return view('frontend.shipping.checkout');
     });
 
     
