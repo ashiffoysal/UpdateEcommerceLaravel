@@ -17,6 +17,7 @@ use App\ProductReview;
 use App\FlashDealDetail;
 use App\Blog;
 use App\BlogComment;
+use App\Banner;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -33,6 +34,7 @@ class FrontendController extends Controller
             $secondcate=Category::where('cate_status',1)->where('is_deleted',0)->skip(1)->first();
             $thirdcate=Category::where('cate_status',1)->where('is_deleted',0)->skip(2)->first();
             $newproduct=Product::where('is_deleted',0)->orderBy('id','DESC')->limit(6)->get();
+            $slider=Banner::where('is_deleted',0)->where('ban_status',1)->orderBy('id','DESC')->limit(3)->get();
             //$hot_deal=FlashDeal::where('status',1)->where('is_deleted',0)->first();
             // hot deal start
                date_default_timezone_set('Asia/Dhaka');
@@ -58,9 +60,8 @@ class FrontendController extends Controller
                 }
             }
 
-
             // hotdeal end
-            return view('frontend.home.home1',compact('firstcate','secondcate','thirdcate','newproduct','hotdeal'));
+            return view('frontend.home.home1',compact('slider','firstcate','secondcate','thirdcate','newproduct','hotdeal'));
         }
         elseif($themecheck->id==2){
             return view('frontend.home.home2');

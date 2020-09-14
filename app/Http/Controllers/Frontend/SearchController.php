@@ -9,6 +9,27 @@ use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
+
+
+
+        public function cateajax(Request $request){
+            return "ok";
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function searchProductByAjax($categoryId, $productName)
     {
         //echo $productName;
