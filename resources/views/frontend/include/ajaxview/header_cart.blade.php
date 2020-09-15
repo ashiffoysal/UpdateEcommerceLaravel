@@ -1,7 +1,7 @@
 <div class="ps-cart__items">
 
     @foreach($countcartitems as $row)
-
+    
 
     <div class="ps-product--cart-mobile" onclick=this.style.display="none">
         <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$row->attributes->slug}}/{{$row->attributes->product_id}}"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->attributes->thumbnail_img}}" alt="{{$row->name}}"></a></div>
@@ -15,7 +15,7 @@
             </a>
             <!-- <i onclick="myAddToCartDatadelete(this)" value="{{$row->id}}" class="icon-cross"></i> -->
             <button onclick="myAddToCartDatadelete(this)" style="float: right; background:none;color:brown" value="{{$row->id}}" type="button" title="Remove" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
-            <br><small><strong>Price:</strong> ৳ {{$row->price}}</p></small>
+            <br><small>{{$row->quantity}} x ৳ {{$row->price}}</small>
         </div>
     </div>
     @endforeach

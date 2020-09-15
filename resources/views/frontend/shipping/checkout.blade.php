@@ -19,8 +19,12 @@
                     <form class="ps-form--checkout" action="do_action" method="post">
                         <div class="row">
                             <div class="col-xl-7 col-lg-8 col-md-12 col-sm-12  ">
+
+                                <!-- customar address area start -->
                                 <div class="ps-form__billing-info">
                                     <h3 class="ps-form__heading">Billing Details</h3>
+
+
                                     <div class="form-group">
                                         <label>First Name<sup>*</sup>
                                         </label>
@@ -28,34 +32,7 @@
                                             <input class="form-control" type="text">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Last Name<sup>*</sup>
-                                        </label>
-                                        <div class="form-group__content">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Company Name<sup>*</sup>
-                                        </label>
-                                        <div class="form-group__content">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Email Address<sup>*</sup>
-                                        </label>
-                                        <div class="form-group__content">
-                                            <input class="form-control" type="email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Country<sup>*</sup>
-                                        </label>
-                                        <div class="form-group__content">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
+
                                     <div class="form-group">
                                         <label>Phone<sup>*</sup>
                                         </label>
@@ -63,33 +40,62 @@
                                             <input class="form-control" type="text">
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label>Address<sup>*</sup>
+                                        </label>
+                                        <div class="form-group__content">
+                                            <textarea rows="5" name="address" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                        
+                         
+                                    <div class="form-group">
+                                        <div class="ps-checkbox">
+                                            <input class="form-control" onclick="differentAddress()" type="checkbox" value="1" id="cb01">
+                                            <label for="cb01">Ship to a different address?</label>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <!-- customar address area end -->
+
+
+
+                                <!-- Ship to a different address area start -->
+                                <div class="ps-form__billing-info">
+                                    <div id="diff_address" >
+                                    <h3 class="ps-form__heading">Different Address</h3>
+
+
+                                    <div class="form-group">
+                                        <label>First Name<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
                                             <input class="form-control" type="text">
                                         </div>
                                     </div>
+
                                     <div class="form-group">
-                                        <div class="ps-checkbox">
-                                            <input class="form-control" type="checkbox" id="create-account">
-                                            <label for="create-account">Create an account?</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="ps-checkbox">
-                                            <input class="form-control" type="checkbox" id="cb01">
-                                            <label for="cb01">Ship to a different address?</label>
-                                        </div>
-                                    </div>
-                                    <h3 class="mt-40"> Addition information</h3>
-                                    <div class="form-group">
-                                        <label>Order Notes</label>
+                                        <label>Phone<sup>*</sup>
+                                        </label>
                                         <div class="form-group__content">
-                                            <textarea class="form-control" rows="7" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                            <input class="form-control" type="text">
                                         </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Address<sup>*</sup>
+                                        </label>
+                                        <div class="form-group__content">
+                                            <textarea rows="5" name="address" class="form-control"></textarea>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
+                                <!-- Ship to a different address area end -->
+
+
                             </div>
                             <div class="col-xl-5 col-lg-4 col-md-12 col-sm-12  ">
                                 <div class="ps-form__total">
@@ -143,3 +149,11 @@
 
     @include('frontend.include.newsletter._subcribtion')
 @endsection
+
+<script>
+    function differentAddress(){
+        var getid = document.getElementById('diff_address');
+        var checkedbox = document.getElementById('cb01');
+        
+    }
+</script>
