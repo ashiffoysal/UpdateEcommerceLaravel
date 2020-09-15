@@ -18,6 +18,9 @@ class AddToCartController extends Controller
     {
 
 
+        
+        
+
         $product = Product::findOrFail($request->product_id);
 
         $userid = $request->ip();
@@ -26,9 +29,9 @@ class AddToCartController extends Controller
 
         if ($product->product_type == 1) {
 
-
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->product_id)->first();
             if ($flashDealdiscounts) {
+                
 
                 if ($flashDealdiscounts->discount_type == 1) {
 
@@ -43,25 +46,7 @@ class AddToCartController extends Controller
             }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            // ************************************************NEW ACTION AREA START*************************************************
 
 
             // store form value
@@ -86,6 +71,9 @@ class AddToCartController extends Controller
                 array_push($sizename, $size);
             }
 
+
+
+
             $userid = $request->ip();
 
             $items = \Cart::session($userid)->getContent();
@@ -94,214 +82,215 @@ class AddToCartController extends Controller
             $rowcount = count($sizename);
             $formvaluecount = count($choseformnameattibute);
 
+            if (count($items) > 0) {
 
-            // get the value of attibuate name from database of this product
-
-            if(count($items) > 0){
+                // if item not empty
                 
+                
+                
+
+
+                $productCartId = 0;
+
                 foreach ($items as $item) {
 
 
+                    if ($item->attributes->product_id == $request->product_id) {
+                        
+                        
+                        if ($rowcount == 1) {
+
+                            
+                            
+                            
+                            $attibutevalue = $sizename[0]; //find size,model
+
+                            //find value l,nokia 
+
+
+                            $choice = $choseformnameattibute[0];
+                            
+
+                            if ($item->attributes->$attibutevalue == $request->$choice && $item->attributes->colors == $request->color) {
+
+                                
+                                $itemid = $item->id;
+                                $productCartId .= $itemid;
+                            }
+                        }elseif($rowcount == 2){
+
+                            $attibutevalueone = $sizename[0]; //find size,model
+                            $attibutevaluetwo = $sizename[1]; //find size,model
+
+                            //find value l,nokia 
+
+
+                            $choiceone = $choseformnameattibute[0];
+                            $choicetwo = $choseformnameattibute[1];
+
+                            // return $request->$choicetwo;
+                            
+                            if ($item->attributes->$attibutevalueone == $request->$choiceone && $item->attributes->$attibutevaluetwo == $request->$choicetwo && $item->attributes->colors == $request->color) {
+
+
+                                $itemid = $item->id;
+                                $productCartId .= $itemid;
+                            }
+                        }elseif($rowcount == 3){
+
+                            $attibutevalueone = $sizename[0]; //find size,model
+                            $attibutevaluetwo = $sizename[1]; //find size,model
+                            $attibutevaluethree = $sizename[2]; //find size,model
+
+                            //find value l,nokia 
+
+
+                            $choiceone = $choseformnameattibute[0];
+                            $choicetwo = $choseformnameattibute[1];
+                            $choicethree = $choseformnameattibute[2];
+
+                            if ($item->attributes->$attibutevalueone == $request->$choiceone && $item->attributes->$attibutevaluetwo == $request->$choicetwo && $item->attributes->$attibutevaluethree == $request->$choicethree && $item->attributes->colors == $request->color) {
+
+
+                                $itemid = $item->id;
+                                $productCartId .= $itemid;
+                            }
+
+                        }elseif($rowcount == 4){
+
+                            $attibutevalueone = $sizename[0]; //find size,model
+                            $attibutevaluetwo = $sizename[1]; //find size,model
+                            $attibutevaluethree = $sizename[2]; //find size,model
+                            $attibutevaluefour = $sizename[3]; //find size,model
+
+                            //find value l,nokia 
+
+
+                            $choiceone = $choseformnameattibute[0];
+                            $choicetwo = $choseformnameattibute[1];
+                            $choicethree = $choseformnameattibute[2];
+                            $choicefour = $choseformnameattibute[3];
+
+                            if ($item->attributes->$attibutevalueone == $request->$choiceone && $item->attributes->$attibutevaluetwo == $request->$choicetwo && $item->attributes->$attibutevaluethree == $request->$choicethree && $item->attributes->$attibutevaluefour == $request->$choicefour && $item->attributes->colors == $request->color) {
+
+
+                                $itemid = $item->id;
+                                $productCartId .= $itemid;
+                            }
+
+                        }
+                        
+                    }
+                }
+
+
+
+                // Loop end
+
+
+
+                if ($productCartId != 0) {
+
+                    // if same product
+                    
+                    
+
+                    $id = $productCartId;
+                    $id = intval($id);
 
                     
-                    if($rowcount == 1){
-                        $attibutevalue = $sizename[0]; //find size,model
-    
-                        //find value l,nokia 
-    
-                        $choice = $choseformnameattibute[0];
-    
-                         $request->$choice;
-
-                         
-                         if($item->attributes->$attibutevalue == $request->$choice){
-
-                            
-                                $id = $item->id;
-                                $update =Cart::session($userid)->update(
-                                $id,
-                                [
-            
-                                    'quantity' => 2,
-                                ]
-                            );
-                         }else{
-
-                            
-                            
-                            $id = rand(5, 15);
-    
-                            $data = array();
-                            $data['id'] = $id;
-                            $data['name'] = $product->product_name;
-                            $data['price'] = $product_price;
-                            $data['quantity'] = +$request->quantity;
-                            $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
-                            $data['attributes']['colors'] = $request->color;
-                            $data['attributes']['product_id'] = $product->id;
-                            $data['attributes']['variation'] = 'variation';
-                            $data['attributes']['sku'] = $request->product_sku;
-                            $data['attributes']['slug'] = $product->slug;
-                            $data['attributes']['flashdeals'] = 0;
-                            $data['attributes']['flashdealtype'] = 0;
-                
-                
-                
-                            $productdetails = Product::findOrFail($request->product_id);
-                
-                            foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-                
-                                $choicename = $choice->name;
-                                $data['attributes'][$choice->title] = $request->$choicename;
-                            }
-                
-                
-                            $add = Cart::session($userid)->add($data);
-                         }
-                    }elseif($rowcount == 2){
 
 
-                        $attibutevalueone = $sizename[0]; //find size,model
-     
-                         $choiceone = $choseformnameattibute[0];
+                    $add = \Cart::session($userid)->update($id, [
+                        'quantity' => $request->quantity,
 
-                         
-                       $attibutevaluetwo = $sizename[1]; //find size,model
-     
-                        $choicetwo = $choseformnameattibute[1];
-     
-                          
- 
-                          if($item->attributes->$attibutevalueone == $request->$choiceone && $item->attributes->$attibutevaluetwo == $request->$choicetwo){
- 
-                                     $id = $item->id;
-                                 $update =Cart::session($userid)->update(
-                                 $id,
-                                 [
-             
-                                     'quantity' => 2,
-                                 ]
-                             );
-                          }else{
-                              
-                            
+                    ]);
+                } else {
 
-                            $id = rand(5, 15);
-    
-                            $data = array();
-                            $data['id'] = $id;
-                            $data['name'] = $product->product_name;
-                            $data['price'] = $product_price;
-                            $data['quantity'] = +$request->quantity;
-                            $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
-                            $data['attributes']['colors'] = $request->color;
-                            $data['attributes']['product_id'] = $product->id;
-                            $data['attributes']['variation'] = 'variation';
-                            $data['attributes']['sku'] = $request->product_sku;
-                            $data['attributes']['slug'] = $product->slug;
-                            $data['attributes']['flashdeals'] = 0;
-                            $data['attributes']['flashdealtype'] = 0;
-                
-                
-                
-                            $productdetails = Product::findOrFail($request->product_id);
-                
-                            foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-                
-                                $choicename = $choice->name;
-                                $data['attributes'][$choice->title] = $request->$choicename;
-                            }
-                
-                
-                            $add = Cart::session($userid)->add($data);
-                          }
+
+                    // if not smae product
+                    
+                    
+                    
+
+                    
+
+                    $id = rand(5, 15);
+
+                    $data = array();
+                    $data['id'] = $id;
+                    $data['name'] = $product->product_name;
+                    $data['price'] = $product_price;
+                    $data['quantity'] = +$request->quantity;
+                    $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
+                    $data['attributes']['colors'] = $request->color;
+                    $data['attributes']['product_id'] = $product->id;
+                    $data['attributes']['variation'] = 'variation';
+                    $data['attributes']['sku'] = $request->product_sku;
+                    $data['attributes']['flashdeals'] = 0;
+                    $data['attributes']['flashdealtype'] = 0;
+
+
+
+                    $productdetails = Product::findOrFail($request->product_id);
+
+                    foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+                        $choicename = $choice->name;
+                        
+                        $data['attributes'][$choice->title] = $request->$choicename;
                     }
                     
 
-                    // $i = 0;
-                    // while ($i < $rowcount) {
-    
-                    //     $attibutevalue = $sizename[$i]; //find size,model
-    
-                    //     $item->attributes->$attibutevalue; //find value l,nokia 
-    
-                    //     $choice = $choseformnameattibute[$i];
-    
-                    //     $request->$choice;
-    
-                        // if ($item->attributes->$attibutevalue == $request->$choice) {
-                            
-                            
-    
-                        //     $id = $item->id;
-                        //     $update =Cart::session($userid)->update(
-                        //         $id,
-                        //         [
-            
-                        //             'quantity' => 2,
-                        //         ]
-                        //     );
-    
-    
-    
-                        // } else {
-    
-
-    
-                        //     $id = rand(5, 15);
-    
-                        //     $data = array();
-                        //     $data['id'] = $id;
-                        //     $data['name'] = $product->product_name;
-                        //     $data['price'] = $product_price;
-                        //     $data['quantity'] = +$request->quantity;
-                        //     $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
-                        //     $data['attributes']['colors'] = $request->color;
-                        //     $data['attributes']['product_id'] = $product->id;
-                        //     $data['attributes']['variation'] = 'variation';
-                        //     $data['attributes']['sku'] = $request->product_sku;
-                        //     $data['attributes']['slug'] = $product->slug;
-                        //     $data['attributes']['flashdeals'] = 0;
-                        //     $data['attributes']['flashdealtype'] = 0;
-                
-                
-                
-                        //     $productdetails = Product::findOrFail($request->product_id);
-                
-                        //     foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-                
-                        //         $choicename = $choice->name;
-                        //         $data['attributes'][$choice->title] = $request->$choicename;
-                        //     }
-                
-                
-                        //     $add = Cart::session($userid)->add($data);
-
-
-
-
-                        //     $quantity = Cart::session($userid)->getTotalQuantity();
-                        //     $gettotal = Cart::session($userid)->getTotal();
-
-
-                        //     if($add){
-                        //         return response()->json([
+                    $add = Cart::session($userid)->add($data);
                     
-                        //             'quantity' => $quantity,
-                        //             'total' => $gettotal,
-                        //         ]);
-                        //     }
-                        // }
-    
+
+                    if ($flashDealdiscounts) {
                         
-                    // }
+                        
+
+                        $data = array();
+                        $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
+                        $data['attributes']['colors'] = $request->color;
+                        $data['attributes']['product_id'] = $product->id;
+                        $data['attributes']['variation'] = 'variation';
+                        $data['attributes']['sku'] = $request->product_sku;
+                        $data['attributes']['flashdeals'] = $flashDealdiscounts->discount;
+                        $data['attributes']['flashdealtype'] = $flashDealdiscounts->discount_type;
+    
+    
+    
+                        $productdetails = Product::findOrFail($request->product_id);
+    
+                        foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+                            $choicename = $choice->name;
+                            
+                            $data['attributes'][$choice->title] = $request->$choicename;
+                        }
+                        
+                        
+
+
+
+                        Cart::session($userid)->update(
+                            $id,
+                            $data
+                        );
+                    }
+
+                    // non variation product add
+                    $product->number_of_sale++;
+                    $product->save();
                 }
-            }else{
+            } else {
 
                 
+
+
+                // if cart is empty
+
 
                 $id = rand(5, 15);
-    
+
                 $data = array();
                 $data['id'] = $id;
                 $data['name'] = $product->product_name;
@@ -312,32 +301,58 @@ class AddToCartController extends Controller
                 $data['attributes']['product_id'] = $product->id;
                 $data['attributes']['variation'] = 'variation';
                 $data['attributes']['sku'] = $request->product_sku;
-                $data['attributes']['slug'] = $product->slug;
                 $data['attributes']['flashdeals'] = 0;
                 $data['attributes']['flashdealtype'] = 0;
-    
-    
-    
+
+
+
                 $productdetails = Product::findOrFail($request->product_id);
-    
+
                 foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-    
                     $choicename = $choice->name;
+
                     $data['attributes'][$choice->title] = $request->$choicename;
                 }
-    
-    
+
                 $add = Cart::session($userid)->add($data);
 
+                if ($flashDealdiscounts) {
+
+
+                    $data = array();
+                        $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
+                        $data['attributes']['colors'] = $request->color;
+                        $data['attributes']['product_id'] = $product->id;
+                        $data['attributes']['variation'] = 'variation';
+                        $data['attributes']['sku'] = $request->product_sku;
+                        $data['attributes']['flashdeals'] = $flashDealdiscounts->discount;
+                        $data['attributes']['flashdealtype'] = $flashDealdiscounts->discount_type;
+    
+    
+    
+                        $productdetails = Product::findOrFail($request->product_id);
+    
+                        foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+                            $choicename = $choice->name;
+                            
+                            $data['attributes'][$choice->title] = $request->$choicename;
+                        }
+                        
+
+
+
+                        Cart::session($userid)->update(
+                            $id,
+                            $data
+                        );
+
+                }
+
+                // non variation product add
+                $product->number_of_sale++;
+                $product->save();
             }
 
-            
-
-            
-
-
-
-            
 
 
 
@@ -348,30 +363,13 @@ class AddToCartController extends Controller
 
 
 
-            if ($flashDealdiscounts) {
 
-                Cart::session($userid)->update(
-                    $id,
-                    [
 
-                        'attributes' => [
-                            'flashdeals' => $flashDealdiscounts->discount,
-                            'flashdealtype' => $flashDealdiscounts->discount_type,
-                            'thumbnail_img' => $product->thumbnail_img,
-                            'colors' => $request->color,
-                            'product_id' => $product->id,
-                            'variation' => 'variation',
-                            'sku' => $request->product_sku,
-                            'slug' => $product->slug,
-                        ],
-                    ]
-                );
-            }
 
-            // non variation product add
-            $product->number_of_sale++;
-            $product->save();
-            // non variation product add
+
+
+            //******************************* */ NEW ACTION AREA END**************************************************************
+
         } else {
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->product_id)->first();
             if ($flashDealdiscounts) {
@@ -400,7 +398,6 @@ class AddToCartController extends Controller
                     'sku' => $product->product_sku,
                     'flashdeals' => 0,
                     'flashdealtype' => 0,
-                    'slug' => $product->slug,
                 ],
             ]);
 
@@ -417,7 +414,6 @@ class AddToCartController extends Controller
                             'thumbnail_img' => $product->thumbnail_img,
                             'product_id' => $product->id,
                             'sku' => $product->product_sku,
-                            'slug' => $product->slug,
                         ],
                     ]
                 );
@@ -434,133 +430,20 @@ class AddToCartController extends Controller
 
 
 
-       
+        if ($add) {
             return response()->json([
 
                 'quantity' => $quantity,
                 'total' => $gettotal,
             ]);
-        
-            
-
+        }
     }
 
 
 
 
-    public function addcartdata($request, $product)
-    {
-        
-                            $id = rand(5, 15);
-    
-                            $data = array();
-                            $data['id'] = $id;
-                            $data['name'] = $product->product_name;
-                            $data['price'] = 150;
-                            $data['quantity'] = +$request->quantity;
-                            $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
-                            $data['attributes']['colors'] = $request->color;
-                            $data['attributes']['product_id'] = $product->id;
-                            $data['attributes']['variation'] = 'variation';
-                            $data['attributes']['sku'] = $request->product_sku;
-                            $data['attributes']['slug'] = $product->slug;
-                            $data['attributes']['flashdeals'] = 0;
-                            $data['attributes']['flashdealtype'] = 0;
-                
-                
-                
-                            $productdetails = Product::findOrFail($request->product_id);
-                
-                            foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-                
-                                $choicename = $choice->name;
-                                $data['attributes'][$choice->title] = $request->$choicename;
-                            }
-                
-                            $userid = "123456789";
-                
-                            $add = Cart::session($userid)->add($data);
 
 
-
-
-                            $quantity = Cart::session($userid)->getTotalQuantity();
-                            $gettotal = Cart::session($userid)->getTotal();
-
-
-                            return 'ok';
-                            if($add){
-                                return response()->json([
-                    
-                                    'quantity' => $quantity,
-                                    'total' => $gettotal,
-                                ]);
-                            }
-                        }
-    
-                        
-                    
-
-    // check if this product already exited in cart
-
-    public function checkExitCartProduct($request)
-    {
-        // store form value
-        $choseformnameattibute = [];
-
-        // store attibute name
-        $sizename = [];
-
-        //  same add to cart
-        $sameitem = [];
-
-
-        $productdetails = Product::findOrFail($request->product_id);
-
-        foreach (json_decode($productdetails->choice_options) as $key => $choice) {
-
-
-            $size = $choice->title; //this reaturn size,model
-            $choicename = $choice->name; //this reaturn form name  
-            //    $attibute = $request->$choicename;
-            array_push($choseformnameattibute, $choicename);
-            array_push($sizename, $size);
-        }
-
-        $userid = $request->ip();
-
-        $items = \Cart::session($userid)->getContent();
-
-
-        $rowcount = count($sizename);
-        $formvaluecount = count($choseformnameattibute);
-
-
-        // get the value of attibuate name from database of this product
-
-        foreach ($items as $item) {
-
-            $i = 0;
-            while ($i < $rowcount) {
-
-                $attibutevalue = $sizename[$i]; //find size,model
-
-                $item->attributes->$attibutevalue; //find value l,nokia 
-
-                $choice = $choseformnameattibute[$i];
-
-                $request->$choice;
-
-                if ($item->attributes->$attibutevalue == $request->$choice) {
-                    array_push($sameitem, $item->id);
-                } else {
-                    return false;
-                }
-            }
-        }
-
-        return $sameitem;
-    }
 
 
 
@@ -683,7 +566,7 @@ class AddToCartController extends Controller
         $userid =  \Request::getClientIp(true);
         $datadelete = Cart::session($userid)->remove($request->user_id);
         $usercartdatas = Cart::session($userid)->getContent();
-        
+
         return view('frontend.include.ajaxview.cartajaxdata', compact('usercartdatas'));
     }
 

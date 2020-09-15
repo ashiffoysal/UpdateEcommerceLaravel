@@ -25,6 +25,7 @@ return array(
     'App\\Contract' => $baseDir . '/app/Contract.php',
     'App\\ContractImage' => $baseDir . '/app/ContractImage.php',
     'App\\Cupon' => $baseDir . '/app/Cupon.php',
+    'App\\CustomarAddress' => $baseDir . '/app/CustomarAddress.php',
     'App\\DatabaseStorage' => $baseDir . '/app/DatabaseStorage.php',
     'App\\DatabaseStorageModel' => $baseDir . '/app/DatabaseStorageModel.php',
     'App\\DeleveryAmount' => $baseDir . '/app/DeleveryAmount.php',
@@ -77,6 +78,9 @@ return array(
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+
+    'App\\Http\\Controllers\\Frontend\\AccountController' => $baseDir . '/app/Http/Controllers/Frontend/AccountController.php',
+
     'App\\Http\\Controllers\\Frontend\\AddToCartController' => $baseDir . '/app/Http/Controllers/AddToCartController.php',
     'App\\Http\\Controllers\\Frontend\\AdminController' => $baseDir . '/app/Http/Controllers/Frontend/AdminController.php',
     'App\\Http\\Controllers\\Frontend\\CheckoutController' => $baseDir . '/app/Http/Controllers/Frontend/CheckoutController.php',

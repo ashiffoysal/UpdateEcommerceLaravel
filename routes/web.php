@@ -493,7 +493,7 @@
 
 
     // Product view cart
-    Route::get(md5('/product/cart/page'), 'Frontend\AddToCartController@productViewCart')->name('product.cart.add');
+    
     
     Route::post('/product/cart/delete', 'Frontend\AddToCartController@viewCartDelete')->name('product.cart.delete');
     Route::get('/show/total/price', 'Frontend\AddToCartController@showTotalPrice')->name('product.cart.delete');
@@ -841,7 +841,7 @@
         });
 
         Route::prefix('product')->group(function(){
-            Route::get('/product/cart/page', 'AddToCartController@productViewCart')->name('product.cart.data');
+            Route::get('/cart/page', 'AddToCartController@productViewCart')->name('product.cart.data');
             Route::get('/get/cart/data', 'AddToCartController@getCartData')->name('get.cart.data');
             Route::post('cart/data/delete', 'AddToCartController@cartDataDelete')->name('cart.data.delete');
             Route::post('/cart/update', 'AddToCartController@viewCartUpdate')->name('product.cart.update');
@@ -852,6 +852,10 @@
         Route::prefix('subscriber')->group(function(){
 
             Route::post('/create', 'SubscribeController@insert')->name('frontend.subscriber.insert');
+        });
+
+        Route::prefix('cutomar/account')->group(function(){
+            Route::get('/address','AccountController@address')->name('customar.address.create');
         });
 
         Route::prefix('product')->group(function(){
@@ -872,7 +876,7 @@
     // New Route start from here
 
     Route::get('/test',function(){
-        return view('frontend.shipping.checkout');
+        return view('frontend.accounts.address');
     });
 
     

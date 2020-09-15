@@ -16,33 +16,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="ps-section__left">
-                            <aside class="ps-widget--account-dashboard">
-                                <div class="ps-widget__header"><img src="{{asset('/public/frontend')}}/img/users/3.jpg" alt="">
-                                    <figure>
-                                        <figcaption>Hello</figcaption>
-                                        <p><a href="#">{{Auth::user()->email?Auth::user()->email:Auth::user()->phone}}</a></p>
-                                    </figure>
-                                </div>
-                                <div class="ps-widget__content">
-                                    <ul>
-                                        <li><a href="#"><i class="icon-user"></i> Account Information</a></li>
-                                        <li class="active"><a href="#"><i class="icon-alarm-ringing"></i> Notifications</a></li>
-                                        <li><a href="#"><i class="icon-papers"></i> Invoices</a></li>
-                                        <li><a href="#"><i class="icon-map-marker"></i> Address</a></li>
-                                        <li><a href="#"><i class="icon-store"></i> Recent Viewed Product</a></li>
-                                        <li><a href="#"><i class="icon-heart"></i> Wishlist</a></li>
-                                        <li><a href="#" onclick="event.preventDefault(); document.getElementById('form_logout').submit();"><i class="icon-power-switch"></i>Logout</a></li>
-                                        <form id="form_logout" method="post" action="{{route('customar.logout')}}">
-                                            @csrf
-                                        </form>
-                                    </ul>
-                                </div>
-                            </aside>
-                        </div>
+                    @include('frontend.include.accounts.menu')
                     </div>
                     <div class="col-lg-8">
-                        <div class="ps-section__right">
+                        <div class="ps-section__right mt-12">
                             <div class="ps-section--account-setting">
                                 <div class="ps-section__header">
                                     <h3>Notitfications</h3>

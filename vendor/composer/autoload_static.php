@@ -516,6 +516,7 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\Contract' => __DIR__ . '/../..' . '/app/Contract.php',
         'App\\ContractImage' => __DIR__ . '/../..' . '/app/ContractImage.php',
         'App\\Cupon' => __DIR__ . '/../..' . '/app/Cupon.php',
+        'App\\CustomarAddress' => __DIR__ . '/../..' . '/app/CustomarAddress.php',
         'App\\DatabaseStorage' => __DIR__ . '/../..' . '/app/DatabaseStorage.php',
         'App\\DatabaseStorageModel' => __DIR__ . '/../..' . '/app/DatabaseStorageModel.php',
         'App\\DeleveryAmount' => __DIR__ . '/../..' . '/app/DeleveryAmount.php',
@@ -568,6 +569,9 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+
+        'App\\Http\\Controllers\\Frontend\\AccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/AccountController.php',
+
         'App\\Http\\Controllers\\Frontend\\AddToCartController' => __DIR__ . '/../..' . '/app/Http/Controllers/AddToCartController.php',
         'App\\Http\\Controllers\\Frontend\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/AdminController.php',
         'App\\Http\\Controllers\\Frontend\\CheckoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/CheckoutController.php',

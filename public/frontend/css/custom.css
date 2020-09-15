@@ -1,0 +1,31 @@
+.img_circal{
+    border-radius: 50%;
+    margin: 0 auto;
+    display: inherit;
+
+}
+
+.address_details{
+    display: block;
+}
+.address_header{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.ps-widget__header{
+    text-align: center;
+}
+
+.mt-12{
+    margin-top: 12%;
+}
+
+.mt-8{
+    margin-top: 8%;
+}
+
+.ps-cart__content{
+    overflow: scroll;
+    max-height: 600px;
+}

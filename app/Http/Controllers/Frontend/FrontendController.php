@@ -403,6 +403,8 @@ class FrontendController extends Controller
         $checkFlashDeal = 0;
         $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();
 
+        
+
         $productbestsell=Product::where('is_deleted',0)->orderBy('number_of_sale','DESC')->limit(7)->get();
 
         
