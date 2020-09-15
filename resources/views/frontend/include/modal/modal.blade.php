@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="product-quickview" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content"><span class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
@@ -10,10 +11,6 @@
                                 <div class="item"><img src="{{asset('public/frontend')}}/img/products/detail/fullwidth/3.jpg" alt=""></div>
                             </div>
                         </div>
-
-
-
-
                         <div class="ps-product__info">
                             <h1>Marshall Kilburn Portable Wireless Speaker</h1>
                             <div class="ps-product__meta">
@@ -43,10 +40,6 @@
                                 <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
                             </div>
                         </div>
-
-
-
-
                     </div>
                 </article>
             </div>

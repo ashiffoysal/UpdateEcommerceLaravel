@@ -217,6 +217,14 @@
     Route::get('admin/product/hearddelete/{id}', 'Admin\ProductController@hearddelete');
 
 
+    // social log
+   Route::get('admin/social/all', 'Admin\SocialController@index')->name('admin.social.all');
+   Route::post('admin/Social/supdate', 'Admin\SocialController@update')->name('admin.social.update');
+   // social end
+
+
+
+
 
 
     // product type physical edit

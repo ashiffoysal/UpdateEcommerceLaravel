@@ -75,26 +75,47 @@
                                 </ul>
                             </figure>
                         </div>
-                    </div><a href="#">View all</a>
+                    </div><a href="{{ route('hot.deal.products') }}">View all</a>
                 </div>
                 <div class="ps-section__content">
                     <div class="ps-carousel--nav owl-slider" data-owl-auto="false" data-owl-loop="false" data-owl-speed="10000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="true" data-owl-item="7" data-owl-item-xs="2" data-owl-item-sm="3" data-owl-item-md="4" data-owl-item-lg="5" data-owl-item-xl="6" data-owl-duration="1000" data-owl-mousedrag="on">
                         @foreach($hotdeal->flash_deal_details as $flasdetail)
                         <div class="ps-product ps-product--inner">
-                            <div class="ps-product__thumbnail"><a href=""><img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" alt=""></a>
+                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" alt=""></a>
                                 <div class="ps-product__badge">
                                     @if($flasdetail->discount_type==1) -{{$flasdetail->discount}}৳  @else -{{$flasdetail->discount}}% @endif
                                 </div>
                                 <ul class="ps-product__actions">
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                    <li><a href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
                                     <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+                                    <li>
+                                        @if(Auth::guard('web')->check())
+                                        <a class="mywishlist" data-id="{{$flasdetail->product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                        @else
+                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                        @endif
+
+                                    </li>
+
+                                    <li><a class="compare" data-id="{{$flasdetail->product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                 </ul>
                             </div>
                             <div class="ps-product__container">
-                                <p class="ps-product__price sale">{{ $flasdetail->product->product_price }} <del></del><small>@if($flasdetail->discount_type==1) -{{$flasdetail->discount}}৳  @else -{{$flasdetail->discount}}% @endif off</small></p>
-                                <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{Str::limit($flasdetail->product->product_name,35)}}</a>
+                                 @if($flasdetail->discount_type==1)
+                                <p class="ps-product__price sale">৳{{$flasdetail->product->product_price - $flasdetail->discount}}<del>৳{{ $flasdetail->product->product_price }}</del>
+                                   
+                                </p>
+                                @elseif($flasdetail->discount_type==2)
+                                 @php
+                                    $dis=($flasdetail->discount * $flasdetail->product->product_price)/100;
+
+                                @endphp
+                                <p class="ps-product__price sale">৳{{$flasdetail->product->product_price - $dis}}<del>{{ $flasdetail->product->product_price }}</del>
+                                   
+                                </p>
+
+                                @endif
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$flasdetail->productslug}}/{{$flasdetail->product->id}}">{{Str::limit($flasdetail->product->product_name,35)}}</a>
                                     <div class="ps-product__rating">
                                         <select class="ps-rating" data-read-only="true">
                                             <option value="1">1</option>
@@ -106,7 +127,7 @@
                                     </div>
                                     <div class="ps-product__progress-bar ps-progress" data-value="82">
                                         <div class="ps-progress__value"><span></span></div>
-                                        <p>Sold:18</p>
+                                        <!-- <p>Sold:18</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -171,15 +192,39 @@
                         @foreach($allproduct as $product)
                         <div class="ps-product">
                             <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
-                                <div class="ps-product__badge">-16%</div>
+                      @php
+                        $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                      @endphp
+                       @if(count($flashdealdetail) > 0)
+                        @foreach($flashdealdetail as $row)
+                                   <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                    @if($row ->discount_type == 1 )
+                                     <div class="ps-product__badge">
+                                        - ৳ {{$row->discount}}
+                                     </div>
+                                    @elseif($row ->discount_type == 2)
+                                    <div class="ps-product__badge">
+                                        -{{$row->discount}}%
+                                         </div>
+                                    @endif
+                        @endforeach
+                      @endif
+                               
 
 
                                 <!-- purchace function area start -->
                                 <ul class="ps-product__actions">
 
-                                   <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-eye"></i></a></li>
+                                   <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-eye"></i></a></li>
                                     <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-bag2"></i></a></li>
-                                    <li><a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
+                                    <li>
+                                        @if(Auth::guard('web')->check())
+                                        <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                        @else
+                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                        @endif
+                                    </li>
+
                                     <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
 
                                 </ul>
@@ -189,7 +234,7 @@
                                 
                             </div>
                             <div class="ps-product__container"><a class="ps-product__vendor" href="#">Go Pro</a>
-                                <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{$product->  product_name}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                     <div class="ps-product__rating">
                                         <select class="ps-rating" data-read-only="true">
                                             <option value="1">1</option>
@@ -199,10 +244,42 @@
                                             <option value="2">5</option>
                                         </select><span>01</span>
                                     </div>
-                                    <p class="ps-product__price sale">৳ {{$product->product_price}} <del>৳ 670.00 </del></p>
+                                    <p class="ps-product__price sale"> 
+                                 @if(count($flashdealdetail) > 0)
+                                     @foreach($flashdealdetail as $row)
+                                        <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                        @if($row ->discount_type == 1 )
+                                            ৳ {{$product->product_price - $row->discount}}
+                                            <del>৳ {{$product->product_price}} </del>
+                                        @elseif($row ->discount_type == 2)
+                                        ৳ {{$product->product_price - $productdiscount}}
+                                      
+                                        
+                                        @endif
+                                    @endforeach
+                                @else
+                                ৳{{$product->product_price}}
+                                @endif
+                            </p>
                                 </div>
                                 <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
-                                    <p class="ps-product__price sale">৳ {{$product->product_price}} <del>৳ 670.00 </del></p>
+                                    <p class="ps-product__price sale">
+                                @if(count($flashdealdetail) > 0)
+                                     @foreach($flashdealdetail as $row)
+                                        <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                        @if($row ->discount_type == 1 )
+                                            ৳ {{$product->product_price - $row->discount}}
+                                            <del>৳ {{$product->product_price}} </del>
+                                        @elseif($row ->discount_type == 2)
+                                        ৳ {{$product->product_price - $productdiscount}}
+                                        @else
+                                        {{$product->product_price}}
+                                        @endif
+                                    @endforeach
+                                @else
+                                ৳{{$product->product_price}}
+                                @endif
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -235,18 +312,43 @@
                             $allproducts=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->limit(15)->get();
                         @endphp
                        @foreach($allproducts as $products)
+                            @php
+                            $flashdealdetail = App\FlashDealDetail::where('product_id',$products->id)->where('status',1)->get();
+                          @endphp
                         <div class="ps-product">
-                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/uploads/products/thumbnail/'.$products->thumbnail_img)}}" alt=""></a>
-                                <div class="ps-product__badge">-16%</div>
+                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$products->thumbnail_img)}}" alt=""></a>
+                                  @if(count($flashdealdetail) > 0)
+                                    @foreach($flashdealdetail as $row)
+                                               <?php $productdiscount = ($products->product_price * $row->discount) / 100; ?>
+                                                @if($row ->discount_type == 1 )
+                                                 <div class="ps-product__badge">
+                                                    - ৳ {{$row->discount}}
+                                                 </div>
+                                                @elseif($row ->discount_type == 2)
+                                                <div class="ps-product__badge">
+                                                    -{{$row->discount}}%
+                                                     </div>
+                                                @endif
+                                    @endforeach
+                                  @endif
                                 <ul class="ps-product__actions">
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                    <li><a href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+
                                     <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+
+                                    <li>
+                                        @if(Auth::guard('web')->check())
+                                        <a class="mywishlist" data-id="{{$products->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                        @else
+                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                        @endif
+                                    </li>
+
+                                    <li><a class="compare" data-id="{{$products->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                 </ul>
                             </div>
-                            <div class="ps-product__container"><a class="ps-product__vendor" href="#">Young Shop</a>
-                                <div class="ps-product__content"><a class="ps-product__title" href="">{{$products->product_name}}</a>
+                            <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}">{{$products->product_name}}</a>
                                     <div class="ps-product__rating">
                                         <select class="ps-rating" data-read-only="true">
                                             <option value="1">1</option>
@@ -256,10 +358,42 @@
                                             <option value="2">5</option>
                                         </select><span>01</span>
                                     </div>
-                                    <p class="ps-product__price sale">৳{{$products->product_price}}<del>৳670.00 </del></p>
+                                    <p class="ps-product__price sale">
+                                        @if(count($flashdealdetail) > 0)
+                                         @foreach($flashdealdetail as $row)
+                                            <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                            @if($row ->discount_type == 1 )
+                                                ৳ {{$product->product_price - $row->discount}}
+                                                <del>৳ {{$product->product_price}} </del>
+                                            @elseif($row ->discount_type == 2)
+                                            ৳ {{$product->product_price - $productdiscount}}
+                                            @else
+                                            {{$product->product_price}}
+                                            @endif
+                                        @endforeach
+                                    @else
+                                    ৳{{$product->product_price}}
+                                    @endif
+                                    </p>
                                 </div>
-                                <div class="ps-product__content hover"><a class="ps-product__title" href="">{{$products->product_name}}</a>
-                                    <p class="ps-product__price sale">৳{{$products->product_price}} <del>৳670.00 </del></p>
+                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}">{{$products->product_name}}</a>
+                                    <p class="ps-product__price sale">
+                                        @if(count($flashdealdetail) > 0)
+                                     @foreach($flashdealdetail as $row)
+                                        <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                        @if($row ->discount_type == 1 )
+                                            ৳ {{$product->product_price - $row->discount}}
+                                            <del>৳ {{$product->product_price}} </del>
+                                        @elseif($row ->discount_type == 2)
+                                        ৳ {{$product->product_price - $productdiscount}}
+                                        @else
+                                        {{$product->product_price}}
+                                        @endif
+                                    @endforeach
+                                @else
+                                ৳{{$product->product_price}}
+                                @endif
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -290,18 +424,44 @@
                         $allproducts=App\Product::where('is_deleted',0)->where('cate_id',$cate_id)->orderBy('id','DESC')->limit(15)->get();
                         @endphp
                         @foreach($allproducts as $product)
+                         @php
+                            $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                          @endphp
                         <div class="ps-product">
-                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
-                                <div class="ps-product__badge">-16%</div>
+                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
+
+                                  @if(count($flashdealdetail) > 0)
+                                    @foreach($flashdealdetail as $row)
+                                               <?php $productdiscount = ($products->product_price * $row->discount) / 100; ?>
+                                                @if($row ->discount_type == 1 )
+                                                 <div class="ps-product__badge">
+                                                    - ৳ {{$row->discount}}
+                                                 </div>
+                                                @elseif($row ->discount_type == 2)
+                                                <div class="ps-product__badge">
+                                                    -{{$row->discount}}%
+                                                     </div>
+                                                @endif
+                                    @endforeach
+                                  @endif
                                 <ul class="ps-product__actions">
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                  <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                    
                                     <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+
+                                    <li>
+                                        @if(Auth::guard('web')->check())
+                                        <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                        @else
+                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                        @endif
+                                    </li>
+
+                                    <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                 </ul>
                             </div>
-                            <div class="ps-product__container"><a class="ps-product__vendor" href="#">Young Shop</a>
-                                <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{$product->product_name}}</a>
+                            <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                     <div class="ps-product__rating">
                                         <select class="ps-rating" data-read-only="true">
                                             <option value="1">1</option>
@@ -311,10 +471,41 @@
                                             <option value="2">5</option>
                                         </select><span>01</span>
                                     </div>
-                                    <p class="ps-product__price sale">৳ {{$products->product_price}}<del>৳ 670.00 </del></p>
+                                    <p class="ps-product__price sale">   
+                                     @if(count($flashdealdetail) > 0)
+                                     @foreach($flashdealdetail as $row)
+                                        <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                        @if($row ->discount_type == 1 )
+                                            ৳ {{$product->product_price - $row->discount}}
+                                            <del>৳ {{$product->product_price}} </del>
+                                        @elseif($row ->discount_type == 2)
+                                        ৳ {{$product->product_price - $productdiscount}}
+                                        @else
+                                        {{$product->product_price}}
+                                        @endif
+                                    @endforeach
+                                    @else
+                                    ৳{{$product->product_price}}
+                                    @endif</p>
                                 </div>
-                                <div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">Korea Long Sofa Fabric In Blue Navy Color</a>
-                                    <p class="ps-product__price sale">৳ {{$products->product_price}}<del>৳ 670.00 </del></p>
+                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                    <p class="ps-product__price sale">
+                                        @if(count($flashdealdetail) > 0)
+                                         @foreach($flashdealdetail as $row)
+                                            <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                            @if($row ->discount_type == 1 )
+                                                ৳ {{$product->product_price - $row->discount}}
+                                                <del>৳ {{$product->product_price}} </del>
+                                            @elseif($row ->discount_type == 2)
+                                            ৳ {{$product->product_price - $productdiscount}}
+                                            @else
+                                            {{$product->product_price}}
+                                            @endif
+                                        @endforeach
+                                        @else
+                                        ৳{{$product->product_price}}
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -380,8 +571,8 @@
                         @foreach($newproduct as $product)
                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                             <div class="ps-product--horizontal">
-                                <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a></div>
-                                <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{$product->product_name}}</a>
+                                <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a></div>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                     <p class="ps-product__price">৳ {{$product->product_price}}</p>
                                 </div>
                             </div>
@@ -391,27 +582,6 @@
                 </div>
             </div>
         </div>
-        <div class="ps-newsletter">
-            <div class="ps-container">
-                <form class="ps-form--newsletter" action="do_action" method="post">
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                            <div class="ps-form__left">
-                                <h3>Newsletter</h3>
-                                <p>Subcribe to get information about products and coupons</p>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                            <div class="ps-form__right">
-                                <div class="form-group--nest">
-                                    <input class="form-control" type="email" placeholder="Email address">
-                                    <button class="ps-btn">Subscribe</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        @include('frontend.include.newsletter._subcribtion')
     </div>
 @endsection

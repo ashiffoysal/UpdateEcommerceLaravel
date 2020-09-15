@@ -731,6 +731,7 @@ strong {
 b,
 strong {
   font-weight: bolder;
+  font-size: 15px;
 }
 
 dfn {

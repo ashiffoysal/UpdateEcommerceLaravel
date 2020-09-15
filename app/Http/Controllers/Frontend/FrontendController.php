@@ -293,7 +293,8 @@ class FrontendController extends Controller
         if ($flash_deal) {
             $flash_deal_details = FlashDealDetail::with('product')->where('flash_deal_id', $flash_deal->id)->paginate(16);
         }
-        return view('frontend.hot_deal.hot_deal_products', compact('flash_deal', 'flash_deal_details'));
+        $allproduct=Product::where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->limit(12)->get();
+        return view('frontend.products.hotdeals', compact('flash_deal', 'flash_deal_details','allproduct'));
     }
 
 
