@@ -7,6 +7,8 @@ use App\Contract;
 use App\ThemeSelector;
 use App\Logo;
 use App\wishlist;
+use App\FooterOption;
+use App\Social;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -53,8 +55,15 @@ class AppServiceProvider extends ServiceProvider
 
          $allcategory=Category::where('is_deleted',0)->where('cate_status',1)->get();
          view()->share('allcategory', $allcategory);
+
           $allcategoryhome=Category::where('is_deleted',0)->where('cate_status',1)->limit(8)->get();
          view()->share('allcategoryhome', $allcategoryhome);
+
+         $footer=FooterOption::first();
+          view()->share('footer', $footer);
+          
+        $social=Social::first();
+        view()->share('social', $social);
         
     }
 }

@@ -20,6 +20,7 @@
             </div>
         </div>
     </div>
+    @include('frontend.include.newsletter._subcribtion')
 <script>
 $( document ).ready(function() {
 

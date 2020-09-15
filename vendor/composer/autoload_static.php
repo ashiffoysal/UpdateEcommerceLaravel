@@ -550,6 +550,7 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\Http\\Controllers\\Admin\\SeoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SeoController.php',
         'App\\Http\\Controllers\\Admin\\SiteBannerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SiteBannerController.php',
         'App\\Http\\Controllers\\Admin\\SmsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SmsController.php',
+        'App\\Http\\Controllers\\Admin\\SocialController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SocialController.php',
         'App\\Http\\Controllers\\Admin\\SubCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SubCategoryController.php',
         'App\\Http\\Controllers\\Admin\\SubscriberController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SubscriberController.php',
         'App\\Http\\Controllers\\Admin\\SupportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SupportController.php',
@@ -568,7 +569,9 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+
         'App\\Http\\Controllers\\Frontend\\AccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/AccountController.php',
+
         'App\\Http\\Controllers\\Frontend\\AddToCartController' => __DIR__ . '/../..' . '/app/Http/Controllers/AddToCartController.php',
         'App\\Http\\Controllers\\Frontend\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/AdminController.php',
         'App\\Http\\Controllers\\Frontend\\CheckoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/CheckoutController.php',
@@ -638,6 +641,7 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'App\\ShippingAddress' => __DIR__ . '/../..' . '/app/ShippingAddress.php',
         'App\\SiteBanner' => __DIR__ . '/../..' . '/app/SiteBanner.php',
         'App\\SmsModel' => __DIR__ . '/../..' . '/app/SmsModel.php',
+        'App\\Social' => __DIR__ . '/../..' . '/app/Social.php',
         'App\\SocialMediaLogin' => __DIR__ . '/../..' . '/app/SocialMediaLogin.php',
         'App\\SubCategory' => __DIR__ . '/../..' . '/app/SubCategory.php',
         'App\\Subscriber' => __DIR__ . '/../..' . '/app/Subscriber.php',

@@ -59,6 +59,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\SeoController' => $baseDir . '/app/Http/Controllers/Admin/SeoController.php',
     'App\\Http\\Controllers\\Admin\\SiteBannerController' => $baseDir . '/app/Http/Controllers/Admin/SiteBannerController.php',
     'App\\Http\\Controllers\\Admin\\SmsController' => $baseDir . '/app/Http/Controllers/Admin/SmsController.php',
+    'App\\Http\\Controllers\\Admin\\SocialController' => $baseDir . '/app/Http/Controllers/Admin/SocialController.php',
     'App\\Http\\Controllers\\Admin\\SubCategoryController' => $baseDir . '/app/Http/Controllers/Admin/SubCategoryController.php',
     'App\\Http\\Controllers\\Admin\\SubscriberController' => $baseDir . '/app/Http/Controllers/Admin/SubscriberController.php',
     'App\\Http\\Controllers\\Admin\\SupportController' => $baseDir . '/app/Http/Controllers/Admin/SupportController.php',
@@ -77,7 +78,9 @@ return array(
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+
     'App\\Http\\Controllers\\Frontend\\AccountController' => $baseDir . '/app/Http/Controllers/Frontend/AccountController.php',
+
     'App\\Http\\Controllers\\Frontend\\AddToCartController' => $baseDir . '/app/Http/Controllers/AddToCartController.php',
     'App\\Http\\Controllers\\Frontend\\AdminController' => $baseDir . '/app/Http/Controllers/Frontend/AdminController.php',
     'App\\Http\\Controllers\\Frontend\\CheckoutController' => $baseDir . '/app/Http/Controllers/Frontend/CheckoutController.php',
@@ -147,6 +150,7 @@ return array(
     'App\\ShippingAddress' => $baseDir . '/app/ShippingAddress.php',
     'App\\SiteBanner' => $baseDir . '/app/SiteBanner.php',
     'App\\SmsModel' => $baseDir . '/app/SmsModel.php',
+    'App\\Social' => $baseDir . '/app/Social.php',
     'App\\SocialMediaLogin' => $baseDir . '/app/SocialMediaLogin.php',
     'App\\SubCategory' => $baseDir . '/app/SubCategory.php',
     'App\\Subscriber' => $baseDir . '/app/Subscriber.php',

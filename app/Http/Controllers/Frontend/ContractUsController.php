@@ -13,18 +13,18 @@ class ContractUsController extends Controller
 {
     public function index()
     {
-        return view('frontend.contract_us.contract_us');
+        return view('frontend.pages.contactus');
     }
 
     public function sendMessage(Request $request)
     {
+        //return $request;
 
         $this->validate($request,[
             'visitor_name' => 'required',
-            'visitor_email' => 'required|email',
-            'visitor_message' => 'required',
+           
             'phone' => 'required|numeric',
-            'image' => 'nullable|mimes:jpg,jpeg,png',
+           
         ]);
 
         $images = $request->file('visitor_image');
@@ -37,21 +37,20 @@ class ContractUsController extends Controller
             'phone' => $request->phone,
             'created_at' => Carbon::now()->toDateTimeString(),
         ]);
-
-        if ($images > 0) {
-            foreach ($images as  $image) {
-                $imageName = uniqid().'.'.$image->getClientOriginalExtension();
-                $resizeImage = Image::make($image)->resize(250, 200)->save($imageName);
-                Image::make($image)->resize(200, 200)->save('public/uploads/visitor_attach_files/'.$imageName);
-                unlink($imageName);
-                ContractImage::insert([
-                    'image' => $imageName,
-                    'contract_id' => $instantIdNo,
-                ]);
-            }
+        if($instantIdNo){
+            $notification = array(
+                'messege' => 'messege send success',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        }else{
+              $notification = array(
+                'messege' => 'messege send faild',
+                'alert-type' => 'faild'
+            );
+            return redirect()->back()->with($notification);
         }
 
-        return response()->json(['success' => 'Message has been Send Successfully, Shortly we will give you the reply in your mail address']);
 
     }
 }
