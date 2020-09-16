@@ -321,4 +321,6 @@ class FrontendController extends Controller
             return Redirect()->back()->with($notification);
         }
     }
+
+    
 }

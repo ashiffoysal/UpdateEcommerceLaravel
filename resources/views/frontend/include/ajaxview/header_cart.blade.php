@@ -15,7 +15,7 @@
             </a>
             <!-- <i onclick="myAddToCartDatadelete(this)" value="{{$row->id}}" class="icon-cross"></i> -->
             <button onclick="myAddToCartDatadelete(this)" style="float: right; background:none;color:brown" value="{{$row->id}}" type="button" title="Remove" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
-            <br><small><strong>Price:</strong> ৳ {{$row->price}}</p></small>
+            <br><strong>Price:</strong><small> {{$row->quantity}} x ৳ {{$row->price}}</p></small>
         </div>
     </div>
     @endforeach
@@ -29,7 +29,7 @@ $totalprice =Cart::session($userId)->getTotal();
 @if($totalprice != 0)
 <div class="ps-cart__footer" id="total_price">
     <h3>Sub Total:<strong id="product_price">৳ {{$totalprice}}</strong></h3>
-    <figure><a class="ps-btn" href="{{route('product.cart.data')}}">View Cart</a><a class="ps-btn" href="{{route('product.checkout')}}">Checkout</a></figure>
+    <figure><a class="ps-btn" href="{{route('product.cart.data')}}">View Cart</a><a class="ps-btn" href="{{route('product.cart.data')}}">Checkout</a></figure>
 </div>
 @else
 <div class="ps-cart__footer" id="hide_total_price">

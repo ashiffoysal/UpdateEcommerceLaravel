@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Checkout;
 use Cart;
 use App\User;
 use App\Cupon;
+use App\CustomarAccount;
 use Carbon\Carbon;
 use App\OrderPlace;
 use App\UserAddress;
@@ -17,9 +19,12 @@ use App\Logo;
 use Illuminate\Http\Request;
 use App\DatabaseStorageModel;
 use App\DeleveryAmount;
+use App\DifferentAddress;
 use App\Mail\OrderSuccessfullMail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Product;
+use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
@@ -570,7 +575,8 @@ class CheckoutController extends Controller
     public function applyCuponValue($oderid)
     {
 
-        $userusedcupon = UserUsedCupon::where('order_id', $oderid)->where('user_ip', Auth::user()->id)->first();
+        // $userusedcupon = UserUsedCupon::where('order_id', $oderid)->where('user_ip', Auth::user()->id)->first();
+        $userusedcupon = UserUsedCupon::where('user_ip', Auth::user()->id)->first();
 
         $cupon = Cupon::findOrFail($userusedcupon->cupon_id);
 
@@ -582,10 +588,8 @@ class CheckoutController extends Controller
             $cupondatavalue = $cupon->discount . '%';
         }
 
-        $userid =  \Request::getClientIp(true);
 
-        $usercartdatas = Cart::session($userid)->getContent();
-        return view('frontend.shopping.orderajaxdata', compact('usercartdatas', 'cupondatavalue','cupon'));
+        return view('frontend.include.ajaxview.cart_total_amount', compact('cupondatavalue','cupon'));
     }
 
     public function checkCourierCashOnDeliviry($upazila_id, $courier_id)
@@ -635,4 +639,195 @@ class CheckoutController extends Controller
              'totalpricewithcharge'=>$totalpricewithcharge,
          ]);
      }
+
+
+
+
+    //  shipping address
+
+     public function customarDataCreate(Request $request)
+     {
+        
+         if($request->diff_addr == 1){
+             
+            if($request->default_addr == 1){
+                
+                $useraddr =CustomarAccount::where('userid',auth()->user()->id)->first();
+                $useraddr->update([
+                    'name'=>$request->name,
+                    'phone'=>$request->phone,
+                    'address'=>$request->address,
+                    'userid'=>auth()->user()->id,
+                    'updated_at'=>Carbon::now(),
+                ]);
+                $notification = array(
+                    'messege' => 'This Address Make Your default Address!',
+                    'alert-type' =>'success'
+                );
+
+                
+            }else{
+                $id =DifferentAddress::insertGetId([
+                    'name'=>$request->name,
+                    'phone'=>$request->phone,
+                    'address'=>$request->address,
+                    'userid'=>auth()->user()->id,
+                    'orderid'=>5555,
+                ]);
+
+                $this-> checkoutDataCreate($request,$id);
+            }
+
+         }else{
+
+            $this-> checkoutDataCreate($request);
+             
+         }
+
+
+     }
+
+
+    //  checkout data create
+
+    public function checkoutDataCreate($request, $id =Null)
+    {
+        $items = \Cart::session(\Request::getClientIp(true))->getContent();
+        $checkout =new Checkout;
+        $checkout->userid = auth()->user()->id;
+        if($request->diff_addr == 1){
+            $checkout->diffaddr_id = $id;
+        }
+
+
+    
+    
+        $data = array();
+        foreach($items as $item){
+            $productdetails = Product::findOrFail($item->attributes->product_id);
+            $sizename = [];
+            foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+
+                $size = $choice->title; //this reaturn size,model
+ 
+                array_push($sizename, $size);
+            }
+            $sizecount = count($sizename);
+
+            if($sizecount == 1){
+                $attibute = $sizename[0];
+
+                $product['name']=$item->name;
+                $product['price']=$item->price;
+                $product['quantity']=$item->quantity;
+                $product['thumbnail_img']=$item->attributes->thumbnail_img;
+                $product['colors']=$item->attributes->colors;
+                $product['product_id']=$item->attributes->product_id;
+                $product['sku']=$item->attributes->sku;
+                $product['flashdeals']=$item->attributes->flashdeals;
+                $product['flashdealtype']=$item->attributes->flashdealtype;
+                $product[$attibute]=$item->attributes->$attibute;
+                array_push($data, $product);
+
+
+            }elseif($sizecount == 2){
+                $attibuteone = $sizename[0];
+                $attibutetwo = $sizename[1];
+                
+                $product['name']=$item->name;
+                $product['price']=$item->price;
+                $product['quantity']=$item->quantity;
+                $product['thumbnail_img']=$item->attributes->thumbnail_img;
+                $product['colors']=$item->attributes->colors;
+                $product['product_id']=$item->attributes->product_id;
+                $product['sku']=$item->attributes->sku;
+                $product['flashdeals']=$item->attributes->flashdeals;
+                $product['flashdealtype']=$item->attributes->flashdealtype;
+                $product[$attibuteone]=$item->attributes->$attibuteone;
+                $product[$attibutetwo]=$item->attributes->$attibutetwo;
+                array_push($data, $product);
+            }elseif($sizecount == 3){
+                $attibuteone = $sizename[0];
+                $attibutetwo = $sizename[1];
+                $attibutethree = $sizename[2];
+                
+                $product['name']=$item->name;
+                $product['price']=$item->price;
+                $product['quantity']=$item->quantity;
+                $product['thumbnail_img']=$item->attributes->thumbnail_img;
+                $product['colors']=$item->attributes->colors;
+                $product['product_id']=$item->attributes->product_id;
+                $product['sku']=$item->attributes->sku;
+                $product['flashdeals']=$item->attributes->flashdeals;
+                $product['flashdealtype']=$item->attributes->flashdealtype;
+                $product[$attibuteone]=$item->attributes->$attibuteone;
+                $product[$attibutetwo]=$item->attributes->$attibutetwo;
+                $product[$attibutethree]=$item->attributes->$attibutethree;
+                array_push($data, $product);
+            }elseif($sizecount == 4){
+                $attibuteone = $sizename[0];
+                $attibutetwo = $sizename[1];
+                $attibutethree = $sizename[2];
+                $attibutefour = $sizename[3];
+                
+                $product['name']=$item->name;
+                $product['price']=$item->price;
+                $product['quantity']=$item->quantity;
+                $product['thumbnail_img']=$item->attributes->thumbnail_img;
+                $product['colors']=$item->attributes->colors;
+                $product['product_id']=$item->attributes->product_id;
+                $product['sku']=$item->attributes->sku;
+                $product['flashdeals']=$item->attributes->flashdeals;
+                $product['flashdealtype']=$item->attributes->flashdealtype;
+                $product[$attibuteone]=$item->attributes->$attibuteone;
+                $product[$attibutetwo]=$item->attributes->$attibutetwo;
+                $product[$attibutethree]=$item->attributes->$attibutethree;
+                $product[$attibutefour]=$item->attributes->$attibutefour;
+                array_push($data, $product);
+            }elseif($sizecount == 4){
+                $attibuteone = $sizename[0];
+                $attibutetwo = $sizename[1];
+                $attibutethree = $sizename[2];
+                $attibutefour = $sizename[3];
+                $attibutefive = $sizename[4];
+                
+                $product['name']=$item->name;
+                $product['price']=$item->price;
+                $product['quantity']=$item->quantity;
+                $product['thumbnail_img']=$item->attributes->thumbnail_img;
+                $product['colors']=$item->attributes->colors;
+                $product['product_id']=$item->attributes->product_id;
+                $product['sku']=$item->attributes->sku;
+                $product['flashdeals']=$item->attributes->flashdeals;
+                $product['flashdealtype']=$item->attributes->flashdealtype;
+                $product[$attibuteone]=$item->attributes->$attibuteone;
+                $product[$attibutetwo]=$item->attributes->$attibutetwo;
+                $product[$attibutethree]=$item->attributes->$attibutethree;
+                $product[$attibutefive]=$item->attributes->$attibutefive;
+                array_push($data, $product);
+            }
+        }
+
+        // loop end
+
+        $checkout->products = json_encode($data);
+        $checkout->orderid = 5555;
+        $checkout->save();
+
+        return $checkout;
+
+
+        
+
+        
+
+        
+
+       
+
+
+
+
+    }
 }
