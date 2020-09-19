@@ -852,6 +852,10 @@
             Route::get('/value/{oderid}', 'CheckoutController@applyCuponValue');
         });
 
+        Route::prefix('payment')->group(function(){
+            Route::get('/{secure_id}','CheckoutController@onlinePaymentPage')->name('order.payment');
+        });
+        
         Route::prefix('product')->group(function(){
             Route::get('/{slug}/{id}', 'FrontendController@productDetails');
             
