@@ -17,7 +17,9 @@ use App\ProductReview;
 use App\FlashDealDetail;
 use App\Blog;
 use App\BlogComment;
-use App\Banner;
+
+use App\CustomarAccount;
+
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -431,7 +433,59 @@ class FrontendController extends Controller
     
     public function checkoutPage()
     {
-        return view('frontend.shipping.checkout');
+        $customar =CustomarAccount::where('userid',auth()->user()->id)->first();
+        $items = \Cart::session(\Request::getClientIp(true))->getContent();
+        return view('frontend.shipping.checkout',compact('customar','items'));
+    }
+
+
+    public function userAddress()
+    {
+        $useraddr =CustomarAccount::where('userid',auth()->user()->id)->first();
+        if($useraddr){
+            return view('frontend.accounts.address',compact('useraddr'));
+        }else{
+            return view('frontend.accounts.address');
+        }
+    }
+
+    public function createAddress(Request $request)
+    {
+        $request->validate([
+            'name'=>'required',
+            'phone'=>'required',
+            'address'=>'required',
+        ]);
+        $useraddr =CustomarAccount::where('userid',auth()->user()->id)->first();
+        if($useraddr){
+            $useraddr->update([
+                'name'=>$request->name,
+                'phone'=>$request->phone,
+                'address'=>$request->address,
+                'userid'=>auth()->user()->id,
+                'updated_at'=>Carbon::now(),
+            ]);
+            $notification = array(
+                'messege' => 'Address Updated successful!',
+                'alert-type' =>'success'
+            );
+
+        }else{
+            CustomarAccount::insert([
+                'name'=>$request->name,
+                'phone'=>$request->phone,
+                'address'=>$request->address,
+                'userid'=>auth()->user()->id,
+                'created_at'=>Carbon::now(),
+            ]);
+                $notification = array(
+                    'messege' => 'Address Create successful!',
+                    'alert-type' =>'success'
+                );
+        }
+        
+
+        return back()->with($notification);
     }
 
    

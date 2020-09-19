@@ -24,11 +24,17 @@
 
 
                     </div>
+
+                    
                     <div class="col-lg-8">
+                    <form action="{{route('customar.address.create')}}" method="post">
+                        @csrf
+                        
                         <div class="ps-section__right mt-8">
                             <div class="ps-section--account-setting">
                                 <div class="ps-section__header">
-                                    <h3>Notitfications</h3>
+                                    <h3>Address</h3>
+
                                 </div>
                                 <div class="ps-section__content">
                                     <div class="table-responsive">
@@ -36,31 +42,57 @@
                                         <label>Name<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" name="name" value="@isset($useraddr){{$useraddr->name?$useraddr->name:''}}@endisset" type="text">
                                         </div>
+                                        @error('name')
+                                            <p class="text-danger">{{$message}}</p>
+                                        @enderror
+
                                     </div>
 
                                     <div class="form-group">
                                         <label>Phone<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
-                                            <input class="form-control" type="text">
+
+                                            <input class="form-control" name="phone" value="@isset($useraddr){{$useraddr->phone?$useraddr->phone:''}}@endisset" type="text">
                                         </div>
+                                        @error('phone')
+                                            <p class="text-danger">{{$message}}</p>
+                                        @enderror
+
                                     </div>
                                     
                                     <div class="form-group">
                                         <label>Address<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
-                                            <textarea rows="5" name="address" class="form-control"></textarea>
+
+                                            <textarea rows="5" name="address" name="address" class="form-control">@isset($useraddr){{$useraddr->address?$useraddr->address:''}}@endisset</textarea>
                                         </div>
+                                        @error('address')
+                                            <p class="text-danger">{{$message}}</p>
+                                        @enderror
+
                                     </div>    
 
 
                                     </div>
-                                    <a class="ps-btn ps-btn--fullwidth" href="checkout.html">Submit Now</a>
+
+                                    @if(!empty($useraddr))
+                                        <button class="ps-btn ps-btn--fullwidth">Update Now</button>
+                                    @else
+                                        <button class="ps-btn ps-btn--fullwidth">Submit Now</button>
+                                    @endif
+                                        
+
                                 </div>
                             </div>
+                        </div>
+                        </form>
+                    </div>
+                
+                        </div>
                         </div>
                     </div>
                 </div>

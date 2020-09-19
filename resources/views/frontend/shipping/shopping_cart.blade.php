@@ -47,12 +47,16 @@
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
                             <figure>
                                 <figcaption>Coupon Discount</figcaption>
-                                <div class="form-group">
-                                    <input class="form-control" type="text" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <button class="ps-btn ps-btn--outline">Apply</button>
-                                </div>
+                                <form action="{{route('customer.apply.cupon')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="order_id" value="{{$orderid}}" placeholder="Enter coupon code" id="input_order" class="form-control">
+                                    <div class="form-group">
+                                        <input class="form-control" id="input-coupon" name="coupon" type="text" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="input-coupon"  onclick="cuponApply()" class="ps-btn ps-btn--outline">Apply</button>
+                                    </div>
+                                </form>
                             </figure>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
@@ -77,18 +81,33 @@
                             </figure>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
+
+                            <div id="orderdata">
                             <div class="ps-block--shopping-total">
                                 <div class="ps-block__header">
                                     <p>Subtotal <span> ৳ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</span></p>
                                 </div>
                                 <div class="ps-block__content">
                                     <ul class="ps-block__product">
-                                        <li><span class="ps-block__shop">YOUNG SHOP Shipping</span><span class="ps-block__shipping">Free Shipping</span><span class="ps-block__estimate">Estimate for <strong>Viet Nam</strong><a href="#"> MVMTH Classical Leather Watch In Black ×1</a></span></li>
-                                        <li><span class="ps-block__shop">ROBERT’S STORE Shipping</span><span class="ps-block__shipping">Free Shipping</span><span class="ps-block__estimate">Estimate for <strong>Viet Nam</strong><a href="#">Apple Macbook Retina Display 12” ×1</a></span></li>
+                                        <li><span class="ps_inline_block">Coupon Discount</span><span class="pull-right">৳  150</span></li>
+                                        <li><span class="ps_inline_block">Shipping Price</span><span class="pull-right">৳  original</span></li>
+                                        
                                     </ul>
                                     <h3>Total <span>৳ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</span></h3>
                                 </div>
-                            </div><a class="ps-btn ps-btn--fullwidth" href="{{route('product.checkout')}}">Proceed to checkout</a>
+
+                            </div>
+                            </div>
+                           
+
+
+
+
+
+
+
+                            <a class="ps-btn ps-btn--fullwidth" href="{{route('product.checkout',$orderid)}}">Proceed to checkout</a>
+
                         </div>
                     </div>
                 </div>
@@ -156,5 +175,58 @@
     
     
 </script>
+
+
+
+<script>
+    function cuponApply() {
+
+    var cuponvalue =document.getElementById('input-coupon').value;
+    var ordervalue =document.getElementById('input_order').value;
+
+    $.post('{{ route('customer.apply.cupon') }}', {_token: '{{ csrf_token() }}',cuponvalue: cuponvalue, order:ordervalue},
+            function(data) {
+				getCuponValue(ordervalue);
+			
+
+                console.log(data);
+
+                if(data.cuponalert){
+                    iziToast.warning({
+                        message: data.cuponalert,
+                        'position':'topRight'
+                    });
+                };
+
+            });
+
+    }
+</script>
+
+<script>
+	function getCuponValue(ordervalue){
+		$.ajaxSetup({
+
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/get/coupon/value/') }}/" +ordervalue,
+
+                success: function(data) {
+
+					console.log(data);
+					$('#orderdata').html(data);
+                }
+            });
+
+	}
+	getCuponValue();
+</script>
+
+
+
 
     @endsection

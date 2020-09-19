@@ -523,10 +523,6 @@
 
     // used cupon area start
 
-    Route::post('customer/used/cupon', 'Frontend\CheckoutController@usedCupon')->name('customer.used.cupon');
-
-    Route::post('customer/apply/cupon', 'Frontend\CheckoutController@applyCupon')->name('customer.apply.cupon');
-    Route::get('get/cupon/value/{oderid}', 'Frontend\CheckoutController@applyCuponValue');
 
     // place order area start
 
@@ -834,9 +830,12 @@
             Route::get('/forgot/password/reset/{token}','AdminController@passwordResetPageShow')->name('customar.password.reset.page');
             Route::post('/forgot/password/reset','AdminController@passwordReset')->name('customar.reset.password');
             Route::post('/forgot/password/verify','AdminController@forgotPhoneVerify')->name('customar.forgot.mobile.verify');
+            
 
             Route::middleware('auth:web')->group(function(){
                 Route::get('/account','FrontendController@showAccountInfoPage')->name('customar.account.page');
+                Route::get('/address','FrontendController@userAddress')->name('customar.address.page');
+                Route::post('/create/address','FrontendController@createAddress')->name('customar.address.create');
             }); 
         });
 
@@ -845,7 +844,9 @@
             Route::get('/get/cart/data', 'AddToCartController@getCartData')->name('get.cart.data');
             Route::post('cart/data/delete', 'AddToCartController@cartDataDelete')->name('cart.data.delete');
             Route::post('/cart/update', 'AddToCartController@viewCartUpdate')->name('product.cart.update');
-            Route::get('/checkout/page', 'FrontendController@checkoutPage')->name('product.checkout');
+            Route::get('/checkout/page/{orderid}', 'FrontendController@checkoutPage')->name('product.checkout');
+            Route::post('/customar/create', 'CheckoutController@customarDataCreate')->name('checkout.data.create');
+            
         });
 
 
@@ -854,8 +855,17 @@
             Route::post('/create', 'SubscribeController@insert')->name('frontend.subscriber.insert');
         });
 
+
+        Route::prefix('/coupon')->group(function(){
+            
+            Route::post('/used', 'CheckoutController@usedCupon')->name('customer.used.cupon');
+
+            Route::post('/apply', 'CheckoutController@applyCupon')->name('customer.apply.cupon');
+            Route::get('/value/{oderid}', 'CheckoutController@applyCuponValue');
+
         Route::prefix('cutomar/account')->group(function(){
             Route::get('/address','AccountController@address')->name('customar.address.create');
+
         });
 
         Route::prefix('product')->group(function(){
@@ -864,6 +874,12 @@
         });
 
     });
+
+
+    Route::get('/get/coupon/value/{oderid}', 'Frontend\CheckoutController@applyCuponValue');
+    
+
+    
 
     
 

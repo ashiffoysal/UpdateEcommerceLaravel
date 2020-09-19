@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Checkout extends Model
+class CustomarAccount extends Model
 {
-       /**
+     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'checkout';
+    protected $table = 'customar_accounts';
 
 
     /**
@@ -20,4 +20,7 @@ class Checkout extends Model
      * @var array
      */
     protected $guarded = [];
+
+    
+
 }

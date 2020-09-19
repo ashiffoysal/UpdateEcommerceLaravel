@@ -25,7 +25,16 @@
     margin-top: 8%;
 }
 
+/* .ps-cart__content{
+    overflow: scroll;
+    max-height: 600px;
+} */
+
+.ps_inline_block{
+    display: inline !important;
+
 .ps-cart__content{
     overflow: scroll;
     max-height: 600px;
+
 }

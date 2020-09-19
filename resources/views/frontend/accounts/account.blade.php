@@ -16,7 +16,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4">
-                    @include('frontend.include.accounts.menu')
+
+                        @include('frontend.include.accounts.menu')
+
                     </div>
                     <div class="col-lg-8">
                         <div class="ps-section__right mt-12">

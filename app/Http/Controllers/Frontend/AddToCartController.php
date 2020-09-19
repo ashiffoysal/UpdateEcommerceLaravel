@@ -7,6 +7,7 @@ use App\Product;
 use App\FlashDealDetail;
 use Illuminate\Http\Request;
 use Cart;
+use Illuminate\Support\Str;
 
 class AddToCartController extends Controller
 {
@@ -46,7 +47,6 @@ class AddToCartController extends Controller
             }
 
 
-            // ************************************************NEW ACTION AREA START*************************************************
 
 
             // store form value
@@ -198,7 +198,7 @@ class AddToCartController extends Controller
                     $id = $productCartId;
                     $id = intval($id);
 
-                    
+
 
 
                     $add = \Cart::session($userid)->update($id, [
@@ -206,6 +206,47 @@ class AddToCartController extends Controller
 
                     ]);
                 } else {
+
+
+                    // if not smae product
+                    
+                    
+                    
+
+
+
+                    $id = rand(5, 15);
+
+                    $data = array();
+                    $data['id'] = $id;
+                    $data['name'] = $product->product_name;
+                    $data['price'] = $product_price;
+                    $data['quantity'] = +$request->quantity;
+                    $data['attributes']['thumbnail_img'] = $product->thumbnail_img;
+                    $data['attributes']['colors'] = $request->color;
+                    $data['attributes']['product_id'] = $product->id;
+                    $data['attributes']['variation'] = 'variation';
+                    $data['attributes']['sku'] = $request->product_sku;
+                    $data['attributes']['flashdeals'] = 0;
+                    $data['attributes']['flashdealtype'] = 0;
+
+                    $add = \Cart::session($userid)->update($id, [
+                        'quantity' => $request->quantity,
+
+
+                    ]);
+                } else {
+
+
+
+                    $productdetails = Product::findOrFail($request->product_id);
+
+                    foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+                        $choicename = $choice->name;
+                        
+                        $data['attributes'][$choice->title] = $request->$choicename;
+                    }
+                    
 
 
                     // if not smae product
@@ -256,9 +297,7 @@ class AddToCartController extends Controller
                         $data['attributes']['sku'] = $request->product_sku;
                         $data['attributes']['flashdeals'] = $flashDealdiscounts->discount;
                         $data['attributes']['flashdealtype'] = $flashDealdiscounts->discount_type;
-    
-    
-    
+
                         $productdetails = Product::findOrFail($request->product_id);
     
                         foreach (json_decode($productdetails->choice_options) as $key => $choice) {
@@ -266,8 +305,7 @@ class AddToCartController extends Controller
                             
                             $data['attributes'][$choice->title] = $request->$choicename;
                         }
-                        
-                        
+
 
 
 
@@ -354,21 +392,14 @@ class AddToCartController extends Controller
             }
 
 
+                }
+
+                // non variation product add
+                $product->number_of_sale++;
+                $product->save();
+            }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-            //******************************* */ NEW ACTION AREA END**************************************************************
 
         } else {
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->product_id)->first();
@@ -491,7 +522,8 @@ class AddToCartController extends Controller
 
     public function productViewCart()
     {
-        return view('frontend.shipping.shopping_cart');
+        $orderid = str::random(60);
+        return view('frontend.shipping.shopping_cart',compact('orderid'));
     }
 
 
