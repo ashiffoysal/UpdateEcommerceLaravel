@@ -24,10 +24,13 @@ use App\Mail\OrderSuccessfullMail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Product;
+use Darryldecode\Cart\Cart as CartCart;
 use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
+
+use Illuminate\Support\Str;
 
 
 class CheckoutController extends Controller
@@ -647,6 +650,7 @@ class CheckoutController extends Controller
 
      public function customarDataCreate(Request $request)
      {
+         
         
          if($request->diff_addr == 1){
             $request->validate([
@@ -667,7 +671,7 @@ class CheckoutController extends Controller
                     'userid'=>auth()->user()->id,
                     'updated_at'=>Carbon::now(),
                 ]);
-                $this-> checkoutDataCreate($request);
+                $checkout =$this-> checkoutDataCreate($request);
 
                 
             }else{
@@ -679,13 +683,24 @@ class CheckoutController extends Controller
                     'orderid'=>5555,
                 ]);
 
-                $this-> checkoutDataCreate($request,$id);
+                $checkout =$this-> checkoutDataCreate($request,$id);
             }
 
          }else{
 
-            $this-> checkoutDataCreate($request);
+            $checkout =$this-> checkoutDataCreate($request);
              
+         }
+         
+
+        $order= $this->orderPlace($request,$checkout);
+
+
+         if($request->payment_type == 1){
+            return "custom order";
+         }else{
+            
+            return redirect()->route('order.payment', $order->payment_secure_id);
          }
 
 
@@ -834,4 +849,51 @@ class CheckoutController extends Controller
 
 
     }
+
+
+    // order place function
+
+    public function orderPlace($request,$checkout)
+    {
+        
+        $shipping_id = rand(6666,99999);
+        $token = Str::random(60);
+
+        $orderplace =OrderPlace::create([
+            'shipping_id'=>$shipping_id,
+            'payment_type'=>$request->payment_type,
+            'order_id'=>5555,
+            'user_id'=>auth()->user()->id,
+            'checkout_id'=>$checkout->id,
+            'total_price'=>Cart::session(\Request::getClientIp(true))->getTotal(),
+            'total_quantity'=>Cart::session(\Request::getClientIp(true))->getTotalQuantity(),
+            'is_paid'=>0,
+            'payment_secure_id'=>$token,
+            'delevary'=>1,
+            'delevary'=>1,
+            'payment_status'=>000,
+            'cupon_value'=>1,
+            'cupon_type'=>1,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return $orderplace;
+
+    }
+
+    // online payment page
+
+    public function onlinePaymentPage ($id)
+    {
+        $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $id)->first();
+        abort_if(!$orderPlace, 403);
+
+
+
+        return view('frontend.shipping.online_payment',compact('id'));
+    }
+
+
+
+
 }
