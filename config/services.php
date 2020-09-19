@@ -41,10 +41,11 @@ return [
         'redirect' => 'http://localhost/git/durbarit_eco/user/login/google/callback',
     ],
 
+
     'facebook' => [
         'client_id' => env('facebook_CLIENT_ID'),
         'client_secret' => env('facebook_CLIENT_SECRET'),
-        'redirect' => 'http://localhost/git/durbarit_eco/user/login/facebook/callback',
+        'redirect' => 'http://localhost/ecom/echo10/custeomer/facebook/login/success',
     ],
 
 ];

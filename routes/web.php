@@ -364,6 +364,15 @@
     // front end controller
 
     Route::get('/', 'Frontend\FrontendController@index');
+
+    Route::get('/custeomer/facebook/login', 'Frontend\SocialloginController@facebooklogin');
+    Route::get('/custeomer/facebook/login/success', 'Frontend\SocialloginController@facebookCallback');
+
+
+
+
+
+
     Route::get('/about-us', 'Frontend\FrontendController@aboutus')->name('about.us');
     // category
     Route::get('product/page/{slug}', 'Frontend\FrontendController@cateproduct');

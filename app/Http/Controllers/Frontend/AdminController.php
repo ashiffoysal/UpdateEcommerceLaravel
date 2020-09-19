@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Mail\EmailVerification;
 use App\Mail\ForgotPassword;
 use Illuminate\Support\Facades\Mail;
+use Socialite;
 
 class AdminController extends Controller
 {
@@ -347,7 +348,11 @@ class AdminController extends Controller
         }
     }
 
-    // customar logout
+ 
+
+
+
+
 
     public function logout (Request $request)
     {
