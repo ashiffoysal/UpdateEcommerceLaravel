@@ -1,17 +1,23 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe;
 
 /**
- * Class Capability.
+ * This is an object representing a capability for a Stripe account.
  *
- * @property string $id
- * @property string $object
- * @property string $account
- * @property bool $requested
- * @property int $requested_at
+ * Related guide: <a
+ * href="https://stripe.com/docs/connect/account-capabilities">Account
+ * capabilities</a>.
+ *
+ * @property string $id The identifier for the capability.
+ * @property string $object String representing the object's type. Objects of the same type share the same value.
+ * @property string|\Stripe\Account $account The account for which the capability enables functionality.
+ * @property bool $requested Whether the capability has been requested.
+ * @property null|int $requested_at Time at which the capability was requested. Measured in seconds since the Unix epoch.
  * @property \Stripe\StripeObject $requirements
- * @property string $status
+ * @property string $status The status of the capability. Can be <code>active</code>, <code>inactive</code>, <code>pending</code>, or <code>unrequested</code>.
  */
 class Capability extends ApiResource
 {
@@ -19,11 +25,6 @@ class Capability extends ApiResource
 
     use ApiOperations\Update;
 
-    /**
-     * Possible string representations of a capability's status.
-     *
-     * @see https://stripe.com/docs/api/capabilities/object#capability_object-status
-     */
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
     const STATUS_PENDING = 'pending';
@@ -65,7 +66,7 @@ class Capability extends ApiResource
                'Retrieve a capability using `Account::retrieveCapability(' .
                "'account_id', 'capability_id')`.";
 
-        throw new Exception\BadMethodCallException($msg, null);
+        throw new Exception\BadMethodCallException($msg);
     }
 
     /**
@@ -81,6 +82,6 @@ class Capability extends ApiResource
                'Update a capability using `Account::updateCapability(' .
                "'account_id', 'capability_id', \$updateParams)`.";
 
-        throw new Exception\BadMethodCallException($msg, null);
+        throw new Exception\BadMethodCallException($msg);
     }
 }

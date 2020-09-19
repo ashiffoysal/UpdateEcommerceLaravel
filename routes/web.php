@@ -217,14 +217,6 @@
     Route::get('admin/product/hearddelete/{id}', 'Admin\ProductController@hearddelete');
 
 
-    // social log
-   Route::get('admin/social/all', 'Admin\SocialController@index')->name('admin.social.all');
-   Route::post('admin/Social/supdate', 'Admin\SocialController@update')->name('admin.social.update');
-   // social end
-
-
-
-
 
 
     // product type physical edit
@@ -493,7 +485,7 @@
 
 
     // Product view cart
-    
+    Route::get(md5('/product/cart/page'), 'Frontend\AddToCartController@productViewCart')->name('product.cart.add');
     
     Route::post('/product/cart/delete', 'Frontend\AddToCartController@viewCartDelete')->name('product.cart.delete');
     Route::get('/show/total/price', 'Frontend\AddToCartController@showTotalPrice')->name('product.cart.delete');
@@ -774,9 +766,6 @@
 
     // Search Route Created By Harrison
 
-    Route::post('/search/ajax/cate', 'Frontend\SearchController@cateajax');
-
-
     Route::get('search/product/by/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByAjax');
     Route::get('search/product/by/main/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByMainCatByAjax');
     Route::get('search/product/by/sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductBySubCatByAjax');
@@ -840,7 +829,7 @@
         });
 
         Route::prefix('product')->group(function(){
-            Route::get('/cart/page', 'AddToCartController@productViewCart')->name('product.cart.data');
+            Route::get('/product/cart/page', 'AddToCartController@productViewCart')->name('product.cart.data');
             Route::get('/get/cart/data', 'AddToCartController@getCartData')->name('get.cart.data');
             Route::post('cart/data/delete', 'AddToCartController@cartDataDelete')->name('cart.data.delete');
             Route::post('/cart/update', 'AddToCartController@viewCartUpdate')->name('product.cart.update');
@@ -855,17 +844,12 @@
             Route::post('/create', 'SubscribeController@insert')->name('frontend.subscriber.insert');
         });
 
-
         Route::prefix('/coupon')->group(function(){
             
             Route::post('/used', 'CheckoutController@usedCupon')->name('customer.used.cupon');
 
             Route::post('/apply', 'CheckoutController@applyCupon')->name('customer.apply.cupon');
             Route::get('/value/{oderid}', 'CheckoutController@applyCuponValue');
-
-        Route::prefix('cutomar/account')->group(function(){
-            Route::get('/address','AccountController@address')->name('customar.address.create');
-
         });
 
         Route::prefix('product')->group(function(){

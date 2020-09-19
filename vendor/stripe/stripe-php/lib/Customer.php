@@ -1,9 +1,18 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe;
 
 /**
- * Class Customer.
+ * <code>Customer</code> objects allow you to perform recurring charges, and to
+ * track multiple charges, that are associated with the same customer. The API
+ * allows you to create, delete, and update your customers. You can retrieve
+ * individual customers as well as a list of all your customers.
+ *
+ * Related guide: <a
+ * href="https://stripe.com/docs/payments/save-during-payment">Save a card during
+ * payment</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -19,8 +28,9 @@ namespace Stripe;
  * @property null|string $invoice_prefix The prefix for the customer used to generate unique invoice numbers.
  * @property \Stripe\StripeObject $invoice_settings
  * @property bool $livemode Has the value <code>true</code> if the object exists in live mode or the value <code>false</code> if the object exists in test mode.
- * @property \Stripe\StripeObject $metadata Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+ * @property \Stripe\StripeObject $metadata Set of <a href="https://stripe.com/docs/api/metadata">key-value pairs</a> that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
  * @property null|string $name The customer's full name or business name.
+ * @property int $next_invoice_sequence The suffix of the customer's next invoice number, e.g., 0001.
  * @property null|string $phone The customer's phone number.
  * @property null|string[] $preferred_locales The customer's preferred locales (languages), ordered by preference.
  * @property null|\Stripe\StripeObject $shipping Mailing and shipping address for the customer. Appears on invoices emailed to this customer.
@@ -40,13 +50,8 @@ class Customer extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
-    /**
-     * Possible string representations of the customer's type of tax exemption.
-     *
-     * @see https://stripe.com/docs/api/customers/object#customer_object-tax_exempt
-     */
-    const TAX_EXEMPT_NONE = 'none';
     const TAX_EXEMPT_EXEMPT = 'exempt';
+    const TAX_EXEMPT_NONE = 'none';
     const TAX_EXEMPT_REVERSE = 'reverse';
 
     public static function getSavedNestedResources()

@@ -9,7 +9,6 @@
                 <li>Checkout</li>
             </ul>
         </div>
-
     </div>
     <div class="ps-checkout ps-section--shopping">
         <div class="container">
@@ -67,7 +66,6 @@
                             <!-- Ship to a different address area start -->
                             <div class="ps-form__billing-info">
                                 <div id="diff_address" style="display: none;">
-
                                     <h3 class="ps-form__heading">Different Address</h3>
 
 
@@ -77,6 +75,9 @@
                                         <div class="form-group__content">
                                             <input class="form-control" name="name" type="text">
                                         </div>
+                                        @error('name')
+                                            <p class="text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
@@ -85,15 +86,20 @@
                                         <div class="form-group__content">
                                             <input class="form-control" name="phone" type="text">
                                         </div>
+                                        @error('phone')
+                                            <p class="text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
                                         <label>Address<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
-
                                             <textarea rows="5" name="address" name="address" class="form-control"></textarea>
                                         </div>
+                                        @error('address')
+                                            <p class="text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
 
                                     <div class="form-check">
@@ -101,14 +107,34 @@
                                         <label class="form-check-label" for="defaultCheck1">
                                             Make as Default Address
                                         </label>
-
                                     </div>
                                 </div>
-                                <!-- Ship to a different address area end -->
-
-
                             </div>
                             <!-- Ship to a different address area end -->
+
+                            <!-- payment type area start from here -->
+                            <div class="ps-form__billing-info">
+                                <div id="diff_address">
+                                    <h3 class="ps-form__heading">Payment Types</h3>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="payment_cash"  type="checkbox" value="1" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Cash On Delivery
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="payment_online"  type="checkbox" value="2" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Online payment
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- payment type area end from here -->
+
+
 
 
                         </div>
@@ -173,7 +199,6 @@
 <script>
     $(document).ready(function() {
 
-
         $("#cb01").click(function() {
             if (this.checked) {
                 $('#diff_address').css('display', 'block');
@@ -183,7 +208,4 @@
             }
         });
     });
-
-    @include('frontend.include.newsletter._subcribtion')
-@endsection
-
+</script>

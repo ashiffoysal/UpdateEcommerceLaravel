@@ -1,9 +1,43 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe;
 
 /**
- * Class Event.
+ * Events are our way of letting you know when something interesting happens in
+ * your account. When an interesting event occurs, we create a new
+ * <code>Event</code> object. For example, when a charge succeeds, we create a
+ * <code>charge.succeeded</code> event; and when an invoice payment attempt fails,
+ * we create an <code>invoice.payment_failed</code> event. Note that many API
+ * requests may cause multiple events to be created. For example, if you create a
+ * new subscription for a customer, you will receive both a
+ * <code>customer.subscription.created</code> event and a
+ * <code>charge.succeeded</code> event.
+ *
+ * Events occur when the state of another API resource changes. The state of that
+ * resource at the time of the change is embedded in the event's data field. For
+ * example, a <code>charge.succeeded</code> event will contain a charge, and an
+ * <code>invoice.payment_failed</code> event will contain an invoice.
+ *
+ * As with other API resources, you can use endpoints to retrieve an <a
+ * href="https://stripe.com/docs/api#retrieve_event">individual event</a> or a <a
+ * href="https://stripe.com/docs/api#list_events">list of events</a> from the API.
+ * We also have a separate <a
+ * href="http://en.wikipedia.org/wiki/Webhook">webhooks</a> system for sending the
+ * <code>Event</code> objects directly to an endpoint on your server. Webhooks are
+ * managed in your <a href="https://dashboard.stripe.com/account/webhooks">account
+ * settings</a>, and our <a href="https://stripe.com/docs/webhooks">Using
+ * Webhooks</a> guide will help you get set up.
+ *
+ * When using <a href="https://stripe.com/docs/connect">Connect</a>, you can also
+ * receive notifications of events that occur in connected accounts. For these
+ * events, there will be an additional <code>account</code> attribute in the
+ * received <code>Event</code> object.
+ *
+ * <strong>NOTE:</strong> Right now, access to events through the <a
+ * href="https://stripe.com/docs/api#retrieve_event">Retrieve Event API</a> is
+ * guaranteed only for 30 days.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -51,6 +85,8 @@ class Event extends ApiResource
     const CHARGE_DISPUTE_FUNDS_WITHDRAWN = 'charge.dispute.funds_withdrawn';
     const CHARGE_DISPUTE_UPDATED = 'charge.dispute.updated';
     const CHARGE_REFUND_UPDATED = 'charge.refund.updated';
+    const CHECKOUT_SESSION_ASYNC_PAYMENT_FAILED = 'checkout.session.async_payment_failed';
+    const CHECKOUT_SESSION_ASYNC_PAYMENT_SUCCEEDED = 'checkout.session.async_payment_succeeded';
     const CHECKOUT_SESSION_COMPLETED = 'checkout.session.completed';
     const COUPON_CREATED = 'coupon.created';
     const COUPON_DELETED = 'coupon.deleted';
@@ -77,6 +113,7 @@ class Event extends ApiResource
     const INVOICE_DELETED = 'invoice.deleted';
     const INVOICE_FINALIZED = 'invoice.finalized';
     const INVOICE_MARKED_UNCOLLECTIBLE = 'invoice.marked_uncollectible';
+    const INVOICE_PAID = 'invoice.paid';
     const INVOICE_PAYMENT_ACTION_REQUIRED = 'invoice.payment_action_required';
     const INVOICE_PAYMENT_FAILED = 'invoice.payment_failed';
     const INVOICE_PAYMENT_SUCCEEDED = 'invoice.payment_succeeded';
@@ -96,6 +133,7 @@ class Event extends ApiResource
     const ISSUING_CARDHOLDER_CREATED = 'issuing_cardholder.created';
     const ISSUING_CARDHOLDER_UPDATED = 'issuing_cardholder.updated';
     const ISSUING_DISPUTE_CREATED = 'issuing_dispute.created';
+    const ISSUING_DISPUTE_FUNDS_REINSTATED = 'issuing_dispute.funds_reinstated';
     const ISSUING_DISPUTE_UPDATED = 'issuing_dispute.updated';
     const ISSUING_TRANSACTION_CREATED = 'issuing_transaction.created';
     const ISSUING_TRANSACTION_UPDATED = 'issuing_transaction.updated';
@@ -125,6 +163,9 @@ class Event extends ApiResource
     const PLAN_CREATED = 'plan.created';
     const PLAN_DELETED = 'plan.deleted';
     const PLAN_UPDATED = 'plan.updated';
+    const PRICE_CREATED = 'price.created';
+    const PRICE_DELETED = 'price.deleted';
+    const PRICE_UPDATED = 'price.updated';
     const PRODUCT_CREATED = 'product.created';
     const PRODUCT_DELETED = 'product.deleted';
     const PRODUCT_UPDATED = 'product.updated';

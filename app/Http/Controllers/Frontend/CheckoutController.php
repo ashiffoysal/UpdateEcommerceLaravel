@@ -649,8 +649,15 @@ class CheckoutController extends Controller
      {
         
          if($request->diff_addr == 1){
+            $request->validate([
+                'name'=>'required',
+                'phone'=>'required',
+                'address'=>'required',
+            ]);
              
             if($request->default_addr == 1){
+
+                
                 
                 $useraddr =CustomarAccount::where('userid',auth()->user()->id)->first();
                 $useraddr->update([
@@ -660,10 +667,7 @@ class CheckoutController extends Controller
                     'userid'=>auth()->user()->id,
                     'updated_at'=>Carbon::now(),
                 ]);
-                $notification = array(
-                    'messege' => 'This Address Make Your default Address!',
-                    'alert-type' =>'success'
-                );
+                $this-> checkoutDataCreate($request);
 
                 
             }else{

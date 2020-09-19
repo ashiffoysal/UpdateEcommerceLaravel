@@ -1,9 +1,45 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe;
 
 /**
- * Class Invoice.
+ * Invoices are statements of amounts owed by a customer, and are either generated
+ * one-off, or generated periodically from a subscription.
+ *
+ * They contain <a href="https://stripe.com/docs/api#invoiceitems">invoice
+ * items</a>, and proration adjustments that may be caused by subscription
+ * upgrades/downgrades (if necessary).
+ *
+ * If your invoice is configured to be billed through automatic charges, Stripe
+ * automatically finalizes your invoice and attempts payment. Note that finalizing
+ * the invoice, <a
+ * href="https://stripe.com/docs/billing/invoices/workflow/#auto_advance">when
+ * automatic</a>, does not happen immediately as the invoice is created. Stripe
+ * waits until one hour after the last webhook was successfully sent (or the last
+ * webhook timed out after failing). If you (and the platforms you may have
+ * connected to) have no webhooks configured, Stripe waits one hour after creation
+ * to finalize the invoice.
+ *
+ * If your invoice is configured to be billed by sending an email, then based on
+ * your <a href="https://dashboard.stripe.com/account/billing/automatic'">email
+ * settings</a>, Stripe will email the invoice to your customer and await payment.
+ * These emails can contain a link to a hosted page to pay the invoice.
+ *
+ * Stripe applies any customer credit on the account before determining the amount
+ * due for the invoice (i.e., the amount that will be actually charged). If the
+ * amount due for the invoice is less than Stripe's <a
+ * href="/docs/currencies#minimum-and-maximum-charge-amounts">minimum allowed
+ * charge per currency</a>, the invoice is automatically marked paid, and we add
+ * the amount due to the customer's running account balance which is applied to the
+ * next invoice.
+ *
+ * More details on the customer's account balance are <a
+ * href="https://stripe.com/docs/api/customers/object#customer_object-account_balance">here</a>.
+ *
+ * Related guide: <a href="https://stripe.com/docs/billing/invoices/sending">Send
+ * Invoices to Customers</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -35,6 +71,7 @@ namespace Stripe;
  * @property null|\Stripe\TaxRate[] $default_tax_rates The tax rates applied to this invoice, if any.
  * @property null|string $description An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
  * @property null|\Stripe\Discount $discount Describes the current discount applied to this invoice, if there is one.
+ * @property null|(string|\Stripe\Discount)[] $discounts The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use <code>expand[]=discounts</code> to expand each discount.
  * @property null|int $due_date The date on which payment for this invoice is due. This value will be <code>null</code> for invoices where <code>collection_method=charge_automatically</code>.
  * @property null|int $ending_balance Ending customer balance after the invoice is finalized. Invoices are finalized approximately an hour after successful webhook delivery or when payment collection is attempted for the invoice. If the invoice has not been finalized yet, this will be null.
  * @property null|string $footer Footer displayed on the invoice.
@@ -42,7 +79,7 @@ namespace Stripe;
  * @property null|string $invoice_pdf The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
  * @property \Stripe\Collection $lines The individual line items that make up the invoice. <code>lines</code> is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
  * @property bool $livemode Has the value <code>true</code> if the object exists in live mode or the value <code>false</code> if the object exists in test mode.
- * @property null|\Stripe\StripeObject $metadata Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+ * @property null|\Stripe\StripeObject $metadata Set of <a href="https://stripe.com/docs/api/metadata">key-value pairs</a> that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
  * @property null|int $next_payment_attempt The time at which payment will next be attempted. This value will be <code>null</code> for invoices where <code>collection_method=send_invoice</code>.
  * @property null|string $number A unique, identifying string that appears on emails sent to the customer for this invoice. This starts with the customer's unique invoice_prefix if it is specified.
  * @property bool $paid Whether payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a charge or with credit from the customer's account balance.
@@ -58,13 +95,13 @@ namespace Stripe;
  * @property \Stripe\StripeObject $status_transitions
  * @property null|string|\Stripe\Subscription $subscription The subscription that this invoice was prepared for, if any.
  * @property int $subscription_proration_date Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
- * @property int $subtotal Total of all subscriptions, invoice items, and prorations on the invoice before any discount or tax is applied.
+ * @property int $subtotal Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated
  * @property null|int $tax The amount of tax on this invoice. This is the sum of all the tax amounts on this invoice.
- * @property null|float $tax_percent This percentage of the subtotal has been added to the total amount of the invoice, including invoice line items and discounts. This field is inherited from the subscription's <code>tax_percent</code> field, but can be changed before the invoice is paid. This field defaults to null.
  * @property \Stripe\StripeObject $threshold_reason
  * @property int $total Total after discounts and taxes.
+ * @property null|\Stripe\StripeObject[] $total_discount_amounts The aggregate amounts calculated per discount across all line items.
  * @property null|\Stripe\StripeObject[] $total_tax_amounts The aggregate amounts calculated per tax rate for all line items.
- * @property null|int $webhooks_delivered_at The time at which webhooks for this invoice were successfully delivered (if the invoice had no webhooks to deliver, this will match <code>created</code>). Invoice payment is delayed until webhooks are delivered, or until all webhook delivery attempts have been exhausted.
+ * @property null|int $webhooks_delivered_at Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have <a href="https://stripe.com/docs/billing/webhooks#understand">been exhausted</a>. This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
  */
 class Invoice extends ApiResource
 {
@@ -76,13 +113,9 @@ class Invoice extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
-    use ApiOperations\NestedResource;
+    const BILLING_CHARGE_AUTOMATICALLY = 'charge_automatically';
+    const BILLING_SEND_INVOICE = 'send_invoice';
 
-    /**
-     * Possible string representations of the billing reason.
-     *
-     * @see https://stripe.com/docs/api/invoices/object#invoice_object-billing_reason
-     */
     const BILLING_REASON_MANUAL = 'manual';
     const BILLING_REASON_SUBSCRIPTION = 'subscription';
     const BILLING_REASON_SUBSCRIPTION_CREATE = 'subscription_create';
@@ -91,33 +124,17 @@ class Invoice extends ApiResource
     const BILLING_REASON_SUBSCRIPTION_UPDATE = 'subscription_update';
     const BILLING_REASON_UPCOMING = 'upcoming';
 
-    /**
-     * Possible string representations of the `collection_method` property.
-     *
-     * @see https://stripe.com/docs/api/invoices/object#invoice_object-collection_method
-     */
     const COLLECTION_METHOD_CHARGE_AUTOMATICALLY = 'charge_automatically';
     const COLLECTION_METHOD_SEND_INVOICE = 'send_invoice';
 
-    /**
-     * Possible string representations of the invoice status.
-     *
-     * @see https://stripe.com/docs/api/invoices/object#invoice_object-status
-     */
+    const STATUS_DELETED = 'deleted';
     const STATUS_DRAFT = 'draft';
     const STATUS_OPEN = 'open';
     const STATUS_PAID = 'paid';
     const STATUS_UNCOLLECTIBLE = 'uncollectible';
     const STATUS_VOID = 'void';
 
-    /**
-     * Possible string representations of the `billing` property.
-     *
-     * @deprecated use `collection_method` instead
-     * @see https://stripe.com/docs/api/invoices/object#invoice_object-billing
-     */
-    const BILLING_CHARGE_AUTOMATICALLY = 'charge_automatically';
-    const BILLING_SEND_INVOICE = 'send_invoice';
+    use ApiOperations\NestedResource;
 
     const PATH_LINES = '/lines';
 
