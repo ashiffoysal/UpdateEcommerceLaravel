@@ -18,18 +18,18 @@ trait RecurringProfiles
      *
      * @return array
      */
-    public function createCustomSubscription($token, $amount, $description, $billingFrequency, $trialDays = null)
+    public function createCustomSubscription($token, $amount, $description, $billingPeriod, $billingFrequency, $trialDays = null)
     {
         $data = [
             'PROFILESTARTDATE' => Carbon::now()->toAtomString(),
             'DESC'             => $description,
-            'BILLINGPERIOD'    => 'Month',
+            'BILLINGPERIOD'    => $billingPeriod,
             'BILLINGFREQUENCY' => $billingFrequency,
             'AMT'              => $amount,
             'CURRENCYCODE'     => $this->currency,
         ];
 
-        if (!is_null($trialDays) && is_numeric($trialDays)) {
+        if ($trialDays !== null && is_numeric($trialDays)) {
             $data['TRIALBILLINGPERIOD'] = 'Day';
             $data['TRIALTOTALBILLINGCYCLES'] = $trialDays;
             $data['TRIALBILLINGFREQUENCY'] = 1;

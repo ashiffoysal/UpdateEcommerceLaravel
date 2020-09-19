@@ -1,9 +1,17 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe;
 
 /**
- * Class Account.
+ * This is an object representing a Stripe account. You can retrieve it to see
+ * properties on the account like its current e-mail address or if the account is
+ * enabled yet to make live charges.
+ *
+ * Some properties, marked below, are available only to platforms that want to <a
+ * href="https://stripe.com/docs/connect/accounts">create and manage Express or
+ * Custom accounts</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -18,8 +26,8 @@ namespace Stripe;
  * @property bool $details_submitted Whether account details have been submitted. Standard accounts cannot receive payouts before this is true.
  * @property null|string $email The primary user's email address.
  * @property \Stripe\Collection $external_accounts External accounts (bank accounts and debit cards) currently attached to this account
- * @property \Stripe\Person $individual
- * @property \Stripe\StripeObject $metadata Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+ * @property \Stripe\Person $individual <p>This is an object representing a person associated with a Stripe account.</p><p>Related guide: <a href="https://stripe.com/docs/connect/identity-verification-api#person-information">Handling Identity Verification with the API</a>.</p>
+ * @property \Stripe\StripeObject $metadata Set of <a href="https://stripe.com/docs/api/metadata">key-value pairs</a> that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
  * @property bool $payouts_enabled Whether Stripe can send payouts to this account.
  * @property \Stripe\StripeObject $requirements
  * @property null|\Stripe\StripeObject $settings Options for customizing how the account functions within Stripe.
@@ -36,45 +44,27 @@ class Account extends ApiResource
     use ApiOperations\NestedResource;
     use ApiOperations\Update;
 
-    use ApiOperations\Retrieve {
-        retrieve as protected _retrieve;
-    }
-
-    /**
-     * Possible string representations of an account's business type.
-     *
-     * @see https://stripe.com/docs/api/accounts/object#account_object-business_type
-     */
     const BUSINESS_TYPE_COMPANY = 'company';
+    const BUSINESS_TYPE_GOVERNMENT_ENTITY = 'government_entity';
     const BUSINESS_TYPE_INDIVIDUAL = 'individual';
+    const BUSINESS_TYPE_NON_PROFIT = 'non_profit';
 
-    /**
-     * Possible string representations of an account's capabilities.
-     *
-     * @see https://stripe.com/docs/api/accounts/object#account_object-capabilities
-     */
     const CAPABILITY_CARD_PAYMENTS = 'card_payments';
     const CAPABILITY_LEGACY_PAYMENTS = 'legacy_payments';
     const CAPABILITY_PLATFORM_PAYMENTS = 'platform_payments';
     const CAPABILITY_TRANSFERS = 'transfers';
 
-    /**
-     * Possible string representations of an account's capability status.
-     *
-     * @see https://stripe.com/docs/api/accounts/object#account_object-capabilities
-     */
     const CAPABILITY_STATUS_ACTIVE = 'active';
     const CAPABILITY_STATUS_INACTIVE = 'inactive';
     const CAPABILITY_STATUS_PENDING = 'pending';
 
-    /**
-     * Possible string representations of an account's type.
-     *
-     * @see https://stripe.com/docs/api/accounts/object#account_object-type
-     */
     const TYPE_CUSTOM = 'custom';
     const TYPE_EXPRESS = 'express';
     const TYPE_STANDARD = 'standard';
+
+    use ApiOperations\Retrieve {
+        retrieve as protected _retrieve;
+    }
 
     public static function getSavedNestedResources()
     {
@@ -184,6 +174,24 @@ class Account extends ApiResource
         ];
 
         return OAuth::deauthorize($params, $opts);
+    }
+
+    /**
+     * @param null|array $params
+     * @param null|array|string $opts
+     *
+     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return \Stripe\Collection the list of persons
+     */
+    public function persons($params = null, $opts = null)
+    {
+        $url = $this->instanceUrl() . '/persons';
+        list($response, $opts) = $this->_request('get', $url, $params, $opts);
+        $obj = Util\Util::convertToStripeObject($response, $opts);
+        $obj->setLastResponse($response);
+
+        return $obj;
     }
 
     /**
@@ -347,24 +355,6 @@ class Account extends ApiResource
     }
 
     const PATH_PERSONS = '/persons';
-
-    /**
-     * @param null|array $params
-     * @param null|array|string $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
-     *
-     * @return \Stripe\Collection the list of persons
-     */
-    public function persons($params = null, $opts = null)
-    {
-        $url = $this->instanceUrl() . '/persons';
-        list($response, $opts) = $this->_request('get', $url, $params, $opts);
-        $obj = Util\Util::convertToStripeObject($response, $opts);
-        $obj->setLastResponse($response);
-
-        return $obj;
-    }
 
     /**
      * @param string $id the ID of the account on which to retrieve the persons

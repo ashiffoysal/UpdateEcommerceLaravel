@@ -17,6 +17,7 @@ use App\ProductReview;
 use App\FlashDealDetail;
 use App\Blog;
 use App\BlogComment;
+use App\Banner;
 
 use App\CustomarAccount;
 

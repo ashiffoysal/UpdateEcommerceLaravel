@@ -1,9 +1,18 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe;
 
 /**
- * Class Dispute.
+ * A dispute occurs when a customer questions your charge with their card issuer.
+ * When this happens, you're given the opportunity to respond to the dispute with
+ * evidence that shows that the charge is legitimate. You can find more information
+ * about the dispute process in our <a href="/docs/disputes">Disputes and Fraud</a>
+ * documentation.
+ *
+ * Related guide: <a href="https://stripe.com/docs/disputes">Disputes and
+ * Fraud</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -16,7 +25,7 @@ namespace Stripe;
  * @property \Stripe\StripeObject $evidence_details
  * @property bool $is_charge_refundable If true, it is still possible to refund the disputed payment. Once the payment has been fully refunded, no further funds will be withdrawn from your Stripe account as a result of this dispute.
  * @property bool $livemode Has the value <code>true</code> if the object exists in live mode or the value <code>false</code> if the object exists in test mode.
- * @property \Stripe\StripeObject $metadata Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+ * @property \Stripe\StripeObject $metadata Set of <a href="https://stripe.com/docs/api/metadata">key-value pairs</a> that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
  * @property null|string $network_reason_code Network-dependent reason code for the dispute.
  * @property null|string|\Stripe\PaymentIntent $payment_intent ID of the PaymentIntent that was disputed.
  * @property string $reason Reason given by cardholder for dispute. Possible values are <code>bank_cannot_process</code>, <code>check_returned</code>, <code>credit_not_processed</code>, <code>customer_initiated</code>, <code>debit_not_authorized</code>, <code>duplicate</code>, <code>fraudulent</code>, <code>general</code>, <code>incorrect_account_details</code>, <code>insufficient_funds</code>, <code>product_not_received</code>, <code>product_unacceptable</code>, <code>subscription_canceled</code>, or <code>unrecognized</code>. Read more about <a href="https://stripe.com/docs/disputes/categories">dispute reasons</a>.
@@ -30,11 +39,6 @@ class Dispute extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
-    /**
-     * Possible string representations of dispute reasons.
-     *
-     * @see https://stripe.com/docs/api#dispute_object
-     */
     const REASON_BANK_CANNOT_PROCESS = 'bank_cannot_process';
     const REASON_CHECK_RETURNED = 'check_returned';
     const REASON_CREDIT_NOT_PROCESSED = 'credit_not_processed';
@@ -50,11 +54,6 @@ class Dispute extends ApiResource
     const REASON_SUBSCRIPTION_CANCELED = 'subscription_canceled';
     const REASON_UNRECOGNIZED = 'unrecognized';
 
-    /**
-     * Possible string representations of dispute statuses.
-     *
-     * @see https://stripe.com/docs/api#dispute_object
-     */
     const STATUS_CHARGE_REFUNDED = 'charge_refunded';
     const STATUS_LOST = 'lost';
     const STATUS_NEEDS_RESPONSE = 'needs_response';

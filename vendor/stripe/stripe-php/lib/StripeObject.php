@@ -7,12 +7,25 @@ namespace Stripe;
  */
 class StripeObject implements \ArrayAccess, \Countable, \JsonSerializable
 {
+    /** @var Util\RequestOptions */
     protected $_opts;
+
+    /** @var array */
     protected $_originalValues;
+
+    /** @var array */
     protected $_values;
+
+    /** @var Util\Set */
     protected $_unsavedValues;
+
+    /** @var Util\Set */
     protected $_transientValues;
+
+    /** @var null|array */
     protected $_retrieveOptions;
+
+    /** @var null|ApiResponse */
     protected $_lastResponse;
 
     /**
@@ -430,7 +443,7 @@ class StripeObject implements \ArrayAccess, \Countable, \JsonSerializable
         };
 
         return \array_reduce(\array_keys($this->_values), function ($acc, $k) use ($maybeToArray) {
-            if ('_' === $k[0]) {
+            if ('_' === \substr((string) $k, 0, 1)) {
                 return $acc;
             }
             $v = $this->_values[$k];
@@ -534,7 +547,7 @@ class StripeObject implements \ArrayAccess, \Countable, \JsonSerializable
     }
 
     /**
-     * @return object The last response from the Stripe API
+     * @return null|ApiResponse The last response from the Stripe API
      */
     public function getLastResponse()
     {

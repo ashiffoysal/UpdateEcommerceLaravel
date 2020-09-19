@@ -1,9 +1,17 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe;
 
 /**
- * Class Source.
+ * <code>Source</code> objects allow you to accept a variety of payment methods.
+ * They represent a customer's payment instrument, and can be used with the Stripe
+ * API just like a <code>Card</code> object: once chargeable, they can be charged,
+ * or can be attached to customers.
+ *
+ * Related guides: <a href="https://stripe.com/docs/sources">Sources API</a> and <a
+ * href="https://stripe.com/docs/sources/customers">Sources &amp; Customers</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -27,7 +35,7 @@ namespace Stripe;
  * @property \Stripe\StripeObject $ideal
  * @property \Stripe\StripeObject $klarna
  * @property bool $livemode Has the value <code>true</code> if the object exists in live mode or the value <code>false</code> if the object exists in test mode.
- * @property null|\Stripe\StripeObject $metadata Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+ * @property null|\Stripe\StripeObject $metadata Set of <a href="https://stripe.com/docs/api/metadata">key-value pairs</a> that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
  * @property \Stripe\StripeObject $multibanco
  * @property null|\Stripe\StripeObject $owner Information about the owner of the payment instrument that may be used or required by particular source types.
  * @property \Stripe\StripeObject $p24
@@ -52,36 +60,21 @@ class Source extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
-    use ApiOperations\NestedResource;
-
-    /**
-     * Possible string representations of source flows.
-     *
-     * @see https://stripe.com/docs/api#source_object-flow
-     */
-    const FLOW_REDIRECT = 'redirect';
-    const FLOW_RECEIVER = 'receiver';
     const FLOW_CODE_VERIFICATION = 'code_verification';
     const FLOW_NONE = 'none';
+    const FLOW_RECEIVER = 'receiver';
+    const FLOW_REDIRECT = 'redirect';
 
-    /**
-     * Possible string representations of source statuses.
-     *
-     * @see https://stripe.com/docs/api#source_object-status
-     */
     const STATUS_CANCELED = 'canceled';
     const STATUS_CHARGEABLE = 'chargeable';
     const STATUS_CONSUMED = 'consumed';
     const STATUS_FAILED = 'failed';
     const STATUS_PENDING = 'pending';
 
-    /**
-     * Possible string representations of source usage.
-     *
-     * @see https://stripe.com/docs/api#source_object-usage
-     */
     const USAGE_REUSABLE = 'reusable';
     const USAGE_SINGLE_USE = 'single_use';
+
+    use ApiOperations\NestedResource;
 
     /**
      * @param null|array $params

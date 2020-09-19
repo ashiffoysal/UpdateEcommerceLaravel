@@ -1,9 +1,18 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe;
 
 /**
- * Class Payout.
+ * A <code>Payout</code> object is created when you receive funds from Stripe, or
+ * when you initiate a payout to either a bank account or debit card of a <a
+ * href="/docs/connect/payouts">connected Stripe account</a>. You can retrieve
+ * individual payouts, as well as list all payouts. Payouts are made on <a
+ * href="/docs/payouts#payout-schedule">varying schedules</a>, depending on your
+ * country and industry.
+ *
+ * Related guide: <a href="https://stripe.com/docs/payouts">Receiving Payouts</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -19,11 +28,11 @@ namespace Stripe;
  * @property null|string $failure_code Error code explaining reason for payout failure if available. See <a href="https://stripe.com/docs/api#payout_failures">Types of payout failures</a> for a list of failure codes.
  * @property null|string $failure_message Message to user further explaining reason for payout failure if available.
  * @property bool $livemode Has the value <code>true</code> if the object exists in live mode or the value <code>false</code> if the object exists in test mode.
- * @property \Stripe\StripeObject $metadata Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+ * @property \Stripe\StripeObject $metadata Set of <a href="https://stripe.com/docs/api/metadata">key-value pairs</a> that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
  * @property string $method The method used to send this payout, which can be <code>standard</code> or <code>instant</code>. <code>instant</code> is only supported for payouts to debit cards. (See <a href="https://stripe.com/blog/instant-payouts-for-marketplaces">Instant payouts for marketplaces</a> for more information.)
  * @property string $source_type The source balance this payout came from. One of <code>card</code>, <code>fpx</code>, or <code>bank_account</code>.
  * @property null|string $statement_descriptor Extra information about a payout to be displayed on the user's bank statement.
- * @property string $status Current status of the payout (<code>paid</code>, <code>pending</code>, <code>in_transit</code>, <code>canceled</code> or <code>failed</code>). A payout will be <code>pending</code> until it is submitted to the bank, at which point it becomes <code>in_transit</code>. It will then change to <code>paid</code> if the transaction goes through. If it does not go through successfully, its status will change to <code>failed</code> or <code>canceled</code>.
+ * @property string $status Current status of the payout: <code>paid</code>, <code>pending</code>, <code>in_transit</code>, <code>canceled</code> or <code>failed</code>. A payout is <code>pending</code> until it is submitted to the bank, when it becomes <code>in_transit</code>. The status then changes to <code>paid</code> if the transaction goes through, or to <code>failed</code> or <code>canceled</code> (within 5 business days). Some failed payouts may initially show as <code>paid</code> but then change to <code>failed</code>.
  * @property string $type Can be <code>bank_account</code> or <code>card</code>.
  */
 class Payout extends ApiResource
@@ -35,11 +44,6 @@ class Payout extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
-    /**
-     * Types of payout failure codes.
-     *
-     * @see https://stripe.com/docs/api#payout_failures
-     */
     const FAILURE_ACCOUNT_CLOSED = 'account_closed';
     const FAILURE_ACCOUNT_FROZEN = 'account_frozen';
     const FAILURE_BANK_ACCOUNT_RESTRICTED = 'bank_account_restricted';
@@ -54,30 +58,15 @@ class Payout extends ApiResource
     const FAILURE_NO_ACCOUNT = 'no_account';
     const FAILURE_UNSUPPORTED_CARD = 'unsupported_card';
 
-    /**
-     * Possible string representations of the payout methods.
-     *
-     * @see https://stripe.com/docs/api/payouts/object#payout_object-method
-     */
-    const METHOD_STANDARD = 'standard';
     const METHOD_INSTANT = 'instant';
+    const METHOD_STANDARD = 'standard';
 
-    /**
-     * Possible string representations of the status of the payout.
-     *
-     * @see https://stripe.com/docs/api/payouts/object#payout_object-status
-     */
     const STATUS_CANCELED = 'canceled';
-    const STATUS_IN_TRANSIT = 'in_transit';
     const STATUS_FAILED = 'failed';
+    const STATUS_IN_TRANSIT = 'in_transit';
     const STATUS_PAID = 'paid';
     const STATUS_PENDING = 'pending';
 
-    /**
-     * Possible string representations of the type of payout.
-     *
-     * @see https://stripe.com/docs/api/payouts/object#payout_object-type
-     */
     const TYPE_BANK_ACCOUNT = 'bank_account';
     const TYPE_CARD = 'card';
 
