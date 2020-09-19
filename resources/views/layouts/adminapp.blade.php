@@ -82,6 +82,7 @@ $logo=DB::table('logos')->first();
                         </form>
                     </div>
                 </li>
+                <li><a href="http://localhost/phpmyadmin/" target="_blank">DB</a></li>
                 <li><a href="{{url('/')}}" target="_blank">Live Project</a></li>
                 @php
                   $totalmessage=App\Contract::where('is_seen',0)->count();
@@ -398,6 +399,7 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{ route('admin.sociallogin') }}">Social Login</a></li>
                             <li><a href="{{ route('theme.selector.show') }}">Theme Option</a></li>
                             <li><a href="{{ route('admin.footer.option') }}">Footer Option</a></li>
+                            <li><a href="{{ route('admin.social.all') }}">Social</a></li>
                         </ul>
                     </li>
                     @else

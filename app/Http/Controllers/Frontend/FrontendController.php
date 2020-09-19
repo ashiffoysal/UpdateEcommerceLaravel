@@ -17,7 +17,9 @@ use App\ProductReview;
 use App\FlashDealDetail;
 use App\Blog;
 use App\BlogComment;
+
 use App\CustomarAccount;
+
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -34,6 +36,7 @@ class FrontendController extends Controller
             $secondcate=Category::where('cate_status',1)->where('is_deleted',0)->skip(1)->first();
             $thirdcate=Category::where('cate_status',1)->where('is_deleted',0)->skip(2)->first();
             $newproduct=Product::where('is_deleted',0)->orderBy('id','DESC')->limit(6)->get();
+            $slider=Banner::where('is_deleted',0)->where('ban_status',1)->orderBy('id','DESC')->limit(3)->get();
             //$hot_deal=FlashDeal::where('status',1)->where('is_deleted',0)->first();
             // hot deal start
                date_default_timezone_set('Asia/Dhaka');
@@ -59,9 +62,8 @@ class FrontendController extends Controller
                 }
             }
 
-
             // hotdeal end
-            return view('frontend.home.home1',compact('firstcate','secondcate','thirdcate','newproduct','hotdeal'));
+            return view('frontend.home.home1',compact('slider','firstcate','secondcate','thirdcate','newproduct','hotdeal'));
         }
         elseif($themecheck->id==2){
             return view('frontend.home.home2');
@@ -293,7 +295,8 @@ class FrontendController extends Controller
         if ($flash_deal) {
             $flash_deal_details = FlashDealDetail::with('product')->where('flash_deal_id', $flash_deal->id)->paginate(16);
         }
-        return view('frontend.hot_deal.hot_deal_products', compact('flash_deal', 'flash_deal_details'));
+        $allproduct=Product::where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->limit(12)->get();
+        return view('frontend.products.hotdeals', compact('flash_deal', 'flash_deal_details','allproduct'));
     }
 
 
@@ -401,6 +404,8 @@ class FrontendController extends Controller
 
         $checkFlashDeal = 0;
         $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();
+
+        
 
         $productbestsell=Product::where('is_deleted',0)->orderBy('number_of_sale','DESC')->limit(7)->get();
 

@@ -1,4 +1,5 @@
 <div class="ps-section__left">
+
     <aside class="ps-widget--account-dashboard">
         <img class="img_circal" src="{{asset('public/frontend/')}}/img/users/3.jpg" alt="">
         <div class="ps-widget__header">
@@ -25,3 +26,4 @@
 <form id="form_logout" method="post" action="{{route('customar.logout')}}">
     @csrf
 </form>
+

@@ -112,5 +112,6 @@
             </div>
         </div>
     </div>
+    
     @include('frontend.include.newsletter._subcribtion')
 @endsection

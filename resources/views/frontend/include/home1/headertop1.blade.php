@@ -51,7 +51,7 @@
                     <form class="ps-form--quick-search" action="" method="get">
                         <div class="form-group--icon"><i class="icon-chevron-down"></i>
                             <select class="form-control" id="category_id" name="category_id">
-                                <option value="0" selected="selected">All</option>
+                                <option value="all" selected="selected">All</option>
                                 @foreach($allcategory as $cates)
                                     @php
                                         $chek=App\SubCategory::where('cate_id',$cates->id)->first();
@@ -80,7 +80,7 @@
                                 
                        
                             </div>
-                            <div class="ps-panel__footer text-center"><a href="shop-default.html">See all results</a></div>
+                            <div class="ps-panel__footer text-center"><a href=""><!-- See all results --></a></div>
                          </div>
 
                     </form>

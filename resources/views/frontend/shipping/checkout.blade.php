@@ -9,6 +9,7 @@
                 <li>Checkout</li>
             </ul>
         </div>
+
     </div>
     <div class="ps-checkout ps-section--shopping">
         <div class="container">
@@ -66,6 +67,7 @@
                             <!-- Ship to a different address area start -->
                             <div class="ps-form__billing-info">
                                 <div id="diff_address" style="display: none;">
+
                                     <h3 class="ps-form__heading">Different Address</h3>
 
 
@@ -89,6 +91,7 @@
                                         <label>Address<sup>*</sup>
                                         </label>
                                         <div class="form-group__content">
+
                                             <textarea rows="5" name="address" name="address" class="form-control"></textarea>
                                         </div>
                                     </div>
@@ -98,8 +101,12 @@
                                         <label class="form-check-label" for="defaultCheck1">
                                             Make as Default Address
                                         </label>
+
                                     </div>
                                 </div>
+                                <!-- Ship to a different address area end -->
+
+
                             </div>
                             <!-- Ship to a different address area end -->
 
@@ -166,6 +173,7 @@
 <script>
     $(document).ready(function() {
 
+
         $("#cb01").click(function() {
             if (this.checked) {
                 $('#diff_address').css('display', 'block');
@@ -175,4 +183,7 @@
             }
         });
     });
-</script>
+
+    @include('frontend.include.newsletter._subcribtion')
+@endsection
+
