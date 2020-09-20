@@ -65,18 +65,18 @@
                                      
                                         <div class="ps-block__content">
 
-                                            <h4 class="ps-block__title">Order Number :<span>567</span></h4>
-                                            <h4 class="ps-block__title">Total Price :<span>567</span></h4>
-                                            <h4 class="ps-block__title">Total Quentity :<span>567</span></h4>
+                                            <h4 class="ps-block__title">Order Number :<span>{{$orderPlace -> order_id}}</span></h4>
+                                            <h4 class="ps-block__title">Total Price :<span>{{$orderPlace -> total_price}}</span></h4>
+                                            <h4 class="ps-block__title">Total Quentity :<span>{{$orderPlace -> total_quantity}}</span></h4>
                                         </div>
                                         <div class="ps-block__shippings">
                                         <h4 class="ps-block__title">Address:
                                                 <small>
-                                                    fgffdsg
+                                                    {{$address->address}}
                                                 </small>
                                         </h4>
                                             </div>
-                                    </div><button type="submit" class="ps-btn ps-btn--fullwidth">Proceed to checkout</button>
+                                    </div><button type="submit" class="ps-btn ps-btn--fullwidth">Pay Now</button>
                                 </div>
                             </div>
                         </div>
