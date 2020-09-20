@@ -29,7 +29,7 @@ use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
-
+use App\Library\SslCommerz\SslCommerzNotification;
 use Illuminate\Support\Str;
 use Stripe\Customer;
 
@@ -745,6 +745,12 @@ class CheckoutController extends Controller
          }
 
 
+     }
+
+     // 
+     public function onlinepayment(Request $request){
+        
+        
      }
 
 

@@ -533,13 +533,13 @@
                         <div class="ps-shopping__header">
                             <p><strong> {{$productcount}}</strong> Products found</p>
                             <div class="ps-shopping__actions">
-                                <select class="ps-select" data-placeholder="Sort Items">
-                                    <option>Sort by latest</option>
-                                    <option>Sort by popularity</option>
-                                    <option>Sort by average rating</option>
-                                    <option>Sort by price: low to high</option>
-                                    <option>Sort by price: high to low</option>
-                                </select>
+                             <!--    <select class="ps-select" data-placeholder="Sort Items">
+                                    <option value="1">Sort by latest</option>
+                                    <option value="2">Sort by popularity</option>
+                                    <option value="3">Sort by average rating</option>
+                                    <option value="4">Sort by price: low to high</option>
+                                    <option value="5">Sort by price: high to low</option>
+                                </select> -->
                                 <div class="ps-shopping__view">
                                     <p>View</p>
                                     <ul class="ps-tab-list">
@@ -729,4 +729,37 @@ $(document).ready(function(){
 
 });
 </script>
-    @endsection
+
+<script type="text/javascript">
+  $(document).ready(function() {
+     $('select[name="short"]').on('change', function(){
+         var id = $(this).val();
+         //alert(id);
+
+         if(cate_id) {
+             $.ajax({
+                 url: "{{  url('/get/subcategory/all/') }}/"+cate_id,
+                 type:"GET",
+                 dataType:"json",
+                 success:function(data) {
+
+                        $('#subcate_id').empty();
+                        $('#subcate_id').append(' <option value="">--Select--</option>');
+                        $.each(data,function(index,districtObj){
+                         $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
+                       });
+                     }
+             });
+         } else {
+             alert('danger');
+         }
+
+     });
+ });
+</script>
+
+
+
+
+
+@endsection
