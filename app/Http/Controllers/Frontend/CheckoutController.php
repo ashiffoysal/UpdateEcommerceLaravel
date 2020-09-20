@@ -84,6 +84,8 @@ class CheckoutController extends Controller
 
     public function applyCupon(Request $request)
     {
+
+        
         if (Cupon::where('cupon_code', $request->cuponvalue)->exists()) {
             $cuponuser = Cupon::where('cupon_code', $request->cuponvalue)->first();
 
@@ -123,7 +125,7 @@ class CheckoutController extends Controller
                         UserUsedCupon::insert([
                             'user_ip' => Auth::user()->id,
                             'cupon_id' => $cuponuser->id,
-                            'order_id' => $request->order,
+                            'order_id' => auth()->user()->order_id,
                             'created_at' => Carbon::now(),
                         ]);
                         $cuponinfo = Cupon::where('cupon_code', $request->cuponvalue)->first()->discount;
@@ -163,7 +165,7 @@ class CheckoutController extends Controller
                                     $insertcupon = UserUsedCupon::insertGetId([
                                         'user_ip' => Auth::user()->id,
                                         'cupon_id' => $cuponuser->id,
-                                        'order_id' => $request->order,
+                                        'order_id' => auth()->user()->order_id,
                                         'created_at' => Carbon::now(),
 
                                     ]);
@@ -176,7 +178,7 @@ class CheckoutController extends Controller
                                         $insertcupon = UserUsedCupon::insertGetId([
                                             'user_ip' => Auth::user()->id,
                                             'cupon_id' => $cuponuser->id,
-                                            'order_id' => $request->order,
+                                            'order_id' => auth()->user()->order_id,
                                             'created_at' => Carbon::now(),
 
                                         ]);
@@ -888,9 +890,18 @@ class CheckoutController extends Controller
         $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $id)->first();
         abort_if(!$orderPlace, 403);
 
+        $address = DifferentAddress::where('orderid',$orderPlace->order_id)->first();
+
+        if($address->exists()){
+            return view('frontend.shipping.online_payment',compact('orderPlace','address'));
+        }else{
+            $address =UserAddress::where('userid',auth()->user()->id)->first();
+            return view('frontend.shipping.online_payment',compact('orderPlace','address'));
+        }
 
 
-        return view('frontend.shipping.online_payment',compact('id'));
+
+        
     }
 
 

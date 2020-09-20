@@ -828,7 +828,7 @@
             }); 
         });
 
-        Route::prefix('product')->group(function(){
+        Route::prefix('product')->middleware('auth:web')->group(function(){
             Route::get('/product/cart/page', 'AddToCartController@productViewCart')->name('product.cart.data');
             Route::get('/get/cart/data', 'AddToCartController@getCartData')->name('get.cart.data');
             Route::post('cart/data/delete', 'AddToCartController@cartDataDelete')->name('cart.data.delete');

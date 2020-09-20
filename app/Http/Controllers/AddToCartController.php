@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\DatabaseStorageModel;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\FlashDealDetail;
@@ -668,6 +669,7 @@ class AddToCartController extends Controller
     public function checkoutPage()
     {
         return view('frontend.shipping.checkout');
+        
     }
 
 
@@ -689,6 +691,13 @@ class AddToCartController extends Controller
         $userid =  \Request::getClientIp(true);
         $datadelete = Cart::session($userid)->remove($request->user_id);
         $usercartdatas = Cart::session($userid)->getContent();
+        if(count($usercartdatas) < 0){
+            $useridcondition =  \Request::getClientIp(true) . '_cart_conditions';
+            
+            DatabaseStorageModel::where('id', $useridcondition)->first()->delete();
+            
+        }
+        
         
         return view('frontend.include.ajaxview.cartajaxdata', compact('usercartdatas'));
     }

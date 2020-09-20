@@ -112,12 +112,15 @@ class AdminController extends Controller
     public function createUser($request,$token,$verify_code)
     {
         
+        $code = rand(1111,9999);
+        
         $user = new User();
         
         $user->verification_code = $verify_code;
         $user->password = Hash::make($request->password);
         $user->ip_address = request()->ip();
         $user->remember_token = $token;
+        $user->order_id = $code;
         return $user;
     }
 

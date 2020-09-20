@@ -165,7 +165,17 @@
                                             <div class="ps-block__shippings">
                                                 <figure>
                                                     <h4>Coupon Discount</h4>
-                                                    <p>৳ 00.00</p>
+                                                    @php
+                                                        $order_id = auth()->user()->order_id;
+                                                        $couponid = App\UserUsedCupon::where('order_id',$order_id)->first();
+                                                        if($couponid){
+                                                            $couponid = $couponid->cupon_id;
+                                                            $couponvalue = App\Cupon::findOrFail($couponid)->discount;
+                                                        }else{
+                                                            $couponvalue = 0.00;
+                                                        }
+                                                    @endphp
+                                                    <p>৳ {{$couponvalue}}</p>
                                                 </figure>
                                                 <figure>
                                                     <h4>Shipping Charge</h4>
