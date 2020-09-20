@@ -6,6 +6,7 @@ use App\DatabaseStorageModel;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\FlashDealDetail;
+use App\UserUsedCupon;
 use Illuminate\Http\Request;
 use Cart;
 use Illuminate\Support\Str;
@@ -379,6 +380,8 @@ class AddToCartController extends Controller
             //******************************* */ NEW ACTION AREA END**************************************************************
             // non variation product add
         } else {
+
+            
             $flashDealdiscounts = FlashDealDetail::where('product_id', $request->product_id)->first();
             if ($flashDealdiscounts) {
 
@@ -593,6 +596,21 @@ class AddToCartController extends Controller
         $datadelete = Cart::session($userid)->remove($request->user_id);
         $getcartdatas = Cart::session($userid)->getContent();
 
+        $usercartdatas = Cart::session($userid)->getContent();
+        if(count($usercartdatas) == 0){
+            $useridcondition =  \Request::getClientIp(true) . '_cart_conditions';
+            
+            $carddatas =DatabaseStorageModel::where('id', $useridcondition)->first();
+            if($carddatas){
+                $carddatas->delete();
+            }
+            $userusedcupon =UserUsedCupon::where('order_id',auth()->user()->order_id)->first();
+            if($userusedcupon){
+                $userusedcupon->delete();
+            }
+            
+        }
+
         if ($datadelete) {
             $items = 0;
             $price = 0;
@@ -691,10 +709,19 @@ class AddToCartController extends Controller
         $userid =  \Request::getClientIp(true);
         $datadelete = Cart::session($userid)->remove($request->user_id);
         $usercartdatas = Cart::session($userid)->getContent();
-        if(count($usercartdatas) < 0){
+        if(count($usercartdatas) == 0){
             $useridcondition =  \Request::getClientIp(true) . '_cart_conditions';
             
-            DatabaseStorageModel::where('id', $useridcondition)->first()->delete();
+
+            $cartdata =DatabaseStorageModel::where('id', $useridcondition)->first();
+            if($cartdata){
+                $cartdata->delete();
+            }
+
+            $userusedata =UserUsedCupon::where('order_id',auth()->user()->order_id)->first();
+            if($userusedata){
+                $userusedata->delete();
+            }
             
         }
         

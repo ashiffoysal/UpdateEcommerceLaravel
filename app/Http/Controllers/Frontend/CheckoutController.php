@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
 use Illuminate\Support\Str;
-
+use Stripe\Customer;
 
 class CheckoutController extends Controller
 {
@@ -653,6 +653,20 @@ class CheckoutController extends Controller
      public function customarDataCreate(Request $request)
      {
          
+        $items = \Cart::session(\Request::getClientIp(true))->getContent();
+
+        if(count($items) == 0){
+            $notification = array(
+                'messege' => 'Please add some products!',
+                'alert-type' =>'success'
+            );
+            return redirect('/')->with($notification);
+        } 
+        
+
+        $request->validate([
+            'payment_type'=>'required',
+        ]);
         
          if($request->diff_addr == 1){
             $request->validate([
@@ -682,7 +696,7 @@ class CheckoutController extends Controller
                     'phone'=>$request->phone,
                     'address'=>$request->address,
                     'userid'=>auth()->user()->id,
-                    'orderid'=>5555,
+                    'orderid'=>auth()->user()->order_id,
                 ]);
 
                 $checkout =$this-> checkoutDataCreate($request,$id);
@@ -698,11 +712,36 @@ class CheckoutController extends Controller
         $order= $this->orderPlace($request,$checkout);
 
 
+        // delete cart for this user
+
+        $useriditem =  \Request::getClientIp(true) . '_cart_items';
+        $useridcondition =  \Request::getClientIp(true) . '_cart_conditions';
+        $useridcondition =DatabaseStorageModel::where('id', $useridcondition)->first();
+        if($useridcondition){
+            $useridcondition->delete();
+        }
+        
+        DatabaseStorageModel::where('id', $useriditem)->first()->delete();
+
+        // chenge user order id in user table
+
+        $user =User::findOrFail(auth()->user()->id)->first();
+        $order_id = auth()->user()->order_id;
+
+        $neworderid =rand(1111,9999);
+
+        if($user){
+
+            $user->order_id = $neworderid;
+            $user->save();
+        }
+        
+
          if($request->payment_type == 1){
             return "custom order";
          }else{
             
-            return redirect()->route('order.payment', $order->payment_secure_id);
+            return redirect()->route('order.payment', [$order_id ,$order->payment_secure_id]);
          }
 
 
@@ -833,7 +872,7 @@ class CheckoutController extends Controller
         // loop end
 
         $checkout->products = json_encode($data);
-        $checkout->orderid = 5555;
+        $checkout->orderid = auth()->user()->order_id;
         $checkout->save();
 
         return $checkout;
@@ -864,7 +903,7 @@ class CheckoutController extends Controller
         $orderplace =OrderPlace::create([
             'shipping_id'=>$shipping_id,
             'payment_type'=>$request->payment_type,
-            'order_id'=>5555,
+            'order_id'=>auth()->user()->order_id,
             'user_id'=>auth()->user()->id,
             'checkout_id'=>$checkout->id,
             'total_price'=>Cart::session(\Request::getClientIp(true))->getTotal(),
@@ -885,17 +924,18 @@ class CheckoutController extends Controller
 
     // online payment page
 
-    public function onlinePaymentPage ($id)
+    public function onlinePaymentPage ($order_id,$secure_id)
     {
-        $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $id)->first();
+      $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $secure_id)->where('order_id',$order_id)->first();
         abort_if(!$orderPlace, 403);
 
         $address = DifferentAddress::where('orderid',$orderPlace->order_id)->first();
 
-        if($address->exists()){
+        if($address){
             return view('frontend.shipping.online_payment',compact('orderPlace','address'));
         }else{
-            $address =UserAddress::where('userid',auth()->user()->id)->first();
+            
+            $address =CustomarAccount::where('userid',auth()->user()->id)->first();
             return view('frontend.shipping.online_payment',compact('orderPlace','address'));
         }
 
