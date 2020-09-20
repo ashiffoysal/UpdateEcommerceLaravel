@@ -434,6 +434,15 @@ class FrontendController extends Controller
     
     public function checkoutPage()
     {
+        $items = \Cart::session(\Request::getClientIp(true))->getContent();
+
+        if(count($items) == 0){
+            $notification = array(
+                'messege' => 'Please add some products!',
+                'alert-type' =>'success'
+            );
+            return redirect('/')->with($notification);
+        } 
         $customar =CustomarAccount::where('userid',auth()->user()->id)->first();
         $items = \Cart::session(\Request::getClientIp(true))->getContent();
         return view('frontend.shipping.checkout',compact('customar','items'));

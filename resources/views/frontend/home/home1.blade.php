@@ -217,6 +217,7 @@
 
                                    <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-eye"></i></a></li>
 
+                                  
                                     <li>
                                         @if($product->product_type==1)
                                         <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
@@ -224,6 +225,7 @@
                                         <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
                                         @endif
                                     </li>
+                                   
 
                                     <li>
                                         @if(Auth::guard('web')->check())
@@ -646,7 +648,14 @@
                                     <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
                                 </ul>
                             </div>
-                            <div class="ps-product__shopping"><a class="ps-btn ps-btn--black" href="#">Add to cart</a><a class="ps-btn" href="#">Buy Now</a>
+                            <form id="option-choice-form">
+                                        <!-- product information -->
+                                        <input type="hidden" id="product_total" name="product_price" value="">
+                                        <input type="hidden" id="product_id" name="product_id" value="">
+                                        <input type="hidden"  name="quantity" value="1">
+                                        
+                            <div class="ps-product__shopping"><button type="button" class="ps-btn ps-btn--black" href="#" id="addtocartmodal">Add to cart</button><a class="ps-btn" href="#">Buy Now</a>
+                            </form>
                                 <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
                             </div>
                         </div>
@@ -670,6 +679,16 @@
                      type:"GET",
                      dataType:"json",
                      success:function(data) {
+                         
+                         
+                            document.getElementById('product_id').value = data.id;
+                            document.getElementById('product_total').value = data.product_price;
+
+                                 
+
+
+                                
+
 
                             $(".name").html("<h1>"+ data.product_name +"</h1>");
                             $(".price").html("<h4 class='ps-product__price'>"+ data.product_price +"</h4>");
@@ -690,5 +709,29 @@
 
          });
      });
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#addtocartmodal').on('click', function () {
+            
+
+            
+
+          console.log($('#option-choice-form').serializeArray());
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('product.add.cart') }}",
+                data: $('#option-choice-form').serializeArray(),
+                success: function (data) {                  
+                    document.getElementById('cartdatacount').innerHTML = data.quantity;
+                    document.getElementById('product_price').innerHTML = toFixed(data.total);
+                }
+            });
+        });
+    });
 </script>
 @endsection

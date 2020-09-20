@@ -866,7 +866,7 @@
         });
 
         Route::prefix('payment')->group(function(){
-            Route::get('/{secure_id}','CheckoutController@onlinePaymentPage')->name('order.payment');
+            Route::get('/{order_id}/{secure_id}','CheckoutController@onlinePaymentPage')->name('order.payment');
         });
         
         Route::prefix('product')->group(function(){
