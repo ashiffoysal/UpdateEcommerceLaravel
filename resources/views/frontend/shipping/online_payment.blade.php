@@ -16,7 +16,7 @@
                 <h1>Payment</h1>
             </div>
             <div class="ps-section__content">
-                <form class="ps-form--checkout" action="{{route('checkout.data.create')}}" method="post">
+                <form class="ps-form--checkout" action="{{route('payment.make.payment')}}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-xl-7 col-lg-8 col-md-12 col-sm-12  ">
@@ -28,22 +28,27 @@
                                     <h3 class="ps-form__heading">Payment Methods</h3>
 
                                     <div class="form-group">
-                                        <div class="ps-checkbox">
-                                            <input class="form-control" type="checkbox" name="payment_method" value="1" id="paypal">
+                                        <div class="ps">
+
+                                            <input class="form-control" type="radio" name="payment_method_id" value="3" id="pay_method">
+                                        
+
+                                            <input type="hidden" name="payment_secure_id" value="{{ $orderPlace->payment_secure_id }}">
+                                            <input type="hidden" name="order_id" value="{{ $orderPlace->order_id }}">
                                             <label for="paypal">Payment with Paypal</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="ps-checkbox">
-                                            <input class="form-control" type="checkbox" name="payment_method" value="2" id="stripe">
+                                        <div class="ps">
+                                            <input class="form-control" type="radio" name="payment_method_id" value="2" id="pay_method">
                                             <label for="stripe">Payment with Stripe</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="ps-checkbox">
-                                            <input class="form-control" type="checkbox" name="payment_method" value="3" id="ssl">
+                                        <div class="ps">
+                                            <input class="form-control" type="radio" name="payment_method_id" value="4" id="pay_method">
                                             <label for="ssl">Payment with SSLCOMMERZ</label>
                                         </div>
                                     </div>

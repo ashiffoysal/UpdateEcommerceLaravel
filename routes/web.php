@@ -3,6 +3,22 @@
 
 
     Auth::routes();
+Route::get('/example1', 'SslCommerzPaymentController@exampleEasyCheckout')->name('');
+Route::get('/example2', 'SslCommerzPaymentController@exampleHostedCheckout');
+
+Route::post('/pay', 'SslCommerzPaymentController@index');
+
+Route::post('/pay-via-ajax', 'SslCommerzPaymentController@payViaAjax');
+
+Route::post('/success', 'SslCommerzPaymentController@success');
+Route::post('/fail', 'SslCommerzPaymentController@fail');
+Route::post('/cancel', 'SslCommerzPaymentController@cancel');
+
+Route::post('/ipn', 'SslCommerzPaymentController@ipn');
+
+
+
+
 
     Route::group(['prefix' => 'forgot/password', 'namespace' => 'Auth'], function () {
         Route::get('verification/code/{remember_token}', 'ForgotPasswordController@forgetPassVerificationCodeFrom')->name('forget.password.verify.code.form');
@@ -525,7 +541,7 @@
 
 
     Route::get('/pay-with-paypal', 'Frontend\CheckoutController@paywithpaypal')->name('payment.paypal');
-    Route::get('/payment/success', 'Frontend\CheckoutController@paymentsuccess');
+    Route::get('/payfdggfg', 'Frontend\CheckoutController@paymentsuccess');
     Route::get('/text', 'Frontend\CheckoutController@text');
 
     // user controller
@@ -848,6 +864,7 @@
             Route::post('/cart/update', 'AddToCartController@viewCartUpdate')->name('product.cart.update');
             Route::get('/checkout/page/{orderid}', 'FrontendController@checkoutPage')->name('product.checkout');
             Route::post('/customar/create', 'CheckoutController@customarDataCreate')->name('checkout.data.create');
+            Route::post('/customar/online/payment', 'CheckoutController@onlinepayment')->name('checkout.data.online');
             
         });
 
@@ -881,6 +898,7 @@
     
 
     
+// SSLCOMMERZ Start
 
     
 

@@ -125,7 +125,7 @@
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" name="payment_type"  type="checkbox" value="2" id="defaultCheck1">
+                                        <input class="form-check-input" name="payment_type"  type="checkbox" value="2"id="defaultCheck1">
                                         <label class="form-check-label" for="defaultCheck1">
                                             Online payment
                                         </label>

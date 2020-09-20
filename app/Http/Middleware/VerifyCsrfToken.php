@@ -19,8 +19,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'http://localhost/foysal/echofinal2/payment/ssl_commercez/success',
-        'http://localhost/foysal/echofinal2/payment/ssl_commercez/fail',
-        'http://localhost/foysal/echofinal2/payment/ssl_commercez/cancel',
+        '/pay-via-ajax', '/success','/cancel','/fail','/ipn'
     ];
 }
