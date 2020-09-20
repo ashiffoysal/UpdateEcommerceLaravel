@@ -111,4 +111,4 @@
     
     <!-- Modal area add -->
 
-    @include('frontend.include.modal.modal')
+   <!--  @include('frontend.include.modal.modal') -->
