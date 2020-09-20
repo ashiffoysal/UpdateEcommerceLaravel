@@ -692,6 +692,19 @@
 
     });
 
+
+// qiuck view controller
+    Route::get('/get/product/quickview/{p_id}', 'Frontend\QuickviewController@quick');
+
+
+
+
+
+
+
+
+
+
     Route::get(md5('admin/product/stockreport'), 'Admin\ReportController@productstockreport')->name('admin.product.stock');
     Route::get('/get/admin/report/category/filter', 'Admin\ReportController@categoryreport');
     Route::get(md5('admin/product/wishlist'), 'Admin\ReportController@wishproduct')->name('admin.product.wishlistpro');

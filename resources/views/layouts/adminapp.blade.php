@@ -399,7 +399,7 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{ route('admin.sociallogin') }}">Social Login</a></li>
                             <li><a href="{{ route('theme.selector.show') }}">Theme Option</a></li>
                             <li><a href="{{ route('admin.footer.option') }}">Footer Option</a></li>
-                            <li><a href="{{ route('admin.social.all') }}">Social</a></li>
+                            <li><a href="">Social</a></li>
                         </ul>
                     </li>
                     @else
