@@ -162,9 +162,15 @@
                                     <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">
                                         <img data-src="{{asset('public/frontend/img/products/home-2/recommend/1.jpg')}}" src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
                                         <ul class="ps-product__actions">
-                                              <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                            <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
                                     
-                                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                                    <li>
+                                                         @if($product->product_type==1)
+                                                    <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                                    @else
+                                                    <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
+                                                    @endif
+                                                    </li>
 
                                                     <li>
                                                         @if(Auth::guard('web')->check())
@@ -174,7 +180,7 @@
                                                         @endif
                                                     </li>
 
-                                                <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+                                                    <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
@@ -409,13 +415,7 @@
                         <div class="ps-shopping__header">
                             <p><strong> {{$productcount}}</strong> Products found</p>
                             <div class="ps-shopping__actions">
-                                <select class="ps-select" data-placeholder="Sort Items">
-                                    <option>Sort by latest</option>
-                                    <option>Sort by popularity</option>
-                                    <option>Sort by average rating</option>
-                                    <option>Sort by price: low to high</option>
-                                    <option>Sort by price: high to low</option>
-                                </select>
+                            
                                 <div class="ps-shopping__view">
                                     <p>View</p>
                                     <ul class="ps-tab-list">
@@ -436,7 +436,13 @@
                                                     <ul class="ps-product__actions">
                                                          <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
                                     
-                                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                                    <li>
+                                                         @if($product->product_type==1)
+                                                    <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                                    @else
+                                                    <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
+                                                    @endif
+                                                    </li>
 
                                                     <li>
                                                         @if(Auth::guard('web')->check())

@@ -1,5 +1,6 @@
 @extends('layouts.websiteapp')
 @section('content')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="ps-breadcrumb">
         <div class="container">
             <ul class="breadcrumb">
@@ -28,7 +29,18 @@
 
                                     <ul class="ps-product__actions">
                                           <li><a href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                        <!--  -->
+                                          <li>
+                                           @if($flasdetail->product->product_type==1)
+                                            <a href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                            @else
+                                            <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$flasdetail->product->id}}"><i class="icon-bag2"></i></a>
+                                            @endif
+                                            </li>
+
+                                        <!--  -->
+
+
                                     <li>
                                         @if(Auth::guard('web')->check())
                                         <a class="mywishlist" data-id="{{$flasdetail->product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
@@ -605,17 +617,25 @@
                         <div class="ps-product">
                             <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
                                 <ul class="ps-product__actions">
-                                       <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-eye"></i></a></li>
-                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-bag2"></i></a></li>
-                                    <li>
-                                        @if(Auth::guard('web')->check())
-                                        <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
-                                        @else
-                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
-                                        @endif
-                                    </li>
+                                      <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                    
+                                                    <li>
+                                                         @if($product->product_type==1)
+                                                    <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                                    @else
+                                                    <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
+                                                    @endif
+                                                    </li>
 
-                                    <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+                                                    <li>
+                                                        @if(Auth::guard('web')->check())
+                                                        <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                        @else
+                                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                        @endif
+                                                    </li>
+
+                                                    <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                 </ul>
                             </div>
                             <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
@@ -665,4 +685,5 @@
             </form>
         </div>
     </div>
+    
     @endsection

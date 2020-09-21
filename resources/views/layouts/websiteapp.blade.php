@@ -1,4 +1,4 @@
-P<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -37,6 +37,8 @@ P<!DOCTYPE html>
     @include('frontend.include.home11.css')
     @endif
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 </head>
 
 <body>
@@ -151,6 +153,154 @@ P<!DOCTYPE html>
         @include('frontend.include.home11.js')
     @endif
     <!-- add version1 js -->
+
+
+<div class="modal fade" id="product-quickview" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content"><span class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
+                <article class="ps-product--detail ps-product--fullwidth ps-product--quickview">
+                    <div class="ps-product__header">
+                        <div class="ps-product__thumbnail" data-vertical="false">
+                            <div class="ps-product__images" data-arrow="true" >
+
+                                <div class="item" id="img">
+                                  <!--   <img src="{{asset('public/frontend')}}/img/products/detail/fullwidth/1.jpg" alt=""> -->
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="ps-product__info">
+                            <div class="name"></div>
+                             <input type="hidden" name="id" id="id">
+                            <div class="ps-product__meta">
+                                <p>Brand:<a href="">Sony</a></p>
+                                <div class="ps-product__rating">
+                             <!--        <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="1">2</option>
+                                        <option value="1">3</option>
+                                        <option value="1">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>(1 review)</span> -->
+                                </div>
+                            </div>
+                            <div class="price">
+                                
+                            </div>
+                            
+                            <div class="ps-product__desc">
+                                <!-- <p>Sold By:<a href="shop-default.html"><strong> Go Pro</strong></a></p> -->
+                                <ul class="ps-list--dot">
+                                    <li> Unrestrained and portable active stereo speaker</li>
+                                    <li> Free from the confines of wires and chords</li>
+                                    <li> 20 hours of portable capabilities</li>
+                                    <li> Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li>
+                                    <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
+                                </ul>
+                            </div>
+                            <form id="option-choice-form">
+                                        <!-- product information -->
+                                        <input type="hidden" id="product_total" name="product_price" value="">
+                                        <input type="hidden" id="product_id" name="product_id" value="">
+                                        <input type="hidden"  name="quantity" value="1">
+                                        
+                            <div class="ps-product__shopping"><button type="button" class="ps-btn ps-btn--black" href="#" id="addtocartmodal">Add to cart</button><a class="ps-btn" href="#">Buy Now</a>
+                            </form>
+                                <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function(){
+      
+        $('#input-search').on('keyup', function(){
+            var product_name = $(this).val();
+            var category_id = $('#category_id').val();
+        
+
+            $.ajax({
+                url:"search/product/by/category"+"/"+category_id+"/"+product_name,
+                type:'get',
+                success:function(data){
+                   $('#search-result').empty();
+                    $('#search-result').html(data);
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+      
+        $('#msearchp').on('keyup', function(){
+            var product_name = $(this).val();
+            //alert(product_name);
+            $.ajax({
+                url:"search/mobile/product/ajax"+"/"+product_name,
+                type:'get',
+                success:function(data){
+                   $('#search_product_ajax').empty();
+                    $('#search_product_ajax').html(data);
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+
+      $(document).ready(function() {
+         $('.quickview').on('click', function(){
+             var p_id = $(this).data('id');
+             //alert(p_id);
+             if(p_id) {
+                 $.ajax({
+                     url: "{{ url('/get/product/quickview/') }}/"+p_id,
+                     type:"GET",
+                     dataType:"json",
+                     success:function(data) {
+                            document.getElementById('product_id').value = data.id;
+                            document.getElementById('product_total').value = data.product_price;
+
+                            $(".name").html("<h1>"+ data.product_name +"</h1>");
+                            $(".price").html("<h4 class='ps-product__price'>"+ data.product_price +"</h4>");
+                            $("#id").val(data.id);
+                            //$("#descrip").val(data.subcate_slug);
+                            // $("#subcate_tag_edit").val(data.subcate_tag);
+                            // $("#cate_id").val(data.cate_id).select;
+                             $("#img").html("<img src={{asset('')}}public/uploads/products/thumbnail/"+data.    thumbnail_img +"/>");
+                            // $("#store-img").append("<input type='hidden' name='old_image' value='"+data.subcate_image+"' />");
+                            // $("#icon").html("<img src={{asset('')}}public/uploads/subcategory/"+data.subcate_icon+" height='70px'/>");
+                            // $("#store-icon").append("<input type='hidden' name='old_icon' value='"+data.subcate_icon+"' />");
+
+                        }
+                 });
+             } else {
+                 alert('danger');
+             }
+
+         });
+     });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
     
@@ -285,7 +435,7 @@ P<!DOCTYPE html>
                         processData: false,
                         success: function (data) {
                            
-                            if (data.check) {
+                            if (data.checkip) {
                                   iziToast.error({
                                         message: 'This Product All ready Add compare',
                                         'position':'topRight'
@@ -307,27 +457,27 @@ P<!DOCTYPE html>
                 }
             });
             // 
-            // $('.mywishlist').on('click', function () {
-            //     var id = $(this).data('id');
-            //     //alert(id);
-            //     if (id) {
+            $('.compare').on('click', function () {
+                var id = $(this).data('id');
+                //alert(id);
+                if (id) {
 
-            //         $.ajax({
-            //             url: "{{ url('/product/add/wishlist/count') }}/" + id,
-            //             type: "GET",
-            //             dataType: "json",
-            //             processData: false,
-            //             success: function (data) {
+                    $.ajax({
+                        url: "{{ url('/product/add/compare/comcount/') }}/" + id,
+                        type: "GET",
+                        dataType: "json",
+                        processData: false,
+                        success: function (data) {
                             
-            //                 document.getElementById('countwish').innerHTML = data.data;
+                            document.getElementById('coutncompa').innerHTML = data.data;
 
                              
-            //             }
-            //         });
-            //     } else {
-            //         alert('danger');
-            //     }
-            // });
+                        }
+                    });
+                } else {
+                    alert('danger');
+                }
+            });
 
 
 
@@ -335,7 +485,8 @@ P<!DOCTYPE html>
     </script>
 
 
-    <!-- compare -->
+
+
 
 </body>
 

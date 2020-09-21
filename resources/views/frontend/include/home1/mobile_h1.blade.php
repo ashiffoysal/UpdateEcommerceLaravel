@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="navigation--mobile">
-            <div class="navigation__left"><a class="ps-logo" href="index.html"><img src="{{asset('public/frontend')}}/img/logo_light.png" alt=""></a></div>
+            <div class="navigation__left"><a class="ps-logo" href="{{url('/')}}"><img src="{{asset('/'.$logos->front_logo)}}" alt=""></a></div>
             <div class="navigation__right">
                 <div class="header__actions">
                     <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>
@@ -60,11 +60,14 @@
             </div>
         </div>
         <div class="ps-search--mobile">
-            <form class="ps-form--search-mobile" action="index.html" method="get">
+            <form class="ps-form--search-mobile" action="{{url('mobile/product/search')}}" method="get">
+                
+                @csrf
                 <div class="form-group--nest">
-                    <input class="form-control" type="text" placeholder="Search something...">
-                    <button><i class="icon-magnifier"></i></button>
+                    <input class="form-control" type="text" placeholder="Search something..." name="search">
+                    <button type="submit"><i class="icon-magnifier"></i></button>
                 </div>
+
             </form>
         </div>
     </header>
@@ -95,93 +98,41 @@
         </div>
         <div class="ps-panel__content">
             <ul class="menu--mobile">
-                <li class="current-menu-item "><a href="#">Hot Promotions</a>
-                </li>
-                <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#">Consumer Electronic</a><span class="sub-toggle"></span>
-                    <div class="mega-menu">
-                        <div class="mega-menu__column">
-                            <h4>Electronic<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li class="current-menu-item "><a href="#">Home Audio &amp; Theathers</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">TV &amp; Videos</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Camera, Photos &amp; Videos</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Cellphones &amp; Accessories</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Headphones</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Videosgames</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Wireless Speakers</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Office Electronic</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mega-menu__column">
-                            <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li class="current-menu-item "><a href="#">Digital Cables</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Audio &amp; Video Cables</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Batteries</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="current-menu-item "><a href="#">Clothing &amp; Apparel</a>
-                </li>
-                <li class="current-menu-item "><a href="#">Home, Garden &amp; Kitchen</a>
-                </li>
-                <li class="current-menu-item "><a href="#">Health &amp; Beauty</a>
-                </li>
-                <li class="current-menu-item "><a href="#">Yewelry &amp; Watches</a>
-                </li>
-                <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="#">Computer &amp; Technology</a><span class="sub-toggle"></span>
-                    <div class="mega-menu">
-                        <div class="mega-menu__column">
-                            <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>
-                            <ul class="mega-menu__list">
-                                <li class="current-menu-item "><a href="#">Computer &amp; Tablets</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Laptop</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Monitors</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Networking</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Drive &amp; Storages</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Computer Components</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Security &amp; Protection</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Gaming Laptop</a>
-                                </li>
-                                <li class="current-menu-item "><a href="#">Accessories</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="current-menu-item "><a href="#">Babies &amp; Moms</a>
-                </li>
-                <li class="current-menu-item "><a href="#">Sport &amp; Outdoor</a>
-                </li>
-                <li class="current-menu-item "><a href="#">Phones &amp; Accessories</a>
-                </li>
-                <li class="current-menu-item "><a href="#">Books &amp; Office</a>
-                </li>
-                <li class="current-menu-item "><a href="#">Cars &amp; Motocycles</a>
-                </li>
-                <li class="current-menu-item "><a href="#">Home Improments</a>
-                </li>
-                <li class="current-menu-item "><a href="#">Vouchers &amp; Services</a>
-                </li>
+                 @foreach($allcategory as $category)
+                    @php
+                        $check = App\SubCategory::where('cate_id',$category->id)->first();
+                    @endphp
+                    @if($check)
+                         <li class="current-menu-item menu-item-has-children has-mega-menu"><a href="{{url('product/page/'.$category->cate_slug)}}">{{$category->cate_name}}</a><span class="sub-toggle"></span>
+                            @php
+                                $allsub=App\SubCategory::where('cate_id',$category->id)->where('is_deleted',0)->where('subcate_status',1)->get();
+                            @endphp
+                            
+                            <div class="mega-menu">
+                            @foreach($allsub as $subcate)  
+                                <div class="mega-menu__column">
+                                    <h4>{{ $subcate->subcate_name}}<span class="sub-toggle"></span></h4>
+                                    <ul class="mega-menu__list">
+                                         @php
+                                            $resubcate =App\ReSubCategory::where('is_deleted',0)->where('subcate_id',$subcate->id)->get();
+                                                @endphp
+                                         @foreach($resubcate as $rcate)
+                                        <li class="current-menu-item "><a href="{{url('resubacetegory/'.$category->cate_slug.'/'.$subcate-> subcate_slug.'/'.$rcate->resubcate_slug)}}">{{$rcate->resubcate_name}}</a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endforeach
+                            </div>
+                            
+                        </li>
+                    @else
+                        <li class="current-menu-item"><a href="{{url('product/page/'.$category->cate_slug)}}">{{$category->cate_name}}</a></li>
+                    @endif
+                
+                @endforeach
+               
+
             </ul>
         </div>
     </div>
@@ -190,14 +141,19 @@
     </div>
     <div class="ps-panel--sidebar" id="search-sidebar">
         <div class="ps-panel__header">
-            <form class="ps-form--search-mobile" action="index.html" method="get">
+            <form class="ps-form--search-mobile" action="" method="get">
+               
                 <div class="form-group--nest">
-                    <input class="form-control" type="text" placeholder="Search something...">
-                    <button><i class="icon-magnifier"></i></button>
+                    <input class="form-control" type="text" placeholder="Search something..." name="msearchp" id="msearchp">
+                    <button type="submit"><i class="icon-magnifier"></i></button>
                 </div>
             </form>
         </div>
-        <div class="navigation__content"></div>
+        <div class="navigation__content">
+            <div class="search_product_ajax" id="search_product_ajax">
+                
+            </div>
+        </div>
     </div>
     <div class="ps-panel--sidebar" id="menu-mobile">
         <div class="ps-panel__header">

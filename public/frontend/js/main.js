@@ -837,13 +837,30 @@
                     max: 1000,
                 },
             });
+            
             var nodes = [
                 document.querySelector('.ps-slider__min'),
                 document.querySelector('.ps-slider__max'),
+                // document.querySelector("input[name='minval']"),
+                // document.querySelector("input[name='maxval']"),
+               
+             
             ];
             nonLinearSlider.noUiSlider.on('update', function(values, handle) {
                 nodes[handle].innerHTML = Math.round(values[handle]);
+
+                var minval = document.querySelector('.ps-slider__min');
+                var maxval = document.querySelector('.ps-slider__max');
+         
+            
+                var minvall=document.getElementById("minval");
+                var maxvall=document.getElementById("maxval");
+
+                   minvall.value=minval.innerHTML;
+                   maxvall.value=maxval.innerHTML;
+                 
             });
+
         }
     }
 
