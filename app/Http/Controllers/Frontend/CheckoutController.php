@@ -549,11 +549,11 @@ class CheckoutController extends Controller
         // $usercartdatas = Cart::session($userid)->getContent();
         $userid = Auth::user()->id;
         $usercartdatas = OrderPlace::where('user_id', $userid)->orderBy('id', 'DESC')->first();
-        $cartid = $usercartdatas->cart_id;
+        $cartid = $usercartdatas->order_id;
 
-        $orderstorage = OrderStorage::where('purchase_key', $cartid)->first();
+        $orderstorage = Checkout::where('orderid', $cartid)->first();
 
-        foreach (json_decode($orderstorage->cart_data) as $key => $cart) {
+        foreach (json_decode($orderstorage->products) as $key => $cart) {
             $itemdetails = [
                 'name' => $cart->name,
                 'price' => $cart->price,

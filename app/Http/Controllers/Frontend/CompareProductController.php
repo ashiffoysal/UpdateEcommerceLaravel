@@ -57,4 +57,11 @@ class CompareProductController extends Controller
 
         return view('frontend.shipping.compareajax');
     }
+
+    public function comparecount(Request $request,$id){
+        $userid = $request->ip();
+        $data = CompareProduct::where('ip_address', $userid)->count();
+            //echo $data;
+         return response()->json(['data' => $data]);
+    }
 }

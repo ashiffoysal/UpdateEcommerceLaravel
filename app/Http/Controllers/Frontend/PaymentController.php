@@ -336,19 +336,19 @@ class PaymentController extends Controller
             $getOrderPlace->payment_secure_id = NULL;
             $getOrderPlace->save();
 
-            if (Auth::user()->email) {
-                $siteSettings = DB::table('sitesetting')
-                    ->select('company_name', 'address', 'facebook', 'twitter', 'instagram')->first();
-                $frontLogo = Logo::select(['front_logo'])->first();
-                $userAddress = CustomarAddress::where('user_id', $getOrderPlace->user_id)->select('user_address')->first();
-                $shippingAddress = ShippingAddress::where('shipping_user_id', $getOrderPlace->user_id)
-                                        ->where('order_id', $getOrderPlace->order_id)
-                                        ->select('shipping_address')
-                                        ->first();
-                Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getOrderPlace, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
-            }
+            // if (Auth::user()->email) {
+            //     $siteSettings = DB::table('sitesetting')
+            //         ->select('company_name', 'address', 'facebook', 'twitter', 'instagram')->first();
+            //     $frontLogo = Logo::select(['front_logo'])->first();
+            //     $userAddress = CustomarAddress::where('user_id', $getOrderPlace->user_id)->select('user_address')->first();
+            //     $shippingAddress = ShippingAddress::where('shipping_user_id', $getOrderPlace->user_id)
+            //                             ->where('order_id', $getOrderPlace->order_id)
+            //                             ->select('shipping_address')
+            //                             ->first();
+            //     Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getOrderPlace, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
+            // }
 
-            return view('frontend.payment.ssl_commerce.success', compact('information'));
+            return view('frontend.payment.payment_success', compact('information'));
         }
     }
 

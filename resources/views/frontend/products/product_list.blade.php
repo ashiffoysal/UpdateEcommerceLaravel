@@ -181,12 +181,13 @@
 
                         </ul>
                     </aside>
+                    <form  action="{{url('search/all')}}" method="get">
                     <aside class="widget widget_shop">
                         <h4 class="widget-title">BY PRODUCT</h4>
-                        <form class="ps-form--widget-search" action="do_action" method="get">
+                        <!-- <form class="ps-form--widget-search" action="do_action" method="get"> -->
                             <input class="form-control" type="text" placeholder="" name="product_name" id="product_name">
-                            <button><i class="icon-magnifier"></i></button>
-                        </form>
+                           
+                        <!-- </form> -->
                         <figure class="ps-custom-scrollbar" data-height="250">
                             @foreach($allbrand as $key => $brand)
                                 @php
@@ -199,44 +200,15 @@
                             @endforeach
                        
                         </figure>
-                        <figure>
+                         <figure>
                             <h4 class="widget-title">By Price</h4>
-                            <div>
-                               <div class="list-group">
-                             <h3>Price</h3>
-                             <input type="hidden" id="hidden_minimum_price" value="0" />
-                                            <input type="hidden" id="hidden_maximum_price" value="65000" />
-                                            <p id="price_show">1000 - 65000</p>
-                                            <div id="price_range"></div>
-                                        </div>    
-                             
-                            </div>
-                         <!--    <div id="nonlinear"></div>
-                            <p class="ps-slider__meta">Price:<span class="ps-slider__value">৳<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">৳<span class="ps-slider__max"></span></span></p> -->
+                       
+                            <div id="nonlinear"></div>
+                            <input type="text" name="minval" class="minval" value="" id="minval" onchange="update_filter()">
+                            <input type="text" name="maxval" class="minval" value="" id="maxval" onchange="update_filter()"><br>
+                            <p class="ps-slider__meta">Price:<span class="ps-slider__value">৳<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">৳<span class="ps-slider__max"></span></span></p>
                         </figure>
-                       <!--  <figure>
-                            <h4 class="widget-title">By Price</h4>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-1" name="review">
-                                <label for="review-1"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i></span><small>(13)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-2" name="review">
-                                <label for="review-2"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i></span><small>(13)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-3" name="review">
-                                <label for="review-3"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(5)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-4" name="review">
-                                <label for="review-4"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(5)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-5" name="review">
-                                <label for="review-5"><span><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(1)</small></label>
-                            </div>
-                        </figure> -->
+
                         <figure>
                             <h4 class="widget-title">By Color</h4>
                             <div class="ps-checkbox ps-checkbox--color color-1 ps-checkbox--inline">
@@ -247,7 +219,7 @@
                                 <input class="form-control" type="checkbox" id="color-2" name="size">
                                 <label for="color-2"></label>
                             </div>
-                            <!-- <div class="ps-checkbox ps-checkbox--color color-3 ps-checkbox--inline">
+                            <div class="ps-checkbox ps-checkbox--color color-3 ps-checkbox--inline">
                                 <input class="form-control" type="checkbox" id="color-3" name="size">
                                 <label for="color-3"></label>
                             </div>
@@ -270,12 +242,16 @@
                             <div class="ps-checkbox ps-checkbox--color color-8 ps-checkbox--inline">
                                 <input class="form-control" type="checkbox" id="color-8" name="size">
                                 <label for="color-8"></label>
-                            </div> -->
+                            </div>
                         </figure>
                         <figure class="sizes">
-                            <h4 class="widget-title">BY SIZE</h4><a href="#">L</a><a href="#">M</a><a href="#">S</a><a href="#">XL</a>
+                            <h4 class="widget-title">BY SIZE</h4><a href="#">L</a><a href="#">M</a>
+                            <a href="#">S</a><a href="#"></a><a href="#">S</a><a href="#"></a>
+
                         </figure>
+                       
                     </aside>
+                </form>
                 </div>
                 <!-- search section -->
                
@@ -295,10 +271,25 @@
                                     <div class="ps-product__thumbnail"><a href="">
                                         <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
                                         <ul class="ps-product__actions">
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                            <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a></li>
-                                            <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+                                             <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                    
+                                                    <li>
+                                                         @if($product->product_type==1)
+                                                    <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                                    @else
+                                                    <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
+                                                    @endif
+                                                    </li>
+
+                                                    <li>
+                                                        @if(Auth::guard('web')->check())
+                                                        <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                        @else
+                                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                        @endif
+                                                    </li>
+
+                                                    <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
@@ -560,7 +551,13 @@
                                                     <ul class="ps-product__actions">
                                                      <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
                                     
-                                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                                    <li>
+                                                         @if($product->product_type==1)
+                                                    <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                                    @else
+                                                    <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
+                                                    @endif
+                                                    </li>
 
                                                     <li>
                                                         @if(Auth::guard('web')->check())
@@ -675,60 +672,6 @@
         </div>
     </div>
 
-<script>
-$(document).ready(function(){
-
-    filter_data();
-
-    function filter_data()
-    {
-        $('.filter_data').html('<div id="loading" style="" ></div>');
-        var action = 'fetch_data';
-        var minimum_price = $('#hidden_minimum_price').val();
-        var maximum_price = $('#hidden_maximum_price').val();
-        var brand = get_filter('brand');
-        var ram = get_filter('ram');
-        var storage = get_filter('storage');
-        $.ajax({
-            url:"fetch_data.php",
-            method:"POST",
-            data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage},
-            success:function(data){
-                $('.filter_data').html(data);
-            }
-        });
-    }
-
-    function get_filter(class_name)
-    {
-        var filter = [];
-        $('.'+class_name+':checked').each(function(){
-            filter.push($(this).val());
-        });
-        return filter;
-    }
-
-    $('.common_selector').click(function(){
-        filter_data();
-    });
-
-    $('#price_range').slider({
-        range:true,
-        min:1000,
-        max:65000,
-        values:[1000, 65000],
-        step:500,
-        stop:function(event, ui)
-        {
-            $('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
-            $('#hidden_minimum_price').val(ui.values[0]);
-            $('#hidden_maximum_price').val(ui.values[1]);
-            filter_data();
-        }
-    });
-
-});
-</script>
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -759,7 +702,17 @@ $(document).ready(function(){
 </script>
 
 
+<script>
+// $(document).ready(function(){
+//   $("input").change(function(){
+//     alert("The text has been changed.");
+//   });
+// });
 
+$(document).on('change', 'input', function() {
+  alert("The text has been changed.");
+});
+</script>
 
 
 @endsection

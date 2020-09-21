@@ -427,6 +427,9 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
     Route::get('/product/compare/page', 'Frontend\CompareProductController@productCompare')->name('product.compare');
     Route::get('/product/compare/get', 'Frontend\CompareProductController@getCompare')->name('get.compare.data');
     Route::get('/product/add/compare/{com_id}', 'Frontend\CompareProductController@necompare');
+
+    Route::get('/product/add/compare/comcount/{id}', 'Frontend\CompareProductController@comparecount');
+
     Route::post('/compare/delete/', 'Frontend\CompareProductController@delete')->name('compare.list.del');
     // wish list end
 
@@ -793,7 +796,12 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
     });
 
 
-    // Search Route Created By Harrison
+    // Search Route Created By asif
+
+    Route::get('search/all', 'Frontend\SearchController@searchall');
+
+    Route::get('mobile/product/search', 'Frontend\SearchController@searchmobile');
+    Route::get('search/mobile/product/ajax/{productName}', 'Frontend\SearchController@mobilesearchajax');
 
     Route::get('search/product/by/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByAjax');
     Route::get('search/product/by/main/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByMainCatByAjax');
@@ -812,6 +820,7 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
         Route::get('paypal/success/payment', 'PaymentController@paypalsuccess')->name('payment.paypal.success');
 
         Route::post('ssl_commercez/success', 'PaymentController@sslSuccess');
+
         Route::post('ssl_commercez/fail', 'PaymentController@sslFail');
         Route::post('ssl_commercez/cancel', 'PaymentController@sslCancel');
 

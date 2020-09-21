@@ -97,11 +97,13 @@
                 <div class="header__right">
 
                     @php
+                        $ip = Request::ip();
                         $user_id = Auth::id();
                         $allwish=App\wishlist::where('user_id',$user_id)->count();
+                        $allcompare=App\CompareProduct::where('ip_address',$ip)->count();
                           
                     @endphp
-                    <div class="header__actions"><a class="header__extra" href="{{url('/product/compare/page')}}"><i class="icon-chart-bars"></i><span><i id="countcompare">0</i></span></a>
+                    <div class="header__actions"><a class="header__extra" href="{{url('/product/compare/page')}}"><i class="icon-chart-bars"></i><span><i id="coutncompa">{{$allcompare}}</i></span></a>
                         <a class="header__extra" href="{{url('product/wishlist')}}">
                             <i class="icon-heart"></i>
                             <span>
@@ -379,20 +381,13 @@
 
 
 
-<script>
+<!-- <script>
     $(document).ready(function(){
-        //$('.search-section').hide();
+      
         $('#input-search').on('keyup', function(){
             var product_name = $(this).val();
             var category_id = $('#category_id').val();
-           //alert(category_id);
-            // if (product_name === "") {
-            //     $('.search-section').hide();
-            //     $('#main_content').show();
-            // }else{
-            //     $('.search-section').show();
-            //     $('#main_content').hide();
-            // }
+        
 
             $.ajax({
                 url:"search/product/by/category"+"/"+category_id+"/"+product_name,
@@ -404,5 +399,5 @@
             });
         });
     });
-</script>
+</script> -->
 
