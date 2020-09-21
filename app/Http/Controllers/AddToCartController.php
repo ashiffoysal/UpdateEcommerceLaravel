@@ -631,7 +631,16 @@ class AddToCartController extends Controller
 
 
     public function productViewCart()
-    {
+    {   
+        $items = \Cart::session(\Request::getClientIp(true))->getContent();
+
+        if(count($items) == 0){
+            $notification = array(
+                'messege' => 'Please add some products!',
+                'alert-type' =>'success'
+            );
+            return redirect('/')->with($notification);
+        } 
         $orderid = str::random(60);
         return view('frontend.shipping.shopping_cart',compact('orderid'));
     }

@@ -2,7 +2,7 @@
 
 
 
-    Auth::routes();
+Auth::routes();
 Route::get('/example1', 'SslCommerzPaymentController@exampleEasyCheckout')->name('');
 Route::get('/example2', 'SslCommerzPaymentController@exampleHostedCheckout');
 
@@ -858,7 +858,7 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
         });
 
         Route::prefix('product')->middleware('auth:web')->group(function(){
-            Route::get('/product/cart/page', 'AddToCartController@productViewCart')->name('product.cart.data');
+            Route::get('/cart/page', 'AddToCartController@productViewCart')->name('product.cart.data');
             Route::get('/get/cart/data', 'AddToCartController@getCartData')->name('get.cart.data');
             Route::post('cart/data/delete', 'AddToCartController@cartDataDelete')->name('cart.data.delete');
             Route::post('/cart/update', 'AddToCartController@viewCartUpdate')->name('product.cart.update');
@@ -880,10 +880,13 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
 
             Route::post('/apply', 'CheckoutController@applyCupon')->name('customer.apply.cupon');
             Route::get('/value/{oderid}', 'CheckoutController@applyCuponValue');
+            Route::get('/get/total', 'CheckoutController@getCartTotalAmount')->name('cart.total.amount');
         });
 
         Route::prefix('payment')->group(function(){
             Route::get('/{order_id}/{secure_id}','CheckoutController@onlinePaymentPage')->name('order.payment');
+            Route::get('/{order_id}/{secure_id}','CheckoutController@offlinePaymentPage')->name('offline.order.payment');
+            
         });
         
         Route::prefix('product')->group(function(){
@@ -891,6 +894,15 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
             
         });
 
+    });
+
+    // mobile controller area show
+
+    Route::namespace('Mobile')->group(function () {
+        Route::prefix('mobile')->group(function(){
+            Route::get('/cart/data','MobileController@getCartData')->name('get.mobile.cart.data');
+            Route::post('/cart/data/delete','MobileController@addToCartDelete')->name('mobile.cart.data.delete');
+        });
     });
 
 

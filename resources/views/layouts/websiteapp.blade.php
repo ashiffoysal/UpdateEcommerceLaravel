@@ -335,6 +335,56 @@ P<!DOCTYPE html>
     </script>
 
 
+
+<script>
+    window.onmouseup = function(){
+
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/show/total/price') }}",
+
+                success: function(data) {
+                    var totalPrice = data.total;
+                    var totalPrice = totalPrice.toFixed(2);
+                    document.getElementById('cartdatacount').innerHTML = data.quantity;
+                    document.getElementById('mobilecartdatacount').innerHTML = data.quantity;
+                    
+
+                }
+            });
+    }
+</script>
+
+<script>
+    window.onload = function(){
+
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/show/total/price') }}",
+
+                success: function(data) {
+                    var totalPrice = data.total;
+                    var totalPrice = totalPrice.toFixed(2);
+                    document.getElementById('cartdatacount').innerHTML = data.quantity;
+                    document.getElementById('mobilecartdatacount').innerHTML = data.quantity;
+                    
+
+                }
+            });
+    }
+</script>
+
+
     <!-- compare -->
 
 </body>

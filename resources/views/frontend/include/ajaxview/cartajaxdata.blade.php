@@ -19,7 +19,7 @@
     <td>৳ {{$row->quantity *$row->price}}</td>
     <td>
         <!-- <a href="#"><i class="icon-cross"></i></a> -->
-        <button type="submit" onclick="cartDatadelete(this)" data-toggle="tooltip" title="" class="btn btn-danger" value="{{$row->id}}" data-original-title="Remove"><i class="fa fa-times-circle"></i></button>
+        <button type="submit" onclick="cartDatadelete(this);cartTotalData()" data-toggle="tooltip" title="" class="btn btn-danger" value="{{$row->id}}" data-original-title="Remove"><i class="fa fa-times-circle"></i></button>
     </td>
 </tr>
 @endforeach
@@ -35,12 +35,42 @@
                 $('#cartdata').html(data);
                 
                 if (data) {
-                    toastr.success("Product Delete From Cart");
+                    iziToast.info({
+                    message: 'Product Deleted',
+                    'position':'topRight'
+                });
                 } 
+                
                
             });
-            toastr.success("Product Delete From Cart");
+            
 	}
 	
 	cartDatadelete();
+</script>
+
+<script>
+    function cartTotalData(el) {
+
+        
+        
+        
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('cart.total.amount') }}",
+                
+                success: function(data) {
+                    $('#orderdata').html(data);
+                    
+                }
+            });
+            
+	}
+	
+	cartTotalData();
 </script>

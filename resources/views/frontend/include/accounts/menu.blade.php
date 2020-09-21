@@ -12,7 +12,7 @@
             <ul>
                 <li class="{{ request()->is('customar/account') ? 'active' : '' }}"><a href="#"><i class="icon-user"></i> Account Information</a></li>
                 <li><a href="#"><i class="icon-alarm-ringing"></i> Notifications</a></li>
-                <li><a href="#"><i class="icon-papers"></i> Invoices</a></li>
+                <li class="{{ request()->is('/payment/*') ? 'active' : 'null' }}"><a href="#"><i class="icon-papers"></i> Invoices</a></li>
                 <li class="{{ request()->is('customar/address') ? 'active' : '' }}"><a href="{{route('customar.address.page')}}"><i class="icon-map-marker"></i> Address</a></li>
                 <li><a href="#"><i class="icon-store"></i> Recent Viewed Product</a></li>
                 <li><a href="#"><i class="icon-heart"></i> Wishlist</a></li>

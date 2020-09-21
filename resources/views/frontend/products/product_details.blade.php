@@ -893,7 +893,7 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
         $('#addtocart').on('click', function () {
             
 
-          console.log($('#option-choice-form').serializeArray());
+          $('#option-choice-form').serializeArray();
 
             $.ajax({
                 type: 'GET',
@@ -901,7 +901,8 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                 data: $('#option-choice-form').serializeArray(),
                 success: function (data) {                  
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
-                    document.getElementById('product_price').innerHTML = toFixed(data.total);
+                    document.getElementById('mobilecartdatacount').innerHTML = data.quantity;
+                    // document.getElementById('product_price').innerHTML = toFixed(data.total);
                 }
             });
         });

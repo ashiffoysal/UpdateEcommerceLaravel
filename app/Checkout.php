@@ -20,4 +20,16 @@ class Checkout extends Model
      * @var array
      */
     protected $guarded = [];
+
+
+        /**
+     * Get the user's first name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getProductsAttribute($value)
+    {
+        return json_decode($value);
+    }
 }
