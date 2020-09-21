@@ -687,7 +687,7 @@ class CheckoutController extends Controller
                     'userid'=>auth()->user()->id,
                     'updated_at'=>Carbon::now(),
                 ]);
-                $checkout =$this-> checkoutDataCreate($request);
+               $checkout =$this-> checkoutDataCreate($request);
 
                 
             }else{
@@ -738,7 +738,7 @@ class CheckoutController extends Controller
         
 
          if($request->payment_type == 1){
-            return "custom order";
+            return redirect()->route('offline.order.payment', [$order_id ,$order->payment_secure_id]);
          }else{
             
             return redirect()->route('order.payment', [$order_id ,$order->payment_secure_id]);
@@ -747,11 +747,6 @@ class CheckoutController extends Controller
 
      }
 
-     // 
-     public function onlinepayment(Request $request){
-        
-        
-     }
 
 
     //  checkout data create
@@ -770,18 +765,38 @@ class CheckoutController extends Controller
     
         $data = array();
         foreach($items as $item){
+            
             $productdetails = Product::findOrFail($item->attributes->product_id);
+
             $sizename = [];
             foreach (json_decode($productdetails->choice_options) as $key => $choice) {
 
 
+                
                 $size = $choice->title; //this reaturn size,model
  
                 array_push($sizename, $size);
             }
+            
             $sizecount = count($sizename);
 
+            if($sizecount == 0){
+
+                
+                $product['name']=$item->name;
+                $product['price']=$item->price;
+                $product['quantity']=$item->quantity;
+                $product['thumbnail_img']=$item->attributes->thumbnail_img;
+                $product['colors']=$item->attributes->colors;
+                $product['product_id']=$item->attributes->product_id;
+                $product['sku']=$item->attributes->sku;
+                $product['flashdeals']=$item->attributes->flashdeals;
+                $product['flashdealtype']=$item->attributes->flashdealtype;
+                array_push($data, $product);
+            }
+
             if($sizecount == 1){
+                
                 $attibute = $sizename[0];
 
                 $product['name']=$item->name;
@@ -881,6 +896,7 @@ class CheckoutController extends Controller
         $checkout->orderid = auth()->user()->order_id;
         $checkout->save();
 
+        // return $checkout;
         return $checkout;
 
 
@@ -935,19 +951,66 @@ class CheckoutController extends Controller
       $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $secure_id)->where('order_id',$order_id)->first();
         abort_if(!$orderPlace, 403);
 
+        $cartdata =Checkout::where('orderid',$order_id)->first();
+        $coupon = UserUsedCupon::where('order_id',$order_id)->first();
+        if($coupon){
+            $coupon_id = $coupon->cupon_id;
+            $coupon = Cupon::findOrFail($coupon_id);
+        }else{
+            $coupon = false;
+        }
+
         $address = DifferentAddress::where('orderid',$orderPlace->order_id)->first();
 
         if($address){
-            return view('frontend.shipping.online_payment',compact('orderPlace','address'));
+            return view('frontend.payment.payment',compact('orderPlace','address','cartdata','coupon'));
         }else{
             
             $address =CustomarAccount::where('userid',auth()->user()->id)->first();
-            return view('frontend.shipping.online_payment',compact('orderPlace','address'));
+            return view('frontend.payment.payment',compact('orderPlace','address','cartdata','coupon'));
+        }
+    }
+
+    // get total amount
+
+    public function getCartTotalAmount()
+    {
+        return view('frontend.include.ajaxview.total_amount_autoload');
+    }
+
+
+    // offline payment area
+
+    public function offlinePaymentPage($order_id ,$secure_id)
+    {
+
+
+        $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $secure_id)->where('order_id',$order_id)->first();
+        abort_if(!$orderPlace, 403);
+
+        $cartdata =Checkout::where('orderid',$order_id)->first();
+        $coupon = UserUsedCupon::where('order_id',$order_id)->first();
+        if($coupon){
+            $coupon_id = $coupon->cupon_id;
+            $coupon = Cupon::findOrFail($coupon_id);
+        }else{
+            $coupon = false;
+        }
+
+        $address = DifferentAddress::where('orderid',$orderPlace->order_id)->first();
+
+        if($address){
+            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon'));
+            
+        }else{
+            
+            $address =CustomarAccount::where('userid',auth()->user()->id)->first();
+            
+            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon'));
         }
 
 
-
-        
+      
     }
 
 

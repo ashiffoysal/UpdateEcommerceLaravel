@@ -10,6 +10,7 @@
                 </ul>
             </div>
         </div>
+        
         <section class="ps-section--account ps-checkout">
             <div class="container">
                 <div class="ps-section__header">
@@ -23,10 +24,10 @@
                                     <div class="ps-block--shipping">
                                         <div class="ps-block__panel">
                                             <figure><small>Contact</small>
-                                                <p><a href="#">user@gmail.com</a></p><a href="#">Change</a>
+                                                <p><a href="#">{{$address->phone}}</a></p>
                                             </figure>
                                             <figure><small>Ship to</small>
-                                                <p>2015 South Street, Midland, Texas</p><a href="#">Change</a>
+                                                <p>{{$address->address}}</p>
                                             </figure>
                                         </div>
                                         <h4>Shipping method</h4>
@@ -38,6 +39,7 @@
                                             <ul class="ps-tab-list">
                                                 <li class="active"><a class="ps-btn ps-btn--sm" href="#visa">Visa / Master Card</a></li>
                                                 <li><a class="ps-btn ps-btn--sm" href="#paypal">Paypal</a></li>
+                                                <li><a class="ps-btn ps-btn--sm" href="#sslcommer">SslCommerz</a></li>
                                             </ul>
                                             <div class="ps-tabs">
                                                 <div class="ps-tab active" id="visa">
@@ -81,6 +83,7 @@
                                                     </form>
                                                 </div>
                                                 <div class="ps-tab" id="paypal"><a class="ps-btn" href="#">Proceed with Paypal</a></div>
+                                                <div class="ps-tab" id="sslcommer"><a class="ps-btn" href="#">Proceed with SslCommerz</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -91,16 +94,35 @@
                                             <figure>
                                                 <figcaption><strong>Product</strong><strong>Total</strong></figcaption>
                                             </figure>
-                                            <figure class="ps-block__items"><a href="#"><strong>Marshall Kilburn Portable Wireless Speaker</strong><span>x1<small>$ 42.99</small></span></a><a href="#"><strong>Herschel Leather Duffle Bag In Brown Color</strong><span>x1<small>$ 125.30</small></span></a>
+                                            <figure class="ps-block__items">
+                                            
+                                                @foreach($cartdata->products as $row)
+                                                <a href="#"><strong>{{$row->name}}</strong><span>{{$row->quantity}} x<small>৳ {{$row->price}}</small></span></a>
+                                                @endforeach
                                             </figure>
+                                            @if($coupon != false)
                                             <figure>
-                                                <figcaption><strong>Subtotal</strong><strong>$1259.99</strong></figcaption>
+                                            @if($coupon->discount_type == 1)
+                                                <figcaption><strong>Subtotal</strong><strong>{{$orderPlace->total_price - $coupon->discount}}</strong></figcaption>
+                                            @else
+                                                @php
+                                                    $subtotal = ($orderPlace->total_price * $coupon->discount) /100;
+                                                    $total = $orderPlace->total_price - $subtotal;
+                                                @endphp
+                                                <figcaption><strong>Subtotal</strong><strong>{{$total}}</strong></figcaption>
+                                            @endif
                                             </figure>
+                                            
                                             <figure>
-                                                <figcaption><strong>Shipping</strong><strong>$20.00</strong></figcaption>
+                                                @if($coupon->discount_type == 1)
+                                                <figcaption><strong>Discount</strong><strong>৳ {{$coupon->discount}}</strong></figcaption>
+                                                @else()
+                                                <figcaption><strong>Discount</strong><strong>{{$coupon->discount}} %</strong></figcaption>
+                                                @endif
                                             </figure>
+                                            @endif
                                             <figure class="ps-block__total">
-                                                <h3>Total<strong>$1279.99</strong></h3>
+                                                <h3>Total<strong>৳ {{$orderPlace->total_price}}</strong></h3>
                                             </figure>
                                         </div>
                                     </div>
@@ -111,27 +133,8 @@
                 </div>
             </div>
         </section>
-        <div class="ps-newsletter">
-            <div class="ps-container">
-                <form class="ps-form--newsletter" action="do_action" method="post">
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                            <div class="ps-form__left">
-                                <h3>Newsletter</h3>
-                                <p>Subcribe to get information about products and coupons</p>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                            <div class="ps-form__right">
-                                <div class="form-group--nest">
-                                    <input class="form-control" type="email" placeholder="Email address">
-                                    <button class="ps-btn">Subscribe</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        
+
+        @include('frontend.include.newsletter._subcribtion')
     </main>
 @endsection

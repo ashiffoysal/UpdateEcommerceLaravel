@@ -1,5 +1,6 @@
 @extends('layouts.websiteapp')
 @section('content')
+
 <div class="ps-page--simple">
     <div class="ps-breadcrumb">
         <div class="container">
@@ -112,27 +113,6 @@
                             </div>
                             <!-- Ship to a different address area end -->
 
-                            <!-- payment type area start from here -->
-                            <div class="ps-form__billing-info">
-                                <div id="diff_address">
-                                    <h3 class="ps-form__heading">Payment Types</h3>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="payment_type"  type="checkbox" value="1" id="defaultCheck1">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            Cash On Delivery
-                                        </label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="payment_type"  type="checkbox" value="2"id="defaultCheck1">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            Online payment
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- payment type area end from here -->
 
 
 
@@ -184,6 +164,38 @@
                                             </div>
                                             <h3>Total <span>৳ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</span></h3>
                                         </div>
+
+
+                                        
+                                        <!-- payment type area start from here -->
+                                        <div class="ps-form__billing-info py-4">
+                                            <div id="diff_address">
+                                            <hr>
+                                                <h3 class="ps-form__heading">Payment Types</h3>
+                                                
+
+                                                <div class="form-check my-4">
+                                                    <input class="form-check-input" name="payment_type"  type="radio" value="1" id="defaultCheck">
+                                                    
+                                                    <label class="form-check-label ml-4" for="defaultCheck">
+                                                        Cash On Delivery
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check my-4">
+                                                    <input class="form-check-input" name="payment_type"  type="radio" value="2"id="defaultCheck2">
+                                                    
+                                                    <label class="form-check-label ml-4" for="defaultCheck2">
+                                                        Online payment
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            @error('payment_type')
+                                                <p class="text-danger">{{$message}}</p>
+                                            @enderror
+                                        </div>
+                            <!-- payment type area end from here -->
                                     </div><button type="submit" class="ps-btn ps-btn--fullwidth">Proceed to checkout</button>
                                 </div>
                             </div>

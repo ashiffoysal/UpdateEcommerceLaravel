@@ -627,15 +627,23 @@
     $(document).ready(function () {
         $('#addtocartmodal').on('click', function () {
             
-          console.log($('#option-choice-form').serializeArray());
+
+
+           
+            
+
+          $('#option-choice-form').serializeArray();
+
 
             $.ajax({
                 type: 'GET',
                 url: "{{ route('product.add.cart') }}",
                 data: $('#option-choice-form').serializeArray(),
                 success: function (data) {                  
+                    
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
-                    document.getElementById('product_price').innerHTML = toFixed(data.total);
+                    document.getElementById('mobilecartdatacount').innerHTML = data.quantity;
+                    
                 }
             });
         });

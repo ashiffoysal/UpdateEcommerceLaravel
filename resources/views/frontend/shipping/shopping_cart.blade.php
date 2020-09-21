@@ -83,7 +83,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
 
                             <div id="orderdata">
-                                <div class="ps-block--shopping-total">
+                                <!-- <div class="ps-block--shopping-total">
                                     <div class="ps-block__header">
                                         <p>Subtotal <span> ৳ {{Cart::session(\Request::getClientIp(true))->getSubTotal()}}</span></p>
                                     </div>
@@ -97,7 +97,7 @@
                                         <h3>Total <span>৳ {{Cart::session(\Request::getClientIp(true))->getTotal()}}</span></h3>
                                     </div>
 
-                                </div>
+                                </div> -->
                             </div>
                            
 
@@ -225,6 +225,50 @@
 
 	}
 	getCuponValue();
+</script>
+
+<script>
+    $( document ).ready(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('cart.total.amount') }}",
+                
+                success: function(data) {
+                    $('#orderdata').html(data);
+                    
+                }
+            });
+    
+});
+    
+</script>
+
+<script>
+    $( window ).mouseup(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('cart.total.amount') }}",
+                
+                success: function(data) {
+                    $('#orderdata').html(data);
+                    
+                }
+            });
+    
+});
+    
 </script>
 
 
