@@ -342,9 +342,17 @@
                                     @endforeach
                                   @endif
                                 <ul class="ps-product__actions">
-                                    <li><a href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                     <li><a href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-eye"></i></a></li>
 
-                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                  
+                                    <li>
+                                        @if($products->product_type==1)
+                                        <a href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                        @else
+                                        <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$products->id}}"><i class="icon-bag2"></i></a>
+                                        @endif
+                                    </li>
+                                   
 
                                     <li>
                                         @if(Auth::guard('web')->check())
@@ -455,9 +463,17 @@
                                     @endforeach
                                   @endif
                                 <ul class="ps-product__actions">
-                                  <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                    
-                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a></li>
+                                    <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-eye"></i></a></li>
+
+                                  
+                                    <li>
+                                        @if($product->product_type==1)
+                                        <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                        @else
+                                        <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
+                                        @endif
+                                    </li>
+                                   
 
                                     <li>
                                         @if(Auth::guard('web')->check())
@@ -605,121 +621,12 @@
 
 
 
-<div class="modal fade" id="product-quickview" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content"><span class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
-                <article class="ps-product--detail ps-product--fullwidth ps-product--quickview">
-                    <div class="ps-product__header">
-                        <div class="ps-product__thumbnail" data-vertical="false">
-                            <div class="ps-product__images" data-arrow="true" >
-
-                                <div class="item" id="img">
-                                  <!--   <img src="{{asset('public/frontend')}}/img/products/detail/fullwidth/1.jpg" alt=""> -->
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="ps-product__info">
-                            <div class="name"></div>
-                             <input type="hidden" name="id" id="id">
-                            <div class="ps-product__meta">
-                                <p>Brand:<a href="">Sony</a></p>
-                                <div class="ps-product__rating">
-                             <!--        <select class="ps-rating" data-read-only="true">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
-                                        <option value="2">5</option>
-                                    </select><span>(1 review)</span> -->
-                                </div>
-                            </div>
-                            <div class="price">
-                                
-                            </div>
-                            
-                            <div class="ps-product__desc">
-                                <!-- <p>Sold By:<a href="shop-default.html"><strong> Go Pro</strong></a></p> -->
-                                <ul class="ps-list--dot">
-                                    <li> Unrestrained and portable active stereo speaker</li>
-                                    <li> Free from the confines of wires and chords</li>
-                                    <li> 20 hours of portable capabilities</li>
-                                    <li> Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li>
-                                    <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
-                                </ul>
-                            </div>
-                            <form id="option-choice-form">
-                                        <!-- product information -->
-                                        <input type="hidden" id="product_total" name="product_price" value="">
-                                        <input type="hidden" id="product_id" name="product_id" value="">
-                                        <input type="hidden"  name="quantity" value="1">
-                                        
-                            <div class="ps-product__shopping"><button type="button" class="ps-btn ps-btn--black" href="#" id="addtocartmodal">Add to cart</button><a class="ps-btn" href="#">Buy Now</a>
-                            </form>
-                                <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </div>
-
-
-
-<script type="text/javascript">
-
-      $(document).ready(function() {
-         $('.quickview').on('click', function(){
-             var p_id = $(this).data('id');
-             //alert(p_id);
-             if(p_id) {
-                 $.ajax({
-                     url: "{{ url('/get/product/quickview/') }}/"+p_id,
-                     type:"GET",
-                     dataType:"json",
-                     success:function(data) {
-                         
-                         
-                            document.getElementById('product_id').value = data.id;
-                            document.getElementById('product_total').value = data.product_price;
-
-                                 
-
-
-                                
-
-
-                            $(".name").html("<h1>"+ data.product_name +"</h1>");
-                            $(".price").html("<h4 class='ps-product__price'>"+ data.product_price +"</h4>");
-                            $("#id").val(data.id);
-                            //$("#descrip").val(data.subcate_slug);
-                            // $("#subcate_tag_edit").val(data.subcate_tag);
-                            // $("#cate_id").val(data.cate_id).select;
-                             $("#img").html("<img src={{asset('')}}public/uploads/products/thumbnail/"+data.    thumbnail_img +"/>");
-                            // $("#store-img").append("<input type='hidden' name='old_image' value='"+data.subcate_image+"' />");
-                            // $("#icon").html("<img src={{asset('')}}public/uploads/subcategory/"+data.subcate_icon+" height='70px'/>");
-                            // $("#store-icon").append("<input type='hidden' name='old_icon' value='"+data.subcate_icon+"' />");
-
-                        }
-                 });
-             } else {
-                 alert('danger');
-             }
-
-         });
-     });
-</script>
-
 
 
 <script>
     $(document).ready(function () {
         $('#addtocartmodal').on('click', function () {
             
-
-            
-
           console.log($('#option-choice-form').serializeArray());
 
             $.ajax({

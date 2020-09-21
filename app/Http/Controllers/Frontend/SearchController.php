@@ -6,9 +6,37 @@ use App\Product;
 use App\Category;
 use App\SubCategory;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\Request;
 class SearchController extends Controller
 {
+
+    public function searchall(Request $request){
+        return $request;
+    }
+
+
+        public function mobilesearchajax($productName){
+
+            $products = Product::where('product_name', 'LIKE', "%$productName%")->select(['id', 'product_price', 'slug', 'product_name', 'thumbnail_img'])->get();
+            return view('frontend.search.mobilesearchajax',compact('products'));
+        }
+
+    public function searchmobile(Request $request){
+
+
+        if ($request->search === "") {
+           return redirect()->back();
+       }
+       $searchproduct = Product::where('product_name', 'LIKE', "%$request->search")->get();
+
+        //dd($searchproduct);
+      return view('frontend.mobilesearch.search',compact('searchproduct'));
+
+        
+    }
+
+
+
 
 
 
@@ -79,4 +107,6 @@ class SearchController extends Controller
             ->get();
         return view('frontend.search.product_by_re_sub_category_result', compact('products'));
     }
+
+
 }
