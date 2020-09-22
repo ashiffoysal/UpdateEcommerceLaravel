@@ -10,10 +10,23 @@ use Illuminate\Http\Request;
 class SearchController extends Controller
 {
 
-    public function searchall(Request $request){
-        return $request;
+
+
+
+
+    public function newsearch(Request $request)
+    {
+
+       $product_name=$request->proname;
+        $products = Product::where('product_name', 'LIKE', "%$product_name%")->get();
+        return view('frontend.search.productmainajaxsearch', compact('products'));
     }
 
+
+
+        public function searchall(Request $request){
+            return $request;
+        }
 
         public function mobilesearchajax($productName){
 
@@ -84,13 +97,6 @@ class SearchController extends Controller
 
     }
 
-    public function searchProductByMainCatByAjax($categoryId, $productName)
-    {
-        $products = Product::where('cate_id', $categoryId)
-            ->where('product_name', 'LIKE', "%$productName%")
-            ->get();
-        return view('frontend.search.product_by_main_category_result', compact('products'));
-    }
 
     public function searchProductBySubCatByAjax($categoryId, $productName)
     {
