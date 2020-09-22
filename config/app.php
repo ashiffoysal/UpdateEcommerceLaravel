@@ -163,6 +163,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        
+        smasif\ShurjopayLaravelPackage\ShurjopayServiceProvider::class,
 
         /*
          * Package Service Providers...

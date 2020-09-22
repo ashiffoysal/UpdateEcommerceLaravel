@@ -40,6 +40,7 @@
                                                 <li class="active"><a class="ps-btn ps-btn--sm" href="#visa">Visa / Master Card</a></li>
                                                 <li><a class="ps-btn ps-btn--sm" href="#paypal">Paypal</a></li>
                                                 <li><a class="ps-btn ps-btn--sm" href="#sslcommer">SslCommerz</a></li>
+                                                <li><a class="ps-btn ps-btn--sm" href="#surjopay">Surjopay</a></li>
                                             </ul>
                                             <div class="ps-tabs">
                                                 <div class="ps-tab active" id="visa">
@@ -82,8 +83,43 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <div class="ps-tab" id="paypal"><a class="ps-btn" href="#">Proceed with Paypal</a></div>
-                                                <div class="ps-tab" id="sslcommer"><a class="ps-btn" href="#">Proceed with SslCommerz</a></div>
+                                                <div class="ps-tab" id="paypal">
+                                                    <form action="{{route('payment.make.payment')}}" method="post">
+                                                         @csrf
+                                            <input class="form-control" type="hidden" name="payment_method_id" value="3" id="pay_method" checked>
+                                            <input type="hidden" name="payment_secure_id" value="{{ $orderPlace->payment_secure_id }}">
+                                            <input type="hidden" name="order_id" value="{{ $orderPlace->order_id }}">
+
+                                                         <button class="ps-btn" type="submit">Proceed with Paypal</button>
+                                                    </form>
+                                                </div>
+                                                <div class="ps-tab" id="sslcommer">
+
+                                                    <form action="{{route('payment.make.payment')}}" method="post">
+                                                         @csrf
+                                                        <input class="form-control" type="hidden" name="payment_method_id" value="4" id="pay_method" checked>
+                                                        <input type="hidden" name="payment_secure_id" value="{{ $orderPlace->payment_secure_id }}">
+                                                        <input type="hidden" name="order_id" value="{{ $orderPlace->order_id }}">
+
+                                                         <button class="ps-btn" type="submit">Proceed with SslCommerz</button>
+                                                    </form>
+                                                    
+                                                    
+                                                </div>
+                                                <div class="ps-tab" id="surjopay">
+
+                                                    <form action="{{route('payment.make.payment')}}" method="post">
+                                                         @csrf
+                                                        <input class="form-control" type="hidden" name="payment_method_id" value="5" id="pay_method" checked>
+                                                        <input type="hidden" name="payment_secure_id" value="{{ $orderPlace->payment_secure_id }}">
+                                                        <input type="hidden" name="spdata" value="{{ $orderPlace->order_id }}">
+                                                        <input type="hidden" name="order_id" value="{{ $orderPlace->order_id }}">
+
+                                                         <button class="ps-btn" type="submit">Proceed with surjo pay</button>
+                                                    </form>
+                                                    
+                                                    
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

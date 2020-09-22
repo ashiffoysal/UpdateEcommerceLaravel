@@ -451,7 +451,7 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
     Route::get('/product/detailssearch/', 'Frontend\FrontendController@searchcate')->name('products.search.cate');
 
     // traking
-    Route::get('/tracking', 'Frontend\FrontendController@tracking');
+    Route::get('/tracking/page', 'Frontend\FrontendController@tracking');
     Route::get('tracking/order', 'Frontend\FrontendController@ordertracking');
     // faq
     Route::get('/faq', 'Frontend\FrontendController@faqpage');
@@ -541,6 +541,11 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
     Route::get('/user/division/name/{id}', 'Frontend\CheckoutController@userCountrySubmit');
     Route::get('/user/district/name/{id}', 'Frontend\CheckoutController@userDivisionSubmit');
     Route::get('/user/upazila/name/{id}', 'Frontend\CheckoutController@userUpazilaSubmit');
+
+
+   
+   Route::get('/surgopay/success', 'Frontend\CheckoutController@surgosuccess')->name('surgo.success');
+
 
 
     Route::get('/pay-with-paypal', 'Frontend\CheckoutController@paywithpaypal')->name('payment.paypal');
@@ -798,20 +803,29 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
 
     // Search Route Created By asif
 
+
+Route::get('search/new/by/all/', 'Frontend\SearchController@newsearch')->name('asif.product.ajaxsearchmain');
+
+
+
+
+
     Route::get('search/all', 'Frontend\SearchController@searchall');
 
     Route::get('mobile/product/search', 'Frontend\SearchController@searchmobile');
     Route::get('search/mobile/product/ajax/{productName}', 'Frontend\SearchController@mobilesearchajax');
 
     Route::get('search/product/by/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByAjax');
-    Route::get('search/product/by/main/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByMainCatByAjax');
+
+    
+
     Route::get('search/product/by/sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductBySubCatByAjax');
     Route::get('search/product/by/re_sub/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByResubCatByAjax');
 
-    // Search Route Created By Harrison Ended
+    // Search Route Created
 
 
-    // Payment Route Created By Harrison
+    // Payment Route Created
 
     Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
         Route::get('stripe/{payment_secure_id}', 'PaymentController@index')->name('stripe.index');
@@ -836,6 +850,7 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
 
     Route::get('/user/shipping/value/{id}', 'Frontend\CheckoutController@shippingChargeValue');
     Route::get('/user/shipping/value/to/insert/{id}', 'Frontend\CheckoutController@shippingChargeValueSend');
+
 
 
 
@@ -894,7 +909,7 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
 
         Route::prefix('payment')->group(function(){
             Route::get('/{order_id}/{secure_id}','CheckoutController@onlinePaymentPage')->name('order.payment');
-            Route::get('/{order_id}/{secure_id}','CheckoutController@offlinePaymentPage')->name('offline.order.payment');
+            Route::get('/offline/{order_id}/{secure_id}','CheckoutController@offlinePaymentPage')->name('offline.order.payment');
             
         });
         

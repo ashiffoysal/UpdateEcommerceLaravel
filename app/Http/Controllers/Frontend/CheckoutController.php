@@ -55,6 +55,10 @@ class CheckoutController extends Controller
         }
     }
 
+   public function surgosuccess(){
+        return "ok";
+    }
+
     // Show Checkout Login form
 
     public function CustomerLogin()
@@ -543,7 +547,7 @@ class CheckoutController extends Controller
 
     protected function cartData($invoiceId)
     {
-        $data = [];
+         $data = [];
         $data['items'] = [];
         // $userid =  \Request::getClientIp(true);
         // $usercartdatas = Cart::session($userid)->getContent();
@@ -553,7 +557,9 @@ class CheckoutController extends Controller
 
         $orderstorage = Checkout::where('orderid', $cartid)->first();
 
-        foreach (json_decode($orderstorage->products) as $key => $cart) {
+        
+
+        foreach ($orderstorage->products as $key => $cart) {
             $itemdetails = [
                 'name' => $cart->name,
                 'price' => $cart->price,
