@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use App\CustomarAddress;
 use App\CustomarAccount;
+use smasif\ShurjopayLaravelPackage\ShurjopayService;
 
 class PaymentController extends Controller
 {
@@ -85,7 +86,15 @@ class PaymentController extends Controller
             return redirect()->route('stripe.index', $getOrderInfo->payment_secure_id);
         } elseif ($request->payment_method_id == 3) {
             return redirect()->route('payment.paypal');
-        } elseif ($request->payment_method_id == 4) {
+        } 
+        elseif ($request->payment_method_id == 5) {
+            $shurjopay_service = new ShurjopayService(); 
+            $tx_id = $shurjopay_service->generateTxId('646456'); 
+            $success_route = route('shurjopay.response'); 
+            $shurjopay_service->sendPayment(2, $success_route); 
+        } 
+
+        elseif ($request->payment_method_id == 4) {
             /* PHP */
             $post_data = array();
             $post_data['store_id'] = env('SSLCOMMERZ_STORE_ID');
@@ -364,4 +373,11 @@ class PaymentController extends Controller
     {
         return view('frontend.payment.ssl_commerce.cancel');
     }
+
+   
+
+
+
+
+
 }

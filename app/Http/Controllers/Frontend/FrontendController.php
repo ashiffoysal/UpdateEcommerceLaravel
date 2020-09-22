@@ -304,14 +304,15 @@ class FrontendController extends Controller
     // tracking
     public function tracking()
     {
-        return view('frontend.tracking.trakingproduct');
+      
+        return view('frontend.pages.order_tracking');
     }
     //
     public function ordertracking(Request $request)
     {
         $orderid = $request->order_id;
         $trackingresult = OrderPlace::where('order_id', $orderid)->first();
-        return view('frontend.tracking.trackingresult', compact('trackingresult'));
+        return view('frontend.pages.trackresult', compact('trackingresult'));
     }
     // product review
     public function productreview(Request $request)
