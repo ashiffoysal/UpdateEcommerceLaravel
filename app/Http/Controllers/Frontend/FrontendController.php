@@ -20,7 +20,7 @@ use App\BlogComment;
 use App\Banner;
 
 use App\CustomarAccount;
-
+use App\ViewedProduct;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -388,6 +388,46 @@ class FrontendController extends Controller
      }
 
      /**
+     * insert showed products id.
+     *
+     * @var string
+     */
+
+     public function showedProduct($id)
+     {
+         
+        // work for viewed products
+        $data = array();
+        array_push($data,$id);
+
+        $viewed = ViewedProduct::where('user_id',\Request::ip())->first();
+        if($viewed){
+            foreach (json_decode($viewed->products) as$value) {
+                    array_push($data,$value,$id);
+                
+            }
+            $data = array_unique($data);
+            $productcount =count($data);
+
+            if($productcount > 5){
+                array_pop($data);
+            }
+            $viewed->update([
+                'products'=>json_encode($data),
+            ]);
+
+        }else{
+            ViewedProduct::insert([
+                'user_id'=>\Request::ip(),
+                'products'=>json_encode($data),
+                'created_at'=>Carbon::now(),
+            ]);
+        }
+
+     }
+
+
+     /**
      * Showing product details page.
      *
      * @var string
@@ -395,7 +435,15 @@ class FrontendController extends Controller
      
     public function productDetails($slug, $id)
     {
-        //return 'ok';
+
+        $this->showedProduct($id);
+        
+       
+
+        
+        
+
+        // end viewed products
 
         date_default_timezone_set("Asia/Dhaka");
         $currentdate = date('Y-m-d');
@@ -499,6 +547,33 @@ class FrontendController extends Controller
         return back()->with($notification);
     }
 
+
+    public function viewedProductPage()
+    {
+        $viewed = ViewedProduct::where('user_id',\Request::ip())->first();
+        $viewedproduct=array();
+        foreach(json_decode($viewed->products) as $row){
+            $product =Product::findOrFail($row);
+            if($product){
+                
+                $item['id']=$product->id;
+                $item['name']=$product->product_name;
+                $item['photo']=$product->thumbnail_img;
+                $item['slug']=$product->slug;
+                $item['price']=$product->product_price;
+                
+                array_push($viewedproduct, $item);
+            }
+
+
+
+            
+           
+        } 
+
+        
+        return view('frontend.shipping.viewed_products',compact('viewedproduct'));
+    }
    
 
     
