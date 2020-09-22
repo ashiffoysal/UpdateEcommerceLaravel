@@ -30,6 +30,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Library\SslCommerz\SslCommerzNotification;
+use App\SmsModel;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Stripe\Customer;
 
@@ -728,6 +730,7 @@ class CheckoutController extends Controller
         $user =User::findOrFail(auth()->user()->id)->first();
         $order_id = auth()->user()->order_id;
 
+        // $this->checkoutSMS($request,$order_id);
         $neworderid =rand(1111,9999);
 
         if($user){
@@ -746,6 +749,49 @@ class CheckoutController extends Controller
 
 
      }
+
+    //  checkout sms send
+
+    public function checkoutSMS($request,$orderid)
+    {
+        if($request->diff_addr == 1){
+            $phone = $request->phone;
+            $name =$request->name;
+        }else{
+            $useraddr =CustomarAccount::where('userid',auth()->user()->id)->first();
+            $phone = $useraddr->phone;
+            $name = $useraddr->name;
+        }
+        
+        
+        $siteUrl = URL::to("/");
+        $sms_text = 'Dear ' .$name . " Successfully Your order is compleated.Your Order ID is.: " . $orderid . ' For More info,visite our site. ' . $siteUrl;
+        $smsinfo =SmsModel::first();
+        $smsurl =$smsinfo->sms_url;
+        $smsname =$smsinfo->sms_username; #durbar2020
+        $smspassword =$smsinfo->sms_password; #12345678
+        
+        $postData = array(
+            'username'=>urlencode($smsname),
+            'password'=>urlencode($smspassword),
+            'sms_content'=>$sms_text,
+            'number'=>urlencode($phone),
+            'sms_type'=>1,
+            
+        );
+
+        $ch = curl_init();
+            curl_setopt_array($ch, array(
+            CURLOPT_URL => $smsurl,
+            // CURLOPT_URL => 'http://gosms.xyz/api/v1/sendSms',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $postData,
+            CURLOPT_FOLLOWLOCATION => true
+            ));
+            
+            return $output = curl_exec($ch);
+    }
 
 
 
@@ -997,6 +1043,7 @@ class CheckoutController extends Controller
             $coupon = false;
         }
 
+
         $address = DifferentAddress::where('orderid',$orderPlace->order_id)->first();
 
         if($address){
@@ -1011,6 +1058,47 @@ class CheckoutController extends Controller
 
 
       
+    }
+
+    // Customar invoice show
+
+    public function customarInvoiceShow($userid)
+    {
+        $orders = OrderPlace::where('user_id',auth()->user()->id)->simplePaginate(7);
+        return view('frontend.shipping.invoices',compact('orders'));
+    }
+
+
+    // customar invoice details show
+
+    public function invoiceShow($order_id)
+    {
+        
+        $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('order_id',$order_id)->first();
+        abort_if(!$orderPlace, 403);
+
+        $cartdata =Checkout::where('orderid',$order_id)->first();
+        abort_if(!$cartdata, 403);
+        $coupon = UserUsedCupon::where('order_id',$order_id)->first();
+        if($coupon){
+            $coupon_id = $coupon->cupon_id;
+            $coupon = Cupon::findOrFail($coupon_id);
+        }else{
+            $coupon = false;
+        }
+
+
+        $address = DifferentAddress::where('orderid',$orderPlace->order_id)->first();
+
+        if($address){
+            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon'));
+            
+        }else{
+            
+            $address =CustomarAccount::where('userid',auth()->user()->id)->first();
+            
+            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon'));
+        }
     }
 
 

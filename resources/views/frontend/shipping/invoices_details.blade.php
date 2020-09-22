@@ -20,8 +20,8 @@
                         <div class="ps-section__right mt-12">
                             <div class="ps-section--account-setting">
                                 <div class="ps-section__header">
-                                    {{$orderPlace}}
-                                    <h3>Invoice #500884010 -<strong>Successful delivery</strong></h3>
+                                    
+                                    <h3>Invoice #{{$orderPlace->order_id}} -<strong>Successful delivery</strong></h3>
                                 </div>
                                 <div class="ps-section__content">
                                     <div class="row">
@@ -46,7 +46,7 @@
                                             <figure class="ps-block--invoice">
                                                 <figcaption>Payment</figcaption>
                                                 <div class="ps-block__content">
-                                                    <p>Payment Method: Visa</p>
+                                                    <p>Payment Method: Cash on Delivery</p>
                                                 </div>
                                             </figure>
                                         </div>
@@ -62,39 +62,52 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            @foreach($cartdata->products as $row)
+
                                                 <tr>
-                                                    @foreach($cartdata->products as $row)
                                                     <td>
                                                         <div class="ps-product--cart">
-                                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('/public/frontend')}}/img/products/shop/5.jpg" alt=""></a></div>
-                                                            <div class="ps-product__content"><a href="product-default.html">Grand Slam Indoor Of Show Jumping Novel</a>
+                                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
+                                                            <div class="ps-product__content"><a href="product-default.html">{{$row->name}}</a>
                                                                 <p>Sold By:<strong> YOUNG SHOP</strong></p>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    @endforeach
-                                                    <td><span><i>$</i> 32.99</span></td>
-                                                    <td>1</td>
-                                                    <td><span><i>$</i> 32.99</span></td>
+                                                   
+                                                    <td><span><i>৳</i> {{$row->price}}</span></td>
+                                                    <td>{{$row->quantity}}</td>
+                                                    <td><span><i>৳</i> {{$row->price * $row->quantity}}</span></td>
+                                                    
                                                 </tr>
+                                                @endforeach
+
+                                                @if($coupon !=false)
                                                 <tr>
-                                                    <td>
-                                                        <div class="ps-product--cart">
-                                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('/public/frontend')}}/img/products/shop/6.jpg" alt=""></a></div>
-                                                            <div class="ps-product__content"><a href="product-default.html">Sound Intone I65 Earphone White Version</a>
-                                                                <p>Sold By:<strong> YOUNG SHOP</strong></p>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span><i>$</i> 100.99</span></td>
-                                                    <td>1</td>
-                                                    <td><span><i>$</i> 100.99</span></td>
+                                                    <td colspan="2"><span></span></td>
+                                                    <td  class="text-right"><span><strong>Discount</strong></span></td>
+                                                    @if($coupon->discount_type == 1)
+                                                    <td><span><i>৳</i> {{$coupon->discount}}</span></td>
+                                                    @else
+                                                    <td><span> {{$coupon->discount}}<i>%</i></span></td>
+                                                    @endif
+                                                    
                                                 </tr>
+                                                @endif
+
+                                                <tr>
+                                                    <td colspan="2"><span></span></td>
+                                                    
+                                                    <td class="text-right"><span><strong>Total</strong></span></td>
+                                                    
+                                                    <td><span><i>৳</i> {{$orderPlace->total_price}}</span></td>
+                                                    
+                                                </tr>
+                                              
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="ps-section__footer"><a class="ps-btn ps-btn--sm" href="#">Back to invoices</a></div>
+                                <div class="ps-section__footer"><a class="ps-btn ps-btn--sm" href="{{route('customar.invoice.show',auth()->user()->id)}}">Back to invoices</a></div>
                             </div>
                         </div>
                     </div>

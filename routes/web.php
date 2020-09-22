@@ -875,6 +875,7 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
             Route::post('/customar/create', 'CheckoutController@customarDataCreate')->name('checkout.data.create');
             Route::post('/customar/online/payment', 'CheckoutController@onlinepayment')->name('checkout.data.online');
             
+            
         });
 
 
@@ -892,14 +893,21 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
             Route::get('/get/total', 'CheckoutController@getCartTotalAmount')->name('cart.total.amount');
         });
 
-        Route::prefix('payment')->group(function(){
+        Route::prefix('payment')->middleware('auth:web')->group(function(){
             Route::get('/{order_id}/{secure_id}','CheckoutController@onlinePaymentPage')->name('order.payment');
-            Route::get('/{order_id}/{secure_id}','CheckoutController@offlinePaymentPage')->name('offline.order.payment');
+            Route::get('/offline/{order_id}/{secure_id}','CheckoutController@offlinePaymentPage')->name('offline.order.payment');
+
+            Route::get('customar/invoice/{userid}','CheckoutController@customarInvoiceShow')->name('customar.invoice.show');
+
+            Route::get('/invoice/show/{order_id}','CheckoutController@invoiceShow')->name('customar.invoice.show.details');
             
         });
+
+
         
         Route::prefix('product')->group(function(){
             Route::get('/{slug}/{id}', 'FrontendController@productDetails');
+            Route::get('/viewed', 'FrontendController@viewedProductPage')->name('customar.viewed.product');
             
         });
 

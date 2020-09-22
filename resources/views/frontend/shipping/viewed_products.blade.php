@@ -25,49 +25,36 @@
                         <div class="ps-section__right mt-12">
                             <div class="ps-section--account-setting">
                                 <div class="ps-section__header">
-                                    <h3>Invoices</h3>
+                                    <h3>Recent Viewed Products</h3>
                                 </div>
                                 <div class="ps-section__content">
-                                    <div class="table-responsive">
-                                        <table class="table ps-table ps-table--invoices">
+                                <div class="table-responsive">
+                                        <table class="table ps-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Id</th>
-                                                    <th>Quantity</th>
-                                                    <th>Date</th>
-                                                    <th>Amount</th>
-                                                    <th>Status</th>
+                                                    <th>Product (Recent Visited 5 Product Show)</th>
+                                                 
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-
-                                                @foreach($orders as $row)
-
+                                            @foreach($viewedproduct as $row)
+                                            
                                                 <tr>
                                                     
-                                                    <td><a href="{{route('customar.invoice.show.details',$row->order_id)}}">#{{$row->order_id}}</a></td>
-                                                    <td>{{$row->total_quantity}}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d/m/Y')}}</td>
+                                                    <td>
+                                                        <div class="ps-product--cart">
+                                                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$row['slug']}}/{{$row['id']}}"><img src="{{asset('public/uploads/products/thumbnail/'.$row['photo'])}}" alt=""></a></div>
+                                                            <div class="ps-product__content"><a href="{{url('product/')}}/{{$row['slug']}}/{{$row['id']}}">{{$row['name']}}</a>
+                                                                <p>Price:<strong> {{$row['price']}}</strong></p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                     
-                                                    <td>{{$row->total_price}}</td>
-                                                    @if($row->status ==0)
-                                                        <td>Pending</td>
-                                                    @else
-                                                        <td>Successful delivery</td>
-                                                    @endif
                                                     
                                                 </tr>
                                                 @endforeach
+                                              
                                             </tbody>
-                                            
-                                        </table>
-                                        <table>
-                                        <tfoot>
-                                            <tr>
-                                                    <td>{{ $orders->links() }}</td>
-                                                </tr>
-                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
