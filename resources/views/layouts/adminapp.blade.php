@@ -376,7 +376,7 @@ $logo=DB::table('logos')->first();
                             <ul class="dashboard-menu">
                             <li><a href="{{ route('admin.blog.all') }}">All Blog</a></li>
                             <li><a href="{{ route('admin.blog.add') }}">Add Blog</a></li>
-                            <li><a href="{{ route('admin.blog.blogcomment') }}">All Blog Comment</a></li>
+                           <!--  <li><a href="{{ route('admin.blog.blogcomment') }}">All Blog Comment</a></li> -->
                             </ul>
                         </li>
                     @else

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\UserAddress;
 use Illuminate\Support\Facades\Auth;
 
+
 class CustomerController extends Controller
 {
     public function __construct()
@@ -103,5 +104,7 @@ class CustomerController extends Controller
         $subDistricts = DB::table('upazilas')->where('district_id', $districtId)->select('name', 'id')->get();
         return response()->json($subDistricts);
     }
+
+    
 
 }

@@ -17,7 +17,7 @@
                     <h3>Payment</h3>
                 </div>
                 <div class="ps-section__content">
-                    <form class="ps-form--checkout" action="index.html" method="get">
+                    
                         <div class="ps-form__content">
                             <div class="row">
                                 <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 ">
@@ -41,17 +41,24 @@
                                                 <li><a class="ps-btn ps-btn--sm" href="#paypal">Paypal</a></li>
                                                 <li><a class="ps-btn ps-btn--sm" href="#sslcommer">SslCommerz</a></li>
                                                 <li><a class="ps-btn ps-btn--sm" href="#surjopay">Surjopay</a></li>
+                                                <li><a class="ps-btn ps-btn--sm" href="#asifpay">asifpay</a></li>
                                             </ul>
                                             <div class="ps-tabs">
                                                 <div class="ps-tab active" id="visa">
-                                                    <form class="ps-form--visa" action="index.html" method="get">
+                                                    <form action="{{route('payment.make.payment')}}" method="post">
+                                                        @csrf
+                                                       <input class="form-control" type="hidden" name="payment_method_id"value="2" id="pay_method">
+
+                                                    <input type="hidden" name="payment_secure_id" value="{{ $orderPlace->payment_secure_id }}">
+                                                    <input type="hidden" name="order_id" value="{{ $orderPlace->order_id }}">
+                                                        <!-- 
                                                         <div class="form-group">
                                                             <label>Card number</label>
                                                             <input class="form-control" type="text" placeholder="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Card Holders</label>
-                                                            <input class="form-control" type="text" placeholder="">
+                                                            <input class="form-control" name="holder_name" type="text" placeholder="">
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-8">
@@ -77,11 +84,14 @@
                                                                     <input class="form-control" type="text" placeholder="">
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group submit">
-                                                            <button class="ps-btn ps-btn--fullwidth">Submit</button>
+                                                        </div> -->
+                                                        <div class="form-group">
+                                                            <button type="submit" class="ps-btn ps-btn--fullwidth">Submit</button>
                                                         </div>
                                                     </form>
+
+
+
                                                 </div>
                                                 <div class="ps-tab" id="paypal">
                                                     <form action="{{route('payment.make.payment')}}" method="post">
@@ -108,14 +118,28 @@
                                                 </div>
                                                 <div class="ps-tab" id="surjopay">
 
-                                                    <form action="{{route('payment.make.payment')}}" method="post">
+                                                    <form action="{{url('/compare/surjopay/payment')}}" method="post">
                                                          @csrf
                                                         <input class="form-control" type="hidden" name="payment_method_id" value="5" id="pay_method" checked>
                                                         <input type="hidden" name="payment_secure_id" value="{{ $orderPlace->payment_secure_id }}">
-                                                        <input type="hidden" name="spdata" value="{{ $orderPlace->order_id }}">
                                                         <input type="hidden" name="order_id" value="{{ $orderPlace->order_id }}">
+                                                        <input type="hidden" name="amount" value="{{$orderPlace->total_price}}">
 
                                                          <button class="ps-btn" type="submit">Proceed with surjo pay</button>
+                                                    </form>
+                                                    
+                                                    
+                                                </div>
+                                                <div class="ps-tab" id="surjopay">
+
+                                                    <form action="{{url('stripe/asif/text')}}" method="post">
+                                                         @csrf
+                                                        <input class="form-control" type="hidden" name="payment_method_id" value="5" id="pay_method" checked>
+                                                        <input type="hidden" name="payment_secure_id" value="{{ $orderPlace->payment_secure_id }}">
+                                                        <input type="hidden" name="order_id" value="{{ $orderPlace->order_id }}">
+                                                        <input type="hidden" name="amount" value="{{$orderPlace->total_price}}">
+
+                                                         <button class="ps-btn" type="submit">Proceed with asifpay</button>
                                                     </form>
                                                     
                                                     
@@ -165,12 +189,95 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
             </div>
         </section>
         
 
         @include('frontend.include.newsletter._subcribtion')
+
+
     </main>
+    <script>
+
+    //Create a Stripe client.
+    var stripe = Stripe('pk_test_GODxOVYLzZEyYQNAd2dMsmEi00lH6kmTMn');
+
+    // Create an instance of Elements.
+    var elements = stripe.elements();
+
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+        base: {
+            color: '#000000',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4'
+            }
+        },
+        invalid: {
+            color: '#f41111',
+            iconColor: '#f92222'
+        }
+    };
+
+    //reate an instance of the card Element.
+    var card = elements.create('card', { style: style });
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-element');
+
+
+
+    // Element ended here
+
+    // Handle real-time validation errors from the card Element.
+    card.addEventListener('change', function (event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+
+    //Handle form submission.
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var holder_name = document.getElementById('holder_name').value;
+        var options = {
+            name: holder_name
+        };
+        stripe.createToken(card, options).then(function (result) {
+            if (result.error) {
+                // Inform the user if there was an error.
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server.
+                stripeTokenHandler(result.token);
+            }
+        });
+    });
+
+    // Submit the form with the token ID.
+    function stripeTokenHandler(token) {
+
+        // Insert the token ID into the form so it gets submitted to the server
+        var form = document.getElementById('payment-form');
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'stripeToken');
+        hiddenInput.setAttribute('value', token.id);
+        form.appendChild(hiddenInput);
+        // Submit the form
+        form.submit();
+    }
+</script>s
 @endsection

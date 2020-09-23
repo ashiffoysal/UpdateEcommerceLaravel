@@ -13,6 +13,9 @@ class PageController extends Controller
     {
         $this->middleware('auth:admin');
     }
+    public function add(){
+        return view('admin.forntendsetup.page.add');
+    }
     // page index
     public function index(){
     	$page=Page::where('is_deleted',0)->get();
@@ -23,6 +26,8 @@ class PageController extends Controller
     	$insert=Page::insertGetId([
     		'page_name'=>$request['page_name'],
     		'page_details'=>$request['page_details'],
+            'meta_tag'=>$request['meta_ta'],
+            'meta_des'=>$request['meta_des'],
     		'created_at'=>Carbon::now()->toDateTimeString(),
     	]);
     	if($insert){
@@ -103,9 +108,11 @@ class PageController extends Controller
     	}
     }
     // edit
-    public function edit($page_id){
-    	$data=Page::where('id',$page_id)->first();
-    	return json_encode($data);
+    public function edit($id){
+        
+    	$data=Page::where('id',$id)->first();
+        //return $data->id;
+    	return view('admin.forntendsetup.page.edit',compact('data'));
     }
     // update
     public function update(Request $request){
@@ -113,6 +120,8 @@ class PageController extends Controller
     	$update=Page::where('id',$id)->update([
     		'page_name'=>$request['page_name'],
     		'page_details'=>$request['page_details'],
+            'meta_tag'=>$request['meta_ta'],
+            'meta_des'=>$request['meta_des'],
     		'updated_at'=>Carbon::now()->toDateTimeString(),
     	]);
     	if($update){

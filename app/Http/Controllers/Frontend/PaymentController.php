@@ -27,6 +27,8 @@ class PaymentController extends Controller
 {
     public function index($payment_secure_id)
     {
+        //return "ok";
+
         $orderInfo = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $payment_secure_id)->firstOrFail();
         if ($orderInfo) {
             return view('frontend.payment.stripe', compact('orderInfo'));
@@ -43,6 +45,7 @@ class PaymentController extends Controller
     }
     public function redirectToCheckout(Request $request)
     {
+
     }
 
     public function paymentPage($paymentSecureId)
@@ -66,6 +69,7 @@ class PaymentController extends Controller
 
     public function makePayment(Request $request)
     {
+        //return $request->order_id;
 
         if (!$request->payment_method_id) {
             $notification = array(
@@ -83,7 +87,9 @@ class PaymentController extends Controller
         $shippingAddress = ShippingAddress::where('shipping_user_id', Auth::user()->id)->where('order_id', $request->order_id)->first();
 
         if ($request->payment_method_id == 2) {
+            //return $request->payment_method_id;
             return redirect()->route('stripe.index', $getOrderInfo->payment_secure_id);
+
         } elseif ($request->payment_method_id == 3) {
             return redirect()->route('payment.paypal');
         } 
@@ -200,8 +206,9 @@ class PaymentController extends Controller
         }
     }
 
-    public function stripeSubmit(Request $request, $payment_secure_id)
+    public function stripeSubmit(Request $request)
     {
+         $payment_secure_id=$request->payment_secure_id;
         date_default_timezone_set('Asia/Dhaka');
         $getPlaceOrder = OrderPlace::where('payment_secure_id', $payment_secure_id)->first();
         abort_if(!$getPlaceOrder, 403);
@@ -260,13 +267,13 @@ class PaymentController extends Controller
 
                     $frontLogo = Logo::select(['front_logo'])->first();
 
-                    $userAddress = CustomarAddress::where('user_id', $placeOrder->user_id)->select('user_address')->first();
+                    $userAddress = CustomarAccount::where('userid', $placeOrder->user_id)->select('address')->first();
                     $shippingAddress = ShippingAddress::where('shipping_user_id', $placeOrder->user_id)
                                         ->where('order_id', $placeOrder->order_id)
                                         ->select('shipping_address')
                                         ->first();
-                    Mail::to(Auth::user()->email)
-                    ->send(new PaymentSuccessMail($placeOrder, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
+                    // Mail::to(Auth::user()->email)
+                    // ->send(new PaymentSuccessMail($placeOrder, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
 
                 }
 

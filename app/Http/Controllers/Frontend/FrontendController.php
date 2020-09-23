@@ -317,11 +317,13 @@ class FrontendController extends Controller
     // product review
     public function productreview(Request $request)
     {
+        //return $request;
         $insert = ProductReview::insertGetId([
             'name' => $request['name'],
             'description' => $request['description'],
             'review' => $request['review'],
             'product_id' => $request['product_id'],
+            'email' => $request['email'],
         ]);
         if ($insert) {
             $notification = array(
@@ -339,14 +341,18 @@ class FrontendController extends Controller
     }
     // blog
     public function allblog(){
-        $blogs=Blog::where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->get();
-        return view('frontend.blog.blogpage',compact('blogs'));
+        $blogs=Blog::where('is_deleted',0)->where('status',1)->orderBy('id','DESC')->paginate(5);
+        $recentblog=Blog::orderBy('id','DESC')->limit(10)->get();
+
+        return view('frontend.blog.blog',compact('blogs','recentblog'));
     }
 
     // 
     public function blogdetails($id){
         $blogs=Blog::where('id',$id)->first();
-        return view('frontend.blog.blogdetails',compact('blogs'));
+
+        $allnewproduct=Product::orderBy('id','DESC')->limit(12)->get();
+        return view('frontend.blog.blogdetails',compact('blogs','allnewproduct'));
     }
 
     // 

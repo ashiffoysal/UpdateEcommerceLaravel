@@ -325,14 +325,9 @@
                                 <div class="mega-menu__column">
                                     <h4>Single Blog<span class="sub-toggle"></span></h4>
                                     <ul class="mega-menu__list">
-                                        <li class="current-menu-item "><a href="blog-detail.html">Single 1</a>
+                                        <li class="current-menu-item "><a href="{{url('/product/blog')}}">blog</a>
                                         </li>
-                                        <li class="current-menu-item "><a href="blog-detail-2.html">Single 2</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="blog-detail-3.html">Single 3</a>
-                                        </li>
-                                        <li class="current-menu-item "><a href="blog-detail-4.html">Single 4</a>
-                                        </li>
+                                     
                                     </ul>
                                 </div>
                             </div>

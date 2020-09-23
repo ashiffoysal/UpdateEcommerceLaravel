@@ -18,7 +18,7 @@
 									<div class="col-md-6 text-right">
 										<div class="panel_title">
 											<!-- <a href="{{route('admin.faq')}}" class="btn btn-success"><i class="fas fa-plus"></i></span> <span>Add Faq</span></a> -->
-											<a href="#" class="btn btn-success" data-toggle="modal" data-target="#myModal1"><i class="fas fa-plus"></i></span> <span>Add Page</span></a>
+											<a href="{{route('admin.page.add')}}" class="btn btn-success"><i class="fas fa-plus"></i></span> <span>Add Page</span></a>
 
 										</div>
 									</div>
@@ -56,7 +56,7 @@
 												</label>
 		                                      </td>
 		                                      <td>{{$data->page_name}}</td>
-		                                      <td>{{Str::limit($data->page_details,75)}}</td>
+		                                      <td>{!! Str::limit($data->page_details,75) !!}</td>
 		                                      <td>@if($data->page_status==1)<span class="btn-success">Active</span>@else<span class="btn-danger">Deactive</span>@endif
 		                                      </td>
 		                                  
@@ -67,7 +67,7 @@
 													<a  href="{{url('admin/page/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
 													@endif
 		                                           	|  
-		                                           	<a class="editcat btn btn-sm btn-blue text-white" data-id="{{$data->id}}" title="edit"  data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt"></i></a>|
+		                                           	<a href="{{url('admin/page/edit/'.$data->id)}}" class="btn btn-sm btn-blue text-white"title="edit"><i class="fas fa-pencil-alt"></i></a>|
 
 		                                            <a id="delete" href="{{url('admin/page/softdelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 		                                       </td>

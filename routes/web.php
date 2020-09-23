@@ -3,22 +3,6 @@
 
 
 Auth::routes();
-Route::get('/example1', 'SslCommerzPaymentController@exampleEasyCheckout')->name('');
-Route::get('/example2', 'SslCommerzPaymentController@exampleHostedCheckout');
-
-Route::post('/pay', 'SslCommerzPaymentController@index');
-
-Route::post('/pay-via-ajax', 'SslCommerzPaymentController@payViaAjax');
-
-Route::post('/success', 'SslCommerzPaymentController@success');
-Route::post('/fail', 'SslCommerzPaymentController@fail');
-Route::post('/cancel', 'SslCommerzPaymentController@cancel');
-
-Route::post('/ipn', 'SslCommerzPaymentController@ipn');
-
-
-
-
 
     Route::group(['prefix' => 'forgot/password', 'namespace' => 'Auth'], function () {
         Route::get('verification/code/{remember_token}', 'ForgotPasswordController@forgetPassVerificationCodeFrom')->name('forget.password.verify.code.form');
@@ -266,11 +250,14 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
     Route::get('admin/faq/faqhearddelete/{id}', 'Admin\ForntendSetupController@faqhearddelete');
     //page controller
     Route::get(md5('admin/page/all'), 'Admin\PageController@index')->name('admin.page.all');
+    Route::get(md5('admin/page/add'), 'Admin\PageController@add')->name('admin.page.add');
+    Route::get('admin/page/edit/{id}', 'Admin\PageController@edit');
+
     Route::post(md5('admin/page/insert'), 'Admin\PageController@insert')->name('admin.page.insert');
     Route::get('admin/page/deactive/{id}', 'Admin\PageController@deactive');
     Route::get('admin/page/active/{id}', 'Admin\PageController@active');
     Route::get('admin/page/softdelete/{id}', 'Admin\PageController@pagesoftdel');
-    Route::get('/get/page/edit/{page_id}', 'Admin\PageController@edit');
+    
     Route::post('admin/page/update', 'Admin\PageController@update')->name('admin.page.update');
     Route::post('admin/page/multisoftdelete', 'Admin\PageController@pagemultidel')->name('admin.page.multisoftdelete');
     Route::get('admin/page/recover/{id}', 'Admin\PageController@recover');
@@ -431,6 +418,11 @@ Route::post('/ipn', 'SslCommerzPaymentController@ipn');
     Route::get('/product/add/compare/comcount/{id}', 'Frontend\CompareProductController@comparecount');
 
     Route::post('/compare/delete/', 'Frontend\CompareProductController@delete')->name('compare.list.del');
+
+
+
+     Route::post('/compare/surjopay/payment', 'Frontend\CompareProductController@surjopaynew');
+     Route::get('/compare/surjopay/payment/success', 'Frontend\CompareProductController@surjosuccess')->name('surjopy.com.success');
     // wish list end
 
 
@@ -828,8 +820,10 @@ Route::get('search/new/by/all/', 'Frontend\SearchController@newsearch')->name('a
     // Payment Route Created
 
     Route::group(['prefix' => 'payment', 'namespace' => 'Frontend'], function () {
+
         Route::get('stripe/{payment_secure_id}', 'PaymentController@index')->name('stripe.index');
-        Route::post('stripe/submit/{payment_secure_id}', 'PaymentController@stripeSubmit')->name('payment.stripe.submit');
+
+        Route::post('stripe/submit/', 'PaymentController@stripeSubmit')->name('payment.stripe.submit');
         Route::get('stripe/success/payment', 'PaymentController@successStripePaymentView')->name('payment.stripe.success.view');
         Route::get('paypal/success/payment', 'PaymentController@paypalsuccess')->name('payment.paypal.success');
 
