@@ -40,7 +40,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="ps-section__cart-actions"><a class="ps-btn" href="shop-default.html"><i class="icon-arrow-left"></i> Back to Shop</a><a class="ps-btn ps-btn--outline" href="shop-default.html"><i class="icon-sync"></i> Update cart</a></div>
+                    <div class="ps-section__cart-actions"><a class="ps-btn" href="{{URL::to('/')}}"><i class="icon-arrow-left"></i> Back to Shop</a><a class="ps-btn ps-btn--outline" href="#"><i class="icon-sync"></i> Update cart</a></div>
                 </div>
                 <div class="ps-section__footer">
                     <div class="row">

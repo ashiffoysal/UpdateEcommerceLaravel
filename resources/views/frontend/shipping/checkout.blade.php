@@ -195,6 +195,7 @@
                                                 <p class="text-danger">{{$message}}</p>
                                             @enderror
                                         </div>
+     
                             <!-- payment type area end from here -->
                                     </div><button type="submit" class="ps-btn ps-btn--fullwidth">Proceed to checkout</button>
                                 </div>

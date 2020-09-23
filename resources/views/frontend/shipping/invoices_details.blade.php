@@ -69,7 +69,74 @@
                                                         <div class="ps-product--cart">
                                                             <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
                                                             <div class="ps-product__content"><a href="product-default.html">{{$row->name}}</a>
-                                                                <p>Sold By:<strong> YOUNG SHOP</strong></p>
+                                                            @if($row->colors)
+                                                                <p>Color:<strong class="product-color" style="background: {{$row->colors}};"></strong></p>
+                                                            @endif
+
+
+
+                                                            @php
+                
+
+                                                                // store attibute name
+                                                                $sizename = [];
+                                                                $productdetails = App\Product::findOrFail($row->product_id);
+
+                                                                foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+                                                                    $size = $choice->title; //this reaturn size,model
+                                                                    $choicename = $choice->name; //this reaturn form name  
+                                                                    array_push($sizename, $size);
+                                                                }
+                                                                $countsize = count($sizename);
+                                                                
+                                                                
+                                                            @endphp
+
+                                                                                                        
+
+                                                        @if($countsize == 1)
+                                                            @php
+                                                                $sizenameone =$sizename[0];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+
+
+                                                        @elseif($countsize == 2)
+                                                            @php
+                                                                $sizenameone =$sizename[0];
+                                                                $sizenametwo =$sizename[1];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+                                                            <p>{{$sizename[1]}}:<strong> {{$row->$sizenametwo}}</strong></p>
+
+
+                                                        @elseif($countsize == 3)
+                                                            @php
+                                                                $sizenameone =$sizename[0];
+                                                                $sizenametwo =$sizename[1];
+                                                                $sizenamethree =$sizename[2];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+                                                            <p>{{$sizename[1]}}:<strong> {{$row->$sizenametwo}}</strong></p>
+                                                            <p>{{$sizename[2]}}:<strong> {{$row->$sizenamethree}}</strong></p>
+
+                                                        @elseif($countsize == 4)
+
+                                                            @php
+                                                                $sizenameone =$sizename[0];
+                                                                $sizenametwo =$sizename[1];
+                                                                $sizenamethree =$sizename[2];
+                                                                $sizenamefour =$sizename[3];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+                                                            <p>{{$sizename[1]}}:<strong> {{$row->$sizenametwo}}</strong></p>
+                                                            <p>{{$sizename[2]}}:<strong> {{$row->attributes->$sizenamethree}}</strong></p>
+                                                            <p>{{$sizename[3]}}:<strong> {{$row->$sizenamefour}}</strong></p>
+
+                                                        @endif
+
+
                                                             </div>
                                                         </div>
                                                     </td>
@@ -114,27 +181,57 @@
                 </div>
             </div>
         </section>
-        <div class="ps-newsletter">
-            <div class="ps-container">
-                <form class="ps-form--newsletter" action="do_action" method="post">
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                            <div class="ps-form__left">
-                                <h3>Newsletter</h3>
-                                <p>Subcribe to get information about products and coupons</p>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                            <div class="ps-form__right">
-                                <div class="form-group--nest">
-                                    <input class="form-control" type="email" placeholder="Email address">
-                                    <button class="ps-btn">Subscribe</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+
+       
+
+<div class="modal fade bd-example-modal-lg modal-background" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+    <div class="ps-block--payment-success modal-payment-success text-center">
+                    <h3>Payment Success !</h3>
+                    <p>Thanks for your payment. Please visit<a href="{{route('customar.invoice.show',auth()->user()->id)}}"> here</a> to check your order status.</p>
+                    <small class="text-center d-block">Please wait for <b id="second">  </b>seconds</small>
+                </div>
+    </div>
+  </div>
+</div>
+        
+    @include('frontend.include.newsletter._subcribtion')
     </main>
+
+    @if(isset($secure_id))
+    <script src="{{asset('public/frontend')}}/plugins/jquery.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+
+            
+            var countDownDate = 5;
+
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+
+
+
+
+            
+            document.getElementById("second").innerHTML = countDownDate +" ";
+            countDownDate--;    
+                
+           
+            }, 1000);
+
+
+            
+
+            
+            $('.bd-example-modal-lg').modal('toggle');
+            
+                setTimeout(function(){ $('.bd-example-modal-lg').modal('hide'); clearInterval(x)}, 6000);
+        })
+        
+
+        
+    </script>
+    @endif
+    
     @endsection

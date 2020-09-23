@@ -550,26 +550,41 @@ class FrontendController extends Controller
 
     public function viewedProductPage()
     {
+        
         $viewed = ViewedProduct::where('user_id',\Request::ip())->first();
+        
         $viewedproduct=array();
         foreach(json_decode($viewed->products) as $row){
-            $product =Product::findOrFail($row);
-            if($product){
+            
+          
                 
-                $item['id']=$product->id;
-                $item['name']=$product->product_name;
-                $item['photo']=$product->thumbnail_img;
-                $item['slug']=$product->slug;
-                $item['price']=$product->product_price;
+                $product =Product::where('id',$row)->first();
+                 if($product){
                 
-                array_push($viewedproduct, $item);
-            }
+                    
+                    $item['id']=$product->id;
+                    $item['name']=$product->product_name;
+                    $item['photo']=$product->thumbnail_img;
+                    $item['slug']=$product->slug;
+                    $item['price']=$product->product_price;
+                    
+                    array_push($viewedproduct, $item);
+                    
+                }
+            
+
+            
+            
 
 
 
             
            
         } 
+
+     
+
+        
 
         
         return view('frontend.shipping.viewed_products',compact('viewedproduct'));

@@ -593,16 +593,10 @@ class CheckoutController extends Controller
 
         $cupon = Cupon::findOrFail($userusedcupon->cupon_id);
 
-        if ($cupon->discount_type == 1) {
-            $cupondatavalue = '৳ ' . $cupon->discount;
-            
-        } elseif($cupon->discount_type == 2) {
-
-            $cupondatavalue = $cupon->discount . '%';
-        }
+      
 
 
-        return view('frontend.include.ajaxview.cart_total_amount', compact('cupondatavalue','cupon'));
+        return view('frontend.include.ajaxview.cart_total_amount', compact('cupon'));
     }
 
     public function checkCourierCashOnDeliviry($upazila_id, $courier_id)
@@ -1033,6 +1027,8 @@ class CheckoutController extends Controller
 
     // offline payment area
 
+    
+
     public function offlinePaymentPage($order_id ,$secure_id)
     {
 
@@ -1053,13 +1049,13 @@ class CheckoutController extends Controller
         $address = DifferentAddress::where('orderid',$orderPlace->order_id)->first();
 
         if($address){
-            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon'));
+            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon','secure_id'));
             
         }else{
             
             $address =CustomarAccount::where('userid',auth()->user()->id)->first();
             
-            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon'));
+            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon','secure_id'));
         }
 
 
@@ -1070,7 +1066,7 @@ class CheckoutController extends Controller
 
     public function customarInvoiceShow($userid)
     {
-        $orders = OrderPlace::where('user_id',auth()->user()->id)->simplePaginate(7);
+        $orders = OrderPlace::where('user_id',auth()->user()->id)->orderBy('id', 'desc')->simplePaginate(7);
         return view('frontend.shipping.invoices',compact('orders'));
     }
 
