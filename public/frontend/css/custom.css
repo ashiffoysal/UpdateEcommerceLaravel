@@ -32,9 +32,32 @@
 
 .ps_inline_block{
     display: inline !important;
-
+}
 .ps-cart__content{
     overflow: scroll;
     max-height: 600px;
 
+}
+
+.product-color{
+   
+    padding: 10px 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 2%;
+    
+}
+
+.modal-background{
+    background:rgba(128, 128, 56, 0.5);
+}
+.modal-payment-success{
+    padding: 70px 40px;
+    border-radius: 15%;
+    -webkit-box-shadow: 0px 6px 24px 0px rgba(255,255,255,1);
+-moz-box-shadow: 0px 6px 24px 0px rgba(255,255,255,1);
+box-shadow: 0px 6px 24px 0px rgba(255,255,255,1);
+}
+#second{
+    font-size: 20px;
 }
