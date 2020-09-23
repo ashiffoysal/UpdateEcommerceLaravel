@@ -32,7 +32,7 @@
 							  <div class="form-group row">
 							    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Blog Details</label>
 							    <div class="col-sm-6">
-							      <textarea class="form-control" name="description"></textarea> 
+							      <textarea class="form-control" name="description" id="editor1" rows="10" cols="80"></textarea> 
 							  		
 							    </div>
 							  </div>

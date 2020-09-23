@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\CompareProduct;
+use smasif\ShurjopayLaravelPackage\ShurjopayService;
 
 class CompareProductController extends Controller
 {
@@ -63,5 +64,20 @@ class CompareProductController extends Controller
         $data = CompareProduct::where('ip_address', $userid)->count();
             //echo $data;
          return response()->json(['data' => $data]);
+    }
+
+    public function surjopaynew(Request $request){
+             $tid= $request->order_id;
+          
+             $amount = $request->amount;
+
+            $shurjopay_service = new ShurjopayService(); 
+            $tx_id = $shurjopay_service->generateTxId($tid); 
+            $success_route = route('surjopy.com.success'); 
+            $shurjopay_service->sendPayment($amount, $success_route);
+    }
+
+    public function surjosuccess(){
+        return "ok";
     }
 }

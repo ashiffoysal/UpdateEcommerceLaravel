@@ -931,17 +931,17 @@
     },
     {
         "name": "guzzlehttp/guzzle",
-        "version": "7.0.1",
-        "version_normalized": "7.0.1.0",
+        "version": "7.1.0",
+        "version_normalized": "7.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "2d9d3c186a6637a43193e66b097c50e4451eaab2"
+            "reference": "7edeaa528fbb57123028bd5a76b9ce9540194e26"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/2d9d3c186a6637a43193e66b097c50e4451eaab2",
-            "reference": "2d9d3c186a6637a43193e66b097c50e4451eaab2",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7edeaa528fbb57123028bd5a76b9ce9540194e26",
+            "reference": "7edeaa528fbb57123028bd5a76b9ce9540194e26",
             "shasum": ""
         },
         "require": {
@@ -955,7 +955,6 @@
             "psr/http-client-implementation": "1.0"
         },
         "require-dev": {
-            "ergebnis/composer-normalize": "^2.0",
             "ext-curl": "*",
             "php-http/client-integration-tests": "dev-phpunit8",
             "phpunit/phpunit": "^8.5.5",
@@ -966,11 +965,11 @@
             "ext-intl": "Required for Internationalized Domain Name (IDN) support",
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2020-06-27T10:33:25+00:00",
+        "time": "2020-09-22T09:10:04+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "7.0-dev"
+                "dev-master": "7.1-dev"
             }
         },
         "installation-source": "dist",
@@ -4673,17 +4672,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.53.0",
-        "version_normalized": "7.53.0.0",
+        "version": "v7.53.1",
+        "version_normalized": "7.53.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "7b96e7625518ded9bf12ec04030c393f2dc67e74"
+            "reference": "6c8718a209947bf4d9d5ba7b467f858af00cb313"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/7b96e7625518ded9bf12ec04030c393f2dc67e74",
-            "reference": "7b96e7625518ded9bf12ec04030c393f2dc67e74",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/6c8718a209947bf4d9d5ba7b467f858af00cb313",
+            "reference": "6c8718a209947bf4d9d5ba7b467f858af00cb313",
             "shasum": ""
         },
         "require": {
@@ -4699,7 +4698,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2020-09-21T22:43:28+00:00",
+        "time": "2020-09-22T14:23:02+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

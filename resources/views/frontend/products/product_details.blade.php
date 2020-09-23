@@ -180,13 +180,15 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
 <div class="ps-breadcrumb">
     <div class="ps-container">
         <ul class="breadcrumb">
-            <li><a href="index.html">Home</a>
+            <li><a href="{{url('/')}}">Home</a>
             </li>
-            <li><a href="shop-default.html">Garden & Kitchen</a>
+            <li><a href="{{url('product/page/'.$productdetails->category->cate_slug)}}">{{ $productdetails->category->cate_name }}</a>
             </li>
-            <li><a href="shop-default.html">Furniture</a>
+            @if($productdetails->subcate_id)
+            <li><a href="{{url('subacete/'.$productdetails->category->cate_slug.'/'.$productdetails->subcate->subcate_slug)}}">{{$productdetails->subcate->subcate_name}}</a>
             </li>
-            <li>Korea Long Sofa Fabric In Blue Navy Color</li>
+            @endif
+            <li>{{$productdetails->product_name}}</li>
         </ul>
     </div>
 </div>
@@ -230,6 +232,13 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
 
                             </div>
                         </div>
+                        @php
+                          $rcount=App\ProductReview::where('product_id',$productdetails->id)->count();
+                        @endphp
+
+
+
+
                         <div class="ps-product__info">
                             <h1>{{$productdetails->product_name}}</h1>
                             <div class="ps-product__meta">
@@ -237,13 +246,69 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                 <p>Brand:<a href="">{{$productdetails->totalbrand->brand_name}}</a>
                                 </p>@endif
                                 <div class="ps-product__rating">
+                                   @if($rcount)
+                                    @php
+                                     $sumofreview=App\ProductReview::where('product_id',$productdetails->id)->sum('review');
+                                     $rating=$sumofreview/$rcount;
+                                    @endphp
+                                     @if($rating == 1)
                                     <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="2">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating < 2)
+                                         <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="2">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating < 3)
+                                         <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="1">2</option>
+                                        <option value="2">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating < 4)
+                                         <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="1">2</option>
+                                        <option value="1">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating < 5)
+                                         <select class="ps-rating" data-read-only="true">
                                         <option value="1">1</option>
                                         <option value="1">2</option>
                                         <option value="1">3</option>
                                         <option value="1">4</option>
                                         <option value="2">5</option>
-                                    </select><span>(1 review)</span>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating == 5)
+                                         <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="2">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating == 0)
+                                      <select class="ps-rating" data-read-only="true">
+                                          <option value="0">1</option>
+                                          <option value="2">2</option>
+                                          <option value="2">3</option>
+                                          <option value="2">4</option>
+                                          <option value="2">5</option>
+                                      </select><span>({{$rcount}} review)</span>
+                                      @endif
+                                    @endif
                                 </div>
                             </div>
                             <h4 class="ps-product__price chosen_price" id="chosen_price">৳ {{ $productdetails->product_price}}</h4>
@@ -455,7 +520,13 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
 
                                     
                                 </figure><a class="ps-btn ps-btn--black" href="#" id="addtocart">Add to cart</a><a class="ps-btn" href="#">Buy Now</a>
-                                <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a>
+                                <div class="ps-product__actions">
+                                  @if(Auth::guard('web')->check())
+                                  <a class="mywishlist" data-id="{{$productdetails->id}}" ><i class="icon-heart"></i></a>
+                                  @else
+                                  <a href="{{url('customar/login')}}"><i class="icon-heart"></i></a>
+                                  @endif
+                                  <a class="compare" data-id="{{$productdetails->id}}"><i class="icon-chart-bars"></i></a>
                                 </div>
                             </div>
                             <!-- add to cart area end -->
@@ -476,21 +547,8 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
 
 
                 <!-- form area end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <div class="ps-product__content ps-tab-root">
-                        <div class="ps-block--bought-toggether">
+                        <!-- <div class="ps-block--bought-toggether">
                             <h4>Frequently Bought Together</h4>
                             <div class="ps-block__content">
                                 <div class="ps-block__items">
@@ -560,17 +618,16 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                         @php
+                           $reviewcount=App\ProductReview::where('product_id',$productdetails->id)->count();
+                         @endphp
                         <ul class="ps-tab-list">
                             <li class="active"><a href="#tab-1">Description</a>
                             </li>
                             <li><a href="#tab-2">Specification</a>
                             </li>
-                            <li><a href="#tab-3">Vendor</a>
-                            </li>
-                            <li><a href="#tab-4">Reviews (1)</a>
-                            </li>
-                            <li><a href="#tab-5">Questions and Answers</a>
+                            <li><a href="#tab-4">Reviews ({{$reviewcount}})</a>
                             </li>
                             <li><a href="#tab-6">More Offers</a>
                             </li>
@@ -595,23 +652,78 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                     </table>
                                 </div>
                             </div>
-                            <div class="ps-tab" id="tab-3">
-                                <h4>GoPro</h4>
-                                <p>Digiworld US, New York’s no.1 online retailer was established in May 2012 with the aim and vision to become the one-stop shop for retail in New York with implementation of best practices both online</p><a href="#">More Products from gopro</a>
-                            </div>
+                          
                             <div class="ps-tab" id="tab-4">
                                 <div class="row">
                                     <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 ">
                                         <div class="ps-block--average-rating">
                                             <div class="ps-block__header">
-                                                <h3>4.00</h3>
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="1">3</option>
-                                                    <option value="1">4</option>
-                                                    <option value="2">5</option>
-                                                </select><span>1 Review</span>
+                                       
+                                     <h3></h3>
+                                     @if($rcount)
+                                    @php
+                                     $sumofreview=App\ProductReview::where('product_id',$productdetails->id)->sum('review');
+                                     $rating=$sumofreview/$rcount;
+                                    @endphp
+                                     @if($rating == 1)
+                                    <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="2">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating < 2)
+                                         <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="2">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating < 3)
+                                         <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="1">2</option>
+                                        <option value="2">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating < 4)
+                                         <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="1">2</option>
+                                        <option value="1">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating < 5)
+                                         <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="1">2</option>
+                                        <option value="1">3</option>
+                                        <option value="1">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating == 5)
+                                         <select class="ps-rating" data-read-only="true">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="2">3</option>
+                                        <option value="2">4</option>
+                                        <option value="2">5</option>
+                                    </select><span>({{$rcount}} review)</span>
+                                    @elseif($rating == 0)
+                                      <select class="ps-rating" data-read-only="true">
+                                          <option value="0">1</option>
+                                          <option value="2">2</option>
+                                          <option value="2">3</option>
+                                          <option value="2">4</option>
+                                          <option value="2">5</option>
+                                      </select><span>({{$rcount}} review)</span>
+                                      @endif
+                                    @endif
+                                              
                                             </div>
                                             <div class="ps-block__star"><span>5 Star</span>
                                                 <div class="ps-progress" data-value="100"><span></span>
@@ -636,14 +748,14 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                         </div>
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 ">
-                                        <form class="ps-form--review" action="index.html" method="get">
+                                        <form class="ps-form--review" action="{{url('product/review')}}" method="post">
+                                           @csrf
                                             <h4>Submit Your Review</h4>
                                             <p>Your email address will not be published. Required fields are marked<sup>*</sup>
                                             </p>
                                             <div class="form-group form-group__rating">
                                                 <label>Your rating of this product</label>
-                                                <select class="ps-rating" data-read-only="false">
-                                                    <option value="0">0</option>
+                                                <select class="ps-rating" data-read-only="false" name="review">
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -652,17 +764,18 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="form-control" rows="6" placeholder="Write your review here"></textarea>
+                                                <textarea name="description" class="form-control" rows="6" placeholder="Write your review here"></textarea>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
                                                     <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Your Name">
+                                                      <input type="hidden" name="product_id" value="{{$productdetails->id}}">
+                                                        <input class="form-control" name="name" type="text" placeholder="Your Name" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  ">
                                                     <div class="form-group">
-                                                        <input class="form-control" type="email" placeholder="Your Email">
+                                                        <input class="form-control" name="email" type="email" placeholder="Your Email">
                                                     </div>
                                                 </div>
                                             </div>
@@ -673,14 +786,7 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                     </div>
                                 </div>
                             </div>
-                            <div class="ps-tab" id="tab-5">
-                                <div class="ps-block--questions-answers">
-                                    <h3>Questions and Answers</h3>
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Have a question? Search for answer?">
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="ps-tab active" id="tab-6">
                                 <p>Sorry no more offers available</p>
                             </div>

@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 class SearchController extends Controller
 {
 
-
+    public function stripe(Request $request){
+        return $request;
+    }
 
 
 
