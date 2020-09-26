@@ -11,6 +11,7 @@ use App\ProductLicense;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\ReturnProduct;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -1349,5 +1350,35 @@ class ProductController extends Controller
                 return Redirect()->back()->with($notification);
             }
         }
+    }
+
+    // return producct area start
+
+    public function returrnProduct()
+    {
+        $allproduct =ReturnProduct::all();
+        return view('admin.ecommerce.product.returnproduct',compact('allproduct'));
+        
+
+    }
+
+    public function deletedProduct ($id)
+    {
+        ReturnProduct::where('orderrid',$id)->delete();
+        $notification = array(
+            'messege' => 'Order Deleted succesfully!',
+            'alert-type' => 'error'
+        );
+        return Redirect()->back()->with($notification);
+    }
+
+    // show product
+
+    public function showProduct ($id)
+    {
+        $products =ReturnProduct::where('orderrid',$id)->first();
+        abort_if(!$products,403);
+        return view('admin.ecommerce.product.showreturnproduct',compact('products'));
+
     }
 }

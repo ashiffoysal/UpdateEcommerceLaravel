@@ -852,6 +852,14 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
 
 
 
+    Route::namespace('Admin')->group(function(){
+        Route::prefix('admin')->group(function(){
+            Route::get('/show/return/product/list','ProductController@returrnProduct')->name('admin.customar.return.product');
+            Route::get('/delete/return/product/{orderid}','ProductController@deletedProduct')->name('admin.customar.deleted.product');
+            Route::get('/show/return/product/{orderid}','ProductController@showProduct')->name('admin.customar.show.product');
+        });
+    });
+
 
 
     // customar login information start here
@@ -888,6 +896,7 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
             Route::get('/checkout/page/{orderid}', 'FrontendController@checkoutPage')->name('product.checkout');
             Route::post('/customar/create', 'CheckoutController@customarDataCreate')->name('checkout.data.create');
             Route::post('/customar/online/payment', 'CheckoutController@onlinepayment')->name('checkout.data.online');
+            Route::get('/return/{orderid}/{name}/{id}', 'CheckoutController@productReturn')->name('customar.product.return');
             
             
         });

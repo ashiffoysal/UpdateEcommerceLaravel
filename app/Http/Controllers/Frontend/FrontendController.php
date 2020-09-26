@@ -512,6 +512,14 @@ class FrontendController extends Controller
             return redirect('/')->with($notification);
         } 
         $customar =CustomarAccount::where('userid',auth()->user()->id)->first();
+        
+        if(!$customar){
+            $notification = array(
+                'messege' => 'Please Add Your User Info!',
+                'alert-type' =>'success'
+            );
+            return redirect()->route('customar.address.page')->with($notification);
+        }
         $items = \Cart::session(\Request::getClientIp(true))->getContent();
         return view('frontend.shipping.checkout',compact('customar','items'));
     }
