@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Library\SslCommerz\SslCommerzNotification;
+use App\ReturnProduct;
 use App\SmsModel;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -664,8 +665,10 @@ class CheckoutController extends Controller
             );
             return redirect('/')->with($notification);
         } 
-        
 
+       
+        
+        
         $request->validate([
             'payment_type'=>'required',
         ]);
@@ -829,6 +832,7 @@ class CheckoutController extends Controller
             if($sizecount == 0){
 
                 
+                $product['id']=$item->id;
                 $product['name']=$item->name;
                 $product['price']=$item->price;
                 $product['quantity']=$item->quantity;
@@ -845,6 +849,7 @@ class CheckoutController extends Controller
                 
                 $attibute = $sizename[0];
 
+                $product['id']=$item->id;
                 $product['name']=$item->name;
                 $product['price']=$item->price;
                 $product['quantity']=$item->quantity;
@@ -862,6 +867,7 @@ class CheckoutController extends Controller
                 $attibuteone = $sizename[0];
                 $attibutetwo = $sizename[1];
                 
+                $product['id']=$item->id;
                 $product['name']=$item->name;
                 $product['price']=$item->price;
                 $product['quantity']=$item->quantity;
@@ -879,6 +885,7 @@ class CheckoutController extends Controller
                 $attibutetwo = $sizename[1];
                 $attibutethree = $sizename[2];
                 
+                $product['id']=$item->id;
                 $product['name']=$item->name;
                 $product['price']=$item->price;
                 $product['quantity']=$item->quantity;
@@ -898,6 +905,7 @@ class CheckoutController extends Controller
                 $attibutethree = $sizename[2];
                 $attibutefour = $sizename[3];
                 
+                $product['id']=$item->id;
                 $product['name']=$item->name;
                 $product['price']=$item->price;
                 $product['quantity']=$item->quantity;
@@ -919,6 +927,7 @@ class CheckoutController extends Controller
                 $attibutefour = $sizename[3];
                 $attibutefive = $sizename[4];
                 
+                $product['id']=$item->id;
                 $product['name']=$item->name;
                 $product['price']=$item->price;
                 $product['quantity']=$item->quantity;
@@ -978,11 +987,10 @@ class CheckoutController extends Controller
             'total_quantity'=>Cart::session(\Request::getClientIp(true))->getTotalQuantity(),
             'is_paid'=>0,
             'payment_secure_id'=>$token,
-            'delevary'=>1,
-            'delevary'=>1,
-            'payment_status'=>000,
-            'cupon_value'=>1,
-            'cupon_type'=>1,
+            'delevary'=>0,
+            'payment_status'=>0,
+            'cupon_value'=>0,
+            'cupon_type'=>0,
             'created_at' => Carbon::now(),
         ]);
 
@@ -1101,6 +1109,96 @@ class CheckoutController extends Controller
             
             return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon'));
         }
+    }
+
+    // customar product return
+    
+    public function productReturn($orderid,$name,$id)
+    {
+
+        
+        $allproducts = Checkout::where('orderid',$orderid)->where('userid',auth()->user()->id)->first();
+        abort_if(!$allproducts, 403);
+        $singleProduct = [];
+        $deletedProduct = [];
+        $deletedProductPrice =null;
+        $deletedProductQiy =null;
+
+       $products =$allproducts->products;
+        foreach($products as $key=>$value){
+            if($value->name == $name && $value->id == $id ){
+            
+                $deletedProductPrice .=$value->price;
+                $deletedProductQiy .=$value->quantity;
+                array_push($deletedProduct,$value);  
+              
+                
+            }else{
+                array_push($singleProduct,$value);  
+            }
+        }
+
+        $totalrefund = $deletedProductPrice * $deletedProductQiy;
+        
+
+        $allproducts ->update([
+            'products'=>json_encode($singleProduct),
+        ]);
+        
+
+        $returnpro =ReturnProduct::where('orderrid',$orderid)->first();
+        if($returnpro){
+            $returnproductrow = [];
+            foreach(json_decode($returnpro->products) as $row){
+                array_push($returnproductrow,$row,$deletedProduct);  
+            }
+            $returnpro->update([
+                'products'=>json_encode($returnproductrow),
+            ]);
+            $returnpro->increment('price',$deletedProductPrice);
+            $returnpro->increment('quantity',$deletedProductQiy);
+        }else{
+             
+            ReturnProduct::insert([
+                'orderrid'=>$orderid,
+                'user_id'=>auth()->user()->id,
+                'products'=>json_encode($deletedProduct),
+                'quantity'=>$deletedProductQiy,
+                'price'=>$deletedProductPrice,
+                'created_at'=>Carbon::now(),
+            ]);
+
+        }
+        
+      
+        
+       
+
+        CustomarAccount::where('userid',auth()->user()->id)->increment('balance', $totalrefund);
+
+        $allproducts = Checkout::where('orderid',$orderid)->where('userid',auth()->user()->id)->first();
+        abort_if(!$allproducts, 403);
+
+        if(count($allproducts->products) == 0){
+            $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('order_id',$orderid)->first();
+            $allproducts->delete();
+            $orderPlace->delete();
+
+            $notification = array(
+                'messege' => 'Successfully Products Return!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('customar.invoice.show',auth()->user()->id)->with($notification);
+        }
+
+
+        $notification = array(
+            'messege' => 'Successfully Products Return!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('customar.invoice.show.details',$orderid)->with($notification);
+        
+        
     }
 
 

@@ -1,69 +1,41 @@
-@extends('layouts.websiteapp')
-@section('content')
-<main class="ps-page--my-account">
-        <div class="ps-breadcrumb">
-            <div class="container">
-                <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="user-information.html">Account</a></li>
-                    <li>Invoice Detail</li>
-                </ul>
-            </div>
-        </div>
-        <section class="ps-section--account">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                    @include('frontend.include.accounts.menu')
+@extends('layouts.adminapp')
+@section('admin_content')
+<div class="content_wrapper">
+    <!--middle content wrapper-->
+    <!-- page content -->
+    <div class="middle_content_wrapper">
+        <section class="page_content">
+            <!-- panel -->
+            <div class="panel mb-0">
+                <div class="panel_header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel_title">
+                                <span class="panel_icon"><i class="fas fa-border-all"></i></span><span>All Return Product of Order ID # {{$products->orderrid}}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-8">
-                        <div class="ps-section__right mt-12">
-                            <div class="ps-section--account-setting">
-                                <div class="ps-section__header">
-                                    
-                                    <h3>Invoice #{{$orderPlace->order_id}} -<strong>Successful delivery</strong></h3>
-                                </div>
-                                <div class="ps-section__content">
-                                    <div class="row">
-                                        <div class="col-md-4 col-12">
-                                            <figure class="ps-block--invoice">
-                                                <figcaption>Address</figcaption>
-                                                <div class="ps-block__content"><strong>{{$address->name}}</strong>
-                                                    <p>Address: {{$address->address}}</p>
-                                                    <p>Phone: {{$address->phone}}</p>
-                                                </div>
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4 col-12">
-                                            <figure class="ps-block--invoice">
-                                                <figcaption>Shipping Fee</figcaption>
-                                                <div class="ps-block__content">
-                                                    <p>Shipping Fee: Free</p>
-                                                </div>
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-4 col-12">
-                                            <figure class="ps-block--invoice">
-                                                <figcaption>Payment</figcaption>
-                                                <div class="ps-block__content">
-                                                    <p>Payment Method: Cash on Delivery</p>
-                                                </div>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table ps-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Product</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Amount</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($cartdata->products as $row)
+
+                </div>
+
+                <div class="panel_body">
+                    <div class="table-responsive">
+                        <table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        SL
+                                    </th>
+                                    <th># Order ID</th>
+                                    <th>Customar Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Order Date</th>
+                                    <th>manage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                            @foreach(json_decode($products->products) as $row)
 
                                                 <tr>
                                                     <td>
@@ -175,67 +147,13 @@
                                                 </tr>
                                               
                                             </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="ps-section__footer"><a class="ps-btn ps-btn--sm" href="{{route('customar.invoice.show',auth()->user()->id)}}">Back to invoices</a></div>
-                            </div>
-                        </div>
+                        </table>
                     </div>
                 </div>
+
             </div>
         </section>
-
-       
-
-<div class="modal fade bd-example-modal-lg modal-background" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-    <div class="ps-block--payment-success modal-payment-success text-center">
-                    <h3>Payment Success !</h3>
-                    <p>Thanks for your payment. Please visit<a href="{{route('customar.invoice.show',auth()->user()->id)}}"> here</a> to check your order status.</p>
-                    <small class="text-center d-block">Please wait for <b id="second">  </b>seconds</small>
-                </div>
     </div>
-  </div>
 </div>
-        
-    @include('frontend.include.newsletter._subcribtion')
-    </main>
-
-    @if(isset($secure_id))
-    <script src="{{asset('public/frontend')}}/plugins/jquery.min.js"></script>
-    <script>
-        $( document ).ready(function() {
-
-            
-            var countDownDate = 5;
-
-            // Update the count down every 1 second
-            var x = setInterval(function() {
-
-
-
-
-            
-            document.getElementById("second").innerHTML = countDownDate +" ";
-            countDownDate--;    
-                
-           
-            }, 1000);
-
-
-            
-
-            
-            $('.bd-example-modal-lg').modal('toggle');
-            
-                setTimeout(function(){ $('.bd-example-modal-lg').modal('hide'); clearInterval(x)}, 6000);
-        })
-        
-
-        
-    </script>
-    @endif
-    
-    @endsection
+<!-- add modal -->
+@endsection

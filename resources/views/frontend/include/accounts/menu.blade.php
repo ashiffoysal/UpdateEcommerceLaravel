@@ -4,8 +4,16 @@
         <img class="img_circal" src="{{asset('public/frontend/')}}/img/users/3.jpg" alt="">
         <div class="ps-widget__header">
             <figure>
-                <figcaption class="address_header">Hello</figcaption>
-                <p>Blance: <small>$500.00</small></p>
+                @php
+                    $customar =App\CustomarAccount::where('userid',auth()->user()->id)->first();
+                @endphp
+                @if(!$customar)
+                    <figcaption class="address_header">Hello</figcaption>
+                    <p>Blance: <small>$500.00</small></p>
+                @else
+                    <figcaption class="address_header">{{$customar->name}}</figcaption>
+                    <p>Blance: <small>৳ {{$customar->balance}}</small></p>
+                @endif
             </figure>
         </div>
         <div class="ps-widget__content">
