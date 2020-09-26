@@ -9,11 +9,17 @@
             </ul>
         </div>
     </div>
+    
     <div class="ps-page--shop">
         <div class="ps-container">
+       
             <div class="ps-shop-banner">
-                <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on"><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/1.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/2.jpg" alt=""></a></div>
+                <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
+             
+
+                </div>
             </div>
+        
           <!--   <div class="ps-shop-brand"><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/1.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/2.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/3.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/4.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/5.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/6.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/7.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/8.jpg" alt=""></a></div> -->
             <!-- <div class="ps-shop-categories">
                 <div class="row align-content-lg-stretch">
@@ -183,9 +189,9 @@
                     </aside>
                     <form  action="{{url('search/all')}}" method="get">
                     <aside class="widget widget_shop">
-                        <h4 class="widget-title">BY PRODUCT</h4>
+                        <h4 class="widget-title">BY Brand</h4>
                         <!-- <form class="ps-form--widget-search" action="do_action" method="get"> -->
-                            <input class="form-control" type="text" name="search_field" id="search_field">
+                            <!-- <input class="form-control" type="text" name="search_field" id="search_field"> -->
                             
                            
                         <!-- </form> -->
@@ -195,18 +201,18 @@
                                     $bproduct=App\Product::where('is_deleted',0)->where('brand',$brand->id)->count();
                                 @endphp
                             <div class="ps-checkbox">
-                                <input class="brand form-control common_selector" type="checkbox" id="brand{{++$key}}" name="brand" value="{{$brand->id}}" >
-                                <label for="brand{{$key}}">{{$brand->brand_name}} ({{ $bproduct}})</label>
+                                <input class="common_selector form-control brand" type="checkbox" id="{{++$key}}"  value="{{$brand->id}}">
+                                <label for="{{$key}}">{{$brand->brand_name}} ({{ $bproduct}})</label>
                             </div>
                             @endforeach
                        
                         </figure>
-                         <figure>
+                       <figure>
                             <h4 class="widget-title">By Price</h4>
                        
-                            <div id="nonlinear"></div>
-                            <input type="text" name="minval" class="minval" value="" id="minval" onchange="update_filter()">
-                            <input type="text" name="maxval" class="minval" value="" id="maxval" onchange="update_filter()"><br>
+                            <div id="nonlinear" onclick="get_filter_range_value()"></div>
+                            <input type="hidden" name="minval" class="minval" value="" id="hidden_minimum_price" >
+                            <input type="hidden" name="maxval" class="minval" value="" id="hidden_maximum_price"><br>
                             <p class="ps-slider__meta">Price:<span class="ps-slider__value">৳<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">৳<span class="ps-slider__max"></span></span></p>
                         </figure>
 
@@ -245,11 +251,11 @@
                                 <label for="color-8"></label>
                             </div>
                         </figure>
-                        <figure class="sizes">
+                      <!--   <figure class="sizes">
                             <h4 class="widget-title">BY SIZE</h4><a href="#">L</a><a href="#">M</a>
                             <a href="#">S</a><a href="#"></a><a href="#">S</a><a href="#"></a>
 
-                        </figure>
+                        </figure> -->
                        
                     </aside>
                 </form>
@@ -521,7 +527,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="search_category_product">
+                    <div class="filter_data">
                         
                     </div>
                     <div class="all_category_wise_product">
@@ -681,34 +687,73 @@
     </div>
 
 
-<script type="text/javascript">
-  $(document).ready(function() {
-     $('select[name="short"]').on('change', function(){
-         var id = $(this).val();
-         //alert(id);
+<script>
+    
+$(document).ready(function(){
+ $('.search_category_product').hide();
 
-         if(cate_id) {
-             $.ajax({
-                 url: "{{  url('/get/subcategory/all/') }}/"+cate_id,
-                 type:"GET",
-                 dataType:"json",
-                 success:function(data) {
+         $('.common_selector').click(function(){
+            //alert("hoy");
+            filter_data();
+        });
 
-                        $('#subcate_id').empty();
-                        $('#subcate_id').append(' <option value="">--Select--</option>');
-                        $.each(data,function(index,districtObj){
-                         $('#subcate_id').append('<option value="' + districtObj.id + '">'+districtObj.subcate_name+'</option>');
-                       });
-                     }
-             });
-         } else {
-             alert('danger');
-         }
 
-     });
- });
+
+    });
+</script>
+<script>
+     function filter_data(minval = null , maxval = null)
+    {
+       //alert("ok")
+       $('.filter_data').html('<div id="loading" style="" ></div>');
+        var brand = get_filter('brand');
+       
+        if (brand === "") {
+                $('.filter_data').hide();
+                $('.all_category_wise_product').show();
+            } else {
+                $('.all_category_wise_product').hide();
+                $('.filter_data').show();
+            }
+
+         $.ajax({
+            url:"{{ route('foysal.product.ajaxsearchmain') }}",
+            method:"POST",
+            data:{brand:brand,minval:minval,maxval:maxval},
+            success:function(data)
+            {
+                //alert('ok');
+                
+                    $('.filter_data').empty();
+                    $('.filter_data').html(data); 
+                  
+
+             }
+        });
+
+    }
 </script>
 
+<script>
+       
+      function get_filter(class_name)
+    {
+        var filter = [];
+        $('.'+class_name+':checked').each(function(){
+            filter.push($(this).val());
+        });
+        return filter;
+    }
+
+</script>
+
+<script>
+    function get_filter_range_value(){
+        var minval = document.getElementById('hidden_minimum_price').value;
+        var maxval = document.getElementById('hidden_maximum_price').value;
+        filter_data(minval,maxval);
+    }
+</script>
 
 
 <!-- <script>
@@ -754,7 +799,7 @@ $(document).ready(function () {
   
 });
 </script> -->
-<script>
+<!-- <script>
     $(document).ready(function(){
        $('.search_category_product').hide();
         $('#search_field').on('keyup', function(){
@@ -785,12 +830,25 @@ $(document).ready(function () {
 
 
 <script>
-$(document).ready(function(){
-    $('.brand').on('change', function(){
-         var brand = $(this).val();
-           alert(brand);
-    });  
-});
-</script>
 
+</script> -->
+<script>
+    $(document).ready(function(){
+      
+        $('#input-search').on('keyup', function(){
+            var product_name = $(this).val();
+            var category_id = $('#category_id').val();
+        
+
+            $.ajax({
+                url:"search/product/by/category"+"/"+category_id+"/"+product_name,
+                type:'get',
+                success:function(data){
+                   $('#search-result').empty();
+                    $('#search-result').html(data);
+                }
+            });
+        });
+    });
+</script>
 @endsection

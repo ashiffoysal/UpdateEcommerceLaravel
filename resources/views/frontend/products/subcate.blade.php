@@ -1,5 +1,6 @@
 @extends('layouts.websiteapp')
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <div class="ps-breadcrumb">
         <div class="ps-container">
             <ul class="breadcrumb">
@@ -11,7 +12,9 @@
     <div class="ps-page--shop">
         <div class="ps-container">
             <div class="ps-shop-banner">
-                <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on"><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/1.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/2.jpg" alt=""></a></div>
+                <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
+                   <!--  <a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/1.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/2.jpg" alt=""></a> -->
+                </div>
             </div>
             <div class="ps-layout--shop">
                 <div class="ps-layout__left">
@@ -66,50 +69,30 @@
                     <aside class="widget widget_shop">
                         <h4 class="widget-title">BY BRANDS</h4>
                         <form class="ps-form--widget-search" action="do_action" method="get">
-                            <input class="form-control" type="text" placeholder="">
-                            <button><i class="icon-magnifier"></i></button>
+                           <!--  <input class="form-control" type="text" placeholder="">
+                            <button><i class="icon-magnifier"></i></button> -->
                         </form>
                         <figure class="ps-custom-scrollbar" data-height="250">
-                            @foreach($allbrand as $brand)
+                            @foreach($allbrand as $key => $brand)
                                 @php
                                     $bproduct=App\Product::where('is_deleted',0)->where('brand',$brand->id)->count();
                                 @endphp
                             <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="brand-1" name="brand">
-                                <label for="brand-1">{{$brand->brand_name}} ({{ $bproduct}})</label>
+                                <input class="common_selector form-control brand" type="checkbox" id="{{++$key}}"  value="{{$brand->id}}">
+                                <label for="{{$key}}">{{$brand->brand_name}} ({{ $bproduct}})</label>
                             </div>
                             @endforeach
                        
                         </figure>
-                        <figure>
+                          <figure>
                             <h4 class="widget-title">By Price</h4>
-                            <div id="nonlinear"></div>
-                            <p class="ps-slider__meta">Price:<span class="ps-slider__value">$<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">$<span class="ps-slider__max"></span></span></p>
+                       
+                            <div id="nonlinear" onclick="get_filter_range_value()"></div>
+                            <input type="hidden" name="minval" class="minval" value="" id="hidden_minimum_price" >
+                            <input type="hidden" name="maxval" class="minval" value="" id="hidden_maximum_price"><br>
+                            <p class="ps-slider__meta">Price:<span class="ps-slider__value">৳<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">৳<span class="ps-slider__max"></span></span></p>
                         </figure>
-                        <figure>
-                            <h4 class="widget-title">By Price</h4>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-1" name="review">
-                                <label for="review-1"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i></span><small>(13)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-2" name="review">
-                                <label for="review-2"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i></span><small>(13)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-3" name="review">
-                                <label for="review-3"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(5)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-4" name="review">
-                                <label for="review-4"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(5)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-5" name="review">
-                                <label for="review-5"><span><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(1)</small></label>
-                            </div>
-                        </figure>
-                        <figure>
+                      <!--   <figure>
                             <h4 class="widget-title">By Color</h4>
                             <div class="ps-checkbox ps-checkbox--color color-1 ps-checkbox--inline">
                                 <input class="form-control" type="checkbox" id="color-1" name="size">
@@ -143,10 +126,10 @@
                                 <input class="form-control" type="checkbox" id="color-8" name="size">
                                 <label for="color-8"></label>
                             </div>
-                        </figure>
-                        <figure class="sizes">
+                        </figure> -->
+                        <!-- <figure class="sizes">
                             <h4 class="widget-title">BY SIZE</h4><a href="#">L</a><a href="#">M</a><a href="#">S</a><a href="#">XL</a>
-                        </figure>
+                        </figure> -->
                     </aside>
                 </div>
                 <div class="ps-layout__right">
@@ -411,110 +394,116 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="ps-shopping ps-tab-root">
-                        <div class="ps-shopping__header">
-                            <p><strong> {{$productcount}}</strong> Products found</p>
-                            <div class="ps-shopping__actions">
-                            
-                                <div class="ps-shopping__view">
-                                    <p>View</p>
-                                    <ul class="ps-tab-list">
-                                        <li class="active"><a href="#tab-1"><i class="icon-grid"></i></a></li>
-                                        <li><a href="#tab-2"><i class="icon-list4"></i></a></li>
-                                    </ul>
+                   
+                    <div class="all_category_wise_product">
+                        <div class="ps-shopping ps-tab-root">
+                            <div class="ps-shopping__header">
+                                <p><strong> {{$productcount}}</strong> Products found</p>
+                                <div class="ps-shopping__actions">
+                                
+                                    <div class="ps-shopping__view">
+                                        <p>View</p>
+                                        <ul class="ps-tab-list">
+                                            <li class="active"><a href="#tab-1"><i class="icon-grid"></i></a></li>
+                                            <li><a href="#tab-2"><i class="icon-list4"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ps-tabs">
-                            <div class="ps-tab active" id="tab-1">
-                                <div class="ps-shopping-product">
-                                    <div class="row">
-                                        @foreach($allproduct as $product)
-                                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 ">
-                                            <div class="ps-product">
-                                                <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"alt=""></a>
-                                                    <ul class="ps-product__actions">
-                                                         <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
-                                    
-                                                    <li>
-                                                         @if($product->product_type==1)
-                                                    <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
-                                                    @else
-                                                    <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
-                                                    @endif
-                                                    </li>
-
-                                                    <li>
-                                                        @if(Auth::guard('web')->check())
-                                                        <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                            <div class="ps-tabs">
+                                <div class="ps-tab active" id="tab-1">
+                                    <div class="ps-shopping-product">
+                                        <div class="row">
+                                            @foreach($allproduct as $product)
+                                            <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6 ">
+                                                <div class="ps-product">
+                                                    <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}"alt=""></a>
+                                                        <ul class="ps-product__actions">
+                                                             <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                        
+                                                        <li>
+                                                             @if($product->product_type==1)
+                                                        <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
                                                         @else
-                                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                        <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
                                                         @endif
-                                                    </li>
+                                                        </li>
 
-                                                    <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
-                                                    </ul>
+                                                        <li>
+                                                            @if(Auth::guard('web')->check())
+                                                            <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                            @else
+                                                             <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                            @endif
+                                                        </li>
+
+                                                        <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
+                                                        <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                                            <p class="ps-product__price">{{$product->product_price}}৳</p>
+                                                        </div>
+                                                        <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                                            <p class="ps-product__price">{{$product->product_price}}৳</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
-                                                    <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
-                                                        <p class="ps-product__price">{{$product->product_price}}৳</p>
-                                                    </div>
-                                                    <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
-                                                        <p class="ps-product__price">{{$product->product_price}}৳</p>
-                                                    </div>
+                                            </div>
+                                            @endforeach
+                       
+                                        </div>
+                                    </div>
+                                    <div class="ps-pagination">
+                                       <!--  <ul class="pagination">
+                                            <li class="active"><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">Next Page<i class="icon-chevron-right"></i></a></li>
+
+                                        </ul> -->
+                                        {{ $allproduct->links() }}
+                                    </div>
+                                </div>
+                                <div class="ps-tab" id="tab-2">
+                                    <div class="ps-shopping-product">
+                                        @foreach($allproduct as $product)
+                                        <div class="ps-product ps-product--wide">
+                                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
+                                            </div>
+                                            <div class="ps-product__container">
+                                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                                    <p class="ps-product__vendor"></a></p>
+                                             
+                                                </div>
+                                                <div class="ps-product__shopping">
+                                                    <p class="ps-product__price">{{$product->product_price}}</p><a class="ps-btn" href="#">Add to cart</a>
+                                                    <ul class="ps-product__actions">
+                                                        <li>@if(Auth::guard('web')->check()) <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i>
+                                                         Wishlist</a>
+                                                         @else
+                                                         <a href="{{url('customar/login')}}"><i class="icon-heart"></i>
+                                                         Wishlist</a>
+                                                         @endif
+                                                     </li>
+                                                        <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i> Compare</a></li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
                                         @endforeach
-                   
                                     </div>
-                                </div>
-                                <div class="ps-pagination">
-                                   <!--  <ul class="pagination">
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">Next Page<i class="icon-chevron-right"></i></a></li>
-
-                                    </ul> -->
-                                    {{ $allproduct->links() }}
-                                </div>
-                            </div>
-                            <div class="ps-tab" id="tab-2">
-                                <div class="ps-shopping-product">
-                                    @foreach($allproduct as $product)
-                                    <div class="ps-product ps-product--wide">
-                                        <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
-                                        </div>
-                                        <div class="ps-product__container">
-                                            <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
-                                                <p class="ps-product__vendor"></a></p>
-                                         
-                                            </div>
-                                            <div class="ps-product__shopping">
-                                                <p class="ps-product__price">{{$product->product_price}}</p><a class="ps-btn" href="#">Add to cart</a>
-                                                <ul class="ps-product__actions">
-                                                    <li>@if(Auth::guard('web')->check()) <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i>
-                                                     Wishlist</a>
-                                                     @else
-                                                     <a href="{{url('customar/login')}}"><i class="icon-heart"></i>
-                                                     Wishlist</a>
-                                                     @endif
-                                                 </li>
-                                                    <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i> Compare</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <div class="ps-pagination">
+                                        <ul class="pagination">
+                                             {{ $allproduct->links() }}
+                                        </ul>
                                     </div>
-                                    @endforeach
-                                </div>
-                                <div class="ps-pagination">
-                                    <ul class="pagination">
-                                         {{ $allproduct->links() }}
-                                    </ul>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                     <div class="filter_data" id="filter_data">
+                        
                     </div>
                 </div>
             </div>
@@ -529,4 +518,110 @@
             </div>
         </div>
     </div>
+
+<style>
+#loading
+{
+ text-align:center; 
+ background: url(asset('public/frontend/loader.gif')) no-repeat center; 
+ height: 150px;
+}
+</style>
+<script>
+    
+$(document).ready(function(){
+ $('.search_category_product').hide();
+
+         $('.common_selector').click(function(){
+            //alert("hoy");
+            filter_data();
+        });
+
+
+
+    });
+</script>
+<script>
+     function filter_data(minval = null , maxval = null)
+    {
+       //alert("ok")
+       $('.filter_data').html('<div id="loading" style="" ></div>');
+        var brand = get_filter('brand');
+       
+        if (brand === "") {
+                $('.filter_data').hide();
+                $('.all_category_wise_product').show();
+            } else {
+                $('.all_category_wise_product').hide();
+                $('.filter_data').show();
+            }
+
+         $.ajax({
+            url:"{{ route('foysal.product.ajaxsearchmain') }}",
+            method:"POST",
+            data:{brand:brand,minval:minval,maxval:maxval},
+            success:function(data)
+            {
+                //alert('ok');
+                
+                    $('.filter_data').empty();
+                    $('.filter_data').html(data); 
+                  
+
+             }
+        });
+
+    }
+</script>
+
+<script>
+       
+      function get_filter(class_name)
+    {
+        var filter = [];
+        $('.'+class_name+':checked').each(function(){
+            filter.push($(this).val());
+        });
+        return filter;
+    }
+
+</script>
+
+<script>
+    function get_filter_range_value(){
+        var minval = document.getElementById('hidden_minimum_price').value;
+        var maxval = document.getElementById('hidden_maximum_price').value;
+        filter_data(minval,maxval);
+    }
+</script>
+<script>
+    $(document).ready(function(){
+       $('.filter_data').hide();
+        $('#search_field').on('keyup', function(){
+            var proname = $(this).val();
+       
+          
+
+             if (proname === "") {
+                $('.search_category_product').hide();
+                $('.all_category_wise_product').show();
+            } else {
+                $('.all_category_wise_product').hide();
+                $('.search_category_product').show();
+            }
+            //alert(proname);
+            $.ajax({
+                url:"{{ route('asif.product.ajaxsearchmain') }}",
+                data: {proname: proname},
+                type:'get',
+                success:function(data){
+                   $('.search_category_product').empty();
+                    $('.search_category_product').html(data);
+                }
+            });
+        });
+    });
+</script>
+
+
 @endsection

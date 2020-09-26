@@ -21,6 +21,8 @@ use App\Banner;
 
 use App\CustomarAccount;
 use App\ViewedProduct;
+use App\SiteBanner;
+use App\Page;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -62,9 +64,14 @@ class FrontendController extends Controller
                     ]);
                 }
             }
+            $homban1=SiteBanner::where('section',1)->where('is_deleted',0)->select(['image','link'])->where('status',1)->inRandomOrder()->limit(2)->get();
+            $hommiddle=SiteBanner::where('section',3)->where('is_deleted',0)->select(['image','link'])->where('status',1)->inRandomOrder()->limit(3)->get();
 
+            $homefoot1=SiteBanner::where('section',4)->where('is_deleted',0)->select(['image','link'])->where('status',1)->inRandomOrder()->limit(1)->get();
+
+            $homefoot2=SiteBanner::where('section',5)->where('is_deleted',0)->select(['image','link'])->where('status',1)->inRandomOrder()->limit(1)->get();
             // hotdeal end
-            return view('frontend.home.home1',compact('slider','firstcate','secondcate','thirdcate','newproduct','hotdeal'));
+            return view('frontend.home.home1',compact('homefoot2','homefoot1','hommiddle','homban1','slider','firstcate','secondcate','thirdcate','newproduct','hotdeal'));
         }
         elseif($themecheck->id==2){
             return view('frontend.home.home2');
@@ -306,6 +313,12 @@ class FrontendController extends Controller
     {
       
         return view('frontend.pages.order_tracking');
+    }
+
+
+    public function pagecreate($id){
+        $pagedetails=Page::where('id',$id)->first();
+        return view('frontend.pages.createpage',compact('pagedetails'));
     }
     //
     public function ordertracking(Request $request)

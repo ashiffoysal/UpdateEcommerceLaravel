@@ -18,7 +18,7 @@
 									</div>
 									<div class="col-md-6 text-right">
 										<div class="panel_title">
-											<a href="#" class="btn btn-success" data-toggle="modal" data-target="#myModal1"><i class="fas fa-plus"></i></span> <span>Add SiteBanner</span></a>
+											<a href="{{route('admin.sitebanner.add')}}" class="btn btn-success" ><i class="fas fa-plus"></i></span> <span>Add SiteBanner</span></a>
 										</div>
 									</div>
 								</div>
@@ -34,10 +34,10 @@
 		                              <thead>
 		                                  <tr>
 		                                      <th>
-																							<label class="chech_container mb-4">
-																								<input type="checkbox"  id="check_all">
-																								<span class="checkmark"></span>
-																							</label>
+													<label class="chech_container mb-4">
+														<input type="checkbox"  id="check_all">
+														<span class="checkmark"></span>
+													</label>
 		                                      </th>
 		                                      <th>#</th>
 		                                      <th>Banner Link</th>
@@ -57,27 +57,15 @@
 		                                      </td>
 		                                      <td>
 		                                      	@if($data->section==1)
-		                                      	Home Banner(435*175)
+		                                      		Homeside(390*193)
 		                                      	@elseif($data->section==2)
-		                                        Category Top(1170*220)
+		                                       		Category Top(1650*399)
 		                                      	@elseif($data->section==3)
-		                                      	Category Home(270*854)
+		                                      		Homemiddle(530*285)
 		                                      	@elseif($data->section==4)
-		                                        Category HeaderTop(1920*180)
-																						@elseif($data->section==5)
-		                                        Details Banner(270*427)
-																						@elseif($data->section==6)
-																						  HeaderTop(1920*180)
-																						@elseif($data->section==7)
- 																						 Warranty HeaderTop(1920*180)
-																						@elseif($data->section==8)
-  																						 Support HeaderTop(1920*180)
-																						@elseif($data->section==9)
-	   																				faq HeaderTop(1920*180)
-																						@elseif($data->section==10)
-	   																				FlashDeal HeaderTop(1920*180)
-																						@elseif($data->section==11)
-	   																				Category Menu(362*495)
+		                                       		Homefooter1(1090*245)
+												@elseif($data->section==5)
+		                                       		 Homefooter2(530*245)
 		                                      	@endif
 		                                      </td>
 		                                      <td>{{Str::limit($data->link,25)}}</td>
@@ -116,90 +104,6 @@
 					</section>
 				</div>
 			</div>
-<!-- modal start-->
-  <!-- The Modal -->
-  <div class="modal fade bd-example-modal-lg" id="myModal1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Add Site-Banner</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          <form class="form-horizontal" action="{{route('admin.sitebanner.insert')}}" method="POST" enctype="multipart/form-data" >
-
-          	@csrf
-			 <div class="form-group row">
-			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Select Image Section</label>
-			    <div class="col-sm-8">
-			      <select class="form-control" name="section">
-				      <option value="1" >Home Banner(570*300)</option>
-							<option value="2">Category Top(1170*220)</option>
-							<option value="3">Category Home(270*854)</option>
-							<option value="4">Category HeaderTop(1920*180)</option>
-							<option value="11">Category Menu(362*495)</option>
-							<option value="5">Details Banner(270*427)</option>
-							<option value="6">HeaderTop(1920*180)</option>
-							<!--<option value="7">Warranty HeaderTop(1920*180)</option>-->
-							<!--<option value="8">Support HeaderTop(1920*180)</option>-->
-							<!--<option value="9">Faq HeaderTop(1920*180)</option>-->
-							<option value="10">FlashDeal HeaderTop(1920*180)</option>
-
-			      </select>
-			    </div>
-			  </div>
-			  <div class="form-group row catebox" id="catebox" style="display: none">
-			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Catgeory</label>
-			    <div class="col-sm-8">
-			       @php
-						 	$cate=App\Category::where('is_deleted',0)->orderBy('id','DESC')->get();
-			       @endphp
-			      <select class="select2" name="category_id[]" id="category_id" multiple="multiple" data-dropdown-css-class="select2-purple" style="width: 100%;">
-					    @foreach($cate as $category)
-			      		<option value="{{$category->id}}">{{$category->cate_name}}</option>
-			      	@endforeach
-			      </select>
-
-			    </div>
-			  </div>
-
-			  <div class="form-group row">
-			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Image</label>
-			    <div class="col-sm-8">
-			      <input type="file" name="pic" required>
-			    </div>
-			  </div>
-			  <div class="form-group row">
-			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Link</label>
-			    <div class="col-sm-8">
-			      <input type="text" class="form-control" name="link">
-			    </div>
-			  </div>
-
-		    <div class="form-group text-right">
-		    	<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
-		    	<button type="submit" class="btn btn-blue">Submit</button>
-		    </div>
-		  </form>
-        </div>
-
-        <!-- Modal footer -->
-       <!--  <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div> -->
-
-      </div>
-    </div>
-  </div>
-<!-- modal end -->
-
-<!-- edit modal -->
-
-<!-- edit modal start-->
 
 
 <script src="{{asset('public/adminpanel')}}/assets/plugins/select2/js/select2.full.min.js"></script>
@@ -216,7 +120,7 @@ $(document).ready(function() {
 $('select[name="section"]').on('change', function(){
   var id = $(this).val();
   //alert("id");
-    if( id==2 || id==3 || id==4 || id==11) {
+    if( id==2 ) {
     	//alert("success");
     	$("#catebox").show();
 

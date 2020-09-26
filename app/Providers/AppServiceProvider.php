@@ -9,6 +9,7 @@ use App\Logo;
 use App\wishlist;
 use App\FooterOption;
 use App\Social;
+use App\Page;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -40,6 +41,10 @@ class AppServiceProvider extends ServiceProvider
 
         $unseen_mail = Contract::where('is_seen', 0)->where('is_deleted', 0)->count();
         view()->share('unseen_mail', $unseen_mail);
+
+
+        $allpage = Page::where('is_deleted',0)->where('page_status',1)->OrderBy('id','DESC')->get();
+        view()->share('allpage', $allpage);
 
         $search_categories = Category::with('sub_categories')->where('cate_status', 1)->get();
         view()->share('search_categories', $search_categories);

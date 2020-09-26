@@ -16,6 +16,9 @@ class SiteBannerController extends Controller
         $this->middleware('auth:admin');
     }
 
+    public function addsiteban(){
+      return view('admin.ecommerce.sitebanner.add');
+    }
 
 	public function sitebanner(){
 	    $siteban=SiteBanner::where('is_deleted',0)->orderBy('id','DESC')->get();
@@ -34,12 +37,11 @@ class SiteBannerController extends Controller
 
 
          // $data->save();
-
         if($request->section == 1){
              if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='amni_'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(570,300)->save('public/uploads/sitebanner/'.$ImageName);
+                Image::make($image)->resize(390,193)->save('public/uploads/sitebanner/'.$ImageName);
                 $data->image =$ImageName;
 
               }
@@ -48,7 +50,7 @@ class SiteBannerController extends Controller
              if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='cate_top_asif'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(1120,220)->save('public/uploads/sitebanner/'.$ImageName);
+                Image::make($image)->resize(1650,399)->save('public/uploads/sitebanner/'.$ImageName);
                 $data->image =$ImageName;
 
               }
@@ -57,7 +59,7 @@ class SiteBannerController extends Controller
              if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='catehome_top_asif'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(270,854)->save('public/uploads/sitebanner/'.$ImageName);
+                Image::make($image)->resize(530,285)->save('public/uploads/sitebanner/'.$ImageName);
                 $data->image =$ImageName;
 
               }
@@ -66,7 +68,7 @@ class SiteBannerController extends Controller
              if($request->hasFile('pic')){
                 $image=$request->file('pic');
                 $ImageName='header_top_asif'.'_'.time().'.'.$image->getClientOriginalExtension();
-                Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
+                Image::make($image)->resize(1090,245)->save('public/uploads/sitebanner/'.$ImageName);
                 $data->image =$ImageName;
 
               }
@@ -75,66 +77,11 @@ class SiteBannerController extends Controller
             if($request->hasFile('pic')){
                $image=$request->file('pic');
                $ImageName='details_asif'.'_'.time().'.'.$image->getClientOriginalExtension();
-               Image::make($image)->resize(270,427)->save('public/uploads/sitebanner/'.$ImageName);
+               Image::make($image)->resize(530,245)->save('public/uploads/sitebanner/'.$ImageName);
                $data->image =$ImageName;
 
              }
        }
-       if($request->section == 6){
-           if($request->hasFile('pic')){
-              $image=$request->file('pic');
-              $ImageName='aboutus_'.'_'.time().'.'.$image->getClientOriginalExtension();
-              Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
-              $data->image =$ImageName;
-
-            }
-      }
-      if($request->section == 7){
-          if($request->hasFile('pic')){
-             $image=$request->file('pic');
-             $ImageName='warranty'.'_'.time().'.'.$image->getClientOriginalExtension();
-             Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
-             $data->image =$ImageName;
-
-           }
-     }
-     if($request->section == 8){
-         if($request->hasFile('pic')){
-            $image=$request->file('pic');
-            $ImageName='support'.'_'.time().'.'.$image->getClientOriginalExtension();
-            Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
-            $data->image =$ImageName;
-
-          }
-    }
-    if($request->section == 9){
-        if($request->hasFile('pic')){
-           $image=$request->file('pic');
-           $ImageName='faq'.'_'.time().'.'.$image->getClientOriginalExtension();
-           Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
-           $data->image =$ImageName;
-
-         }
-   }
-   if($request->section == 10){
-       if($request->hasFile('pic')){
-          $image=$request->file('pic');
-          $ImageName='flashdeal_'.'_'.time().'.'.$image->getClientOriginalExtension();
-          Image::make($image)->resize(1920,180)->save('public/uploads/sitebanner/'.$ImageName);
-          $data->image =$ImageName;
-
-        }
-  }
-
-  if($request->section == 11){
-      if($request->hasFile('pic')){
-         $image=$request->file('pic');
-         $ImageName='category_'.'_'.time().'.'.$image->getClientOriginalExtension();
-         Image::make($image)->resize(362,495)->save('public/uploads/sitebanner/'.$ImageName);
-         $data->image =$ImageName;
-
-       }
- }
 
         $data->save();
 

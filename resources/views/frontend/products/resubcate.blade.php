@@ -11,7 +11,9 @@
     <div class="ps-page--shop">
         <div class="ps-container">
             <div class="ps-shop-banner">
-                <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on"><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/1.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/2.jpg" alt=""></a></div>
+                <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
+                <!--     <a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/1.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/slider/shop-default/2.jpg" alt=""></a> -->
+                </div>
             </div>
             <div class="ps-layout--shop">
                 <div class="ps-layout__left">
@@ -66,49 +68,30 @@
                     <aside class="widget widget_shop">
                         <h4 class="widget-title">BY BRANDS</h4>
                         <form class="ps-form--widget-search" action="do_action" method="get">
-                            <input class="form-control" type="text" placeholder="">
-                            <button><i class="icon-magnifier"></i></button>
+                           <!--  <input class="form-control" type="text" placeholder="">
+                            <button><i class="icon-magnifier"></i></button> -->
                         </form>
                         <figure class="ps-custom-scrollbar" data-height="250">
-                            @foreach($allbrand as $brand)
+                            @foreach($allbrand as $key => $brand)
                                 @php
                                     $bproduct=App\Product::where('is_deleted',0)->where('brand',$brand->id)->count();
                                 @endphp
                             <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="brand-1" name="brand">
-                                <label for="brand-1">{{$brand->brand_name}} ({{ $bproduct}})</label>
+                                <input class="common_selector form-control brand" type="checkbox" id="{{++$key}}"  value="{{$brand->id}}">
+                                <label for="{{$key}}">{{$brand->brand_name}} ({{ $bproduct}})</label>
                             </div>
                             @endforeach
                        
                         </figure>
                         <figure>
                             <h4 class="widget-title">By Price</h4>
-                            <div id="nonlinear"></div>
-                            <p class="ps-slider__meta">Price:<span class="ps-slider__value">$<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">$<span class="ps-slider__max"></span></span></p>
+                       
+                            <div id="nonlinear" onclick="get_filter_range_value()"></div>
+                            <input type="hidden" name="minval" class="minval" value="" id="hidden_minimum_price" >
+                            <input type="hidden" name="maxval" class="minval" value="" id="hidden_maximum_price"><br>
+                            <p class="ps-slider__meta">Price:<span class="ps-slider__value">৳<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">৳<span class="ps-slider__max"></span></span></p>
                         </figure>
-                        <figure>
-                            <h4 class="widget-title">By Price</h4>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-1" name="review">
-                                <label for="review-1"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i></span><small>(13)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-2" name="review">
-                                <label for="review-2"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i></span><small>(13)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-3" name="review">
-                                <label for="review-3"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(5)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-4" name="review">
-                                <label for="review-4"><span><i class="fa fa-star rate"></i><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(5)</small></label>
-                            </div>
-                            <div class="ps-checkbox">
-                                <input class="form-control" type="checkbox" id="review-5" name="review">
-                                <label for="review-5"><span><i class="fa fa-star rate"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><small>(1)</small></label>
-                            </div>
-                        </figure>
+                      
                         <figure>
                             <h4 class="widget-title">By Color</h4>
                             <div class="ps-checkbox ps-checkbox--color color-1 ps-checkbox--inline">
@@ -411,17 +394,15 @@
                             </div>
                         </div>
                     </div> -->
+                 <div class="filter_data">
+                    
+                </div>
+                <div class="all_category_wise_product">
                     <div class="ps-shopping ps-tab-root">
                         <div class="ps-shopping__header">
                             <p><strong> {{$productcount}}</strong> Products found</p>
                             <div class="ps-shopping__actions">
-                                <select class="ps-select" data-placeholder="Sort Items">
-                                    <option>Sort by latest</option>
-                                    <option>Sort by popularity</option>
-                                    <option>Sort by average rating</option>
-                                    <option>Sort by price: low to high</option>
-                                    <option>Sort by price: high to low</option>
-                                </select>
+                              
                                 <div class="ps-shopping__view">
                                     <p>View</p>
                                     <ul class="ps-tab-list">
@@ -525,6 +506,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
             <div class="modal" id="shop-filter-lastest" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -537,4 +519,72 @@
             </div>
         </div>
     </div>
+
+<script>
+    
+$(document).ready(function(){
+ $('.search_category_product').hide();
+
+         $('.common_selector').click(function(){
+            //alert("hoy");
+            filter_data();
+        });
+
+
+
+    });
+</script>
+<script>
+     function filter_data(minval = null , maxval = null)
+    {
+       //alert("ok")
+       $('.filter_data').html('<div id="loading" style="" ></div>');
+        var brand = get_filter('brand');
+       
+        if (brand === "") {
+                $('.filter_data').hide();
+                $('.all_category_wise_product').show();
+            } else {
+                $('.all_category_wise_product').hide();
+                $('.filter_data').show();
+            }
+
+         $.ajax({
+            url:"{{ route('foysal.product.ajaxsearchmain') }}",
+            method:"POST",
+            data:{brand:brand,minval:minval,maxval:maxval},
+            success:function(data)
+            {
+                //alert('ok');
+                
+                    $('.filter_data').empty();
+                    $('.filter_data').html(data); 
+                  
+
+             }
+        });
+
+    }
+</script>
+
+<script>
+       
+      function get_filter(class_name)
+    {
+        var filter = [];
+        $('.'+class_name+':checked').each(function(){
+            filter.push($(this).val());
+        });
+        return filter;
+    }
+
+</script>
+
+<script>
+    function get_filter_range_value(){
+        var minval = document.getElementById('hidden_minimum_price').value;
+        var maxval = document.getElementById('hidden_maximum_price').value;
+        filter_data(minval,maxval);
+    }
+</script>
 @endsection
