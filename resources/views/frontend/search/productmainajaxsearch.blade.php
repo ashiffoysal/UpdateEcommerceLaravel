@@ -50,10 +50,10 @@
                                                         </ul>
                                                     </div>
                                                     <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
-                                                        <div class="ps-product__content"><a class="ps-product__title" href="">{{$product->product_name}}</a>
+                                                        <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                                             <p class="ps-product__price">{{$product->product_price}}৳</p>
                                                         </div>
-                                                        <div class="ps-product__content hover"><a class="ps-product__title" href="">{{$product->product_name}}</a>
+                                                        <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                                             <p class="ps-product__price">{{$product->product_price}}৳</p>
                                                         </div>
                                                     </div>

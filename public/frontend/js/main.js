@@ -1,3 +1,4 @@
+//filter_data(1);
 (function($) {
     'use strict';
     var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -28,7 +29,7 @@
             );
         },
     };
-
+    //filter_data(1);
     function parallax() {
         $('.bg--parallax').each(function() {
             var el = $(this),
@@ -853,11 +854,12 @@
                 var maxval = document.querySelector('.ps-slider__max');
          
             
-                var minvall=document.getElementById("minval");
-                var maxvall=document.getElementById("maxval");
+                var minvall=document.getElementById("hidden_minimum_price");
+                var maxvall=document.getElementById("hidden_maximum_price");
 
                    minvall.value=minval.innerHTML;
                    maxvall.value=maxval.innerHTML;
+                   //filter_data(1);
                  
             });
 

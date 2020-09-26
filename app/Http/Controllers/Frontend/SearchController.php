@@ -13,6 +13,42 @@ class SearchController extends Controller
     public function stripe(Request $request){
         return $request;
     }
+    public function subsearch(Request $request){
+
+       // $brandnew = $request->brand;
+       // if(isset($brandnew)){
+       //     $products=Product::where('is_deleted',0)->where('brand',implode(" ",$brandnew))->get();
+       //     //return json_encode($products);
+       //      return view('frontend.search.productmainajaxsearch', compact('products'));
+       // }
+
+        $maxprice=$request->minval;
+        $minprice=$request->maxval;
+        
+        if(isset($maxprice,$minprice) && !empty($maxprice) && !empty($minprice)){
+
+        $products=Product::whereBetween('product_price', [$maxprice, $minprice])->get();
+        return view('frontend.search.productmainajaxsearch', compact('products'));
+        }elseif(isset($request->brand) && isset($maxprice,$minprice) && !empty($maxprice) && !empty($minprice)) {
+            $products=Product::where('is_deleted',0)->where('brand',implode(" ",$request->brand))->whereBetween('product_price', [$maxprice, $minprice])->get();
+           
+            return view('frontend.search.productmainajaxsearch', compact('products'));
+        }
+        elseif(isset($request->brand)) {
+            $products=Product::where('brand',implode(" ",$request->brand))->get();
+           
+            return view('frontend.search.productmainajaxsearch', compact('products'));
+        }else{
+            $products=Product::where('is_deleted',0)->orderBy('id','DESC')->limit(6)->get();
+           
+            return view('frontend.search.productmainajaxsearch', compact('products'));
+        }
+
+
+
+
+
+    }
 
 
 

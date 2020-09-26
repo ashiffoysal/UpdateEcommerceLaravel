@@ -21,28 +21,32 @@
                 <aside class="widget widget_footer">
                     <h4 class="widget-title">Quick links</h4>
                     <ul class="ps-list--link">
-                        <li><a href="#">Policy</a></li>
-                        <li><a href="#">Term & Condition</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Return</a></li>
-                        <li><a href="faqs.html">FAQs</a></li>
+                        @foreach($allpage as $page)
+                        <li><a href="{{url('pagecrate/'.$page->id)}}">{{$page->page_name}}</a></li>
+                        @endforeach
                     </ul>
                 </aside>
                 <aside class="widget widget_footer">
                     <h4 class="widget-title">Company</h4>
                     <ul class="ps-list--link">
-                        <li><a href="about-us.html">About Us</a></li>
-                        <li><a href="#">Affilate</a></li>
-                        <li><a href="#">Career</a></li>
+                        <li><a href="">About Us</a></li>
                         <li><a href="{{route('contract.us')}}">Contact</a></li>
                     </ul>
                 </aside>
                 <aside class="widget widget_footer">
                     <h4 class="widget-title">Bussiness</h4>
                     <ul class="ps-list--link">
-                        <li><a href="#">Our Press</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="my-account.html">My account</a></li>
+                        <li><a href="{{url('/product/blog')}}">Our Blog</a></li>
+                        @if(Auth::guard('web')->check())
+                        <li><a href="{{route('product.cart.data')}}">Checkout</a></li>
+                        @else
+                         <li><a href="{{route('customar.login.form')}}">Checkout</a></li>
+                        @endif
+                         @if(Auth::guard('web')->check())
+                        <li><a href="{{route('customar.account.page')}}">My account</a></li>
+                        @else
+                         <li><a href="{{route('customar.login.form')}}">My account</a></li>
+                        @endif
                         <li><a href="shop-default.html">Shop</a></li>
                     </ul>
                 </aside>

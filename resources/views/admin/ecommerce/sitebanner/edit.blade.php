@@ -27,22 +27,19 @@
 	 			    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Select Image Section</label>
 	 			    <div class="col-sm-8">
 	 			      <select class="form-control section" name="section" id="section">
-									<option value="1" @if($data->section==1) selected @else @endif>Site Banner(570*300)</option>
-									<option value="2" @if($data->section==2) selected @else @endif>Category Top(1170*220)</option>
-									<option value="3" @if($data->section==3) selected @else @endif>Category Home(270*854)</option>
-									<option value="4" @if($data->section==4) selected @else @endif>Category HeaderTop(1920*180)</option>
-									<option value="11" @if($data->section==11) selected @else @endif>Category Menu(362*495)</option>
-									<option value="5" @if($data->section==5) selected @else @endif>Details Banner(270*427)</option>
-									<option value="6" @if($data->section==6) selected @else @endif>HeaderTop(1920*180)</option>
-								
-									<option value="10" @if($data->section==10) selected @else @endif>FlashDeal HeaderTop(1920*180)</option>
+									<option value="1" @if($data->section==1) selected @else @endif>Homeside(390*193)</option>
+									<option value="2" @if($data->section==2) selected @else @endif>Category Top(1650*399)</option>
+									<option value="3" @if($data->section==3) selected @else @endif>Homemiddle(530*285)</option>
+									<option value="4" @if($data->section==4) selected @else @endif>Homefooter1(1090*245)</option>
+									<option value="5" @if($data->section==5) selected @else @endif>Homefooter2(530*245)</option>
+					
 	 			      </select>
 	 			    </div>
 	 			  </div>
 					@if($data->category_id == NULL)
 
 					@else
-					<div class="form-group row catebox" id="catebox" @if($data->section==2 || $data->section==3 || $data->section==4 || $data->section==11) @else style="display:none" @endif>
+					<div class="form-group row catebox" id="catebox" @if($data->section==2) @else style="display:none" @endif>
 						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Catgeory</label>
 						<div class="col-sm-8">
 							@php

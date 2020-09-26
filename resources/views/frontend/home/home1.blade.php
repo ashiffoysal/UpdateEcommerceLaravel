@@ -12,7 +12,23 @@
                    
                     </div>
                 </div>
-                <div class="ps-section__right"><a class="ps-collection" href="#"><img src="{{asset('public/frontend')}}/img/slider/home-1/promotion-1.jpg" alt=""></a><a class="ps-collection" href="#"><img src="{{asset('public/frontend')}}/img/slider/home-1/promotion-2.jpg" alt=""></a></div>
+                <div class="ps-section__right">
+                    @if($homban1)
+                    @foreach($homban1 as $img)
+                    <a class="ps-collection" href="{{$img->link}}">
+                        <img src="{{asset('public/uploads/sitebanner/'.$img->image)}}" alt="">
+                    </a>
+                    @endforeach
+                    @else
+                    <a class="ps-collection" href="#">
+                        <img src="{{asset('public/frontend')}}/img/slider/home-1/promotion-1.jpg" alt="">
+                    </a>
+                    <a class="ps-collection" href="#">
+                        <img src="{{asset('public/frontend')}}/img/slider/home-1/promotion-2.jpg" alt="">
+                    </a>
+                    @endif
+                   
+                </div>
             </div>
         </div>
         <div class="ps-site-features">
@@ -115,7 +131,7 @@
                                 </p>
 
                                 @endif
-                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$flasdetail->productslug}}/{{$flasdetail->product->id}}">{{Str::limit($flasdetail->product->product_name,35)}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}">{{Str::limit($flasdetail->product->product_name,35)}}</a>
                                     <div class="ps-product__rating">
                                         <select class="ps-rating" data-read-only="true">
                                             <option value="1">1</option>
@@ -144,12 +160,11 @@
         <div class="ps-home-ads">
             <div class="ps-container">
                 <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{asset('public/frontend')}}/img/collection/home-1/1.jpg" alt=""></a>
+                    @foreach($hommiddle as $img)
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="{{$img->image}}"><img src="{{asset('public/uploads/sitebanner/'.$img->image)}}" alt=""></a>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{asset('public/frontend')}}/img/collection/home-1/2.jpg" alt=""></a>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{asset('public/frontend')}}/img/collection/home-1/3.jpg" alt=""></a>
-                    </div>
+                    @endforeach
+                  
                 </div>
             </div>
         </div>
@@ -177,10 +192,10 @@
                 <div class="ps-section__header">
                     <h3>{{$firstcate->cate_name}}</h3>
                     <ul class="ps-section__links">
-                        <li><a href="shop-grid.html">New Arrivals</a></li>
+                        <!-- <li><a href="shop-grid.html">New Arrivals</a></li>
                         <li><a href="shop-grid.html">Best seller</a></li>
-                        <li><a href="shop-grid.html">Must Popular</a></li>
-                        <li><a href="shop-grid.html">View All</a></li>
+                        <li><a href="shop-grid.html">Must Popular</a></li> -->
+                        <li><a href="{{url('product/page/'.$firstcate->cate_slug)}}">View All</a></li>
                     </ul>
                 </div>
                 <div class="ps-section__content">
@@ -308,10 +323,10 @@
                 <div class="ps-section__header">
                     <h3>{{$secondcate->cate_name}}</h3>
                     <ul class="ps-section__links">
-                        <li><a href="shop-grid.html">New Arrivals</a></li>
+                        <!-- <li><a href="shop-grid.html">New Arrivals</a></li>
                         <li><a href="shop-grid.html">Best seller</a></li>
-                        <li><a href="shop-grid.html">Must Popular</a></li>
-                        <li><a href="shop-grid.html">View All</a></li>
+                        <li><a href="shop-grid.html">Must Popular</a></li> -->
+                        <li><a href="{{url('product/page/'.$secondcate->cate_slug)}}">View All</a></li>
                     </ul>
                 </div>
                 <div class="ps-section__content">
@@ -429,10 +444,10 @@
                 <div class="ps-section__header">
                     <h3>{{$thirdcate->cate_name}}</h3>
                     <ul class="ps-section__links">
-                        <li><a href="shop-grid.html">New Arrivals</a></li>
+                        <!-- <li><a href="shop-grid.html">New Arrivals</a></li>
                         <li><a href="shop-grid.html">Best seller</a></li>
-                        <li><a href="shop-grid.html">Must Popular</a></li>
-                        <li><a href="shop-grid.html">View All</a></li>
+                        <li><a href="shop-grid.html">Must Popular</a></li> -->
+                        <li><a href="{{url('product/page/'.$thirdcate->cate_slug)}}">View All</a></li>
                     </ul>
                 </div>
                 <div class="ps-section__content">
@@ -545,15 +560,19 @@
         <div class="ps-home-ads">
             <div class="ps-container">
                 <div class="row">
-                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{asset('public/frontend')}}/img/collection/home-1/ad-1.jpg" alt=""></a>
+                    @foreach($homefoot1 as $fimg)
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="{{$fimg->link}}"><img src="{{asset('public/uploads/sitebanner/'.$fimg->image)}}" alt=""></a>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{asset('public/frontend')}}/img/collection/home-1/ad-2.jpg" alt=""></a>
+                    @endforeach
+                    @foreach($homefoot2 as $fimage2)
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="{{$fimage2->link}}"><img src="{{asset('public/uploads/sitebanner/'.$fimage2->image)}}" alt=""></a>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
         <div class="ps-download-app">
-            <div class="ps-container">
+           <!--  <div class="ps-container">
                 <div class="ps-block--download-app">
                     <div class="container">
                         <div class="row">
@@ -576,7 +595,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="ps-product-list ps-new-arrivals">
@@ -584,12 +603,12 @@
                 <div class="ps-section__header">
                     <h3>Hot New Arrivals</h3>
                     <ul class="ps-section__links">
-                        <li><a href="shop-grid.html">Technologies</a></li>
+                        <!-- <li><a href="shop-grid.html">Technologies</a></li>
                         <li><a href="shop-grid.html">Electronic</a></li>
                         <li><a href="shop-grid.html">Furnitures</a></li>
                         <li><a href="shop-grid.html">Clothing & Apparel</a></li>
-                        <li><a href="shop-grid.html">Health & Beauty</a></li>
-                        <li><a href="shop-grid.html">View All</a></li>
+                        <li><a href="shop-grid.html">Health & Beauty</a></li> -->
+                        <!-- <li><a href="shop-grid.html">View All</a></li> -->
                     </ul>
                 </div>
                 <div class="ps-section__content">

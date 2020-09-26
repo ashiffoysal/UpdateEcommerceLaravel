@@ -367,6 +367,9 @@ Auth::routes();
     // front end controller
 
     Route::get('/', 'Frontend\FrontendController@index');
+    Route::get('pagecrate/{id}', 'Frontend\FrontendController@pagecreate');
+
+
     Route::get('/about-us', 'Frontend\FrontendController@aboutus')->name('about.us');
     // category
     Route::get('product/page/{slug}', 'Frontend\FrontendController@cateproduct');
@@ -573,6 +576,7 @@ Auth::routes();
 
     // site banner
     route::get(md5('admin/sitebanner/all'), 'admin\SiteBannerController@sitebanner')->name('admin.sitebanner.all');
+    route::get(md5('admin/sitebanner/add'), 'admin\SiteBannerController@addsiteban')->name('admin.sitebanner.add');
     Route::get('admin/sitebanner/deactive/{id}', 'Admin\SiteBannerController@sitebannerdeactive');
     Route::get('admin/sitebanner/active/{id}', 'Admin\SiteBannerController@sitebanneractive');
     Route::get('admin/sitebanner/softdelete/{id}', 'Admin\SiteBannerController@sitebabnsoftdelete');
@@ -797,6 +801,7 @@ Auth::routes();
 
 
 Route::get('search/new/by/all/', 'Frontend\SearchController@newsearch')->name('asif.product.ajaxsearchmain');
+Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->name('foysal.product.ajaxsearchmain');
 
 
 

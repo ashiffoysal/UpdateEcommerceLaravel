@@ -334,24 +334,24 @@
                         </li>
                     </ul>
                     <ul class="navigation__extra">
-                        <li><a href="#">Sell on Martfury</a></li>
+                        <!-- <li><a href="#">Sell on Martfury</a></li> -->
                         <li><a href="{{url('/tracking/page')}}">Tract your order</a></li>
                         <li>
-                            <div class="ps-dropdown"><a href="#">US Dollar</a>
-                                <ul class="ps-dropdown-menu">
+                            <div ><a href="#">BDT</a>
+                                <!-- <ul class="ps-dropdown-menu">
                                     <li><a href="#">Us Dollar</a></li>
                                     <li><a href="#">Euro</a></li>
-                                </ul>
+                                </ul> -->
                             </div>
                         </li>
-                        <li>
+                    <!--     <li>
                             <div class="ps-dropdown language"><a href="#"><img src="{{asset('public/frontend')}}/img/flag/en.png" alt="">English</a>
                                 <ul class="ps-dropdown-menu">
                                     <li><a href="#"><img src="{{asset('public/frontend')}}/img/flag/germany.png" alt=""> Germany</a></li>
                                     <li><a href="#"><img src="{{asset('public/frontend')}}/img/flag/fr.png" alt=""> France</a></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
