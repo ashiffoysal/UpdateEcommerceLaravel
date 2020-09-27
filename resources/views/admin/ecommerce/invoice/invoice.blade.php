@@ -21,7 +21,7 @@
 								<div class="col-md-4">
 									<input type="hidden" name="orderplaceid" value="{{$invoice->id}}">
 									<select class="form-control" name="delevary">
-										@if($invoice->delevary==1)
+										@if($invoice->delevary==0)
 										<option value="1" @if($invoice->delevary==1) selected @else @endif>Pending</option>
 										<option value="4" @if($invoice->delevary==4) selected @else @endif>On Process</option>
 										<option value="5" @if($invoice->delevary==5) selected @else @endif>Reject Product</option>
@@ -87,28 +87,33 @@
 							</div>
 
 							<div class="invoice_detail mt-5">
-              <div class="row text-center">
+				              <div class="row text-center">
 
-                  <div class="col-md-6">
-                    <table class="table table-borderless">
+				                  <div class="col-md-6">
+				                    <table class="table table-borderless">
     									<thead>
     										<tr>
     											<th>Bill To:</th>
     										</tr>
     									</thead>
+    									
     									<tbody>
     										<tr>
+    											@php
+    												$customeradd=App\CustomarAccount::where('userid',$invoice->user_id)->first();
+    											@endphp
     											<td>
-    												<span>{{$invoice->usermain->username}}</span><br>
-														<span>{{$invoice->usermain->phone}}</span><br>
-    												<span>{{$invoice->usermain->email}}</span><br>
+    												<span>{{$customeradd->name}}</span><br>
+													<span>{{$customeradd->phone}}</span><br>
+    												<span>{{$customeradd->address}}</span><br>
     											</td>
+    										
     										</tr>
     									</tbody>
     								</table>
-                  </div>
-                  <div class="col-md-6">
-                    <table class="table table-borderless">
+                  				</div>
+		                  <div class="col-md-6">
+		                    <table class="table table-borderless">
     									<thead>
     										<tr>
 
@@ -116,32 +121,35 @@
 
     										</tr>
     									</thead>
+    									@php
+    										$order_id=$invoice->order_id;
+    										$checkout=App\Checkout::where('orderid',$order_id)->first();
+    									@endphp
     									<tbody>
     										<tr>
-													@php
-														$userid=$invoice->user_id;
-														$address=App\UserAddress::where('user_id',$userid)->orderBy('id','DESC')->first();
-													@endphp
-
-													@if($address->is_shipping_address == NULL)
+    											@if($checkout->diffaddr_id==NULL)
+    											@php
+    												$customeradd=App\CustomarAccount::where('userid',$checkout->userid)->first();
+    											@endphp
     											<td>
-														<span></span><br>
-    												<span>{{$address->user_address}}</span><br>
-    												<span>{{$address->user_post_office}}</span><br>
-    												<span>{{$address->user_postcode}}</span><br>
-													</td>
-													@else
-													<td>
-														<span>{{$invoice->usermain->username}}</span><br>
-														<span>{{$invoice->usermain->phone}}</span><br>
-														<span>{{$invoice->usermain->email}}</span><br>
-													</td>
-													@endif
+    												<span>{{$customeradd->name}}</span><br>
+														<span>{{$customeradd->phone}}</span><br>
+    												<span>{{$customeradd->address}}</span><br>
+    											</td>
+    											@else
+    												@php
+    												$customerdiff=App\DifferentAddress::where('userid',$checkout->userid)->first();
+    												@endphp
+    												<td>
+	    												<span>{{$customerdiff->name}}</span><br>
+															<span>{{$customerdiff->phone}}</span><br>
+	    												<span>{{$customerdiff->address}}</span><br>
+	    											</td>
+    											@endif
     										</tr>
-    									</tbody>
     								</table>
-                </div>
-              </div>
+				                </div>
+				              </div>
 								<!-- <table class="table table-borderless">
 									<thead>
 										<tr>
@@ -174,8 +182,9 @@
 									<th class="text-center">#</th>
 									<th>PRODUCT NAME</th>
 									<th>PRODUCT SKU</th>
+									<th class="text-center" style="width:120px;"></th>
 									<th class="text-center" style="width:120px;">PRICE</th>
-									<th class="text-right" style="width:120px;">Product Discount</th>
+									
 									<th class="text-center" style="width:20px;">QTY</th>
 									<th class="text-right" style="width:120px;">UNIT PRICE</th>
 									<th class="text-right" style="width:120px;">TOTAL</th>
@@ -183,43 +192,90 @@
 								</thead>
 								<tbody>
 									@php
-										$cartid=$invoice->order_id;
-										$allproduct=App\ProductStorage::where('order_id',$cartid)->first();
+										$allproducts=App\Checkout::where('orderid',$invoice->order_id)->first();
 									@endphp
-									@foreach (json_decode($allproduct->product_details) as $key => $data)
+									@foreach($allproducts->products as $key => $row)
 										  <tr>
 												<td class="text-center">{{++$key}}</td>
-												<td>{{$data->name}}</td>
-												<td>{{$data->sku}}</td>
-												<td class="text-center">
-												@if($data->flashdealtype==1)
-													<p>৳ {{ $data->flashdeals + $data->price }}</p>
-												@elseif($data->flashdealtype==2)
-													@php
-														$percent=($data->price * 100);
-														$fls=100 - $data->flashdeals;
-														$mainprice=$percent/$fls;
-													@endphp
-													<p>৳ {{ $mainprice }}</p>
-												@else
+												<td class="text-center">{{$row->name}}
+													@if($row->colors)
+                                                      <p>Color:<strong class="product-color" style="background: {{$row->colors}}; padding: 0px 7px;border-radius: 50%;"></strong></p>
+                                                    @endif
 
-												@endif
+
+
+                                                            @php
+                
+
+                                                                // store attibute name
+                                                                $sizename = [];
+                                                                $productdetails = App\Product::findOrFail($row->product_id);
+
+                                                                foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+                                                                    $size = $choice->title; //this reaturn size,model
+                                                                    $choicename = $choice->name; //this reaturn form name  
+                                                                    array_push($sizename, $size);
+                                                                }
+                                                                $countsize = count($sizename);
+                                                                
+                                                                
+                                                            @endphp
+
+                                                                                                        
+
+                                                        @if($countsize == 1)
+                                                            @php
+                                                                $sizenameone =$sizename[0];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+
+
+                                                        @elseif($countsize == 2)
+                                                            @php
+                                                                $sizenameone =$sizename[0];
+                                                                $sizenametwo =$sizename[1];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+                                                            <p>{{$sizename[1]}}:<strong> {{$row->$sizenametwo}}</strong></p>
+
+
+                                                        @elseif($countsize == 3)
+                                                            @php
+                                                                $sizenameone =$sizename[0];
+                                                                $sizenametwo =$sizename[1];
+                                                                $sizenamethree =$sizename[2];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+                                                            <p>{{$sizename[1]}}:<strong> {{$row->$sizenametwo}}</strong></p>
+                                                            <p>{{$sizename[2]}}:<strong> {{$row->$sizenamethree}}</strong></p>
+
+                                                        @elseif($countsize == 4)
+
+                                                            @php
+                                                                $sizenameone =$sizename[0];
+                                                                $sizenametwo =$sizename[1];
+                                                                $sizenamethree =$sizename[2];
+                                                                $sizenamefour =$sizename[3];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+                                                            <p>{{$sizename[1]}}:<strong> {{$row->$sizenametwo}}</strong></p>
+                                                            <p>{{$sizename[2]}}:<strong> {{$row->attributes->$sizenamethree}}</strong></p>
+                                                            <p>{{$sizename[3]}}:<strong> {{$row->$sizenamefour}}</strong></p>
+
+                                                        @endif
+
+
 
 												</td>
-												<td class="text-center">
-												@if($data->flashdealtype==1)
-													<p>৳ {{ $data->flashdeals }}</p>
-												@elseif($data->flashdealtype==2)
-													<p>{{ $data->flashdeals }} %</p>
-												@else
-
-												@endif
-												</td>
-												<td>{{$data->quantity}}</td>
-												<td class="text-right">৳ {{$data->price}}</td>
-												<td class="text-right">৳ {{$data->price * $data->quantity}}</td>
+												<td>{{$row->sku}}</td>
+												<td></td>
+												<td class="text-center"><p>৳ {{$row->price}}</p></td>
+												<td>{{$row->quantity}}</td>
+												<td class="text-right">{{$row->quantity * $row->price}}</td>
+												<td class="text-right">৳ {{$row->quantity * $row->price}}</td>
 										  </tr>
-										@endforeach
+								 @endforeach
 
 								</tbody>
 								 <tfoot>
@@ -227,31 +283,27 @@
 											<th colspan="6" class="bdr">
 											 <p class="font-normal p-size"><span style="color:#F80303;">Note:</span> Please send all of these items using wooden box package.</p></th>
 											<th class="text-right pd-10">Sub Total</th>
-											@php
-												$orid=$allproduct->order_id;
-												$total=App\OrderPlace::where('order_id',$orid)->first();
-											@endphp
-											<th class="text-right pd-10">৳ {{ $total->total_price - $allproduct->shipping_amount}} </th>
+										
+											<th class="text-right pd-10">৳{{$invoice->total_price}} </th>
 									  </tr>
 									  <tr>
 											<th class="text-right  pd-10 no-bd" colspan="7">Discount</th>
-											@if($total->cupon_type==1)
-											<th class="text-right  pd-10" style="color: tomato;">৳ {{ $total->cupon_value }}</th>
-											@elseif($total->cupon_type==2)
-											<th class="text-right  pd-10" style="color: tomato;">% {{ $total->cupon_value }}</th>
+											@if($invoice->cupon_type==1)
+											<th class="text-right  pd-10" style="color: tomato;">৳ ({{$invoice->cupon_value}})</th>
+											@elseif($invoice->cupon_type==2)
+											<th class="text-right  pd-10" style="color: tomato;">% ({{$invoice->cupon_value}})</th>
 											@else
-											<th class="text-right  pd-10" style="color: tomato;">৳ (0.00)</th>
-
+											<th class="text-right  pd-10" style="color: tomato;">(0.00)</th>
 											@endif
 									  </tr>
 									  <tr>
 											<th class="text-right  pd-10 no-bd" colspan="7">Shipping Cost</th>
-											<th class="text-right  pd-10 no-bd">{{ $allproduct->shipping_amount }}</th>
+											<th class="text-right  pd-10 no-bd">৳ (0.00)</th>
 									  </tr>
 									  <tr>
 											<th colspan="5">Thank you for your business. Please remit the total amount due within 30 days.</th>
 											<th class="text-right  pd-10" colspan="2">Total</th>
-											<th class="text-right  pd-10 "><span class="vd_green font-sm font-normal" style="color: green;">৳ {{ $total->total_price }}</span></th>
+											<th class="text-right  pd-10 "><span class="vd_green font-sm font-normal" style="color: green;">৳ {{$invoice->total_price}}</span></th>
 									  </tr>
 								</tfoot>
 							  </table>

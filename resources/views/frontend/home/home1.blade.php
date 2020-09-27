@@ -97,7 +97,7 @@
                     <div class="ps-carousel--nav owl-slider" data-owl-auto="false" data-owl-loop="false" data-owl-speed="10000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="true" data-owl-item="7" data-owl-item-xs="2" data-owl-item-sm="3" data-owl-item-md="4" data-owl-item-lg="5" data-owl-item-xl="6" data-owl-duration="1000" data-owl-mousedrag="on">
                         @foreach($hotdeal->flash_deal_details as $flasdetail)
                         <div class="ps-product ps-product--inner">
-                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" alt=""></a>
+                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}"><!-- <img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" data-src="{{asset('public/uploads/1.png')}}" class="lazy w-100" alt=""> -->  <img data-src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" src="{{asset('public/uploads/1.png')}}" class="lazy"></a>
                                 <div class="ps-product__badge">
                                     @if($flasdetail->discount_type==1) -{{$flasdetail->discount}}৳  @else -{{$flasdetail->discount}}% @endif
                                 </div>
@@ -174,7 +174,7 @@
                 <div class="row">
                     @foreach($allcategoryhome as $cateall)
                     <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6 ">
-                        <div class="ps-block--category"><a class="ps-block__overlay" href="{{url('product/page/'.$cateall->cate_slug)}}"></a><img src="{{asset('public/uploads/category/'.$cateall->cate_image)}}" alt="">
+                        <div class="ps-block--category"><a class="ps-block__overlay" href="{{url('product/page/'.$cateall->cate_slug)}}"></a><img src="{{asset('public/uploads/category/'.$cateall->cate_image)}}" alt="" class="lazy">
                             <p>{{$cateall->cate_name}}</p>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
                         @endphp
                         @foreach($allproduct as $product)
                         <div class="ps-product">
-                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
+                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/uploads/1.png')}}" alt=""></a>
                       @php
                         $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                       @endphp

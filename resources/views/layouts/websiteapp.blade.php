@@ -37,11 +37,101 @@
     @include('frontend.include.home11.css')
     @endif
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--  <script src="{{asset('public/frontend/js/jquery-1.12.4.min.js')}}"></script> -->
+ <script src="{{asset('public/frontend/js/lazy_loader.js')}}"></script>
+<script src="{{asset('public/frontend/js/main.js')}}"></script>
 
 
 </head>
 
 <body>
+@if($color)
+<style>
+.header .header__top {
+    background-color: {{$color->color_code}};
+}
+.navigation {
+    background-color: {{$color->color_code}};
+}
+.sub-menu > li > a:hover {
+    color: {{$color->hover_code}};
+}
+.mega-menu .mega-menu__list li a:hover {
+    color: {{$color->hover_code}};
+}
+.menu--dropdown > li:hover {
+    background-color: {{$color->hover_code}};
+    color:white;
+}
+.ps-product .ps-product__progress-bar .ps-progress__value > span {
+
+    background-color: {{$color->color_code}};
+  
+}
+.ps-btn, button.ps-btn {
+    background-color: {{$color->color_code}};
+}
+.ps-btn:hover, .ps-btn:active, button.ps-btn:hover, button.ps-btn:active {
+    background-color: {{$color->color_code}};
+    color: #fff;
+}
+.widget_contact-us .widget_content h3 {
+    color: {{$color->color_code}};
+}
+.ps-product .ps-product__title:hover {
+    color: {{$color->hover_code}};
+}
+.noUi-connect {
+    background-color: {{$color->color_code}};
+}
+.noUi-handle{
+    border: 3px solid {{$color->color_code}};
+}
+.ps-block--site-features .ps-block__left i {
+    
+    color: {{$color->color_code}};
+}
+.ps-shopping-cart .ps-section__footer .ps-btn--outline:hover {
+    background-color: {{$color->hover_code}};
+    border-color: {{$color->hover_code}};
+    color:{{$color->color_code}};
+   
+}
+.ps-shopping-cart .ps-section__cart-actions .ps-btn--outline:hover {
+    background-color: {{$color->hover_code}};
+    border-color: {{$color->hover_code}};
+    color:{{$color->color_code}};
+}
+.ps-block--payment-method .ps-tab-list li.active .ps-btn {
+    background-color: {{$color->color_code}};
+    color: #fff;
+}
+.ps-block--payment-method .ps-tab-list li .ps-btn:hover {
+    background-color: {{$color->hover_code}};
+}
+.header--mobile {
+
+    background-color: {{$color->color_code}};
+    
+}
+.header--mobile.header--sticky .navigation--mobile {
+ 
+    background-color: {{$color->color_code}};
+}
+.ps-panel--sidebar .ps-panel__header {
+
+    background-color: {{$color->color_code}};
+}
+.navigation--list .navigation__item.active span {
+    color: {{$color->color_code}};
+}
+.navigation--list .navigation__item.active i {
+    color: {{$color->color_code}};
+}
+</style>
+@endif
+
+
     <!-- main header1 -->
     @if($themecheck->id==1)
      @include('frontend.include.home1.headertop1')
@@ -215,7 +305,6 @@
         </div>
     </div>
 
- 
 
 <script>
     $(document).ready(function(){
@@ -236,6 +325,7 @@
         });
     });
 </script>
+
 <script>
     $(document).ready(function(){
       

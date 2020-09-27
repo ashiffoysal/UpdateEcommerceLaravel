@@ -16,7 +16,7 @@ class OrderController extends Controller
 
   public function index()
   {
-    $allorder = OrderPlace::orderBy('id', 'DESC')->where('delevary', 1)->where('is_deleted', 0)->get();
+    $allorder = OrderPlace::orderBy('id', 'DESC')->where('delevary', 0)->where('is_deleted', 0)->get();
     return view('admin.ecommerce.order.all', compact('allorder'));
   }
   // processing product
