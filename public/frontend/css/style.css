@@ -7580,7 +7580,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .noUi-handle {
-  border: 3px solid #fcb800;
+  /*border: 3px solid #fcb800;*/
   border-radius: 50%;
   box-shadow: none;
 }

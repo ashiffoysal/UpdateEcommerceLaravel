@@ -1,3 +1,14 @@
+@if($color)
+<style>
+    .ps-widget--account-dashboard .ps-widget__content ul li.active {
+    background-color: {{$color->color_code}};
+}
+.ps-widget--account-dashboard .ps-widget__content ul li a:hover {
+    background-color: {{$color->hover_code}};
+    color: #fff;
+}
+</style>
+@endif
 <div class="ps-section__left">
 
     <aside class="ps-widget--account-dashboard">
@@ -19,11 +30,11 @@
         <div class="ps-widget__content">
             <ul>
                 <li class="{{ request()->is('customar/account') ? 'active' : '' }}"><a href="#"><i class="icon-user"></i> Account Information</a></li>
-                <li><a href="#"><i class="icon-alarm-ringing"></i> Notifications</a></li>
+               
                 <li class="{{ request()->is('payment/customar/invoice/*') ? 'active' : 'null' }}"><a href="{{route('customar.invoice.show',auth()->user()->id)}}"><i class="icon-papers"></i> Invoices</a></li>
                 <li class="{{ request()->is('customar/address') ? 'active' : '' }}"><a href="{{route('customar.address.page')}}"><i class="icon-map-marker"></i> Address</a></li>
                 <li class="{{ request()->is('product/viewed') ? 'active' : 'null' }}"><a href="{{route('customar.viewed.product')}}"><i class="icon-store"></i> Recent Viewed Product</a></li>
-                <li><a href="#"><i class="icon-heart"></i> Wishlist</a></li>
+                <li><a href="{{url('product/wishlist')}}"><i class="icon-heart"></i> Wishlist</a></li>
                 <li><a href="#" onclick="event.preventDefault(); document.getElementById('form_logout').submit();"><i class="icon-power-switch"></i>Logout</a></li>
 
             </ul>

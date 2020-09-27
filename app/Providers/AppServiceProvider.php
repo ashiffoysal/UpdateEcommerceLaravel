@@ -10,6 +10,7 @@ use App\wishlist;
 use App\FooterOption;
 use App\Social;
 use App\Page;
+use App\ThemeColor;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -40,7 +41,10 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         $unseen_mail = Contract::where('is_seen', 0)->where('is_deleted', 0)->count();
-        view()->share('unseen_mail', $unseen_mail);
+         view()->share('unseen_mail', $unseen_mail);
+
+        $color = ThemeColor::where('is_deleted', 0)->where('status', 1)->first();
+        view()->share('color', $color);
 
 
         $allpage = Page::where('is_deleted',0)->where('page_status',1)->OrderBy('id','DESC')->get();

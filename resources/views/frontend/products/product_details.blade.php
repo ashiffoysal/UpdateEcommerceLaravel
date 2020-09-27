@@ -176,6 +176,16 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
         left: -10px;
     }
 </style>
+@if($color)
+<style>
+  .ps-btn:hover.ps-btn--black, .ps-btn:active.ps-btn--black, button.ps-btn:hover.ps-btn--black, button.ps-btn:active.ps-btn--black {
+    background-color: {{$color->color_code}};
+}
+</style>
+@endif
+
+
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="ps-breadcrumb">
     <div class="ps-container">
@@ -235,10 +245,6 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                         @php
                           $rcount=App\ProductReview::where('product_id',$productdetails->id)->count();
                         @endphp
-
-
-
-
                         <div class="ps-product__info">
                             <h1>{{$productdetails->product_name}}</h1>
                             <div class="ps-product__meta">
@@ -645,9 +651,26 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
 
                                         <tr>
                                             <td>Color</td>
-                                            <td>Black, Gray</td>
+                                            @foreach (json_decode($productdetails->colors) as $key => $color)
+                                            <td>{{$color}}</td>
+                                            @endforeach
                                         </tr>
-                                           
+                                      @foreach (json_decode($productdetails->choice_options) as $key => $choice)
+                                        <tr>
+                                          <td>{{ $choice->title }}</td>
+                                          <td>
+                                             @foreach ($choice->options as $key => $option)
+                                                          {{$option}}
+                                              @endforeach
+                                          </td>
+                                        </tr>
+                                      @endforeach
+
+
+
+
+
+
                                         </tbody>
                                     </table>
                                 </div>
