@@ -66,11 +66,14 @@
 
       
     </header>
+
+
+    <!-- footer cart -->
     <div class="ps-panel--sidebar" id="cart-mobile">
         <div class="ps-panel__header">
             <h3>Shopping Cart</h3>
         </div>
-        <div class="navigation__content">
+        <div class="navigation__content" id="mobilemenuaddtocartshow">
             <div class="ps-cart--mobile">
                 <div class="ps-cart__content">
                     <div class="ps-product--cart-mobile">
@@ -87,6 +90,9 @@
             </div>
         </div>
     </div>
+
+    <!-- footer cart -->
+
     <div class="ps-panel--sidebar" id="navigation-mobile">
         <div class="ps-panel__header">
             <h3>Categories</h3>
@@ -132,7 +138,9 @@
         </div>
     </div>
     <div class="navigation--list">
-        <div class="navigation__content"><a class="navigation__item ps-toggle--sidebar" href="#menu-mobile"><i class="icon-menu"></i><span> Menu</span></a><a class="navigation__item ps-toggle--sidebar" href="#navigation-mobile"><i class="icon-list4"></i><span> Categories</span></a><a class="navigation__item ps-toggle--sidebar" href="#search-sidebar"><i class="icon-magnifier"></i><span> Search</span></a><a class="navigation__item ps-toggle--sidebar" href="#cart-mobile"><i class="icon-bag2"></i><span> Cart</span></a></div>
+
+        <div class="navigation__content"><a class="navigation__item ps-toggle--sidebar" href="#menu-mobile"><i class="icon-menu"></i><span> Menu</span></a><a class="navigation__item ps-toggle--sidebar" href="#navigation-mobile"><i class="icon-list4"></i><span> Categories</span></a><a class="navigation__item ps-toggle--sidebar" href="#search-sidebar"><i class="icon-magnifier"></i><span> Search</span></a><a class="navigation__item ps-toggle--sidebar" href="#cart-mobile"><i class="icon-bag2"></i><span onclick="mobilemenucartDataShow(this)"> Cart</span></a></div>
+
     </div>
     <div class="ps-panel--sidebar" id="search-sidebar">
         <div class="ps-panel__header">
@@ -350,6 +358,28 @@
                 
                 success: function(data) {
                     $('#mobileaddtocartshow').html(data);
+                    
+                }
+            });
+        }
+    </script>
+
+<script>
+        function mobilemenucartDataShow(el){
+              
+            
+                    
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('get.menu.mobile.cart.data') }}",
+                
+                success: function(data) {
+                    $('#mobilemenuaddtocartshow').html(data);
                     
                 }
             });

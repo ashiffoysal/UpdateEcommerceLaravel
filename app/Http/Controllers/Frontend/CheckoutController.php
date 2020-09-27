@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Library\SslCommerz\SslCommerzNotification;
+use App\ReturnAllProduct;
 use App\ReturnProduct;
 use App\SmsModel;
 use Illuminate\Support\Facades\URL;
@@ -1148,19 +1149,26 @@ class CheckoutController extends Controller
 
         $returnpro =ReturnProduct::where('orderrid',$orderid)->first();
         if($returnpro){
-            $returnproductrow = [];
-            foreach(json_decode($returnpro->products) as $row){
-                array_push($returnproductrow,$row,$deletedProduct);  
-            }
-            $returnpro->update([
-                'products'=>json_encode($returnproductrow),
+            
+            ReturnAllProduct::insert([
+                'order_id'=>$orderid,
+                'user_id'=>auth()->user()->id,
+                'products'=>json_encode($deletedProduct),
+                'quantity'=>$deletedProductQiy,
+                'price'=>$deletedProductPrice,
+                'created_at'=>Carbon::now(),
             ]);
-            $returnpro->increment('price',$deletedProductPrice);
-            $returnpro->increment('quantity',$deletedProductQiy);
         }else{
              
             ReturnProduct::insert([
                 'orderrid'=>$orderid,
+                'user_id'=>auth()->user()->id,
+                'quantity'=>$deletedProductQiy,
+                'price'=>$deletedProductPrice,
+                'created_at'=>Carbon::now(),
+            ]);
+            ReturnAllProduct::insert([
+                'order_id'=>$orderid,
                 'user_id'=>auth()->user()->id,
                 'products'=>json_encode($deletedProduct),
                 'quantity'=>$deletedProductQiy,

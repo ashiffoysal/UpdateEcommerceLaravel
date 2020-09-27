@@ -943,6 +943,7 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
     Route::namespace('Mobile')->group(function () {
         Route::prefix('mobile')->group(function(){
             Route::get('/cart/data','MobileController@getCartData')->name('get.mobile.cart.data');
+            Route::get('/menu/cart/data','MobileController@mobileGetCartData')->name('get.menu.mobile.cart.data');
             Route::post('/cart/data/delete','MobileController@addToCartDelete')->name('mobile.cart.data.delete');
         });
     });
