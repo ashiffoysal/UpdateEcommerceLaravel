@@ -11,6 +11,7 @@ use App\ProductLicense;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\ReturnAllProduct;
 use App\ReturnProduct;
 use Illuminate\Support\Facades\Storage;
 
@@ -1376,9 +1377,23 @@ class ProductController extends Controller
 
     public function showProduct ($id)
     {
-        $products =ReturnProduct::where('orderrid',$id)->first();
+
+        $products = ReturnAllProduct::where('order_id',$id)->pluck('products');
+
         abort_if(!$products,403);
-        return view('admin.ecommerce.product.showreturnproduct',compact('products'));
+        $products = json_decode($products,true);
+        foreach($products as $row){
+            
+            $someArray = json_decode($row, true);
+            
+            echo $someArray[0]["name"] .'<br>';
+            echo $someArray[0]["quantity"] .'<br>';
+            
+            
+        }
+        
+        
+        // return view('admin.ecommerce.product.showreturnproduct',compact('products'));
 
     }
 }

@@ -23,6 +23,18 @@ class MobileController extends Controller
         return view('frontend.include.ajaxview.mobile._cartheader', compact('usercartdatas'));
     }
 
+        // header cart data show
+
+        public function mobileGetCartData()
+        {
+            $userid =  \Request::getClientIp(true);
+    
+            $usercartdatas = Cart::session($userid)->getContent();
+    
+    
+            return view('frontend.include.ajaxview.mobile.mobile_menu_cart', compact('usercartdatas'));
+        }
+
 
     // product add to cart Deleted
 
