@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Checkout;
 use DB;
 use Image;
 use App\Product;
@@ -1358,6 +1359,19 @@ class ProductController extends Controller
     public function returrnProduct()
     {
         $allproduct =ReturnProduct::all();
+        $porductorderid=[];
+        foreach($allproduct as $product){
+            $checkout=Checkout::where('orderid',$product->orderrid)->first();
+            foreach($checkout->products as $row){
+                if($row->return_product == 1){
+                    $checkoutorderid =$checkout->orderid;
+                    array_push($porductorderid,$checkoutorderid);
+                }
+            }
+        }
+        $allproduct=ReturnProduct::whereIn('orderrid',$porductorderid)->get();
+        
+        
         return view('admin.ecommerce.product.returnproduct',compact('allproduct'));
         
 
@@ -1377,23 +1391,362 @@ class ProductController extends Controller
 
     public function showProduct ($id)
     {
-
-        $products = ReturnAllProduct::where('order_id',$id)->pluck('products');
-
-        abort_if(!$products,403);
-        $products = json_decode($products,true);
-        foreach($products as $row){
-            
-            $someArray = json_decode($row, true);
-            
-            echo $someArray[0]["name"] .'<br>';
-            echo $someArray[0]["quantity"] .'<br>';
-            
-            
-        }
         
+        $cartdata =Checkout::where('orderid',$id)->first();        
         
-        // return view('admin.ecommerce.product.showreturnproduct',compact('products'));
+        return view('admin.ecommerce.product.showreturnproduct',compact('cartdata'));
 
     }
+
+    // reject return product
+    public function rejectReturnProduct($orderid,$id)
+    {
+        $allproducts = Checkout::where('orderid',$orderid)->first();
+        abort_if(!$allproducts, 403);
+        
+        $totalprice=0;
+        $quantity=0;
+       $products =$allproducts->products;
+       $productpush = [];
+       foreach($products as  &$value){
+           if($value->id == $id){
+            $item = array();
+            $item['id']=$value->id;
+            $item['name']=$value->name;
+            $item['name']=$value->name;
+            $item['price']=$value->price;
+            $item['quantity']=$value->quantity;
+            $item['thumbnail_img']=$value->thumbnail_img;
+            $item['colors']=$value->colors;
+            $item['product_id']=$value->product_id;
+            $item['sku']=$value->sku;
+            $item['sku']=$value->sku;
+            $item['flashdeals']=$value->flashdeals;
+            $item['flashdealtype']=$value->flashdealtype;
+            $item['return_product']=0;
+            $item['approve_product']=0;
+
+            $totalprice .=$value->price;
+            $quantity .=$value->quantity;
+            // NEW ACTION AREA START
+
+
+             // store attibute name
+             $sizename = [];
+ 
+             $productdetails = Product::findOrFail($value->product_id);
+             foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+
+                $size = $choice->title; //this reaturn size,model
+                array_push($sizename, $size);
+            }
+            $rowcount = count($sizename);
+
+            if($rowcount == 1){
+                $sizeone =$sizename[0];
+                $item[$sizeone]=$value->$sizeone;
+            }elseif($rowcount == 2){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+            }elseif($rowcount == 3){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+            }elseif($rowcount == 4){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+            }elseif($rowcount == 5){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $sizefive =$sizename[4];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+                $item[$sizefive]=$value->$sizefive;
+            }
+            
+
+            // NEW ACTION AREA END
+            array_push($productpush,$item);
+
+           }else{
+            $item = array();
+            $item['id']=$value->id;
+            $item['name']=$value->name;
+            $item['name']=$value->name;
+            $item['price']=$value->price;
+            $item['quantity']=$value->quantity;
+            $item['thumbnail_img']=$value->thumbnail_img;
+            $item['colors']=$value->colors;
+            $item['product_id']=$value->product_id;
+            $item['sku']=$value->sku;
+            $item['sku']=$value->sku;
+            $item['flashdeals']=$value->flashdeals;
+            $item['flashdealtype']=$value->flashdealtype;
+            $item['return_product']=$value->return_product;
+            $item['approve_product']=0;
+
+            // NEW ACTION AREA START
+
+
+             // store attibute name
+             $sizename = [];
+ 
+             $productdetails = Product::findOrFail($value->product_id);
+             foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+
+                $size = $choice->title; //this reaturn size,model
+                array_push($sizename, $size);
+            }
+            $rowcount = count($sizename);
+
+            if($rowcount == 1){
+                $sizeone =$sizename[0];
+                $item[$sizeone]=$value->$sizeone;
+            }elseif($rowcount == 2){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+            }elseif($rowcount == 3){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+            }elseif($rowcount == 4){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+            }elseif($rowcount == 5){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $sizefive =$sizename[4];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+                $item[$sizefive]=$value->$sizefive;
+            }
+            
+
+            // NEW ACTION AREA END
+            array_push($productpush,$item);
+           }
+           
+
+       }
+
+       $allproducts->update([
+           'products'=>$productpush,
+       ]);
+
+       $notification = array(
+        'messege' => 'Return Order Product Rejected!',
+        'alert-type' => 'error'
+    );
+    return Redirect()->back()->with($notification);
+    }
+    
+    // approve return products
+
+    public function approveReturnProduct ($orderid,$id)
+    {
+        $allproducts = Checkout::where('orderid',$orderid)->first();
+        abort_if(!$allproducts, 403);
+        $productpushreturn=[];
+        $totalprice=0;
+        $quantity=0;
+       $products =$allproducts->products;
+       $productpush = [];
+       foreach($products as  &$value){
+           if($value->id == $id){
+            $item = array();
+            $item['id']=$value->id;
+            $item['name']=$value->name;
+            $item['name']=$value->name;
+            $item['price']=$value->price;
+            $item['quantity']=$value->quantity;
+            $item['thumbnail_img']=$value->thumbnail_img;
+            $item['colors']=$value->colors;
+            $item['product_id']=$value->product_id;
+            $item['sku']=$value->sku;
+            $item['sku']=$value->sku;
+            $item['flashdeals']=$value->flashdeals;
+            $item['flashdealtype']=$value->flashdealtype;
+            $item['return_product']=0;
+            $item['approve_product']=0;
+
+            $totalprice .=$value->price;
+            $quantity .=$value->quantity;
+            // NEW ACTION AREA START
+
+
+             // store attibute name
+             $sizename = [];
+ 
+             $productdetails = Product::findOrFail($value->product_id);
+             foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+
+                $size = $choice->title; //this reaturn size,model
+                array_push($sizename, $size);
+            }
+            $rowcount = count($sizename);
+
+            if($rowcount == 1){
+                $sizeone =$sizename[0];
+                $item[$sizeone]=$value->$sizeone;
+            }elseif($rowcount == 2){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+            }elseif($rowcount == 3){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+            }elseif($rowcount == 4){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+            }elseif($rowcount == 5){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $sizefive =$sizename[4];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+                $item[$sizefive]=$value->$sizefive;
+            }
+            
+
+            // NEW ACTION AREA END
+            array_push($productpushreturn,$item);
+
+           }else{
+            $item = array();
+            $item['id']=$value->id;
+            $item['name']=$value->name;
+            $item['name']=$value->name;
+            $item['price']=$value->price;
+            $item['quantity']=$value->quantity;
+            $item['thumbnail_img']=$value->thumbnail_img;
+            $item['colors']=$value->colors;
+            $item['product_id']=$value->product_id;
+            $item['sku']=$value->sku;
+            $item['sku']=$value->sku;
+            $item['flashdeals']=$value->flashdeals;
+            $item['flashdealtype']=$value->flashdealtype;
+            $item['return_product']=$value->return_product;
+            $item['approve_product']=0;
+
+            // NEW ACTION AREA START
+
+
+             // store attibute name
+             $sizename = [];
+ 
+             $productdetails = Product::findOrFail($value->product_id);
+             foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+
+                $size = $choice->title; //this reaturn size,model
+                array_push($sizename, $size);
+            }
+            $rowcount = count($sizename);
+
+            if($rowcount == 1){
+                $sizeone =$sizename[0];
+                $item[$sizeone]=$value->$sizeone;
+            }elseif($rowcount == 2){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+            }elseif($rowcount == 3){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+            }elseif($rowcount == 4){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+            }elseif($rowcount == 5){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $sizefive =$sizename[4];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+                $item[$sizefive]=$value->$sizefive;
+            }
+            
+
+            // NEW ACTION AREA END
+            array_push($productpush,$item);
+           }
+           
+
+       }
+
+       $allproducts->update([
+        'products'=>$productpush,
+        ]);
+
+        ReturnAllProduct::insert([
+            'order_id'=>$orderid,
+            'products'=>json_encode($productpushreturn),
+            'quantity'=>$quantity,
+            'price'=>$totalprice,
+        ]);
+        return back();
+    }
+
 }

@@ -843,6 +843,8 @@ class CheckoutController extends Controller
                 $product['sku']=$item->attributes->sku;
                 $product['flashdeals']=$item->attributes->flashdeals;
                 $product['flashdealtype']=$item->attributes->flashdealtype;
+                $product['return_product']=0;
+                $item['approve_product']=0;
                 array_push($data, $product);
             }
 
@@ -861,6 +863,8 @@ class CheckoutController extends Controller
                 $product['flashdeals']=$item->attributes->flashdeals;
                 $product['flashdealtype']=$item->attributes->flashdealtype;
                 $product[$attibute]=$item->attributes->$attibute;
+                $product['return_product']=0;
+                $item['approve_product']=0;
                 array_push($data, $product);
 
 
@@ -880,6 +884,8 @@ class CheckoutController extends Controller
                 $product['flashdealtype']=$item->attributes->flashdealtype;
                 $product[$attibuteone]=$item->attributes->$attibuteone;
                 $product[$attibutetwo]=$item->attributes->$attibutetwo;
+                $product['return_product']=0;
+                $item['approve_product']=0;
                 array_push($data, $product);
             }elseif($sizecount == 3){
                 $attibuteone = $sizename[0];
@@ -899,6 +905,8 @@ class CheckoutController extends Controller
                 $product[$attibuteone]=$item->attributes->$attibuteone;
                 $product[$attibutetwo]=$item->attributes->$attibutetwo;
                 $product[$attibutethree]=$item->attributes->$attibutethree;
+                $product['return_product']=0;
+                $item['approve_product']=0;
                 array_push($data, $product);
             }elseif($sizecount == 4){
                 $attibuteone = $sizename[0];
@@ -920,6 +928,8 @@ class CheckoutController extends Controller
                 $product[$attibutetwo]=$item->attributes->$attibutetwo;
                 $product[$attibutethree]=$item->attributes->$attibutethree;
                 $product[$attibutefour]=$item->attributes->$attibutefour;
+                $product['return_product']=0;
+                $item['approve_product']=0;
                 array_push($data, $product);
             }elseif($sizecount == 4){
                 $attibuteone = $sizename[0];
@@ -942,6 +952,8 @@ class CheckoutController extends Controller
                 $product[$attibutetwo]=$item->attributes->$attibutetwo;
                 $product[$attibutethree]=$item->attributes->$attibutethree;
                 $product[$attibutefive]=$item->attributes->$attibutefive;
+                $product['return_product']=0;
+                $item['approve_product']=0;
                 array_push($data, $product);
             }
         }
@@ -1102,13 +1114,13 @@ class CheckoutController extends Controller
         $address = DifferentAddress::where('orderid',$orderPlace->order_id)->first();
 
         if($address){
-            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon'));
+            return view('frontend.shipping.invoice_details_show',compact('orderPlace','address','cartdata','coupon'));
             
         }else{
             
             $address =CustomarAccount::where('userid',auth()->user()->id)->first();
             
-            return view('frontend.shipping.invoices_details',compact('orderPlace','address','cartdata','coupon'));
+            return view('frontend.shipping.invoice_details_show',compact('orderPlace','address','cartdata','coupon'));
         }
     }
 
@@ -1118,95 +1130,203 @@ class CheckoutController extends Controller
     {
 
         
-        $allproducts = Checkout::where('orderid',$orderid)->where('userid',auth()->user()->id)->first();
+       $allproducts = Checkout::where('orderid',$orderid)->where('userid',auth()->user()->id)->first();
         abort_if(!$allproducts, 403);
-        $singleProduct = [];
-        $deletedProduct = [];
-        $deletedProductPrice =null;
-        $deletedProductQiy =null;
-
+        
+        $totalprice=0;
+        $quantity=0;
        $products =$allproducts->products;
-        foreach($products as $key=>$value){
-            if($value->name == $name && $value->id == $id ){
-            
-                $deletedProductPrice .=$value->price;
-                $deletedProductQiy .=$value->quantity;
-                array_push($deletedProduct,$value);  
-              
-                
-            }else{
-                array_push($singleProduct,$value);  
+       $productpush = [];
+       foreach($products as  &$value){
+           if($value->id == $id){
+            $item = array();
+            $item['id']=$value->id;
+            $item['name']=$value->name;
+            $item['name']=$value->name;
+            $item['price']=$value->price;
+            $item['quantity']=$value->quantity;
+            $item['thumbnail_img']=$value->thumbnail_img;
+            $item['colors']=$value->colors;
+            $item['product_id']=$value->product_id;
+            $item['sku']=$value->sku;
+            $item['sku']=$value->sku;
+            $item['flashdeals']=$value->flashdeals;
+            $item['flashdealtype']=$value->flashdealtype;
+            $item['return_product']=1;
+            $item['approve_product']=0;
+
+            $totalprice .=$value->price;
+            $quantity .=$value->quantity;
+            // NEW ACTION AREA START
+
+
+             // store attibute name
+             $sizename = [];
+ 
+             $productdetails = Product::findOrFail($value->product_id);
+             foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+
+                $size = $choice->title; //this reaturn size,model
+                array_push($sizename, $size);
             }
-        }
+            $rowcount = count($sizename);
 
-        $totalrefund = $deletedProductPrice * $deletedProductQiy;
-        
-
-        $allproducts ->update([
-            'products'=>json_encode($singleProduct),
-        ]);
-        
-
-        $returnpro =ReturnProduct::where('orderrid',$orderid)->first();
-        if($returnpro){
+            if($rowcount == 1){
+                $sizeone =$sizename[0];
+                $item[$sizeone]=$value->$sizeone;
+            }elseif($rowcount == 2){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+            }elseif($rowcount == 3){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+            }elseif($rowcount == 4){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+            }elseif($rowcount == 5){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $sizefive =$sizename[4];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+                $item[$sizefive]=$value->$sizefive;
+            }
             
-            ReturnAllProduct::insert([
-                'order_id'=>$orderid,
+
+            // NEW ACTION AREA END
+            array_push($productpush,$item);
+
+           }else{
+            $item = array();
+            $item['id']=$value->id;
+            $item['name']=$value->name;
+            $item['name']=$value->name;
+            $item['price']=$value->price;
+            $item['quantity']=$value->quantity;
+            $item['thumbnail_img']=$value->thumbnail_img;
+            $item['colors']=$value->colors;
+            $item['product_id']=$value->product_id;
+            $item['sku']=$value->sku;
+            $item['sku']=$value->sku;
+            $item['flashdeals']=$value->flashdeals;
+            $item['flashdealtype']=$value->flashdealtype;
+            $item['return_product']=$value->return_product;
+            $item['approve_product']=0;
+
+            // NEW ACTION AREA START
+
+
+             // store attibute name
+             $sizename = [];
+ 
+             $productdetails = Product::findOrFail($value->product_id);
+             foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+
+                $size = $choice->title; //this reaturn size,model
+                array_push($sizename, $size);
+            }
+            $rowcount = count($sizename);
+
+            if($rowcount == 1){
+                $sizeone =$sizename[0];
+                $item[$sizeone]=$value->$sizeone;
+            }elseif($rowcount == 2){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+            }elseif($rowcount == 3){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+            }elseif($rowcount == 4){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+            }elseif($rowcount == 5){
+                $sizeone =$sizename[0];
+                $sizetwo =$sizename[1];
+                $sizethree =$sizename[2];
+                $sizefour =$sizename[3];
+                $sizefive =$sizename[4];
+                $item[$sizeone]=$value->$sizeone;
+                $item[$sizetwo]=$value->$sizetwo;
+                $item[$sizethree]=$value->$sizethree;
+                $item[$sizefour]=$value->$sizefour;
+                $item[$sizefive]=$value->$sizefive;
+            }
+            
+
+            // NEW ACTION AREA END
+            array_push($productpush,$item);
+           }
+           
+
+       }
+
+       $allproducts->update([
+           'products'=>$productpush,
+       ]);
+       
+        $returnProduct =ReturnProduct::where('orderrid',$orderid)->first();
+        if($returnProduct){
+            $returnProduct->update([
+                'orderrid'=>$orderid,
                 'user_id'=>auth()->user()->id,
-                'products'=>json_encode($deletedProduct),
-                'quantity'=>$deletedProductQiy,
-                'price'=>$deletedProductPrice,
                 'created_at'=>Carbon::now(),
             ]);
+            $returnProduct->increment('price', $totalprice);
+            $returnProduct->increment('quantity', $quantity);
         }else{
-             
             ReturnProduct::insert([
                 'orderrid'=>$orderid,
                 'user_id'=>auth()->user()->id,
-                'quantity'=>$deletedProductQiy,
-                'price'=>$deletedProductPrice,
+                'price'=>$totalprice,
+                'quantity'=>$quantity,
                 'created_at'=>Carbon::now(),
             ]);
-            ReturnAllProduct::insert([
-                'order_id'=>$orderid,
-                'user_id'=>auth()->user()->id,
-                'products'=>json_encode($deletedProduct),
-                'quantity'=>$deletedProductQiy,
-                'price'=>$deletedProductPrice,
-                'created_at'=>Carbon::now(),
-            ]);
-
         }
-        
-      
-        
-       
-
-        CustomarAccount::where('userid',auth()->user()->id)->increment('balance', $totalrefund);
-
-        $allproducts = Checkout::where('orderid',$orderid)->where('userid',auth()->user()->id)->first();
-        abort_if(!$allproducts, 403);
-
-        if(count($allproducts->products) == 0){
-            $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('order_id',$orderid)->first();
-            $allproducts->delete();
-            $orderPlace->delete();
-
-            $notification = array(
-                'messege' => 'Successfully Products Return!',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('customar.invoice.show',auth()->user()->id)->with($notification);
-        }
-
-
+    
         $notification = array(
-            'messege' => 'Successfully Products Return!',
+            'messege' => 'Successfully Products Return! This Product is waiting for approval by Admin',
             'alert-type' => 'success'
         );
         return redirect()->route('customar.invoice.show.details',$orderid)->with($notification);
         
         
+    }
+
+    public function invoicePayNow($order_id)
+    {
+        $order=OrderPlace::where('order_id',$order_id)->where('user_id',auth()->user()->id)->first();
+        abort_if(!$order, 403);
+        return redirect()->route('order.payment', [$order_id ,$order->payment_secure_id]);
     }
 
 

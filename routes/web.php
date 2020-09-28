@@ -857,6 +857,8 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
             Route::get('/show/return/product/list','ProductController@returrnProduct')->name('admin.customar.return.product');
             Route::get('/delete/return/product/{orderid}','ProductController@deletedProduct')->name('admin.customar.deleted.product');
             Route::get('/show/return/product/{orderid}','ProductController@showProduct')->name('admin.customar.show.product');
+            Route::get('/reject/return/product/{orderid}/{id}','ProductController@rejectReturnProduct')->name('admin.customar.reject.product');
+            Route::get('/approve/return/product/{orderid}/{id}','ProductController@approveReturnProduct')->name('admin.customar.approve.product');
         });
     });
 
@@ -924,6 +926,7 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
             Route::get('customar/invoice/{userid}','CheckoutController@customarInvoiceShow')->name('customar.invoice.show');
 
             Route::get('/invoice/show/{order_id}','CheckoutController@invoiceShow')->name('customar.invoice.show.details');
+            Route::get('/invoice/pay/now/{order_id}','CheckoutController@invoicePayNow')->name('invoice.pay.now');
 
             
         });

@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="panel_title">
-                                <span class="panel_icon"><i class="fas fa-border-all"></i></span><span>All Return Product of Order ID # </span>
+                                <span class="panel_icon"><i class="fas fa-border-all"></i></span><span>All Return Product of Order ID # {{$cartdata->orderid}} </span>
                             </div>
                         </div>
                     </div>
@@ -26,8 +26,7 @@
                                     <th>
                                         SL
                                     </th>
-                                    <th># Order ID</th>
-                                    <th>Customar Name</th>
+                                    <th>Products</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Order Date</th>
@@ -35,14 +34,32 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($cartdata->products as $row)
+                                @if($row->return_product)
                                 <tr>
-                                    @foreach($allproduct as $row)
                                     <td>
-                                        {{$row->name}}
-                                    
+                                       {{$loop->iteration}} 
+                                    </td>
+                                    <td>
+                                       {{$row->name}}
+                                    </td> 
+                                    <td>
+                                       {{$row->quantity}}
                                     </td>   
-                                    @endforeach
+                                    <td>
+                                       {{$row->price}}
+                                    </td>  
+                                    <td>
+                                       {{$cartdata->created_at}}
+                                    </td>
+                                    <td class="text-center">
+                                       <a href="{{route('admin.customar.approve.product',[$cartdata->orderid,$row->id])}}" class="btn btn-success" >Approve</a>
+                                       <a href="{{route('admin.customar.reject.product',[$cartdata->orderid,$row->id])}}" class="btn btn-warning" >Reject</a>
+                                    </td>   
                                 </tr>
+                                @endif
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
