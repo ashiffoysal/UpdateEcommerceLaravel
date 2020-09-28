@@ -102,7 +102,43 @@ class FrontendController extends Controller
         }
          elseif($themecheck->id==9){
 
-            return view('frontend.home.home9');
+            $topsell=Product::where('is_deleted',0)->orderBy('number_of_sale','DESC')->limit(4)->get();
+            $topsellskip=Product::where('is_deleted',0)->orderBy('number_of_sale','DESC')->skip(4)->limit(4)->get();
+
+            $firstcate=Category::where('cate_status',1)->where('is_deleted',0)->first();
+            $secondcate=Category::where('cate_status',1)->where('is_deleted',0)->skip(1)->first();
+
+            $allcate=Category::where('cate_status',1)->where('is_deleted',0)->orderBy('id','DESC')->limit(6)->get();
+            $newarrival=Product::where('is_deleted',0)->orderBy('id','DESC')->limit(10)->get();
+
+               date_default_timezone_set('Asia/Dhaka');
+                $to = Carbon::now()->format('Y-m-d');
+                $from = date('Y-m-d', strtotime('+30 days', strtotime($to)));
+                $hotdeal = FlashDeal::with(['flash_deal_details', 'flash_deal_details.product'])
+                ->where('status', 1)
+                ->where('is_deleted', 0)
+                ->select('id', 'start_date', 'end_date')
+                ->orderBy('id', 'DESC')
+                ->first();
+
+                 
+            if ($hotdeal) {
+                if ($hotdeal->end_date == date('Y-m-d')) {
+                    foreach ($hotdeal->flash_deal_details as $value) {
+                        $value->update([
+                            'status' => 0,
+                        ]);
+                    }
+                    $hotdeal->update([
+                        'status' => 0
+                    ]);
+                }
+
+                
+            }
+
+            return view('frontend.home.home9',compact('topsell','topsellskip','firstcate','secondcate','allcate','newarrival','hotdeal'));
+
         }
 
         elseif($themecheck->id==10){

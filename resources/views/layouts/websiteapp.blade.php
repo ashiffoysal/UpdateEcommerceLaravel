@@ -36,7 +36,8 @@
       @elseif($themecheck->id==11)
     @include('frontend.include.home11.css')
     @endif
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{asset('public/frontend')}}/css/izitost.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--  <script src="{{asset('public/frontend/js/jquery-1.12.4.min.js')}}"></script> -->
  <script src="{{asset('public/frontend/js/lazy_loader.js')}}"></script>
 <script src="{{asset('public/frontend/js/main.js')}}"></script>
@@ -45,56 +46,65 @@
 </head>
 
 <body>
+    @php
+        $color=App\ThemeColor::where('is_deleted',0)->where('status',1)->first();
+    @endphp
 @if($color)
 <style>
+
+.ps-block--container-hightlight .ps-section__header {
+   
+    background-color:{{ $color->color_code }};
+}
+
 .header .header__top {
-    background-color: {{$color->color_code}};
+    background-color: {{ $color->color_code }};
 }
 .navigation {
-    background-color: {{$color->color_code}};
+    background-color: {{ $color->color_code }};
 }
 .sub-menu > li > a:hover {
-    color: {{$color->hover_code}};
+    color: {{ $color->hover_code }};
 }
 .mega-menu .mega-menu__list li a:hover {
-    color: {{$color->hover_code}};
+    color: {{ $color->hover_code }};
 }
 .menu--dropdown > li:hover {
-    background-color: {{$color->hover_code}};
+    background-color: {{ $color->hover_code }};
     color:white;
 }
 .ps-product .ps-product__progress-bar .ps-progress__value > span {
 
-    background-color: {{$color->color_code}};
+    background-color: {{ $color->color_code }};
   
 }
 .ps-btn, button.ps-btn {
-    background-color: {{$color->color_code}};
+    background-color: {{ $color->color_code }};
 }
 .ps-btn:hover, .ps-btn:active, button.ps-btn:hover, button.ps-btn:active {
-    background-color: {{$color->color_code}};
+    background-color: {{ $color->color_code }};
     color: #fff;
 }
 .widget_contact-us .widget_content h3 {
-    color: {{$color->color_code}};
+    color: {{ $color->color_code }};
 }
 .ps-product .ps-product__title:hover {
-    color: {{$color->hover_code}};
+    color: {{ $color->hover_code }};
 }
 .noUi-connect {
-    background-color: {{$color->color_code}};
+    background-color: {{ $color->color_code }};
 }
 .noUi-handle{
-    border: 3px solid {{$color->color_code}};
+    border: 3px solid {{ $color->color_code }};
 }
 .ps-block--site-features .ps-block__left i {
     
-    color: {{$color->color_code}};
+    color: {{ $color->color_code }};
 }
 .ps-shopping-cart .ps-section__footer .ps-btn--outline:hover {
-    background-color: {{$color->hover_code}};
-    border-color: {{$color->hover_code}};
-    color:{{$color->color_code}};
+    background-color: {{ $color->hover_code }};
+    border-color: {{ $color->hover_code }};
+    color:{{ $color->color_code }};
    
 }
 .ps-shopping-cart .ps-section__cart-actions .ps-btn--outline:hover {
@@ -303,8 +313,41 @@
                 </article>
             </div>
         </div>
-    </div>
+</div>
+<script src="{{asset('public/frontend')}}/js/izitost.js"></script>
+<script>
+    
+        @if(Session::has('messege'))
+        var type = "{{Session::get('alert-type','info')}}"
+        switch (type) {
+            case 'success':
 
+                iziToast.success({
+                    message: '{{ Session::get('messege') }}',
+                    'position':'topRight'
+                });
+                brack;
+            case 'info':
+                iziToast.info({
+                    message: '{{ Session::get('messege') }}',
+                    'position':'topRight'
+                });
+                brack;
+            case 'warning':
+                iziToast.warning({
+                    message: '{{ Session::get('messege') }}',
+                    'position':'topRight'
+                });
+                break;
+            case 'error':
+                iziToast.error({
+                    message: '{{ Session::get('messege') }}',
+                    'position':'topRight'
+                });
+                break;
+        }
+        @endif
+</script>
 
 <script>
     $(document).ready(function(){
@@ -382,51 +425,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-    
-        @if(Session::has('messege'))
-        var type = "{{Session::get('alert-type','info')}}"
-        switch (type) {
-            case 'success':
-
-                iziToast.success({
-                    message: '{{ Session::get('messege') }}',
-                    'position':'topRight'
-                });
-                brack;
-            case 'info':
-                iziToast.info({
-                    message: '{{ Session::get('messege') }}',
-                    'position':'topRight'
-                });
-                brack;
-            case 'warning':
-                iziToast.warning({
-                    message: '{{ Session::get('messege') }}',
-                    'position':'topRight'
-                });
-                break;
-            case 'error':
-                iziToast.error({
-                    message: '{{ Session::get('messege') }}',
-                    'position':'topRight'
-                });
-                break;
-        }
-        @endif
-    </script>
 
 
 

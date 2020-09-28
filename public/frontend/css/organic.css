@@ -8,15 +8,15 @@
 }
 
 .header--organic .header__extra span {
-  background-color: #5fa30f;
+  background-color: #000000;
 }
 
 .header--organic .header__extra:hover i {
-  color: #5fa30f;
+  color: #fff;
 }
 
 .header--organic .ps-block--user-header a:hover {
-  color: #5fa30f;
+  color: #fff;
 }
 
 .header--organic .menu--product-categories {
@@ -33,7 +33,7 @@
 }
 
 .header--organic .ps-form--quick-search button {
-  background-color: #5fa30f;
+  background-color: #000000;
   color: #ffffff;
 }
 
@@ -235,7 +235,7 @@
 }
 
 #homepage-9 .ps-site-features .ps-block--site-features i {
-  color: #5fa30f;
+  color: #000;
 }
 
 #homepage-9 .ps-top-categories {
