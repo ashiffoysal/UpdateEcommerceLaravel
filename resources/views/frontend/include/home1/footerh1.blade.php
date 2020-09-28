@@ -47,7 +47,7 @@
                         @else
                          <li><a href="{{route('customar.login.form')}}">My account</a></li>
                         @endif
-                        <li><a href="shop-default.html">Shop</a></li>
+                        
                     </ul>
                 </aside>
             </div>

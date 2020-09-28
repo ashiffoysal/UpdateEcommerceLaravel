@@ -7,8 +7,7 @@
                         <div class="menu__toggle"><i class="icon-menu"></i><span> Shop by Department</span></div>
                         <div class="menu__content">
                             <ul class="menu--dropdown">
-                                     @foreach($allcategory as $category)
-
+                                @foreach($allcategory as $category)
                                     @php
                                         $check = App\SubCategory::where('cate_id',$category->id)->first();
                                     @endphp
@@ -26,7 +25,7 @@
                                                             @endphp
                                                         <ul class="mega-menu__list">
                                                             @foreach($resubcate as $rcate)
-                                                            <li class="current-menu-item "><a href="#">{{$rcate->resubcate_name}}</a>
+                                                            <li class="current-menu-item "><a href="">{{$rcate->resubcate_name}}</a>
                                                             </li>
                                                             @endforeach
                                                         </ul>

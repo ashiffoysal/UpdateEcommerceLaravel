@@ -7,7 +7,7 @@
                 <div class="ps-section__left">
                     <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
                         @foreach($slider as $ban)
-                        <div class="ps-banner"><a href="{{$ban->ban_link}}"><img src="{{asset('public/uploads/banner/'.$ban->ban_image)}}" alt=""></a></div>
+                        <div class="ps-banner"><a href="{{$ban->ban_link}}"><img data-src="{{asset('public/uploads/banner/'.$ban->ban_image)}}" src="{{asset('public/frontend/lazy_loader/slider.gif')}}" class="lazy" alt=""></a></div>
                         @endforeach
                    
                     </div>
@@ -97,7 +97,7 @@
                     <div class="ps-carousel--nav owl-slider" data-owl-auto="false" data-owl-loop="false" data-owl-speed="10000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="true" data-owl-item="7" data-owl-item-xs="2" data-owl-item-sm="3" data-owl-item-md="4" data-owl-item-lg="5" data-owl-item-xl="6" data-owl-duration="1000" data-owl-mousedrag="on">
                         @foreach($hotdeal->flash_deal_details as $flasdetail)
                         <div class="ps-product ps-product--inner">
-                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}"><!-- <img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" data-src="{{asset('public/uploads/1.png')}}" class="lazy w-100" alt=""> -->  <img data-src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" src="{{asset('public/uploads/1.png')}}" class="lazy"></a>
+                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}"><!-- <img src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" data-src="{{asset('public/uploads/1.png')}}" class="lazy w-100" alt=""> -->  <img data-src="{{asset('public/uploads/products/thumbnail/'.$flasdetail->product->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner.gif')}}" class="lazy "></a>
                                 <div class="ps-product__badge">
                                     @if($flasdetail->discount_type==1) -{{$flasdetail->discount}}৳  @else -{{$flasdetail->discount}}% @endif
                                 </div>
@@ -161,7 +161,7 @@
             <div class="ps-container">
                 <div class="row">
                     @foreach($hommiddle as $img)
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="{{$img->image}}"><img src="{{asset('public/uploads/sitebanner/'.$img->image)}}" alt=""></a>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="{{$img->image}}"><img data-src="{{asset('public/uploads/sitebanner/'.$img->image)}}" src="{{asset('public/frontend/lazy_loader/home-banner.gif')}}" class="lazy" alt=""></a>
                     </div>
                     @endforeach
                   
@@ -206,7 +206,7 @@
                         @endphp
                         @foreach($allproduct as $product)
                         <div class="ps-product">
-                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/uploads/1.png')}}" alt=""></a>
+                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner.gif')}}" class="lazy" alt=""></a>
                       @php
                         $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                       @endphp
@@ -341,7 +341,7 @@
                             $flashdealdetail = App\FlashDealDetail::where('product_id',$products->id)->where('status',1)->get();
                           @endphp
                         <div class="ps-product">
-                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$products->thumbnail_img)}}" alt=""></a>
+                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$products->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner.gif')}}" class="lazy"></a>
                                   @if(count($flashdealdetail) > 0)
                                     @foreach($flashdealdetail as $row)
                                                <?php $productdiscount = ($products->product_price * $row->discount) / 100; ?>
@@ -461,7 +461,7 @@
                             $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
                           @endphp
                         <div class="ps-product">
-                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
+                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner.gif')}}" class="lazy"></a>
 
                                   @if(count($flashdealdetail) > 0)
                                     @foreach($flashdealdetail as $row)
@@ -478,6 +478,7 @@
                                     @endforeach
                                   @endif
                                 <ul class="ps-product__actions">
+                                    
                                     <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-eye"></i></a></li>
 
                                   
@@ -561,11 +562,11 @@
             <div class="ps-container">
                 <div class="row">
                     @foreach($homefoot1 as $fimg)
-                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="{{$fimg->link}}"><img src="{{asset('public/uploads/sitebanner/'.$fimg->image)}}" alt=""></a>
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="{{$fimg->link}}"><img data-src="{{asset('public/uploads/sitebanner/'.$fimg->image)}}" src="{{asset('public/frontend/lazy_loader/slider.gif')}}" class="lazy"  alt=""></a>
                     </div>
                     @endforeach
                     @foreach($homefoot2 as $fimage2)
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="{{$fimage2->link}}"><img src="{{asset('public/uploads/sitebanner/'.$fimage2->image)}}" alt=""></a>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="{{$fimage2->link}}"><img data-src="{{asset('public/uploads/sitebanner/'.$fimage2->image)}}" src="{{asset('public/frontend/lazy_loader/home-banner.gif')}}" class="lazy" alt=""></a>
                     </div>
                     @endforeach
                 </div>
@@ -616,7 +617,7 @@
                         @foreach($newproduct as $product)
                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                             <div class="ps-product--horizontal">
-                                <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a></div>
+                                <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner-mini.gif')}}" class="lazy" alt=""></a></div>
                                 <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                     <p class="ps-product__price">৳ {{$product->product_price}}</p>
                                 </div>
