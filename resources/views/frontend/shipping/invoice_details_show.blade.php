@@ -59,7 +59,7 @@
                                                     <th>Price</th>
                                                     <th>Quantity</th>
                                                     <th>Amount</th>
-                                                    
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -145,6 +145,17 @@
                                                     <td><span><i>৳</i> {{$row->price}}</span></td>
                                                     <td>{{$row->quantity}}</td>
                                                     <td><span><i>৳</i> {{$row->price * $row->quantity}}</span></td>
+                                                    @if($row->return_product == 0)
+                                                    <td style="white-space: nowrap;"  class="text-right">
+                                                                
+    									                <a class="btn btn-danger product_return" title="Return" data-toggle="tooltip" href="{{route('customar.product.return',[$orderPlace->order_id,$row->name,$row->id])}}" data-original-title="Return"><i class="fa fa-reply"></i></a>
+                                                    </td>
+                                                    @else
+                                                    <td style="white-space: nowrap;"  class="text-right">
+                                                                
+                                                    <button class="btn btn-danger product_return" data-placement="right" id="invoice_detail_toltip" style="background: red;"   data-toggle="tooltip" href="#" title="This product is returned.Witing for approval" data-original-title="Return"><i class="fa fa-reply"></i></button>
+                                                    </td>
+                                                    @endif
                                                     
                                                 </tr>
                                                 @endforeach
@@ -182,57 +193,14 @@
                 </div>
             </div>
         </section>
-
-       
-
-<div class="modal fade bd-example-modal-lg modal-background" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-    <div class="ps-block--payment-success modal-payment-success text-center">
-                    <h3>Payment Success !</h3>
-                    <p>Thanks for your payment. Please visit<a href="{{route('customar.invoice.show',auth()->user()->id)}}"> here</a> to check your order status.</p>
-                    <small class="text-center d-block">Please wait for <b id="second">  </b>seconds</small>
-                </div>
-    </div>
-  </div>
-</div>
         
-    @include('frontend.include.newsletter._subcribtion')
-    </main>
-
-    @if(isset($secure_id))
-    <script src="{{asset('public/frontend')}}/plugins/jquery.min.js"></script>
-    <script>
-        $( document ).ready(function() {
-
-            
-            var countDownDate = 5;
-
-            // Update the count down every 1 second
-            var x = setInterval(function() {
-
-
-
-
-            
-            document.getElementById("second").innerHTML = countDownDate +" ";
-            countDownDate--;    
-                
-           
-            }, 1000);
-
-
-            
-
-            
-            $('.bd-example-modal-lg').modal('toggle');
-            
-                setTimeout(function(){ $('.bd-example-modal-lg').modal('hide'); clearInterval(x)}, 6000);
-        })
-        
-
-        
+        <script src="{{asset('public/frontend')}}/plugins/jquery.min.js"></script>
+ <script>
+      
+            $(document).ready(function() {
+                $('#invoice_detail_toltip').tooltip('show');
+                setTimeout(function(){ $('#invoice_detail_toltip').tooltip('hide'); }, 4000);
+            });
     </script>
-    @endif
     
     @endsection

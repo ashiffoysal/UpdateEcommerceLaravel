@@ -37,16 +37,21 @@
                                                     <th>Date</th>
                                                     <th>Amount</th>
                                                     <th>Status</th>
+                                                    <th>Pay Now</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
 
                                                 @foreach($orders as $row)
-
-                                                <tr>
                                                     
-                                                    <td><a href="{{route('customar.invoice.show.details',$row->order_id)}}">#{{$row->order_id}}</a></td>
+                                                <tr>
+                                                    @if ($loop->first)
+                                                        <td><a data-toggle="tooltip" class="red-tooltip" data-placement="left" title="Click here to show Invoice Details" id="invoicetoltip" href="{{route('customar.invoice.show.details',$row->order_id)}}">#{{$row->order_id}}</a></td>
+                                                    @else
+                                                        <td><a data-toggle="tooltip" class="red-tooltip" data-placement="left" title="Click here to show Invoice Details" href="{{route('customar.invoice.show.details',$row->order_id)}}">#{{$row->order_id}}</a></td>
+                                                    @endif
+                                                    
                                                     <td>{{$row->total_quantity}}</td>
                                                     <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d/m/Y')}}</td>
                                                     
@@ -56,7 +61,12 @@
                                                     @else
                                                         <td>Successful delivery</td>
                                                     @endif
-                                                    
+
+                                                    @if($row->status ==0)
+                                                        <td><a class="effect effect-5" href="{{route('invoice.pay.now',$row->order_id)}}" title="Pay Now">Pay Now</a></td>
+                                                    @else
+                                                        <td></td>
+                                                    @endif
                                                 </tr>
                                                 @endforeach
                                             </tbody>
@@ -100,4 +110,14 @@
             </div>
         </div>
     </main>
+    
+        
+ <script src="{{asset('public/frontend')}}/plugins/jquery.min.js"></script>
+ <script>
+      
+            $(document).ready(function() {
+                $('#invoicetoltip').tooltip('show');
+                setTimeout(function(){ $('#invoicetoltip').tooltip('hide'); }, 6000);
+            });
+    </script>
     @endsection
