@@ -6,6 +6,7 @@ use App\Banner;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\ThemeSelector;
 use Image;
 
 class BannerController extends Controller
@@ -13,25 +14,48 @@ class BannerController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+       
     }
     // allbaner
     public function index()
     {
-        $allbanner = Banner::where('is_deleted', 0)->get();
+        $theme=ThemeSelector::where('status',1)->first();
+        $allbanner = Banner::where('is_deleted', 0)->where('theme_id',$theme->id)->get();
         return view('admin.ecommerce.banner.all', compact('allbanner'));
     }
     // insert
     public function insert(Request $request)
     {
         // return $request;
+        $theme=ThemeSelector::where('status',1)->first();
         $data = new Banner;
         $data->ban_link = $request->ban_link;
+        $data->theme_id = $request->theme_id;
+        $data->text = $request->text;
+        $data->description = $request->description;
 
-        if ($request->hasFile('pic')) {
-            $image = $request->file('pic');
-            $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(1230, 425)->save('public/uploads/banner/' . $ImageName);
-            $data->ban_image = $ImageName;
+        if($theme->id==1){
+            if ($request->hasFile('pic')) {
+                $image = $request->file('pic');
+                $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(1230, 425)->save('public/uploads/banner/' . $ImageName);
+                $data->ban_image = $ImageName;
+            }
+        }
+        elseif($theme->id==9){
+            if ($request->hasFile('pic')) {
+                $image = $request->file('pic');
+                $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(1920, 358)->save('public/uploads/banner/' . $ImageName);
+                $data->ban_image = $ImageName;
+            }
+        }else{
+            if ($request->hasFile('pic')) {
+                $image = $request->file('pic');
+                $ImageName = 'th' . '_' . time() . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(1230, 425)->save('public/uploads/banner/' . $ImageName);
+                $data->ban_image = $ImageName;
+            }
         }
         
         if ($data->save()) {
@@ -150,23 +174,55 @@ class BannerController extends Controller
     // update
     public function update(Request $request)
     {
+        //return $request;
+        $theme=ThemeSelector::where('status',1)->first();
         $id = $request->id;
         $old_image = $request->old_image;
         $update = Banner::where('id', $id)->update([
             'ban_link' => $request['ban_link'],
+            'theme_id' => $request['theme_id'],
+            'text' => $request['text'],
+            'description' => $request['description'],
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
-        if ($request->hasFile('pic')) {
-            if ($old_image) {
-                unlink('public/uploads/banner/' . $old_image);
-                $image = $request->file('pic');
-                $ImageName = '_' . '_' . time() . '.' . $image->getClientOriginalExtension();
-                Image::make($image)->resize(830, 355)->save('public/uploads/banner/' . $ImageName);
-                Banner::where('id', $id)->update([
-                    'ban_image' => $ImageName,
-                ]);
+        if($theme->id==1){
+               if ($request->hasFile('pic')) {
+                if ($old_image) {
+                    unlink('public/uploads/banner/' . $old_image);
+                    $image = $request->file('pic');
+                    $ImageName = '_' . '_' . time() . '.' . $image->getClientOriginalExtension();
+                    Image::make($image)->resize(830, 355)->save('public/uploads/banner/' . $ImageName);
+                    Banner::where('id', $id)->update([
+                        'ban_image' => $ImageName,
+                    ]);
+                }
+            }
+        }elseif($theme->id==9){
+               if ($request->hasFile('pic')) {
+                if ($old_image) {
+                    unlink('public/uploads/banner/' . $old_image);
+                    $image = $request->file('pic');
+                    $ImageName = '_' . '_' . time() . '.' . $image->getClientOriginalExtension();
+                    Image::make($image)->resize(1920, 358)->save('public/uploads/banner/' . $ImageName);
+                    Banner::where('id', $id)->update([
+                        'ban_image' => $ImageName,
+                    ]);
+                }
+            }
+        }else{
+               if ($request->hasFile('pic')) {
+                if ($old_image) {
+                    unlink('public/uploads/banner/' . $old_image);
+                    $image = $request->file('pic');
+                    $ImageName = '_' . '_' . time() . '.' . $image->getClientOriginalExtension();
+                    Image::make($image)->resize(830, 355)->save('public/uploads/banner/' . $ImageName);
+                    Banner::where('id', $id)->update([
+                        'ban_image' => $ImageName,
+                    ]);
+                }
             }
         }
+     
       
 
         if ($update) {
