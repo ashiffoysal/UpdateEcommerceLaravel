@@ -101,6 +101,8 @@ class FrontendController extends Controller
             return view('frontend.home.home8');
         }
          elseif($themecheck->id==9){
+            $theme=ThemeSelector::where('status',1)->first();
+            $banner=Banner::where('ban_status',1)->where('is_deleted',0)->where('theme_id',$theme->id)->orderBy('id','DESC')->limit(3)->get();
 
             $topsell=Product::where('is_deleted',0)->orderBy('number_of_sale','DESC')->limit(4)->get();
             $topsellskip=Product::where('is_deleted',0)->orderBy('number_of_sale','DESC')->skip(4)->limit(4)->get();

@@ -1,6 +1,11 @@
 @extends('layouts.adminapp')
 @section('admin_content')
 <!-- content wrpper -->
+
+
+@php
+	$theme=App\ThemeSelector::where('status',1)->first();
+@endphp
 <div class="content_wrapper">
 	<!--middle content wrapper-->
 	<!-- page content -->
@@ -31,6 +36,7 @@
 						<div class="table-responsive">
 							<table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">
 								<thead>
+									@if($theme->id==1)
 									<tr>
 										<th>
 											<label class="chech_container mb-4">
@@ -41,12 +47,29 @@
 										<th>#</th>
 										<th>Slider Link</th>
 										<th>Slider Image</th>
-										
 										<th>Status</th>
 										<th>manage</th>
 									</tr>
+									@elseif($theme->id==9)
+									<tr>
+										<th>
+											<label class="chech_container mb-4">
+												<input type="checkbox" id="check_all">
+												<span class="checkmark"></span>
+											</label>
+										</th>
+										<th>#</th>
+										<th>Button Link</th>
+										<th>text</th>
+										<th>Description</th>
+										<th>Slider Image</th>
+										<th>Status</th>
+										<th>manage</th>
+									</tr>
+									@endif
 								</thead>
 								<tbody>
+								@if($theme->id==1)
 									@foreach($allbanner as $key => $data)
 									<tr>
 										<td>
@@ -83,6 +106,50 @@
 										</td>
 									</tr>
 									@endforeach
+									@elseif($theme->id==9)
+
+										@foreach($allbanner as $key => $data)
+									<tr>
+										<td>
+											<label class="chech_container mb-4">
+												<input type="checkbox" name="delid[]" class="checkbox" value="{{$data->id}}">
+												<span class="checkmark"></span>
+											</label>
+										</td>
+										<td>{{++$key}}</td>
+
+										<td>{{Str::limit($data->ban_link,25)}}</td>
+										<td>{{Str::limit($data->text,25)}}</td>
+										<td>{{Str::limit($data->description,25)}}</td>
+
+										<td>
+											<img src="{{asset('public/uploads/banner/'.$data->ban_image)}}" height="45px;">
+										</td>
+										
+										<td>
+											@if($data->ban_status==1)
+											<span class="btn btn-success">Active</span>
+											@else
+											<span class="btn btn-danger">Deactive</span>
+											@endif
+										</td>
+
+										<td>
+											@if($data->ban_status==1)
+											<a href="{{url('admin/banner/deactive/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
+											@else
+											<a href="{{url('admin/banner/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
+											@endif
+
+											| <a class="editcat btn btn-sm btn-blue text-white" data-id="{{$data->id}}" title="edit" data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt"></i></a> |
+											<a id="delete" href="{{url('admin/banner/softdelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
+										</td>
+									</tr>
+									@endforeach
+
+
+
+									@endif
 								</tbody>
 							</table>
 						</div>
@@ -109,10 +176,12 @@
 				<form class="form-horizontal" action="{{route('admin.banner.insert')}}" method="POST" enctype="multipart/form-data">
 
 					@csrf
+					@if($theme->id==1)
 					<div class="form-group row">
 						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Slider Link</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" name="ban_link" required>
+							<input type="hidden" name="theme_id" value="{{$theme->id}}">
 						</div>
 					</div>
 					<div class="form-group row">
@@ -123,6 +192,37 @@
 							<p>(1230px*425px)</p>
 						</div>
 					</div>
+					@elseif($theme->id==9)
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Text</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="text">
+							<input type="hidden" name="theme_id" value="{{$theme->id}}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Description</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="description">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Button Link</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="ban_link" required>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Slider Image</label>
+
+						<div class="col-sm-8">
+							<input type="file" name="pic" required>
+							<p>(1920px*358px)</p>
+						</div>
+					</div>
+					@endif
+
+
 			
 
 					<div class="form-group text-right">
@@ -157,6 +257,7 @@
 			<div class="modal-body">
 				<form class="form-horizontal" action="{{route('admin.banner.update')}}" method="POST" enctype="multipart/form-data">
 					@csrf
+					@if($theme->id==1)
 					<div class="form-group row">
 						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Slider Link</label>
 						<div class="col-sm-8">
@@ -181,6 +282,49 @@
 
 						</div>
 					</div>
+					@elseif($theme->id==9)
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Text</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="text" id="text">
+							<input type="hidden" name="theme_id" value="{{$theme->id}}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Description</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="description" id="description">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Button Link</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" name="ban_link" id="ban_link">
+							<input type="hidden" name="id" id="id">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right">Image</label>
+
+						<div class="col-sm-4">
+							<input type="file" name="pic">
+							<p>(1920px*358px)</p>
+						</div>
+						<div class="col-sm-4" id="store-img">
+
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-3 col-form-label text-right"></label>
+						<div class="col-sm-9" id="img">
+
+						</div>
+					</div>
+
+					@endif
+
+
+
 					<div class="form-group text-right">
 						<!-- <input type="" value="Reset" class="btn btn-warning"> -->
 						<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
@@ -227,8 +371,10 @@
 					success: function(data) {
 
 						$("#ban_link").val(data.ban_link);
+						$("#text").val(data.text);
+						$("#description").val(data.description);
 						$("#id").val(data.id);
-						$("#img").html("<img src={{asset('')}}public/uploads/banner/" + data.ban_image + " height='70px'/>");
+						$("#img").html("<img src={{asset('')}}public/uploads/banner/" + data.ban_image + " height='70px' width='200px'/>");
 						$("#store-img").append("<input type='hidden' name='old_image' value='" + data.ban_image + "' />");
 						
 
