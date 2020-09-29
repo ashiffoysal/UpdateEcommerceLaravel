@@ -1053,6 +1053,7 @@ class CheckoutController extends Controller
     public function offlinePaymentPage($order_id ,$secure_id)
     {
 
+        
 
         $orderPlace = OrderPlace::where('user_id', Auth::user()->id)->where('payment_secure_id', $secure_id)->where('order_id',$order_id)->first();
         abort_if(!$orderPlace, 403);
@@ -1087,6 +1088,20 @@ class CheckoutController extends Controller
 
     public function customarInvoiceShow($userid)
     {
+        
+        
+        $allorder = $orders = OrderPlace::where('user_id',auth()->user()->id)->get();
+        foreach($allorder as $order){
+            $checkoutdata =Checkout::where('orderid',$order->order_id)->where('userid',auth()->user()->id)->first();
+            if($checkoutdata){
+                if($checkoutdata->products == NULL){
+                    $deletedorder =OrderPlace::where('user_id',auth()->user()->id)->where('order_id',$order->order_id)->first();
+                    if($deletedorder){
+                        $deletedorder->delete();
+                    }
+                }
+            }
+        }
         $orders = OrderPlace::where('user_id',auth()->user()->id)->orderBy('id', 'desc')->simplePaginate(7);
         return view('frontend.shipping.invoices',compact('orders'));
     }

@@ -226,6 +226,7 @@ $logo=DB::table('logos')->first();
                             <li><a href="{{route('admin.product.producttype')}}">Add Product</a></li>
                             <li><a href="{{route('admin.product.all')}}">All Product</a></li>
                             <li><a href="{{route('admin.customar.return.product')}}">Return Product</a></li>
+                            <li><a href="{{route('admin.approved.return.product')}}">Approved Return Product</a></li>
                         </ul>
                     </li>
                     @else

@@ -50,7 +50,7 @@
                               
 
 
-                                            <a  href="{{route('admin.customar.show.product',$row->orderrid)}}" class="btn btn-info btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="Deactive"><i class="fas fa-pencil-alt"></i></a>|
+                                            <a  href="{{route('admin.customar.show.product',[$row->orderrid,$row->users->userid])}}" class="btn btn-info btn-sm text-white" data-toggle="tooltip" data-placement="right" title="edit" data-original-title="Deactive"><i class="fas fa-pencil-alt"></i></a>|
 
                                             <a id="delete" href="{{route('admin.customar.deleted.product',$row->orderrid)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 

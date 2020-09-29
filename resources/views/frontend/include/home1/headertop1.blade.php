@@ -109,6 +109,8 @@
                                 <i id="countwish">{{ $allwish }}</i>
                             </span>
                         </a>
+
+                        
                         <div class="ps-cart--mini"> <a class="header__extra" onmouseover="myAddToCartData()" data-id="{{$userid}}" id="cartdataid" href="#"><i class="icon-bag2"></i><span><i id="cartdatacount" >0</i></span>
                         </a>
                           <div class="ps-cart__content" id="addtocartshow">
@@ -116,15 +118,10 @@
 
                               </div>
                                 
-                                <div class="ps-cart__footer">
-                                    <h3>Sub Total:<strong>$59.99</strong></h3>
-                                    <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
-                                </div>
-
+                                
                             </div>
-
-
                         </div>
+
                         <div class="ps-block--user-header">
                             <div class="ps-block__left"><i class="icon-user"></i></div>
                             @if(Auth::check())
