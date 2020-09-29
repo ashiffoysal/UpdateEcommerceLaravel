@@ -26,12 +26,33 @@ use App\Page;
 use Carbon\Carbon;
 use DB;
 use Auth;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\TwitterCard;
+use Artesaos\SEOTools\Facades\JsonLd;
 
 class FrontendController extends Controller
 {
     // Frontend showing page
     public function index()
     {
+        SEOMeta::setTitle('Home');
+        SEOMeta::setDescription('Durbar It Ecommerce Website');
+        // SEOMeta::setCanonical('https://codecasts.com.br/lesson');
+
+        OpenGraph::setDescription('This is my page description');
+        OpenGraph::setTitle('Home');
+        $curl= url()->current();
+        OpenGraph::setUrl($curl);
+        OpenGraph::addProperty('type', 'articles');
+
+        TwitterCard::setTitle('Homepage');
+        TwitterCard::setSite('@LuizVinicius73');
+
+        JsonLd::setTitle('Homepage');
+        JsonLd::setDescription('This is my page description');
+        JsonLd::addImage('https://codecasts.com.br/img/logo.jpg');
+
         $themecheck = ThemeSelector::where('status', 1)->first();
         if($themecheck->id==1){
 
@@ -491,6 +512,33 @@ class FrontendController extends Controller
     public function productDetails($slug, $id)
     {
 
+        $productdetails = Product::where('id', $id)
+        ->select(['id', 'product_name', 'thumbnail_img', 'photos', 'slug', 'cate_id', 'product_qty', 'product_price', 'product_type', 'product_sku','select_upload_type','upload_file','upload_link','license_type','license_key','license_quantity','license_duration','brand', 'choice_options', 'colors', 'product_description', 'video','photos','created_at'])
+        ->first();
+        SEOMeta::setTitle($productdetails->product_name);
+        SEOMeta::setDescription($productdetails->product_name);
+        SEOMeta::addMeta('article:published_time', $productdetails->created_at->toW3CString(), 'property');
+        SEOMeta::addMeta('article:section', $productdetails->cat_id, 'property');
+
+        $url =url()->full();
+        OpenGraph::setDescription($productdetails->product_name);
+        OpenGraph::setTitle($productdetails->product_name);
+        OpenGraph::setUrl($url);
+        OpenGraph::addProperty('type', 'article');
+        OpenGraph::addProperty('locale', 'pt-br');
+        OpenGraph::addProperty('locale:alternate', ['pt-pt', 'en-us']);
+
+        // OpenGraph::addImage($post->cover->url);
+        // OpenGraph::addImage($post->images->list('url'));
+        // OpenGraph::addImage(['url' => 'http://image.url.com/cover.jpg', 'size' => 300]);
+        // OpenGraph::addImage('http://image.url.com/cover.jpg', ['height' => 300, 'width' => 300]);
+        
+        JsonLd::setTitle($productdetails->product_name);
+        JsonLd::setDescription($productdetails->product_name);
+        JsonLd::setType('products');
+        // JsonLd::addImage($post->images->list('url'));
+
+
         $this->showedProduct($id);
         
        
@@ -503,9 +551,9 @@ class FrontendController extends Controller
         date_default_timezone_set("Asia/Dhaka");
         $currentdate = date('Y-m-d');
 
-        $productdetails = Product::where('id', $id)
-        ->select(['id', 'product_name', 'thumbnail_img', 'photos', 'slug', 'cate_id', 'product_qty', 'product_price', 'product_type', 'product_sku','select_upload_type','upload_file','upload_link','license_type','license_key','license_quantity','license_duration','brand', 'choice_options', 'colors', 'product_description', 'video','photos'])
-        ->first();
+        // $productdetails = Product::where('id', $id)
+        // ->select(['id', 'product_name', 'thumbnail_img', 'photos', 'slug', 'cate_id', 'product_qty', 'product_price', 'product_type', 'product_sku','select_upload_type','upload_file','upload_link','license_type','license_key','license_quantity','license_duration','brand', 'choice_options', 'colors', 'product_description', 'video','photos'])
+        // ->first();
 
         $checkFlashDeal = 0;
         $flashDeal = FlashDeal::where('status', 1)->select('id', 'end_date')->first();

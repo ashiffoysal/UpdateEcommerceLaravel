@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Checkout;
+use App\CustomarAccount;
 use DB;
 use Image;
 use App\Product;
@@ -12,6 +13,7 @@ use App\ProductLicense;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\OrderPlace;
 use App\ReturnAllProduct;
 use App\ReturnProduct;
 use Illuminate\Support\Facades\Storage;
@@ -1358,16 +1360,20 @@ class ProductController extends Controller
 
     public function returrnProduct()
     {
-        $allproduct =ReturnProduct::all();
+       $allproduct =ReturnProduct::all();
         $porductorderid=[];
         foreach($allproduct as $product){
+            
             $checkout=Checkout::where('orderid',$product->orderrid)->first();
-            foreach($checkout->products as $row){
-                if($row->return_product == 1){
-                    $checkoutorderid =$checkout->orderid;
-                    array_push($porductorderid,$checkoutorderid);
+            if($checkout){
+                foreach($checkout->products as $row){
+                    if($row->return_product == 1){
+                        $checkoutorderid =$checkout->orderid;
+                        array_push($porductorderid,$checkoutorderid);
+                    }
                 }
             }
+            
         }
         $allproduct=ReturnProduct::whereIn('orderrid',$porductorderid)->get();
         
@@ -1389,12 +1395,12 @@ class ProductController extends Controller
 
     // show product
 
-    public function showProduct ($id)
+    public function showProduct ($id,$userid)
     {
         
         $cartdata =Checkout::where('orderid',$id)->first();        
         
-        return view('admin.ecommerce.product.showreturnproduct',compact('cartdata'));
+        return view('admin.ecommerce.product.showreturnproduct',compact('cartdata','userid'));
 
     }
 
@@ -1424,7 +1430,7 @@ class ProductController extends Controller
             $item['flashdeals']=$value->flashdeals;
             $item['flashdealtype']=$value->flashdealtype;
             $item['return_product']=0;
-            $item['approve_product']=0;
+            $item['approve_product']=1;
 
             $totalprice .=$value->price;
             $quantity .=$value->quantity;
@@ -1574,7 +1580,7 @@ class ProductController extends Controller
     
     // approve return products
 
-    public function approveReturnProduct ($orderid,$id)
+    public function approveReturnProduct ($orderid,$id,$userid)
     {
         $allproducts = Checkout::where('orderid',$orderid)->first();
         abort_if(!$allproducts, 403);
@@ -1740,13 +1746,50 @@ class ProductController extends Controller
         'products'=>$productpush,
         ]);
 
+        
+
         ReturnAllProduct::insert([
             'order_id'=>$orderid,
             'products'=>json_encode($productpushreturn),
             'quantity'=>$quantity,
             'price'=>$totalprice,
         ]);
-        return back();
+
+        $user =CustomarAccount::where('userid',$userid)->first();
+        $totalprice = $totalprice * $quantity;
+        $user->increment('balance',$totalprice);
+        OrderPlace::where('order_id',$orderid)->decrement('total_price',$totalprice);
+        
+       $notification = array(
+        'messege' => 'Return Order Product Approved!',
+        'alert-type' => 'success'
+    );
+    return Redirect()->back()->with($notification);
+    }
+
+
+    public function adminApproveReturnProduct()
+    {
+        
+
+
+            $products = DB::table('return_all_products')
+            ->join('return_products', 'return_all_products.order_id', '=', 'return_products.orderrid')
+            ->select('return_all_products.*', 'return_products.user_id')
+            ->get();;
+            
+        
+        return view('admin.ecommerce.product.approved_return_product',compact('products'));
+    }
+
+    public function adminApproveReturnProductDelete ($id)
+    {
+        ReturnAllProduct::findOrFail($id)->delete();
+        $notification = array(
+            'messege' => 'Return  Product Deleted Succesfuly!',
+            'alert-type' => 'success'
+        );
+        return Redirect()->back()->with($notification);
     }
 
 }

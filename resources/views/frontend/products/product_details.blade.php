@@ -525,7 +525,7 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                     </div>
 
                                     
-                                </figure><a class="ps-btn ps-btn--black" href="#" id="addtocart">Add to cart</a><a class="ps-btn" href="#">Buy Now</a>
+                                </figure><a class="ps-btn ps-btn--black" href="#" id="addtocart">Add to cart</a><a class="ps-btn" href="{{route('product.cart.data')}}">Buy Now</a>
                                 <div class="ps-product__actions">
                                   @if(Auth::guard('web')->check())
                                   <a class="mywishlist" data-id="{{$productdetails->id}}" ><i class="icon-heart"></i></a>

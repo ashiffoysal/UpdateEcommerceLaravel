@@ -277,13 +277,17 @@ class PaymentController extends Controller
 
                 }
 
-                OrderPlace::where('id', $request->order_id)->update([
-                    'payment_secure_id' => null
-                ]);
+                $paymentsecurid =OrderPlace::where('id', $request->order_id)->first();
+                if($paymentsecurid){
+                    $paymentid =$paymentsecurid->payment_secure_id;
+                    $order_id =$paymentsecurid->order_id;
+                }
+                
+                
             }
 
-            session()->flash('success', 'Thank you, Successfully payment accepted');
-            return redirect()->route('payment.stripe.success.view');
+            
+            return redirect()->route('offline.order.payment',[$order_id,$paymentid]);
         } catch (CardException $e) {
             return Redirect::refresh()->withErrors(['error', $e->getMessage()]);
         }
@@ -363,8 +367,18 @@ class PaymentController extends Controller
             //                             ->first();
             //     Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getOrderPlace, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
             // }
+            $paymentsecurid = OrderPlace::where('order_id', $request->tran_id)->first();
+              
+                if($paymentsecurid){
+                    $paymentid =$paymentsecurid->payment_secure_id;
+                    $order_id =$paymentsecurid->order_id;
+                }
+                
+      
 
-            return view('frontend.payment.payment_success', compact('information'));
+            
+            return redirect()->route('offline.order.payment',[$order_id,$paymentid]);
+            
         }
     }
 

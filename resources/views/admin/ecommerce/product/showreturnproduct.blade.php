@@ -33,6 +33,8 @@
                                     <th>manage</th>
                                 </tr>
                             </thead>
+                    
+
                             <tbody>
                                 @foreach($cartdata->products as $row)
                                 @if($row->return_product)
@@ -53,7 +55,7 @@
                                        {{$cartdata->created_at}}
                                     </td>
                                     <td class="text-center">
-                                       <a href="{{route('admin.customar.approve.product',[$cartdata->orderid,$row->id])}}" class="btn btn-success" >Approve</a>
+                                       <a href="{{route('admin.customar.approve.product',[$cartdata->orderid,$row->id,$userid])}}" class="btn btn-success" >Approve</a>
                                        <a href="{{route('admin.customar.reject.product',[$cartdata->orderid,$row->id])}}" class="btn btn-warning" >Reject</a>
                                     </td>   
                                 </tr>
