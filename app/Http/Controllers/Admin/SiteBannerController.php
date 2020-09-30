@@ -82,6 +82,15 @@ class SiteBannerController extends Controller
 
              }
        }
+        if($request->section == 6){
+            if($request->hasFile('pic')){
+               $image=$request->file('pic');
+               $ImageName='details_asif'.'_'.time().'.'.$image->getClientOriginalExtension();
+               Image::make($image)->resize(570,210)->save('public/uploads/sitebanner/'.$ImageName);
+               $data->image =$ImageName;
+
+             }
+       }
 
         $data->save();
 

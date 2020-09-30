@@ -26,6 +26,7 @@
 								    <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Select Image Section</label>
 								    <div class="col-sm-8">
 								      <select class="form-control" name="section">
+
 								      	@php
 								      		$choistheme=App\ThemeSelector::where('status',1)->first();
 								      	@endphp
@@ -35,10 +36,8 @@
 									            <option value="4">Homefooter1(1090*245)</option>
 									            <option value="5">Homefooter2(530*245)</option>
 												<option value="2">Category Top(1650*399)</option>
-										@elseif($choistheme->id==2)
-												<option value="5">Details Banner(270*427)</option>
-												<option value="6">HeaderTop(1920*180)</option>
-												<option value="10">FlashDeal HeaderTop(1920*180)</option>
+										@elseif($choistheme->id==9)
+												<option value="6">Home Banner(570*210)</option>
 										@endif
 
 								      </select>
