@@ -1032,6 +1032,10 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                     document.getElementById('cartdatacount').innerHTML = data.quantity;
                     document.getElementById('mobilecartdatacount').innerHTML = data.quantity;
                     // document.getElementById('product_price').innerHTML = toFixed(data.total);
+                    iziToast.success({
+                    message: 'Product Add To cart Successfully!',
+                    'position':'topRight'
+                });
                 }
             });
         });

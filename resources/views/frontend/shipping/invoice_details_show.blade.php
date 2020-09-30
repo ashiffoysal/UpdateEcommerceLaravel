@@ -46,7 +46,15 @@
                                             <figure class="ps-block--invoice">
                                                 <figcaption>Payment</figcaption>
                                                 <div class="ps-block__content">
-                                                    <p>Payment Method: Cash on Delivery</p>
+                                                <p>Payment Method: 
+                                                        @if($orderPlace->payment_method_id == Null)
+                                                            Cash on Delevery
+                                                        @elseif($orderPlace->payment_method_id == 2)
+                                                            Pay On Stripe
+                                                        @elseif($orderPlace->payment_method_id == 4)
+                                                            Pay on Paypal
+                                                        @endif
+                                                    </p>
                                                 </div>
                                             </figure>
                                         </div>

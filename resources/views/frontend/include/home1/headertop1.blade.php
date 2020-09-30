@@ -253,7 +253,7 @@
                                 <div class="mega-menu__column">
                                     <h4>Basic Page<span class="sub-toggle"></span></h4>
                                     <ul class="mega-menu__list">
-                                        <li class="current-menu-item "><a href="about-us.html">About Us</a>
+                                        <li class="current-menu-item "><a href="{{route('about.us')}}">About Us</a>
                                         </li>
                                         <li class="current-menu-item "><a href="contact-us.html">Contact</a>
                                         </li>

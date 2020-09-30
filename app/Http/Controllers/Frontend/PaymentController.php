@@ -185,6 +185,7 @@ class PaymentController extends Controller
             if ($code == 200 && !(curl_errno($handle))) {
                 curl_close($handle);
                 $sslcommerzResponse = $content;
+                
             } else {
                 curl_close($handle);
                 echo "FAILED TO CONNECT WITH SSLCOMMERZ API";
@@ -256,6 +257,7 @@ class PaymentController extends Controller
                     'status' => 1,
                     'is_paid' => 1,
                     'payment_method_id' => 2,
+                    'payment_status'=>1,
                 ]);
 
                 $placeOrder = OrderPlace::where('payment_secure_id', $payment_secure_id)->first();
@@ -368,6 +370,9 @@ class PaymentController extends Controller
             //     Mail::to(Auth::user()->email)->send(new PaymentSuccessMail($getOrderPlace, $frontLogo, $siteSettings, $userAddress, $shippingAddress));
             // }
             $paymentsecurid = OrderPlace::where('order_id', $request->tran_id)->first();
+            $paymentsecurid->update([
+                'payment_status'=>1,
+            ]);
               
                 if($paymentsecurid){
                     $paymentid =$paymentsecurid->payment_secure_id;
