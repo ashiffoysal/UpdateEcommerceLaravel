@@ -66,6 +66,9 @@
 		                                       		Homefooter1(1090*245)
 												@elseif($data->section==5)
 		                                       		 Homefooter2(530*245)
+		                                       		 
+		                                        @elseif($data->section==6)
+		                                       		 Home home banner(570*210)
 		                                      	@endif
 		                                      </td>
 		                                      <td>{{Str::limit($data->link,25)}}</td>
@@ -75,20 +78,20 @@
 		                                      </td>
 
 		                                      <td>
-																					@if($data->status==1)
-																					<span class="btn btn-success">Active</span>
-																					@else
-																					<span class="btn btn-danger">Deactive</span>
-																					@endif
+												@if($data->status==1)
+												<span class="btn btn-success">Active</span>
+												@else
+												<span class="btn btn-danger">Deactive</span>
+												@endif
 		                                      </td>
 		                                       <td>
 		                                       		@if($data->status==1)
 		                                          <a  href="{{url('admin/sitebanner/deactive/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
-																							@else
-																							<a href="{{url('admin/sitebanner/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
-																							@endif
+													@else
+													<a href="{{url('admin/sitebanner/active/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a>
+													@endif
 		                                        <!-- | <a class="editcat btn btn-sm btn-blue text-white" data-id="" title="edit"  data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt"></i></a> | -->
-																						<a href="{{url('/get/admin/sitebanner/edit/'.$data->id)}}" class="btn btn-info btn-sm text-white"><i class="fas fa-pencil-alt"></i></a>
+												<a href="{{url('/get/admin/sitebanner/edit/'.$data->id)}}" class="btn btn-info btn-sm text-white"><i class="fas fa-pencil-alt"></i></a>
 
 		                                         <a id="delete" href="{{url('admin/sitebanner/softdelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 		                                       </td>

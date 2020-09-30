@@ -453,6 +453,7 @@ Auth::routes();
     Route::get('/support', 'Frontend\FrontendController@supportpage');
     Route::get('/warranty', 'Frontend\FrontendController@warrantypage');
     Route::post('product/review', 'Frontend\FrontendController@productreview');
+    Route::get('/shop', 'Frontend\FrontendController@shop');
     // Route Created By Harrison
 
 

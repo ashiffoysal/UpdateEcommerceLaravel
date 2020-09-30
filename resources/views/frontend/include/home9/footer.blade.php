@@ -4,7 +4,7 @@
                     <div class="row">
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
                             <aside class="widget widget_footer">
-                                <h4 class="widget-title">Quick links</h4>
+                                <h4 class="widget-title">Pages</h4>
                                 <ul class="ps-list--link">
                                      @foreach($allpage as $page)
                                         <li><a href="{{url('pagecrate/'.$page->id)}}">{{$page->page_name}}</a></li>

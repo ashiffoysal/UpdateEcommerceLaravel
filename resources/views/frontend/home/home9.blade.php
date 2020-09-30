@@ -3,13 +3,14 @@
  <div id="homepage-9">
         <div class="ps-home-banner">
             <div class="ps-carousel--nav-inside owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on" data-owl-animate-in="fadeIn" data-owl-animate-out="fadeOut">
-                
-                <div class="ps-banner--organic" data-background="{{asset('public/frontend')}}/img/slider/home-9/1.jpg"><img src="{{asset('public/frontend')}}/img/slider/home-9/1.jpg" alt="">
+                @foreach($banner as $ban)
+                <div class="ps-banner--organic" data-background="{{asset('public/frontend/lazy_loader/slider.gif')}}"><img src="{{asset('public/frontend/lazy_loader/slider.gif')}}" data-src="{{asset('public/uploads/banner/'.$ban->ban_image)}}" class="lazy" alt="">
                     <div class="ps-banner__content">
-                        <h4>Weekend Promotions</h4>
-                        <h3>Happy Summer <br /> combo super discount <br /> up to<strong>40% Off</strong></h3><a class="ps-btn" href="#">Shop Now</a>
+                        <h4>{{$ban->text}}</h4>
+                        <h3>{{$ban->description}}</h3><a class="ps-btn" href="{{$ban->ban_link}}">Shop Now</a>
                     </div>
                 </div>
+                @endforeach
                 
             </div>
         </div>
@@ -67,10 +68,11 @@
         <div class="ps-home-promotion">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{asset('public/frontend')}}/img/promotions/home-9/1.jpg" alt=""></a>
+                    @foreach($middleban as $ban)
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img data-src="{{asset('public/uploads/sitebanner/'.$ban->image)}}" src="{{asset('public/frontend/lazy_loader/home-banner.gif')}}" class="lazy" alt=""></a>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 "><a class="ps-collection" href="#"><img src="{{asset('public/frontend')}}/img/promotions/home-9/2.jpg" alt=""></a>
-                    </div>
+                    @endforeach
+                 
                 </div>
             </div>
         </div>
@@ -345,7 +347,7 @@
                 </div>
             </div>
         </div>
-        <div class="ps-client-say bg--cover" data-background="{{asset('public/frontend')}}/img/bg/testimonial-organic.jpg">
+     <!--    <div class="ps-client-say bg--cover" data-background="{{asset('public/frontend')}}/img/bg/testimonial-organic.jpg">
             <div class="container">
                 <div class="ps-section__header">
                     <h3>What client say</h3>
@@ -377,7 +379,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
          <div class="ps-section--default ps-home-blog">
             <!-- <div class="container">
                 <div class="ps-section__header">

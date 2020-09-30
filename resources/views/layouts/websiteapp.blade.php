@@ -36,7 +36,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--  <script src="{{asset('public/frontend/js/jquery-1.12.4.min.js')}}"></script> -->
  <script src="{{asset('public/frontend/js/lazy_loader.js')}}"></script>
-<script src="{{asset('public/frontend/js/main.js')}}"></script>
+<!-- <script src="{{asset('public/frontend/js/main.js')}}"></script> -->
 
 
 </head>
@@ -301,9 +301,10 @@
                                         <input type="hidden"  name="quantity" value="1">
                                         
                             <div class="ps-product__shopping"><button type="button" class="ps-btn ps-btn--black" href="#" id="addtocartmodal">Add to cart</button><a class="ps-btn" href="#">Buy Now</a>
-                            </form>
+                           
                                 <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
                             </div>
+                             </form>
                         </div>
                     </div>
                 </article>
