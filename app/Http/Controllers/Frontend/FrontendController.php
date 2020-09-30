@@ -18,6 +18,8 @@ use App\FlashDealDetail;
 use App\Blog;
 use App\BlogComment;
 use App\Banner;
+use App\Faq;
+use App\Warranty;
 
 use App\CustomarAccount;
 use App\ViewedProduct;
@@ -60,7 +62,7 @@ class FrontendController extends Controller
             $secondcate=Category::where('cate_status',1)->where('is_deleted',0)->skip(1)->first();
             $thirdcate=Category::where('cate_status',1)->where('is_deleted',0)->skip(2)->first();
             $newproduct=Product::where('is_deleted',0)->orderBy('id','DESC')->limit(6)->get();
-            $slider=Banner::where('is_deleted',0)->where('ban_status',1)->orderBy('id','DESC')->limit(3)->get();
+            $slider=Banner::where('theme_id',1)->where('is_deleted',0)->where('ban_status',1)->orderBy('id','DESC')->limit(3)->get();
             //$hot_deal=FlashDeal::where('status',1)->where('is_deleted',0)->first();
             // hot deal start
                date_default_timezone_set('Asia/Dhaka');
@@ -125,6 +127,8 @@ class FrontendController extends Controller
             $theme=ThemeSelector::where('status',1)->first();
             $banner=Banner::where('ban_status',1)->where('is_deleted',0)->where('theme_id',$theme->id)->orderBy('id','DESC')->limit(3)->get();
 
+            $middleban=SiteBanner::where('is_deleted',0)->where('status',1)->where('section',6)->orderBy('id','DESC')->limit(2)->get();
+
             $topsell=Product::where('is_deleted',0)->orderBy('number_of_sale','DESC')->limit(4)->get();
             $topsellskip=Product::where('is_deleted',0)->orderBy('number_of_sale','DESC')->skip(4)->limit(4)->get();
 
@@ -160,7 +164,7 @@ class FrontendController extends Controller
                 
             }
 
-            return view('frontend.home.home9',compact('topsell','topsellskip','firstcate','secondcate','allcate','newarrival','hotdeal'));
+            return view('frontend.home.home9',compact('middleban','banner','topsell','topsellskip','firstcate','secondcate','allcate','newarrival','hotdeal'));
 
         }
 
@@ -186,7 +190,8 @@ class FrontendController extends Controller
 
     public function faqpage()
     {
-        return view('frontend.faq.faq');
+        $allfaq=Faq::where('is_deleted',0)->where('faq_status',1)->orderBy('id','DESC')->get();
+        return view('frontend.pages.faq',compact('allfaq'));
     }
     // support
     public function supportpage()
@@ -195,8 +200,8 @@ class FrontendController extends Controller
     }
 
     public function warrantypage()
-    {
-        return view('frontend.warranty.warranty');
+    {   $allwarranty=Warranty::where('status',1)->where('is_deleted',0)->orderBy('id','DESC')->get();
+        return view('frontend.pages.warranty',compact('allwarranty'));
     }
 
     // Category page show
@@ -703,6 +708,13 @@ class FrontendController extends Controller
         return view('frontend.shipping.viewed_products',compact('viewedproduct'));
     }
    
+
+
+   public function shop(){
+    $allproduct=Product::where('is_deleted',0)->orderBy('id','DESC')->paginate(16);
+    $productcount=Product::where('is_deleted',0)->orderBy('id','DESC')->count();
+    return view('frontend.products.shop',compact('allproduct','productcount'));
+   }
 
     
 }
