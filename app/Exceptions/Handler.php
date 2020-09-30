@@ -67,6 +67,7 @@ class Handler extends ExceptionHandler
             return redirect()->route($login);
             break; 
         }
+
        
         return parent::render($request, $exception);
     }

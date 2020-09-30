@@ -185,7 +185,24 @@ class FrontendController extends Controller
     // About us page show
     public function aboutus()
     {
-        return view('frontend.aboutus.aboutus1');
+        SEOMeta::setTitle('About Us');
+        SEOMeta::setDescription('Durbar It Ecommerce Website About Us Page');
+        // SEOMeta::setCanonical('https://codecasts.com.br/lesson');
+
+        OpenGraph::setDescription('This is my page description');
+        OpenGraph::setTitle('Home');
+        $curl= url()->current();
+        OpenGraph::setUrl($curl);
+        OpenGraph::addProperty('type', 'articles');
+
+        TwitterCard::setTitle('Homepage');
+        TwitterCard::setSite('@LuizVinicius73');
+
+        JsonLd::setTitle('Homepage');
+        JsonLd::setDescription('This is my page description');
+        JsonLd::addImage('https://codecasts.com.br/img/logo.jpg');
+
+        return view('frontend.pages.about');
     }
 
     public function faqpage()

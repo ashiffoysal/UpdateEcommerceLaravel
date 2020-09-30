@@ -62,11 +62,15 @@
                                                         <td>Successful delivery</td>
                                                     @endif
 
-                                                    @if($row->status ==0)
-                                                        <td><a class="effect effect-5" href="{{route('invoice.pay.now',$row->order_id)}}" title="Pay Now">Pay Now</a></td>
-                                                    @else
-                                                        <td></td>
-                                                    @endif
+                                                 
+                                                        @if($row->payment_method_id !=Null)
+                                                            @if($row->payment_status ==0)
+                                                                <td><a class="effect effect-5" href="{{route('invoice.pay.now',$row->order_id)}}" title="Pay Now">Pay Now</a></td>
+                                                            @endif
+                                                        @endif
+                                                   
+                                                   
+                                                   
                                                 </tr>
                                                 @endforeach
                                             </tbody>
