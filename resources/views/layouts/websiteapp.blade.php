@@ -420,12 +420,6 @@
      });
 </script>
 
-
-
-
-
-
-
 <script>
     window.onload = function(){
 
@@ -449,127 +443,127 @@
     }
 </script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.mywishlist').on('click', function () {
-                var id = $(this).data('id');
-                //alert(id);
-                if (id) {
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.mywishlist').on('click', function () {
+            var id = $(this).data('id');
+            //alert(id);
+            if (id) {
 
-                    $.ajax({
-                        url: "{{ url('/product/add/wishlist/') }}/" + id,
-                        type: "GET",
-                        dataType: "json",
-                        processData: false,
-                        success: function (data) {
-                            //console.log(data);
-                             // $('#countwish').html();
-                            if (data.check) {
-                                  iziToast.error({
-                                        message: 'This Product All ready Add wishlist',
-                                        'position':'topRight'
-                                    });
+                $.ajax({
+                    url: "{{ url('/product/add/wishlist/') }}/" + id,
+                    type: "GET",
+                    dataType: "json",
+                    processData: false,
+                    success: function (data) {
+                        //console.log(data);
+                         // $('#countwish').html();
+                        if (data.check) {
+                              iziToast.error({
+                                    message: 'This Product All ready Add wishlist',
+                                    'position':'topRight'
+                                });
 
-                            } else {
-                                    iziToast.success({
-                                        message: 'Product Add to wishlist ',
-                                        'position':'topRight'
-                                    });
-                            }
+                        } else {
+                                iziToast.success({
+                                    message: 'Product Add to wishlist ',
+                                    'position':'topRight'
+                                });
                         }
-                    });
-                } else {
-                    alert('danger');
-                }
-            });
-            // 
-            $('.mywishlist').on('click', function () {
-                var id = $(this).data('id');
-                //alert(id);
-                if (id) {
-
-                    $.ajax({
-                        url: "{{ url('/product/add/wishlist/count') }}/" + id,
-                        type: "GET",
-                        dataType: "json",
-                        processData: false,
-                        success: function (data) {
-                            //console.log(data);
-                            document.getElementById('countwish').innerHTML = data.data;
-
-                              //$('#countwish').html(data);
-                        }
-                    });
-                } else {
-                    alert('danger');
-                }
-            });
-
-
-
+                    }
+                });
+            } else {
+                alert('danger');
+            }
         });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.compare').on('click', function () {
-                var com_id = $(this).data('id');
-               //alert(com_id);
-                if (com_id) {
-                    $.ajax({
-                        url: "{{ url('/product/add/compare/') }}/" + com_id,
-                        type: "GET",
-                        dataType: "json",
-                        processData: false,
-                        success: function (data) {
-                           
-                            if (data.checkip) {
-                                  iziToast.error({
-                                        message: 'This Product All ready Add compare',
-                                        'position':'topRight'
-                                    });
-                                  document.getElementById('countcompare').innerHTML = data.comcount;
+        // 
+        $('.mywishlist').on('click', function () {
+            var id = $(this).data('id');
+            //alert(id);
+            if (id) {
 
-                            } else {
-                                    iziToast.success({
-                                        message: 'Product Add to compare ',
-                                        'position':'topRight'
-                                    });
-                                    document.getElementById('countcompare').innerHTML = data.comcount;
-                            }
+                $.ajax({
+                    url: "{{ url('/product/add/wishlist/count') }}/" + id,
+                    type: "GET",
+                    dataType: "json",
+                    processData: false,
+                    success: function (data) {
+                        //console.log(data);
+                        document.getElementById('countwish').innerHTML = data.data;
 
-                        }
-                    });
-                } else {
-                    alert('danger');
-                }
-            });
-            // 
-            $('.compare').on('click', function () {
-                var id = $(this).data('id');
-                //alert(id);
-                if (id) {
-
-                    $.ajax({
-                        url: "{{ url('/product/add/compare/comcount/') }}/" + id,
-                        type: "GET",
-                        dataType: "json",
-                        processData: false,
-                        success: function (data) {
-                            
-                            document.getElementById('coutncompa').innerHTML = data.data;
-
-                             
-                        }
-                    });
-                } else {
-                    alert('danger');
-                }
-            });
-
-
-
+                          //$('#countwish').html(data);
+                    }
+                });
+            } else {
+                alert('danger');
+            }
         });
-    </script>
+
+
+
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.compare').on('click', function () {
+            var com_id = $(this).data('id');
+           //alert(com_id);
+            if (com_id) {
+                $.ajax({
+                    url: "{{ url('/product/add/compare/') }}/" + com_id,
+                    type: "GET",
+                    dataType: "json",
+                    processData: false,
+                    success: function (data) {
+                       
+                        if (data.checkip) {
+                              iziToast.error({
+                                    message: 'This Product All ready Add compare',
+                                    'position':'topRight'
+                                });
+                              document.getElementById('countcompare').innerHTML = data.comcount;
+
+                        } else {
+                                iziToast.success({
+                                    message: 'Product Add to compare ',
+                                    'position':'topRight'
+                                });
+                                document.getElementById('countcompare').innerHTML = data.comcount;
+                        }
+
+                    }
+                });
+            } else {
+                alert('danger');
+            }
+        });
+        // 
+        $('.compare').on('click', function () {
+            var id = $(this).data('id');
+            //alert(id);
+            if (id) {
+
+                $.ajax({
+                    url: "{{ url('/product/add/compare/comcount/') }}/" + id,
+                    type: "GET",
+                    dataType: "json",
+                    processData: false,
+                    success: function (data) {
+                        
+                        document.getElementById('coutncompa').innerHTML = data.data;
+
+                         
+                    }
+                });
+            } else {
+                alert('danger');
+            }
+        });
+
+
+
+    });
+</script>
 
 
 
