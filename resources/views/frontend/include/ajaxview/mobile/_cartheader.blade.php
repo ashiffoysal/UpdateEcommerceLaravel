@@ -19,7 +19,7 @@
     
     @if($totalprice != 0)
         <div class="ps-cart__footer" id="total_price">
-            <h3>Sub Total:<strong id="product_price">৳ {{$totalprice}}</strong></h3>
+            <h3>Sub Total:<strong id="mobileproduct_price">৳ {{$totalprice}}</strong></h3>
             <figure><a class="ps-btn" href="{{route('product.cart.data')}}">View Cart</a><a class="ps-btn" href="{{route('product.cart.data')}}">Checkout</a></figure>
         </div>
         @else
@@ -42,12 +42,14 @@
             function(data) {
 
                 document.getElementById('mobilecartdatacount').innerHTML = Math.abs(data.quantity);
-                
+                document.getElementById('mobileproduct_price').innerHTML = "৳ " + Math.abs(data.price);
                 if(data.price == 0){
                     
                     document.getElementById('total_price').style.display="none";
                     
                 }
+                
+               
 
 
                 iziToast.success({
