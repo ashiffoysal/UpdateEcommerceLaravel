@@ -7,14 +7,14 @@
                         <div class="menu__content">
                             <ul class="menu--dropdown">
 
-                                <li><a href="{{ route('hot.deal.products') }}"><i class="icon-star"></i> Hot Promotions</a>
+                                <li><a href="{{ route('hot.deal.products') }}">Hot Promotions</a>
                                 </li>
                                  @foreach($allcategory as $category)
                                     @php
                                         $check = App\SubCategory::where('cate_id',$category->id)->first();
                                     @endphp
                                     @if($check)
-                                    <li class="menu-item-has-children has-mega-menu"><a href="{{url('product/page/'.$category->cate_slug)}}"><i class="icon-laundry"></i>{{$category->cate_name}}</a>
+                                    <li class="menu-item-has-children has-mega-menu"><a href="{{url('product/page/'.$category->cate_slug)}}">{{$category->cate_name}}</a>
                                         <div class="mega-menu">
                                              @php
                                                      $allsub=App\SubCategory::where('cate_id',$category->id)->where('is_deleted',0)->where('subcate_status',1)->get();
@@ -37,7 +37,7 @@
                                         </div>
                                     </li>
                                 @else
-                                <li><a href="{{url('product/page/'.$category->cate_slug)}}"><i class="icon-star"></i> {{$category->cate_name}}</a>
+                                <li><a href="{{url('product/page/'.$category->cate_slug)}}"> {{$category->cate_name}}</a>
                                 @endif
                                 @endforeach
 
@@ -48,14 +48,14 @@
                 <div class="header__center">
                     <form class="ps-form--quick-search" action="" method="get">
                         <div class="form-group--icon"><i class="icon-chevron-down"></i>
-                            <select class="form-control">
+                            <select class="form-control" id="category_id" name="category_id">
                                <option value="all" selected="selected">All</option>
                                 @foreach($allcategory as $cates)
                                   <option class="level-0" value="{{$cates->id}}}">{{$cates->cate_name}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <input class="form-control" type="text" placeholder="I'm shopping for..." name="input-search">
+                        <input class="form-control" type="text" placeholder="I'm shopping for..." name="input-search" id="input-search">
                         <button>Search</button>
                           <div class="ps-panel--search-result">
                             <div class="ps-panel__content" id="search-result">
@@ -83,7 +83,7 @@
                             <div class="ps-cart__content">
                             <div id="addtocartshow">
 
-                                    </div>
+                             </div>
                                
                             </div>
                         </div>
@@ -109,14 +109,14 @@
                         <div class="menu__toggle"><i class="icon-menu"></i><span> Shop by Department</span></div>
                         <div class="menu__content">
                             <ul class="menu--dropdown">
-                                   <li><a href="{{ route('hot.deal.products') }}"><i class="icon-star"></i> Hot Promotions</a>
+                                   <li><a href="{{ route('hot.deal.products') }}"> Hot Promotions</a>
                                 </li>
                                  @foreach($allcategory as $category)
                                     @php
                                         $check = App\SubCategory::where('cate_id',$category->id)->first();
                                     @endphp
                                     @if($check)
-                                    <li class="menu-item-has-children has-mega-menu"><a href="{{url('product/page/'.$category->cate_slug)}}"><i class="icon-laundry"></i>{{$category->cate_name}}</a>
+                                    <li class="menu-item-has-children has-mega-menu"><a href="{{url('product/page/'.$category->cate_slug)}}">{{$category->cate_name}}</a>
                                         <div class="mega-menu">
                                              @php
                                                      $allsub=App\SubCategory::where('cate_id',$category->id)->where('is_deleted',0)->where('subcate_status',1)->get();
@@ -139,7 +139,7 @@
                                         </div>
                                     </li>
                                 @else
-                                <li><a href="{{url('product/page/'.$category->cate_slug)}}"><i class="icon-star"></i> {{$category->cate_name}}</a>
+                                <li><a href="{{url('product/page/'.$category->cate_slug)}}">{{$category->cate_name}}</a>
                                 @endif
                                 @endforeach
                             </ul>
@@ -150,7 +150,7 @@
                     <ul class="menu menu--organic">
                         <li class="current-menu-item"><a href="{{url('/')}}">Home</a></li>
                         <li><a href="{{url('/shop')}}">Shop</a></li>
-                        <li class="menu-item-has-children has-mega-menu"><a href="#">Pages</a><span class="sub-toggle"></span>
+                        <li class="menu-item-has-children has-mega-menu"><a href="">Pages</a><span class="sub-toggle"></span>
                             <div class="mega-menu">
                                 <div class="mega-menu__column">
                                     <h4>Basic Page<span class="sub-toggle"></span></h4>
@@ -161,62 +161,14 @@
                                    
                                     </ul>
                                 </div>
-                              <!--   <div class="mega-menu__column">
-                                    <h4>Vendor Pages<span class="sub-toggle"></span></h4>
-                                    <ul class="mega-menu__list">
-                                        <li><a href="become-a-vendor.html">Become a Vendor</a>
-                                        </li>
-                                
-                                    </ul>
-                                </div> -->
-                             <!--    <div class="mega-menu__column">
-                                    <h4>Account Pages<span class="sub-toggle"></span></h4>
-                                    <ul class="mega-menu__list">
-                                        <li><a href="user-information.html">User Information</a>
-                                        </li>
-                                  
-                                    </ul>
-                                </div> -->
+                          
                             </div>
                         </li>
-                        <li class=""><a href="{{url('/product/blog')}}">Blogs</a>
-                           <!--  <div class="mega-menu">
-                                <div class="mega-menu__column">
-                                    <h4>Blog Layout<span class="sub-toggle"></span></h4>
-                                    <ul class="mega-menu__list">
-                                        <li><a href="blog-grid.html">Grid</a>
-                                        </li>
-                                        <li><a href="blog-list.html">Listing</a>
-                                        </li>
-                                        <li><a href="blog-small-thumb.html">Small Thumb</a>
-                                        </li>
-                                        <li><a href="blog-left-sidebar.html">Left Sidebar</a>
-                                        </li>
-                                        <li><a href="blog-right-sidebar.html">Right Sidebar</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="mega-menu__column">
-                                    <h4>Single Blog<span class="sub-toggle"></span></h4>
-                                    <ul class="mega-menu__list">
-                                        <li><a href="blog-detail.html">Single 1</a>
-                                        </li>
-                                        <li><a href="blog-detail-2.html">Single 2</a>
-                                        </li>
-                                        <li><a href="blog-detail-3.html">Single 3</a>
-                                        </li>
-                                        <li><a href="blog-detail-4.html">Single 4</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div> -->
-                        </li>
-                          <li class=""><a href="{{route('contract.us')}}">Contact us</a>
-                  
-                        </li>
+                        <li class=""><a href="{{url('/product/blog')}}">Blogs</a></li>
+                        <li class=""><a href="{{route('contract.us')}}">Contact us</a></li>
                     </ul>
                     <div class="ps-block--header-hotline inline">
-                        <p><i class="icon-telephone"></i>Hotline:<strong> 1-800-234-5678</strong></p>
+                        <p><i class="icon-telephone"></i>Hotline:<strong> {{$footer->phone}}</strong></p>
                     </div>
                 </div>
             </div>
@@ -235,4 +187,24 @@
 	}
 
 	myAddToCartData();
+</script>
+<script>
+    $(document).ready(function(){
+      
+        $('#input-search').on('keyup', function(){
+            var product_name = $(this).val();
+            //alert(product_name);
+            var category_id = $('#category_id').val();
+        
+
+            $.ajax({
+                url:"search/product/by/category"+"/"+category_id+"/"+product_name,
+                type:'get',
+                success:function(data){
+                   $('#search-result').empty();
+                    $('#search-result').html(data);
+                }
+            });
+        });
+    });
 </script>

@@ -812,6 +812,7 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
 
     Route::get('mobile/product/search', 'Frontend\SearchController@searchmobile');
     Route::get('search/mobile/product/ajax/{productName}', 'Frontend\SearchController@mobilesearchajax');
+    Route::get('search/mobile/product/ajax/theme9/{productName}', 'Frontend\SearchController@moajxthemnine');
 
     Route::get('search/product/by/category/{categoryId}/{productName}', 'Frontend\SearchController@searchProductByAjax');
 

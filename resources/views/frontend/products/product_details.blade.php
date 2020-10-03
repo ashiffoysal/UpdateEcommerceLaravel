@@ -651,9 +651,12 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
 
                                         <tr>
                                             <td>Color</td>
+                                            <td>
                                             @foreach (json_decode($productdetails->colors) as $key => $color)
-                                            <td>{{$color}}</td>
+                                            <span style="border-radius: 50%; padding: 5px 5px; margin: 0px 4px; background:{{$color}}"></span>
+                                          
                                             @endforeach
+                                            </td>
                                         </tr>
                                       @foreach (json_decode($productdetails->choice_options) as $key => $choice)
                                         <tr>
@@ -1016,7 +1019,7 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
 
 <!-- product add to cart -->
 
-
+@include('frontend.include.mainsearch.mainsearchscript')
 <script>
     $(document).ready(function () {
         $('#addtocart').on('click', function () {
