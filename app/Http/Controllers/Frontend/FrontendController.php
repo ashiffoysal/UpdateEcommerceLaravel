@@ -730,7 +730,8 @@ class FrontendController extends Controller
    public function shop(){
     $allproduct=Product::where('is_deleted',0)->orderBy('id','DESC')->paginate(16);
     $productcount=Product::where('is_deleted',0)->orderBy('id','DESC')->count();
-    return view('frontend.products.shop',compact('allproduct','productcount'));
+    $allbrand=Brand::where('is_deleted',0)->where('brand_status',1)->get();
+    return view('frontend.products.shop',compact('allproduct','productcount','allbrand'));
    }
 
     

@@ -67,9 +67,14 @@ class SearchController extends Controller
         }
 
         public function mobilesearchajax($productName){
-
+            //echo "ok";
             $products = Product::where('product_name', 'LIKE', "%$productName%")->select(['id', 'product_price', 'slug', 'product_name', 'thumbnail_img'])->get();
             return view('frontend.search.mobilesearchajax',compact('products'));
+        }
+
+
+        public function moajxthemnine($productName){
+            echo "ok";
         }
 
     public function searchmobile(Request $request){
