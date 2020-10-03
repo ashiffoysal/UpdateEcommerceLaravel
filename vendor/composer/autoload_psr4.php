@@ -41,6 +41,7 @@ return array(
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Stripe\\' => array($vendorDir . '/stripe/stripe-php/lib'),
     'Srmklive\\PayPal\\' => array($vendorDir . '/srmklive/paypal/src'),
+    'RenatoMarinho\\LaravelPageSpeed\\' => array($vendorDir . '/renatomarinho/laravel-page-speed/src'),
     'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src'),
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
