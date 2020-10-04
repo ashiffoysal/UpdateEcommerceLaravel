@@ -1020,12 +1020,14 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
 <!-- product add to cart -->
 
 @include('frontend.include.mainsearch.mainsearchscript')
+
 <script>
     $(document).ready(function () {
         $('#addtocart').on('click', function () {
             
 
           $('#option-choice-form').serializeArray();
+          console.log($('#option-choice-form').serializeArray());
 
             $.ajax({
                 type: 'GET',

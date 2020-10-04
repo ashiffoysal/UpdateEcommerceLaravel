@@ -182,7 +182,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
-        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+        
 
     ],
 
