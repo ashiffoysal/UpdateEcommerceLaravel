@@ -25,7 +25,7 @@
                                                             @endphp
                                                         <ul class="mega-menu__list">
                                                             @foreach($resubcate as $rcate)
-                                                            <li class="current-menu-item "><a href="">{{$rcate->resubcate_name}}</a>
+                                                            <li class="current-menu-item "><a href="{{url('resubacetegory/'.$category->cate_slug.'/'.$subcate-> subcate_slug.'/'.$rcate->resubcate_slug)}}">{{$rcate->resubcate_name}}</a>
                                                             </li>
                                                             @endforeach
                                                         </ul>
@@ -164,7 +164,7 @@
                                                             @endphp
                                                         <ul class="mega-menu__list">
                                                             @foreach($resubcate as $rcate)
-                                                            <li class="current-menu-item "><a href="#">{{$rcate->resubcate_name}}</a>
+                                                            <li class="current-menu-item "><a href="{{url('resubacetegory/'.$category->cate_slug.'/'.$subcate-> subcate_slug.'/'.$rcate->resubcate_slug)}}">{{$rcate->resubcate_name}}</a>
                                                             </li>
                                                             @endforeach
                                                         </ul>

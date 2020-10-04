@@ -54,7 +54,9 @@
     @endphp
 @if($color)
 <style>
-
+.header--mobile.organic .ps-search--mobile {
+    background-color: {{ $color->color_code }};
+}
 .ps-block--container-hightlight .ps-section__header {
    
     background-color:{{ $color->color_code }};

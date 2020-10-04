@@ -22,7 +22,7 @@
                         @if ($searchproduct->count() > 0)
                         @foreach ($searchproduct as $product)
                        <div class="ps-product">
-                                    <div class="ps-product__thumbnail"><a href="">
+                                    <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">
                                         <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt=""></a>
                                         <ul class="ps-product__actions">
                                              <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
@@ -47,7 +47,7 @@
                                         </ul>
                                     </div>
                                     <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
-                                        <div class="ps-product__content"><a class="ps-product__title" href="product-default.html">{{$product->product_name}}</a>
+                                        <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                             <div class="ps-product__rating">
                                                 <select class="ps-rating" data-read-only="true">
                                                     <option value="1">1</option>
@@ -59,7 +59,7 @@
                                             </div>
                                             <p class="ps-product__price">{{$product->product_price}}</p>
                                         </div>
-                                        <div class="ps-product__content hover"><a class="ps-product__title" href="product-default.html">{{$product->product_name}}</a>
+                                        <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                             <p class="ps-product__price">{{$product->product_price}}</p>
                                         </div>
                                     </div>
