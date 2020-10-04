@@ -19,7 +19,6 @@
 
                 </div>
             </div>
-        
           <!--   <div class="ps-shop-brand"><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/1.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/2.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/3.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/4.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/5.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/6.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/7.jpg" alt=""></a><a href="#"><img src="{{asset('/public/frontend')}}/img/brand/8.jpg" alt=""></a></div> -->
             <!-- <div class="ps-shop-categories">
                 <div class="row align-content-lg-stretch">
@@ -832,6 +831,25 @@ $(document).ready(function () {
 <script>
 
 </script> -->
+<script>
+    $(document).ready(function(){
+      
+        $('#input-search').on('keyup', function(){
+            var product_name = $(this).val();
+            var category_id = $('#category_id').val();
+        
+
+            $.ajax({
+                url:"search/product/by/category"+"/"+category_id+"/"+product_name,
+                type:'get',
+                success:function(data){
+                   $('#search-result').empty();
+                    $('#search-result').html(data);
+                }
+            });
+        });
+    });
+</script>
 <script>
     $(document).ready(function(){
       

@@ -10,10 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    {!! SEOMeta::generate() !!}
-    {!! OpenGraph::generate() !!}
-    {!! Twitter::generate() !!}
-    {!! JsonLd::generate() !!}
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -57,7 +53,9 @@
     @endphp
 @if($color)
 <style>
-
+.header--mobile.organic .ps-search--mobile {
+    background-color: {{ $color->color_code }};
+}
 .ps-block--container-hightlight .ps-section__header {
    
     background-color:{{ $color->color_code }};

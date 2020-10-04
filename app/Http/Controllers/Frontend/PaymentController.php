@@ -382,7 +382,7 @@ class PaymentController extends Controller
       
 
             
-            return redirect()->route('offline.order.payment',[$order_id,$paymentid]);
+             return view('frontend.payment.payment_success', compact('information'));
             
         }
     }

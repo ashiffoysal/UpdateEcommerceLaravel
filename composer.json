@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "artesaos/seotools": "^0.19.0",
+        
         "barryvdh/laravel-debugbar": "^3.5",
         "consoletvs/charts": "6.*",
         "darryldecode/cart": "^4.1",
