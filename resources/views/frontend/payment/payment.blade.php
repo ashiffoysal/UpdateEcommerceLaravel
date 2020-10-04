@@ -38,10 +38,10 @@
                                         <div class="ps-block--payment-method">
                                             <ul class="ps-tab-list">
                                                 <li class="active"><a class="ps-btn ps-btn--sm" href="#visa">Visa / Master Card</a></li>
-                                                <li><a class="ps-btn ps-btn--sm" href="#paypal">Paypal</a></li>
+                                                <!-- <li><a class="ps-btn ps-btn--sm" href="#paypal">Paypal</a></li> -->
                                                 <li><a class="ps-btn ps-btn--sm" href="#sslcommer">SslCommerz</a></li>
                                                 <li><a class="ps-btn ps-btn--sm" href="#surjopay">Surjopay</a></li>
-                                                <li><a class="ps-btn ps-btn--sm" href="#asifpay">asifpay</a></li>
+                                               
                                             </ul>
                                             <div class="ps-tabs">
                                                 <div class="ps-tab active" id="visa">
@@ -93,7 +93,7 @@
 
 
                                                 </div>
-                                                <div class="ps-tab" id="paypal">
+                                           <!--      <div class="ps-tab" id="paypal">
                                                     <form action="{{route('payment.make.payment')}}" method="post">
                                                          @csrf
                                             <input class="form-control" type="hidden" name="payment_method_id" value="3" id="pay_method" checked>
@@ -102,7 +102,7 @@
 
                                                          <button class="ps-btn" type="submit">Proceed with Paypal</button>
                                                     </form>
-                                                </div>
+                                                </div> -->
                                                 <div class="ps-tab" id="sslcommer">
 
                                                     <form action="{{route('payment.make.payment')}}" method="post">
