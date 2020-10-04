@@ -211,6 +211,7 @@
                             <div class="ps-tab" id="tab-2">
                                 <div class="ps-shopping-product">
                                      @foreach($allproduct as $product)
+                                     
                                     <div class="ps-product ps-product--wide">
                                         <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner.gif')}}" class="lazy" alt=""></a>
                                         </div>
@@ -219,8 +220,45 @@
                                                 <p class="ps-product__vendor"></a></p>
                                          
                                             </div>
+
+                                        
+                     
+
+                                    <script>
+                                                $(document).ready(function () {
+                                                    $('#shopaddtocart{{$product->id}}').on('click', function () {
+                                                        
+
+                                                        
+                                                  
+                                                    
+
+                                                        $.ajax({
+                                                            type: 'GET',
+                                                            url: "{{ route('product.add.cart') }}",
+                                                            data: {
+                                                                product_id: {{$product->id}},
+                                                                product_price: {{$product->product_price}},
+                                                                product_sku: {{$product->product_sku}},
+                                                                quantity: 1,
+                                                                },
+                                                            success: function (data) {                  
+                                                                document.getElementById('cartdatacount').innerHTML = data.quantity;
+                                                                document.getElementById('mobilecartdatacount').innerHTML = data.quantity;
+                                                                // document.getElementById('product_price').innerHTML = toFixed(data.total);
+                                                                iziToast.success({
+                                                                message: 'Product Add To cart Successfully!',
+                                                                'position':'topRight'
+                                                            });
+                                                            }
+                                                        });
+                                                    });
+                                                });
+                                            </script>
+
+
                                             <div class="ps-product__shopping">
-                                                <p class="ps-product__price">{{$product->product_price}}</p><a class="ps-btn" href="#">Add to cart</a>
+                                                <p class="ps-product__price">{{$product->product_price}}</p><a class="ps-btn" id="shopaddtocart{{$product->id}}" href="#">Add to cart</a>
                                                 <ul class="ps-product__actions">
                                                     <li>@if(Auth::guard('web')->check()) <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i>
                                                      Wishlist</a>
@@ -234,6 +272,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     @endforeach
                                     
                                  
@@ -328,4 +367,7 @@ $(document).ready(function(){
         filter_data(minval,maxval);
     }
 </script>
+
+
+
 @endsection

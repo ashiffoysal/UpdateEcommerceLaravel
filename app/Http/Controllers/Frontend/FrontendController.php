@@ -38,7 +38,7 @@ class FrontendController extends Controller
     // Frontend showing page
     public function index()
     {
-        
+
 
         $themecheck = ThemeSelector::where('status', 1)->first();
         if($themecheck->id==1){
@@ -524,7 +524,6 @@ class FrontendController extends Controller
         $productdetails = Product::where('id', $id)
         ->select(['id', 'product_name', 'thumbnail_img', 'photos', 'slug', 'cate_id', 'product_qty', 'product_price', 'product_type', 'product_sku','select_upload_type','upload_file','upload_link','license_type','license_key','license_quantity','license_duration','brand', 'choice_options', 'colors', 'product_description', 'video','photos','created_at'])
         ->first();
-
 
 
         $this->showedProduct($id);

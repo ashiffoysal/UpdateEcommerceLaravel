@@ -11,6 +11,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     
@@ -363,7 +364,7 @@
         
 
             $.ajax({
-                url:"search/product/by/category"+"/"+category_id+"/"+product_name,
+                url:"{{URL::to('search/product/by/category')}}"+"/"+category_id+"/"+product_name,
                 type:'get',
                 success:function(data){
                    $('#search-result').empty();
@@ -378,10 +379,13 @@
     $(document).ready(function(){
       
         $('#msearchp').on('keyup', function(){
+            
             var product_name = $(this).val();
-            //alert(product_name);
+            
+            
+            
             $.ajax({
-                url:"search/mobile/product/ajax"+"/"+product_name,
+                url:"{{url('/search/mobile/product/ajax/')}}"+"/"+product_name,
                 type:'get',
                 success:function(data){
                    $('#search_product_ajax').empty();

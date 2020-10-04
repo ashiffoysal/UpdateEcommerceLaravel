@@ -619,7 +619,7 @@
                                              
                                                 </div>
                                                 <div class="ps-product__shopping">
-                                                    <p class="ps-product__price">{{$product->product_price}}</p><a class="ps-btn" href="#">Add to cart</a>
+                                                    <p class="ps-product__price">{{$product->product_price}}</p><a class="ps-btn" id="shopaddtocart{{$product->id}}" href="#">Add to cart</a>
                                                     <ul class="ps-product__actions">
                                                         <li>@if(Auth::guard('web')->check()) <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i>
                                                          Wishlist</a>
@@ -633,6 +633,39 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                        <script>
+                                                $(document).ready(function () {
+                                                    $('#shopaddtocart{{$product->id}}').on('click', function () {
+                                                        
+
+                                                        
+                                                  
+                                                    
+
+                                                        $.ajax({
+                                                            type: 'GET',
+                                                            url: "{{ route('product.add.cart') }}",
+                                                            data: {
+                                                                product_id: {{$product->id}},
+                                                                product_price: {{$product->product_price}},
+                                                                product_sku: {{$product->product_sku}},
+                                                                quantity: 1,
+                                                                },
+                                                            success: function (data) {                  
+                                                                document.getElementById('cartdatacount').innerHTML = data.quantity;
+                                                                document.getElementById('mobilecartdatacount').innerHTML = data.quantity;
+                                                                // document.getElementById('product_price').innerHTML = toFixed(data.total);
+                                                                iziToast.success({
+                                                                message: 'Product Add To cart Successfully!',
+                                                                'position':'topRight'
+                                                            });
+                                                            }
+                                                        });
+                                                    });
+                                                });
+                                            </script>
                                         @endforeach
                                     
                                     </div>
