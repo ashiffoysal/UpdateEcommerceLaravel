@@ -29,6 +29,7 @@ use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Library\SslCommerz\SslCommerzNotification;
 use App\ReturnAllProduct;
 use App\ReturnProduct;
@@ -524,15 +525,17 @@ class CheckoutController extends Controller
         $provider = new ExpressCheckout;
         $invoiceId = uniqid();
         $data = $this->cartData($invoiceId);
+        //$provider->setExpressCheckout($data);
         $response = $provider->setExpressCheckout($data);
-        // This will redirect user to PayPal
+        //return $response;
         return redirect($response['paypal_link']);
     }
-    // success
+  
 
 
     public function paymentsuccess(Request $request)
     {
+
         $provider = new ExpressCheckout;
         $token = $request->token;
         $PayerID = $request->PayerID;
@@ -551,7 +554,7 @@ class CheckoutController extends Controller
 
     protected function cartData($invoiceId)
     {
-         $data = [];
+        $data = [];
         $data['items'] = [];
         // $userid =  \Request::getClientIp(true);
         // $usercartdatas = Cart::session($userid)->getContent();
@@ -573,12 +576,12 @@ class CheckoutController extends Controller
         }
 
         $data['invoice_id'] = $usercartdatas->order_id;
-        $data['invoice_description'] = $invoiceId;
+        $data['invoice_description'] = $usercartdatas->order_id;
         $data['return_url'] = url('/payment/success');
         $data['cancel_url'] = url('/text');
 
         $total = 0;
-        $shipping = 10;
+        $shipping = 0;
 
         foreach ($data['items'] as $item) {
             $total += $item['price'] * $item['qty'];

@@ -2615,18 +2615,8 @@ return array(
     'League\\OAuth1\\Client\\Signature\\SignatureInterface' => $vendorDir . '/league/oauth1-client/src/Signature/SignatureInterface.php',
     'Mobile_Detect' => $vendorDir . '/mobiledetect/mobiledetectlib/Mobile_Detect.php',
     'Mockery' => $vendorDir . '/mockery/mockery/library/Mockery.php',
-    'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerForV5' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerForV5.php',
-    'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerForV6' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerForV6.php',
-    'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerForV7' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerForV7.php',
-    'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerTrait' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerTrait.php',
     'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
-
-    'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditionsForV7AndPrevious' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditionsForV7AndPrevious.php',
-    'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditionsForV8' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditionsForV8.php',
     'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
-    'Mockery\\Adapter\\Phpunit\\MockeryTestCaseSetUpForV7AndPrevious' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCaseSetUpForV7AndPrevious.php',
-    'Mockery\\Adapter\\Phpunit\\MockeryTestCaseSetUpForV8' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCaseSetUpForV8.php',
-
     'Mockery\\Adapter\\Phpunit\\TestListener' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListener.php',
     'Mockery\\ClosureWrapper' => $vendorDir . '/mockery/mockery/library/Mockery/ClosureWrapper.php',
     'Mockery\\CompositeExpectation' => $vendorDir . '/mockery/mockery/library/Mockery/CompositeExpectation.php',

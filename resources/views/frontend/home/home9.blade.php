@@ -347,7 +347,7 @@
                 </div>
             </div>
         </div>
-     <!--    <div class="ps-client-say bg--cover" data-background="{{asset('public/frontend')}}/img/bg/testimonial-organic.jpg">
+        <div class="ps-client-say bg--cover" data-background="{{asset('public/frontend')}}/img/bg/testimonial-organic.jpg">
             <div class="container">
                 <div class="ps-section__header">
                     <h3>What client say</h3>
@@ -379,7 +379,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
          <div class="ps-section--default ps-home-blog">
             <!-- <div class="container">
                 <div class="ps-section__header">

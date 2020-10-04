@@ -5,7 +5,7 @@
                     @php
                         $backgroungimage= DB::table('logos')->first();
                     @endphp
-                    <div class="login_page center_container" style="background: url('{{ asset('/'. $backgroungimage->background) }}');">
+                    <div class="login_page center_container" style="background:#000);">
                         <div class="center_content">
                             <div class="logo">
                                 <h3>LOGIN TO YOUR ACCOUNT</h3>
