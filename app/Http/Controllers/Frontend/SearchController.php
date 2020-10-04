@@ -118,6 +118,8 @@ class SearchController extends Controller
     {
         //echo $productName;
 
+        
+
         $products = "";
         if ($categoryId === "all") {
             $getProductByName = Product::where('product_name', 'LIKE', "%$productName%")->select(['id', 'product_price', 'slug', 'product_name', 'thumbnail_img'])->get();
