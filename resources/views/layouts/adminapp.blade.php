@@ -118,7 +118,7 @@ $logo=DB::table('logos')->first();
                     </div>
                 </li>
                 @php
-                  $pending_order=App\OrderPlace::where('delevary',1)->count();
+                  $pending_order=App\OrderPlace::where('delevary',0)->count();
                 @endphp
                 <li><a href="#" data-toggle="dropdown"><i class="far fa-bell"></i><span>{{$pending_order}}</span></a>
                     <div class="dropdown_wrapper notification_item dropdown-menu dropdown-menu-right">
@@ -246,7 +246,7 @@ $logo=DB::table('logos')->first();
                     @endif
                     <li class="single-nav-wrapper">
                         @php
-                        $pending=App\OrderPlace::where('delevary',1)->count();
+                        $pending=App\OrderPlace::where('delevary',0)->count();
                         @endphp
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
                             <span class="left-icon"><i class="fas fa-luggage-cart"></i></span>

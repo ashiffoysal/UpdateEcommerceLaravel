@@ -79,13 +79,10 @@
 											</label>
 										</td>
 										<td>{{++$key}}</td>
-
 										<td>{{Str::limit($data->ban_link,25)}}</td>
-
 										<td>
 											<img src="{{asset('public/uploads/banner/'.$data->ban_image)}}" height="45px;">
 										</td>
-										
 										<td>
 											@if($data->ban_status==1)
 											<span class="btn btn-success">Active</span>
@@ -93,7 +90,6 @@
 											<span class="btn btn-danger">Deactive</span>
 											@endif
 										</td>
-
 										<td>
 											@if($data->ban_status==1)
 											<a href="{{url('admin/banner/deactive/'.$data->id)}}" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-thumbs-up"></i></a>
@@ -146,9 +142,6 @@
 										</td>
 									</tr>
 									@endforeach
-
-
-
 									@endif
 								</tbody>
 							</table>
@@ -221,10 +214,6 @@
 						</div>
 					</div>
 					@endif
-
-
-			
-
 					<div class="form-group text-right">
 						<input type="reset" value="Reset" class="btn btn-warning">
 						<button type="submit" class="btn btn-blue">Submit</button>
@@ -320,11 +309,7 @@
 
 						</div>
 					</div>
-
 					@endif
-
-
-
 					<div class="form-group text-right">
 						<!-- <input type="" value="Reset" class="btn btn-warning"> -->
 						<button type="button" class="btn btn-default" data-dismiss="modal" aria-label=""> Close</button>
