@@ -76,8 +76,8 @@
                                                 <tr>
                                                     <td>
                                                         <div class="ps-product--cart">
-                                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
-                                                            <div class="ps-product__content"><a href="product-default.html">{{$row->name}}</a>
+                                                            <div class="ps-product__thumbnail"><a href="#"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
+                                                            <div class="ps-product__content"><a href="#">{{$row->name}}</a>
                                                             @if($row->colors)
                                                                 <p>Color:<strong class="product-color" style="background: {{$row->colors}};"></strong></p>
                                                             @endif

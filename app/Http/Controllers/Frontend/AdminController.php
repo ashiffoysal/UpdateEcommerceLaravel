@@ -38,6 +38,7 @@ class AdminController extends Controller
      */
     public function login(Request $request)
     {
+        
         $this->validate($request, [
             'login_email' => 'required',
             'login_password' => 'required'
@@ -236,18 +237,33 @@ class AdminController extends Controller
 
     public function forgotPassword(Request $request)
     {
+
         
+
 
         if($this->checkUserInfo($request) == 'email'){
-        
-            $this->emailForgotPassword($request);
+            $user = User::where('email',$request->phone_email)->first();
+            if($user){
+                $this->emailForgotPassword($request);
             session()->flash('errorMsg', 'Verification Link Send to your Email Address. Places Check Your Email Address!.');
                 return redirect()->route('customar.email.forget.password');
-        }else{
+            }else{
+                session()->flash('errorMsg', 'Email does not match!.');
+                return back();
+            }
             
-            $token =$this->phoneForgetPassword($request);
-
-            return view('frontend.accounts.forgot_mobile_verification',compact('token'));
+        }else{
+            $user = User::where('phone',$request->phone_email)->first();
+            
+            if($user){
+                $token =$this->phoneForgetPassword($request);
+                session()->flash('errorMsg', 'Verification Link Send to your Phone Number. Places Check Your Phone Number!.');
+                return view('frontend.accounts.forgot_mobile_verification',compact('token'));
+            }else{
+                session()->flash('errorMsg', 'Phone does not match!.');
+                return back();
+            }
+         
             
         }
      
@@ -290,6 +306,8 @@ class AdminController extends Controller
                 'verification_code'=>$verify_code,
                 'remember_token'=>$token,
             ]);
+
+
             
             $this->sendSMS($request,$verify_code);
             
@@ -335,19 +353,34 @@ class AdminController extends Controller
     public function passwordReset(Request $request)
     {
         
-        $request->validate([
-            'password' => 'required|confirmed|min:6',
-            'token'=>'required'
+        // $request->validate([
+        //     'password' => 'required|confirmed|min:6',
+        //     'token'=>'required'
+        // ]);
+        // $user =User::where('remember_token',$request->token)->first();
+        // if($user){
+        //     // $user->update([
+        //     //     'password'=>Hash::make($request->passowrd),
+        //     //     'remember_token'=>Null,
+        //     //     'verification_code'=>Null,
+        //     // ]);
+
+        //     $user->password =bcrypt($request->passowrd);
+        //     $user->remember_token =null;
+        //     $user->verification_code =null;
+        //     $user->save();
+        
+        //     return redirect()->route('customar.login.form');
+        // }
+
+        $this->validate($request, [
+            'password' => 'required|confirmed|min:3'
         ]);
-        $user =User::where('remember_token',$request->token)->first();
-        if($user){
-            $user->update([
-                'password'=>Hash::make($request->passowrd),
-                'remember_token'=>Null,
-                'verification_code'=>Null,
-            ]);
-            return redirect()->route('customar.login.form');
-        }
+        $resetPassword = User::where('remember_token', $request->token)->first();
+        $resetPassword->password = Hash::make($request->password);
+        $resetPassword->save();
+        session()->flash('successMsg', 'Successfully Your Password Has Been Changed.');
+        return redirect()->route('customar.login.form');
     }
 
     // customar logout

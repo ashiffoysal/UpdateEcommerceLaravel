@@ -3143,11 +3143,8 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'Mobile_Detect' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/Mobile_Detect.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
-        'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
-        'Mockery\\Adapter\\Phpunit\\MockeryTestCaseSetUp' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCaseSetUp.php',
         'Mockery\\Adapter\\Phpunit\\TestListener' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListener.php',
-        'Mockery\\Adapter\\Phpunit\\TestListenerTrait' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListenerTrait.php',
         'Mockery\\ClosureWrapper' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/ClosureWrapper.php',
         'Mockery\\CompositeExpectation' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/CompositeExpectation.php',
         'Mockery\\Configuration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Configuration.php',
@@ -3223,7 +3220,6 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'Mockery\\MethodCall' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/MethodCall.php',
         'Mockery\\Mock' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Mock.php',
         'Mockery\\MockInterface' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/MockInterface.php',
-        'Mockery\\QuickDefinitionsConfiguration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/QuickDefinitionsConfiguration.php',
         'Mockery\\ReceivedMethodCalls' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/ReceivedMethodCalls.php',
         'Mockery\\Reflector' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Reflector.php',
         'Mockery\\Undefined' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Undefined.php',
@@ -5599,6 +5595,9 @@ class ComposerStaticInit229ef598f15ef1b57ceb6f751a711138
         'phpDocumentor\\Reflection\\Types\\This' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/This.php',
         'phpDocumentor\\Reflection\\Types\\Void_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Void_.php',
         'phpDocumentor\\Reflection\\Utils' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/Utils.php',
+        'smasif\\ShurjopayLaravelPackage\\ShurjopayController' => __DIR__ . '/../..' . '/shurjopay/src/ShurjopayController.php',
+        'smasif\\ShurjopayLaravelPackage\\ShurjopayService' => __DIR__ . '/../..' . '/shurjopay/src/ShurjopayService.php',
+        'smasif\\ShurjopayLaravelPackage\\ShurjopayServiceProvider' => __DIR__ . '/../..' . '/shurjopay/src/ShurjopayServiceProvider.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
