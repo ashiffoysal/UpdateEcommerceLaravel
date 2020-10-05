@@ -32,12 +32,13 @@
                                         <table class="table ps-table ps-table--invoices">
                                             <thead>
                                                 <tr>
-                                                    <th>Id</th>
-                                                    <th>Quantity</th>
+                                                    <th>Code</th>
+                                                    
                                                     <th>Date</th>
                                                     <th>Amount</th>
-                                                    <th>Status</th>
-                                                    <th>Pay Now</th>
+                                                    <th>Delivery Status</th>
+                                                    <th>Payment Status</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -52,24 +53,42 @@
                                                         <td><a data-toggle="tooltip" class="red-tooltip" data-placement="left" title="Click here to show Invoice Details" href="{{route('customar.invoice.show.details',$row->order_id)}}">#{{$row->order_id}}</a></td>
                                                     @endif
                                                     
-                                                    <td>{{$row->total_quantity}}</td>
+                                                   
                                                     <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d/m/Y')}}</td>
                                                     
                                                     <td>{{$row->total_price}}</td>
-                                                    @if($row->status ==0)
+                                                    @if($row->delevary ==0)
                                                         <td>Pending</td>
                                                     @else
-                                                        <td>Successful delivery</td>
+                                                        <td>Delivered</td>
+                                                    @endif
+                                                    @if($row->is_paid ==0)
+                                                        <td>Unpaid</td>
+                                                    @else
+                                                        <td>Paid</td>
                                                     @endif
 
                                                  
-                                                        @if($row->payment_method_id !=Null)
+                                                        <!-- @if($row->payment_method_id !=Null)
                                                             @if($row->payment_status ==0)
                                                                 <td><a class="effect effect-5" href="{{route('invoice.pay.now',$row->order_id)}}" title="Pay Now">Pay Now</a></td>
                                                             @endif
-                                                        @endif
+                                                        @endif -->
                                                    
-                                                   
+                                                        <td>
+                                                    <div class="btn-group text-center">
+                                                        <div class="text-center btn d-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fa fa-ellipsis-v d-block"></i>
+                                                        </div>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="{{route('customar.invoice.show.details',$row->order_id)}}">Order Details</a>
+                                                            @if($row->status == 0)
+                                                            <a class="dropdown-item" href="{{route('customar.invoice.cancal',$row->order_id)}}">Cancel</a>
+                                                            @endif
+                                                            
+                                                        </div>
+                                                        </div>
+                                                    </td>
                                                    
                                                 </tr>
                                                 @endforeach

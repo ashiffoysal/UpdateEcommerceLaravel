@@ -27,7 +27,7 @@
                                     <h5>Verify Your Account(Phone)</h5>
                    
                                     <div class="form-group">
-                                        <input class="form-control" value="{{$token}}" name="token" type="text" placeholder="token">
+                                        <input class="form-control" value="{{$token}}" name="token" type="hidden" placeholder="token">
                                     </div>
                                     
 

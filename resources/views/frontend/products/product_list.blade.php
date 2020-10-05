@@ -638,22 +638,17 @@
                                         <script>
                                                 $(document).ready(function () {
                                                     $('#shopaddtocart{{$product->id}}').on('click', function () {
-                                                        
-
-                                                        
-                                                  
-                                                    
-
                                                         $.ajax({
                                                             type: 'GET',
                                                             url: "{{ route('product.add.cart') }}",
                                                             data: {
                                                                 product_id: {{$product->id}},
                                                                 product_price: {{$product->product_price}},
-                                                                product_sku: {{$product->product_sku}},
+                                                                product_sku: '{{$product->product_sku}}',
                                                                 quantity: 1,
                                                                 },
-                                                            success: function (data) {                  
+                                                            success: function (data) {    
+                                                                              
                                                                 document.getElementById('cartdatacount').innerHTML = data.quantity;
                                                                 document.getElementById('mobilecartdatacount').innerHTML = data.quantity;
                                                                 // document.getElementById('product_price').innerHTML = toFixed(data.total);

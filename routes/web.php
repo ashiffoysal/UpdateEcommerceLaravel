@@ -909,6 +909,7 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
             Route::post('/customar/create', 'CheckoutController@customarDataCreate')->name('checkout.data.create');
             Route::post('/customar/online/payment', 'CheckoutController@onlinepayment')->name('checkout.data.online');
             Route::get('/return/{orderid}/{name}/{id}', 'CheckoutController@productReturn')->name('customar.product.return');
+            Route::get('/return/{userid}', 'CheckoutController@customarProductReturnShow')->name('customar.product.return.show');
             
             
         });
@@ -937,6 +938,7 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
 
             Route::get('/invoice/show/{order_id}','CheckoutController@invoiceShow')->name('customar.invoice.show.details');
             Route::get('/invoice/pay/now/{order_id}','CheckoutController@invoicePayNow')->name('invoice.pay.now');
+            Route::get('/invoice/cancel/{order_id}','CheckoutController@invoiceCancel')->name('customar.invoice.cancal');
 
             
         });

@@ -67,7 +67,7 @@
                                                     <th>Price</th>
                                                     <th>Quantity</th>
                                                     <th>Amount</th>
-                                                    <th>Action</th>
+                                                    <th>Refund</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -76,8 +76,8 @@
                                                 <tr>
                                                     <td>
                                                         <div class="ps-product--cart">
-                                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
-                                                            <div class="ps-product__content"><a href="product-default.html">{{$row->name}}</a>
+                                                            <div class="ps-product__thumbnail"><a href="#"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
+                                                            <div class="ps-product__content"><a href="#">{{$row->name}}</a>
                                                             @if($row->colors)
                                                                 <p>Color:<strong class="product-color" style="background: {{$row->colors}};"></strong></p>
                                                             @endif
@@ -165,6 +165,7 @@
                                                     </td>
                                                     @endif
                                                     
+                                                   
                                                 </tr>
                                                 @endforeach
 
@@ -194,8 +195,14 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="ps-section__footer"><a class="ps-btn ps-btn--sm" href="{{route('customar.invoice.show',auth()->user()->id)}}">Back to invoices</a></div>
+                                
+                                @if($orderPlace->is_paid == 0)
+                                <!-- <div class="ps-section__footer d-inline"><a class="ps-btn ps-btn--sm" href="{{route('customar.invoice.show',auth()->user()->id)}}">Back to invoices</a></div> -->
+                                <div class="ps-section__footer pull-right d-inline"><a class="ps-btn ps-btn--sm" href="{{route('order.payment',[$orderPlace->order_id,$orderPlace->payment_secure_id])}}">Pay Now</a></div>
+                                @endif
+                                
                             </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -1110,6 +1110,24 @@ class CheckoutController extends Controller
     }
 
 
+    // invoice cancel
+
+    public function invoiceCancel ($orderid)
+    {
+        $orders = OrderPlace::where('order_id',$orderid)->first();
+        if($orders){
+            $orders->delete();
+        }
+
+        $notification = array(
+            'messege' => 'Order Cancel',
+            'alert-type' => 'faild'
+        );
+
+        return back()->with($notification);
+    }
+
+
     // customar invoice details show
 
     public function invoiceShow($order_id)
@@ -1347,6 +1365,17 @@ class CheckoutController extends Controller
         return redirect()->route('order.payment', [$order_id ,$order->payment_secure_id]);
     }
 
+
+    public function customarProductReturnShow ($id)
+    {
+         $pronotapprove = Checkout::where('userid',$id)->select(['products','orderid','created_at'])->get();
+         $order=OrderPlace::where('user_id',$id)->get();
+         foreach($order as $row){
+             
+             ReturnAllProduct::where('order_id',$row->order_id)->get();
+         }
+        return view('frontend.shipping.return_product',compact('pronotapprove'));
+    }
 
 
 
