@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Mail\EmailVerification;
 use App\Mail\ForgotPassword;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class AdminController extends Controller
 {
@@ -53,8 +54,6 @@ class AdminController extends Controller
         $fieldType = filter_var($request->login_email, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
         
         if ($user) {
-            
-            
             if ($user->status == 1) {
                 $checkInformation =Auth::guard('web')->attempt(array($fieldType => $request['login_email'], 'password' => $request['login_password']));
                 if ($checkInformation) {

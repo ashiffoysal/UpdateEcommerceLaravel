@@ -35,6 +35,9 @@
                                             <figure><small>International Shipping</small><strong> $20.00</strong></figure>
                                         </div>
                                         <h4>Payment Methods</h4>
+                                        @php
+                                            $active=App\Activation::first();
+                                        @endphp
                                         <div class="ps-block--payment-method">
                                             <ul class="ps-tab-list">
                                                 <li class="active"><a class="ps-btn ps-btn--sm" href="#visa">Visa / Master Card</a></li>
