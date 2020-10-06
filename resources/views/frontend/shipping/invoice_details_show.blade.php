@@ -1,5 +1,50 @@
 @extends('layouts.websiteapp')
 @section('content')
+<style>
+
+.table {
+    display: table;
+    table-layout:fixed;
+    width: 100%;
+}
+.tableCell {
+    display: table-cell;
+    text-align: center;
+}
+.bulletWrap { position: relative; }
+.bulletWrap .before, .bulletWrap .after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    top: 50%;
+    height: 4px;
+    background: #535353;
+    width: 100%;
+    z-index: -1;
+}
+.bulletWrap .after { width:50%; background: red; }
+.slide a {
+    width: 76px;
+    height: 76px;
+    background: #1c1c1c;
+    color: #ffffff;
+    display: inline-block;
+    border-radius: 100%;
+    border: 4px solid #535353;
+    transition: 0.3s all ease;
+    position: relative;
+}
+.slide a.active, .slide a:hover {
+    background: #e23a18;
+    border-color: #e23a18;
+}
+.slide a i {
+    font-size: 35px;
+    line-height: 76px;
+}
+
+</style>
 <main class="ps-page--my-account">
         <div class="ps-breadcrumb">
             <div class="container">
@@ -17,6 +62,138 @@
                     @include('frontend.include.accounts.menu')
                     </div>
                     <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="bulletWrap">
+                                    <div class="before"></div>
+                                    <div class="after"></div>
+                                    <div class="bulletTrack table">
+                                        @if($orderPlace->delevary==0)
+                                             <style>
+                                            .bulletWrap .after {
+                                                    width: 10%;
+                                                    background: red;
+                                                }
+                                        </style>
+                                        <div class="slide tableCell">
+                                            <a class="active" href=""><i class="fa fa-check"></i></a>
+                                            <p>Order</p>
+                                        </div>
+
+                                        <div class="slide tableCell">
+                                            <a href=""><i class="fa ">2</i></a>
+                                            <p>On review</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a class="" href=""><i class="fa">3</i></a>
+                                            <p>On Delevery</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a href=""><i class="fa">4</i></a>
+                                            <p>Delivered</p>
+                                        </div>
+                                        @elseif($orderPlace->delevary==1)
+                                        <style>
+                                            .bulletWrap .after{
+                                                    width: 0%;
+                                                    background: red;
+                                                }
+                                        </style>
+                                        <div class="slide tableCell">
+                                            <a class="active" href=""><i class="fa fa-check"></i></a>
+                                            <p>Order</p>
+                                        </div>
+
+                                        <div class="slide tableCell">
+                                            <a href=""><i class="fa ">2</i></a>
+                                            <p>On review</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a class="" href=""><i class="fa">3</i></a>
+                                            <p>On Delevery</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a href=""><i class="fa">4</i></a>
+                                            <p>Delivered</p>
+                                        </div>
+                                        @elseif($orderPlace->delevary==2)
+                                        <style>
+                                            .bulletWrap .after {
+                                                    width: 25%;
+                                                    background: red;
+                                                }
+                                        </style>
+                                             <div class="slide tableCell">
+                                            <a class="active" href=""><i class="fa fa-check">1</i></a>
+                                            <p>Order</p>
+                                        </div>
+
+                                        <div class="slide tableCell">
+                                            <a href="active"><i class="fa fa-check"></i></a>
+                                            <p>On review</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a class="" href=""><i class="fa">3</i></a>
+                                            <p>On Delevery</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a href=""><i class="fa">4</i></a>
+                                            <p>Delivered</p>
+                                        </div>
+                                        @elseif($orderPlace->delevary==3)
+                                          <style>
+                                            .bulletWrap .after {
+                                                    width: 65%;
+                                                    background: red;
+                                                }
+                                        </style>
+                                        <div class="slide tableCell">
+                                            <a class="active" href=""><i class="fa fa-check"></i></a>
+                                            <p>Order</p>
+                                        </div>
+
+                                        <div class="slide tableCell">
+                                            <a class="active"><i class="fa fa-check"></i></a>
+                                            <p>On review</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a class="active" href=""><i class="fa fa-check"></i></a>
+                                            <p>On Delevery</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a href=""><i class="fa">4</i></a>
+                                            <p>Delivered</p>
+                                        </div>
+                                        @elseif($orderPlace->delevary==4)
+                                          <style>
+                                            .bulletWrap .after {
+                                                    width: 100%;
+                                                    background: red;
+                                                }
+                                        </style>
+                                        <div class="slide tableCell">
+                                            <a class="active" href=""><i class="fa fa-check"></i></a>
+                                            <p>Order</p>
+                                        </div>
+
+                                        <div class="slide tableCell">
+                                            <a href="active"><i class="fa fa-check"></i></a>
+                                            <p>On review</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a class="active" href=""><i class="fa fa-check"></i></a>
+                                            <p>On Delevery</p>
+                                        </div>
+                                        <div class="slide tableCell">
+                                            <a href="active"><i class="fa fa-check"></i></a>
+                                            <p>Delivered</p>
+                                        </div>
+                                        @endif
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="ps-section__right mt-12">
                             <div class="ps-section--account-setting">
                                 <div class="ps-section__header">

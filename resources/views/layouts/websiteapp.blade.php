@@ -4,8 +4,8 @@
 <head>
     
 
-
-     <meta charset="utf-8">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
@@ -54,6 +54,16 @@
     @endphp
 @if($color)
 <style>
+.pagination li > a:hover {
+   
+    background-color: {{ $color->hover_code }};
+}
+.page-item.active .page-link {
+   
+    background-color: {{ $color->color_code }};
+    border-color: {{ $color->color_code }};
+   
+}
 .header--mobile.organic .ps-search--mobile {
     background-color: {{ $color->color_code }};
 }
@@ -269,7 +279,7 @@
                             <div class="ps-product__images" data-arrow="true" >
 
                                 <div class="item" id="img">
-                                  <!--   <img src="{{asset('public/frontend')}}/img/products/detail/fullwidth/1.jpg" alt=""> -->
+                                
                                 </div>
 
                             </div>
@@ -278,30 +288,23 @@
                             <div class="name"></div>
                              <input type="hidden" name="id" id="id">
                             <div class="ps-product__meta">
-                                <p>Brand:<a href="">Sony</a></p>
+                                <!-- <p>Brand:<a href="">Sony</a></p> -->
                                 <div class="ps-product__rating">
-                             <!--        <select class="ps-rating" data-read-only="true">
+                                    <select class="ps-rating" data-read-only="true">
                                         <option value="1">1</option>
                                         <option value="1">2</option>
                                         <option value="1">3</option>
                                         <option value="1">4</option>
                                         <option value="2">5</option>
-                                    </select><span>(1 review)</span> -->
+                                    </select><span>(1 review)</span>
                                 </div>
                             </div>
                             <div class="price">
                                 
                             </div>
                             
-                            <div class="ps-product__desc">
-                                <!-- <p>Sold By:<a href="shop-default.html"><strong> Go Pro</strong></a></p> -->
-                                <ul class="ps-list--dot">
-                                    <li> Unrestrained and portable active stereo speaker</li>
-                                    <li> Free from the confines of wires and chords</li>
-                                    <li> 20 hours of portable capabilities</li>
-                                    <li> Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li>
-                                    <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
-                                </ul>
+                            <div class="ps-product__desc" id="des">
+                               
                             </div>
                             <form id="option-choice-form">
                                         <!-- product information -->
@@ -381,9 +384,6 @@
         $('#msearchp').on('keyup', function(){
             
             var product_name = $(this).val();
-            
-            
-            
             $.ajax({
                 url:"{{url('/search/mobile/product/ajax/')}}"+"/"+product_name,
                 type:'get',
@@ -412,12 +412,13 @@
                             document.getElementById('product_total').value = data.product_price;
 
                             $(".name").html("<h1>"+ data.product_name +"</h1>");
+                            $("#des").html("<h1>"+ data.product_description +"</h1>");
                             $(".price").html("<h4 class='ps-product__price'>"+ data.product_price +"</h4>");
                             $("#id").val(data.id);
                             //$("#descrip").val(data.subcate_slug);
                             // $("#subcate_tag_edit").val(data.subcate_tag);
                             // $("#cate_id").val(data.cate_id).select;
-                             $("#img").html("<img src={{asset('')}}public/uploads/products/thumbnail/"+data.    thumbnail_img +"/>");
+                             $("#img").html("<img src={{asset('')}}public/uploads/products/thumbnail/"+data.thumbnail_img +"/>");
                             // $("#store-img").append("<input type='hidden' name='old_image' value='"+data.subcate_image+"' />");
                             // $("#icon").html("<img src={{asset('')}}public/uploads/subcategory/"+data.subcate_icon+" height='70px'/>");
                             // $("#store-icon").append("<input type='hidden' name='old_icon' value='"+data.subcate_icon+"' />");

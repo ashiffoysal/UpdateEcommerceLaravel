@@ -84,7 +84,9 @@ Auth::routes();
     Route::get('admin/stripe/update/deactive/{id}', 'Admin\GatewayController@stripedeactive');
     // ssl
     Route::get('admin/ssl/update/active/{id}', 'Admin\GatewayController@sslactive');
+    Route::get('admin/surjo/update/active/{id}', 'Admin\GatewayController@surjoactive');
     Route::get('admin/ssl/update/deactive/{id}', 'Admin\GatewayController@ssldeactive');
+    Route::get('admin/surjo/update/deactive/{id}', 'Admin\GatewayController@surjodeactive');
     // cash on delevery
     Route::get('admin/cash/update/active/{id}', 'Admin\GatewayController@cashactive');
     Route::get('admin/cash/update/deactive/{id}', 'Admin\GatewayController@cashdeactive');
