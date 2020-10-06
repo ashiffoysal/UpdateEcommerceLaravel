@@ -271,6 +271,49 @@ class GatewayController extends Controller
         }
     }
 
+// surjo
+       public function surjoactive($id)
+    {
+        $deactive = Activation::where('id', 1)->update([
+            'surjopay' => '1',
+            'updated_at' => Carbon::now()->toDateTimeString(),
+
+        ]);
+        if ($deactive) {
+            $notification = array(
+                'messege' => 'Update Successfully',
+                'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+                'messege' => 'Update Faild',
+                'alert-type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
+        }
+    }
+    public function surjodeactive($id)
+    {
+        $deactive = Activation::where('id', 1)->update([
+            'surjopay' => '0',
+            'updated_at' => Carbon::now()->toDateTimeString(),
+
+        ]);
+        if ($deactive) {
+            $notification = array(
+                'messege' => 'Update Successfully',
+                'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification);
+        } else {
+            $notification = array(
+                'messege' => 'Update Faild',
+                'alert-type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
+        }
+    }
     // stripe
     public function stripeactive($id)
     {

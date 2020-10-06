@@ -40,13 +40,20 @@
                                         @endphp
                                         <div class="ps-block--payment-method">
                                             <ul class="ps-tab-list">
+                                            @if($active->stripe==1)
                                                 <li class="active"><a class="ps-btn ps-btn--sm" href="#visa">Visa / Master Card</a></li>
-                                                <!-- <li><a class="ps-btn ps-btn--sm" href="#paypal">Paypal</a></li> -->
+                                            @endif
+                                            <!--     <li><a class="ps-btn ps-btn--sm" href="#paypal">Paypal</a></li> -->
+                                                @if($active->ssl_commercez==1)
                                                 <li><a class="ps-btn ps-btn--sm" href="#sslcommer">SslCommerz</a></li>
+                                                @endif
+                                                 @if($active->surjopay==1)
                                                 <li><a class="ps-btn ps-btn--sm" href="#surjopay">Surjopay</a></li>
+                                                @endif
                                                
                                             </ul>
                                             <div class="ps-tabs">
+                                                 @if($active->stripe==1)
                                                 <div class="ps-tab active" id="visa">
                                                     <form action="{{route('payment.make.payment')}}" method="post">
                                                         @csrf
@@ -54,40 +61,7 @@
 
                                                     <input type="hidden" name="payment_secure_id" value="{{ $orderPlace->payment_secure_id }}">
                                                     <input type="hidden" name="order_id" value="{{ $orderPlace->order_id }}">
-                                                        <!-- 
-                                                        <div class="form-group">
-                                                            <label>Card number</label>
-                                                            <input class="form-control" type="text" placeholder="">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Card Holders</label>
-                                                            <input class="form-control" name="holder_name" type="text" placeholder="">
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-8">
-                                                                <div class="form-group">
-                                                                    <label>Experation Date</label>
-                                                                    <div class="row">
-                                                                        <div class="col-6">
-                                                                            <div class="form-group">
-                                                                                <input class="form-control" type="text" placeholder="Month">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <div class="form-group">
-                                                                                <input class="form-control" type="text" placeholder="Year">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-4">
-                                                                <div class="form-group">
-                                                                    <label>CVV</label>
-                                                                    <input class="form-control" type="text" placeholder="">
-                                                                </div>
-                                                            </div>
-                                                        </div> -->
+                                                        
                                                         <div class="form-group">
                                                             <button type="submit" class="ps-btn ps-btn--fullwidth">Submit</button>
                                                         </div>
@@ -96,7 +70,8 @@
 
 
                                                 </div>
-                                           <!--      <div class="ps-tab" id="paypal">
+                                                @endif
+                                                <div class="ps-tab" id="paypal">
                                                     <form action="{{route('payment.make.payment')}}" method="post">
                                                          @csrf
                                             <input class="form-control" type="hidden" name="payment_method_id" value="3" id="pay_method" checked>
@@ -105,7 +80,8 @@
 
                                                          <button class="ps-btn" type="submit">Proceed with Paypal</button>
                                                     </form>
-                                                </div> -->
+                                                </div>
+                                                 @if($active->ssl_commercez==1)
                                                 <div class="ps-tab" id="sslcommer">
 
                                                     <form action="{{route('payment.make.payment')}}" method="post">
@@ -119,6 +95,8 @@
                                                     
                                                     
                                                 </div>
+                                                @endif
+                                                @if($active->surjopay==1)
                                                 <div class="ps-tab" id="surjopay">
 
                                                     <form action="{{url('/compare/surjopay/payment')}}" method="post">
@@ -133,20 +111,8 @@
                                                     
                                                     
                                                 </div>
-                                                <div class="ps-tab" id="surjopay">
-
-                                                    <form action="{{url('stripe/asif/text')}}" method="post">
-                                                         @csrf
-                                                        <input class="form-control" type="hidden" name="payment_method_id" value="5" id="pay_method" checked>
-                                                        <input type="hidden" name="payment_secure_id" value="{{ $orderPlace->payment_secure_id }}">
-                                                        <input type="hidden" name="order_id" value="{{ $orderPlace->order_id }}">
-                                                        <input type="hidden" name="amount" value="{{$orderPlace->total_price}}">
-
-                                                         <button class="ps-btn" type="submit">Proceed with asifpay</button>
-                                                    </form>
-                                                    
-                                                    
-                                                </div>
+                                                @endif
+                                             
                                             </div>
                                         </div>
                                     </div>

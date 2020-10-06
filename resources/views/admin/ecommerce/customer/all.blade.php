@@ -30,31 +30,21 @@
 		                         <table id="dataTableExample1" class="table table-bordered table-striped table-hover mb-2">
 		                              <thead>
 		                                  <tr>
-		                                      <th>
-												<!-- <label class="chech_container mb-4">
-													<input type="checkbox"  id="check_all">
-													<span class="checkmark"></span>
-												</label> -->#
-		                                      </th>
-		                                      <th>Name</th>
-		                                      <th>Phone</th>
-		                                      <th>Email</th>
+		                                      <th>#</th>
+		                                      <th>Phone/Email</th>
+		                                      <th>Image</th>
 		                                      <th>manage</th>
 		                                  </tr>
 		                              </thead>
 		                              <tbody>
 		                       			@foreach($allcustommer as $key => $data)
+		                       				
 		                                  <tr>
-	                                  		  <td>
-																					<!-- <label class="chech_container mb-4">
-																						<input type="checkbox" name="delid[]" class="checkbox" value="">
-																						<span class="checkmark"></span>
-																					</label> -->
-																					{{++$key}}
+	                                  		  <td>{{++$key}}</td>
+		                                      <td>@if($data->email==NULL) {{$data->phone}} @elseif($data->phone==NULL) {{$data->email}} @endif</td>
+		                                      <td>
+		                                      	<img src="" height="30px">
 		                                      </td>
-		                                      <td>{{$data->username}}</td>
-		                                      <td>{{$data->phone}}</td>
-		                                      <td>{{$data->email}}</td>
 		                                       <td>
 		                                           <a href="{{url('admin/custommer/view/'.$data->id)}}" class="btn btn-sm btn-default text-white"  title="edit"><i class="fas fa-eye"></i></a>
 		                                           <a id="delete" href="{{url('admin/customer/delete/'.$data->id)}}" class="btn btn-sm btn-danger text-white"  title="delete"><i class="fas fa-trash"></i></a>

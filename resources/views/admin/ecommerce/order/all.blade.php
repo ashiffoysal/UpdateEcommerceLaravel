@@ -39,7 +39,7 @@
 		                                      <th>#</th>
 		                                      <th>Order Code</th>
 		                                      <th>Order Quantity</th>
-                                          <th>Amount</th>
+                                              <th>Amount</th>
 		                                      <th>Customer</th>
 		                                      <th>Delevery Status</th>
 		                                      <th>Payment Method</th>
@@ -63,7 +63,7 @@
                                               <td>{{$data->total_price}}</td>
 		                                      <td>{{$data->user_id}}</td>
 			                                    <td>
-	                                            @if($data->delevary == 1)
+	                                            @if($data->delevary == 0)
 		                                           <span class="btn btn-danger">Pending</span>
 	                                            @elseif($data->delevary == 2)
 		                                           <span class="btn btn-info">On Delevery</span>
@@ -72,12 +72,16 @@
 	                                            @endif
 	                                            </td>
 			                                    <td>
-		                                            @if($data->payment_method_id == 1)
+		                                            @if($data->payment_method_id == NULL)
 		                                            <p>Cash On Delivery</p>
 		                                            @elseif($data->payment_method_id == 2)
 		                                            <p>Stype</p>
 		                                            @elseif($data->payment_method_id == 3)
 		                                            <p>PayPal</p>
+		                                            @elseif($data->payment_method_id == 4)
+		                                            <p>SSL</p>
+		                                            @elseif($data->payment_method_id == 5)
+		                                            <p>SurjoPay</p>
 		                                            @endif
 	                                          	</td>
 		                                    <td>

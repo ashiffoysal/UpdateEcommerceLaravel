@@ -12,7 +12,7 @@
 <div class="ps-section__left">
 
     <aside class="ps-widget--account-dashboard">
-        <img class="img_circal" src="{{asset('public/frontend/')}}/img/users/3.jpg" alt="">
+        <img class="img_circal" src="{{asset('public/uploads/customer/'.auth()->user()->avatar)}}" alt="">
         <div class="ps-widget__header">
             <figure>
                 @php
@@ -33,7 +33,7 @@
                 
                 <li class="{{ request()->is('payment/customar/invoice/*') ? 'active' : 'null' }}"><a href="{{route('customar.invoice.show',auth()->user()->id)}}"><i class="icon-papers"></i> Purchase History</a></li>
                 <li class="{{ request()->is('product/return/*') ? 'active' : 'null' }}"><a href="{{route('customar.product.return.show',auth()->user()->id)}}"><i class="icon-return"></i>Send Refund Request</a></li>
-                <li class="{{ request()->is('customar/address') ? 'active' : '' }}"><a href="{{route('customar.address.page')}}"><i class="icon-map-marker"></i> Address</a></li>
+                <li class="{{ request()->is('customar/address') ? 'active' : '' }}"><a href="{{route('customar.address.page')}}"><i class="icon-map-marker"></i>Manage Profile</a></li>
                 <li class="{{ request()->is('product/viewed') ? 'active' : 'null' }}"><a href="{{route('customar.viewed.product')}}"><i class="icon-store"></i> Recent Viewed Product</a></li>
                 <li><a href="{{url('product/wishlist')}}"><i class="icon-heart"></i> Wishlist</a></li>
                 <li><a href="#" onclick="event.preventDefault(); document.getElementById('form_logout').submit();"><i class="icon-power-switch"></i>Logout</a></li>

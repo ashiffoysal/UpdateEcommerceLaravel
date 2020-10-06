@@ -437,6 +437,53 @@
                             </div>
                         </form>
                     </div>
+                     <div class="col-md-3">
+                        <div class="panel_header">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel_title">
+                                        <span class="panel_icon"></span><span>Surjo Pay</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                          <form action="" method="post">
+                            @csrf
+
+                            <div class="panel_body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover mb-2">
+
+                                        <thead class="text-center">
+                                            <tr>
+
+                                                <td>Surjo Pay</td>
+                                                <td>
+                                                    @if($update->surjopay==1)
+                                                    <span class="btn btn-success">Active</span>
+                                                    @else
+                                                    <span class="btn btn-danger">DeActive</span>
+                                                    @endif</td>
+                                                <td>
+                                                    @if($update->surjopay==1)
+                                                    <a href="{{url('admin/surjo/update/deactive/'.$update->id)}}"
+                                                        class="btn btn-success btn-sm text-white"><i
+                                                            class="fa fa-thumbs-up"></i></a>
+                                                    @else
+                                                    <a href="{{url('admin/surjo/update/active/'.$update->id)}}"
+                                                        class="btn btn-danger btn-sm text-white"><i
+                                                            class="far fa-thumbs-down"></i></a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <!--  -->
                 </div>
             </div>

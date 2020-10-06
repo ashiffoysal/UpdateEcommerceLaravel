@@ -63,15 +63,17 @@
                                               <td>{{$data->total_price}}</td>
 		                                      <td>{{$data->user_id}}</td>
 			                                    <td>
-	                                            @if($data->delevary == 1)
-		                                           <span class="btn btn-danger">Pending</span>
-	                                            @elseif($data->delevary == 2)
-		                                           <span class="btn btn-info">On Delevery</span>
-																							 @elseif($data->delevary == 3)
-																							  <span class="btn btn-success">Delevered</span>
-																								@elseif($data->delevary == 4)
-																								 <span class="btn btn-success">On Process</span>
-																								 @endif
+	                                        		  @if($data->payment_method_id == NULL)
+		                                            <p>Cash On Delivery</p>
+		                                            @elseif($data->payment_method_id == 2)
+		                                            <p>Stype</p>
+		                                            @elseif($data->payment_method_id == 3)
+		                                            <p>PayPal</p>
+		                                            @elseif($data->payment_method_id == 4)
+		                                            <p>SSL</p>
+		                                            @elseif($data->payment_method_id == 5)
+		                                            <p>SurjoPay</p>
+		                                            @endif
 	                                            </td>
 			                                    <td>
 		                                            @if($data->payment_method_id == 1)
