@@ -2,6 +2,7 @@
 
 
 
+
 Auth::routes();
 
     Route::group(['prefix' => 'forgot/password', 'namespace' => 'Auth'], function () {
@@ -910,7 +911,7 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
             Route::get('/checkout/page/{orderid}', 'FrontendController@checkoutPage')->name('product.checkout');
             Route::post('/customar/create', 'CheckoutController@customarDataCreate')->name('checkout.data.create');
             Route::post('/customar/online/payment', 'CheckoutController@onlinepayment')->name('checkout.data.online');
-            Route::get('/return/{orderid}/{name}/{id}', 'CheckoutController@productReturn')->name('customar.product.return');
+            Route::post('/return', 'CheckoutController@productReturn')->name('customar.product.return');
             Route::get('/return/{userid}', 'CheckoutController@customarProductReturnShow')->name('customar.product.return.show');
             
             
@@ -977,9 +978,11 @@ Route::post('search/new/by/allfilter/', 'Frontend\SearchController@subsearch')->
 
     // New Route start from here
 
-    Route::get('/test',function(){
-        return view('frontend.accounts.address');
-    });
+    // Route::get('/test',function(){
+    //     $currentdate =Carbon::now();
+    //     return Carbon::createFromFormat('Y-m-d',$currentdate);
+    //     return view('frontend.accounts.address');
+    // });
 
     
 

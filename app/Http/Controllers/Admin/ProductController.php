@@ -14,6 +14,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\OrderPlace;
+use App\RefundReason;
 use App\ReturnAllProduct;
 use App\ReturnProduct;
 use Illuminate\Support\Facades\Storage;
@@ -1398,7 +1399,8 @@ class ProductController extends Controller
     public function showProduct ($id,$userid)
     {
         
-        $cartdata =Checkout::where('orderid',$id)->first();        
+        $cartdata =Checkout::where('orderid',$id)->first();   
+           
         
         return view('admin.ecommerce.product.showreturnproduct',compact('cartdata','userid'));
 
@@ -1571,6 +1573,12 @@ class ProductController extends Controller
            'products'=>$productpush,
        ]);
 
+       $refund =RefundReason::where('product_id',$id)->where('order_id',$orderid)->first();
+       if($refund){
+        $refund->delete();    
+       }
+       
+
        $notification = array(
         'messege' => 'Return Order Product Rejected!',
         'alert-type' => 'error'
@@ -1582,6 +1590,7 @@ class ProductController extends Controller
 
     public function approveReturnProduct ($orderid,$id,$userid)
     {
+        OrderPlace::where('order_id',$orderid)->first();
         $allproducts = Checkout::where('orderid',$orderid)->first();
         abort_if(!$allproducts, 403);
         $productpushreturn=[];
@@ -1753,12 +1762,18 @@ class ProductController extends Controller
             'products'=>json_encode($productpushreturn),
             'quantity'=>$quantity,
             'price'=>$totalprice,
+            'user_id'=>$userid,
+            'created_at'=>Carbon::now(),
         ]);
 
         $user =CustomarAccount::where('userid',$userid)->first();
         $totalprice = $totalprice * $quantity;
-        $user->increment('balance',$totalprice);
-        OrderPlace::where('order_id',$orderid)->decrement('total_price',$totalprice);
+        $orderinfo =OrderPlace::where('order_id',$orderid)->first();
+        if($orderinfo->is_paid != 0){
+            $user->increment('balance',$totalprice);
+        }
+        
+        $orderinfo->decrement('total_price',$totalprice);
         
        $notification = array(
         'messege' => 'Return Order Product Approved!',

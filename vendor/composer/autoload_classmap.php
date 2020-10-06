@@ -2595,8 +2595,15 @@ return array(
     'Mobile_Detect' => $vendorDir . '/mobiledetect/mobiledetectlib/Mobile_Detect.php',
     'Mockery' => $vendorDir . '/mockery/mockery/library/Mockery.php',
     'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
+
+    'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
     'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
+    'Mockery\\Adapter\\Phpunit\\MockeryTestCaseSetUp' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCaseSetUp.php',
+
+    'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
+
     'Mockery\\Adapter\\Phpunit\\TestListener' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListener.php',
+    'Mockery\\Adapter\\Phpunit\\TestListenerTrait' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListenerTrait.php',
     'Mockery\\ClosureWrapper' => $vendorDir . '/mockery/mockery/library/Mockery/ClosureWrapper.php',
     'Mockery\\CompositeExpectation' => $vendorDir . '/mockery/mockery/library/Mockery/CompositeExpectation.php',
     'Mockery\\Configuration' => $vendorDir . '/mockery/mockery/library/Mockery/Configuration.php',
@@ -2672,6 +2679,7 @@ return array(
     'Mockery\\MethodCall' => $vendorDir . '/mockery/mockery/library/Mockery/MethodCall.php',
     'Mockery\\Mock' => $vendorDir . '/mockery/mockery/library/Mockery/Mock.php',
     'Mockery\\MockInterface' => $vendorDir . '/mockery/mockery/library/Mockery/MockInterface.php',
+    'Mockery\\QuickDefinitionsConfiguration' => $vendorDir . '/mockery/mockery/library/Mockery/QuickDefinitionsConfiguration.php',
     'Mockery\\ReceivedMethodCalls' => $vendorDir . '/mockery/mockery/library/Mockery/ReceivedMethodCalls.php',
     'Mockery\\Reflector' => $vendorDir . '/mockery/mockery/library/Mockery/Reflector.php',
     'Mockery\\Undefined' => $vendorDir . '/mockery/mockery/library/Mockery/Undefined.php',
@@ -4910,6 +4918,7 @@ return array(
     'Symfony\\Contracts\\Service\\Test\\ServiceLocatorTest' => $vendorDir . '/symfony/service-contracts/Test/ServiceLocatorTest.php',
     'Symfony\\Contracts\\Translation\\LocaleAwareInterface' => $vendorDir . '/symfony/translation-contracts/LocaleAwareInterface.php',
     'Symfony\\Contracts\\Translation\\Test\\TranslatorTest' => $vendorDir . '/symfony/translation-contracts/Test/TranslatorTest.php',
+    'Symfony\\Contracts\\Translation\\TranslatableInterface' => $vendorDir . '/symfony/translation-contracts/TranslatableInterface.php',
     'Symfony\\Contracts\\Translation\\TranslatorInterface' => $vendorDir . '/symfony/translation-contracts/TranslatorInterface.php',
     'Symfony\\Contracts\\Translation\\TranslatorTrait' => $vendorDir . '/symfony/translation-contracts/TranslatorTrait.php',
     'Symfony\\Polyfill\\Ctype\\Ctype' => $vendorDir . '/symfony/polyfill-ctype/Ctype.php',

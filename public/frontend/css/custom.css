@@ -1,6 +1,6 @@
 /***
- Theme Name: kinenin
- Theme URI: http://kinenin.com.bd
+ Theme Name: kineninshop
+ Theme URI: http://kineninshop.com.bd
  Description: Ecommerce Template
  Author: Qayum Hasan
  Version: 1.0
@@ -184,4 +184,20 @@ box-shadow: 0px 6px 24px 0px rgba(255,255,255,1); */
 }
 .page-item.disabled .page-link {
   display: none;
+}
+.btn-orange{
+  background: #FA5B05;
+  font-size: 15px;
+  color: #ffffff;
+}
+.modal-footer{
+  border: none;
+}
+.troggle-right{
+  font-size: 19px;
+    margin-left: 70%;
+}
+.front-size{
+  font-size: 15px;
+  border: 1 px solid #dddddd;
 }

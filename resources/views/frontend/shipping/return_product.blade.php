@@ -121,6 +121,87 @@
 
                                             @endforeach
 
+                                            @foreach($returnapprovepro as $products)
+                                                        
+                                            @foreach(json_decode($products->products) as $row)
+                                            <tr>
+                                                <td>
+                                                    <div class="ps-product--cart">
+                                                        <div class="ps-product__thumbnail"><a href="#"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
+                                                        <div class="ps-product__content"><a href="#">Grand Slam Indoor Of Show Jumping Novel</a>
+
+                                                            @php
+
+
+                                                            // store attibute name
+                                                            $sizename = [];
+                                                            $productdetails = App\Product::findOrFail($row->product_id);
+
+                                                            foreach (json_decode($productdetails->choice_options) as $key => $choice) {
+
+                                                            $size = $choice->title; //this reaturn size,model
+                                                            $choicename = $choice->name; //this reaturn form name
+                                                            array_push($sizename, $size);
+                                                            }
+                                                            $countsize = count($sizename);
+
+
+                                                            @endphp
+
+
+
+                                                            @if($countsize == 1)
+                                                            @php
+                                                            $sizenameone =$sizename[0];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+
+
+                                                            @elseif($countsize == 2)
+                                                            @php
+                                                            $sizenameone =$sizename[0];
+                                                            $sizenametwo =$sizename[1];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+                                                            <p>{{$sizename[1]}}:<strong> {{$row->$sizenametwo}}</strong></p>
+
+
+                                                            @elseif($countsize == 3)
+                                                            @php
+                                                            $sizenameone =$sizename[0];
+                                                            $sizenametwo =$sizename[1];
+                                                            $sizenamethree =$sizename[2];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+                                                            <p>{{$sizename[1]}}:<strong> {{$row->$sizenametwo}}</strong></p>
+                                                            <p>{{$sizename[2]}}:<strong> {{$row->$sizenamethree}}</strong></p>
+
+                                                            @elseif($countsize == 4)
+
+                                                            @php
+                                                            $sizenameone =$sizename[0];
+                                                            $sizenametwo =$sizename[1];
+                                                            $sizenamethree =$sizename[2];
+                                                            $sizenamefour =$sizename[3];
+                                                            @endphp
+                                                            <p>{{$sizename[0]}}:<strong> {{$row->$sizenameone}}</strong></p>
+                                                            <p>{{$sizename[1]}}:<strong> {{$row->$sizenametwo}}</strong></p>
+                                                            <p>{{$sizename[2]}}:<strong> {{$row->attributes->$sizenamethree}}</strong></p>
+                                                            <p>{{$sizename[3]}}:<strong> {{$row->$sizenamefour}}</strong></p>
+
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                
+                                                <td><span>{{date('d-m-Y', strtotime($products ->created_at))}}</span></td>
+                                                <td><span>{{$products ->order_id}}</span></td>
+                                                <td><span><i>৳</i> {{$row->price}}</span></td>
+                                                <td><span style="color:red"> <b>Approved</b></span></td>
+                                            </tr>
+                                            @endforeach
+                                            @endforeach
+                                            
 
 
 

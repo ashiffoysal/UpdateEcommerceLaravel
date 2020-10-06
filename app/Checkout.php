@@ -32,4 +32,13 @@ class Checkout extends Model
     {
         return json_decode($value);
     }
+
+
+      /**
+     * Get the return discription.
+     */
+    public function details()
+    {
+        return $this->hasMany('App\RefundReason','order_id','orderid');
+    }
 }
