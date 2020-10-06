@@ -77,13 +77,13 @@
                                                    
                                                         <td>
                                                     <div class="btn-group text-center">
-                                                        <div class="text-center btn d-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <div class="text-center btn d-block troggle-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fa fa-ellipsis-v d-block"></i>
                                                         </div>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="{{route('customar.invoice.show.details',$row->order_id)}}">Order Details</a>
-                                                            @if($row->status == 0)
-                                                            <a class="dropdown-item" href="{{route('customar.invoice.cancal',$row->order_id)}}">Cancel</a>
+                                                            <a class="dropdown-item front-size" href="{{route('customar.invoice.show.details',$row->order_id)}}">Order Details</a>
+                                                            @if($row->is_paid == 0)
+                                                            <a class="dropdown-item front-size" href="{{route('customar.invoice.cancal',$row->order_id)}}">Cancel</a>
                                                             @endif
                                                             
                                                         </div>

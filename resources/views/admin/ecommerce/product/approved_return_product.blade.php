@@ -120,7 +120,7 @@
                                         {{$product->quantity}}
                                     </td>
                                     <td>
-                                        {{$product->price}}
+                                        {{ltrim($product->price,0)}}
                                     </td>
                                     <td>
                                         <a href="{{route('admin.approved.return.product.delete',$product->id)}}" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></a>

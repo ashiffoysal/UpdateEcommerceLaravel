@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use App\Library\SslCommerz\SslCommerzNotification;
+use App\RefundReason;
 use App\ReturnAllProduct;
 use App\ReturnProduct;
 use App\SmsModel;
@@ -737,7 +738,7 @@ class CheckoutController extends Controller
         $user =User::findOrFail(auth()->user()->id)->first();
         $order_id = auth()->user()->order_id;
 
-        // $this->checkoutSMS($request,$order_id);
+        $this->checkoutSMS($request,$order_id);
         $neworderid =rand(1111,9999);
 
         if($user){
@@ -1161,14 +1162,26 @@ class CheckoutController extends Controller
     }
 
     // customar product return
-    
-    public function productReturn($orderid,$name,$id)
+    // $orderid,$name,$id
+    public function productReturn(Request $request)
     {
-
+        
+        
+        $orderid = $request->orderid;
+        $name = $request->name;
+        $id = $request->id;
         
        $allproducts = Checkout::where('orderid',$orderid)->where('userid',auth()->user()->id)->first();
         abort_if(!$allproducts, 403);
         
+        RefundReason::insert([
+            'product_id'=>$id,
+            'user_id'=>auth()->user()->id,
+            'order_id'=>$orderid,
+            'refund_reason'=>$request->refund_reason_,
+            'created_at'=>Carbon::now(),
+        ]);
+
         $totalprice=0;
         $quantity=0;
        $products =$allproducts->products;
@@ -1349,6 +1362,7 @@ class CheckoutController extends Controller
             ]);
         }
     
+        
         $notification = array(
             'messege' => 'Successfully Products Return! This Product is waiting for approval by Admin',
             'alert-type' => 'success'
@@ -1370,11 +1384,14 @@ class CheckoutController extends Controller
     {
          $pronotapprove = Checkout::where('userid',$id)->select(['products','orderid','created_at'])->get();
          $order=OrderPlace::where('user_id',$id)->get();
-         foreach($order as $row){
-             
-             ReturnAllProduct::where('order_id',$row->order_id)->get();
+         $returnapprovepro=ReturnAllProduct::where('user_id',$id)->get();
+         if($returnapprovepro){
+            return view('frontend.shipping.return_product',compact('pronotapprove','returnapprovepro'));
+         }else{
+             $returnapprovepro =[];
+            return view('frontend.shipping.return_product',compact('pronotapprove','returnapprovepro'));
          }
-        return view('frontend.shipping.return_product',compact('pronotapprove'));
+        
     }
 
 

@@ -309,7 +309,7 @@
                                         <input type="hidden" id="product_id" name="product_id" value="">
                                         <input type="hidden"  name="quantity" value="1">
                                         
-                            <div class="ps-product__shopping"><button type="button" class="ps-btn ps-btn--black" href="#" id="addtocartmodal">Add to cart</button><a class="ps-btn" href="#">Buy Now</a>
+                            <div class="ps-product__shopping"><button type="button" class="ps-btn ps-btn--black" href="#" id="addtocartmodal">Add to cart</button><a class="ps-btn" href="{{route('product.cart.data')}}">Buy Now</a>
                            
                                 <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
                             </div>

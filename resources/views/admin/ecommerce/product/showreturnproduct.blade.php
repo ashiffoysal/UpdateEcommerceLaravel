@@ -28,7 +28,9 @@
                                     </th>
                                     <th>Products</th>
                                     <th>Quantity</th>
+                                    
                                     <th>Price</th>
+                                    <th>Refund Reason</th>
                                     <th>Order Date</th>
                                     <th>manage</th>
                                 </tr>
@@ -50,9 +52,21 @@
                                     </td>   
                                     <td>
                                        {{$row->price}}
-                                    </td>  
+                                    </td>
+                                    @foreach($cartdata->details as $data)
+                                    @if($row->id == $data->product_id)
                                     <td>
-                                       {{$cartdata->created_at}}
+                                        <b data-toggle="tooltip" data-placement="top" title="{{$data->refund_reason}}">
+                                                {{Str::limit($data->refund_reason,30,'...')}}    
+                                            </b>
+                                        
+                                    </td>
+                                    @endif
+                                    @endforeach
+                                    
+                                    <td>
+                                    {{date('d-m-Y', strtotime($cartdata->created_at))}}
+                                       
                                     </td>
                                     <td class="text-center">
                                        <a href="{{route('admin.customar.approve.product',[$cartdata->orderid,$row->id,$userid])}}" class="btn btn-success" >Approve</a>

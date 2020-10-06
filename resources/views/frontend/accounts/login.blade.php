@@ -31,7 +31,7 @@
                                     <h5>Log In Your Account</h5>
                    
                                     <div class="form-group">
-                                        <input class="form-control" name="login_email" type="text" placeholder="Username or email address">
+                                        <input class="form-control" name="login_email" type="text" placeholder="Phone or email address">
                                         @error('login_email')
                                             <strong class="text-danger">{{ $message }}</strong>
                                         @enderror
