@@ -215,7 +215,7 @@
                             <p class="ps-slider__meta">Price:<span class="ps-slider__value">৳<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">৳<span class="ps-slider__max"></span></span></p>
                         </figure>
 
-                        <figure>
+                   <!--      <figure>
                             <h4 class="widget-title">By Color</h4>
                             <div class="ps-checkbox ps-checkbox--color color-1 ps-checkbox--inline">
                                 <input class="form-control" type="checkbox" id="color-1" name="size">
@@ -249,7 +249,7 @@
                                 <input class="form-control" type="checkbox" id="color-8" name="size">
                                 <label for="color-8"></label>
                             </div>
-                        </figure>
+                        </figure> -->
                       <!--   <figure class="sizes">
                             <h4 class="widget-title">BY SIZE</h4><a href="#">L</a><a href="#">M</a>
                             <a href="#">S</a><a href="#"></a><a href="#">S</a><a href="#"></a>
@@ -301,13 +301,78 @@
                                     <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
                                         <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                             <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="1">3</option>
-                                                    <option value="1">4</option>
-                                                    <option value="2">5</option>
-                                                </select><span>01</span>
+                                                       @php
+                                                        $rcount=App\ProductReview::where('product_id',$product->id)->count();
+                                                        @endphp
+                                                        @if($rcount)
+                                                            @if($rcount)
+                                                            @php
+                                                             $sumofreview=App\ProductReview::where('product_id',$product->id)->sum('review');
+                                                             $rating=$sumofreview/$rcount;
+                                                            @endphp
+                                                             @if($rating == 1)
+                                                            <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 2)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 3)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 4)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="1">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 0)
+                                                              <select class="ps-rating" data-read-only="true">
+                                                                  <option value="0">1</option>
+                                                                  <option value="2">2</option>
+                                                                  <option value="2">3</option>
+                                                                  <option value="2">4</option>
+                                                                  <option value="2">5</option>
+                                                              </select>
+                                                              @endif
+                                                            @endif
+                                                        @endif
                                             </div>
                                             <p class="ps-product__price">{{$product->product_price}}</p>
                                         </div>
@@ -690,7 +755,7 @@
             </div>
         </div>
     </div>
-    <div class="ps-newsletter">
+<!--     <div class="ps-newsletter">
         <div class="container">
             <form class="ps-form--newsletter" action="do_action" method="post">
                 <div class="row">
@@ -711,7 +776,8 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
+     @include('frontend.include.newsletter._subcribtion')
 
 
 <script>

@@ -27,7 +27,7 @@
 
                     
                     <div class="col-lg-8">
-                    <form action="{{route('customar.address.create')}}" method="post">
+                    <form action="{{route('customar.address.create')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="ps-section__right mt-8">
@@ -74,7 +74,13 @@
                                             <p class="text-danger">{{$message}}</p>
                                         @enderror
 
-                                    </div>    
+                                    </div>  
+                                    <div class="form-group">
+                                        <label>Image:</label>
+                                        <div class="form-group__content">
+                                            <input class="form-control" name="image" value="" type="file">
+                                        </div>
+                                    </div> 
 
 
                                     </div>

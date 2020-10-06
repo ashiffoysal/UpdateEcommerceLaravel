@@ -525,10 +525,10 @@ class CheckoutController extends Controller
     {
         $provider = new ExpressCheckout;
         $invoiceId = uniqid();
-        $data = $this->cartData($invoiceId);
+         $data = $this->cartData($invoiceId);
         //$provider->setExpressCheckout($data);
         $response = $provider->setExpressCheckout($data);
-        //return $response;
+        return $response;
         return redirect($response['paypal_link']);
     }
   

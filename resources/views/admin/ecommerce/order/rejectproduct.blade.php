@@ -74,12 +74,16 @@
 																								 @endif
 	                                            </td>
 			                                    <td>
-		                                            @if($data->payment_method_id == 1)
+		                                          @if($data->payment_method_id == NULL)
 		                                            <p>Cash On Delivery</p>
 		                                            @elseif($data->payment_method_id == 2)
 		                                            <p>Stype</p>
 		                                            @elseif($data->payment_method_id == 3)
 		                                            <p>PayPal</p>
+		                                            @elseif($data->payment_method_id == 4)
+		                                            <p>SSL</p>
+		                                            @elseif($data->payment_method_id == 5)
+		                                            <p>SurjoPay</p>
 		                                            @endif
 	                                          	</td>
 		                                    <td>

@@ -7,7 +7,7 @@
                 <div class="ps-banner--organic" data-background="{{asset('public/frontend/lazy_loader/slider.gif')}}"><img src="{{asset('public/frontend/lazy_loader/slider.gif')}}" data-src="{{asset('public/uploads/banner/'.$ban->ban_image)}}" class="lazy" alt="">
                     <div class="ps-banner__content">
                         <h4>{{$ban->text}}</h4>
-                        <h3>{{$ban->description}}</h3><a class="ps-btn" href="{{$ban->ban_link}}">Shop Now</a>
+                        <h3>{{$ban->description}}</h3><a class="ps-btn" href="{{url('/shop')}}">Shop Now</a>
                     </div>
                 </div>
                 @endforeach
@@ -141,13 +141,13 @@
                                                        @endif
                                                     </h4>
                                                     <div class="ps-product__rating">
-                                                        <select class="ps-rating" data-read-only="true">
+                                               <!--          <select class="ps-rating" data-read-only="true">
                                                             <option value="1">1</option>
                                                             <option value="1">2</option>
                                                             <option value="1">3</option>
                                                             <option value="1">4</option>
                                                             <option value="2">5</option>
-                                                        </select><span>(1 review)</span>
+                                                        </select><span>(1 review)</span> -->
                                                     </div>
                                                     <div class="ps-product__specification">
                                                         <!-- <p>Status:<strong class="in-stock"> In Stock</strong></p> -->
@@ -201,13 +201,79 @@
                                             <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner.gif')}}" class="lazy" alt=""></a></div>
                                             <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{ Str::limit($product->product_name,40)}}</a>
                                                 <div class="ps-product__rating">
-                                                    <select class="ps-rating" data-read-only="true">
-                                                        <option value="1">1</option>
-                                                        <option value="1">2</option>
-                                                        <option value="1">3</option>
-                                                        <option value="1">4</option>
-                                                        <option value="2">5</option>
-                                                    </select><span>02</span>
+                                                    @php
+                                                        $rcount=App\ProductReview::where('product_id',$product->id)->count();
+                                                        @endphp
+                                                        @if($rcount)
+                                                            @if($rcount)
+                                                            @php
+                                                             $sumofreview=App\ProductReview::where('product_id',$product->id)->sum('review');
+                                                             $rating=$sumofreview/$rcount;
+                                                            @endphp
+                                                             @if($rating == 1)
+                                                            <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 2)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 3)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 4)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="1">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 0)
+                                                              <select class="ps-rating" data-read-only="true">
+                                                                  <option value="0">1</option>
+                                                                  <option value="2">2</option>
+                                                                  <option value="2">3</option>
+                                                                  <option value="2">4</option>
+                                                                  <option value="2">5</option>
+                                                              </select>
+                                                              @endif
+                                                            @endif
+                                                        @endif
+                                            
                                                 </div>
                                                 <p class="ps-product__price sale">
                                                     @if(count($flashdealdetail) > 0)
@@ -240,13 +306,78 @@
                                             <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner.gif')}}" class="lazy"></a></div>
                                             <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{ Str::limit($product->product_name,40)}}</a>
                                                 <div class="ps-product__rating">
-                                                    <select class="ps-rating" data-read-only="true">
-                                                        <option value="1">1</option>
-                                                        <option value="1">2</option>
-                                                        <option value="1">3</option>
-                                                        <option value="1">4</option>
-                                                        <option value="2">5</option>
-                                                    </select><span></span>
+                                                      @php
+                                                        $rcount=App\ProductReview::where('product_id',$product->id)->count();
+                                                        @endphp
+                                                        @if($rcount)
+                                                            @if($rcount)
+                                                            @php
+                                                             $sumofreview=App\ProductReview::where('product_id',$product->id)->sum('review');
+                                                             $rating=$sumofreview/$rcount;
+                                                            @endphp
+                                                             @if($rating == 1)
+                                                            <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 2)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 3)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 4)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="1">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 0)
+                                                              <select class="ps-rating" data-read-only="true">
+                                                                  <option value="0">1</option>
+                                                                  <option value="2">2</option>
+                                                                  <option value="2">3</option>
+                                                                  <option value="2">4</option>
+                                                                  <option value="2">5</option>
+                                                              </select>
+                                                              @endif
+                                                            @endif
+                                                        @endif
                                                 </div>
                                                 <p class="ps-product__price sale"> 
                                                     @if(count($flashdealdetail) > 0)
@@ -326,13 +457,78 @@
                                 <div class="ps-product__container">
                                     <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                         <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span>01</span>
+                                               @php
+                                                        $rcount=App\ProductReview::where('product_id',$product->id)->count();
+                                                        @endphp
+                                                        @if($rcount)
+                                                            @if($rcount)
+                                                            @php
+                                                             $sumofreview=App\ProductReview::where('product_id',$product->id)->sum('review');
+                                                             $rating=$sumofreview/$rcount;
+                                                            @endphp
+                                                             @if($rating == 1)
+                                                            <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 2)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 3)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 4)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="1">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 0)
+                                                              <select class="ps-rating" data-read-only="true">
+                                                                  <option value="0">1</option>
+                                                                  <option value="2">2</option>
+                                                                  <option value="2">3</option>
+                                                                  <option value="2">4</option>
+                                                                  <option value="2">5</option>
+                                                              </select>
+                                                              @endif
+                                                            @endif
+                                                        @endif
                                         </div>
                                         <p class="ps-product__price">৳{{$product->product_price}}</p>
                                     </div>
@@ -479,13 +675,78 @@
                                 <div class="ps-product__container">
                                     <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                         <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span>01</span>
+                                              @php
+                                                        $rcount=App\ProductReview::where('product_id',$product->id)->count();
+                                                        @endphp
+                                                        @if($rcount)
+                                                            @if($rcount)
+                                                            @php
+                                                             $sumofreview=App\ProductReview::where('product_id',$product->id)->sum('review');
+                                                             $rating=$sumofreview/$rcount;
+                                                            @endphp
+                                                             @if($rating == 1)
+                                                            <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 2)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 3)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 4)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="1">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 0)
+                                                              <select class="ps-rating" data-read-only="true">
+                                                                  <option value="0">1</option>
+                                                                  <option value="2">2</option>
+                                                                  <option value="2">3</option>
+                                                                  <option value="2">4</option>
+                                                                  <option value="2">5</option>
+                                                              </select>
+                                                              @endif
+                                                            @endif
+                                                        @endif
                                         </div>
                                         <p class="ps-product__price">৳{{$product->product_price}}</p>
                                     </div>
@@ -555,13 +816,78 @@
                                 <div class="ps-product__container">
                                     <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
                                         <div class="ps-product__rating">
-                                            <select class="ps-rating" data-read-only="true">
-                                                <option value="1">1</option>
-                                                <option value="1">2</option>
-                                                <option value="1">3</option>
-                                                <option value="1">4</option>
-                                                <option value="2">5</option>
-                                            </select><span>01</span>
+                                               @php
+                                                        $rcount=App\ProductReview::where('product_id',$product->id)->count();
+                                                        @endphp
+                                                        @if($rcount)
+                                                            @if($rcount)
+                                                            @php
+                                                             $sumofreview=App\ProductReview::where('product_id',$product->id)->sum('review');
+                                                             $rating=$sumofreview/$rcount;
+                                                            @endphp
+                                                             @if($rating == 1)
+                                                            <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 2)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 3)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 4)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="1">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 0)
+                                                              <select class="ps-rating" data-read-only="true">
+                                                                  <option value="0">1</option>
+                                                                  <option value="2">2</option>
+                                                                  <option value="2">3</option>
+                                                                  <option value="2">4</option>
+                                                                  <option value="2">5</option>
+                                                              </select>
+                                                              @endif
+                                                            @endif
+                                                        @endif
                                         </div>
                                         <p class="ps-product__price">৳{{$product->product_price}}</p>
                                     </div>

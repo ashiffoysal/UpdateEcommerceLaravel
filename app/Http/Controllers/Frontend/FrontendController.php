@@ -20,7 +20,7 @@ use App\BlogComment;
 use App\Banner;
 use App\Faq;
 use App\Warranty;
-
+use Image;
 use App\CustomarAccount;
 use App\ViewedProduct;
 use App\SiteBanner;
@@ -28,10 +28,13 @@ use App\Page;
 use Carbon\Carbon;
 use DB;
 use Auth;
+use App\User;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\TwitterCard;
 use Artesaos\SEOTools\Facades\JsonLd;
+use Session;
+
 
 class FrontendController extends Controller
 {
@@ -608,14 +611,26 @@ class FrontendController extends Controller
 
     public function createAddress(Request $request)
     {
+   
+        $id=auth()->user()->id;
         $request->validate([
             'name'=>'required',
             'phone'=>'required',
             'address'=>'required',
         ]);
         $useraddr =CustomarAccount::where('userid',auth()->user()->id)->first();
+   
+            if($request->has('image')){
+                $image=$request->file('image');
+                $imageName='img_'.$id.time().'.'.$image->getClientOriginalExtension();
+                Image::make($image)->resize(92,92)->save('public/uploads/customer/'.$imageName);
+                User::where('id',$id)->update([
+                    'avatar'=>$imageName,
+                ]);
+            }
+        //return $useraddr;
         if($useraddr){
-            $useraddr->update([
+            $update=$useraddr->update([
                 'name'=>$request->name,
                 'phone'=>$request->phone,
                 'address'=>$request->address,
@@ -628,7 +643,7 @@ class FrontendController extends Controller
             );
 
         }else{
-            CustomarAccount::insert([
+            CustomarAccount::insertGetId([
                 'name'=>$request->name,
                 'phone'=>$request->phone,
                 'address'=>$request->address,
