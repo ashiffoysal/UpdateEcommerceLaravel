@@ -44,7 +44,9 @@
                                         <td>{{$row->users->name}}</td>
                                         <td>{{$row->quantity}}</td>
                                         <td>{{$row->price}}</td>
-                                        <td>{{$row->created_at}}</td>
+                                        <td>
+                                        {{date('d-m-Y', strtotime($row->created_at))}}
+                                        </td>
                                         <td>
 
                               

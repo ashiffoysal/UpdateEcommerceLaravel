@@ -154,6 +154,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Providers\\WishListProvider' => $baseDir . '/app/Providers/WishListProvider.php',
     'App\\ReSubCategory' => $baseDir . '/app/ReSubCategory.php',
+    'App\\RefundReason' => $baseDir . '/app/RefundReason.php',
     'App\\ReturnAllProduct' => $baseDir . '/app/ReturnAllProduct.php',
     'App\\ReturnProduct' => $baseDir . '/app/ReturnProduct.php',
     'App\\Services\\RegisterService' => $baseDir . '/app/Services/RegisterService.php',
@@ -2595,15 +2596,8 @@ return array(
     'Mobile_Detect' => $vendorDir . '/mobiledetect/mobiledetectlib/Mobile_Detect.php',
     'Mockery' => $vendorDir . '/mockery/mockery/library/Mockery.php',
     'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
-
-    'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
     'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
-    'Mockery\\Adapter\\Phpunit\\MockeryTestCaseSetUp' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCaseSetUp.php',
-
-    'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
-
     'Mockery\\Adapter\\Phpunit\\TestListener' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListener.php',
-    'Mockery\\Adapter\\Phpunit\\TestListenerTrait' => $vendorDir . '/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListenerTrait.php',
     'Mockery\\ClosureWrapper' => $vendorDir . '/mockery/mockery/library/Mockery/ClosureWrapper.php',
     'Mockery\\CompositeExpectation' => $vendorDir . '/mockery/mockery/library/Mockery/CompositeExpectation.php',
     'Mockery\\Configuration' => $vendorDir . '/mockery/mockery/library/Mockery/Configuration.php',
@@ -2679,7 +2673,6 @@ return array(
     'Mockery\\MethodCall' => $vendorDir . '/mockery/mockery/library/Mockery/MethodCall.php',
     'Mockery\\Mock' => $vendorDir . '/mockery/mockery/library/Mockery/Mock.php',
     'Mockery\\MockInterface' => $vendorDir . '/mockery/mockery/library/Mockery/MockInterface.php',
-    'Mockery\\QuickDefinitionsConfiguration' => $vendorDir . '/mockery/mockery/library/Mockery/QuickDefinitionsConfiguration.php',
     'Mockery\\ReceivedMethodCalls' => $vendorDir . '/mockery/mockery/library/Mockery/ReceivedMethodCalls.php',
     'Mockery\\Reflector' => $vendorDir . '/mockery/mockery/library/Mockery/Reflector.php',
     'Mockery\\Undefined' => $vendorDir . '/mockery/mockery/library/Mockery/Undefined.php',
@@ -4918,7 +4911,6 @@ return array(
     'Symfony\\Contracts\\Service\\Test\\ServiceLocatorTest' => $vendorDir . '/symfony/service-contracts/Test/ServiceLocatorTest.php',
     'Symfony\\Contracts\\Translation\\LocaleAwareInterface' => $vendorDir . '/symfony/translation-contracts/LocaleAwareInterface.php',
     'Symfony\\Contracts\\Translation\\Test\\TranslatorTest' => $vendorDir . '/symfony/translation-contracts/Test/TranslatorTest.php',
-    'Symfony\\Contracts\\Translation\\TranslatableInterface' => $vendorDir . '/symfony/translation-contracts/TranslatableInterface.php',
     'Symfony\\Contracts\\Translation\\TranslatorInterface' => $vendorDir . '/symfony/translation-contracts/TranslatorInterface.php',
     'Symfony\\Contracts\\Translation\\TranslatorTrait' => $vendorDir . '/symfony/translation-contracts/TranslatorTrait.php',
     'Symfony\\Polyfill\\Ctype\\Ctype' => $vendorDir . '/symfony/polyfill-ctype/Ctype.php',
@@ -5056,7 +5048,4 @@ return array(
     'phpDocumentor\\Reflection\\Types\\This' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/This.php',
     'phpDocumentor\\Reflection\\Types\\Void_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Void_.php',
     'phpDocumentor\\Reflection\\Utils' => $vendorDir . '/phpdocumentor/reflection-docblock/src/Utils.php',
-    'smasif\\ShurjopayLaravelPackage\\ShurjopayController' => $baseDir . '/shurjopay/src/ShurjopayController.php',
-    'smasif\\ShurjopayLaravelPackage\\ShurjopayService' => $baseDir . '/shurjopay/src/ShurjopayService.php',
-    'smasif\\ShurjopayLaravelPackage\\ShurjopayServiceProvider' => $baseDir . '/shurjopay/src/ShurjopayServiceProvider.php',
 );
