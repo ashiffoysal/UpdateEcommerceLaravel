@@ -11,16 +11,20 @@
                                     @foreach($allproduct as $product)
                                     <td>
                                     	<a onclick="deletecompare(this)" id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare">Remove</a>
+
+
                                     </td>
                                     @endforeach
                                   
                                 </tr>
                                 <tr>
+                                    
                                     @foreach($allproduct as $product)
                                     <td>
                                         <div class="ps-product--compare">
-                                            <div class="ps-product__thumbnail"><a href="product-default.html"><img src="{{asset('public/uploads/products/thumbnail/'.$product->product->thumbnail_img)}}" alt=""></a></div>
-                                            <div class="ps-product__content"><a href="product-default.html">{{$product->product->product_name}}</a></div>
+                                            <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img src="{{asset('public/uploads/products/thumbnail/'.$product->product->thumbnail_img)}}" alt=""></a></div>
+                                            <div class="ps-product__content"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product->product_name}}</a></div>
+                                         
                                         </div>
                                     </td>
                                     @endforeach
@@ -38,38 +42,7 @@
                                         </div>
                                     </td> -->
                                 </tr>
-                                <tr>
-                                    <td class="heading">Rating</td>
-                                    @foreach($allproduct as $product)
-                                    <td>
-                                        <select class="ps-rating" data-read-only="true">
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                            <option value="1">4</option>
-                                            <option value="2">5</option>
-                                        </select>
-                                    </td>
-                                    @endforeach
-                                <!--     <td>
-                                        <select class="ps-rating" data-read-only="true">
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                            <option value="1">4</option>
-                                            <option value="2">5</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="ps-rating" data-read-only="true">
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                            <option value="1">4</option>
-                                            <option value="2">5</option>
-                                        </select>
-                                    </td> -->
-                                </tr>
+                              
                                 
                                 <tr>
                                     <td class="heading">Price</td>

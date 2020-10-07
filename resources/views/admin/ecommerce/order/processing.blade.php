@@ -63,7 +63,20 @@
                                               <td>{{$data->total_price}}</td>
 		                                      <td>{{$data->user_id}}</td>
 			                                    <td>
-	                                        		  @if($data->payment_method_id == NULL)
+	                                        	@if($data->delevary == 0)
+		                                           <span class="btn btn-danger">Ordared</span>
+	                                            @elseif($data->delevary == 1)
+		                                           <span class="btn btn-danger">Pending</span>
+	                                            @elseif($data->delevary == 2)
+		                                           <span class="btn btn-info">On Delevery</span>
+		                                          @elseif($data->delevary == 4)
+		                                           <span class="btn btn-info">On Process</span>
+												 @elseif($data->delevary == 3)
+												  <span class="btn btn-success">Delevered</span>
+	                                            @endif
+	                                            </td>
+			                                    <td>
+		                                             @if($data->payment_method_id == NULL)
 		                                            <p>Cash On Delivery</p>
 		                                            @elseif($data->payment_method_id == 2)
 		                                            <p>Stype</p>
@@ -73,15 +86,6 @@
 		                                            <p>SSL</p>
 		                                            @elseif($data->payment_method_id == 5)
 		                                            <p>SurjoPay</p>
-		                                            @endif
-	                                            </td>
-			                                    <td>
-		                                            @if($data->payment_method_id == 1)
-		                                            <p>Cash On Delivery</p>
-		                                            @elseif($data->payment_method_id == 2)
-		                                            <p>Stype</p>
-		                                            @elseif($data->payment_method_id == 3)
-		                                            <p>PayPal</p>
 		                                            @endif
 	                                          	</td>
 		                                    <td>

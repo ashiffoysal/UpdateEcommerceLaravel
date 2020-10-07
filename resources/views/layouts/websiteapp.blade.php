@@ -54,6 +54,11 @@
     @endphp
 @if($color)
 <style>
+
+.main_box {
+    background-color: {{ $color->color_code }};
+
+}
 .pagination li > a:hover {
    
     background-color: {{ $color->hover_code }};

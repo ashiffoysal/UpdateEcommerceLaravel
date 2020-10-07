@@ -68,8 +68,7 @@
                                     @endif
 
                                 @endforeach
-                                <!-- <option class="level-1" value="air-conditioners">   Air Conditioners</option>
-                                <option class="level-2" value="accessories">      Accessories</option> -->
+                             
                             </select>
                         </div>
                         <input class="form-control" type="text" placeholder="I'm shopping for..."id="input-search" name="input-search">
