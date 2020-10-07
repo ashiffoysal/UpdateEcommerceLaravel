@@ -22,9 +22,15 @@
 									<input type="hidden" name="orderplaceid" value="{{$invoice->id}}">
 									<select class="form-control" name="delevary">
 										@if($invoice->delevary==0)
+										<option value="0" @if($invoice->delevary==0) selected @else @endif>Ordered</option>
 										<option value="1" @if($invoice->delevary==1) selected @else @endif>Pending</option>
 										<option value="4" @if($invoice->delevary==4) selected @else @endif>On Process</option>
 										<option value="5" @if($invoice->delevary==5) selected @else @endif>Reject Product</option>
+										@elseif($invoice->delevary==1)
+										<option value="1" @if($invoice->delevary==1) selected @else @endif>Pending</option>
+										<option value="4" @if($invoice->delevary==4) selected @else @endif>On Process</option>
+										<option value="5" @if($invoice->delevary==5) selected @else @endif>Reject Product</option>
+
 										@elseif($invoice->delevary==4)
 											<option value="4" @if($invoice->delevary==4) selected @else @endif>On Process</option>
 										<option value="2" @if($invoice->delevary==2) selected @else @endif>On Delevery</option>

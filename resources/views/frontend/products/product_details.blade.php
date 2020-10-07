@@ -868,7 +868,7 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                 </ul>
                             </div>
                             <div class="ps-product__container">
-                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                     <div class="ps-product__rating">
                                  @php
                                                         $rcount=App\ProductReview::where('product_id',$product->id)->count();
@@ -946,7 +946,7 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                     <p class="ps-product__price sale">{{$product->product_price}}<del></del>
                                     </p>
                                 </div>
-                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                     <p class="ps-product__price sale">{{$product->product_price}}<del></del>
                                     </p>
                                 </div>
@@ -972,34 +972,161 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                                 <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">
                                     <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="">
                                 </a>
-                                <div class="ps-product__badge">-37%</div>
+                                <!--  -->
+                                
+                      @php
+                        $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                      @endphp
+                       @if(count($flashdealdetail) > 0)
+                        @foreach($flashdealdetail as $row)
+                                   <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                    @if($row ->discount_type == 1 )
+                                     <div class="ps-product__badge">
+                                        - ৳ {{$row->discount}}
+                                     </div>
+                                    @elseif($row ->discount_type == 2)
+                                    <div class="ps-product__badge">
+                                        -{{$row->discount}}%
+                                         </div>
+                                    @endif
+                        @endforeach
+                      @endif
+
+
+                                  <!--  -->
                                 <ul class="ps-product__actions">
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a>
-                                    </li>
-                                    <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a>
-                                    </li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
-                                    </li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a>
-                                    </li>
+                                    <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                    
+                                                    <li>
+                                                         @if($product->product_type==1)
+                                                    <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                                    @else
+                                                    <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
+                                                    @endif
+                                                    </li>
+
+                                                    <li>
+                                                        @if(Auth::guard('web')->check())
+                                                        <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                        @else
+                                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                        @endif
+                                                    </li>
+
+                                                    <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                                 </ul>
                             </div>
                             <div class="ps-product__container">
-                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                     <div class="ps-product__rating">
-                                        <select class="ps-rating" data-read-only="true">
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                            <option value="1">4</option>
-                                            <option value="2">5</option>
-                                        </select><span>01</span>
+                                         @php
+                                                        $rcount=App\ProductReview::where('product_id',$product->id)->count();
+                                                        @endphp
+                                                        @if($rcount)
+                                                            @if($rcount)
+                                                            @php
+                                                             $sumofreview=App\ProductReview::where('product_id',$product->id)->sum('review');
+                                                             $rating=$sumofreview/$rcount;
+                                                            @endphp
+                                                             @if($rating == 1)
+                                                            <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 2)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 3)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 4)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="1">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 0)
+                                                              <select class="ps-rating" data-read-only="true">
+                                                                  <option value="0">1</option>
+                                                                  <option value="2">2</option>
+                                                                  <option value="2">3</option>
+                                                                  <option value="2">4</option>
+                                                                  <option value="2">5</option>
+                                                              </select>
+                                                              @endif
+                                                            @endif
+                                                        @endif
                                     </div>
-                                    <p class="ps-product__price sale">{{$product->product_price}}<del></del>
+                                    <p class="ps-product__price sale">
+                                         @if(count($flashdealdetail) > 0)
+                                     @foreach($flashdealdetail as $row)
+                                        <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                        @if($row ->discount_type == 1 )
+                                            ৳ {{$product->product_price - $row->discount}}
+                                            <del>৳ {{$product->product_price}} </del>
+                                        @elseif($row ->discount_type == 2)
+                                        ৳ {{$product->product_price - $productdiscount}}
+                                      
+                                        
+                                        @endif
+                                    @endforeach
+                                @else
+                                ৳{{$product->product_price}}
+                                @endif
                                     </p>
                                 </div>
                                 <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
-                                    <p class="ps-product__price sale">{{$product->product_price}}<del></del>
+                                    <p class="ps-product__price sale">
+                                          @if(count($flashdealdetail) > 0)
+                                     @foreach($flashdealdetail as $row)
+                                        <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                        @if($row ->discount_type == 1 )
+                                            ৳ {{$product->product_price - $row->discount}}
+                                            <del>৳ {{$product->product_price}} </del>
+                                        @elseif($row ->discount_type == 2)
+                                        ৳ {{$product->product_price - $productdiscount}}
+                                      
+                                        
+                                        @endif
+                                    @endforeach
+                                @else
+                                ৳{{$product->product_price}}
+                                @endif
                                     </p>
                                 </div>
                             </div>
@@ -1022,33 +1149,154 @@ ul.list-inline.checkbox-alphanumeric.checkbox-alphanumeric--style-1.mb-2 {
                             <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">
                                     <img src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" alt="">
                                 </a>
+                                 @php
+                        $flashdealdetail = App\FlashDealDetail::where('product_id',$product->id)->where('status',1)->get();
+                      @endphp
+                       @if(count($flashdealdetail) > 0)
+                        @foreach($flashdealdetail as $row)
+                                   <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                    @if($row ->discount_type == 1 )
+                                     <div class="ps-product__badge">
+                                        - ৳ {{$row->discount}}
+                                     </div>
+                                    @elseif($row ->discount_type == 2)
+                                    <div class="ps-product__badge">
+                                        -{{$row->discount}}%
+                                         </div>
+                                    @endif
+                        @endforeach
+                      @endif
                             <ul class="ps-product__actions">
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a>
-                                </li>
-                                <li><a href="#" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview"><i class="icon-eye"></i></a>
-                                </li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
-                                </li>
-                                <li><a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a>
-                                </li>
+                                 <li><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Read More"><i class="icon-bag2"></i></a></li>
+                                    
+                                                    <li>
+                                                         @if($product->product_type==1)
+                                                    <a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}" data-toggle="tooltip" data-placement="top" data-placement="top" title="Quick View"><i class="icon-bag2"></i></a>
+                                                    @else
+                                                    <a class="quickview" data-placement="top" title="Quick View" data-toggle="modal" data-target="#product-quickview" data-id="{{$product->id}}"><i class="icon-bag2"></i></a>
+                                                    @endif
+                                                    </li>
+
+                                                    <li>
+                                                        @if(Auth::guard('web')->check())
+                                                        <a class="mywishlist" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                        @else
+                                                         <a href="{{url('customar/login')}}" data-toggle="tooltip" data-placement="top" title="Add to Whishlist"><i class="icon-heart"></i></a>
+                                                        @endif
+                                                    </li>
+
+                                                    <li><a class="compare" data-id="{{$product->id}}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="icon-chart-bars"></i></a></li>
                             </ul>
                         </div>
                         <div class="ps-product__container">
-                            <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                            <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                 <div class="ps-product__rating">
-                                    <select class="ps-rating" data-read-only="true">
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                        <option value="1">4</option>
-                                        <option value="2">5</option>
-                                    </select><span>01</span>
+                                    @php
+                                                        $rcount=App\ProductReview::where('product_id',$product->id)->count();
+                                                        @endphp
+                                                        @if($rcount)
+                                                            @if($rcount)
+                                                            @php
+                                                             $sumofreview=App\ProductReview::where('product_id',$product->id)->sum('review');
+                                                             $rating=$sumofreview/$rcount;
+                                                            @endphp
+                                                             @if($rating == 1)
+                                                            <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 2)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+                                                            @elseif($rating < 3)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 4)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating < 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="1">3</option>
+                                                                <option value="1">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 5)
+                                                                 <select class="ps-rating" data-read-only="true">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="2">4</option>
+                                                                <option value="2">5</option>
+                                                            </select>
+
+                                                            @elseif($rating == 0)
+                                                              <select class="ps-rating" data-read-only="true">
+                                                                  <option value="0">1</option>
+                                                                  <option value="2">2</option>
+                                                                  <option value="2">3</option>
+                                                                  <option value="2">4</option>
+                                                                  <option value="2">5</option>
+                                                              </select>
+                                                              @endif
+                                                            @endif
+                                                        @endif
                                 </div>
-                                <p class="ps-product__price">{{$product->product_price}}</p>
+                                <p class="ps-product__price">    @if(count($flashdealdetail) > 0)
+                                     @foreach($flashdealdetail as $row)
+                                        <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                        @if($row ->discount_type == 1 )
+                                            ৳ {{$product->product_price - $row->discount}}
+                                            <del>৳ {{$product->product_price}} </del>
+                                        @elseif($row ->discount_type == 2)
+                                        ৳ {{$product->product_price - $productdiscount}}
+                                      
+                                        
+                                        @endif
+                                    @endforeach
+                                @else
+                                ৳{{$product->product_price}}
+                                @endif</p>
                             </div>
                             <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}
-                                ">{{$product->product_name}}</a>
-                                <p class="ps-product__price">{{$product->product_price}}</p>
+                                ">{{Str::limit($product->product_name,23)}}</a>
+                                <p class="ps-product__price">    @if(count($flashdealdetail) > 0)
+                                     @foreach($flashdealdetail as $row)
+                                        <?php $productdiscount = ($product->product_price * $row->discount) / 100; ?>
+                                        @if($row ->discount_type == 1 )
+                                            ৳ {{$product->product_price - $row->discount}}
+                                            <del>৳ {{$product->product_price}} </del>
+                                        @elseif($row ->discount_type == 2)
+                                        ৳ {{$product->product_price - $productdiscount}}
+                                      
+                                        
+                                        @endif
+                                    @endforeach
+                                @else
+                                ৳{{$product->product_price}}
+                                @endif</p>
                             </div>
                         </div>
                     </div>

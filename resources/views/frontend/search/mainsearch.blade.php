@@ -20,6 +20,6 @@
 </div>
 @endforeach
 @else
-<p>No Data Found</p>
+<p>Opps! No Data Found</p>
 @endif
 

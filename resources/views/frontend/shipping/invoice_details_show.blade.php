@@ -63,7 +63,9 @@
 
                     </div>
                     <div class="col-lg-9">
+
                         <!-- <div class="row">
+
                             <div class="col-sm-12">
                                 <div class="bulletWrap">
                                     <div class="before"></div>

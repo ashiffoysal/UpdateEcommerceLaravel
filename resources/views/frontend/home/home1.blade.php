@@ -131,7 +131,7 @@
                                 </p>
 
                                 @endif
-                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}">{{Str::limit($flasdetail->product->product_name,35)}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$flasdetail->product->slug}}/{{$flasdetail->product->id}}">{{Str::limit($flasdetail->product->product_name,23)}}</a>
                                     <div class="ps-product__rating">
                                     <!--     <select class="ps-rating" data-read-only="true">
                                             <option value="1">1</option>
@@ -259,7 +259,7 @@
                                 
                             </div>
                             <div class="ps-product__container"><a class="ps-product__vendor" href="#">Go Pro</a>
-                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                 @php
                                 $rcount=App\ProductReview::where('product_id',$product->id)->count();
                                 @endphp
@@ -351,7 +351,7 @@
                                 @endif
                             </p>
                                 </div>
-                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                     <p class="ps-product__price sale">
                                 @if(count($flashdealdetail) > 0)
                                      @foreach($flashdealdetail as $row)
@@ -443,7 +443,7 @@
                                 </ul>
                             </div>
                             <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
-                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}">{{$products->product_name}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}">{{Str::limit($product->product_name,23)}}</a>
                                     <div class="ps-product__rating">
                                          @php
                                 $rcount=App\ProductReview::where('product_id',$products->id)->count();
@@ -537,7 +537,7 @@
                                     @endif
                                     </p>
                                 </div>
-                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}">{{$products->product_name}}</a>
+                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$products->slug}}/{{$products->id}}">{{Str::limit($product->product_name,23)}}</a>
                                     <p class="ps-product__price sale">
                                         @if(count($flashdealdetail) > 0)
                                      @foreach($flashdealdetail as $row)
@@ -631,7 +631,7 @@
                                 </ul>
                             </div>
                             <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
-                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                     <div class="ps-product__rating">
                                          @php
                                 $rcount=App\ProductReview::where('product_id',$product->id)->count();
@@ -724,7 +724,7 @@
                                     ৳{{$product->product_price}}
                                     @endif</p>
                                 </div>
-                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                     <p class="ps-product__price sale">
                                         @if(count($flashdealdetail) > 0)
                                          @foreach($flashdealdetail as $row)
@@ -812,7 +812,7 @@
                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 ">
                             <div class="ps-product--horizontal">
                                 <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner-mini.gif')}}" class="lazy" alt=""></a></div>
-                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                     <p class="ps-product__price">৳ {{$product->product_price}}</p>
                                 </div>
                             </div>

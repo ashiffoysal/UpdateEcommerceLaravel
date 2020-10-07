@@ -29,6 +29,13 @@
     /* margin-bottom: 21px; */
 }
 </style>
+@if($color)
+<style>
+  .main_box {
+    background-color: {{ $color->color_code }};
+}
+</style>
+@endif
 
 <main class="ps-page--my-account">
         <div class="ps-breadcrumb">

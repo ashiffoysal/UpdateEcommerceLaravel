@@ -246,13 +246,16 @@ $logo=DB::table('logos')->first();
                     @endif
                     <li class="single-nav-wrapper">
                         @php
-                        $pending=App\OrderPlace::where('delevary',0)->count();
+                        $allo=App\OrderPlace::where('delevary',0)->count();
+                        $pending=App\OrderPlace::where('delevary',1)->count();
                         @endphp
                         <a class="has-arrow menu-item" href="#" aria-expanded="false">
                             <span class="left-icon"><i class="fas fa-luggage-cart"></i></span>
-                            <span class="menu-text">Order @if($pending > 0)<span class="badge badge-secondary">New</span> @else @endif</span>
+                            <span class="menu-text">Order @if($allo > 0)<span class="badge badge-secondary">New</span> @else @endif</span>
                         </a>
                         <ul class="dashboard-menu">
+                             <li><a href="{{route('admin.allorder')}}">All Orders <span class="badge badge-light">{{$allo}}</span></a></li>
+
                           @if(Auth::user()->pending_order==1)
                             <li><a href="{{route('admin.productorder')}}">Pending Orders <span class="badge badge-light">{{$pending}}</span></a></li>
                           @else

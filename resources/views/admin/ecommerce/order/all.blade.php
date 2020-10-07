@@ -63,10 +63,14 @@
                                               <td>{{$data->total_price}}</td>
 		                                      <td>{{$data->user_id}}</td>
 			                                    <td>
-	                                            @if($data->delevary == 0)
+			                                   @if($data->delevary == 0)
+		                                           <span class="btn btn-danger">Ordared</span>
+	                                            @elseif($data->delevary == 1)
 		                                           <span class="btn btn-danger">Pending</span>
 	                                            @elseif($data->delevary == 2)
 		                                           <span class="btn btn-info">On Delevery</span>
+		                                          @elseif($data->delevary == 4)
+		                                           <span class="btn btn-info">On Process</span>
 												 @elseif($data->delevary == 3)
 												  <span class="btn btn-success">Delevered</span>
 	                                            @endif

@@ -653,6 +653,7 @@ Auth::routes();
     Route::post(md5('admin/trash/sitebanner/multipledelete'), 'Admin\TrashController@sitebanmultidel')->name('admin.trash.sitebannerdel');
 
 
+    Route::get(md5('admin/product/allorder'), 'admin\OrderController@allorder')->name('admin.allorder');
     Route::get(md5('admin/product/order'), 'admin\OrderController@index')->name('admin.productorder');
     Route::get(md5('admin/product/process'), 'admin\OrderController@processproduct')->name('admin.productprocess');
 

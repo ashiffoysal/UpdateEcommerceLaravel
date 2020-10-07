@@ -13,11 +13,11 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="panel_title">
-											<span class="panel_icon"><i class="fas fa-border-all"></i></span><span>All Complate Order</span>
+											<span class="panel_icon"><i class="fas fa-border-all"></i></span><span>All Pending Order</span>
 										</div>
 									</div>
 									<div class="col-md-6 text-right">
-										
+
 									</div>
 								</div>
 							</div>
@@ -44,13 +44,12 @@
 		                                      <th>Delevery Status</th>
 		                                      <th>Payment Method</th>
 		                                      <th>Payment Status</th>
-		                                      <th>Payment</th>
-		                                      
+		                                      <th>Payment action</th>
 		                                      <th>Manage</th>
 		                                  </tr>
 		                              </thead>
 		                              <tbody>
-                                      @foreach($complate as $key => $data)
+                                      @foreach($allorder as $key => $data)
 		                                  <tr>
 	                                  		  <td>
 												<label class="chech_container mb-4">
@@ -64,8 +63,10 @@
                                               <td>{{$data->total_price}}</td>
 		                                      <td>{{$data->user_id}}</td>
 			                                    <td>
-	                                            @if($data->delevary == 1)
-		                                           <span class="btn btn-danger">Pending</span>
+	                                            @if($data->delevary == 0)
+		                                           <span class="btn btn-danger">Ordared</span>
+		                                         @elseif($data->delevary == 1)
+		                                           <span class="btn btn-info">Pending</span>
 	                                            @elseif($data->delevary == 2)
 		                                           <span class="btn btn-info">On Delevery</span>
 												 @elseif($data->delevary == 3)
@@ -86,28 +87,21 @@
 		                                            @endif
 	                                          	</td>
 		                                    <td>
-												@if($data->payment_status==1)
-												<span class="btn btn-success">paid</span>
-											   
-												@else
-											     <span class="btn btn-danger">unpaid</span>
-												@endif
+																					@if($data->payment_status==1)
+																				    <span class="btn btn-success">paid</span>
+																					@else
+																				    <span class="btn btn-danger">unpaid</span>
+																					@endif
 		                                    </td>
-
-		                                    <td>
+                                          <td>
                                               <label class="switch">
                                                <input type="checkbox" onchange="update_payment_status(this)" value="{{$data->id}}" <?php if($data->payment_status == 1)  echo "checked"; ?> >
                                                <span class="slider round"></span>
                                              </label>
                                            </td>
 
-                                       
-
 		                                       <td>
 		                                          <a  href="{{url('admin/product/order/invoice/'.$data->id)}}" class="btn btn-default btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="active"><i class="far fa-eye"></i></a>
-
-												  <!-- <a href="" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-placement="right" title="active" data-original-title="Deactive"><i class="far fa-thumbs-down"></i></a> -->
-
 		                                          <a id="delete" href="{{url('admin/product/order/pendingsoftdelete/'.$data->id)}}" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-placement="right" title="Delete" data-original-title="Delete"><i class="far fa-trash-alt"></i></a>
 		                                       </td>
 		                                  </tr>
@@ -150,7 +144,6 @@
     });
 
 </script>
-
 <script>
 	function update_payment_status(el){
 		//alert('success');
