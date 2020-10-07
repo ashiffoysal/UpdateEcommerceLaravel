@@ -59,7 +59,7 @@
 }
 
 .modal-background{
-    background:rgba(128, 128, 56, 0.5);
+    background: none;
 }
 .modal-payment-success{
     padding: 70px 40px;

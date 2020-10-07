@@ -17,7 +17,9 @@
                     @include('frontend.include.accounts.menu')
                 </div>
                 <div class="col-lg-9">
-                    <div class="ps-section__right mt-12">
+
+                    <div class="ps-section__right mt-8">
+
                         <div class="ps-section--account-setting">
                             <div class="ps-section__header">
                                 <h3>Refund Request -<strong>Applied Refund Request</strong></h3>
@@ -25,13 +27,14 @@
                             <div class="ps-section__content">
 
                                 <div class="table-responsive">
-                                    <table class="table ps-table">
+                                    <table class="table ps-table" id="return_product">
                                         <thead>
                                             <tr>
                                                 <th>Product</th>
-                                                <th>Date</th>
+                                                <th>Variation</th>
+                                                <th style="width: 15%;">Date</th>
                                                 <th>Order id</th>
-                                                <th>Price</th>
+                                                <th style="width: 15%;">Price</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -45,9 +48,10 @@
                                             <tr>
                                                 <td>
                                                     <div class="ps-product--cart">
-                                                        <div class="ps-product__thumbnail"><a href="#"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
-                                                        <div class="ps-product__content"><a href="#">Grand Slam Indoor Of Show Jumping Novel</a>
-
+                                                        <div class="ps-product__thumbnail"><a href="{{url('product/invoice')}}/{{$row->product_id}}"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
+                                                        <div class="ps-product__content"><a href="{{url('product/invoice')}}/{{$row->product_id}}">{{$row->name}}</a>
+</td>
+                                                <td>
                                                             @php
 
 
@@ -111,7 +115,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td><span>{{$products ->created_at}} </span></td>
+                                                <td><span>{{date('d-m-Y', strtotime($products ->created_at))}} </span></td>
                                                 <td><span>{{$products ->orderid}}</span></td>
                                                 <td><span><i>৳</i> {{$row->price}}</span></td>
                                                 <td><span style="color:green"> <b>PENDING</b></span></td>
@@ -127,9 +131,13 @@
                                             <tr>
                                                 <td>
                                                     <div class="ps-product--cart">
-                                                        <div class="ps-product__thumbnail"><a href="#"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
-                                                        <div class="ps-product__content"><a href="#">Grand Slam Indoor Of Show Jumping Novel</a>
-
+                                                        <div class="ps-product__thumbnail"><a href="{{url('product/invoice')}}/{{$row->product_id}}"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
+                                                        <div class="ps-product__content"><a href="{{url('product/invoice')}}/{{$row->product_id}}">{{$row->name}}</a>
+</td>
+<td>
+                                                            @if($row->colors)
+                                                                <p>Color:<strong class="product-color" style="background: {{$row->colors}};"></strong></p>
+                                                            @endif
                                                             @php
 
 

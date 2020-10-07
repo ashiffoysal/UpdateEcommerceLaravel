@@ -47,11 +47,9 @@
                                                 @foreach($orders as $row)
                                                     
                                                 <tr>
-                                                    @if ($loop->first)
-                                                        <td><a data-toggle="tooltip" class="red-tooltip" data-placement="left" title="Click here to show Invoice Details" id="invoicetoltip" href="{{route('customar.invoice.show.details',$row->order_id)}}">#{{$row->order_id}}</a></td>
-                                                    @else
+                                                    
                                                         <td><a data-toggle="tooltip" class="red-tooltip" data-placement="left" title="Click here to show Invoice Details" href="{{route('customar.invoice.show.details',$row->order_id)}}">#{{$row->order_id}}</a></td>
-                                                    @endif
+                                                    
                                                     
                                                    
                                                     <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d/m/Y')}}</td>

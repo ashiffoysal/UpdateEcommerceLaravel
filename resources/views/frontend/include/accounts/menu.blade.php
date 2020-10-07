@@ -29,7 +29,7 @@
         </div>
         <div class="ps-widget__content">
             <ul>
-                <li class="{{ request()->is('customar/account') ? 'active' : '' }}"><a href="#"><i class="icon-user"></i> Account Information</a></li>
+                <li class="{{ request()->is('customar/account') ? 'active' : '' }}"><a href="{{route('customar.account.page')}}"><i class="icon-user"></i> Account Information</a></li>
                 
                 <li class="{{ request()->is('payment/customar/invoice/*') ? 'active' : 'null' }}"><a href="{{route('customar.invoice.show',auth()->user()->id)}}"><i class="icon-papers"></i> Purchase History</a></li>
                 <li class="{{ request()->is('product/return/*') ? 'active' : 'null' }}"><a href="{{route('customar.product.return.show',auth()->user()->id)}}"><i class="icon-return"></i>Send Refund Request</a></li>

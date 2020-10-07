@@ -46,6 +46,8 @@
 <!-- <script src="{{asset('public/frontend/js/main.js')}}"></script> -->
 
 
+
+
 </head>
 
 <body>
@@ -328,6 +330,9 @@
             </div>
         </div>
 </div>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 <script src="{{asset('public/frontend')}}/js/izitost.js"></script>
 <script>
     
@@ -632,6 +637,17 @@
                 }
             });
     }
+</script>
+
+<script>
+    $(document).ready( function () {
+    $('#return_product').DataTable({
+        "searching": false,
+        "ordering": false,
+        "info":     false,
+        "bInfo": false,
+    });
+} );
 </script>
 
 

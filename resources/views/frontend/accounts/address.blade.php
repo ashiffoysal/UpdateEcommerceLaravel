@@ -15,7 +15,7 @@
         <section class="ps-section--account">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         
 
 
@@ -26,7 +26,7 @@
                     </div>
 
                     
-                    <div class="col-lg-8">
+                    <div class="col-lg-9">
                     <form action="{{route('customar.address.create')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         

@@ -64,6 +64,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Product</th>
+                                                    <th>Variation</th>
                                                     <th>Price</th>
                                                     <th>Quantity</th>
                                                     <th>Amount</th>
@@ -76,11 +77,14 @@
                                                 <tr>
                                                     <td>
                                                         <div class="ps-product--cart">
-                                                            <div class="ps-product__thumbnail"><a href="#"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
-                                                            <div class="ps-product__content"><a href="#">{{$row->name}}</a>
+                                                            <div class="ps-product__thumbnail"><a href="{{url('product/invoice')}}/{{$row->product_id}}"><img src="{{asset('public/uploads/products/thumbnail/productdetails')}}/{{$row->thumbnail_img}}" alt=""></a></div>
+                                                            <div class="ps-product__content"><a href="{{url('product/invoice')}}/{{$row->product_id}}">{{$row->name}}</a>
+                                                            </td>
+<td>
                                                             @if($row->colors)
                                                                 <p>Color:<strong class="product-color" style="background: {{$row->colors}};"></strong></p>
                                                             @endif
+
 
 
 
@@ -171,7 +175,7 @@
                                                 @endif
 
                                                 <tr>
-                                                    <td colspan="2"><span></span></td>
+                                                    <td colspan="3"><span></span></td>
                                                     
                                                     <td class="text-right"><span><strong>Total</strong></span></td>
                                                     
