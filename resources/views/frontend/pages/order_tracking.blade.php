@@ -4,8 +4,8 @@
         <div class="ps-breadcrumb">
             <div class="container">
                 <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="shop-default.html">Shop</a></li>
+                    <li><a href="{{url('/')}}">Home</a></li>
+                    <li><a href="{{url('/shop')}}">Shop</a></li>
                     <li> Order Tracking</li>
                 </ul>
             </div>

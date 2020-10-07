@@ -91,7 +91,7 @@
                             <input type="hidden" name="maxval" class="minval" value="" id="hidden_maximum_price"><br>
                             <p class="ps-slider__meta">Price:<span class="ps-slider__value">৳<span class="ps-slider__min"></span></span>-<span class="ps-slider__value">৳<span class="ps-slider__max"></span></span></p>
                         </figure>
-                      
+                      <!-- 
                         <figure>
                             <h4 class="widget-title">By Color</h4>
                             <div class="ps-checkbox ps-checkbox--color color-1 ps-checkbox--inline">
@@ -129,7 +129,7 @@
                         </figure>
                         <figure class="sizes">
                             <h4 class="widget-title">BY SIZE</h4><a href="#">L</a><a href="#">M</a><a href="#">S</a><a href="#">XL</a>
-                        </figure>
+                        </figure> -->
                     </aside>
                 </div>
                 <div class="ps-layout__right">
@@ -167,7 +167,7 @@
                                         </ul>
                                     </div>
                                     <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
-                                        <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                        <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                             <div class="ps-product__rating">
                                               @php
                                                         $rcount=App\ProductReview::where('product_id',$product->id)->count();
@@ -244,7 +244,7 @@
                                             </div>
                                             <p class="ps-product__price">{{$product->product_price}}</p>
                                         </div>
-                                        <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                        <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                             <p class="ps-product__price">{{$product->product_price}}</p>
                                         </div>
                                     </div>
@@ -508,10 +508,10 @@
                                                     </ul>
                                                 </div>
                                                 <div class="ps-product__container"><a class="ps-product__vendor" href="#"></a>
-                                                    <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                                    <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                                         <p class="ps-product__price">{{$product->product_price}}৳</p>
                                                     </div>
-                                                    <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                                    <div class="ps-product__content hover"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                                         <p class="ps-product__price">{{$product->product_price}}৳</p>
                                                     </div>
                                                 </div>
@@ -539,7 +539,7 @@
                                         <div class="ps-product__thumbnail"><a href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}"><img data-src="{{asset('public/uploads/products/thumbnail/'.$product->thumbnail_img)}}" src="{{asset('public/frontend/lazy_loader/home-product-banner.gif')}}" class="lazy" alt=""></a>
                                         </div>
                                         <div class="ps-product__container">
-                                            <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{$product->product_name}}</a>
+                                            <div class="ps-product__content"><a class="ps-product__title" href="{{url('product/')}}/{{$product->slug}}/{{$product->id}}">{{Str::limit($product->product_name,23)}}</a>
                                                 <p class="ps-product__vendor"></a></p>
                                          
                                             </div>

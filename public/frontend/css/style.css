@@ -4812,7 +4812,7 @@ textarea.form-control {
 
 .ps-block--container-hightlight .ps-section__content {
   padding: 30px 20px;
-  border: 2px solid #fcb800;
+  border: 0px solid #fcb800;
   border-top: none;
 }
 

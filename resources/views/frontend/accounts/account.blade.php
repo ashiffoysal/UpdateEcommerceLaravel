@@ -29,6 +29,13 @@
     /* margin-bottom: 21px; */
 }
 </style>
+@if($color)
+<style>
+  .main_box {
+    background-color: {{ $color->color_code }};
+}
+</style>
+@endif
 
 <main class="ps-page--my-account">
         <div class="ps-breadcrumb">
@@ -43,12 +50,12 @@
         <section class="ps-section--account">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
 
                         @include('frontend.include.accounts.menu')
 
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-lg-9">
                         <div class="ps-section__right mt-12">
                             <div class="ps-section--account-setting">
                                 <div class="ps-section__header">

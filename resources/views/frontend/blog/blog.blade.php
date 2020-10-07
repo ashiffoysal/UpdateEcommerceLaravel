@@ -16,7 +16,7 @@
                     @foreach($blogs as $allblogs)
                     <div class="ps-post ps-post--small-thumbnail">
                         <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="{{url('/product/blog/details/'.$allblogs->id)}}"></a><img src="{{asset('public/uploads/blog/'.$allblogs->image)}}" alt="">
-                            <div class="ps-post__badge"><i class="icon-volume-high"></i></div>
+                         
                         </div>
                         <div class="ps-post__content">
                             <div class="ps-post__top">
